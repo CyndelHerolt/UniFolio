@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Etudiant;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -10,21 +10,21 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @extends ServiceEntityRepository<Etudiant>
+ * @extends ServiceEntityRepository<Users>
  *
- * @method Etudiant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Etudiant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Etudiant[]    findAll()
- * @method Etudiant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Users|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Users|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Users[]    findAll()
+ * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EtudiantRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UsersRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Etudiant::class);
+        parent::__construct($registry, Users::class);
     }
 
-    public function save(Etudiant $entity, bool $flush = false): void
+    public function save(Users $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -33,7 +33,7 @@ class EtudiantRepository extends ServiceEntityRepository implements PasswordUpgr
         }
     }
 
-    public function remove(Etudiant $entity, bool $flush = false): void
+    public function remove(Users $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -47,7 +47,7 @@ class EtudiantRepository extends ServiceEntityRepository implements PasswordUpgr
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof Etudiant) {
+        if (!$user instanceof Users) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 
@@ -57,7 +57,7 @@ class EtudiantRepository extends ServiceEntityRepository implements PasswordUpgr
     }
 
 //    /**
-//     * @return Etudiant[] Returns an array of Etudiant objects
+//     * @return Users[] Returns an array of Users objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -71,7 +71,7 @@ class EtudiantRepository extends ServiceEntityRepository implements PasswordUpgr
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Etudiant
+//    public function findOneBySomeField($value): ?Users
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

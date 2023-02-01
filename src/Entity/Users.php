@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EtudiantRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: EtudiantRepository::class)]
-class Etudiant implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\Entity(repositoryClass: UsersRepository::class)]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,7 +16,7 @@ class Etudiant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $loginURCA = null;
+    private ?string $username = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -34,15 +34,25 @@ class Etudiant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getLoginURCA(): ?string
     {
-        return $this->loginURCA;
+        return $this->username;
     }
 
-    public function setLoginURCA(string $loginURCA): self
+    public function setLoginURCA(string $username): self
     {
-        $this->loginURCA = $loginURCA;
+        $this->username = $username;
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+
 
     /**
      * A visual identifier that represents this user.
@@ -51,7 +61,7 @@ class Etudiant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->loginURCA;
+        return (string) $this->username;
     }
 
     /**
