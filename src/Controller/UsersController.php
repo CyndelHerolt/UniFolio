@@ -34,15 +34,15 @@ class UsersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            $plaintextPassword = $request->request->get('users')['password'];
-//            var_dump($plaintextPassword);
+            $plaintextPassword = $user->getPassword();
+            var_dump($plaintextPassword);
 
-            // hash the password (based on the security.yaml config for the $user class)
-//            $hashedPassword = $passwordHasher->hashPassword(
-//                $user,
-//                $plaintextPassword
-//            );
-//            $user->setPassword($hashedPassword);
+//             hash the password (based on the security.yaml config for the $user class)
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $plaintextPassword
+            );
+            $user->setPassword($hashedPassword);
 
 //            var_dump($user->getPassword());
 
