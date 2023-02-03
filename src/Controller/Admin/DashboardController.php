@@ -2,12 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Commentaire;
+use App\Entity\Portfolio;
+use App\Entity\Trace;
 use App\Entity\Users;
+use App\Entity\Validation;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -36,12 +42,32 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('UniFolio');
+            ->setTitle('UniFolio')
+            ->setTranslationDomain('admin');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
+        yield MenuItem::linkToUrl('Site public', 'fas fa-book', '/');
+//        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-exit');
+
+        yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
+//        yield MenuItem::linkToRoute('Création de compte', 'fas fa-user-plus', 'app_users_new');
+
+        yield MenuItem::section('Portfolios');
+        yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
+        yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
+        yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
+        yield MenuItem::linkToCrud('Gestion des validations', 'fas fa-list', Validation::class);
     }
+
+//    public function configureUserMenu(UserInterface $user): UserMenu
+//    {
+//        return parent::configureUserMenu($user)
+//
+//            ->displayUserName(false);
+//    }
+
 }
