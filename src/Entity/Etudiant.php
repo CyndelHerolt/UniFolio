@@ -23,7 +23,7 @@ class Etudiant
     private ?string $mail_perso = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mailÃ_univ = null;
+    private ?string $mail_univ = null;
 
     public function getId(): ?int
     {
@@ -66,14 +66,14 @@ class Etudiant
         return $this;
     }
 
-    public function getMailÃUniv(): ?string
+    public function getMailUniv(): ?string
     {
-        return $this->mailÃ_univ;
+        return $this->mail_univ;
     }
 
-    public function setMailÃUniv(?string $mailÃ_univ): self
+    public function setMailUniv(?string $mail_univ): self
     {
-        $this->mailÃ_univ = $mailÃ_univ;
+        $this->mail_univ = $mail_univ;
 
         return $this;
     }
