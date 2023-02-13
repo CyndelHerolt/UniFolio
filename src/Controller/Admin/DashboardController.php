@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\AnneeUniversitaire;
 use App\Entity\Commentaire;
+use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Portfolio;
 use App\Entity\Semestre;
@@ -59,6 +60,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
+        yield MenuItem::linkToCrud('Gestion des étudiants', 'fas fa-list', Etudiant::class);
 //        yield MenuItem::linkToRoute('Création de compte', 'fas fa-user-plus', 'app_users_new');
 
         yield MenuItem::section('Portfolios');
