@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TraceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,25 @@ class Trace
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_modification = null;
+
+    #[ORM\ManyToOne(inversedBy: 'traces')]
+    private ?Bibliotheque $bibliotheque = null;
+
+    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Validation::class)]
+    private Collection $validations;
+
+    #[ORM\ManyToMany(targetEntity: Page::class, mappedBy: 'trace')]
+    private Collection $pages;
+
+    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+    public function __construct()
+    {
+        $this->validations = new ArrayCollection();
+        $this->pages = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +66,105 @@ class Trace
     public function setDateModification(?\DateTimeInterface $date_modification): self
     {
         $this->date_modification = $date_modification;
+
+        return $this;
+    }
+
+    public function getBibliotheque(): ?Bibliotheque
+    {
+        return $this->bibliotheque;
+    }
+
+    public function setBibliotheque(?Bibliotheque $bibliotheque): self
+    {
+        $this->bibliotheque = $bibliotheque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Validation>
+     */
+    public function getValidations(): Collection
+    {
+        return $this->validations;
+    }
+
+    public function addValidation(Validation $validation): self
+    {
+        if (!$this->validations->contains($validation)) {
+            $this->validations->add($validation);
+            $validation->setTrace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(Validation $validation): self
+    {
+        if ($this->validations->removeElement($validation)) {
+            // set the owning side to null (unless already changed)
+            if ($validation->getTrace() === $this) {
+                $validation->setTrace(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Page>
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    public function addPage(Page $page): self
+    {
+        if (!$this->pages->contains($page)) {
+            $this->pages->add($page);
+            $page->addTrace($this);
+        }
+
+        return $this;
+    }
+
+    public function removePage(Page $page): self
+    {
+        if ($this->pages->removeElement($page)) {
+            $page->removeTrace($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setTrace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getTrace() === $this) {
+                $commentaire->setTrace(null);
+            }
+        }
 
         return $this;
     }

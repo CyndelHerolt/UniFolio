@@ -20,6 +20,15 @@ class Commentaire
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_modification = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Portfolio $portfolio = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Trace $trace = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Enseignant $enseignant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +54,42 @@ class Commentaire
     public function setDateModification(?\DateTimeInterface $date_modification): self
     {
         $this->date_modification = $date_modification;
+
+        return $this;
+    }
+
+    public function getPortfolio(): ?Portfolio
+    {
+        return $this->portfolio;
+    }
+
+    public function setPortfolio(?Portfolio $portfolio): self
+    {
+        $this->portfolio = $portfolio;
+
+        return $this;
+    }
+
+    public function getTrace(): ?Trace
+    {
+        return $this->trace;
+    }
+
+    public function setTrace(?Trace $trace): self
+    {
+        $this->trace = $trace;
+
+        return $this;
+    }
+
+    public function getEnseignant(): ?Enseignant
+    {
+        return $this->enseignant;
+    }
+
+    public function setEnseignant(?Enseignant $enseignant): self
+    {
+        $this->enseignant = $enseignant;
 
         return $this;
     }

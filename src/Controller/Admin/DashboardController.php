@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\AnneeUniversitaire;
 use App\Entity\Commentaire;
+use App\Entity\Groupe;
 use App\Entity\Portfolio;
+use App\Entity\Semestre;
 use App\Entity\Trace;
 use App\Entity\Users;
 use App\Entity\Validation;
@@ -63,6 +66,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
         yield MenuItem::linkToCrud('Gestion des validations', 'fas fa-list', Validation::class);
+
+        yield MenuItem::section('Formation');
+        yield MenuItem::linkToCrud('Gestion des années universitaires', 'fas fa-list', AnneeUniversitaire::class);
+        yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
+        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
+
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

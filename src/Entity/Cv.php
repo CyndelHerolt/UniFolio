@@ -23,6 +23,9 @@ class Cv
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $intitule = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cvs')]
+    private ?Etudiant $etudiant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Cv
     public function setIntitule(?string $intitule): self
     {
         $this->intitule = $intitule;
+
+        return $this;
+    }
+
+    public function getEtudiant(): ?Etudiant
+    {
+        return $this->etudiant;
+    }
+
+    public function setEtudiant(?Etudiant $etudiant): self
+    {
+        $this->etudiant = $etudiant;
 
         return $this;
     }

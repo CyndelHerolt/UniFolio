@@ -28,6 +28,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = '';
 
+    #[ORM\OneToOne(inversedBy: 'users', cascade: ['persist', 'remove'])]
+    private ?Etudiant $etudiant = null;
+
+    #[ORM\OneToOne(inversedBy: 'users', cascade: ['persist', 'remove'])]
+    private ?Enseignant $enseignant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,5 +102,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getEtudiant(): ?Etudiant
+    {
+        return $this->etudiant;
+    }
+
+    public function setEtudiant(?Etudiant $etudiant): self
+    {
+        $this->etudiant = $etudiant;
+
+        return $this;
+    }
+
+    public function getEnseignant(): ?Enseignant
+    {
+        return $this->enseignant;
+    }
+
+    public function setEnseignant(?Enseignant $enseignant): self
+    {
+        $this->enseignant = $enseignant;
+
+        return $this;
     }
 }
