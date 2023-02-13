@@ -15,15 +15,20 @@ class DashboardEtudiantController extends AbstractController
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
 
-        if ($userId == 'etudiant') {
-            return $this->render('dashboard_etudiant/index.html.twig', [
-                'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
-            ]);
-        }
-        else {
-            return $this->render('dashboard_etudiant/index.html.twig', [
-                'controller_name' => 'DashboardController', 'admin' => ''
-            ]);
+        if ($this->isGranted('ROLE_ETUDIANT')) {
+
+            if ($userId === 'etudiant') {
+                return $this->render('dashboard_etudiant/index.html.twig', [
+                    'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
+                ]);
+            } else {
+                return $this->render('dashboard_etudiant/index.html.twig', [
+                    'controller_name' => 'DashboardController', 'admin' => ''
+                ]);
+            }
+        } else {
+
+            return $this->redirectToRoute('app_dashboard');
         }
     }
 }
