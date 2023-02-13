@@ -67,12 +67,23 @@ class UsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Users $user, UsersRepository $usersRepository): Response
+    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $plaintextPassword = $user->getPassword();
+            var_dump($plaintextPassword);
+
+//             hash the password (based on the security.yaml config for the $user class)
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $plaintextPassword
+            );
+            $user->setPassword($hashedPassword);
+
             $usersRepository->save($user, true);
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);

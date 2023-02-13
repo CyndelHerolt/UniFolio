@@ -50,7 +50,9 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToUrl('Site public', 'fas fa-book', '/');
-//        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-exit');
+        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
+        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
+        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
@@ -66,9 +68,8 @@ class DashboardController extends AbstractDashboardController
     public function configureUserMenu(UserInterface $user): UserMenu
     {
         return parent::configureUserMenu($user)
-
             ->addMenuItems([
-                MenuItem::LinkToRoute('Mon profil', 'fas fa-user', 'profil'),
+                MenuItem::LinkToRoute('Mon profil', 'fas fa-user', 'app_profil'),
             ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,10 +10,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardEtudiantController extends AbstractController
 {
     #[Route('/dashboard/etudiant', name: 'etudiant_dashboard')]
-    public function etudiant(): Response
+    public function etudiant(UsersRepository $usersRepository): Response
     {
-        return $this->render('dashboard_etudiant/index.html.twig', [
-            'controller_name' => 'DashboardController',
-        ]);
+        $usersRepository->findAll();
+        $userId = $this->getUser()->getUserIdentifier();
+
+        if ($userId == 'etudiant') {
+            return $this->render('dashboard_etudiant/index.html.twig', [
+                'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
+            ]);
+        }
+        else {
+            return $this->render('dashboard_etudiant/index.html.twig', [
+                'controller_name' => 'DashboardController', 'admin' => ''
+            ]);
+        }
     }
 }
