@@ -63,11 +63,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des validations', 'fas fa-list', Validation::class);
     }
 
-//    public function configureUserMenu(UserInterface $user): UserMenu
-//    {
-//        return parent::configureUserMenu($user)
-//
-//            ->displayUserName(false);
-//    }
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+
+            ->addMenuItems([
+                MenuItem::LinkToRoute('Mon profil', 'fas fa-user', 'profil'),
+            ]);
+    }
 
 }
