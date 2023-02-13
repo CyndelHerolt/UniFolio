@@ -20,11 +20,15 @@
 
     <footer>
 
+        {% if admin == '/admin?_switch_user=_exit' %}
+
         <br>
 
         <a href="{{ admin }}"><button>back to admin</button></a>
 
         <br>
+
+        {% endif %}
 
     </footer>
 {% endblock %}
