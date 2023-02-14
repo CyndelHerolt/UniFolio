@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Inscription] Génération du formulaire d'inscription" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Déconnexion] Système de logout depuis le Dashboard">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UsersCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UsersCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UsersType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UsersType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_admin/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,8 +34,18 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Controller/AbstractCrudController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -154,6 +184,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
       <path value="$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle" />
+      <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/reset-password-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
     </include_path>
   </component>
   <component name="ProjectId" id="2L8eyfhYJSCBWAS0nweNGAJVL7Q" />
@@ -166,15 +199,21 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="Commentaires" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -201,6 +240,20 @@
       <workItem from="1675407309804" duration="119000" />
       <workItem from="1675407473793" duration="100000" />
       <workItem from="1675407628365" duration="8268000" />
+      <workItem from="1675421283152" duration="12383000" />
+      <workItem from="1675442540741" duration="118000" />
+      <workItem from="1675442672967" duration="121000" />
+      <workItem from="1675442806070" duration="38000" />
+      <workItem from="1675442856629" duration="279000" />
+      <workItem from="1675526971525" duration="71000" />
+      <workItem from="1675612211396" duration="603000" />
+      <workItem from="1676271472885" duration="74000" />
+      <workItem from="1676271560154" duration="16695000" />
+      <workItem from="1676295484771" duration="93000" />
+      <workItem from="1676295590975" duration="8612000" />
+      <workItem from="1676314845222" duration="1244000" />
+      <workItem from="1676358068967" duration="10782000" />
+      <workItem from="1676378144503" duration="4820000" />
     </task>
     <task id="LOCAL-00001" summary="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User">
       <created>1675267027200</created>
@@ -216,15 +269,221 @@
       <option name="project" value="LOCAL" />
       <updated>1675278358742</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs">
+      <created>1675421423376</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675421423376</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs">
+      <created>1675421705516</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675421705516</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: [Général] Premier jet de la base de données">
+      <created>1675428076041</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675428076041</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: [Général] Premier jet de la base de données">
+      <created>1675434419421</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675434419421</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
+      <created>1675434499534</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675434499534</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
+      <created>1676272892275</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676272892275</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: [Dashboard] Génération des tableaux de bord">
+      <created>1676273009039</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676273009039</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo">
+      <created>1676279439660</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676279439660</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: [Général] Premier jet de la base de données">
+      <created>1676300626964</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676300626964</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
+      <created>1676300714546</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676300714546</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: [Administration] Génération des liens entre les entités">
+      <created>1676300805409</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1676300805409</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs">
+      <created>1676300879636</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1676300879636</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs">
+      <created>1676300902807</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1676300902807</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: [Fix] Création manuelle de l'input password pour cryptage">
+      <created>1676301022373</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1676301022373</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: [Feat] Génération de la page de Profil">
+      <created>1676301064850</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1676301064850</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
+      <created>1676302820907</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1676302820907</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: [Administration] Ajout de la gestion de la structure de la formation">
+      <created>1676302904171</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1676302904172</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat: [Administration] Ajout de la gestion de la structure de la formation">
+      <created>1676302928004</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1676302928004</updated>
+    </task>
+    <task id="LOCAL-00021" summary="feat: [Style] Installation et importation de Bootstrap">
+      <created>1676303641302</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1676303641302</updated>
+    </task>
+    <task id="LOCAL-00022" summary="feat: [Installation] Installation et importation de Bootstrap">
+      <created>1676315192801</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1676315192801</updated>
+    </task>
+    <task id="LOCAL-00023" summary="feat: [Connexion] Réinitialisation de mot de passe par mail">
+      <created>1676388155969</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388155969</updated>
+    </task>
+    <task id="LOCAL-00024" summary="feat: [Déconnexion] Système de logout depuis le Dashboard">
+      <created>1676388299185</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388299185</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User" />
     <MESSAGE value="feat: [Inscription] Génération du formulaire d'inscription" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Inscription] Génération du formulaire d'inscription" />
+    <MESSAGE value="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs" />
+    <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord" />
+    <MESSAGE value="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo" />
+    <MESSAGE value="feat: [Général] Premier jet de la base de données" />
+    <MESSAGE value="feat: [Administration] Génération des liens entre les entités" />
+    <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs" />
+    <MESSAGE value="feat: [Fix] Création manuelle de l'input password pour cryptage" />
+    <MESSAGE value="feat: [Feat] Génération de la page de Profil" />
+    <MESSAGE value="feat: [Administration] Génération des CRUD pour la gestion des données" />
+    <MESSAGE value="feat: [Administration] Ajout de la gestion de la structure de la formation" />
+    <MESSAGE value="feat: [Style] Installation et importation de Bootstrap" />
+    <MESSAGE value="feat: [Installation] Installation et importation de Bootstrap" />
+    <MESSAGE value="feat: [Connexion] Réinitialisation de mot de passe par mail" />
+    <MESSAGE value="feat: [Déconnexion] Système de logout depuis le Dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Déconnexion] Système de logout depuis le Dashboard" />
   </component>
 </project>
