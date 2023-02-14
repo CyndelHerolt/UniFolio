@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Etudiant;
 use App\Entity\Users;
 use App\Form\UsersType;
+use App\Repository\EtudiantRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,7 @@ class UsersController extends AbstractController
     }
 
     #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher, EtudiantRepository $etudiantRepository): Response
     {
 
         $user = new Users();
@@ -45,6 +47,15 @@ class UsersController extends AbstractController
             $user->setPassword($hashedPassword);
 
 //            var_dump($user->getPassword());
+
+            //            dump($user->getRoles());
+//            die();
+
+            if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
+                $etudiant = new Etudiant();
+                $etudiant->setUsers($user);
+                $etudiantRepository->save($etudiant, true);
+            }
 
             $usersRepository->save($user, true);
 
@@ -67,7 +78,7 @@ class UsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher, EtudiantRepository $etudiantRepository): Response
     {
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
@@ -75,7 +86,7 @@ class UsersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $plaintextPassword = $user->getPassword();
-            var_dump($plaintextPassword);
+//            var_dump($plaintextPassword);
 
 //             hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(
@@ -98,7 +109,7 @@ class UsersController extends AbstractController
     #[Route('/{id}', name: 'app_users_delete', methods: ['POST'])]
     public function delete(Request $request, Users $user, UsersRepository $usersRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $usersRepository->remove($user, true);
         }
 

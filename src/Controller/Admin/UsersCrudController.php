@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Etudiant;
 use App\Entity\Users;
+use App\Repository\EtudiantRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
@@ -32,13 +34,13 @@ class UsersCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-
+        // Construction manuelle des input de mot de passe
         $password = TextField::new('password')
             ->setFormType(RepeatedType::class)
             ->setFormTypeOptions([
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => '(Repeat)'],
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation du mot de passe'],
                 'mapped' => false,
             ])
             ->setRequired($pageName === Crud::PAGE_NEW)
@@ -51,6 +53,7 @@ class UsersCrudController extends AbstractCrudController
                 'enseignant' => 'ROLE_ENSEIGNANT',
                 'admin' => 'ROLE_ADMIN',
             ]),
+            EmailField::new('email', 'Adresse mail'),
             $password,
 //            TextField::new('prenom')->hideOnForm(),
 //            TextField::new('nom'),
@@ -71,6 +74,7 @@ class UsersCrudController extends AbstractCrudController
         return $this->addPasswordEventListener($formBuilder);
     }
 
+    //
     private function addPasswordEventListener(FormBuilderInterface $formBuilder): FormBuilderInterface
     {
         return $formBuilder->addEventListener(FormEvents::POST_SUBMIT, $this->hashPassword());
@@ -92,11 +96,24 @@ class UsersCrudController extends AbstractCrudController
         };
     }
 
+//    private function newUser(EtudiantRepository $etudiantRepository, Users $user){
+//        if (in_array('ROLE_ETUDIANT', $user->getRoles())){
+//            $etudiant = new Etudiant();
+//            $etudiant->setUsers($user);
+//            $etudiantRepository->save($etudiant, true);
+//        }
+//    }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('Utilisateur')
             ->setEntityLabelInPlural('Utilisateurs')
             ->setSearchFields(['username', 'roles']);
+    }
+
+    private function getDoctrine()
+    {
+
     }
 }
