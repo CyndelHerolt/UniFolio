@@ -4,10 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\AnneeUniversitaire;
 use App\Entity\Commentaire;
+use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Portfolio;
 use App\Entity\Semestre;
+use App\Entity\Templates;
 use App\Entity\Trace;
 use App\Entity\Users;
 use App\Entity\Validation;
@@ -54,20 +56,21 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToUrl('Site public', 'fas fa-book', '/');
-        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
-        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
+        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/?_switch_user=etudiant');
+        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/?_switch_user=enseignant');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
         yield MenuItem::linkToCrud('Gestion des étudiants', 'fas fa-list', Etudiant::class);
-//        yield MenuItem::linkToRoute('Création de compte', 'fas fa-user-plus', 'app_users_new');
+        yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
 
         yield MenuItem::section('Portfolios');
         yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
         yield MenuItem::linkToCrud('Gestion des validations', 'fas fa-list', Validation::class);
+        yield MenuItem::linkToCrud('Gestion des templates', 'fas fa-list', Templates::class);
 
         yield MenuItem::section('Formation');
         yield MenuItem::linkToCrud('Gestion des années universitaires', 'fas fa-list', AnneeUniversitaire::class);
