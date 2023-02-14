@@ -20,6 +20,8 @@
         {# Protection contre les attaques CSRF todo: c'est quoi une attaque CSRF ? #}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit">login</button>
+        <button type="submit">Connexion</button>
+
+        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
     </form>
 {% endblock %}
