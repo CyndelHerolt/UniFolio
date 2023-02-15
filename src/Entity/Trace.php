@@ -16,10 +16,10 @@ class Trace
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_creation = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_modification = null;
 
     #[ORM\ManyToOne(inversedBy: 'traces')]
@@ -37,8 +37,12 @@ class Trace
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_trace = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $contenu = null;
+
     public function __construct()
     {
+        $this->date_creation = new \DateTimeImmutable();
         $this->validations = new ArrayCollection();
         $this->pages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
@@ -49,7 +53,7 @@ class Trace
         return $this->id;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): \DateTimeImmutable
     {
         return $this->date_creation;
     }
@@ -180,6 +184,18 @@ class Trace
     public function setTypeTrace(?string $type_trace): self
     {
         $this->type_trace = $type_trace;
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(?string $contenu): self
+    {
+        $this->contenu = $contenu;
 
         return $this;
     }

@@ -14,9 +14,13 @@ class TraceController extends AbstractController
     #[Route('/trace', name: 'app_trace')]
     public function index(TraceRegistry $traceRegistry): Response
     {
-
+//        todo:if (tel type de trace est sélectionné => afficher tel type de méthode de récupération du contenu)
         $trace = new Trace();
         $form = $this->createForm(TraceType::class, $trace);
+
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//        }
 
         return $this->render('trace/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),

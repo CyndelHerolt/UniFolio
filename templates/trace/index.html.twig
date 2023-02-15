@@ -3,20 +3,26 @@
 {% block title %}Hello TestTraceController!{% endblock %}
 
 {% block body %}
-    <h1>Liste des traces existantes</h1>
+    <h1>Dépot de trace</h1>
 
+    <h2>Conditions pour l'importation de contenu</h2>
     <ul>
         {% for trace in traces %}
             <li>
-                <a href="{{ path('app_show', {'typeTrace': constant('class', trace)}) }}">{{ trace.display
-                    }}</a>
+                {#                <a href="{{ path('app_show', {'typeTrace': constant('class', trace)}) }}">{{ trace.display #}
+                {#                    }}</a> #}
+                {{ trace.display }}
             </li>
         {% endfor %}
     </ul>
 
 
-    <h1>Création d'une trace</h1>
+    <h2>Création d'une trace</h2>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {#    {{ form_start(form) }} #}
+
+    {{ form_row(form.type_trace) }}
+    {{ form_row(form.contenu) }}
+
+    {#    {{ form_widget(form) }} #}
 {% endblock %}
