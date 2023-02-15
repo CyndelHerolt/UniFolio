@@ -4,26 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Déconnexion] Système de logout depuis le Dashboard">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Password Reset] Correction de l'async de l'envoi de mail">
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UsersCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UsersCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardAdminController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/UsersType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UsersType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_admin/index.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,6 +175,7 @@
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
       <path value="$PROJECT_DIR$/vendor/symfonycasts/reset-password-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
     </include_path>
   </component>
   <component name="ProjectId" id="2L8eyfhYJSCBWAS0nweNGAJVL7Q" />
@@ -209,6 +198,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Components\Trace\DependencyInjection" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Form" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="Commentaires" />
@@ -253,7 +248,10 @@
       <workItem from="1676295590975" duration="8612000" />
       <workItem from="1676314845222" duration="1244000" />
       <workItem from="1676358068967" duration="10782000" />
-      <workItem from="1676378144503" duration="4820000" />
+      <workItem from="1676378144503" duration="6692000" />
+      <workItem from="1676395228981" duration="2949000" />
+      <workItem from="1676446519152" duration="14569000" />
+      <workItem from="1676466364157" duration="7934000" />
     </task>
     <task id="LOCAL-00001" summary="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User">
       <created>1675267027200</created>
@@ -423,7 +421,77 @@
       <option name="project" value="LOCAL" />
       <updated>1676388299185</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: [Administration] Génération d'un crud pour gérer les informations des enseignants">
+      <created>1676388494999</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388494999</updated>
+    </task>
+    <task id="LOCAL-00026" summary="feat: [Administration] Génération d'un crud pour gérer les templates">
+      <created>1676388511631</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388511631</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: [Connexion] Réinitialisation de mot de passe par mail">
+      <created>1676388562146</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388562146</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add">
+      <created>1676388597344</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1676388597344</updated>
+    </task>
+    <task id="LOCAL-00029" summary="feat: [Traces] Création d'un composant pour les types de traces">
+      <created>1676474146089</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474146089</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat: [Traces] Création d'un composant pour les types de traces">
+      <created>1676474237872</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474237872</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat: [Traces] Création d'un composant pour les types de traces">
+      <created>1676474264452</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474264452</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: [Update] Mise à jour de Symfony vers la version 6.2">
+      <created>1676474313040</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474313040</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: [Administration] Création d'un étudiant lorsqu'un user se voit attribuer ce role à sa création">
+      <created>1676474411105</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474411105</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix: [Password Reset] Correction de l'async de l'envoi de mail">
+      <created>1676474513106</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474513106</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,8 +550,15 @@
     <MESSAGE value="feat: [Administration] Ajout de la gestion de la structure de la formation" />
     <MESSAGE value="feat: [Style] Installation et importation de Bootstrap" />
     <MESSAGE value="feat: [Installation] Installation et importation de Bootstrap" />
-    <MESSAGE value="feat: [Connexion] Réinitialisation de mot de passe par mail" />
     <MESSAGE value="feat: [Déconnexion] Système de logout depuis le Dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Déconnexion] Système de logout depuis le Dashboard" />
+    <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les informations des enseignants" />
+    <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les templates" />
+    <MESSAGE value="feat: [Connexion] Réinitialisation de mot de passe par mail" />
+    <MESSAGE value="add" />
+    <MESSAGE value="feat: [Traces] Création d'un composant pour les types de traces" />
+    <MESSAGE value="feat: [Update] Mise à jour de Symfony vers la version 6.2" />
+    <MESSAGE value="feat: [Administration] Création d'un étudiant lorsqu'un user se voit attribuer ce role à sa création" />
+    <MESSAGE value="fix: [Password Reset] Correction de l'async de l'envoi de mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Password Reset] Correction de l'async de l'envoi de mail" />
   </component>
 </project>
