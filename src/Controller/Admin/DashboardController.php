@@ -56,14 +56,15 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToUrl('Site public', 'fas fa-book', '/');
-        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/?_switch_user=etudiant');
-        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/?_switch_user=enseignant');
+        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
+        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
         yield MenuItem::linkToCrud('Gestion des étudiants', 'fas fa-list', Etudiant::class);
         yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
+        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
 
         yield MenuItem::section('Portfolios');
         yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
@@ -75,7 +76,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Formation');
         yield MenuItem::linkToCrud('Gestion des années universitaires', 'fas fa-list', AnneeUniversitaire::class);
         yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
-        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
 
     }
 
