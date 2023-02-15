@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestTraceController!{% endblock %}
+
+{% block body %}
+    <h1>Liste des traces existantes</h1>
+
+    <ul>
+        {% for trace in traces %}
+            <li>
+                <a href="{{ path('app_show', {'typeTrace': constant('class', trace)}) }}">{{ trace.display
+                    }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <h1>Création d'une trace</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+{% endblock %}

@@ -34,6 +34,9 @@ class Trace
     #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type_trace = null;
+
     public function __construct()
     {
         $this->validations = new ArrayCollection();
@@ -165,6 +168,18 @@ class Trace
                 $commentaire->setTrace(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypeTrace(): ?string
+    {
+        return $this->type_trace;
+    }
+
+    public function setTypeTrace(?string $type_trace): self
+    {
+        $this->type_trace = $type_trace;
 
         return $this;
     }
