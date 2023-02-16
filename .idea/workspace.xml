@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Password Reset] Correction de l'async de l'envoi de mail">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Génération du formulaire de dépot de trace (en cours)">
+      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_image.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_lien.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_pdf.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_video.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trace/form.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +260,14 @@
       <workItem from="1676378144503" duration="6692000" />
       <workItem from="1676395228981" duration="2949000" />
       <workItem from="1676446519152" duration="14569000" />
-      <workItem from="1676466364157" duration="7934000" />
+      <workItem from="1676466364157" duration="8169000" />
+      <workItem from="1676474767926" duration="2617000" />
+      <workItem from="1676477422600" duration="733000" />
+      <workItem from="1676478202206" duration="2135000" />
+      <workItem from="1676531550867" duration="25897000" />
+      <workItem from="1676564303936" duration="1425000" />
+      <workItem from="1676566483212" duration="2769000" />
+      <workItem from="1676569286796" duration="1434000" />
     </task>
     <task id="LOCAL-00001" summary="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User">
       <created>1675267027200</created>
@@ -491,7 +507,42 @@
       <option name="project" value="LOCAL" />
       <updated>1676474513106</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fix: [Administration] Correction du CRUD des Traces">
+      <created>1676474559911</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474559911</updated>
+    </task>
+    <task id="LOCAL-00036" summary="feat: [Profil] Lien avec la base de données pour récupérer les informations de l'utilisateur">
+      <created>1676474620409</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474620409</updated>
+    </task>
+    <task id="LOCAL-00037" summary="add">
+      <created>1676474645725</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1676474645725</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat: [Traces] Génération du formulaire de dépot de trace">
+      <created>1676480307712</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1676480307712</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat: [Traces] Génération du formulaire de dépot de trace (en cours)">
+      <created>1676555023235</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1676555023236</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,8 +587,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User" />
-    <MESSAGE value="feat: [Inscription] Génération du formulaire d'inscription" />
     <MESSAGE value="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs" />
     <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord" />
     <MESSAGE value="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo" />
@@ -554,11 +603,15 @@
     <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les informations des enseignants" />
     <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les templates" />
     <MESSAGE value="feat: [Connexion] Réinitialisation de mot de passe par mail" />
-    <MESSAGE value="add" />
     <MESSAGE value="feat: [Traces] Création d'un composant pour les types de traces" />
     <MESSAGE value="feat: [Update] Mise à jour de Symfony vers la version 6.2" />
     <MESSAGE value="feat: [Administration] Création d'un étudiant lorsqu'un user se voit attribuer ce role à sa création" />
     <MESSAGE value="fix: [Password Reset] Correction de l'async de l'envoi de mail" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Password Reset] Correction de l'async de l'envoi de mail" />
+    <MESSAGE value="fix: [Administration] Correction du CRUD des Traces" />
+    <MESSAGE value="feat: [Profil] Lien avec la base de données pour récupérer les informations de l'utilisateur" />
+    <MESSAGE value="add" />
+    <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace" />
+    <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace (en cours)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Génération du formulaire de dépot de trace (en cours)" />
   </component>
 </project>

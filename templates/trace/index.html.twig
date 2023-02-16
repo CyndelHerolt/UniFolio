@@ -17,18 +17,13 @@
     </ul>
 
 
-    <h2>Création d'une trace</h2>
+    <h2>Formulaires de trace</h2>
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-
-{#    {{ form_start(form) }}#}
-{#    {{ form_row(form.titre) }}#}
-{#    {{ form_row(form.type_trace) }}#}
-{#    {{ form_row(form.contenu) }}#}
-{#    {{ form_row(form.description) }}#}
-{#    {{ form_row(form.Envoyer) }}#}
-
-{#        {{ form_widget(form) }}#}
+    <a href="{{ path('trace_image') }}">Formulaire Image</a>
+    <br>
+    <a href="{{ path('trace_lien') }}">Formulaire Lien</a>
+    <br>
+    <a href="{{ path('trace_pdf') }}">Formulaire Pdf</a>
+    <br>
+    <a href="{{ path('trace_video') }}">Formulaire Video</a>
 {% endblock %}
