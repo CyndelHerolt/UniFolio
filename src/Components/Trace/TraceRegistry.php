@@ -4,6 +4,7 @@
 namespace App\Components\Trace;
 
 use App\Components\Trace\TypeTrace\AbstractTrace;
+use App\Entity\Trace;
 
 class TraceRegistry
 {
@@ -30,8 +31,9 @@ class TraceRegistry
     {
         $tab = [];
         foreach ($this->typeTraces as $name) {
-            $tab[$name::TYPE_TRACE] = $name::class;
-            }
-        return $tab;
+            $tab[$name::TAG_TYPE_TRACE] = $name::class;
         }
+        return $tab;
+    }
 }
+

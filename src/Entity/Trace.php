@@ -40,6 +40,12 @@ class Trace
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $contenu = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $titre = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -196,6 +202,30 @@ class Trace
     public function setContenu(?string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

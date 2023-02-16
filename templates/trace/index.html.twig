@@ -19,10 +19,16 @@
 
     <h2>Création d'une trace</h2>
 
-    {#    {{ form_start(form) }} #}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
 
-    {{ form_row(form.type_trace) }}
-    {{ form_row(form.contenu) }}
+{#    {{ form_start(form) }}#}
+{#    {{ form_row(form.titre) }}#}
+{#    {{ form_row(form.type_trace) }}#}
+{#    {{ form_row(form.contenu) }}#}
+{#    {{ form_row(form.description) }}#}
+{#    {{ form_row(form.Envoyer) }}#}
 
-    {#    {{ form_widget(form) }} #}
+{#        {{ form_widget(form) }}#}
 {% endblock %}
