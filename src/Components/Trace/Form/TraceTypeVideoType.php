@@ -5,6 +5,7 @@ namespace App\Components\Trace\Form;
 use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypeVideo;
+use App\Entity\Trace;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -30,15 +31,19 @@ class TraceTypeVideoType extends AbstractType
             ])
 //            ->add('date_modification', DateType::class)
             ->add('titre', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
-            ->add('contenu', FileType::class, [
+            ->add('contenu', TextType::class, [
                 'label' => 'Fichier',
-                'mapped' => false,
-                'required' => false,
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
@@ -50,7 +55,7 @@ class TraceTypeVideoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => TraceTypeVideo::class,
+            'data_class' => Trace::class,
         ]);
     }
 }

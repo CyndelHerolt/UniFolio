@@ -4,22 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Génération du formulaire de dépot de trace (en cours)">
-      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_image.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_lien.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_pdf.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/trace/form/trace_depot_video.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/trace/form.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Génération des formulaires de dépot de traces">
+      <change afterPath="$PROJECT_DIR$/assets/toast.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/_toasts.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trace_bis/formulaire.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/TraceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TraceType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/form.html.twig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +42,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SCSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -192,21 +200,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Components\Trace\DependencyInjection" />
@@ -267,7 +276,8 @@
       <workItem from="1676531550867" duration="25897000" />
       <workItem from="1676564303936" duration="1425000" />
       <workItem from="1676566483212" duration="2769000" />
-      <workItem from="1676569286796" duration="1434000" />
+      <workItem from="1676569286796" duration="4740000" />
+      <workItem from="1676617087344" duration="14461000" />
     </task>
     <task id="LOCAL-00001" summary="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User">
       <created>1675267027200</created>
@@ -542,7 +552,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676555023236</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="feat: [Traces] Génération des formulaires de dépot de traces">
+      <created>1676570994476</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1676570994476</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +604,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs" />
     <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord" />
     <MESSAGE value="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo" />
     <MESSAGE value="feat: [Général] Premier jet de la base de données" />
@@ -612,6 +628,7 @@
     <MESSAGE value="add" />
     <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace" />
     <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace (en cours)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Génération du formulaire de dépot de trace (en cours)" />
+    <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Génération des formulaires de dépot de traces" />
   </component>
 </project>

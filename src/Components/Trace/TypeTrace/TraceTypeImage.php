@@ -9,7 +9,6 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
 {
     final public const TAG_TYPE_TRACE = 'image';
     final public const FORM = TraceTypeImageType::class;
-    final public const FORM_TEMPLATE = 'trace_depot_image.html.twig';
     final public const HELP = 'Upload d\'image - format accepté : jpg, jpeg, png, gif';
     final public const ICON = 'fas fa-link';
     final public const TEMPLATE = 'Components/Trace/type/image.html.twig';
@@ -23,19 +22,18 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         return self::HELP;
     }
 
-    public function TypeForm(): string
-    {
-        return self::FORM;
-    }
-
-    public function save($form, $trace, $traceRepository, $directory): bool
+    public function save($form, $trace, $traceRepository, $traceRegistry): bool
     {
         $imageFile = $form['contenu']->getData();
         if ($imageFile) {
             $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
+            //Vérifier si le fichier est au bon format
             if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                $imageFile->move($directory, $imageFileName);
-                $trace->setContenu($directory . '/' . $imageFileName);
+                //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                $imageFile->move('files_directory', $imageFileName);
+                //Sauvegarder le contenu dans la base de données
+                $trace->setContenu('files_directory' . '/' . $imageFileName);
+                $trace->setTypetrace('image');
                 $traceRepository->save($trace, true);
                 return true;
                 //return $this->redirectToRoute('app_trace');
@@ -44,6 +42,5 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 return false;
             }
         }
-        return true;
     }
 }

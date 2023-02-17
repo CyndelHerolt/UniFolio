@@ -4,26 +4,25 @@ namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
 use App\Entity\Trace;
-use App\Form\TraceType;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TraceController extends AbstractController
+class TraceBisController extends AbstractController
 {
-    #[Route('/trace', name: 'app_trace')]
+    #[Route('/trace/bis', name: 'app_trace_bis')]
     public function index(
         TraceRegistry $traceRegistry
     ): Response
     {
-        return $this->render('trace/index.html.twig', [
+        return $this->render('trace_bis/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),
         ]);
     }
 
-    #[Route('/trace/formulaire/{id}', name: 'app_trace_formulaire')]
+    #[Route('/trace/bis/formulaire/{id}', name: 'app_trace_bis_formulaire')]
     public function formulaire(
         Request $request,
         TraceRepository $traceRepository,
@@ -38,33 +37,17 @@ class TraceController extends AbstractController
 //die();
         $trace = new Trace();
         $form = $this->createForm($traceType::FORM, $trace);
-        $trace->setTypetrace($id);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)) {
-                $traceRepository->save($trace, true);
-                $this->addFlash('success', 'La trace a été enregistrée avec succès.');
-                return $this->redirectToRoute('app_trace');
-            }
-            else {
-                $this->addFlash('error', 'Le lien ne mène pas à une vidéo YouTube valide.');
-            }
+            $traceType->save($form, $trace, $traceRepository, 'files_directory');
+
+            return $this->redirectToRoute('app_trace_bis');
         }
 
-        return $this->render('trace/formulaire.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 
-    #[Route('/trace/show/{typeTrace}', name: 'app_show')]
-    public function show(
-        TraceRegistry $traceRegistry,
-        string        $typeTrace): Response
-    {
-        $trace = $traceRegistry->getTypeTrace($typeTrace);
-        return $this->render('trace/show.html.twig', [
-            'trace' => $trace,
+        return $this->render('trace_bis/formulaire.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

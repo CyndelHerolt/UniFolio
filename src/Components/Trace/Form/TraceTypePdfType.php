@@ -5,6 +5,7 @@ namespace App\Components\Trace\Form;
 use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
+use App\Entity\Trace;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -50,7 +51,7 @@ class TraceTypePdfType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => TraceTypePdf::class,
+            'data_class' => Trace::class,
         ]);
     }
 }

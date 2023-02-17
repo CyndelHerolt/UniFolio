@@ -8,6 +8,7 @@ use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Entity\Trace;
+use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,6 +22,9 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @deprecated
+ */
 class TraceType extends AbstractType
 {
 
