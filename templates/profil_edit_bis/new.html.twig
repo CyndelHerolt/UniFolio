@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Enseignant{% endblock %}
+
+{% block body %}
+    <h1>Create new Enseignant</h1>
+
+    {{ include('profil_edit_bis/_form.html.twig') }}
+
+    <a href="{{ path('app_profil_edit_bis_index') }}">back to list</a>
+{% endblock %}
