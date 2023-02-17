@@ -186,8 +186,8 @@ class UsersCrudController extends AbstractCrudController
                 $entityManager->flush(true);
             }
         }
-        var_dump(Request::CreateFromGlobals());
-        die();
+//        var_dump(Request::CreateFromGlobals());
+//        die();
 
 
         // Appel à la méthode parente pour enregistrer l'objet User

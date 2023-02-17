@@ -22,11 +22,27 @@ class ProfilController extends AbstractController
     {
         $user = $usersRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $userId = $this->getUser()->getUserIdentifier();
-//        $role = implode($user->getRoles());
 
+        if ($this->isGranted('ROLE_ETUDIANT')) {
+            $etudiant = $user->getEtudiant();
+
+            // Si un objet Etudiant est trouvé, vous pouvez accéder à ses propriétés
+            if ($etudiant instanceof Etudiant) {
+                $etudiant->setPrenom('Jean');
+                $etudiant->setNom('Dupont');
+                $etudiant->setMailPerso('JD@mail.com');
+                $nom = $etudiant->getNom();
+                $prenom = $etudiant->getPrenom();
+                $email = $etudiant->getMailPerso();
+
+            }
+        }
 
         return $this->render('profil/index.html.twig', [
             'user' => $userId,
+            'prenom' => $prenom,
+            'nom' => $nom,
+            'email' => $email,
         ]);
     }
 }

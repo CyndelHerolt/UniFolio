@@ -17,8 +17,8 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(cascade: ['remove'])]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE', name: 'user_id', referencedColumnName: 'id')]
     private ?Users $user = null;
 
     public function __construct($user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken)
