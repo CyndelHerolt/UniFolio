@@ -41,7 +41,7 @@ class TraceTypeVideoType extends AbstractType
                 'attr' => ['class' => "form-control"],
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
+                'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
             ])

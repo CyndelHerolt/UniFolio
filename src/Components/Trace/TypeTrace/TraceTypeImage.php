@@ -10,7 +10,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
     final public const TAG_TYPE_TRACE = 'image';
     final public const FORM = TraceTypeImageType::class;
     final public const HELP = 'Upload d\'image - format accepté : jpg, jpeg, png, gif';
-    final public const ICON = 'fas fa-link';
+    final public const ICON = 'fa-solid fa-image';
     final public const TEMPLATE = 'Components/Trace/type/image.html.twig';
 
     public function __construct(protected TraceRepository $traceRepository)
@@ -22,7 +22,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         return self::HELP;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): bool
+    public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
         $imageFile = $form['contenu']->getData();
         if ($imageFile) {
@@ -33,13 +33,12 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 $imageFile->move('files_directory', $imageFileName);
                 //Sauvegarder le contenu dans la base de données
                 $trace->setContenu('files_directory' . '/' . $imageFileName);
-                $trace->setTypetrace('image');
                 $traceRepository->save($trace, true);
-                return true;
+                return array('success' => true);
                 //return $this->redirectToRoute('app_trace');
             } else {
-                echo 'Le fichier n\'est pas au bon format';
-                return false;
+                $error = 'Le fichier n\'est pas au bon format';
+                return array('success' => false, 'error' => $error);
             }
         }
     }

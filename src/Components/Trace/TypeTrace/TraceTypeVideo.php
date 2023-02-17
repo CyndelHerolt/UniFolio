@@ -9,7 +9,7 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
     final public const TAG_TYPE_TRACE = 'video';
     final public const FORM = TraceTypeVideoType::class;
     final public const HELP = 'Upload de vidéo : lien Youtube';
-    final public const ICON = 'fas fa-link';
+    final public const ICON = 'fa-brands fa-youtube';
     final public const TEMPLATE = 'Components/Trace/type/video.html.twig';
 
     public function display(): string
@@ -17,7 +17,7 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
         return self::HELP;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): bool
+    public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
         $contenu = $form['contenu']->getData();
         $youtubeId = null;
@@ -33,9 +33,10 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
             $contenu = 'https://www.youtube.com/embed/' . $youtubeId;
             // Sauvegarder le contenu dans la base de données
             $trace->setContenu($contenu);
-            return true;
+            return array('success' => true);
         } else {
-            return false;
+            $error = 'Le lien n\'est pas un lien YouTube valide';
+            return array('success' => false, 'error' => $error);
         }
     }
 }

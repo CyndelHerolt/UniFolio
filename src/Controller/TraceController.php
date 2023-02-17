@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
+use App\Components\Trace\TypeTrace\AbstractTrace;
+use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Entity\Trace;
 use App\Form\TraceType;
 use App\Repository\TraceRepository;
@@ -15,9 +17,10 @@ class TraceController extends AbstractController
 {
     #[Route('/trace', name: 'app_trace')]
     public function index(
-        TraceRegistry $traceRegistry
+        TraceRegistry $traceRegistry,
     ): Response
     {
+
         return $this->render('trace/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),
         ]);
@@ -28,7 +31,7 @@ class TraceController extends AbstractController
         Request $request,
         TraceRepository $traceRepository,
         TraceRegistry $traceRegistry,
-        string $id
+        string $id,
     ): Response
     {
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FROM, class, ICON, save...)
@@ -42,13 +45,14 @@ class TraceController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)) {
+            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
                 $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
             }
             else {
-                $this->addFlash('error', 'Le lien ne mène pas à une vidéo YouTube valide.');
+                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                $this->addFlash('error', $error);
             }
         }
 

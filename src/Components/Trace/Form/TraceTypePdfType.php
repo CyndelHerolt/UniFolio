@@ -31,15 +31,19 @@ class TraceTypePdfType extends AbstractType
             ])
 //            ->add('date_modification', DateType::class)
             ->add('titre', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
             ->add('contenu', FileType::class, [
                 'label' => 'Fichier',
-                'mapped' => false,
-                'required' => false,
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
+                'label' => 'Commentaire',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
             ])
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [

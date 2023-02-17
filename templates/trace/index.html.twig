@@ -7,7 +7,7 @@
     <ul>
         {% for trace in traces %}
             <li>
-                <a href="{{ path('app_trace_formulaire', {'id': constant('class', trace)}) }}">{{ trace.display }}</a>
+                <i class="{{ constant('ICON', trace) }}"></i><a href="{{ path('app_trace_formulaire', {'id': constant('class', trace)}) }}">{{ trace.display }}</a>
             </li>
         {% endfor %}
     </ul>
