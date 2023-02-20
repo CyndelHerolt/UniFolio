@@ -2,9 +2,12 @@
 
 {% block title %}UniFolio - portfolios universitaires{% endblock %}
 
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
 {% block body %}
 
-    <div class="container">
+    <div class="container-fluid">
         <section class="zone1">
             <div class="row">
                 <div class="col-lg-6 col-12">
@@ -86,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <button>Voir la Galerie</button>
+                <a href=""><button>Voir la Galerie</button></a>
             </div>
         </section>
 
@@ -103,9 +106,10 @@
                         Lors de la création d'un portfolio, l'étudiant peut décider si il souhaite le rendre public ou
                         privé afin d'être disponible pour de potentiels recruteurs.
                     </p>
-
-                    <button>Documentation complète</button>
                 </div>
+                <a href="#">
+                    <button>Documentation complète</button>
+                </a>
             </div>
         </section>
     </div>
@@ -127,7 +131,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-12 col-12">
-<p>© Cyndel Herolt - IUT de Troyes. 2023</p>
+                    <p>© Cyndel Herolt - IUT de Troyes. 2023</p>
                 </div>
             </div>
         </div>
