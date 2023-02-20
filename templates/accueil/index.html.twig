@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - portfolios universitaires{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <section class="zone1">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <h1>UniFolio <br><span>Portfolios universitaires</span></h1>
+                    <hr>
+                    <p>C'est un outil qui alloue aux étudiants et aux enseignants la possibilité de créer, organiser et
+                        évaluer des traces numériques dans des portfolio. Il offre aux étudiants la possibilité de
+                        démontrer leurs compétences et de présenter leur portfolio à des recruteurs. Mais également aux
+                        enseignants d’évaluer facilement les portfolios de leurs étudiants et de leur soumettre un
+                        feedback utile pour leur développement professionnel et personnel.</p>
+                </div>
+                <div class="col-lg-5">
+                    <img src="{{ asset('') }}" alt="illustration">
+                </div>
+            </div>
+        </section>
+
+        <section class="zone2">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <h2>Espace Entreprise</h2>
+                    <p>Si vous êtes à la recherche d'alternants ou de stagiaires, vous pouvez parcourir la <a href="">Galerie
+                            des étudiants</a>. Vous y trouverez les portfolios des étudiants, leur domaine d'études,
+                        leur cv et leurs informations de contact. </p>
+
+                    <h3>Domaines d'études</h3>
+                    <ul>
+                        <li>Marketing</li>
+                        <li>Communication</li>
+                        <li>Design</li>
+                        <li>Web</li>
+                        <li>Audiovisuel</li>
+                        <li>Journalisme</li>
+                        <li>Photographie</li>
+                        <li>Graphisme</li>
+                    </ul>
+                    <h3>Zone géographique</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d679199.067688189!2d3.562301889757758!3d48.31974785793764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47ee9f549feadc2b%3A0x30a5fb99a372610!2sAube!5e0!3m2!1sfr!2sfr!4v1676898040177!5m2!1sfr!2sfr"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="zone3">
+            <div class="row">
+                <h2>Galerie des étudiants</h2>
+                <hr>
+                <div class="col-lg-12 col-12">
+                    <!-- todo: boucle aléatoire sur 3 portfolios publics -->
+                    <div class="card col-lg-3 col-12">
+                        <img src="" class="card-img-top" alt="profil d'étudiant">
+                        <div class="card-body">
+                            <h5 class="card-title">John Doe</h5>
+                            <hr>
+                            <p class="card-text">BUT MMI</p>
+                            <p class="card-text">recherche d'alternance</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card col-lg-3 col-12">
+                        <img src="" class="card-img-top" alt="profil d'étudiant">
+                        <div class="card-body">
+                            <h5 class="card-title">John Doe</h5>
+                            <hr>
+                            <p class="card-text">BUT MMI</p>
+                            <p class="card-text">recherche d'alternance</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card col-lg-3 col-12">
+                        <img src="" class="card-img-top" alt="profil d'étudiant">
+                        <div class="card-body">
+                            <h5 class="card-title">John Doe</h5>
+                            <hr>
+                            <p class="card-text">BUT MMI</p>
+                            <p class="card-text">recherche d'alternance</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <button>Voir la Galerie</button>
+            </div>
+        </section>
+
+        <section class="zone4">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <h2>Comment ça marche ?</h2>
+                    <p>
+                        Les portfolios universitaires sont construits autour des compétences relatives aux formations.
+                        Les étudiants importent leurs travaux et les organisent dans des pages qu'ils assemblent ensuite
+                        afin de construire un portfolio.
+                        Les travaux importés et justifiés par l'étudiant sont commentés et évalués par les enseignants
+                        afin de déterminer les compétences acquises.
+                        Lors de la création d'un portfolio, l'étudiant peut décider si il souhaite le rendre public ou
+                        privé afin d'être disponible pour de potentiels recruteurs.
+                    </p>
+
+                    <button>Documentation complète</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <h2>UniFolio</h2>
+                    <p>Université de Troyes</p>
+                    <p>2023</p>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <ul>
+                        <li><a href="">Accueil</a></li>
+                        <li><a href="">Galerie des étudiants</a></li>
+                        <li><a href="">Documentation</a></li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12 col-12">
+<p>© Cyndel Herolt - IUT de Troyes. 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
