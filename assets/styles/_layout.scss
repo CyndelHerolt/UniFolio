@@ -1,0 +1,38 @@
+body {
+
+  header {
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      @include menu-item;
+
+      .logo {
+        width: 25px;
+        height: 25px;
+      }
+
+      .collapse {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+
+footer {
+  background-color: #f5f5f5;
+  padding: 10px 40px;
+
+  .container {
+    padding: 0;
+
+    .col-12 {
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@mixin zone($margin, $padding, $bgcolor, $border-radius) {
+  margin: $margin;
+  padding: $padding;
+  background-color: $bgcolor;
+    border-radius: $border-radius;
+}
+
+@mixin paragraphe {
+  font-family: $primary-font;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@mixin lien {
+  font-family: $primary-font;
+  font-size: 14px;
+  line-height: 1.5;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+@mixin menu-item {
+  font-family: $primary-font;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: $color-dark;
+}
+
+@mixin help-text {
+  font-family: $primary-font;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 200;
+}
+
+@mixin titre($font, $size, $line-height) {
+  font-family: $font;
+  font-size: $size;
+  line-height: $line-height;
+}
+
+@mixin btn($background-color, $color, $border) {
+  background-color: $background-color;
+  color: $color;
+  border: $border;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: ease-in-out 0.1s;
+}

@@ -1,0 +1,80 @@
+.container {
+  max-width: 100vw;
+  @include paragraphe;
+  //todo: media query for mobile no padding
+  padding: 50px 100px;
+
+  .zone1 {
+
+    .row {
+      @include zone(50px 0, 40px, $color-primary, 10px);
+
+      h1 {
+        @include titre($secondary-font, 36px, 1);
+
+        span {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+
+  .zone2 {
+
+    .row {
+      padding: 45px;
+    }
+  }
+
+  .zone3 {
+
+    .row {
+      @include zone(50px 0, 40px, $color-primary, 10px);
+
+      .col-lg-12 {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .card {
+
+        }
+      }
+
+      a {
+        width: fit-content;
+        margin: 25px auto;
+
+        button {
+          @include btn($color-primary-focus, $color-dark, 3px solid $color-primary-focus);
+
+          &:hover {
+            @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+          }
+        }
+      }
+    }
+  }
+
+  .zone4 {
+    .row {
+
+      .col-lg-12 {
+
+      }
+        a {
+          width: fit-content;
+          margin: 25px auto;
+
+          button {
+            @include btn($color-primary-focus, $color-dark, 3px solid $color-primary-focus);
+
+            &:hover {
+              @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+            }
+          }
+        }
+    }
+  }
+
+}
