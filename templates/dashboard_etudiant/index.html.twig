@@ -2,35 +2,32 @@
 
 {% block title %}Hello DashboardEtudiantController!{% endblock %}
 
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container-fluid">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Library</li>
+        </ol>
+    </nav>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="dashboard_retours_pedagogiques">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/UniFolio/src/Controller/DashboardEtudiantController.php'|file_link(0) }}">src/Controller/DashboardEtudiantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/UniFolio/templates/dashboard_etudiant/index.html.twig'|file_link(0) }}">templates/dashboard_etudiant/index.html.twig</a></code></li>
-    </ul>
-</div>
-
-    <a href="{{ path('app_logout') }}">LOGOUT</a>
-
+    </section>
     <footer>
 
         {% if admin == '/admin?_switch_user=_exit' %}
-
-        <br>
-
-        <a href="{{ admin }}"><button>back to admin</button></a>
-
-        <br>
-
+            <br>
+            <a href="{{ admin }}">
+                <button>back to admin</button>
+            </a>
+            <br>
         {% endif %}
 
     </footer>
+    </div>
 {% endblock %}
