@@ -44,10 +44,21 @@
   background-color: $background-color;
   color: $color;
   border: $border;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: ease-in-out 0.1s;
+}
+
+@mixin btn-icon($background-color, $color, $border) {
+  background-color: $background-color;
+  color: $color;
+  border: $border;
+  border-radius: 5px;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: ease-in-out 0.1s;
+  width: 40px;
 }

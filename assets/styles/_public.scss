@@ -46,7 +46,7 @@
         margin: 25px auto;
 
         button {
-          @include btn($color-primary-focus, $color-dark, 3px solid $color-primary-focus);
+          @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
 
           &:hover {
             @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
@@ -67,7 +67,7 @@
           margin: 25px auto;
 
           button {
-            @include btn($color-primary-focus, $color-dark, 3px solid $color-primary-focus);
+            @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
 
             &:hover {
               @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
