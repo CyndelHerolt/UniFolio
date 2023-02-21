@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Bibliotheque;
 use App\Entity\Etudiant;
 use App\Entity\Users;
 use App\Form\UsersType;
+use App\Repository\BibliothequeRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +29,7 @@ class UsersController extends AbstractController
     }
 
     #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher, EtudiantRepository $etudiantRepository): Response
+    public function new(Request $request, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher, EtudiantRepository $etudiantRepository, BibliothequeRepository $bibliothequeRepository): Response
     {
 
         $user = new Users();
@@ -54,7 +56,10 @@ class UsersController extends AbstractController
             if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
                 $etudiant = new Etudiant();
                 $etudiant->setUsers($user);
+                $biblio = new Bibliotheque();
+                $biblio->setEtudiant($etudiant);
                 $etudiantRepository->save($etudiant, true);
+                $bibliothequeRepository->save($biblio, true);
             }
 
             $usersRepository->save($user, true);
