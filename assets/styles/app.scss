@@ -30,55 +30,60 @@
 
       .col-lg-12 {
 
-        .aperçu_commentaire {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+        table {
           width: 98%;
-          background-color: $color-light;
-          padding: 0;
-          margin-top: 15px;
-          border-radius: 5px;
+          border-collapse: separate;
+          border-spacing: 0 25px;
+          text-align: center;
 
-          p {
-            @include menu-item;
-            margin: 0;
-            padding: 10px 20px;
-            width: 30%;
-            border-radius: 5px;
-            background-color: $color-secondary;
-            height: 100%;
+          thead {
+
           }
 
-          ul {
-            list-style: none;
-            display: flex;
-            align-content: center;
-            justify-content: flex-start;
-            margin: 0 20px;
-            padding: 0;
-            width: 100%;
+          tbody {
+            tr {
+              background-color: $color-light;
+              border-radius: 5px;
 
-            li {
-              margin-right: 20px;
-            }
-          }
+              td:nth-child(1) {
+                @include menu-item;
+                margin: 0;
+                padding: 10px 20px;
+                width: 20%;
+                border-radius: 5px;
+                background-color: $color-secondary;
+                height: 100%;
+              }
 
-          .btn-group {
-            display: flex;
-            justify-content: space-between;
-            width: 15%;
-            position: relative;
-            left: 20px;
+              .table-btn {
+                display: flex;
+                justify-content: flex-end;
+                margin: 10px 0;
 
-            button {
-              @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+                .btn-group {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  width: fit-content;
+                  position: relative;
+                  left: 30px;
 
-              &:hover {
-                @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+                  button {
+                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+                    margin: 0 10px;
+
+                    &:hover {
+                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+                    }
+                  }
+                }
               }
             }
           }
+        }
+
+        hr {
+          margin: 25px 0;
         }
 
         //todo: media query for mobile display column
@@ -86,8 +91,10 @@
           width: 100%;
           display: flex;
           justify-content: space-between;
+          flex-wrap: wrap;
 
           .card {
+            width: 18rem;
 
             .card-body {
               padding: 0;
@@ -120,6 +127,157 @@
                   }
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard_traces {
+
+    .row {
+      @include zone(50px 0, 40px, $color-primary, 10px);
+
+      h2 {
+        @include titre($primary-font, 20px, 1.5);
+        font-weight: 500;
+      }
+
+      .col-lg-12 {
+
+        table {
+          width: 98%;
+          border-collapse: separate;
+          border-spacing: 0 25px;
+          text-align: center;
+
+          tbody {
+            tr {
+              background-color: $color-light;
+              border-radius: 5px;
+
+              td:nth-child(1) {
+                @include menu-item;
+                margin: 0;
+                padding: 10px 20px;
+                width: 20%;
+                border-radius: 5px;
+                background-color: $color-secondary;
+                height: 100%;
+              }
+
+              .table-btn {
+                display: flex;
+                justify-content: flex-end;
+                margin: 10px 0;
+
+                .btn-group {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  width: fit-content;
+                  position: relative;
+                  left: 30px;
+
+                  button {
+                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+                    margin: 0 10px;
+
+                    &:hover {
+                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        a {
+
+          button {
+            @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+            margin: 0 25px 0 0;
+
+            &:hover {
+              @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //todo: mixin for table
+  .dashboard_portfolio {
+
+    .row {
+      @include zone(50px 0, 40px, $color-primary, 10px);
+
+      h2 {
+        @include titre($primary-font, 20px, 1.5);
+        font-weight: 500;
+      }
+
+      .col-lg-12 {
+
+        table {
+          width: 98%;
+          border-collapse: separate;
+          border-spacing: 0 25px;
+          text-align: center;
+
+          tbody {
+            tr {
+              background-color: $color-light;
+              border-radius: 5px;
+
+              td:nth-child(1) {
+                @include menu-item;
+                margin: 0;
+                padding: 10px 20px;
+                width: 20%;
+                border-radius: 5px;
+                background-color: $color-secondary;
+                height: 100%;
+              }
+
+              .table-btn {
+                display: flex;
+                justify-content: flex-end;
+                margin: 10px 0;
+
+                .btn-group {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  width: fit-content;
+                  position: relative;
+                  left: 30px;
+
+                  button {
+                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+                    margin: 0 10px;
+
+                    &:hover {
+                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        a {
+
+          button {
+            @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+            margin: 0 25px 0 0;
+
+            &:hover {
+              @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
             }
           }
         }
