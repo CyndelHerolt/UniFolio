@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Components\Trace\TraceRegistry;
 use App\Components\Trace\TypeTrace\AbstractTrace;
 use App\Components\Trace\TypeTrace\TraceTypeLien;
+use App\Entity\Bibliotheque;
 use App\Entity\Trace;
 use App\Form\TraceType;
+use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +33,7 @@ class TraceController extends AbstractController
         Request $request,
         TraceRepository $traceRepository,
         TraceRegistry $traceRegistry,
+        BibliothequeRepository $bibliothequeRepository,
         string $id,
     ): Response
     {
@@ -46,6 +49,11 @@ class TraceController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+
+                //Lier la trace à la Bibliotheque de l'utilisateur connecté
+                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
+                $trace->setBibliotheque($biblio);
+
                 $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
