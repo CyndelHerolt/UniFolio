@@ -7,6 +7,10 @@ parameters:
     files_directory: '%kernel.project_dir%/public/upload/files'
 
 services:
+#    request_stack:
+#        class: Symfony\Component\HttpFoundation\RequestStack
+#    Symfony\Component\DependencyInjection\ContainerInterface:
+#        alias: 'service_container'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

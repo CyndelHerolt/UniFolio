@@ -1,0 +1,4 @@
+live_component:
+    resource: '@LiveComponentBundle/config/routes.php'
+    prefix: /_components
+#    prefix: /{_locale}/_components

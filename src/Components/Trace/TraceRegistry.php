@@ -43,17 +43,17 @@ class TraceRegistry
         return $tab;
     }
 
-    public function getIconTypeTrace(): array
-    {
-        //récupération de la constante TAG_TYPE_TRACE des classes de type de trace
-        // tableau vide
-        $tab = [];
-        // pour chaque type de trace, on récupère la constante TAG_TYPE_TRACE et on la met dans le tableau
-        foreach ($this->typeTraces as $name) {
-            $tab[$name::ICON] = $name::class;
-        }
-        // on retourne le tableau
-        return $tab;
-    }
+//    public function getIconTypeTrace(): array
+//    {
+//        //récupération de la constante TAG_TYPE_TRACE des classes de type de trace
+//        // tableau vide
+//        $tab = [];
+//        // pour chaque type de trace, on récupère la constante TAG_TYPE_TRACE et on la met dans le tableau
+//        foreach ($this->typeTraces as $name) {
+//            $tab[$name::ICON] = $name::class;
+//        }
+//        // on retourne le tableau
+//        return $tab;
+//    }
 }
 
