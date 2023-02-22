@@ -9,6 +9,7 @@ use App\Entity\Bibliotheque;
 use App\Entity\Trace;
 use App\Form\TraceType;
 use App\Repository\BibliothequeRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,7 @@ class TraceController extends AbstractController
         TraceRepository $traceRepository,
         TraceRegistry $traceRegistry,
         BibliothequeRepository $bibliothequeRepository,
+        CompetenceRepository $competenceRepository,
         string $id,
     ): Response
     {
@@ -42,6 +44,8 @@ class TraceController extends AbstractController
 //dump($id);
 //dump($traceType);
 //die();
+        $competence = $competenceRepository->findAll();
+
         $trace = new Trace();
         $form = $this->createForm($traceType::FORM, $trace);
         $trace->setTypetrace($id);
@@ -66,6 +70,8 @@ class TraceController extends AbstractController
 
         return $this->render('trace/formulaire.html.twig', [
             'form' => $form->createView(),
+            'trace' => $traceRegistry->getTypeTrace($id),
+            'competences' => $competence,
         ]);
     }
 

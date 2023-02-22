@@ -284,6 +284,68 @@
       }
     }
   }
+
+  .modal-content {
+
+    .modal-header {
+
+      h3 {
+        @include titre($secondary-font, 28px, 1.5);
+        font-weight: 500;
+      }
+    }
+
+    .modal-body {
+
+      ul {
+        padding: 0 50px;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+
+        li {
+
+          a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: $color-dark;
+            transition: ease-in-out 0.1s;
+
+            &:hover {
+              color: $color-secondary-focus;
+            }
+
+            i {
+              margin: 10px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .trace_form {
+
+    article {
+
+      form {
+
+        div {
+
+          div:nth-child(1) {
+
+            input {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 

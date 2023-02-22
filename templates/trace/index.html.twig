@@ -1,17 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TraceBisController!{% endblock %}
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
 
 {% block body %}
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Bibliothèque de traces</li>
+                    </ol>
+                </nav>
 
-    <ul>
-        {% for trace in traces %}
-            <li>
-                <i class="{{ constant('ICON', trace) }}"></i><a href="{{ path('app_trace_formulaire', {'id': constant('class', trace)}) }}">{{ trace.display }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Bibliothèque de traces</h1>
 
-    {{ component('all_trace') }}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Créer une trace
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            {% for trace in traces %}
+                                <li>
+                                    <a
+                                            href="{{ path('app_trace_formulaire', {'id': constant('class', trace)}) }}"><i class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ component('all_trace') }}
+    </div>
 
 {% endblock %}

@@ -1,6 +1,8 @@
 <div class="card m-4">
     <div class="card-body">
         <h5 class="card-title">{{ this.trace.titre }}</h5>
-        <p class="card-text">{{ this.trace.contenu }}</p>
+        <p class="card-text">{{ this.trace.datecreation|date('d-m-Y') }}</p>
+{#        <p class="card-text">{{ this.trace.contenu }}</p>#}
+        <p class="card-text">{{ this.trace.description }}</p>
     </div>
 </div>

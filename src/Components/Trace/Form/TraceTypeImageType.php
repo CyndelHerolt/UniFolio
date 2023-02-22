@@ -29,24 +29,28 @@ class TraceTypeImageType extends AbstractType
                 'label' => ' ',
             ])
 //            ->add('date_modification', DateType::class)
+
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Titre de ma trace',],
+                'help' => '100 caractères maximum',
             ])
             ->add('contenu', FileType::class, [
-                'label' => 'Fichier',
+                'label' => 'Image',
                 'mapped' => false,
                 'required' => false,
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
+                'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+                'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
-            ->add('Envoyer', SubmitType::class, [
+            ->add('enregistrer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]

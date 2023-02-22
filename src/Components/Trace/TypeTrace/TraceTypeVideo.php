@@ -9,12 +9,12 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
     final public const TAG_TYPE_TRACE = 'video';
     final public const FORM = TraceTypeVideoType::class;
     final public const HELP = 'Upload de vidéo : lien Youtube';
-    final public const ICON = 'fa-brands fa-youtube';
+    final public const ICON = 'fa-brands fa-3x fa-youtube';
     final public const TEMPLATE = 'Components/Trace/type/video.html.twig';
 
     public function display(): string
     {
-        return self::HELP;
+        return self::TAG_TYPE_TRACE;
     }
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array
