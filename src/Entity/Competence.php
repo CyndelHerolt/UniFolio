@@ -27,6 +27,12 @@ class Competence
     #[ORM\OneToMany(mappedBy: 'competences', targetEntity: Validation::class)]
     private Collection $validations;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $code = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $ue = null;
+
     public function __construct()
     {
         $this->validations = new ArrayCollection();
@@ -99,6 +105,30 @@ class Competence
                 $validation->setCompetences(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getUe(): ?string
+    {
+        return $this->ue;
+    }
+
+    public function setUe(?string $ue): self
+    {
+        $this->ue = $ue;
 
         return $this;
     }
