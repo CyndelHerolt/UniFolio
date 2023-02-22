@@ -1,22 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}UniFolio - Profil{% endblock %}
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ user }}!✅</h1>
-
-    <h2>{{ prenom }} - {{ nom }} - {{ email }}</h2>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/UniFolio/src/Controller/ProfilController.php'|file_link(0) }}">src/Controller/ProfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/UniFolio/templates/profil/index.html.twig'|file_link(0) }}">templates/profil/index.html.twig</a></code></li>
-    </ul>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profil</li>
+        </ol>
+    </nav>
+    <div class="container">
+        <h1>Profil</h1>
+        <section class="profil">
+            <div class="row btn-profil">
+                <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
+                    <button>Editer le profil</button>
+                </a>
 </div>
+            <div class="row">
+                <article class="col-lg-10 col-12">
+                    <h2>{{ prenom }} {{ nom }} ● <span>BUT2 - Métiers du multimédia et de l'internet</span></h2>
+                    <h3>Spécialité : Développement web et dispositifs interactifs</h3>
+                <div class="col-lg-10 col-12 btn-group">
+                    <a href="#">
+                        <button>Accéder au portfolio</button>
+                    </a>
+                    <a href="#">
+                        <button>Accéder au CV</button>
+                    </a>
+                </div>
+                </article>
+            </div>
+
+            <div class="row">
+                <article class="col-lg-10 col-12">
+                    <!-- à récupéré depuis le CV -->
+                    <p><span>Bio : </span><br>Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum
+                        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque
+                        bibendum ipsum, non tincidunt risus ultrices vel. Aliquam vulputate odio quis urna luctus
+                        tristique. Nam id blandit ligula. Etiam dictum pulvinar erat, in vehicula arcu pulvinar id. In
+                        hac habitasse platea dictumst. Etiam vehicula efficitur lacus, sit amet rhoncus nisi pharetra
+                        sed.</p>
+                </article>
+            </div>
+
+            <div class="row">
+                <article class="col-lg-10 col-12">
+                    <h4>Informations de contact</h4>
+                    <ul>
+                        <li class="col-lg-3 col-12"><span>Email personnel :</span> {{ email_perso }}</li>
+                        <li class="col-lg-3 col-12"><span>Email universitaire :</span> {{ email_univ }}</li>
+                        <li class="col-lg-3 col-12"><span>Téléphone :</span> {{ tel }}</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-6">
+                    <h2>UniFolio</h2>
+                </div>
+                <div class="col-lg-4 col-6">
+                <p>Institut Universitaire de technologie de Troyes</p>
+                </div>
+                    <div class="col-lg-4 col-12">
+                    <p>© Cyndel Herolt - IUT de Troyes. 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}

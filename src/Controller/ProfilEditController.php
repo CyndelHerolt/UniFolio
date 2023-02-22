@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Etudiant;
-use App\Form\Etudiant1Type;
+use App\Form\EtudiantType;
 use App\Repository\EtudiantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class ProfilEditController extends AbstractController
     public function new(Request $request, EtudiantRepository $etudiantRepository): Response
     {
         $etudiant = new Etudiant();
-        $form = $this->createForm(Etudiant1Type::class, $etudiant);
+        $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,13 +51,13 @@ class ProfilEditController extends AbstractController
     #[Route('/{id}/edit', name: 'app_profil_edit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Etudiant $etudiant, EtudiantRepository $etudiantRepository): Response
     {
-        $form = $this->createForm(Etudiant1Type::class, $etudiant);
+        $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $etudiantRepository->save($etudiant, true);
 
-            return $this->redirectToRoute('app_profil_edit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_profil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('profil_edit/edit.html.twig', [

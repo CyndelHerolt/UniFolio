@@ -45,6 +45,9 @@ class Etudiant
     #[ORM\OneToOne(mappedBy: 'etudiant', cascade: ['persist', 'remove'])]
     private ?Users $users = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $telephone = null;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -250,6 +253,18 @@ class Etudiant
         }
 
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

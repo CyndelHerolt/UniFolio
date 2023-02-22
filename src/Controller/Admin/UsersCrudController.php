@@ -8,23 +8,16 @@ use App\Entity\Users;
 use App\Form\EtudiantType;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
-use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,39 +26,8 @@ use Symfony\Component\Form\{FormBuilderInterface, FormEvent, FormEvents};
 
 class UsersCrudController extends AbstractCrudController
 {
-//    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
-//    {
-//        // Si l'instance actuelle est une entité Users
-//        if ($entityInstance instanceof Users) {
-//            // On récupère l'entité Etudiant depuis l'instance de Users
-//            $etudiant = $entityInstance->getEtudiant();
-//
-//            // Si l'entité Etudiant n'existe pas encore
-//            if ($etudiant === null) {
-//                // On crée une nouvelle instance de Etudiant
-//                $etudiant = new Etudiant();
-//
-//                // On set les informations nécessaires (exemple)
-////                $etudiant->setNom('Nom');
-////                $etudiant->setPrenom('Prénom');
-//
-//                // On associe l'entité Etudiant à l'entité Users
-//                $entityInstance->setEtudiant($etudiant);
-//            }
-//
-//            // On persiste l'entité Etudiant
-//            $entityManager->persist($etudiant);
-//        }
-//
-//        // On persiste l'entité Users
-//        $entityManager->persist($entityInstance);
-//
-//        // On exécute le flush
-//        $entityManager->flush();
-//    }
-
     public function __construct(
-        public UserPasswordHasherInterface $userPasswordHasher
+        public UserPasswordHasherInterface $userPasswordHasher,
     )
     {
     }
@@ -79,9 +41,9 @@ class UsersCrudController extends AbstractCrudController
     {
         // Construction manuelle des input étudiant
         $etudiant = FormField::addPanel('Etudiant')
-                ->setFormType(EtudiantType::class)
-                ->setRequired(true)
-                ->onlyOnForms();
+            ->setFormTypeOption('data_class', Etudiant::class)
+            ->setFormType(EtudiantType::class)
+            ->onlyOnForms();
 
         // Construction manuelle des input de mot de passe
         $password = TextField::new('password')
@@ -106,10 +68,6 @@ class UsersCrudController extends AbstractCrudController
             EmailField::new('email', 'Adresse mail'),
             $password,
             $etudiant,
-//            TextField::new('prenom')->hideOnForm(),
-//            TextField::new('nom'),
-//            EmailField::new('mail'),
-//            EmailField::new('mail_univ'),
         ];
     }
 
@@ -153,26 +111,26 @@ class UsersCrudController extends AbstractCrudController
     //-----------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------
 
-//    private function newEtudiant(EtudiantRepository $etudiantRepository, Users $user){
-//        if (in_array('ROLE_ETUDIANT', $user->getRoles())){
-//            $etudiant = new Etudiant();
-//            $etudiant->setUsers($user);
+    private function newEtudiant(EtudiantRepository $etudiantRepository, Users $user){
+        if (in_array('ROLE_ETUDIANT', $user->getRoles())){
+            $etudiant = new Etudiant();
+            $etudiant->setUsers($user);
 //            $etudiantRepository->save($etudiant, true);
-//        }
-//    }
-// private function newEnseignant(EnseignantRepository $enseignantRepository, Users $user){
-//        if (in_array('ROLE_ENSEIGNANT', $user->getRoles())){
-//            $enseignant = new Enseignant();
-//            $enseignant->setUsers($user);
+        }
+    }
+ private function newEnseignant(EnseignantRepository $enseignantRepository, Users $user){
+        if (in_array('ROLE_ENSEIGNANT', $user->getRoles())){
+            $enseignant = new Enseignant();
+            $enseignant->setUsers($user);
 //            $enseignantRepository->save($enseignant, true);
-//        }
-//    }
+        }
+    }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-//        $this->newEtudiant($entityManager->getRepository(Etudiant::class), $entityInstance);
-//        parent::persistEntity($entityManager, $entityInstance);
-//        $this->newEnseignant($entityManager->getRepository(Enseignant::class), $entityInstance);
+        $this->newEtudiant($entityManager->getRepository(Etudiant::class), $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
+        $this->newEnseignant($entityManager->getRepository(Enseignant::class), $entityInstance);
 
         // Si l'objet créé est un User, on doit créer un objet Etudiant lié
         if ($entityInstance instanceof Users) {
@@ -195,7 +153,37 @@ class UsersCrudController extends AbstractCrudController
     }
 
 
-    //-----------------------------------------------------------------------------------------------
+//    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+//    {
+//        // Si l'instance actuelle est une entité Users
+//        if ($entityInstance instanceof Users) {
+//            // On récupère l'entité Etudiant depuis l'instance de Users
+//            $etudiant = $entityInstance->getEtudiant();
+//
+//            // Si l'entité Etudiant n'existe pas encore
+//            if ($etudiant === null) {
+//                // On crée une nouvelle instance de Etudiant
+//                $etudiant = new Etudiant();
+//
+//                // On set les informations nécessaires (exemple)
+//                $etudiant->setPrenom('prenom');
+//
+//
+//                // On associe l'entité Etudiant à l'entité Users
+//                $entityInstance->setEtudiant($etudiant);
+//            }
+//
+//            // On persiste l'entité Etudiant
+//            $entityManager->persist($etudiant);
+//        }
+//
+//        // On persiste l'entité Users
+//        $entityManager->persist($entityInstance);
+//
+//        // On exécute le flush
+//        $entityManager->flush();
+//    }
+////-----------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------
@@ -205,7 +193,9 @@ class UsersCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Utilisateur')
             ->setEntityLabelInPlural('Utilisateurs')
-            ->setSearchFields(['username', 'roles']);
+            ->showEntityActionsInlined();
+
+//            ->setSearchFields(['username', 'roles']);
     }
 
     private function getDoctrine()

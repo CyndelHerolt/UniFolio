@@ -18,7 +18,7 @@ class ProfilController extends AbstractController
     //todo: mode édition
 
     #[Route('/profil', name: 'app_profil')]
-    public function profil(UsersRepository $usersRepository, EtudiantRepository $etudiantRepository): Response
+    public function profil(UsersRepository $usersRepository): Response
     {
         $user = $usersRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $userId = $this->getUser()->getUserIdentifier();
@@ -28,13 +28,23 @@ class ProfilController extends AbstractController
 
             // Si un objet Etudiant est trouvé, vous pouvez accéder à ses propriétés
             if ($etudiant instanceof Etudiant) {
-                $etudiant->setPrenom('Jean');
-                $etudiant->setNom('Dupont');
-                $etudiant->setMailPerso('JD@mail.com');
                 $nom = $etudiant->getNom();
                 $prenom = $etudiant->getPrenom();
-                $email = $etudiant->getMailPerso();
+                $email_perso = $etudiant->getMailPerso();
+                $email_univ = $etudiant->getMailUniv();
+                $tel = $etudiant->getTelephone();
+            }
+        }
+        elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
+            $enseignant = $user->getEnseignant();
 
+            // Si un objet Enseignant est trouvé, vous pouvez accéder à ses propriétés
+            if ($enseignant instanceof Enseignant) {
+                $nom = $enseignant->getNom();
+                $prenom = $enseignant->getPrenom();
+                $email_perso = $enseignant->getMailPerso();
+                $email_univ = $enseignant->getMailUniv();
+                $tel = $enseignant->getTelephone();
             }
         }
 
@@ -42,7 +52,9 @@ class ProfilController extends AbstractController
             'user' => $userId,
             'prenom' => $prenom,
             'nom' => $nom,
-            'email' => $email,
+            'email_perso' => $email_perso,
+            'email_univ' => $email_univ,
+            'tel' => $tel,
         ]);
     }
 }

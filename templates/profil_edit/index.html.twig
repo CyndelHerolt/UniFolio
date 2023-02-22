@@ -25,7 +25,7 @@
                 <td>{{ etudiant.mailPerso }}</td>
                 <td>{{ etudiant.mailUniv }}</td>
                 <td>
-                    <a href="{{ path('app_profil_edit_show', {'id': etudiant.id}) }}">show</a>
+                    <a href="{{ path('app_profil', {'id': etudiant.id}) }}">show</a>
                     <a href="{{ path('app_profil_edit_edit', {'id': etudiant.id}) }}">edit</a>
                 </td>
             </tr>
