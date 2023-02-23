@@ -36,10 +36,13 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 $traceRepository->save($trace, true);
                 return array('success' => true);
                 //return $this->redirectToRoute('app_trace');
-            } else {
+            } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                 $error = 'Le fichier n\'est pas au bon format';
                 return array('success' => false, 'error' => $error);
             }
         }
+        $error = 'Une erreur s\'est produite';
+        // Return an empty array if $imageFile is false
+        return array('success' => false, 'error' => $error);
     }
 }

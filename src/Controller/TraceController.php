@@ -29,21 +29,21 @@ class TraceController extends AbstractController
         ]);
     }
 
-    #[Route('/trace/formulaire/{id}', name: 'app_trace_formulaire')]
-    public function formulaire(
-        Request $request,
-        TraceRepository $traceRepository,
-        TraceRegistry $traceRegistry,
+    #[Route('/trace/formulaire/{id}', name: 'app_trace_new')]
+    public function new(
+        Request                $request,
+        TraceRepository        $traceRepository,
+        TraceRegistry          $traceRegistry,
         BibliothequeRepository $bibliothequeRepository,
-        CompetenceRepository $competenceRepository,
-        string $id,
+        CompetenceRepository   $competenceRepository,
+        string                 $id,
     ): Response
     {
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FROM, class, ICON, save...)
         $traceType = $traceRegistry->getTypeTrace($id);
-//dump($id);
-//dump($traceType);
-//die();
+        //dump($id);
+        //dump($traceType);
+        //die();
         $competence = $competenceRepository->findAll();
 
         $trace = new Trace();
@@ -61,8 +61,7 @@ class TraceController extends AbstractController
                 $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
-            }
-            else {
+            } else {
                 $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
                 $this->addFlash('error', $error);
             }
@@ -71,6 +70,49 @@ class TraceController extends AbstractController
         return $this->render('trace/formulaire.html.twig', [
             'form' => $form->createView(),
             'trace' => $traceRegistry->getTypeTrace($id),
+            'competences' => $competence,
+        ]);
+    }
+
+    #[Route('/trace/edit/{id}', name: 'app_trace_edit')]
+    public function edit(
+        Request              $request,
+        TraceRepository      $traceRepository,
+        TraceRegistry        $traceRegistry,
+        string               $id,
+        CompetenceRepository $competenceRepository,
+    ): Response
+    {
+
+        //todo: dans formulaire edit : récupérer les données de la trace à modifier et les afficher dans le formulaire
+
+        $trace = $traceRepository->find($id);
+
+        if (!$trace) {
+            throw $this->createNotFoundException('Trace non trouvée.');
+        }
+
+        $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
+        $competence = $competenceRepository->findAll();
+
+        $form = $this->createForm($traceType::FORM, $trace);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+
+                $traceRepository->save($trace, true);
+                $this->addFlash('success', 'La trace a été modifiée avec succès.');
+                return $this->redirectToRoute('app_trace');
+            } else {
+                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                $this->addFlash('error', $error);
+            }
+        }
+
+        return $this->render('trace/edit.html.twig', [
+            'form' => $form->createView(),
+            'trace' => $trace,
             'competences' => $competence,
         ]);
     }
