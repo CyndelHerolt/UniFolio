@@ -15,8 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class ProfilController extends AbstractController
 {
 
-    //todo: mode édition
-
     #[Route('/profil', name: 'app_profil')]
     public function profil(UsersRepository $usersRepository): Response
     {
@@ -33,6 +31,7 @@ class ProfilController extends AbstractController
                 $email_perso = $etudiant->getMailPerso();
                 $email_univ = $etudiant->getMailUniv();
                 $tel = $etudiant->getTelephone();
+                $bio = $etudiant->getBio();
             }
         }
         elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
@@ -45,6 +44,7 @@ class ProfilController extends AbstractController
                 $email_perso = $enseignant->getMailPerso();
                 $email_univ = $enseignant->getMailUniv();
                 $tel = $enseignant->getTelephone();
+                $bio = null;
             }
         }
 
@@ -55,6 +55,7 @@ class ProfilController extends AbstractController
             'email_perso' => $email_perso,
             'email_univ' => $email_univ,
             'tel' => $tel,
+            'bio' => $bio,
         ]);
     }
 }

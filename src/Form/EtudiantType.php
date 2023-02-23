@@ -15,8 +15,9 @@ class EtudiantType extends AbstractType
 //            ->add('prenom')
 //            ->add('nom')
             ->add('mail_perso')
-            ->add('mail_univ')
-            ->add('telephone');
+//            ->add('mail_univ')
+            ->add('telephone')
+            ->add('bio');
     }
 
     public function configureOptions(OptionsResolver $resolver)
