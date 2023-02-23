@@ -84,7 +84,7 @@ class TraceController extends AbstractController
     ): Response
     {
 
-        //todo: dans formulaire edit : récupérer les données de la trace à modifier et les afficher dans le formulaire
+        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire + trouver pourquoi datemodification ne se met pas à jour dans la database
 
         $trace = $traceRepository->find($id);
 

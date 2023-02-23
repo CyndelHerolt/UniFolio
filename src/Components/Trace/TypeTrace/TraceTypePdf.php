@@ -38,5 +38,8 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
                 return array('success' => false, 'error' => $error);
             }
         }
+        $error = 'Une erreur s\'est produite';
+        // Return an empty array if $imageFile is false
+        return array('success' => false, 'error' => $error);
     }
 }

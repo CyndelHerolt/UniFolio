@@ -29,7 +29,12 @@ class TraceTypeVideoType extends AbstractType
                 'disabled' => true,
                 'label' => ' ',
             ])
-//            ->add('date_modification', DateType::class)
+            ->add('date_modification', DateTimeType::class, [
+                'data' => new \DateTimeImmutable(),
+                'widget' => 'single_text',
+                'disabled' => true,
+                'label' => ' ',
+            ])
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
                 'label_attr' => ['class' => 'form-label'],
