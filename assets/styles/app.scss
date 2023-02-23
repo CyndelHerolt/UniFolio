@@ -354,19 +354,19 @@ body {
     }
 
     .profil {
-      @include zone(50px 0, 0 40px 50px 40px, $color-primary, 10px);
 
       .btn-profil {
-        display: flex;
-        justify-content: flex-end;
         position: relative;
         bottom: 25px;
+        display: flex;
+        justify-content: flex-end;
 
         a {
-          text-align: end;
           width: fit-content;
+          padding: 0;
 
           button {
+
             @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
 
             &:hover {
@@ -377,69 +377,53 @@ body {
       }
 
       .row {
+        justify-content: space-between;
 
         article {
-          @include zone(50px 0, 50px 75px 0 75px, $color-light, 10px);
-          margin: 25px auto;
-          text-align: center;
+          @include zone(25px 0, 0px 40px 40px 40px, $color-primary, 10px);
 
           h2 {
-            @include titre($secondary-font, 28px, 1.5);
+            @include titre($primary-font, 22px, 1.5);
             font-weight: 500;
-
-            span {
-              @include titre($primary-font, 24px, 1.5);
-            }
+            margin-bottom: 25px;
           }
 
-          h3 {
-            @include titre($primary-font, 22px, 1.5);
+          ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+              margin-bottom: 10px;
+            }
           }
         }
 
         aside {
+          //width: 40%;
+          @include zone(25px 0, 40px, $color-primary, 10px);
+
+          h2 {
+            @include titre($primary-font, 22px, 1.5);
+            font-weight: 500;
+            margin-bottom: 25px;
+          }
 
           ul {
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            @media (max-width: 992px) {
-              flex-direction: row;
-              padding: 25px 0 0 0;
-            }
-            height: 100%;
-            padding: 25px 0;
-            justify-content: space-between;
+            padding: 0;
 
             li {
-              font-weight: 600;
-
-              p {
-                font-weight: 400;
-                margin: 0;
-              }
+              margin-bottom: 10px;
             }
           }
-        }
 
-        .btn-group {
-          display: flex;
-          justify-content: space-between;
-          margin: 0 auto;
-          position: relative;
-          top: 23px;
-
-          a {
+          p {
+            text-align: center;
+            padding: 10px 20px;
             width: fit-content;
-
-            button {
-              @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-              width: 175px;
-
-              &:hover {
-                @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
-              }
-            }
+            margin: 0 auto;
+            background-color: $color-light;
+            color: $color-dark;
           }
         }
       }

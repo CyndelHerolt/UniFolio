@@ -18,105 +18,66 @@
 
         {% if is_granted('ROLE_ETUDIANT') %}
 
-        <section class="profil">
-            <div class="row btn-profil">
-                <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
-                    <button>Editer le profil</button>
-                </a>
-            </div>
-            <div class="row">
-                <aside class="col-lg-2 col-12">
-                    <ul>
-                        <li>
-                            Recherche :
-                            <p>Alternance</p>
-                        </li>
-                        <li>
-                            Email-personnel :
-                            <p>{{ email_perso }}</p>
-                        </li>
-                        <li>
-                            Email-universitaire :
-                            <p>{{ email_univ }}</p>
-                        </li>
-                        <li>
-                            Téléphone :
-                            <p>{{ tel }}</p>
-                        </li>
-                        <li>
-                            Référent :
-                            <p>Nom Enseignant</p>
-                        </li>
-                    </ul>
-                </aside>
-                <article class="col-lg-10 col-12">
-                    <h2>{{ prenom }} {{ nom }} ● <span>BUT2 - Métiers du multimédia et de l'internet</span></h2>
-                    <h3>Spécialité : Développement web et dispositifs interactifs</h3>
-                    <p><br>Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum
-                        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque
-                        bibendum ipsum, non tincidunt risus ultrices vel. Aliquam vulputate odio quis urna luctus
-                        tristique.</p>
-                    <div class="col-lg-10 col-12 btn-group">
-                        <a href="#">
-                            <button>Accéder au portfolio</button>
-                        </a>
-                        <a href="#">
-                            <button>Accéder au CV</button>
-                        </a>
-                    </div>
-                </article>
-            </div>
-        </section>
+            <section class="profil">
+                <div class="row">
+                    <article  class="col-lg-7 col-12">
+                        <div class="btn-profil">
+                            <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
+                                <button>Editer le profil</button>
+                            </a>
+                        </div>
+                        <h2>Informations d'identification</h2>
+                        <div class="row">
+                        <div class="col-lg-5 col-12">
+                        <ul>
+                            <li>Prénom Nom : {{ prenom }} {{ nom }}</li>
+                            <li>Mail universitaire : {{ email_univ }}</li>
+                            <li>Mail personnel : {{ email_perso }}</li>
+                            <li>Téléphone : {{ tel }}</li>
+                        </ul>
+                        </div>
+                        <div class="col-lg-7 col-12">
+                            <p>Bio :  Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque bibendum ipsum, non tincidunt risus ultrices vel. Aliquam vulputate odio quis urna luctus tristique. Nam id blandit ligula. Etiam dictum pulvinar erat, in vehicula arcu pulvinar id. In hac habitasse platea dictumst. Etiam vehicula efficitur lacus, sit amet rhoncus nisi pharetra sed.</p>
+                        </div>
+                        </div>
+                    </article>
+                    <aside  class="col-lg-4 col-12">
+                        <h2>Informations universitaires</h2>
+                        <ul>
+                            <li>Diplôme : Bachelor Universitaire de Technologie - 2ème année</li>
+                            <li>Département : Métiers du Multimédia et de l'Internet</li>
+                            <li>Spécialité : Développement web et dispositifs interactifs</li>
+                        </ul>
+                        <hr>
+                        <p>Recherche une alternance</p>
+                    </aside>
+                </div>
+            </section>
 
         {% elseif is_granted('ROLE_ENSEIGNANT') %}
 
             <section class="profil">
-                <div class="row btn-profil">
+                <div class="row">
+                    <article  class="col-lg-7 col-12">
+                <div class="btn-profil">
                     <a href="{{ path('app_profil_edit_edit', {'id': app.user.enseignant.id}) }}">
                         <button>Editer le profil</button>
                     </a>
                 </div>
-                <div class="row">
-                    <aside class="col-lg-2 col-12">
+                        <h2>Informations d'identification</h2>
                         <ul>
-                            <li>
-                                Recherche :
-                                <p>Alternance</p>
-                            </li>
-                            <li>
-                                Email-personnel :
-                                <p>{{ email_perso }}</p>
-                            </li>
-                            <li>
-                                Email-universitaire :
-                                <p>{{ email_univ }}</p>
-                            </li>
-                            <li>
-                                Téléphone :
-                                <p>{{ tel }}</p>
-                            </li>
-                            <li>
-                                Référent :
-                                <p>Nom Enseignant</p>
-                            </li>
+                            <li>Prénom Nom : {{ prenom }} {{ nom }}</li>
+                            <li>Mail universitaire : {{ email_univ }}</li>
+                            <li>Mail personnel : {{ email_perso }}</li>
+                            <li>Téléphone : {{ tel }}</li>
+                        </ul>
+                    </article>
+                    <aside  class="col-lg-4 col-12">
+                        <h2>Informations universitaires</h2>
+                        <ul>
+                            <li>Référent des groupes : A - C</li>
                         </ul>
                     </aside>
-                    <article class="col-lg-10 col-12">
-                        <h2>{{ prenom }} {{ nom }} ● <span>BUT2 - Métiers du multimédia et de l'internet</span></h2>
-                        <h3>Spécialité : Développement web et dispositifs interactifs</h3>
-                        <p><br>Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum
-                            ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque
-                            bibendum ipsum, non tincidunt risus ultrices vel. Aliquam vulputate odio quis urna luctus
-                            tristique.</p>
-                        <div class="col-lg-10 col-12 btn-group">
-                            <a href="#">
-                                <button>Accéder au portfolio</button>
-                            </a>
-                            <a href="#">
-                                <button>Accéder au CV</button>
-                            </a>
-                        </div>
-                    </article>
                 </div>
             </section>
 
