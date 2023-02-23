@@ -15,6 +15,9 @@
     </nav>
     <div class="container">
         <h1>Profil</h1>
+
+        {% if is_granted('ROLE_ETUDIANT') %}
+
         <section class="profil">
             <div class="row btn-profil">
                 <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
@@ -64,6 +67,60 @@
                 </article>
             </div>
         </section>
+
+        {% elseif is_granted('ROLE_ENSEIGNANT') %}
+
+            <section class="profil">
+                <div class="row btn-profil">
+                    <a href="{{ path('app_profil_edit_edit', {'id': app.user.enseignant.id}) }}">
+                        <button>Editer le profil</button>
+                    </a>
+                </div>
+                <div class="row">
+                    <aside class="col-lg-2 col-12">
+                        <ul>
+                            <li>
+                                Recherche :
+                                <p>Alternance</p>
+                            </li>
+                            <li>
+                                Email-personnel :
+                                <p>{{ email_perso }}</p>
+                            </li>
+                            <li>
+                                Email-universitaire :
+                                <p>{{ email_univ }}</p>
+                            </li>
+                            <li>
+                                Téléphone :
+                                <p>{{ tel }}</p>
+                            </li>
+                            <li>
+                                Référent :
+                                <p>Nom Enseignant</p>
+                            </li>
+                        </ul>
+                    </aside>
+                    <article class="col-lg-10 col-12">
+                        <h2>{{ prenom }} {{ nom }} ● <span>BUT2 - Métiers du multimédia et de l'internet</span></h2>
+                        <h3>Spécialité : Développement web et dispositifs interactifs</h3>
+                        <p><br>Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum
+                            ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque
+                            bibendum ipsum, non tincidunt risus ultrices vel. Aliquam vulputate odio quis urna luctus
+                            tristique.</p>
+                        <div class="col-lg-10 col-12 btn-group">
+                            <a href="#">
+                                <button>Accéder au portfolio</button>
+                            </a>
+                            <a href="#">
+                                <button>Accéder au CV</button>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+        {% endif %}
     </div>
     <footer>
         <div class="container">

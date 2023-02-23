@@ -36,6 +36,12 @@ class Enseignant
     #[ORM\OneToOne(mappedBy: 'enseignant', cascade: ['persist', 'remove'])]
     private ?Users $users = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mail_perso = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $telephone = null;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
@@ -192,6 +198,30 @@ class Enseignant
         }
 
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getMailPerso(): ?string
+    {
+        return $this->mail_perso;
+    }
+
+    public function setMailPerso(?string $mail_perso): self
+    {
+        $this->mail_perso = $mail_perso;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

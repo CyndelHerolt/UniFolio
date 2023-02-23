@@ -14,9 +14,11 @@ class EnseignantType extends AbstractType
         $builder
             ->add('prenom')
             ->add('nom')
+//            ->add('mail_univ')
+//            ->add('users')
+            ->add('mail_perso')
             ->add('mail_univ')
-            ->add('users')
-        ;
+            ->add('telephone');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
