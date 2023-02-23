@@ -9,7 +9,7 @@ body {
   .container {
     max-width: 100vw;
     //background-color: $color-bg;
-padding: 50px 75px;
+    padding: 50px 75px;
 
 
     nav {
@@ -354,29 +354,7 @@ padding: 50px 75px;
     }
 
     .profil {
-      @include zone(50px 0, 0 40px, $color-primary, 10px);
-
-      .row:nth-child(2) {
-
-        article {
-          @include zone(50px 0, 50px 75px 0 75px, $color-light, 10px);
-          margin: 25px auto;
-          text-align: center;
-
-          h2 {
-            @include titre($secondary-font, 28px, 1.5);
-            font-weight: 500;
-
-            span {
-              @include titre($primary-font, 24px, 1.5);
-            }
-          }
-
-          h3 {
-            @include titre($primary-font, 22px, 1.5);
-          }
-        }
-      }
+      @include zone(50px 0, 0 40px 50px 40px, $color-primary, 10px);
 
       .btn-profil {
         display: flex;
@@ -400,12 +378,56 @@ padding: 50px 75px;
 
       .row {
 
+        article {
+          @include zone(50px 0, 50px 75px 0 75px, $color-light, 10px);
+          margin: 25px auto;
+          text-align: center;
+
+          h2 {
+            @include titre($secondary-font, 28px, 1.5);
+            font-weight: 500;
+
+            span {
+              @include titre($primary-font, 24px, 1.5);
+            }
+          }
+
+          h3 {
+            @include titre($primary-font, 22px, 1.5);
+          }
+        }
+
+        aside {
+
+          ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            @media (max-width: 992px) {
+              flex-direction: row;
+              padding: 25px 0 0 0;
+            }
+            height: 100%;
+            padding: 25px 0;
+            justify-content: space-between;
+
+            li {
+              font-weight: 600;
+
+              p {
+                font-weight: 400;
+                margin: 0;
+              }
+            }
+          }
+        }
+
         .btn-group {
           display: flex;
           justify-content: space-between;
           margin: 0 auto;
           position: relative;
-          top: 25px;
+          top: 23px;
 
           a {
             width: fit-content;
@@ -416,48 +438,6 @@ padding: 50px 75px;
 
               &:hover {
                 @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
-              }
-            }
-          }
-        }
-      }
-
-      .row:nth-child(3) {
-
-        article {
-          border: solid 1px $color-dark;
-          border-radius: 5px;
-          margin: 25px auto;
-          padding: 25px 50px;
-          background-color: $color-secondary;
-
-          p {
-            margin: 0;
-
-            span {
-              font-weight: 500;
-            }
-          }
-        }
-      }
-
-      .row:nth-child(4) {
-
-        article {
-          margin: 0 auto;
-
-          ul {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: 0;
-            margin: 0 0 75px 0;
-
-            li {
-
-              span {
-                font-weight: 600;
               }
             }
           }
