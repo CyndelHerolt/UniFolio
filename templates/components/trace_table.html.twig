@@ -1,7 +1,7 @@
 <tr>
     <td>{{ this.trace.titre }}</td>
-    <td>{{ this.trace.datecreation|date('d-m-Y') }}</td>
-    <td>{{ this.trace.datemodification|date('d-m-Y  H:i') }}</td>
+    <td>{{ this.trace.datecreation|date('d-m-y H:i') }}</td>
+    <td>{{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-y H:i') : this.trace.datemodification|date('d-m-y H:i') }}</td>
     <td>Portfolio 1</td>
     <td><i class="fa-solid fa-check"></i></td>
     <td class="table-btn">
