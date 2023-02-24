@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Génération des formulaires de dépot de traces">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Traces] Format date">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TraceRegistry.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +20,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="2e2e616f-3aa0-46ee-9422-faf7093816f6" />
+        <option name="url" value="https://github.com/CyndelHerolt/UniFolio.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Controller/AbstractCrudController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
@@ -161,7 +160,6 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
-      <path value="$PROJECT_DIR$/vendor/friendsofphp/proxy-manager-lts" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
@@ -176,7 +174,6 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/symfony/uid" />
@@ -186,6 +183,10 @@
       <path value="$PROJECT_DIR$/vendor/symfonycasts/reset-password-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="ProjectId" id="2L8eyfhYJSCBWAS0nweNGAJVL7Q" />
@@ -211,8 +212,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Components\Trace\DependencyInjection" />
-      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Form" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\trace" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\components" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\assets" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\public" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\partials" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -272,168 +276,24 @@
       <workItem from="1676569286796" duration="4740000" />
       <workItem from="1676617087344" duration="14546000" />
       <workItem from="1676637082327" duration="4106000" />
-      <workItem from="1676648038618" duration="7965000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat: [Connexion] Génération du formulaire de connexion et création d'un premier User">
-      <created>1675267027200</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1675267027200</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat: [Inscription] Génération du formulaire d'inscription">
-      <created>1675278358742</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1675278358742</updated>
-    </task>
-    <task id="LOCAL-00003" summary="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs">
-      <created>1675421423376</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1675421423376</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: [Administration] Génération du Dashboard d'admin et du Crud de gestion des utilisateurs">
-      <created>1675421705516</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1675421705516</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: [Général] Premier jet de la base de données">
-      <created>1675428076041</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1675428076041</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat: [Général] Premier jet de la base de données">
-      <created>1675434419421</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1675434419421</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
-      <created>1675434499534</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1675434499534</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
-      <created>1676272892275</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1676272892275</updated>
-    </task>
-    <task id="LOCAL-00009" summary="feat: [Dashboard] Génération des tableaux de bord">
-      <created>1676273009039</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1676273009039</updated>
-    </task>
-    <task id="LOCAL-00010" summary="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo">
-      <created>1676279439660</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1676279439660</updated>
-    </task>
-    <task id="LOCAL-00011" summary="feat: [Général] Premier jet de la base de données">
-      <created>1676300626964</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1676300626964</updated>
-    </task>
-    <task id="LOCAL-00012" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
-      <created>1676300714546</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1676300714546</updated>
-    </task>
-    <task id="LOCAL-00013" summary="feat: [Administration] Génération des liens entre les entités">
-      <created>1676300805409</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1676300805409</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs">
-      <created>1676300879636</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1676300879636</updated>
-    </task>
-    <task id="LOCAL-00015" summary="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs">
-      <created>1676300902807</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1676300902807</updated>
-    </task>
-    <task id="LOCAL-00016" summary="feat: [Fix] Création manuelle de l'input password pour cryptage">
-      <created>1676301022373</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1676301022373</updated>
-    </task>
-    <task id="LOCAL-00017" summary="feat: [Feat] Génération de la page de Profil">
-      <created>1676301064850</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1676301064850</updated>
-    </task>
-    <task id="LOCAL-00018" summary="feat: [Administration] Génération des CRUD pour la gestion des données">
-      <created>1676302820907</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1676302820907</updated>
-    </task>
-    <task id="LOCAL-00019" summary="feat: [Administration] Ajout de la gestion de la structure de la formation">
-      <created>1676302904171</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1676302904172</updated>
-    </task>
-    <task id="LOCAL-00020" summary="feat: [Administration] Ajout de la gestion de la structure de la formation">
-      <created>1676302928004</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1676302928004</updated>
-    </task>
-    <task id="LOCAL-00021" summary="feat: [Style] Installation et importation de Bootstrap">
-      <created>1676303641302</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1676303641302</updated>
-    </task>
-    <task id="LOCAL-00022" summary="feat: [Installation] Installation et importation de Bootstrap">
-      <created>1676315192801</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1676315192801</updated>
-    </task>
-    <task id="LOCAL-00023" summary="feat: [Connexion] Réinitialisation de mot de passe par mail">
-      <created>1676388155969</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388155969</updated>
+      <workItem from="1676648038618" duration="10811000" />
+      <workItem from="1676713852381" duration="6597000" />
+      <workItem from="1676731018899" duration="8829000" />
+      <workItem from="1676886889878" duration="8917000" />
+      <workItem from="1676897423743" duration="55000" />
+      <workItem from="1676897492877" duration="4496000" />
+      <workItem from="1676902065904" duration="30000" />
+      <workItem from="1676902111512" duration="23000" />
+      <workItem from="1676902157676" duration="13382000" />
+      <workItem from="1676966423734" duration="22835000" />
+      <workItem from="1677000755886" duration="1135000" />
+      <workItem from="1677052398588" duration="16302000" />
+      <workItem from="1677072227252" duration="64000" />
+      <workItem from="1677072306087" duration="41000" />
+      <workItem from="1677072362073" duration="7893000" />
+      <workItem from="1677087815792" duration="3958000" />
+      <workItem from="1677140137439" duration="24701000" />
+      <workItem from="1677224895833" duration="11644000" />
     </task>
     <task id="LOCAL-00024" summary="feat: [Déconnexion] Système de logout depuis le Dashboard">
       <created>1676388299185</created>
@@ -561,11 +421,239 @@
       <option name="project" value="LOCAL" />
       <updated>1676636305261</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="feat: [Traces] Génération des formulaires de dépot de traces">
+      <created>1676656457434</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1676656457434</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat: [package] Importation de FontAwesome">
+      <created>1676656495511</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1676656495511</updated>
+    </task>
+    <task id="LOCAL-00044" summary="feat: [Profil] Récupération des infos de l'utilisateur connecté">
+      <created>1676658446134</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1676658446134</updated>
+    </task>
+    <task id="LOCAL-00045" summary="feat: [Profil] Génération de CRUD pour l'édition du profil (en cours)">
+      <created>1676658594568</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1676658594568</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat: [Accueil] Génération de la page d'accueil du site public">
+      <created>1676901029959</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1676901029959</updated>
+    </task>
+    <task id="LOCAL-00047" summary="feat: [Accueil] Génération de la page d'accueil du site public">
+      <created>1676901891796</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1676901891796</updated>
+    </task>
+    <task id="LOCAL-00048" summary="feat: [Accueil] Génération de la page d'accueil du site public">
+      <created>1676917412570</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1676917412570</updated>
+    </task>
+    <task id="LOCAL-00049" summary="feat: [Navigation] Génération du menu de navigation dynamique">
+      <created>1676917552961</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1676917552961</updated>
+    </task>
+    <task id="LOCAL-00050" summary="feat: [Style] Génération des fichiers SCSS, mise en forme de la page d'accueil du site public">
+      <created>1676917654558</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1676917654558</updated>
+    </task>
+    <task id="LOCAL-00051" summary="feat: [Dashboard] Structure du dashboard etudiant">
+      <created>1676922039204</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1676922039204</updated>
+    </task>
+    <task id="LOCAL-00052" summary="feat: [Dashboard] Structure du dashboard etudiant">
+      <created>1676973253428</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1676973253428</updated>
+    </task>
+    <task id="LOCAL-00053" summary="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant">
+      <created>1676975714404</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1676975714404</updated>
+    </task>
+    <task id="LOCAL-00054" summary="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace">
+      <created>1676977965590</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1676977965590</updated>
+    </task>
+    <task id="LOCAL-00055" summary="feat: [Components] Création d'un Twig Component pour l'affichage des traces">
+      <created>1676989248017</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1676989248017</updated>
+    </task>
+    <task id="LOCAL-00056" summary="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté">
+      <created>1676991143194</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1676991143194</updated>
+    </task>
+    <task id="LOCAL-00057" summary="feat: [Dashboard] Structure contenu du dashboard">
+      <created>1676991534283</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1676991534283</updated>
+    </task>
+    <task id="LOCAL-00058" summary="data: [Compétences] Créations données fictives">
+      <created>1677065416190</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1677065416190</updated>
+    </task>
+    <task id="LOCAL-00059" summary="feat: [Traces] Modal pour choix du type">
+      <created>1677065574994</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1677065574994</updated>
+    </task>
+    <task id="LOCAL-00060" summary="fix: LiveComponent import">
+      <created>1677065647433</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1677065647433</updated>
+    </task>
+    <task id="LOCAL-00061" summary="feat: [Profil] Affichage et édition du profil Etudiant">
+      <created>1677079481971</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1677079481971</updated>
+    </task>
+    <task id="LOCAL-00062" summary="feat: [Profil] Affichage et édition du profil Etudiant">
+      <created>1677147484109</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1677147484110</updated>
+    </task>
+    <task id="LOCAL-00063" summary="feat: [Profil] Affichage et édition du profil Enseignant">
+      <created>1677150612891</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1677150612891</updated>
+    </task>
+    <task id="LOCAL-00064" summary="fix: [Profil] Structure de l'affichage des informations">
+      <created>1677154584505</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1677154584505</updated>
+    </task>
+    <task id="LOCAL-00065" summary="fix: [Profil] Structure de l'affichage des informations">
+      <created>1677156722865</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1677156722865</updated>
+    </task>
+    <task id="LOCAL-00066" summary="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent">
+      <created>1677160128043</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1677160128043</updated>
+    </task>
+    <task id="LOCAL-00067" summary="feat: [Trace] Modification des traces">
+      <created>1677164174094</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1677164174094</updated>
+    </task>
+    <task id="LOCAL-00068" summary="fix: [Trace] Formulaire de modification des traces">
+      <created>1677166635097</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1677166635098</updated>
+    </task>
+    <task id="LOCAL-00069" summary="fix: [Formulaire] Camouflage des input de date">
+      <created>1677166690025</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1677166690025</updated>
+    </task>
+    <task id="LOCAL-00070" summary="fix: [Etudiant] Formulaire de création et d'édition d'objet etudiant">
+      <created>1677229318004</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1677229318004</updated>
+    </task>
+    <task id="LOCAL-00071" summary="fix: [Traces] Récupération de la date de modification">
+      <created>1677236756327</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1677236756327</updated>
+    </task>
+    <task id="LOCAL-00072" summary="fix: [Traces] Format date">
+      <created>1677237010820</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1677237010820</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -606,31 +694,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord" />
-    <MESSAGE value="feat: [Administration] Permission pour l'admin de prendre le role d'étudiant ou d'enseignant pour accéder à une version de démo" />
-    <MESSAGE value="feat: [Général] Premier jet de la base de données" />
-    <MESSAGE value="feat: [Administration] Génération des liens entre les entités" />
-    <MESSAGE value="feat: [Dashboard] Génération des tableaux de bord pour les différents utilisateurs" />
-    <MESSAGE value="feat: [Fix] Création manuelle de l'input password pour cryptage" />
-    <MESSAGE value="feat: [Feat] Génération de la page de Profil" />
-    <MESSAGE value="feat: [Administration] Génération des CRUD pour la gestion des données" />
-    <MESSAGE value="feat: [Administration] Ajout de la gestion de la structure de la formation" />
-    <MESSAGE value="feat: [Style] Installation et importation de Bootstrap" />
-    <MESSAGE value="feat: [Installation] Installation et importation de Bootstrap" />
-    <MESSAGE value="feat: [Déconnexion] Système de logout depuis le Dashboard" />
-    <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les informations des enseignants" />
-    <MESSAGE value="feat: [Administration] Génération d'un crud pour gérer les templates" />
-    <MESSAGE value="feat: [Connexion] Réinitialisation de mot de passe par mail" />
-    <MESSAGE value="feat: [Traces] Création d'un composant pour les types de traces" />
-    <MESSAGE value="feat: [Update] Mise à jour de Symfony vers la version 6.2" />
-    <MESSAGE value="feat: [Administration] Création d'un étudiant lorsqu'un user se voit attribuer ce role à sa création" />
-    <MESSAGE value="fix: [Password Reset] Correction de l'async de l'envoi de mail" />
-    <MESSAGE value="fix: [Administration] Correction du CRUD des Traces" />
-    <MESSAGE value="feat: [Profil] Lien avec la base de données pour récupérer les informations de l'utilisateur" />
-    <MESSAGE value="add" />
-    <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace" />
-    <MESSAGE value="feat: [Traces] Génération du formulaire de dépot de trace (en cours)" />
-    <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Génération des formulaires de dépot de traces" />
+    <MESSAGE value="feat: [package] Importation de FontAwesome" />
+    <MESSAGE value="feat: [Profil] Récupération des infos de l'utilisateur connecté" />
+    <MESSAGE value="feat: [Profil] Génération de CRUD pour l'édition du profil (en cours)" />
+    <MESSAGE value="feat: [Accueil] Génération de la page d'accueil du site public" />
+    <MESSAGE value="feat: [Navigation] Génération du menu de navigation dynamique" />
+    <MESSAGE value="feat: [Style] Génération des fichiers SCSS, mise en forme de la page d'accueil du site public" />
+    <MESSAGE value="feat: [Dashboard] Structure du dashboard etudiant" />
+    <MESSAGE value="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant" />
+    <MESSAGE value="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace" />
+    <MESSAGE value="feat: [Components] Création d'un Twig Component pour l'affichage des traces" />
+    <MESSAGE value="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté" />
+    <MESSAGE value="feat: [Dashboard] Structure contenu du dashboard" />
+    <MESSAGE value="data: [Compétences] Créations données fictives" />
+    <MESSAGE value="feat: [Traces] Modal pour choix du type" />
+    <MESSAGE value="fix: LiveComponent import" />
+    <MESSAGE value="feat: [Profil] Affichage et édition du profil Etudiant" />
+    <MESSAGE value="feat: [Profil] Affichage et édition du profil Enseignant" />
+    <MESSAGE value="fix: [Profil] Structure de l'affichage des informations" />
+    <MESSAGE value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
+    <MESSAGE value="feat: [Trace] Modification des traces" />
+    <MESSAGE value="fix: [Trace] Formulaire de modification des traces" />
+    <MESSAGE value="fix: [Formulaire] Camouflage des input de date" />
+    <MESSAGE value="fix: [Etudiant] Formulaire de création et d'édition d'objet etudiant" />
+    <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
+    <MESSAGE value="fix: [Traces] Format date" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Traces] Format date" />
   </component>
 </project>
