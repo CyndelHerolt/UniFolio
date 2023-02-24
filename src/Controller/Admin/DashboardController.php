@@ -62,8 +62,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
-        yield MenuItem::linkToCrud('Gestion des étudiants', 'fas fa-list', Etudiant::class);
-        yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
+        yield MenuItem::linkToCrud('Gestion des etudiants', 'fas fa-list', Etudiant::class);
         yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
 
         yield MenuItem::section('Portfolios');
