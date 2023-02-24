@@ -49,6 +49,7 @@ class Trace
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
+        $this->date_modification = null;
         $this->validations = new ArrayCollection();
         $this->pages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();

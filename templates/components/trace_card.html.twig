@@ -1,9 +1,11 @@
+{# templates/components/trace_card.html.twig #}
+
 <div class="card m-4">
     <div class="card-body">
         <h5 class="card-title">{{ this.trace.titre }}</h5>
 {#        <p class="card-text">{{ this.trace.datecreation|date('d-m-Y') }}</p>#}
-        <p class="card-text">{{ this.trace.datemodification|date('d-m-Y') }}</p>
-{#        <p class="card-text">{{ this.trace.contenu }}</p>#}
+        <p class="card-text">Dernière modification : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
+        <p class="card-text">{{ this.trace.contenu }}</p>
         <p class="card-text">{{ this.trace.description }}</p>
         <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}"><button class="btn btn-primary">Modifier</button></a>
 

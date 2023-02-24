@@ -100,7 +100,9 @@ class TraceController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
-
+                $form->getData()->setDatemodification(new \DateTimeImmutable());
+//                dump($trace);
+//                die();
                 $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été modifiée avec succès.');
                 return $this->redirectToRoute('app_trace');

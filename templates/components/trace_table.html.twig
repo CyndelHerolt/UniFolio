@@ -1,13 +1,17 @@
 <tr>
-                                <td>{{ this.trace.titre }}</td>
-                                <td>{{ this.trace.datecreation|date('d-m-Y') }}</td>
-                                <td>01/01/2021</td>
-                                <td>Portfolio 1</td>
-                                <td><i class="fa-solid fa-check"></i></td>
-                                <td class="table-btn">
-                                    <div class="btn-group">
-                                        <a href=""><button><i class="fa-solid fa-edit"></i></button></a>
-                                        <a href=""><button><i class="fa-solid fa-eye"></i></button></a>
-                                    </div>
-                                </td>
-                        </tr>
+    <td>{{ this.trace.titre }}</td>
+    <td>{{ this.trace.datecreation|date('d-m-Y') }}</td>
+    <td>{{ this.trace.datemodification|date('d-m-Y  H:i') }}</td>
+    <td>Portfolio 1</td>
+    <td><i class="fa-solid fa-check"></i></td>
+    <td class="table-btn">
+        <div class="btn-group">
+            <a href="">
+                <button><i class="fa-solid fa-edit"></i></button>
+            </a>
+            <a href="">
+                <button><i class="fa-solid fa-eye"></i></button>
+            </a>
+        </div>
+    </td>
+</tr>
