@@ -138,8 +138,8 @@ class UsersCrudController extends AbstractCrudController
             $etudiant->setUsers($entityInstance);
             // Récupérer les données saisies dans le formulaire et les affecter à l'objet Etudiant
             $form = $this->createForm(EtudiantType::class, $etudiant);
-            $form->handleRequest(Request::createFromGlobals());
             if ($form->isSubmitted() && $form->isValid()) {
+            $form->handleRequest(Request::createFromGlobals());
                 $entityManager->persist($etudiant);
                 $entityManager->flush(true);
             }

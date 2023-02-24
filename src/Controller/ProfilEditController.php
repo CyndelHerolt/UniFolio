@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Form\EnseignantType;
+use App\Form\EtudiantPartialType;
 use App\Form\EtudiantType;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
@@ -84,14 +85,14 @@ class ProfilEditController extends AbstractController
     #[Route('/{id}/edit', name: 'app_profil_edit_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request              $request,
-        ?Etudiant            $etudiant = null,
-        ?Enseignant          $enseignant = null,
+        ?Etudiant            $etudiant,
+        ?Enseignant          $enseignant,
         EtudiantRepository   $etudiantRepository,
         EnseignantRepository $enseignantRepository,
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-            $form = $this->createForm(EtudiantType::class, $etudiant);
+            $form = $this->createForm(EtudiantPartialType::class, $etudiant);
         } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
             $form = $this->createForm(EnseignantType::class, $enseignant);
         }
