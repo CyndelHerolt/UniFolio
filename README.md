@@ -24,6 +24,10 @@ Mettre à jour le fichier .env.local avec vos informations
 ### Compilation des ressources front
 
     npm run encore dev --watch
+    
+### Créer la databasae et importer les données
+
+## WIP
 
 ## Licence 
 
