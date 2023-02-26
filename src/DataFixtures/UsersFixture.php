@@ -48,17 +48,17 @@ class UsersFixture extends Fixture
         $user2->setUsername('etudiant')
             ->setPassword($password)
             ->setRoles(['ROLE_ETUDIANT']);
-        if (in_array('ROLE_ETUDIANT', $user2->getRoles())) {
-            $etudiant = new Etudiant();
-            $biblio = new Bibliotheque();
+        $etudiant = new Etudiant();
+        $biblio = new Bibliotheque();
 
-            $etudiant->setUsers($user2);
-            $biblio->setEtudiant($etudiant);
+        $etudiant->setUsers($user2);
+        $biblio->setEtudiant($etudiant);
 //            $this->etudiantRepository->$manager->persist($etudiant);
 //            $this->bibliothequeRepository->$manager->persist($biblio);
-        }
+        $manager->persist($etudiant);
+        $manager->persist($biblio);
 
-        $manager->persist($user2, $etudiant, $biblio);
+        $manager->persist($user2);
 
         //---------------------------------------------------------
         //---------------------------------------------------------
@@ -71,23 +71,22 @@ class UsersFixture extends Fixture
         $user3->setUsername('etudiantTest')
             ->setPassword($password)
             ->setRoles(['ROLE_ETUDIANT']);
-        if (in_array('ROLE_ETUDIANT', $user3->getRoles())) {
-            $etudiant = new Etudiant();
-            $biblio = new Bibliotheque();
+        $etudiant = new Etudiant();
+        $biblio = new Bibliotheque();
 
-            $etudiant->setUsers($user3);
+        $etudiant->setUsers($user3);
 
-            $etudiant->setNom('Doe');
-            $etudiant->setPrenom('John');
-            $etudiant->setMailPerso('perso@mail.com');
-            $etudiant->setMailUniv('etudiant@mail.com');
-            $etudiant->setTelephone('0123456789');
-            $etudiant->setBio('Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque bibendum ipsum, non tincidunt risus ultrices vel.');
+        $etudiant->setNom('Doe');
+        $etudiant->setPrenom('John');
+        $etudiant->setMailPerso('perso@mail.com');
+        $etudiant->setMailUniv('etudiant@mail.com');
+        $etudiant->setTelephone('0123456789');
+        $etudiant->setBio('Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque bibendum ipsum, non tincidunt risus ultrices vel.');
 
-            $biblio->setEtudiant($etudiant);
-//            $this->etudiantRepository->$manager->persist($etudiant, true);
-//            $this->bibliothequeRepository->$manager->persist($biblio, true);
-        }
+        $biblio->setEtudiant($etudiant);
+
+        $manager->persist($etudiant);
+        $manager->persist($biblio);
 
         $manager->persist($user3, $etudiant, $biblio);
 
@@ -102,13 +101,11 @@ class UsersFixture extends Fixture
         $user4->setUsername('enseignant')
             ->setPassword($password)
             ->setRoles(['ROLE_ENSEIGNANT']);
-        if (in_array('ROLE_ENSEIGNANT', $user4->getRoles())) {
             $enseignant = new Enseignant();
             $enseignant->setUsers($user4);
-//            $this->enseignantRepository->$manager->persist($enseignant, true);
-        }
 
-        $manager->persist($user4, $enseignant);
+        $manager->persist($enseignant);
+        $manager->persist($user4);
 
 //---------------------------------------------------------
         //---------------------------------------------------------
@@ -121,7 +118,6 @@ class UsersFixture extends Fixture
         $user5->setUsername('enseignantTest')
             ->setPassword($password)
             ->setRoles(['ROLE_ENSEIGNANT']);
-        if (in_array('ROLE_ENSEIGNANT', $user5->getRoles())) {
             $enseignant = new Enseignant();
             $enseignant->setUsers($user5);
 
@@ -131,11 +127,8 @@ class UsersFixture extends Fixture
             $enseignant->setMailUniv('enseignant@mail.com');
             $enseignant->setTelephone('0123456789');
 
-//            $this->enseignantRepository->$manager->persist($enseignant, true);
-        }
-
-        $manager->persist($user5, $enseignant);
-
+        $manager->persist($enseignant);
+        $manager->persist($user5);
 
         $manager->flush();
     }
