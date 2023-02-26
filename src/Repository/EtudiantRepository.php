@@ -39,6 +39,11 @@ class EtudiantRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneByMailUniv(string $mailUniv): ?Etudiant
+    {
+        return $this->findOneBy(['mail_univ' => $mailUniv]);
+    }
+
 //    /**
 //     * @return Etudiant[] Returns an array of Etudiant objects
 //     */

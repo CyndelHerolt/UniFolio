@@ -6,9 +6,16 @@ use App\Entity\Competence;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class CompetencesFixtures extends Fixture
+class CompetencesFixtures extends Fixture implements OrderedFixtureInterface
 {
+    public function getOrder()
+    {
+        // Retourner un entier qui indique l'ordre de chargement des fixations
+        return 2;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');

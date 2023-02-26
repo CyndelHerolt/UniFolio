@@ -91,7 +91,15 @@ class Trace
 
     public function setBibliotheque(?Bibliotheque $bibliotheque): self
     {
+//        $this->bibliotheque = $bibliotheque;
+//
+//        return $this;
+
         $this->bibliotheque = $bibliotheque;
+
+        if ($bibliotheque !== null) {
+            $bibliotheque->addTrace($this);
+        }
 
         return $this;
     }

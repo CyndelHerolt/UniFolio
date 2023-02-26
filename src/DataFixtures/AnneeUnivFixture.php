@@ -5,9 +5,17 @@ namespace App\DataFixtures;
 use App\Entity\AnneeUniversitaire;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class AnneeUnivFixture extends Fixture
+class AnneeUnivFixture extends Fixture implements OrderedFixtureInterface
 {
+
+    public function getOrder()
+    {
+        // Retourner un entier qui indique l'ordre de chargement des fixations
+        return 4;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $anneeUniv = new AnneeUniversitaire();

@@ -7,15 +7,24 @@ use App\Repository\BibliothequeRepository;
 use App\Repository\EtudiantRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class TraceFixture extends Fixture
+class TraceFixture extends Fixture implements OrderedFixtureInterface
 {
 
-    public function __construct(
-        protected EtudiantRepository     $etudiantRepository,
-        protected BibliothequeRepository $bibliothequeRepository,
-    )
+    private $bibliothequeRepository;
+    private $etudiantRepository;
+
+    public function __construct(BibliothequeRepository $bibliothequeRepository, EtudiantRepository $etudiantRepository)
     {
+        $this->bibliothequeRepository = $bibliothequeRepository;
+        $this->etudiantRepository = $etudiantRepository;
+    }
+
+    public function getOrder()
+    {
+        // Retourner un entier qui indique l'ordre de chargement des fixations
+        return 3;
     }
 
     public function load(ObjectManager $manager): void
@@ -29,7 +38,7 @@ class TraceFixture extends Fixture
             ->setContenu('files_directory/image.png')
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
-        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->etudiantRepository->findOneByMailUniv('etudiant@mail.com')]);
         $trace1->setBibliotheque($biblio);
 
         $manager->persist($trace1);
@@ -47,7 +56,16 @@ class TraceFixture extends Fixture
             ->setContenu('https://github.com/CyndelHerolt')
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
-        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $trace2->setBibliotheque($biblio);
+
+        // Récupération de l'étudiant par son adresse e-mail
+        $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
+
+        // Récupération de la bibliothèque liée à cet étudiant
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+        // Lier l'objet Trace à cette bibliothèque
         $trace2->setBibliotheque($biblio);
 
         $manager->persist($trace2);
@@ -65,7 +83,16 @@ class TraceFixture extends Fixture
             ->setContenu('files_directory/pdf.pdf')
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
-        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $trace3->setBibliotheque($biblio);
+
+        // Récupération de l'étudiant par son adresse e-mail
+        $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
+
+        // Récupération de la bibliothèque liée à cet étudiant
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+        // Lier l'objet Trace à cette bibliothèque
         $trace3->setBibliotheque($biblio);
 
         $manager->persist($trace3);
@@ -83,7 +110,16 @@ class TraceFixture extends Fixture
             ->setContenu('https://www.youtube.com/watch?v=qJK_9eyRQl8')
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
-        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
+//        $trace4->setBibliotheque($biblio);
+
+        // Récupération de l'étudiant par son adresse e-mail
+        $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
+
+        // Récupération de la bibliothèque liée à cet étudiant
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+        // Lier l'objet Trace à cette bibliothèque
         $trace4->setBibliotheque($biblio);
 
         $manager->persist($trace4);

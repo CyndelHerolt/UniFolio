@@ -12,9 +12,17 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class UsersFixture extends Fixture
+class UsersFixture extends Fixture implements OrderedFixtureInterface
 {
+
+    public function getOrder()
+    {
+        // Retourner un entier qui indique l'ordre de chargement des fixations
+        return 1;
+    }
+
     public function __construct(
         private readonly UserPasswordHasherInterface $encoder,
         protected EtudiantRepository                 $etudiantRepository,
@@ -52,9 +60,17 @@ class UsersFixture extends Fixture
         $biblio = new Bibliotheque();
 
         $etudiant->setUsers($user2);
+
+        $etudiant->setNom('Martin');
+        $etudiant->setPrenom('Jean');
+        $etudiant->setMailPerso('persoTest@mail.com');
+        $etudiant->setMailUniv('etudiantTest@mail.com');
+        $etudiant->setTelephone('0123456781');
+        $etudiant->setBio('Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque bibendum ipsum, non tincidunt risus ultrices vel.');
+
+
         $biblio->setEtudiant($etudiant);
-//            $this->etudiantRepository->$manager->persist($etudiant);
-//            $this->bibliothequeRepository->$manager->persist($biblio);
+
         $manager->persist($etudiant);
         $manager->persist($biblio);
 
@@ -101,8 +117,15 @@ class UsersFixture extends Fixture
         $user4->setUsername('enseignant')
             ->setPassword($password)
             ->setRoles(['ROLE_ENSEIGNANT']);
-            $enseignant = new Enseignant();
-            $enseignant->setUsers($user4);
+        $enseignant = new Enseignant();
+
+        $enseignant->setUsers($user4);
+
+        $enseignant->setNom('Dupont');
+        $enseignant->setPrenom('Marie');
+        $enseignant->setMailPerso('persoTest@mail.com');
+        $enseignant->setMailUniv('enseignantTest@mail.com');
+        $enseignant->setTelephone('0123456782');
 
         $manager->persist($enseignant);
         $manager->persist($user4);
@@ -118,14 +141,14 @@ class UsersFixture extends Fixture
         $user5->setUsername('enseignantTest')
             ->setPassword($password)
             ->setRoles(['ROLE_ENSEIGNANT']);
-            $enseignant = new Enseignant();
-            $enseignant->setUsers($user5);
+        $enseignant = new Enseignant();
+        $enseignant->setUsers($user5);
 
-            $enseignant->setNom('Doe');
-            $enseignant->setPrenom('Jane');
-            $enseignant->setMailPerso('perso@mail.com');
-            $enseignant->setMailUniv('enseignant@mail.com');
-            $enseignant->setTelephone('0123456789');
+        $enseignant->setNom('Doe');
+        $enseignant->setPrenom('Jane');
+        $enseignant->setMailPerso('perso@mail.com');
+        $enseignant->setMailUniv('enseignant@mail.com');
+        $enseignant->setTelephone('0123456783');
 
         $manager->persist($enseignant);
         $manager->persist($user5);
