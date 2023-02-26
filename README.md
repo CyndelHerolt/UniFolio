@@ -30,11 +30,11 @@ Mettre à jour la database avec les données
     // version courte
     bin/console d:s:u -f
 
-[//]: # (Installer les fixtures et avoir un jeu de données fictives)
+Installer les fixtures et avoir un jeu de données fictives
 
-[//]: # (    bin/console doctrine:fixtures:load)
+    bin/console doctrine:fixtures:load
 
-[//]: # (    bin/console d:f:l)
+    bin/console d:f:l
 
 ### Installation des dépendances front
 
@@ -55,11 +55,13 @@ ou
 ### Démonstration
 
 Normalement, le projet est maintenant installé et fonctionnel. Vous pouvez accéder à la page d'accueil en tapant l'url suivante dans votre navigateur : http://localhost:8000/.
-Pour l'instant, il n'y a pas de compte utilisateur, il faut donc créer un compte utilisateur pour pouvoir accéder à l'administration, un compte pour accéder à la version étudiante et un compte pour accéder à la version enseignante. 
 
-Pour créer un compte, il faut taper l'url suivante : http://localhost:8000/users/new. Vous pouvez ensuite accéder au profil de l'utilisateur par le lien dans le menu en haut à droite et renseignez les informations demandées afin d'avoir un profil complet.
+#### Comptes utilisateurs
+Pour vous connecter (/login), utilisez l'un des login ci-dessous, et le mot de passe « test »
 
-La création de ces données va être automatisée dans un futur proche. 
+- admin
+- enseignantTest
+- etudiantTest
 
 ## Licence
 
