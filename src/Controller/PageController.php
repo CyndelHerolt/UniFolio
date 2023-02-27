@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Page;
 use App\Form\PageType;
 use App\Repository\PageRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +25,16 @@ class PageController extends AbstractController
 
     #[Route('/page/new/{id}', name: 'app_page_new')]
     public function new(
-        Request        $request,
-        PageRepository $pageRepository,
-        string         $id,
+        Request         $request,
+        PageRepository  $pageRepository,
+        Security        $security,
     ): Response
     {
+        $user = $security->getUser()->getEtudiant();
         $page = new Page();
-        $form = $this->createForm(PageType::class, $page);
+
+        $form = $this->createForm(PageType::class, $page, ['user' => $user]);
+
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,11 +42,13 @@ class PageController extends AbstractController
 
             return $this->redirectToRoute('app_page');
         }
-//        $page = $pageRepository->find($id);
+
+//        $trace = $traceRepository->findOneBy(['id' => $id]);
 
         return $this->render('page/new.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
+//            'trace' => $trace,
         ]);
     }
 }
