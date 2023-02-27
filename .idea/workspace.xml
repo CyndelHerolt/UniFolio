@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Traces] Format date">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Fixtures] Création ordonnée des objets">
+      <change afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,11 +215,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\page" />
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Components\Page\DependencyInjection" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\trace" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\components" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\assets" />
-      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\public" />
-      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\partials" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -293,56 +296,10 @@
       <workItem from="1677072362073" duration="7893000" />
       <workItem from="1677087815792" duration="3958000" />
       <workItem from="1677140137439" duration="24701000" />
-      <workItem from="1677224895833" duration="11644000" />
-    </task>
-    <task id="LOCAL-00024" summary="feat: [Déconnexion] Système de logout depuis le Dashboard">
-      <created>1676388299185</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388299185</updated>
-    </task>
-    <task id="LOCAL-00025" summary="feat: [Administration] Génération d'un crud pour gérer les informations des enseignants">
-      <created>1676388494999</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388494999</updated>
-    </task>
-    <task id="LOCAL-00026" summary="feat: [Administration] Génération d'un crud pour gérer les templates">
-      <created>1676388511631</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388511631</updated>
-    </task>
-    <task id="LOCAL-00027" summary="feat: [Connexion] Réinitialisation de mot de passe par mail">
-      <created>1676388562146</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388562146</updated>
-    </task>
-    <task id="LOCAL-00028" summary="add">
-      <created>1676388597344</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1676388597344</updated>
-    </task>
-    <task id="LOCAL-00029" summary="feat: [Traces] Création d'un composant pour les types de traces">
-      <created>1676474146089</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474146089</updated>
-    </task>
-    <task id="LOCAL-00030" summary="feat: [Traces] Création d'un composant pour les types de traces">
-      <created>1676474237872</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474237872</updated>
+      <workItem from="1677224895833" duration="12339000" />
+      <workItem from="1677400145028" duration="12186000" />
+      <workItem from="1677422246318" duration="8380000" />
+      <workItem from="1677489917014" duration="3964000" />
     </task>
     <task id="LOCAL-00031" summary="feat: [Traces] Création d'un composant pour les types de traces">
       <created>1676474264452</created>
@@ -638,7 +595,56 @@
       <option name="project" value="LOCAL" />
       <updated>1677237010820</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="fix: [administration] Revision du menu">
+      <created>1677238837230</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1677238837230</updated>
+    </task>
+    <task id="LOCAL-00074" summary="feat: [Traces] Génération des formulaires de dépot de traces">
+      <created>1677238929887</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1677238929887</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Installation: Révision de la procédure d'installation">
+      <created>1677402022572</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1677402022572</updated>
+    </task>
+    <task id="LOCAL-00076" summary="fix: [Fixtures] Création des fixtures de base">
+      <created>1677410800362</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1677410800362</updated>
+    </task>
+    <task id="LOCAL-00077" summary="installation: Révision de la procédure d'installation (Fixtures)">
+      <created>1677410862535</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1677410862535</updated>
+    </task>
+    <task id="LOCAL-00078" summary="fix: [Fixtures] Création données bibliotheque à la création d'un étudiant">
+      <created>1677413231447</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1677413231447</updated>
+    </task>
+    <task id="LOCAL-00079" summary="fix: [Fixtures] Création ordonnée des objets">
+      <created>1677429086608</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1677429086609</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,13 +700,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [package] Importation de FontAwesome" />
-    <MESSAGE value="feat: [Profil] Récupération des infos de l'utilisateur connecté" />
-    <MESSAGE value="feat: [Profil] Génération de CRUD pour l'édition du profil (en cours)" />
-    <MESSAGE value="feat: [Accueil] Génération de la page d'accueil du site public" />
-    <MESSAGE value="feat: [Navigation] Génération du menu de navigation dynamique" />
-    <MESSAGE value="feat: [Style] Génération des fichiers SCSS, mise en forme de la page d'accueil du site public" />
-    <MESSAGE value="feat: [Dashboard] Structure du dashboard etudiant" />
     <MESSAGE value="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant" />
     <MESSAGE value="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace" />
     <MESSAGE value="feat: [Components] Création d'un Twig Component pour l'affichage des traces" />
@@ -719,6 +718,13 @@
     <MESSAGE value="fix: [Etudiant] Formulaire de création et d'édition d'objet etudiant" />
     <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
     <MESSAGE value="fix: [Traces] Format date" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Traces] Format date" />
+    <MESSAGE value="fix: [administration] Revision du menu" />
+    <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
+    <MESSAGE value="Installation: Révision de la procédure d'installation" />
+    <MESSAGE value="fix: [Fixtures] Création des fixtures de base" />
+    <MESSAGE value="installation: Révision de la procédure d'installation (Fixtures)" />
+    <MESSAGE value="fix: [Fixtures] Création données bibliotheque à la création d'un étudiant" />
+    <MESSAGE value="fix: [Fixtures] Création ordonnée des objets" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Fixtures] Création ordonnée des objets" />
   </component>
 </project>
