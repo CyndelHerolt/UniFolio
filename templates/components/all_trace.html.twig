@@ -1,12 +1,13 @@
 {# templates/components/all_trace.html.twig #}
 
-{% if '/trace' in app.request.uri %}
+{% if ('/trace' in app.request.uri) or ('/page' in app.request.uri) %}
 
 {% for trace in this.allTrace %}
     {{ component('trace_card', {'id': trace.id}) }}
 {% endfor %}
 
 {% endif %}
+
 {% if '/dashboard' in app.request.uri %}
 
     <table>
