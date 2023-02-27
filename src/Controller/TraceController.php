@@ -3,11 +3,7 @@
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
-use App\Components\Trace\TypeTrace\AbstractTrace;
-use App\Components\Trace\TypeTrace\TraceTypeLien;
-use App\Entity\Bibliotheque;
 use App\Entity\Trace;
-use App\Form\TraceType;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\TraceRepository;
@@ -84,7 +80,7 @@ class TraceController extends AbstractController
     ): Response
     {
 
-        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire + trouver pourquoi datemodification ne se met pas à jour dans la database
+        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire
 
         $trace = $traceRepository->find($id);
 
