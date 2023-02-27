@@ -25,9 +25,9 @@ class PageController extends AbstractController
 
     #[Route('/page/new/{id}', name: 'app_page_new')]
     public function new(
-        Request         $request,
-        PageRepository  $pageRepository,
-        Security        $security,
+        Request        $request,
+        PageRepository $pageRepository,
+        Security       $security,
     ): Response
     {
         $user = $security->getUser()->getEtudiant();
@@ -49,6 +49,32 @@ class PageController extends AbstractController
             'form' => $form->createView(),
             'page' => $page,
 //            'trace' => $trace,
+        ]);
+    }
+
+    #[Route('/page/edit/{id}', name: 'app_page_edit')]
+    public function edit(
+        Request         $request,
+        PageRepository  $pageRepository,
+        Security        $security,
+        int             $id,
+    ): Response
+    {
+        $user = $security->getUser()->getEtudiant();
+        $page = $pageRepository->findOneBy(['id' => $id]);
+
+        $form = $this->createForm(PageType::class, $page, ['user' => $user]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pageRepository->save($page, true);
+
+            return $this->redirectToRoute('app_page');
+        }
+
+        return $this->render('page/edit.html.twig', [
+            'form' => $form->createView(),
+            'page' => $page,
         ]);
     }
 }
