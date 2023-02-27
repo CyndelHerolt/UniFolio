@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/users')]
 class UsersController extends AbstractController
@@ -82,9 +80,9 @@ class UsersController extends AbstractController
         }
 
 
-        return $this->renderForm('users/new.html.twig', [
+        return $this->render('users/new.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -119,9 +117,9 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('users/edit.html.twig', [
+        return $this->render('users/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
