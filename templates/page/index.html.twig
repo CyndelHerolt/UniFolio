@@ -19,6 +19,8 @@
     <h1>Bibliothèque de pages</h1>
 
     <a href="{{ path('app_page_new', {'id': app.user.etudiant.id}) }}"><button class="btn btn-primary">Créer une page</button></a>
+
+    {{ component('all_page') }}
 </div>
 
 {% endblock %}

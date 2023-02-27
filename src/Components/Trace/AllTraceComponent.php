@@ -1,7 +1,6 @@
 <?php
 namespace App\Components\Trace;
 
-use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\SecurityBundle\Security;
