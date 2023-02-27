@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}UniFolio - Nouvelle page{% endblock %}
+
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+{% block body %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_page') }}">Bibliothèque de pages</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nouvelle page</li>
+        </ol>
+    </nav>
+    <div class="container">
+        <section class="page_form">
+            <div class="row">
+                <article class="col-lg-5 col-12">
+                    <h2>Composer une nouvelle page</h2>
+                    {{ form(form) }}
+                </article>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
