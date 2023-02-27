@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Fixtures] Création ordonnée des objets">
-      <change afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent">
+      <change afterPath="$PROJECT_DIR$/src/Components/Page/AllPageComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Page/PageCardComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/all_page.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/new.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +28,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="SCSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -197,22 +201,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\page" />
@@ -299,70 +304,8 @@
       <workItem from="1677224895833" duration="12339000" />
       <workItem from="1677400145028" duration="12186000" />
       <workItem from="1677422246318" duration="8380000" />
-      <workItem from="1677489917014" duration="3964000" />
-    </task>
-    <task id="LOCAL-00031" summary="feat: [Traces] Création d'un composant pour les types de traces">
-      <created>1676474264452</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474264452</updated>
-    </task>
-    <task id="LOCAL-00032" summary="feat: [Update] Mise à jour de Symfony vers la version 6.2">
-      <created>1676474313040</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474313040</updated>
-    </task>
-    <task id="LOCAL-00033" summary="feat: [Administration] Création d'un étudiant lorsqu'un user se voit attribuer ce role à sa création">
-      <created>1676474411105</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474411105</updated>
-    </task>
-    <task id="LOCAL-00034" summary="fix: [Password Reset] Correction de l'async de l'envoi de mail">
-      <created>1676474513106</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474513106</updated>
-    </task>
-    <task id="LOCAL-00035" summary="fix: [Administration] Correction du CRUD des Traces">
-      <created>1676474559911</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474559911</updated>
-    </task>
-    <task id="LOCAL-00036" summary="feat: [Profil] Lien avec la base de données pour récupérer les informations de l'utilisateur">
-      <created>1676474620409</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474620409</updated>
-    </task>
-    <task id="LOCAL-00037" summary="add">
-      <created>1676474645725</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1676474645725</updated>
-    </task>
-    <task id="LOCAL-00038" summary="feat: [Traces] Génération du formulaire de dépot de trace">
-      <created>1676480307712</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1676480307712</updated>
-    </task>
-    <task id="LOCAL-00039" summary="feat: [Traces] Génération du formulaire de dépot de trace (en cours)">
-      <created>1676555023235</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1676555023236</updated>
+      <workItem from="1677489917014" duration="6710000" />
+      <workItem from="1677502917173" duration="12447000" />
     </task>
     <task id="LOCAL-00040" summary="feat: [Traces] Génération des formulaires de dépot de traces">
       <created>1676570994476</created>
@@ -644,7 +587,70 @@
       <option name="project" value="LOCAL" />
       <updated>1677429086609</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="feat: [Pages] Création des classes pour nouvelle page">
+      <created>1677494088345</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1677494088345</updated>
+    </task>
+    <task id="LOCAL-00081" summary="fix: [Traces] Récupération de la date de modification">
+      <created>1677494140292</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1677494140292</updated>
+    </task>
+    <task id="LOCAL-00082" summary="fix: [Forms] Remplacement de la méthode deprecated renderForm() par createView().">
+      <created>1677494236516</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1677494236516</updated>
+    </task>
+    <task id="LOCAL-00083" summary="fix: [Bootstrap] Correction import JS">
+      <created>1677494278077</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1677494278078</updated>
+    </task>
+    <task id="LOCAL-00084" summary="add">
+      <created>1677494331998</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1677494331998</updated>
+    </task>
+    <task id="LOCAL-00085" summary="feat: [Pages] Formulaire de création de page et d'ajout de trace">
+      <created>1677511340698</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1677511340698</updated>
+    </task>
+    <task id="LOCAL-00086" summary="fix: [Navigation] Lien vers les pages Bibliothèque Trace &amp; Page">
+      <created>1677511476198</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1677511476198</updated>
+    </task>
+    <task id="LOCAL-00087" summary="fix: [Component] Utilisation du composant dans la Bibliotheque de pages">
+      <created>1677511651678</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1677511651678</updated>
+    </task>
+    <task id="LOCAL-00088" summary="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent">
+      <created>1677511740010</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1677511740010</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -700,23 +706,14 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant" />
-    <MESSAGE value="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace" />
-    <MESSAGE value="feat: [Components] Création d'un Twig Component pour l'affichage des traces" />
-    <MESSAGE value="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté" />
-    <MESSAGE value="feat: [Dashboard] Structure contenu du dashboard" />
-    <MESSAGE value="data: [Compétences] Créations données fictives" />
-    <MESSAGE value="feat: [Traces] Modal pour choix du type" />
     <MESSAGE value="fix: LiveComponent import" />
     <MESSAGE value="feat: [Profil] Affichage et édition du profil Etudiant" />
     <MESSAGE value="feat: [Profil] Affichage et édition du profil Enseignant" />
     <MESSAGE value="fix: [Profil] Structure de l'affichage des informations" />
-    <MESSAGE value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
     <MESSAGE value="feat: [Trace] Modification des traces" />
     <MESSAGE value="fix: [Trace] Formulaire de modification des traces" />
     <MESSAGE value="fix: [Formulaire] Camouflage des input de date" />
     <MESSAGE value="fix: [Etudiant] Formulaire de création et d'édition d'objet etudiant" />
-    <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
     <MESSAGE value="fix: [Traces] Format date" />
     <MESSAGE value="fix: [administration] Revision du menu" />
     <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
@@ -725,6 +722,15 @@
     <MESSAGE value="installation: Révision de la procédure d'installation (Fixtures)" />
     <MESSAGE value="fix: [Fixtures] Création données bibliotheque à la création d'un étudiant" />
     <MESSAGE value="fix: [Fixtures] Création ordonnée des objets" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Fixtures] Création ordonnée des objets" />
+    <MESSAGE value="feat: [Pages] Création des classes pour nouvelle page" />
+    <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
+    <MESSAGE value="fix: [Forms] Remplacement de la méthode deprecated renderForm() par createView()." />
+    <MESSAGE value="fix: [Bootstrap] Correction import JS" />
+    <MESSAGE value="add" />
+    <MESSAGE value="feat: [Pages] Formulaire de création de page et d'ajout de trace" />
+    <MESSAGE value="fix: [Navigation] Lien vers les pages Bibliothèque Trace &amp; Page" />
+    <MESSAGE value="fix: [Component] Utilisation du composant dans la Bibliotheque de pages" />
+    <MESSAGE value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
   </component>
 </project>
