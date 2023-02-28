@@ -115,6 +115,21 @@ class TraceController extends AbstractController
         ]);
     }
 
+    #[Route('/trace/delete/{id}', name: 'app_trace_delete')]
+    public function delete(
+        Request         $request,
+        TraceRepository $traceRepository,
+        string          $id,
+    ): Response
+    {
+        $trace = $traceRepository->find($id);
+
+        $traceRepository->remove($trace, true);
+        $this->addFlash('success', 'La trace a été supprimée avec succès.');
+        return $this->redirectToRoute('app_trace');
+    }
+
+
     #[Route('/trace/show/{typeTrace}', name: 'app_show')]
     public function show(
         TraceRegistry $traceRegistry,

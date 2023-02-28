@@ -1,10 +1,11 @@
 {# templates/components/all_trace.html.twig #}
 
 {% if ('/trace' in app.request.uri) or ('/page' in app.request.uri) %}
-
+<div style="display: flex; flex-wrap: wrap">
 {% for trace in this.allTrace %}
     {{ component('trace_card', {'id': trace.id}) }}
 {% endfor %}
+</div>
 
 {% endif %}
 

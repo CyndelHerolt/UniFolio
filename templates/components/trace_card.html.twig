@@ -1,6 +1,6 @@
 {# templates/components/trace_card.html.twig #}
 
-<div class="card m-4 col-lg-5">
+<div class="card m-4 col-10">
     <div class="card-body">
         <h5 class="card-title">{{ this.trace.titre }}</h5>
         <p class="card-text">Dernière modification
@@ -21,9 +21,15 @@
         {% endif %}
 
         <p class="card-text">{{ this.trace.description }}</p>
+
+        {% if '/trace' in app.request.uri %}
         <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}" target="_blank">
             <button class="btn btn-primary">Modifier</button>
         </a>
+        <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}" target="_blank">
+            <button class="btn btn-primary">Supprimer</button>
+        </a>
+        {% endif %}
 
     </div>
 </div>
