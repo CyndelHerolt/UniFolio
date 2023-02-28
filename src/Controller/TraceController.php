@@ -185,7 +185,7 @@ class TraceController extends AbstractController
             foreach ($pages as $page) {
                 $page->addTrace($trace);
             }
-        $pageRepository->save($page, true);
+            $pageRepository->save($page, true);
         }
 
         $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
