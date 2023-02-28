@@ -1,12 +1,29 @@
 {# templates/components/trace_card.html.twig #}
 
-<div class="card m-4">
+<div class="card m-4 col-lg-5">
     <div class="card-body">
         <h5 class="card-title">{{ this.trace.titre }}</h5>
-        <p class="card-text">Dernière modification : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
-        <p class="card-text">{{ this.trace.contenu }}</p>
+        <p class="card-text">Dernière modification
+            : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
+
+        {% if 'TraceTypeImage' in this.trace.typeTrace %}
+            <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
+
+        {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+            <a href="{{ this.trace.contenu }}" class="card-img-top">Lien vers le contenu</a>
+
+        {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+            <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank"><iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe></a>
+
+            {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
+
+        {% endif %}
+
         <p class="card-text">{{ this.trace.description }}</p>
-        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}" target="_blank">
+            <button class="btn btn-primary">Modifier</button>
+        </a>
 
     </div>
 </div>
