@@ -54,10 +54,10 @@ class PageController extends AbstractController
 
     #[Route('/page/edit/{id}', name: 'app_page_edit')]
     public function edit(
-        Request         $request,
-        PageRepository  $pageRepository,
-        Security        $security,
-        int             $id,
+        Request        $request,
+        PageRepository $pageRepository,
+        Security       $security,
+        int            $id,
     ): Response
     {
         $user = $security->getUser()->getEtudiant();
@@ -76,5 +76,19 @@ class PageController extends AbstractController
             'form' => $form->createView(),
             'page' => $page,
         ]);
+    }
+
+    #[Route('/page/delete/{id}', name: 'app_page_delete')]
+    public function delete(
+        Request        $request,
+        PageRepository $pageRepository,
+        string         $id,
+    ): Response
+    {
+        $page = $pageRepository->find($id);
+
+        $pageRepository->remove($page, true);
+        $this->addFlash('success', 'La page a été supprimée avec succès.');
+        return $this->redirectToRoute('app_page');
     }
 }

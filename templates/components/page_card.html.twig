@@ -1,14 +1,19 @@
 {# templates/components/page_card.html.twig #}
 
-<div class="card m-4">
-    <div class="card-body">
-        <h3 class="card-title">{{ this.page.intitule }}</h3>
+    <div class="card m-4 col-lg-5 col-12">
+        <div class="card-body">
+            <h3 class="card-title">{{ this.page.intitule }}</h3>
 
-        <h6>Traces associées :</h6>
-        {% for trace in this.page.trace %}
-            {{ component('trace_card', {'id': trace.id}) }}
-        {% endfor %}
-                    <a href="{{ path('app_page_edit', {'id': this.page.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+            <h6>Traces associées :</h6>
+            {% for trace in this.page.trace %}
+                {{ component('trace_card', {'id': trace.id}) }}
+            {% endfor %}
+            <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
+                <button class="btn btn-primary">Modifier</button>
+            </a>
+            <a href="{{ path('app_page_delete', {'id': this.page.id}) }}">
+                <button class="btn btn-primary">Supprimer</button>
+            </a>
 
+        </div>
     </div>
-</div>
