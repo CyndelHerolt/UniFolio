@@ -3,17 +3,31 @@
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
+use App\Entity\Page;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class TraceController extends AbstractController
 {
+
+    public function __construct(
+        protected TraceRepository $traceRepository,
+        public BibliothequeRepository $bibliothequeRepository,
+        #[Required] public Security $security
+    ) {
+    }
+
     #[Route('/trace', name: 'app_trace')]
     public function index(
         TraceRegistry $traceRegistry,
@@ -129,6 +143,58 @@ class TraceController extends AbstractController
         return $this->redirectToRoute('app_trace');
     }
 
+    #[Route('/trace/page/{id}', name: 'app_add_trace_to_page')]
+    public function addToPage(
+        Request         $request,
+        TraceRepository $traceRepository,
+        PageRepository  $pageRepository,
+        string          $id,
+    ): Response
+    {
+        //Récupérer la bibliothèque de l'utilisateur connecté
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+        // Récupérer les traces de la bibliothèque
+        $traces = $biblio->getTraces();
+
+        // Récupérer les pages associées aux traces
+        $pages = [];
+        foreach ($traces as $trace) {
+            $pages = array_merge($pages, $trace->getPages()->toArray());
+//            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+            $pages = array_unique($pages, SORT_REGULAR);
+        }
+
+        $form = $this->createFormBuilder()
+            ->add('pages', EntityType::class, [
+                'class' => Page::class,
+                'choices' => $pages,
+                'choice_label' => 'intitule',
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('Valider', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pages = $form->get('pages')->getData();
+
+            foreach ($pages as $page) {
+                $page->addTrace($trace);
+            }
+        $pageRepository->save($page, true);
+        }
+
+        $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+//        return $this->redirectToRoute('app_trace');
+        return $this->render('add_to_page.html.twig', [
+            'form' => $form->createView(),
+            'trace' => $trace,
+        ]);
+    }
 
     #[Route('/trace/show/{typeTrace}', name: 'app_show')]
     public function show(
