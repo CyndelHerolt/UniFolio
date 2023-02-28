@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent">
-      <change afterPath="$PROJECT_DIR$/src/Components/Page/AllPageComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Page/PageCardComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/all_page.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pages] Formulaire de modification d'une page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/new.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,42 +298,7 @@
       <workItem from="1677400145028" duration="12186000" />
       <workItem from="1677422246318" duration="8380000" />
       <workItem from="1677489917014" duration="6710000" />
-      <workItem from="1677502917173" duration="12447000" />
-    </task>
-    <task id="LOCAL-00040" summary="feat: [Traces] Génération des formulaires de dépot de traces">
-      <created>1676570994476</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1676570994476</updated>
-    </task>
-    <task id="LOCAL-00041" summary="feat: [Traces] Génération des formulaires de dépot de traces">
-      <created>1676636305261</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1676636305261</updated>
-    </task>
-    <task id="LOCAL-00042" summary="feat: [Traces] Génération des formulaires de dépot de traces">
-      <created>1676656457434</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1676656457434</updated>
-    </task>
-    <task id="LOCAL-00043" summary="feat: [package] Importation de FontAwesome">
-      <created>1676656495511</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1676656495511</updated>
-    </task>
-    <task id="LOCAL-00044" summary="feat: [Profil] Récupération des infos de l'utilisateur connecté">
-      <created>1676658446134</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1676658446134</updated>
+      <workItem from="1677502917173" duration="15013000" />
     </task>
     <task id="LOCAL-00045" summary="feat: [Profil] Génération de CRUD pour l'édition du profil (en cours)">
       <created>1676658594568</created>
@@ -650,7 +608,42 @@
       <option name="project" value="LOCAL" />
       <updated>1677511740010</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="feat: [Pages] Affichage des Pages et de leurs Traces grace à des Twig Components">
+      <created>1677517749541</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1677517749541</updated>
+    </task>
+    <task id="LOCAL-00090" summary="feat: [Pages] Affichage des Pages et de leurs Traces grace à des Twig Components">
+      <created>1677517865299</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1677517865299</updated>
+    </task>
+    <task id="LOCAL-00091" summary="feat: [Pages] Formulaire de modification d'une page">
+      <created>1677520512967</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1677520512967</updated>
+    </task>
+    <task id="LOCAL-00092" summary="feat: [Pages] Formulaire de modification d'une page">
+      <created>1677520556764</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1677520556764</updated>
+    </task>
+    <task id="LOCAL-00093" summary="fix: [Pages] Formulaire de modification d'une page">
+      <created>1677520596982</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1677520596982</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -706,9 +699,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: LiveComponent import" />
-    <MESSAGE value="feat: [Profil] Affichage et édition du profil Etudiant" />
-    <MESSAGE value="feat: [Profil] Affichage et édition du profil Enseignant" />
     <MESSAGE value="fix: [Profil] Structure de l'affichage des informations" />
     <MESSAGE value="feat: [Trace] Modification des traces" />
     <MESSAGE value="fix: [Trace] Formulaire de modification des traces" />
@@ -731,6 +721,9 @@
     <MESSAGE value="fix: [Navigation] Lien vers les pages Bibliothèque Trace &amp; Page" />
     <MESSAGE value="fix: [Component] Utilisation du composant dans la Bibliotheque de pages" />
     <MESSAGE value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Component] Structure de l'affichage des Traces (dashboard &amp; bibliothèque) par TwigComponent" />
+    <MESSAGE value="feat: [Pages] Affichage des Pages et de leurs Traces grace à des Twig Components" />
+    <MESSAGE value="feat: [Pages] Formulaire de modification d'une page" />
+    <MESSAGE value="fix: [Pages] Formulaire de modification d'une page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pages] Formulaire de modification d'une page" />
   </component>
 </project>
