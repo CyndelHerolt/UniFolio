@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,28 +313,12 @@
       <workItem from="1677684868974" duration="3166000" />
       <workItem from="1677688137684" duration="14000" />
       <workItem from="1677688166332" duration="1152000" />
-      <workItem from="1677689346864" duration="1955000" />
-    </task>
-    <task id="LOCAL-00052" summary="feat: [Dashboard] Structure du dashboard etudiant">
-      <created>1676973253428</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1676973253428</updated>
-    </task>
-    <task id="LOCAL-00053" summary="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant">
-      <created>1676975714404</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1676975714404</updated>
-    </task>
-    <task id="LOCAL-00054" summary="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace">
-      <created>1676977965590</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1676977965590</updated>
+      <workItem from="1677689346864" duration="4677000" />
+      <workItem from="1677704517137" duration="765000" />
+      <workItem from="1677705302969" duration="26000" />
+      <workItem from="1677705387818" duration="47000" />
+      <workItem from="1677705445822" duration="42000" />
+      <workItem from="1677705530556" duration="3883000" />
     </task>
     <task id="LOCAL-00055" summary="feat: [Components] Création d'un Twig Component pour l'affichage des traces">
       <created>1676989248017</created>
@@ -659,7 +642,28 @@
       <option name="project" value="LOCAL" />
       <updated>1677688689725</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page">
+      <created>1677692631434</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1677692631434</updated>
+    </task>
+    <task id="LOCAL-00102" summary="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces">
+      <created>1677693100587</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1677693100587</updated>
+    </task>
+    <task id="LOCAL-00103" summary="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable">
+      <created>1677695424968</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1677695424968</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -720,8 +724,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Traces] Format date" />
-    <MESSAGE value="fix: [administration] Revision du menu" />
     <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
     <MESSAGE value="Installation: Révision de la procédure d'installation" />
     <MESSAGE value="fix: [Fixtures] Création des fixtures de base" />
@@ -745,6 +747,8 @@
     <MESSAGE value="feat: [Pages] Suppression" />
     <MESSAGE value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace" />
     <MESSAGE value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
+    <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
+    <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
   </component>
 </project>

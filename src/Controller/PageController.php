@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Page;
+use App\Entity\Trace;
 use App\Form\PageType;
 use App\Repository\BibliothequeRepository;
 use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +41,9 @@ class PageController extends AbstractController
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
-        if ($traces->isEmpty()){
+        if ($traces->isEmpty()) {
             $add = false;
-        }
-        else{
+        } else {
             $add = true;
         }
 
@@ -114,8 +116,7 @@ class PageController extends AbstractController
             //Si il n'y a pas de trace sélectionnée dans le formulaire
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
-            }
-            else {
+            } else {
                 $pageRepository->save($page, true);
 
                 $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
@@ -141,5 +142,73 @@ class PageController extends AbstractController
         $pageRepository->remove($page, true);
         $this->addFlash('success', 'La page a été supprimée avec succès.');
         return $this->redirectToRoute('app_page');
+    }
+
+    #[Route('/page/trace/{id}', name: 'app_add_to_page')]
+    public function addTrace(
+        Request        $request,
+        PageRepository $pageRepository,
+        Security       $security,
+        int            $id,
+    ): Response
+    {
+        $user = $security->getUser()->getEtudiant();
+        $page = $pageRepository->findOneBy(['id' => $id]);
+        $existingTraces = $page->getTrace();
+
+        $form = $this->createFormBuilder($page)
+            ->add('trace', EntityType::class, [
+                'class' => Trace::class,
+                'query_builder' => function (TraceRepository $traceRepository) use ($user, $page) {
+                    return $traceRepository->createQueryBuilder('t')
+                        ->join('t.bibliotheque', 'b')
+                        ->join('b.etudiant', 'e')
+                        ->where('e.id = :user')
+                        ->andWhere('t.id NOT IN (:page)')
+                        ->setParameters(['user' => $user->getId(), 'page' => $page->getTrace()->toArray()]);
+
+                },
+                'choice_label' => 'titre',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Traces',
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Ajouter',
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                ],
+            ])
+            ->getForm();
+
+        $trace = $form->get('trace')->getData();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //Si il n'y a pas de trace sélectionnée dans le formulaire
+            if ($trace->isEmpty()) {
+                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
+            } else {
+                // Récupérer les pages sélectionnées
+                $traces = $form->get('trace')->getData();
+                foreach ($traces as $trace) {
+                    // Ajouter la trace aux pages sélectionnées
+                    $trace->addPage($page);
+                }
+                //TODO: ajouter à la db les traces qui font déjà partie de la page
+                foreach ($existingTraces as $existingTrace) {
+                    $existingTrace->addPage($page);
+                }
+                $pageRepository->save($page, true);
+
+                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+                return $this->redirectToRoute('app_page');
+            }
+        }
+        return $this->render('page/edit.html.twig', [
+            'form' => $form->createView(),
+            'page' => $page,
+        ]);
     }
 }

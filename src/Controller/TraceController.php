@@ -183,8 +183,9 @@ class TraceController extends AbstractController
         $trace = $this->traceRepository->find($id);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            Récupérer les pages sélectionnées
             $pages = $form->get('pages')->getData();
-
+//            Ajouter la trace aux pages sélectionnées
             foreach ($pages as $page) {
                 $page->addTrace($trace);
             }
