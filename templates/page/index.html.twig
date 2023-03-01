@@ -17,6 +17,9 @@
 
 <div class="container">
     <h1>Bibliothèque de pages</h1>
+    <div class="alert alert-primary" role="alert">
+        La création d'une page nécessite d'avoir au moins une trace de disponible.
+    </div>
 
     <a href="{{ path('app_page_new', {'id': app.user.etudiant.id}) }}"><button class="btn btn-primary">Créer une page</button></a>
 

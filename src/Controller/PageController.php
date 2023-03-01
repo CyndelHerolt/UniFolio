@@ -38,7 +38,7 @@ class PageController extends AbstractController
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
-        // Récupérer les pages associées aux traces
+        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
         $pages = [];
         foreach ($traces as $trace) {
             $pages = array_merge($pages, $trace->getPages()->toArray());
