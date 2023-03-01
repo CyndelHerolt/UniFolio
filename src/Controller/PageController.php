@@ -38,6 +38,13 @@ class PageController extends AbstractController
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
+        if ($traces->isEmpty()){
+            $add = false;
+        }
+        else{
+            $add = true;
+        }
+
         // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
         $pages = [];
         foreach ($traces as $trace) {
@@ -48,6 +55,7 @@ class PageController extends AbstractController
 
         return $this->render('page/index.html.twig', [
             'pages' => $pages,
+            'add' => $add,
         ]);
     }
 
