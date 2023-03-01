@@ -22,10 +22,11 @@ class TraceController extends AbstractController
 {
 
     public function __construct(
-        protected TraceRepository $traceRepository,
+        protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        #[Required] public Security $security
-    ) {
+        #[Required] public Security   $security
+    )
+    {
     }
 
     #[Route('/trace', name: 'app_trace')]
@@ -146,7 +147,6 @@ class TraceController extends AbstractController
     #[Route('/trace/page/{id}', name: 'app_add_trace_to_page')]
     public function addToPage(
         Request         $request,
-        TraceRepository $traceRepository,
         PageRepository  $pageRepository,
         string          $id,
     ): Response
@@ -158,7 +158,7 @@ class TraceController extends AbstractController
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
-        // Récupérer les pages associées aux traces
+        // Récupérer les pages associées aux traces (donc les pages de l'étudiant connecté)
         $pages = [];
         foreach ($traces as $trace) {
             $pages = array_merge($pages, $trace->getPages()->toArray());
@@ -179,17 +179,22 @@ class TraceController extends AbstractController
 
         $form->handleRequest($request);
 
+        // Récupérer la trace dont l'id est celui passé en paramètre
+        $trace = $this->traceRepository->find($id);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $pages = $form->get('pages')->getData();
 
             foreach ($pages as $page) {
                 $page->addTrace($trace);
             }
+//            dump($trace);
+//            die();
+            $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
             $pageRepository->save($page, true);
+            return $this->redirectToRoute('app_trace');
         }
 
-        $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
-//        return $this->redirectToRoute('app_trace');
         return $this->render('add_to_page.html.twig', [
             'form' => $form->createView(),
             'trace' => $trace,
