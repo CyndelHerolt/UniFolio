@@ -52,6 +52,7 @@ class PageType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'titre',
                 'expanded' => true,
+                'required' => true,
             ])
 
             ->add('submit', SubmitType::class, [

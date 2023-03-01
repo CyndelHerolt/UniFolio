@@ -4,22 +4,50 @@ namespace App\Controller;
 
 use App\Entity\Page;
 use App\Form\PageType;
+use App\Repository\BibliothequeRepository;
 use App\Repository\PageRepository;
+use App\Repository\TraceRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class PageController extends AbstractController
 {
+
+    public function __construct(
+        protected TraceRepository     $traceRepository,
+        public BibliothequeRepository $bibliothequeRepository,
+        #[Required] public Security   $security
+    )
+    {
+    }
+
     #[Route('/page', name: 'app_page')]
     public function index(
         PageRepository $pageRepository,
     ): Response
     {
+
+        //Récupérer la bibliothèque de l'utilisateur connecté
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+        // Récupérer les traces de la bibliothèque
+        $traces = $biblio->getTraces();
+
+        // Récupérer les pages associées aux traces
+        $pages = [];
+        foreach ($traces as $trace) {
+            $pages = array_merge($pages, $trace->getPages()->toArray());
+//            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+            $pages = array_unique($pages, SORT_REGULAR);
+        }
+
         return $this->render('page/index.html.twig', [
-            'pages' => $pageRepository->findAll(),
+            'pages' => $pages,
         ]);
     }
 
@@ -35,20 +63,25 @@ class PageController extends AbstractController
 
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
+        $trace = $form->get('trace')->getData();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $pageRepository->save($page, true);
 
-            return $this->redirectToRoute('app_page');
+            if ($trace->isEmpty()) {
+                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
+            } else {
+                $pageRepository->save($page, true);
+
+                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+                return $this->redirectToRoute('app_page');
+            }
         }
 
-//        $trace = $traceRepository->findOneBy(['id' => $id]);
 
         return $this->render('page/new.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
-//            'trace' => $trace,
         ]);
     }
 
@@ -65,11 +98,21 @@ class PageController extends AbstractController
 
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
+        $trace = $form->get('trace')->getData();
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $pageRepository->save($page, true);
 
-            return $this->redirectToRoute('app_page');
+            //Si il n'y a pas de trace sélectionnée dans le formulaire
+            if ($trace->isEmpty()) {
+                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
+            }
+            else {
+                $pageRepository->save($page, true);
+
+                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+                return $this->redirectToRoute('app_page');
+            }
         }
 
         return $this->render('page/edit.html.twig', [
