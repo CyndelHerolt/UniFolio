@@ -15,12 +15,19 @@
         </ol>
     </nav>
 
-<div class="container">
-    <h1>Bibliothèque de pages</h1>
+    <div class="container">
+        <h1>Bibliothèque de pages</h1>
+        {% if add == true %}
+            <a href="{{ path('app_page_new', {'id': app.user.etudiant.id}) }}">
+                <button class="btn btn-primary">Créer une page</button>
+            </a>
+        {% elseif add == false %}
+            <div class="alert alert-primary" role="alert">
+                La création d'une page nécessite d'avoir au moins une trace de disponible.
+            </div>
+        {% endif %}
 
-    <a href="{{ path('app_page_new', {'id': app.user.etudiant.id}) }}"><button class="btn btn-primary">Créer une page</button></a>
-
-    {{ component('all_page') }}
-</div>
+        {{ component('all_page') }}
+    </div>
 
 {% endblock %}

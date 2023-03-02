@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pages] Ajout de traces à partir de la page">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +213,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -306,36 +309,19 @@
       <workItem from="1677586692076" duration="6165000" />
       <workItem from="1677593747810" duration="795000" />
       <workItem from="1677594565067" duration="4461000" />
-      <workItem from="1677599077977" duration="12080000" />
-      <workItem from="1677777753558" duration="361000" />
-    </task>
-    <task id="LOCAL-00052" summary="feat: [Dashboard] Structure du dashboard etudiant">
-      <created>1676973253428</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1676973253428</updated>
-    </task>
-    <task id="LOCAL-00053" summary="feat: [Etudiant] Lien Etudiant et Bibliotheque à la création d'un User Etudiant">
-      <created>1676975714404</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1676975714404</updated>
-    </task>
-    <task id="LOCAL-00054" summary="feat: [Trace] Lien Trace et Bibliotheque de l'utilisateur connecté à la création d'une Trace">
-      <created>1676977965590</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1676977965590</updated>
-    </task>
-    <task id="LOCAL-00055" summary="feat: [Components] Création d'un Twig Component pour l'affichage des traces">
-      <created>1676989248017</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1676989248017</updated>
+      <workItem from="1677599077977" duration="11977000" />
+      <workItem from="1677684868974" duration="3166000" />
+      <workItem from="1677688137684" duration="14000" />
+      <workItem from="1677688166332" duration="1152000" />
+      <workItem from="1677689346864" duration="4677000" />
+      <workItem from="1677704517137" duration="765000" />
+      <workItem from="1677705302969" duration="26000" />
+      <workItem from="1677705387818" duration="47000" />
+      <workItem from="1677705445822" duration="42000" />
+      <workItem from="1677705530556" duration="3928000" />
+      <workItem from="1677740895004" duration="3595000" />
+      <workItem from="1677744554418" duration="1082000" />
+      <workItem from="1677754273307" duration="1146000" />
     </task>
     <task id="LOCAL-00056" summary="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté">
       <created>1676991143194</created>
@@ -645,18 +631,51 @@
       <option name="project" value="LOCAL" />
       <updated>1677602237598</updated>
     </task>
-    <task id="LOCAL-00100" summary="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)">
-      <created>1677614316304</created>
+    <task id="LOCAL-00100" summary="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page">
+      <created>1677688689725</created>
       <option name="number" value="00100" />
       <option name="presentableId" value="LOCAL-00100" />
       <option name="project" value="LOCAL" />
-      <updated>1677614316304</updated>
+      <updated>1677688689725</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page">
+      <created>1677692631434</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1677692631434</updated>
+    </task>
+    <task id="LOCAL-00102" summary="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces">
+      <created>1677693100587</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1677693100587</updated>
+    </task>
+    <task id="LOCAL-00103" summary="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable">
+      <created>1677695424968</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1677695424968</updated>
+    </task>
+    <task id="LOCAL-00104" summary="fix: [Pages] Ajout de traces à partir de la page">
+      <created>1677709490998</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1677709490998</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:webpack" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:karma" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:postcss" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ID_ORDER">
@@ -708,9 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Traces] Format date" />
-    <MESSAGE value="fix: [administration] Revision du menu" />
-    <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
     <MESSAGE value="Installation: Révision de la procédure d'installation" />
     <MESSAGE value="fix: [Fixtures] Création des fixtures de base" />
     <MESSAGE value="installation: Révision de la procédure d'installation (Fixtures)" />
@@ -732,7 +748,10 @@
     <MESSAGE value="feat: [Traces] Suppression" />
     <MESSAGE value="feat: [Pages] Suppression" />
     <MESSAGE value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace" />
-    <MESSAGE value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)" />
+    <MESSAGE value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
+    <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
+    <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
+    <MESSAGE value="fix: [Pages] Ajout de traces à partir de la page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pages] Ajout de traces à partir de la page" />
   </component>
 </project>

@@ -8,6 +8,7 @@
             {% for trace in this.page.trace %}
                 {{ component('trace_card', {'id': trace.id}) }}
             {% endfor %}
+
             <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
                 <button class="btn btn-primary">Modifier</button>
             </a>
@@ -16,6 +17,10 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Supprimer
             </button>
+
+            <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">
+                <button class="btn btn-primary">Ajouter des traces</button>
+            </a>
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
