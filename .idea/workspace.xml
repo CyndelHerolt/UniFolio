@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,14 +306,8 @@
       <workItem from="1677586692076" duration="6165000" />
       <workItem from="1677593747810" duration="795000" />
       <workItem from="1677594565067" duration="4461000" />
-      <workItem from="1677599077977" duration="11977000" />
-    </task>
-    <task id="LOCAL-00051" summary="feat: [Dashboard] Structure du dashboard etudiant">
-      <created>1676922039204</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1676922039204</updated>
+      <workItem from="1677599077977" duration="12080000" />
+      <workItem from="1677777753558" duration="361000" />
     </task>
     <task id="LOCAL-00052" summary="feat: [Dashboard] Structure du dashboard etudiant">
       <created>1676973253428</created>
@@ -653,7 +645,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677602237598</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)">
+      <created>1677614316304</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1677614316304</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -709,7 +708,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Etudiant] Formulaire de création et d'édition d'objet etudiant" />
     <MESSAGE value="fix: [Traces] Format date" />
     <MESSAGE value="fix: [administration] Revision du menu" />
     <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
@@ -734,6 +732,7 @@
     <MESSAGE value="feat: [Traces] Suppression" />
     <MESSAGE value="feat: [Pages] Suppression" />
     <MESSAGE value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace" />
+    <MESSAGE value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace (à corriger)" />
   </component>
 </project>
