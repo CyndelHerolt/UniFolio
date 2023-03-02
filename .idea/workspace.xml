@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pages] Ajout de traces à partir de la page">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,14 +318,10 @@
       <workItem from="1677705302969" duration="26000" />
       <workItem from="1677705387818" duration="47000" />
       <workItem from="1677705445822" duration="42000" />
-      <workItem from="1677705530556" duration="3883000" />
-    </task>
-    <task id="LOCAL-00055" summary="feat: [Components] Création d'un Twig Component pour l'affichage des traces">
-      <created>1676989248017</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1676989248017</updated>
+      <workItem from="1677705530556" duration="3928000" />
+      <workItem from="1677740895004" duration="3595000" />
+      <workItem from="1677744554418" duration="1082000" />
+      <workItem from="1677754273307" duration="1146000" />
     </task>
     <task id="LOCAL-00056" summary="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté">
       <created>1676991143194</created>
@@ -663,7 +659,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677695424968</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="fix: [Pages] Ajout de traces à partir de la page">
+      <created>1677709490998</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1677709490998</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -724,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Traces] Génération des formulaires de dépot de traces" />
     <MESSAGE value="Installation: Révision de la procédure d'installation" />
     <MESSAGE value="fix: [Fixtures] Création des fixtures de base" />
     <MESSAGE value="installation: Révision de la procédure d'installation (Fixtures)" />
@@ -749,6 +751,7 @@
     <MESSAGE value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
     <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
     <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
+    <MESSAGE value="fix: [Pages] Ajout de traces à partir de la page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pages] Ajout de traces à partir de la page" />
   </component>
 </project>

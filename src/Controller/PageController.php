@@ -154,6 +154,7 @@ class PageController extends AbstractController
     {
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
+        //Récupérer les traces liées à la page dont l'id est passé en paramètre
         $existingTraces = $page->getTrace();
 
         $form = $this->createFormBuilder($page)
@@ -185,7 +186,6 @@ class PageController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             //Si il n'y a pas de trace sélectionnée dans le formulaire
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
@@ -194,12 +194,16 @@ class PageController extends AbstractController
                 $traces = $form->get('trace')->getData();
                 foreach ($traces as $trace) {
                     // Ajouter la trace aux pages sélectionnées
-                    $trace->addPage($page);
+                    $page = $page->addTrace($trace);
                 }
                 //TODO: ajouter à la db les traces qui font déjà partie de la page
                 foreach ($existingTraces as $existingTrace) {
-                    $existingTrace->addPage($page);
+                    $existingTraces[] = $existingTrace;
+                    $page = $page->addTrace($existingTrace);
                 }
+//                dump($page);
+//                die();
+
                 $pageRepository->save($page, true);
 
                 $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
