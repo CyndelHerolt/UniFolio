@@ -21,7 +21,7 @@ class Page
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $intitule = null;
 
-    #[ORM\ManyToMany(targetEntity: Trace::class, inversedBy: 'pages')]
+    #[ORM\ManyToMany(targetEntity: Trace::class, inversedBy: 'pages', fetch: "EAGER")]
     private Collection $trace;
 
     #[ORM\ManyToOne(inversedBy: 'pages')]

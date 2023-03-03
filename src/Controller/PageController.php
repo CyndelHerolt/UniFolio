@@ -146,21 +146,19 @@ class PageController extends AbstractController
 
     #[Route('/page/trace/{id}', name: 'app_add_to_page')]
     public function addTrace(
-        Request        $request,
-        PageRepository $pageRepository,
-        Security       $security,
-        int            $id,
+        Request         $request,
+        PageRepository  $pageRepository,
+        TraceRepository $traceRepository,
+        Security        $security,
+        int             $id,
     ): Response
     {
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
-//        dump($page->getTrace());
-//        die();
 
         //Récupérer les traces liées à la page dont l'id est passé en paramètre
         $existingTraces = $page->getTrace();
-//        dump($existingTraces);
-//        die();
+
 
         $form = $this->createFormBuilder($page)
             ->add('trace', EntityType::class, [
@@ -178,6 +176,7 @@ class PageController extends AbstractController
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Traces',
+                'mapped' => false,
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Ajouter',
@@ -187,40 +186,33 @@ class PageController extends AbstractController
             ])
             ->getForm();
 
-//        dump($page);
-//        die();
-
-        $trace = $form->get('trace')->getData();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+//TODO: Test si aucune trace n'a été sélectionnée
+            //Récupérer les id traces sélectionnées dans le formulaire
+            $traces = $request->request->all()['form']['trace'];
+
             //Si il n'y a pas de trace sélectionnée dans le formulaire
-            if ($trace->isEmpty()) {
-                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
-            } else {
-                // Récupérer les pages sélectionnées
-                $traces = $form->get('trace')->getData();
+//            if ($traces->isEmpty()) {
+//                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
+//            } else {
                 foreach ($traces as $trace) {
-                    // Ajouter la trace aux pages sélectionnées
-                    $page->addTrace($trace);
-//                    $trace->addPage($page);
-                }
-                //TODO: ajouter à la db les traces qui ne font déjà partie de la page
+                        $trace = $traceRepository->find(['id' => $trace]);
+                        // Ajouter la trace aux pages sélectionnées
+                        $page->addTrace($trace);
+                    }
+//                }
                 foreach ($existingTraces as $existingTrace) {
                     $page->addTrace($existingTrace);
-//                    $trace->addPage($page);
                 }
-//                  dump($page->getTrace());
-//                die();
-//                dump($existingTraces);
-//                  die();
 
                 $pageRepository->save($page, true);
 
                 $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
                 return $this->redirectToRoute('app_page');
             }
-        }
+//        }
         return $this->render('page/edit.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
