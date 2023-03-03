@@ -154,8 +154,13 @@ class PageController extends AbstractController
     {
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
+//        dump($page->getTrace());
+//        die();
+
         //Récupérer les traces liées à la page dont l'id est passé en paramètre
         $existingTraces = $page->getTrace();
+//        dump($existingTraces);
+//        die();
 
         $form = $this->createFormBuilder($page)
             ->add('trace', EntityType::class, [
@@ -182,6 +187,9 @@ class PageController extends AbstractController
             ])
             ->getForm();
 
+//        dump($page);
+//        die();
+
         $trace = $form->get('trace')->getData();
 
         $form->handleRequest($request);
@@ -194,15 +202,18 @@ class PageController extends AbstractController
                 $traces = $form->get('trace')->getData();
                 foreach ($traces as $trace) {
                     // Ajouter la trace aux pages sélectionnées
-                    $page = $page->addTrace($trace);
+                    $page->addTrace($trace);
+//                    $trace->addPage($page);
                 }
-                //TODO: ajouter à la db les traces qui font déjà partie de la page
+                //TODO: ajouter à la db les traces qui ne font déjà partie de la page
                 foreach ($existingTraces as $existingTrace) {
-                    $existingTraces[] = $existingTrace;
-                    $page = $page->addTrace($existingTrace);
+                    $page->addTrace($existingTrace);
+//                    $trace->addPage($page);
                 }
-//                dump($page);
+//                  dump($page->getTrace());
 //                die();
+//                dump($existingTraces);
+//                  die();
 
                 $pageRepository->save($page, true);
 
