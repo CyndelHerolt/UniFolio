@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier">
-      <change afterPath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Portfolio/PortfolioCardComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/all_portfolio.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Affichage bibliothèque de portfolio par components">
+      <change afterPath="$PROJECT_DIR$/templates/portfolio/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,14 +336,8 @@
       <workItem from="1677864426230" duration="500000" />
       <workItem from="1677933030921" duration="8465000" />
       <workItem from="1677947794849" duration="199000" />
-      <workItem from="1677948016334" duration="3427000" />
-    </task>
-    <task id="LOCAL-00063" summary="feat: [Profil] Affichage et édition du profil Enseignant">
-      <created>1677150612891</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1677150612891</updated>
+      <workItem from="1677948016334" duration="3540000" />
+      <workItem from="1677951628772" duration="1605000" />
     </task>
     <task id="LOCAL-00064" summary="fix: [Profil] Structure de l'affichage des informations">
       <created>1677154584505</created>
@@ -680,7 +675,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677950063465</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="fix: [Portfolio] Affichage bibliothèque de portfolio par components">
+      <created>1677951562581</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1677951562581</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -741,7 +743,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Pages] Création des classes pour nouvelle page" />
     <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
     <MESSAGE value="fix: [Forms] Remplacement de la méthode deprecated renderForm() par createView()." />
     <MESSAGE value="fix: [Bootstrap] Correction import JS" />
@@ -766,6 +767,7 @@
     <MESSAGE value="fix: [Bootstrap] Installation par Webpack" />
     <MESSAGE value="feat: [Portfolio] bibliothèque et Formulaire de création de portfolio (à corriger)" />
     <MESSAGE value="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier" />
+    <MESSAGE value="fix: [Portfolio] Affichage bibliothèque de portfolio par components" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Affichage bibliothèque de portfolio par components" />
   </component>
 </project>

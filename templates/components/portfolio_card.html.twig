@@ -1,4 +1,4 @@
-<div class="card m-4 col-lg-5 col-12">
+<div class="card col-lg-5 col-12">
     <div class="card-body">
         <h3 class="card-title">{{ this.portfolio.intitule }}</h3>
 
@@ -7,9 +7,9 @@
             {{ component('page_card', {'id': pages.id}) }}
         {% endfor %}
 
-{#        <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">#}
-{#            <button class="btn btn-primary">Modifier</button>#}
-{#        </a>#}
+        <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
+            <button class="btn btn-primary">Modifier</button>
+        </a>
 
 {#        <!-- Button trigger modal -->#}
 {#        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">#}

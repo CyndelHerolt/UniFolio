@@ -1,7 +1,7 @@
 {# templates/components/page_card.html.twig #}
 {% if '/portfolio' in app.request.uri %}
 
-<div class="card m-4 col-lg-10 col-12">
+<div class="card col-lg-10 col-12">
     <div class="card-body">
         <h3 class="card-title">{{ this.page.intitule }}</h3>
             <div class="card-body">
@@ -16,7 +16,7 @@
 
 {% elseif '/page' in app.request.uri %}
 
-<div class="card m-4 col-lg-5 col-12">
+<div class="card col-lg-5 col-12">
     <div class="card-body">
         <h3 class="card-title">{{ this.page.intitule }}</h3>
 

@@ -35,8 +35,6 @@ class PortfolioController extends AbstractController
         ]);
     }
 
-    //TODO: Trouver pourquoi les pages ne sont pas enregistrées dans page_portfolio
-    #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
     #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
     public function new(
         Request $request,
@@ -75,4 +73,50 @@ class PortfolioController extends AbstractController
         ]);
     }
 
+    #[Route('/portfolio/edit/{id}', name: 'app_portfolio_edit')]
+    public function edit(
+        Request $request,
+        PortfolioRepository $portfolioRepository,
+        Security $security,
+        int $id
+    ): Response {
+        $user = $security->getUser()->getEtudiant();
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
+
+        $pages = $form->get('pages')->getData();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($pages->isEmpty()) {
+                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
+            } else {
+                $portfolio->setEtudiant($user);
+
+                //TODO: Retirer les pages qui ne sont plus sélectionnées
+                foreach ($pages as $page) {
+                    if ($portfolio->getPages()->contains($page)) {
+                        $portfolio->addPage($page);
+                        $page->addPortfolio($portfolio);
+                    }
+                    else {
+                        $portfolio->removePage($page);
+                        $page->removePortfolio($portfolio);
+                    }
+                }
+
+                $portfolioRepository->save($portfolio, true);
+
+                $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
+                return $this->redirectToRoute('app_portfolio');
+            }
+        }
+
+        return $this->render('portfolio/edit.html.twig', [
+            'form' => $form->createView(),
+            'portfolio' => $portfolio,
+        ]);
+    }
 }
