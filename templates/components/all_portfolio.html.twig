@@ -1,0 +1,5 @@
+<div style="display: flex; flex-wrap: wrap">
+    {% for portfolio in this.allPortfolio %}
+        {{ component('portfolio_card', {'id': portfolio.id}) }}
+    {% endfor %}
+</div>

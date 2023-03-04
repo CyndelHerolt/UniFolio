@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PortfolioController!{% endblock %}
+{% block title %}UniFolio - Bibliothèque de portfolios{% endblock %}
+
+{% block header %}
+    {% include "_menu.html.twig" %}
+{% endblock %}
 
 {% block body %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bibliothèque de portfolios</li>
+        </ol>
+    </nav>
 
+    <div class="container">
+    <h1>Bibliothèque de Portfolio</h1>
     <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
         <button class="btn btn-primary">Créer un portfolio</button>
     </a>
+
+        {{ component('all_portfolio') }}
+    </div>
 
 {% endblock %}

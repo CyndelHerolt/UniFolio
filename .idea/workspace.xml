@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Bootstrap] Installation par Webpack">
-      <change afterPath="$PROJECT_DIR$/templates/portfolio/new.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier">
+      <change afterPath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Portfolio/PortfolioCardComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/all_portfolio.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Portfolio.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Portfolio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PortfolioType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PortfolioType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -333,21 +333,9 @@
       <workItem from="1677860950596" duration="2045000" />
       <workItem from="1677864023278" duration="23000" />
       <workItem from="1677864426230" duration="500000" />
-      <workItem from="1677933030921" duration="8384000" />
-    </task>
-    <task id="LOCAL-00061" summary="feat: [Profil] Affichage et édition du profil Etudiant">
-      <created>1677079481971</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1677079481971</updated>
-    </task>
-    <task id="LOCAL-00062" summary="feat: [Profil] Affichage et édition du profil Etudiant">
-      <created>1677147484109</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1677147484110</updated>
+      <workItem from="1677933030921" duration="8465000" />
+      <workItem from="1677947794849" duration="199000" />
+      <workItem from="1677948016334" duration="3427000" />
     </task>
     <task id="LOCAL-00063" summary="feat: [Profil] Affichage et édition du profil Enseignant">
       <created>1677150612891</created>
@@ -678,7 +666,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677933531739</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="feat: [Portfolio] bibliothèque et Formulaire de création de portfolio (à corriger)">
+      <created>1677941580713</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1677941580713</updated>
+    </task>
+    <task id="LOCAL-00111" summary="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier">
+      <created>1677950063465</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1677950063465</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -739,8 +741,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Fixtures] Création données bibliotheque à la création d'un étudiant" />
-    <MESSAGE value="fix: [Fixtures] Création ordonnée des objets" />
     <MESSAGE value="feat: [Pages] Création des classes pour nouvelle page" />
     <MESSAGE value="fix: [Traces] Récupération de la date de modification" />
     <MESSAGE value="fix: [Forms] Remplacement de la méthode deprecated renderForm() par createView()." />
@@ -764,6 +764,8 @@
     <MESSAGE value="fix: [Pages] Ajout de traces à partir de la page" />
     <MESSAGE value="feat: [Portfolios] Génération formulaire et controller" />
     <MESSAGE value="fix: [Bootstrap] Installation par Webpack" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Bootstrap] Installation par Webpack" />
+    <MESSAGE value="feat: [Portfolio] bibliothèque et Formulaire de création de portfolio (à corriger)" />
+    <MESSAGE value="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Ajout de pages au portfolio à la création de ce dernier" />
   </component>
 </project>
