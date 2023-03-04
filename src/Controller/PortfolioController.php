@@ -37,31 +37,32 @@ class PortfolioController extends AbstractController
 
     //TODO: Trouver pourquoi les pages ne sont pas enregistrées dans page_portfolio
     #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
+    #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
     public function new(
         Request $request,
         PortfolioRepository $portfolioRepository,
-        Security $security,
-    ): Response
-    {
+        Security $security
+    ): Response {
         $user = $security->getUser()->getEtudiant();
         $portfolio = new Portfolio();
 
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
-        $pages = $form->get('pages')->getData();
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $pages = $form->get('pages')->getData();
 
             if ($pages->isEmpty()) {
                 $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-            }
-            else {
+            } else {
                 $portfolio->setEtudiant($user);
 
+                foreach ($pages as $page) {
+                    $portfolio->addPage($page);
+                    $page->addPortfolio($portfolio);
+                }
+
                 $portfolioRepository->save($portfolio, true);
-//                dump($portfolio);
-//                die();
 
                 $this->addFlash('success', 'Le Portfolio a été créé avec succès');
                 return $this->redirectToRoute('app_portfolio');
@@ -73,4 +74,5 @@ class PortfolioController extends AbstractController
             'portfolio' => $portfolio,
         ]);
     }
+
 }
