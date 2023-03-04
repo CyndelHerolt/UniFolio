@@ -36,6 +36,8 @@ class Portfolio
 
     public function __construct()
     {
+        $this->date_creation = new \DateTimeImmutable();
+        $this->date_modification = null;
         $this->pages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }

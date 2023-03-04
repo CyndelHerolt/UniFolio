@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Pages] Ajout de traces à partir de la page">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Bootstrap] Installation par Webpack">
+      <change afterPath="$PROJECT_DIR$/templates/portfolio/new.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Portfolio.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Portfolio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PortfolioType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PortfolioType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,42 +325,15 @@
       <workItem from="1677740895004" duration="3595000" />
       <workItem from="1677744554418" duration="1082000" />
       <workItem from="1677754273307" duration="1146000" />
-      <workItem from="1677782241712" duration="299000" />
-    </task>
-    <task id="LOCAL-00056" summary="feat: [Traces] Récupération et affichage sommaire de la bibliothèque de traces de l'utilisateur connecté">
-      <created>1676991143194</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1676991143194</updated>
-    </task>
-    <task id="LOCAL-00057" summary="feat: [Dashboard] Structure contenu du dashboard">
-      <created>1676991534283</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1676991534283</updated>
-    </task>
-    <task id="LOCAL-00058" summary="data: [Compétences] Créations données fictives">
-      <created>1677065416190</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1677065416190</updated>
-    </task>
-    <task id="LOCAL-00059" summary="feat: [Traces] Modal pour choix du type">
-      <created>1677065574994</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1677065574994</updated>
-    </task>
-    <task id="LOCAL-00060" summary="fix: LiveComponent import">
-      <created>1677065647433</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1677065647433</updated>
+      <workItem from="1677782241712" duration="823000" />
+      <workItem from="1677783081993" duration="1217000" />
+      <workItem from="1677830866412" duration="2243000" />
+      <workItem from="1677833652354" duration="3320000" />
+      <workItem from="1677849190106" duration="8432000" />
+      <workItem from="1677860950596" duration="2045000" />
+      <workItem from="1677864023278" duration="23000" />
+      <workItem from="1677864426230" duration="500000" />
+      <workItem from="1677933030921" duration="8384000" />
     </task>
     <task id="LOCAL-00061" summary="feat: [Profil] Affichage et édition du profil Etudiant">
       <created>1677079481971</created>
@@ -667,7 +643,42 @@
       <option name="project" value="LOCAL" />
       <updated>1677709490998</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="fix: installation">
+      <created>1677782575232</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1677782575232</updated>
+    </task>
+    <task id="LOCAL-00106" summary="fix: [Pages] Ajout de traces à partir de la page">
+      <created>1677832808044</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1677832808044</updated>
+    </task>
+    <task id="LOCAL-00107" summary="fix: [Pages] Ajout de traces à partir de la page">
+      <created>1677863933026</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1677863933026</updated>
+    </task>
+    <task id="LOCAL-00108" summary="feat: [Portfolios] Génération formulaire et controller">
+      <created>1677933261680</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1677933261681</updated>
+    </task>
+    <task id="LOCAL-00109" summary="fix: [Bootstrap] Installation par Webpack">
+      <created>1677933531739</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1677933531739</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -728,9 +739,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Installation: Révision de la procédure d'installation" />
-    <MESSAGE value="fix: [Fixtures] Création des fixtures de base" />
-    <MESSAGE value="installation: Révision de la procédure d'installation (Fixtures)" />
     <MESSAGE value="fix: [Fixtures] Création données bibliotheque à la création d'un étudiant" />
     <MESSAGE value="fix: [Fixtures] Création ordonnée des objets" />
     <MESSAGE value="feat: [Pages] Création des classes pour nouvelle page" />
@@ -752,7 +760,10 @@
     <MESSAGE value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
     <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
     <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
+    <MESSAGE value="fix: installation" />
     <MESSAGE value="fix: [Pages] Ajout de traces à partir de la page" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Pages] Ajout de traces à partir de la page" />
+    <MESSAGE value="feat: [Portfolios] Génération formulaire et controller" />
+    <MESSAGE value="fix: [Bootstrap] Installation par Webpack" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Bootstrap] Installation par Webpack" />
   </component>
 </project>

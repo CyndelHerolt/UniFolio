@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class PageType extends AbstractType
@@ -32,9 +31,18 @@ class PageType extends AbstractType
         array $options,
     ): void
     {
+        //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+//-----------------------Récupération des données de l'utilisateur pour choiceType--------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
         $user = $options['user'];
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
         $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+        //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
         $builder
             ->add('ordre', ChoiceType::class, [
