@@ -37,10 +37,11 @@ class PortfolioController extends AbstractController
 
     #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
     public function new(
-        Request $request,
+        Request             $request,
         PortfolioRepository $portfolioRepository,
-        Security $security
-    ): Response {
+        Security            $security
+    ): Response
+    {
         $user = $security->getUser()->getEtudiant();
         $portfolio = new Portfolio();
 
@@ -75,13 +76,15 @@ class PortfolioController extends AbstractController
 
     #[Route('/portfolio/edit/{id}', name: 'app_portfolio_edit')]
     public function edit(
-        Request $request,
+        Request             $request,
         PortfolioRepository $portfolioRepository,
-        Security $security,
-        int $id
-    ): Response {
+        Security            $security,
+        int                 $id
+    ): Response
+    {
         $user = $security->getUser()->getEtudiant();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        $existingPages = $portfolio->getPages();
 
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
@@ -95,24 +98,26 @@ class PortfolioController extends AbstractController
             } else {
                 $portfolio->setEtudiant($user);
 
-                //TODO: Retirer les pages qui ne sont plus sélectionnées
-                foreach ($pages as $page) {
-                    if ($portfolio->getPages()->contains($page)) {
-                        $portfolio->addPage($page);
-                        $page->addPortfolio($portfolio);
-                    }
-                    else {
-                        $portfolio->removePage($page);
-                        $page->removePortfolio($portfolio);
+
+                foreach ($existingPages as $existingPage) {
+                    if (!$pages->contains($existingPage)) {
+                        $portfolio->removePage($existingPage);
+                        $existingPage->removePortfolio($portfolio);
                     }
                 }
+//                TODO: Retirer les pages qui ne sont plus sélectionnées
+                foreach ($pages as $page) {
+                    $portfolio->addPage($page);
+                    $page->addPortfolio($portfolio);
+                }
 
-                $portfolioRepository->save($portfolio, true);
+            $portfolioRepository->save($portfolio, true);
 
-                $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
-                return $this->redirectToRoute('app_portfolio');
+            $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
+            return $this->redirectToRoute('app_portfolio');
             }
         }
+
 
         return $this->render('portfolio/edit.html.twig', [
             'form' => $form->createView(),
