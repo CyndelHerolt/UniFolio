@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
 use App\Repository\PortfolioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,37 +85,41 @@ class PortfolioController extends AbstractController
     {
         $user = $security->getUser()->getEtudiant();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
-        $existingPages = $portfolio->getPages();
+        $existingPages = $portfolio->getPages(); // Récupérer les pages déjà associées au portfolio
+        $pagesToRemove = new ArrayCollection($existingPages->toArray()); // Créer une collection avec les pages déjà associées au portfolio
 
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
-        $pages = $form->get('pages')->getData();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $pages = $form->get('pages')->getData();
 
             if ($pages->isEmpty()) {
                 $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
             } else {
-                $portfolio->setEtudiant($user);
 
-
-                foreach ($existingPages as $existingPage) {
-                    if (!$pages->contains($existingPage)) {
-                        $portfolio->removePage($existingPage);
-                        $existingPage->removePortfolio($portfolio);
+                //Pour chaque page déjà associée au portfolio
+                foreach ($pagesToRemove as $pageToRemove) {
+                    //Si la page n'est plus sélectionnée
+                    if (!$pages->contains($pageToRemove)) {
+                        //Retirer la page du portfolio
+                        $portfolio->removePage($pageToRemove);
+                        $pageToRemove->removePortfolio($portfolio);
                     }
                 }
-//                TODO: Retirer les pages qui ne sont plus sélectionnées
+
+                //Pour chaque page sélectionnée
                 foreach ($pages as $page) {
+                    //Ajouter la page au portfolio
                     $portfolio->addPage($page);
                     $page->addPortfolio($portfolio);
                 }
 
-            $portfolioRepository->save($portfolio, true);
+                $portfolioRepository->save($portfolio, true);
 
-            $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
-            return $this->redirectToRoute('app_portfolio');
+                $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
+                return $this->redirectToRoute('app_portfolio');
             }
         }
 
