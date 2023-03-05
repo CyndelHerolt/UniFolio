@@ -129,4 +129,17 @@ class PortfolioController extends AbstractController
             'portfolio' => $portfolio,
         ]);
     }
+
+    #[Route('/portfolio/delete/{id}', name: 'app_portfolio_delete')]
+    public function delete(
+        PortfolioRepository $portfolioRepository,
+        int                 $id
+    ): Response
+    {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        $portfolioRepository->remove($portfolio, true);
+
+        $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
+        return $this->redirectToRoute('app_portfolio');
+    }
 }
