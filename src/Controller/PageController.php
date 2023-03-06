@@ -170,7 +170,6 @@ class PageController extends AbstractController
                         ->where('e.id = :user')
                         ->andWhere('t.id NOT IN (:page)')
                         ->setParameters(['user' => $user->getId(), 'page' => $page->getTrace()->toArray()]);
-
                 },
                 'choice_label' => 'titre',
                 'multiple' => true,
@@ -189,10 +188,10 @@ class PageController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-//TODO: Test si aucune trace n'a été sélectionnée
             //Récupérer les id traces sélectionnées dans le formulaire
             $traces = $request->request->all()['form']['trace'];
 
+            //TODO: Test si aucune trace n'a été sélectionnée
             //Si il n'y a pas de trace sélectionnée dans le formulaire
 //            if ($traces->isEmpty()) {
 //                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');

@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
+use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -141,5 +145,68 @@ class PortfolioController extends AbstractController
 
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
         return $this->redirectToRoute('app_portfolio');
+    }
+
+    #[Route('portfolio/page/{id}', name: 'app_add_to_portfolio')]
+    public function addPage(
+        Request             $request,
+        PortfolioRepository $portfolioRepository,
+        PageRepository      $pageRepository,
+        Security            $security,
+        int                 $id
+    ): Response
+    {
+        $user = $security->getUser()->getEtudiant();
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        $existingPages = $portfolio->getPages();
+
+        $form = $this->createFormBuilder($portfolio)
+            ->add('pages', EntityType::class, [
+                'class' => Page::class,
+                'query_builder' => function (PageRepository $pageRepository) use ($user, $portfolio) {
+                    return $pageRepository->createQueryBuilder('p')
+                        ->andWhere('p NOT IN (:portfolio)')
+                        ->setParameters(['portfolio' => $portfolio->getPages()->toArray()]);
+                },
+                'choice_label' => 'intitule',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Pages',
+                'mapped' => false,
+            ])
+
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pages = $request->request->all()['form']['pages'];
+
+            //TODO: Test si aucune trace n'a été sélectionnée
+//            if ($pages->isEmpty()) {
+//                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
+//            } else {
+                foreach ($pages as $page) {
+                    $page = $pageRepository->findOneBy(['id' => $page]);
+                    $portfolio->addPage($page);
+                    $page->addPortfolio($portfolio);
+                }
+                foreach ($existingPages as $existingPage) {
+                    $portfolio->addPage($existingPage);
+//                    $existingPage->addPortfolio($portfolio);
+                }
+
+                $portfolioRepository->save($portfolio, true);
+
+                $this->addFlash('success', 'La page a été ajoutée au portfolio avec succès');
+                return $this->redirectToRoute('app_portfolio');
+            }
+//        }
+
+
+        return $this->render('portfolio/edit.html.twig', [
+            'form' => $form->createView(),
+            'portfolio' => $portfolio,
+        ]);
     }
 }
