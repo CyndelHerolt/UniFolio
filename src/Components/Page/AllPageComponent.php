@@ -12,8 +12,8 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class AllPageComponent
 {
     public function __construct(
-        public PageRepository $pageRepository,
-        public BibliothequeRepository $bibliothequeRepository,
+//        protected PageRepository $pageRepository,
+        protected BibliothequeRepository $bibliothequeRepository,
         #[Required] public Security $security
     )
     {}

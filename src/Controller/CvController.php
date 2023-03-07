@@ -27,12 +27,8 @@ class CvController extends AbstractController
 
         $cvs = $etudiant->getCvs();
 
-        foreach ($cvs as $cv) {
-            dump($cv->getIntitule());
-        }
-
         return $this->render('cv/index.html.twig', [
-            'controller_name' => 'CvController',
+            'cvs' => $cvs,
         ]);
     }
 
