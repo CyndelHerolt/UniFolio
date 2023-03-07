@@ -140,8 +140,8 @@ class PortfolioController extends AbstractController
     ): Response
     {
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
-        $portfolioRepository->remove($portfolio, true);
 
+        $portfolioRepository->remove($portfolio, true);
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
         return $this->redirectToRoute('app_portfolio');
     }

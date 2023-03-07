@@ -68,7 +68,7 @@ class PageController extends AbstractController
         Security       $security,
     ): Response
     {
-        $user = $security->getUser()->getEtudiant();
+        $user = $this->security->getUser()->getEtudiant();
         $page = new Page();
 
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
