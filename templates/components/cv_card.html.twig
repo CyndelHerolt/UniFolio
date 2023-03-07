@@ -3,6 +3,9 @@
 <div class="card col-lg-5 col-12">
     <div class="card-body">
         <h3 class="card-title">{{ this.cv.intitule }}</h3>
+    <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
+        <button class="btn btn-primary">Modifier</button>
+    </a>
     </div>
 </div>
 

@@ -58,4 +58,32 @@ class CvController extends AbstractController
             'form' => $form->createView(),
             ]);
     }
+
+    #[Route('/cv/edit/{id}', name: 'app_cv_edit')]
+    public function edit(
+        Request      $request,
+        CvRepository $cvRepository,
+        Cv           $cv,
+        int          $id,
+    ): Response
+    {
+        $user = $this->security->getUser()->getEtudiant();
+
+        $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
+        $cv = $cvRepository->findOneBy(['id' => $id]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $cv->setDateModification(new \DateTime());
+            $cvRepository->save($cv, true);
+
+            return $this->redirectToRoute('app_cv');
+        }
+
+        return $this->render('cv/edit.html.twig', [
+            'form' => $form->createView(),
+            'cv'   => $cv,
+            ]);
+    }
 }
