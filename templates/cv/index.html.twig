@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CvController!{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_cv_new', {'id': app.user.etudiant.id}) }}">
+        <button class="btn btn-primary">Créer un cv</button>
+    </a>
+{% endblock %}
