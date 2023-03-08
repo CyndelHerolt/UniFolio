@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: Indentation">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [CV] Génération du formulaire de création de cv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cv.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cv/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/new.html.twig" afterDir="false" />
@@ -347,14 +348,8 @@
       <workItem from="1678209722463" duration="6820000" />
       <workItem from="1678259223874" duration="11325000" />
       <workItem from="1678280530261" duration="4871000" />
-      <workItem from="1678294268197" duration="1356000" />
-    </task>
-    <task id="LOCAL-00076" summary="fix: [Fixtures] Création des fixtures de base">
-      <created>1677410800362</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1677410800362</updated>
+      <workItem from="1678294268197" duration="1473000" />
+      <workItem from="1678298973438" duration="4113000" />
     </task>
     <task id="LOCAL-00077" summary="installation: Révision de la procédure d'installation (Fixtures)">
       <created>1677410862535</created>
@@ -692,7 +687,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678216744303</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="feat: [CV] Génération du formulaire de création de cv">
+      <created>1678296025438</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1678296025438</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -773,11 +775,11 @@
     <MESSAGE value="feat: [Portfolio] Modification de portfolio depuis la bibliothèque" />
     <MESSAGE value="feat: [Portfolio] Suppression de portfolio depuis la bibliothèque" />
     <MESSAGE value="feat: [Portfolio] Ajout d'une page directement depuis la bibliothèque" />
-    <MESSAGE value="feat: [CV] Génération du formulaire de création de cv" />
     <MESSAGE value="feat: [CV] Génération de la bibliothèque et du formulaire de création de cv" />
     <MESSAGE value="feat: [CV] Formulaire de modification" />
     <MESSAGE value="fix: [Navigation] Ajout des liens vers nouvelles pages dans le menu" />
     <MESSAGE value="fix: Indentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Indentation" />
+    <MESSAGE value="feat: [CV] Génération du formulaire de création de cv" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [CV] Génération du formulaire de création de cv" />
   </component>
 </project>

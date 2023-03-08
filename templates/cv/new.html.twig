@@ -18,15 +18,48 @@
                 <article class="col-lg-5 col-12">
                     {{ form_start(form) }}
 
-                    {{ form_widget(form) }}
+                    {{ form_row(form.date_creation) }}
+                    {{ form_row(form.date_modification) }}
+                    {{ form_row(form.intitule) }}
+                    {{ form_row(form.description) }}
+
+                    {{ form_label(form.soft_skills) }}
+                    {{ form_errors(form.soft_skills) }}
+                    <ul id="soft-skills-list" data-prototype="{{ form_widget(form.soft_skills.vars.prototype)|e('html_attr') }}">
+                        {% for softSkill in form.soft_skills %}
+                            <li>{{ form_widget(softSkill) }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#" id="add-soft-skill">Ajouter un soft skill</a>
+
+                    {{ form_row(form.langues) }}
+                    {{ form_row(form.reseaux) }}
+
                     <button type="submit" class="btn btn-primary">Submit</button>
+
                     {{ form_end(form) }}
                 </article>
             </div>
         </section>
     </div>
 
+    <script>
+        var softSkillsList = document.getElementById('soft-skills-list');
+        var addSoftSkillLink = document.getElementById('add-soft-skill');
+        var newSoftSkillIndex = softSkillsList.children.length;
 
+        addSoftSkillLink.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var newSoftSkillLi = document.createElement('li');
+            var newSoftSkillInput = softSkillsList.dataset.prototype;
+            newSoftSkillInput = newSoftSkillInput.replace(/__name__/g, newSoftSkillIndex);
+            newSoftSkillLi.innerHTML = newSoftSkillInput;
+            softSkillsList.appendChild(newSoftSkillLi);
+
+            newSoftSkillIndex++;
+        });
+    </script>
 {% endblock %}
 
 

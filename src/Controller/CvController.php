@@ -47,8 +47,8 @@ class CvController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $cv->setEtudiant($user);
-            $cv->setDateCreation(new \DateTime());
-            $cv->setDateModification(new \DateTime());
+            $cv->setDateCreation(new \DateTimeImmutable());
+            $cv->setDateModification(new \DateTimeImmutable());
             $cvRepository->save($cv, true);
 
             return $this->redirectToRoute('app_cv');

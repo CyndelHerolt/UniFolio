@@ -39,6 +39,7 @@ class CvType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Description de mon CV',],
             ])
+            //----------------------------------------------------------------
             ->add('soft_skills', CollectionType::class, [
                 'entry_type' => TextType::class,
                 'entry_options' => [
@@ -52,10 +53,14 @@ class CvType extends AbstractType
                 ],
                 'prototype' => true,
                 'attr' => ['class' => "form-control"],
-                'allow_extra_fields' => true, // Ajout de cette option
-                'allow_add' => true, // Ajout de cette option
+                'allow_extra_fields' => true,
+                'allow_add' => true,
                 'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ])
+            //----------------------------------------------------------------
             ->add('hard_skills', TextType::class, [
                 'label' => 'Hard Skills',
                 'label_attr' => ['class' => 'form-label'],
@@ -78,6 +83,7 @@ class CvType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Cv::class,
             'user' => null,
+            'empty_data' => new Cv(),
         ]);
     }
 }
