@@ -52,7 +52,7 @@ class CvType extends AbstractType
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'prototype' => true,
-                'attr' => ['class' => "form-control"],
+                'label' => false,
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
