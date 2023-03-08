@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Cv;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,8 +34,43 @@ class CvType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Intitulé de mon CV',],
             ])
-//            ->add('etudiant')
-        ;
+            ->add('description', TextAreaType::class, [
+                'label' => 'Description',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Description de mon CV',],
+            ])
+            ->add('soft_skills', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Soft Skills de mon CV',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Soft Skills',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'attr' => ['class' => "form-control"],
+                'allow_extra_fields' => true, // Ajout de cette option
+                'allow_add' => true, // Ajout de cette option
+                'allow_delete' => true,
+            ])
+            ->add('hard_skills', TextType::class, [
+                'label' => 'Hard Skills',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Hard Skills de mon CV',],
+            ])
+            ->add('langues', TextType::class, [
+                'label' => 'Langues',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Langues de mon CV',],
+            ])
+            ->add('reseaux', TextType::class, [
+                'label' => 'Réseaux',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Réseaux de mon CV',],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
