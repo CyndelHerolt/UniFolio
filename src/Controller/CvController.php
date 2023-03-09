@@ -53,6 +53,9 @@ class CvController extends AbstractController
 
             return $this->redirectToRoute('app_cv');
         }
+        elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('danger', 'Le formulaire n\'est pas valide');
+        }
 
         return $this->render('cv/new.html.twig', [
             'form' => $form->createView(),

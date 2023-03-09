@@ -61,11 +61,27 @@ class CvType extends AbstractType
                 'empty_data' => [],
             ])
             //----------------------------------------------------------------
-            ->add('hard_skills', TextType::class, [
-                'label' => 'Hard Skills',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Hard Skills de mon CV',],
+            ->add('hard_skills', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Hard Skills de mon CV',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Hard Skills',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ])
+            //----------------------------------------------------------------
             ->add('langues', TextType::class, [
                 'label' => 'Langues',
                 'label_attr' => ['class' => 'form-label'],

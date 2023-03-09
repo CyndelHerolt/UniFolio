@@ -23,71 +23,147 @@
                     {{ form_row(form.intitule) }}
                     {{ form_row(form.description) }}
 
-                    {% for softSkill in form.soft_skills %}
-                        <div class="input-group mb-3">
-                            {{ form_widget(softSkill) }}
-                        </div>
+                    <hr>
+                    <div>
+                        {% for softSkill in form.soft_skills %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(softSkill) }}
+                            </div>
                             <button type="button" class="btn btn-danger delete-soft-skill">
                                 <i class="fa-solid fa-square-minus"></i>
                             </button>
-                    {% endfor %}
-                    <button type="button" class="btn btn-primary add-soft-skill">
-                        Ajouter un soft skill <i class="fa fa-square-plus"></i>
-                    </button>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary add-soft-skill">
+                            Ajouter un soft skill <i class="fa fa-square-plus"></i>
+                        </button>
+                    </div>
+                    <hr>
+                    <div>
+                        {% for hardSkill in form.hard_skills %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(hardSkill) }}
+                            </div>
+                            <button type="button" class="btn btn-danger delete-hard-skill">
+                                <i class="fa-solid fa-square-minus"></i>
+                            </button>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary add-hard-skill">
+                            Ajouter un hard skill <i class="fa fa-square-plus"></i>
+                        </button>
+                    </div>
+                    <hr>
 
+                    {{ form_row(form.langues) }}
+                    {{ form_row(form.reseaux) }}
+                    <button type="submit" class="btn btn-primary">Submit</button>
                     {{ form_end(form) }}
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
                 </article>
             </div>
         </section>
     </div>
 
-{% block javascripts %}
-<script>
-    // Fonction pour supprimer un champ soft_skill
-    function removeSoftSkill(button) {
-        button.closest('.input-group').remove();
-    }
+    {% block javascripts %}
+        <script>
+            //-----------------------------------------------------------------------------
+            //---------------------------------SOFT SKILLS---------------------------------
+            //-----------------------------------------------------------------------------
 
-    // Fonction pour ajouter un nouveau champ soft_skill
-    function addSoftSkill() {
-        // Récupération du prototype et incrémentation du compteur
-        var prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
-        var index = document.querySelectorAll('.input-group').length;
-        // Création du nouveau champ soft_skill
-        var newForm = prototype.replace(/__name__/g, index);
-        // Ajout du nouveau champ soft_skill au formulaire
-        var formGroup = document.createElement('div');
-        formGroup.classList.add('input-group', 'mb-3');
-        formGroup.innerHTML = newForm;
-        var button = document.createElement('button');
-        button.type = 'button';
-        button.classList.add('btn', 'btn-danger', 'delete-soft-skill');
-        button.innerHTML = '<i class="fa fa-square-minus"></i>';
-        button.style.width='fit-content';
-        button.style.height='fit-content';
-        button.style.margin='auto 10px';
-        button.addEventListener('click', function () {
-            removeSoftSkill(button);
-        });
-        formGroup.appendChild(button);
-        var addButton = document.querySelector('.add-soft-skill');
-        addButton.parentNode.insertBefore(formGroup, addButton);
-    }
+            // Fonction pour supprimer un champ soft_skill
+            function removeSoftSkill(button) {
+                button.closest('.input-group').remove();
+            }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
-    document.querySelectorAll('.delete-soft-skill').forEach(function (button) {
-        button.addEventListener('click', function () {
-            removeSoftSkill(button);
-        });
-    });
+            // Fonction pour ajouter un nouveau champ soft_skill
+            function addSoftSkill() {
+                // Récupération du prototype et incrémentation du compteur
+                var prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
+                var index = document.querySelectorAll('.input-group').length;
+                // Création du nouveau champ soft_skill
+                var newForm = prototype.replace(/__name__/g, index);
+                // Ajout du nouveau champ soft_skill au formulaire
+                var formGroup = document.createElement('div');
+                formGroup.classList.add('input-group', 'mb-3');
+                formGroup.style.display = 'flex';
+                formGroup.style.alignItems = 'flex-end';
+                formGroup.innerHTML = newForm;
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.classList.add('btn', 'btn-danger', 'delete-soft-skill');
+                button.innerHTML = '<i class="fa fa-square-minus"></i>';
+                button.style.width = 'fit-content';
+                button.style.height = 'fit-content';
+                button.addEventListener('click', function () {
+                    removeSoftSkill(button);
+                });
+                formGroup.appendChild(button);
+                var addButtonSoft = document.querySelector('.add-soft-skill');
+                addButtonSoft.parentNode.insertBefore(formGroup, addButtonSoft);
+            }
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
-    var addButton = document.querySelector('.add-soft-skill');
-    addButton.addEventListener('click', function () {
-        addSoftSkill();
-    });
-</script>
+            // Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
+            document.querySelectorAll('.delete-soft-skill').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    removeSoftSkill(button);
+                });
+            });
+
+            // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
+            var addButtonSoft = document.querySelector('.add-soft-skill');
+            addButtonSoft.addEventListener('click', function () {
+                addSoftSkill();
+            });
+
+            //-----------------------------------------------------------------------------
+            //----------------------------HARD SKILLS---------------------------------
+            //-----------------------------------------------------------------------------
+
+
+            // Fonction pour supprimer un champ soft_skill
+            function removeHardSkill(button) {
+                button.closest('.input-group').remove();
+            }
+
+            // Fonction pour ajouter un nouveau champ soft_skill
+            function addHardSkill() {
+                // Récupération du prototype et incrémentation du compteur
+                var prototype = document.querySelector('#cv_hard_skills').dataset.prototype;
+                var index = document.querySelectorAll('.input-group').length;
+                // Création du nouveau champ soft_skill
+                var newForm = prototype.replace(/__name__/g, index);
+                // Ajout du nouveau champ soft_skill au formulaire
+                var formGroup = document.createElement('div');
+                formGroup.classList.add('input-group', 'mb-3');
+                formGroup.style.display = 'flex';
+                formGroup.style.alignItems = 'flex-end';
+                formGroup.innerHTML = newForm;
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.classList.add('btn', 'btn-danger', 'delete-hard-skill');
+                button.innerHTML = '<i class="fa fa-square-minus"></i>';
+                button.style.width = 'fit-content';
+                button.style.height = 'fit-content';
+                button.addEventListener('click', function () {
+                    removeHardSkill(button);
+                });
+                formGroup.appendChild(button);
+                var addButtonHard = document.querySelector('.add-hard-skill');
+                addButtonHard.parentNode.insertBefore(formGroup, addButtonHard);
+            }
+
+            // Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
+            document.querySelectorAll('.delete-hard-skill').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    removeHardSkill(button);
+                });
+            });
+
+            // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
+            var addButtonHard = document.querySelector('.add-hard-skill');
+            addButtonHard.addEventListener('click', function () {
+                addHardSkill();
+            });
+        </script>
     {% endblock %}
 {% endblock %}
 

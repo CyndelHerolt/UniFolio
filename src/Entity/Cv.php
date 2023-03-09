@@ -37,8 +37,8 @@ class Cv
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $soft_skills = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $hard_skills = null;
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $hard_skills = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reseaux = null;
@@ -120,12 +120,12 @@ class Cv
         return $this;
     }
 
-    public function getHardSkills(): string
+    public function getHardSkills(): array
     {
         return $this->hard_skills;
     }
 
-    public function setHardSkills(?string $hard_skills): self
+    public function setHardSkills(?array $hard_skills): self
     {
         $this->hard_skills = $hard_skills;
 
