@@ -10,6 +10,7 @@ use App\Repository\TraceRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -93,7 +94,17 @@ class PortfolioType extends AbstractType
                 'help' => 'Choisissez les pages à inclure dans votre portfolio',
                 'required' => true,
             ])
-//            ->add('etudiant')
+            ->add('visibilite', ChoiceType::class, [
+                'choices' => [
+                    'Public' => 'public',
+                    'Privé' => 'prive',
+                ],
+                'label' => 'Visibilité',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
+                'help' => 'Choisissez la visibilité de votre portfolio',
+                'required' => true,
+            ])
         ;
     }
 

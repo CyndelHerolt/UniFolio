@@ -65,6 +65,13 @@ class PortfolioController extends AbstractController
                     $page->addPortfolio($portfolio);
                 }
 
+                if ($form->get('visibilite')->getData() === 'public') {
+                    $portfolio->setVisibilite(true);
+                } elseif ($form->get('visibilite')->getData() === 'prive') {
+                    $portfolio->setVisibilite(false);
+                }
+
+
                 $portfolioRepository->save($portfolio, true);
 
                 $this->addFlash('success', 'Le Portfolio a été créé avec succès');
@@ -117,6 +124,12 @@ class PortfolioController extends AbstractController
                     //Ajouter la page au portfolio
                     $portfolio->addPage($page);
                     $page->addPortfolio($portfolio);
+                }
+
+                if ($form->get('visibilite')->getData() === 'public') {
+                    $portfolio->setVisibilite(true);
+                } elseif ($form->get('visibilite')->getData() === 'prive') {
+                    $portfolio->setVisibilite(false);
                 }
 
                 $portfolioRepository->save($portfolio, true);
@@ -181,10 +194,9 @@ class PortfolioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pages = $request->request->all()['form']['pages'];
 
-            //TODO: Test si aucune trace n'a été sélectionnée
-//            if ($pages->isEmpty()) {
-//                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-//            } else {
+            if ($pages->isEmpty()) {
+                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
+            } else {
                 foreach ($pages as $page) {
                     $page = $pageRepository->findOneBy(['id' => $page]);
                     $portfolio->addPage($page);
@@ -200,7 +212,7 @@ class PortfolioController extends AbstractController
                 $this->addFlash('success', 'La page a été ajoutée au portfolio avec succès');
                 return $this->redirectToRoute('app_portfolio');
             }
-//        }
+        }
 
 
         return $this->render('portfolio/edit.html.twig', [

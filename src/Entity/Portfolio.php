@@ -34,6 +34,9 @@ class Portfolio
     #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\Column]
+    private ?bool $visibilite = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -148,6 +151,18 @@ class Portfolio
                 $commentaire->setPortfolio(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVisibilite(): ?bool
+    {
+        return $this->visibilite;
+    }
+
+    public function setVisibilite(bool $visibilite): self
+    {
+        $this->visibilite = $visibilite;
 
         return $this;
     }

@@ -2,7 +2,11 @@
     <td>{{ this.portfolio.intitule }}</td>
     <td>{{ this.portfolio.datecreation|date('d-m-y H:i') }}</td>
     <td>{{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y H:i') : this.trace.datemodification|date('d-m-y H:i') }}</td>
+    {% if this.portfolio.visibilite %}
     <td>Public</td>
+    {% else %}
+    <td>Privé</td>
+    {% endif %}
     <td class="table-btn">
         <div class="btn-group">
             <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">

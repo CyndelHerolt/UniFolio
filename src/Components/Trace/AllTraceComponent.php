@@ -24,17 +24,6 @@ class AllTraceComponent {
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
         $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
 
-//        // Récupérer les portfolios de chaque trace
-//        foreach ($traces as $trace) {
-//            $pages = $trace->getPages();
-//            foreach ($pages as $p) {
-//                $portfolios = $p->getPortfolio()->toArray();
-//                foreach ($portfolios as $portfolio) {
-//                    $portfolio = $portfolio->getIntitule();
-//                }
-//            }
-//        }
-
         return $traces;
     }
 }
