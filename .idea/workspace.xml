@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [js] structure des fichiers js">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [cv] structure des vues de formulaire">
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PageFixture.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cv/edit.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cv/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,14 +353,8 @@
       <workItem from="1678303286887" duration="1448000" />
       <workItem from="1678356383905" duration="4143000" />
       <workItem from="1678440266288" duration="173000" />
-      <workItem from="1678440457938" duration="9972000" />
-    </task>
-    <task id="LOCAL-00082" summary="fix: [Forms] Remplacement de la méthode deprecated renderForm() par createView().">
-      <created>1677494236516</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1677494236516</updated>
+      <workItem from="1678440457938" duration="10583000" />
+      <workItem from="1678452609261" duration="2587000" />
     </task>
     <task id="LOCAL-00083" summary="fix: [Bootstrap] Correction import JS">
       <created>1677494278077</created>
@@ -700,7 +692,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678449524226</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="fix: [cv] structure des vues de formulaire">
+      <created>1678452017338</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1678452017338</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -761,7 +760,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page" />
     <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
     <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
     <MESSAGE value="fix: installation" />
@@ -786,6 +784,7 @@
     <MESSAGE value="fix: [CV] Ajout dynamique de champs" />
     <MESSAGE value="fix: [Suppression] Correction du ciblage" />
     <MESSAGE value="fix: [js] structure des fichiers js" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [js] structure des fichiers js" />
+    <MESSAGE value="fix: [cv] structure des vues de formulaire" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [cv] structure des vues de formulaire" />
   </component>
 </project>
