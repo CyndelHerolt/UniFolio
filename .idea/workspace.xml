@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [cv] structure des vues de formulaire">
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PageFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Fixtures] Ajout de fixtures pour les pages, portfolios et cv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cv.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,14 +356,7 @@
       <workItem from="1678356383905" duration="4143000" />
       <workItem from="1678440266288" duration="173000" />
       <workItem from="1678440457938" duration="10583000" />
-      <workItem from="1678452609261" duration="2587000" />
-    </task>
-    <task id="LOCAL-00083" summary="fix: [Bootstrap] Correction import JS">
-      <created>1677494278077</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1677494278078</updated>
+      <workItem from="1678452609261" duration="3936000" />
     </task>
     <task id="LOCAL-00084" summary="add">
       <created>1677494331998</created>
@@ -699,7 +694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678452017338</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="fix: [Fixtures] Ajout de fixtures pour les pages, portfolios et cv">
+      <created>1678455337132</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1678455337133</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -760,7 +762,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Traces] Ajout d'une trace à une page depuis la bibliothèque de traces" />
     <MESSAGE value="fix: [Pagese] Ajout de page impossible si pas de Traces créées au préalable" />
     <MESSAGE value="fix: installation" />
     <MESSAGE value="fix: [Pages] Ajout de traces à partir de la page" />
@@ -785,6 +786,7 @@
     <MESSAGE value="fix: [Suppression] Correction du ciblage" />
     <MESSAGE value="fix: [js] structure des fichiers js" />
     <MESSAGE value="fix: [cv] structure des vues de formulaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [cv] structure des vues de formulaire" />
+    <MESSAGE value="fix: [Fixtures] Ajout de fixtures pour les pages, portfolios et cv" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Fixtures] Ajout de fixtures pour les pages, portfolios et cv" />
   </component>
 </project>

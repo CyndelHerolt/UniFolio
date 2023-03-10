@@ -82,16 +82,48 @@ class CvType extends AbstractType
                 'empty_data' => [],
             ])
             //----------------------------------------------------------------
-            ->add('langues', TextType::class, [
-                'label' => 'Langues',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Langues de mon CV',],
+            ->add('langues', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Langues',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Langues',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ])
-            ->add('reseaux', TextType::class, [
-                'label' => 'Réseaux',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Réseaux de mon CV',],
+            //----------------------------------------------------------------
+            ->add('reseaux', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Mes reseaux',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Reseaux',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

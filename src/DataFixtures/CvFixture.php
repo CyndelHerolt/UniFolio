@@ -18,7 +18,14 @@ class CvFixture extends Fixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
         $cv1 = new Cv();
-        $cv1->setIntitule('CV 1');
+        $cv1->setIntitule('CV 1')
+        ->setDateCreation(new \DateTimeImmutable('now'))
+        ->setDescription('Ma description ...')
+        ->setHardSkills(['PHP', 'Symfony', 'HTML', 'CSS', 'JS'])
+        ->setSoftSkills(['Travail en équipe', 'Rigueur', 'Autonomie'])
+        ->setLangues(['Français', 'Anglais', 'Espagnol'])
+        ->setReseaux(['LinkedIn', 'GitHub', 'Twitter'])
+        ;
 
         $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
         $cv1->setEtudiant($etudiant);
@@ -26,7 +33,14 @@ class CvFixture extends Fixture implements OrderedFixtureInterface {
         $manager->persist($cv1);
 
         $cv2 = new Cv();
-        $cv2->setIntitule('CV 2');
+        $cv2->setIntitule('CV 2')
+            ->setDateCreation(new \DateTimeImmutable('now'))
+            ->setDescription('Ma description ...')
+            ->setHardSkills(['PHP', 'Symfony', 'HTML', 'CSS', 'JS'])
+            ->setSoftSkills(['Travail en équipe', 'Rigueur', 'Autonomie'])
+            ->setLangues(['Français', 'Anglais', 'Espagnol'])
+            ->setReseaux(['LinkedIn', 'GitHub', 'Twitter'])
+        ;
 
         $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
         $cv2->setEtudiant($etudiant);
@@ -34,7 +48,14 @@ class CvFixture extends Fixture implements OrderedFixtureInterface {
         $manager->persist($cv2);
 
         $cv3 = new Cv();
-        $cv3->setIntitule('CV 3');
+        $cv3->setIntitule('CV 3')
+            ->setDateCreation(new \DateTimeImmutable('now'))
+            ->setDescription('Ma description ...')
+            ->setHardSkills(['PHP', 'Symfony', 'HTML', 'CSS', 'JS'])
+            ->setSoftSkills(['Travail en équipe', 'Rigueur', 'Autonomie'])
+            ->setLangues(['Français', 'Anglais', 'Espagnol'])
+            ->setReseaux(['LinkedIn', 'GitHub', 'Twitter'])
+        ;
 
         $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
         $cv3->setEtudiant($etudiant);
@@ -42,10 +63,24 @@ class CvFixture extends Fixture implements OrderedFixtureInterface {
         $manager->persist($cv3);
 
         $cv4 = new Cv();
-        $cv4->setIntitule('CV 4');
+        $cv4->setIntitule('CV 4')
+            ->setDateCreation(new \DateTimeImmutable('now'))
+            ->setDescription('Ma description ...')
+            ->setHardSkills(['PHP', 'Symfony', 'HTML', 'CSS', 'JS'])
+            ->setSoftSkills(['Travail en équipe', 'Rigueur', 'Autonomie'])
+            ->setLangues(['Français', 'Anglais', 'Espagnol'])
+            ->setReseaux(['LinkedIn', 'GitHub', 'Twitter'])
+        ;
 
         $etudiant = $this->etudiantRepository->findOneBy(['mail_univ' => 'etudiant@mail.com']);
-        $cv4->setEtudiant($etudiant);
+        $cv4->setEtudiant($etudiant)
+            ->setDateCreation(new \DateTimeImmutable('now'))
+            ->setDescription('Ma description ...')
+            ->setHardSkills(['PHP', 'Symfony', 'HTML', 'CSS', 'JS'])
+            ->setSoftSkills(['Travail en équipe', 'Rigueur', 'Autonomie'])
+            ->setLangues(['Français', 'Anglais', 'Espagnol'])
+            ->setReseaux(['LinkedIn', 'GitHub', 'Twitter'])
+        ;
 
         $manager->persist($cv4);
 

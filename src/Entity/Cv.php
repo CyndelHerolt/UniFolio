@@ -29,8 +29,8 @@ class Cv
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $langues = null;
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $langues = null;
 
 //    #[ORM\Column(length: 255, nullable: true)]
 //    private ?string $soft_skills = null;
@@ -40,8 +40,8 @@ class Cv
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $hard_skills = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $reseaux = null;
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $reseaux = null;
 
     public function getId(): ?int
     {
@@ -132,24 +132,24 @@ class Cv
         return $this;
     }
 
-    public function getLangues(): ?string
+    public function getLangues(): ?array
     {
         return $this->langues;
     }
 
-    public function setLangues(?string $langues): self
+    public function setLangues(?array $langues): self
     {
         $this->langues = $langues;
 
         return $this;
     }
 
-    public function getReseaux(): ?string
+    public function getReseaux(): ?array
     {
         return $this->reseaux;
     }
 
-    public function setReseaux(?string $reseaux): self
+    public function setReseaux(?array $reseaux): self
     {
         $this->reseaux = $reseaux;
 

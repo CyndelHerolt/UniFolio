@@ -57,9 +57,35 @@
                         </button>
                     </div>
                     <hr>
+                    <div>
+                        {% for langue in form.langues %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(langue) }}
+                            <button type="button" class="btn btn-danger delete-langue">
+                                <i class="fa-solid fa-square-minus"></i>
+                            </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary add-langue">
+                            Ajouter une langue <i class="fa fa-square-plus"></i>
+                        </button>
+                    </div>
+                    <hr>
+                    <div>
+                        {% for reseau in form.reseaux %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(reseau) }}
+                            <button type="button" class="btn btn-danger delete-reseau">
+                                <i class="fa-solid fa-square-minus"></i>
+                            </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary add-reseau">
+                            Ajouter un reseau <i class="fa fa-square-plus"></i>
+                        </button>
+                    </div>
+                    <hr>
 
-                    {{ form_row(form.langues) }}
-                    {{ form_row(form.reseaux) }}
                     <button type="submit" class="btn btn-primary">Submit</button>
                     {{ form_end(form) }}
 
