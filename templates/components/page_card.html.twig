@@ -1,68 +1,68 @@
 {# templates/components/page_card.html.twig #}
 {% if '/portfolio' in app.request.uri %}
 
-<div class="card col-lg-10 col-12">
-    <div class="card-body">
-        <h3 class="card-title">{{ this.page.intitule }}</h3>
+    <div class="card col-lg-10 col-12">
+        <div class="card-body">
+            <h3 class="card-title">{{ this.page.intitule }}</h3>
             <div class="card-body">
-            <ul>
-                {% for trace in this.page.trace %}
-                    <li>{{ trace.titre }}</li>
-                {% endfor %}
-            </ul>
+                <ul>
+                    {% for trace in this.page.trace %}
+                        <li>{{ trace.titre }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
 {% elseif '/page' in app.request.uri %}
 
-<div class="card col-lg-5 col-12">
-    <div class="card-body">
-        <h3 class="card-title">{{ this.page.intitule }}</h3>
+    <div class="card col-lg-5 col-12">
+        <div class="card-body">
+            <h3 class="card-title">{{ this.page.intitule }}</h3>
 
-        <h6>Traces associées :</h6>
-        {% for trace in this.page.trace %}
-            {{ component('trace_card', {'id': trace.id}) }}
-        {% endfor %}
+            <h6>Traces associées :</h6>
+            {% for trace in this.page.trace %}
+                {{ component('trace_card', {'id': trace.id}) }}
+            {% endfor %}
 
-        <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
-            <button class="btn btn-primary">Modifier</button>
-        </a>
+            <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
+                <button class="btn btn-primary">Modifier</button>
+            </a>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Supprimer
-        </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.page.id }}">
+                Supprimer
+            </button>
 
-        <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">
-            <button class="btn btn-primary">Ajouter des traces</button>
-        </a>
+            <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">
+                <button class="btn btn-primary">Ajouter des traces</button>
+            </a>
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette page
-                            ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>La page {{ this.page.intitule }} sera supprimée.</p>
-                        <p style="color: red">Attention, cette action est irréversible !</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a href="{{ path('app_page_delete', {'id': this.page.id}) }}">
-                            <button class="btn btn-primary">Supprimer</button>
-                        </a>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop{{ this.page.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette page
+                                ?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>La page {{ this.page.intitule }} sera supprimée.</p>
+                            <p style="color: red">Attention, cette action est irréversible !</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a href="{{ path('app_page_delete', {'id': this.page.id}) }}">
+                                <button class="btn btn-primary">Supprimer</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-    {% endif %}
+{% endif %}
 

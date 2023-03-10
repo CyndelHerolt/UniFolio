@@ -66,10 +66,10 @@ class CvType extends AbstractType
                 'entry_options' => [
                     'attr' => [
                         'class' => "form-control",
-                        'placeholder' => 'Hard Skills de mon CV',
+                        'placeholder' => 'Soft Skills de mon CV',
                     ],
                     'by_reference' => false,
-                    'label' => 'Hard Skills',
+                    'label' => 'Soft Skills',
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'prototype' => true,

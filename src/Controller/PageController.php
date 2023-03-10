@@ -130,11 +130,12 @@ class PageController extends AbstractController
         ]);
     }
 
+//    TODO: corriger sélection de la page à supprimer
     #[Route('/page/delete/{id}', name: 'app_page_delete')]
     public function delete(
         Request        $request,
         PageRepository $pageRepository,
-        string         $id,
+        int         $id,
     ): Response
     {
         $page = $pageRepository->find($id);

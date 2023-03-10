@@ -26,12 +26,37 @@
         <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
             <button class="btn btn-primary">Modifier</button>
         </a>
-        <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
-            <button class="btn btn-primary">Supprimer</button>
-        </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                Supprimer
+            </button>
+
             <a href="{{ path('app_add_trace_to_page', {'id': this.trace.id}) }}">
             <button class="btn btn-primary">Ajouter dans une page</button>
         </a>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace ?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>La trace {{ this.trace.titre }} sera supprimée.</p>
+                            <p style="color: red">Attention, cette action est irréversible !</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
+                                <button class="btn btn-primary">Supprimer</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
 
     </div>

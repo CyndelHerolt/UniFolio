@@ -89,4 +89,20 @@ class CvController extends AbstractController
             'cv'   => $cv,
             ]);
     }
+//    TODO: corriger sélection du CV à supprimer
+    #[Route('/cv/delete/{id}', name: 'app_cv_delete')]
+    public function delete(
+        CvRepository $cvRepository,
+        int          $id,
+    ): Response
+    {
+        $cv = $cvRepository->findOneBy(['id' => $id]);
+
+        $cvRepository->remove($cv, true);
+        $this->addFlash('success', 'Le CV a été supprimé avec succès.');
+
+        return $this->redirectToRoute('app_cv', [
+            'cv' => $cv,
+        ]);
+    }
 }
