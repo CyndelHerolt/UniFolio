@@ -84,12 +84,12 @@ class CvController extends AbstractController
             return $this->redirectToRoute('app_cv');
         }
 
-        return $this->render('cv/edit.html.twig', [
+        return $this->render('cv/new.html.twig', [
             'form' => $form->createView(),
             'cv'   => $cv,
             ]);
     }
-//    TODO: corriger sélection du CV à supprimer
+
     #[Route('/cv/delete/{id}', name: 'app_cv_delete')]
     public function delete(
         CvRepository $cvRepository,

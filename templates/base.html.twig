@@ -9,13 +9,6 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
 
-
-    {% endblock %}
-
-    {% block javascripts %}
-
-        <script src="https://kit.fontawesome.com/c610cfb1f1.js" crossorigin="anonymous"></script>
-        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 <body>
@@ -25,6 +18,9 @@
 </header>
 {% include "_toasts.html.twig" %}
 {% block body %}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </body>
 </html>

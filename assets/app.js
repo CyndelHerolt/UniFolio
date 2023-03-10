@@ -13,4 +13,5 @@ import 'bootstrap';
 // start the Stimulus application
 import './bootstrap';
 
-import './toast';
+
+import './js/main.js';
