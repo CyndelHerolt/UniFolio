@@ -22,6 +22,7 @@ class PortfolioCardComponent
         // Chargement des pages associées au portfolio
         $portfolio->getPages()->toArray();
 
+
         return $portfolio;
     }
 }

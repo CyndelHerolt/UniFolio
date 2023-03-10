@@ -1,6 +1,25 @@
 {# templates/components/trace_card.html.twig #}
+{% if '/page' in app.request.uri %}
+<div class="card col-11">
+    <div class="card-body">
+        <h5 class="card-title">{{ this.trace.titre }}</h5>
+        {% if 'TraceTypeImage' in this.trace.typeTrace %}
+            <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
 
-<div class="card col-10">
+        {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+            <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
+
+        {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+            <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank"><iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe></a>
+
+        {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+            <iframe width="560" height="auto" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
+
+        {% endif %}
+    </div>
+</div>
+{% elseif '/trace' in app.request.uri %}
+<div class="card col-lg-3 col-10">
     <div class="card-body">
         <h5 class="card-title">{{ this.trace.titre }}</h5>
         <p class="card-text">Dernière modification
@@ -10,13 +29,13 @@
             <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
 
         {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-            <a href="{{ this.trace.contenu }}" class="card-img-top">Lien vers le contenu</a>
+            <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
 
         {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
             <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank"><iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe></a>
 
             {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
+                <iframe width="560" height="auto" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
 
         {% endif %}
 
@@ -58,6 +77,6 @@
                 </div>
             </div>
         {% endif %}
-
     </div>
 </div>
+    {% endif %}

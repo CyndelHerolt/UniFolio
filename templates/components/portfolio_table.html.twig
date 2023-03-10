@@ -1,0 +1,16 @@
+<tr>
+    <td>{{ this.portfolio.intitule }}</td>
+    <td>{{ this.portfolio.datecreation|date('d-m-y H:i') }}</td>
+    <td>{{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y H:i') : this.trace.datemodification|date('d-m-y H:i') }}</td>
+    <td>Public</td>
+    <td class="table-btn">
+        <div class="btn-group">
+            <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
+                <button><i class="fa-solid fa-edit"></i></button>
+            </a>
+            <a href="">
+                <button><i class="fa-solid fa-eye"></i></button>
+            </a>
+        </div>
+    </td>
+</tr>

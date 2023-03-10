@@ -2,11 +2,19 @@
     <td>{{ this.trace.titre }}</td>
     <td>{{ this.trace.datecreation|date('d-m-y H:i') }}</td>
     <td>{{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-y H:i') : this.trace.datemodification|date('d-m-y H:i') }}</td>
-    <td>Portfolio 1</td>
+    <td>
+        {% for page in this.trace.pages %}
+            {% for portfolio in page.portfolio %}
+                {{ portfolio.intitule }}
+                 •
+            {% endfor %}
+        {% endfor %}
+{#        {{ this.trace.pages.count }}#}
+    </td>
     <td><i class="fa-solid fa-check"></i></td>
     <td class="table-btn">
         <div class="btn-group">
-            <a href="">
+            <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
                 <button><i class="fa-solid fa-edit"></i></button>
             </a>
             <a href="">
