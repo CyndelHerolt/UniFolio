@@ -57,7 +57,7 @@ class CvController extends AbstractController
             $this->addFlash('danger', 'Le formulaire n\'est pas valide');
         }
 
-        return $this->render('cv/new.html.twig', [
+        return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
             ]);
     }
@@ -78,13 +78,13 @@ class CvController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $cv->setDateModification(new \DateTime());
+            $cv->setDateModification(new \DateTimeImmutable());
             $cvRepository->save($cv, true);
 
             return $this->redirectToRoute('app_cv');
         }
 
-        return $this->render('cv/new.html.twig', [
+        return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
             'cv'   => $cv,
             ]);

@@ -13,6 +13,11 @@
         </ol>
     </nav>
     <div class="container">
+        {% if '/edit' in app.request.uri %}
+        <h1>Modifier un CV</h1>
+        {% elseif '/new' in app.request.uri %}
+        <h1>Nouveau CV</h1>
+        {% endif %}
         <section class="cv_form">
             <div class="row">
                 <article class="col-lg-5 col-12">
@@ -28,10 +33,10 @@
                         {% for softSkill in form.soft_skills %}
                             <div class="input-group mb-3">
                                 {{ form_widget(softSkill) }}
-                            </div>
                             <button type="button" class="btn btn-danger delete-soft-skill">
                                 <i class="fa-solid fa-square-minus"></i>
                             </button>
+                            </div>
                         {% endfor %}
                         <button type="button" class="btn btn-primary add-soft-skill">
                             Ajouter un soft skill <i class="fa fa-square-plus"></i>
@@ -42,10 +47,10 @@
                         {% for hardSkill in form.hard_skills %}
                             <div class="input-group mb-3">
                                 {{ form_widget(hardSkill) }}
-                            </div>
                             <button type="button" class="btn btn-danger delete-hard-skill">
                                 <i class="fa-solid fa-square-minus"></i>
                             </button>
+                            </div>
                         {% endfor %}
                         <button type="button" class="btn btn-primary add-hard-skill">
                             Ajouter un hard skill <i class="fa fa-square-plus"></i>

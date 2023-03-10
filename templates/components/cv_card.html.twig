@@ -3,6 +3,8 @@
 <div class="card col-lg-5 col-12">
     <div class="card-body">
         <h3 class="card-title">{{ this.cv.intitule }}</h3>
+        <p class="card-text">Dernière modification
+            : {{ this.cv.datemodification is empty ? this.cv.datecreation|date('d-m-Y H:i') : this.cv.datemodification|date('d-m-Y H:i') }}</p>
     <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
         <button class="btn btn-primary">Modifier</button>
     </a>

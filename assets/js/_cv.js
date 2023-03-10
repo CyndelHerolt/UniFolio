@@ -1,4 +1,4 @@
-
+//TODO: trouver pourquoi le btn d'ajout ne fonctionne pas lors de l'edition d'un cv
     //-----------------------------------------------------------------------------
     //---------------------------------SOFT SKILLS---------------------------------
     //-----------------------------------------------------------------------------
@@ -53,19 +53,19 @@
     //-----------------------------------------------------------------------------
 
 
-    // Fonction pour supprimer un champ soft_skill
+    // Fonction pour supprimer un champ hard_skill
     function removeHardSkill(button) {
     button.closest('.input-group').remove();
 }
 
-    // Fonction pour ajouter un nouveau champ soft_skill
+    // Fonction pour ajouter un nouveau champ hard_skill
     function addHardSkill() {
     // Récupération du prototype et incrémentation du compteur
     var prototype = document.querySelector('#cv_hard_skills').dataset.prototype;
     var index = document.querySelectorAll('.input-group').length;
-    // Création du nouveau champ soft_skill
+    // Création du nouveau champ hard_skill
     var newForm = prototype.replace(/__name__/g, index);
-    // Ajout du nouveau champ soft_skill au formulaire
+    // Ajout du nouveau champ hard_skill au formulaire
     var formGroup = document.createElement('div');
     formGroup.classList.add('input-group', 'mb-3');
     formGroup.style.display = 'flex';
@@ -85,14 +85,14 @@
     addButtonHard.parentNode.insertBefore(formGroup, addButtonHard);
 }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
+    // Gestionnaire d'événement pour le bouton de suppression d'un champ hard_skill
     document.querySelectorAll('.delete-hard-skill').forEach(function (button) {
     button.addEventListener('click', function () {
         removeHardSkill(button);
     });
 });
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
+    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ hard_skill
     var addButtonHard = document.querySelector('.add-hard-skill');
     addButtonHard.addEventListener('click', function () {
     addHardSkill();
