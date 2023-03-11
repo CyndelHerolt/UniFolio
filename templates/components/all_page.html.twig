@@ -1,4 +1,4 @@
-<div style="display: flex; flex-wrap: wrap">
+<div class="row" >
     {% for page in this.allPage|sort((a,b)=> a.ordre <=> b.ordre) %}
         {{ component('page_card', {'id': page.id}) }}
     {% endfor %}

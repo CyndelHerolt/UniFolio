@@ -16,30 +16,42 @@
 
 {% elseif '/page' in app.request.uri %}
 
-    <div class="card col-lg-5 col-12">
+    <div class="card" style="width: 23rem;">
         <div class="card-body">
-            <h3 class="card-title">{{ this.page.intitule }}</h3>
+            <div class="card-content">
+                <h3 class="card-title">{{ this.page.intitule }}</h3>
+                <hr>
+                <h6>Traces associées :</h6>
+                <ul>
+                    {% for trace in this.page.trace %}
+                        <li>{{ trace.titre }}</li>
+                    {% endfor %}
+                </ul>
 
-            <h6>Traces associées :</h6>
-            {% for trace in this.page.trace %}
-                {{ component('trace_card', {'id': trace.id}) }}
-            {% endfor %}
+                <hr>
 
-            <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
-                <button class="btn btn-primary">Modifier</button>
-            </a>
+                <div class="btn_grp">
+                    <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.page.id }}">
-                Supprimer
-            </button>
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.page.id }}">
+                            Supprimer
+                        </button>
+                    </a>
 
-            <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">
-                <button class="btn btn-primary">Ajouter des traces</button>
-            </a>
+                    <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">
+                        <button class="btn btn-primary">Ajouter des traces</button>
+                    </a>
+                </div>
+            </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop{{ this.page.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            <div class="modal fade" id="staticBackdrop{{ this.page.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

@@ -1,4 +1,4 @@
-.portfolios {
+.portfolios, .pages {
 
   a {
 
@@ -15,7 +15,7 @@
   }
 
   .row {
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 0;
     width: 100%;
 
@@ -42,12 +42,25 @@
       .card-content {
         width: 100%;
         text-align: center;
-        padding: 15px;
+        padding: 15px 0;
         background-color: $color-light;
 
         h3 {
           @include titre($primary-font, 22px, 1.5);
           margin: 0;
+        }
+
+        ul {
+          list-style: none;
+          width: 100%;
+          padding: 0;
+          margin: 0;
+
+          li {
+            background-color: $color-primary;
+            padding: 10px 0;
+            margin: 15px 0;
+          }
         }
 
         hr {
@@ -64,23 +77,27 @@
           top: 0;
 
           a {
+            width: 40%;
 
             button {
-                width: 100%;
-                margin: 5px 0;
-                padding: 10px 0;
-                @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                &:hover {
-                    @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
-                }
+              width: 100%;
+              margin: 5px 0;
+              padding: 10px 0;
+              @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+
+              &:hover {
+                @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+              }
             }
           }
-          a:nth-child(1) {
-            width: 110px;
+
+          a:nth-child(3) {
+            width: 50%;
           }
-          a:nth-child(2) {
-            width: 110px;
-          }
+          //
+          //a:nth-child(2) {
+          //  width: 110px;
+          //}
         }
       }
 
