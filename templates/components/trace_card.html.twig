@@ -1,66 +1,86 @@
 {# templates/components/trace_card.html.twig #}
 {% if '/page' in app.request.uri %}
-<div class="card col-11">
-    <div class="card-body">
-        <h5 class="card-title">{{ this.trace.titre }}</h5>
-        {% if 'TraceTypeImage' in this.trace.typeTrace %}
-            <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
+    <div class="card col-11">
+        <div class="card-body">
+            <h5 class="card-title">{{ this.trace.titre }}</h5>
+            {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
 
-        {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-            <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
+            {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
 
-        {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-            <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank"><iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe></a>
-
-        {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-            <iframe width="560" height="auto" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
-
-        {% endif %}
-    </div>
-</div>
-{% elseif '/trace' in app.request.uri %}
-<div class="card col-lg-3 col-10">
-    <div class="card-body">
-        <h5 class="card-title">{{ this.trace.titre }}</h5>
-        <p class="card-text">Dernière modification
-            : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
-
-        {% if 'TraceTypeImage' in this.trace.typeTrace %}
-            <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
-
-        {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-            <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
-
-        {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-            <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank"><iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe></a>
+            {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank">
+                    <iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe>
+                </a>
 
             {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                <iframe width="560" height="auto" src="https://www.youtube.com/embed/qJK_9eyRQl8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  class="card-img-top"></iframe>
+                <iframe width="560" height="auto" src="https://www.youtube.com/embed/qJK_9eyRQl8"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen class="card-img-top"></iframe>
 
-        {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% elseif '/trace' in app.request.uri %}
+    <div class="card" style="width: 23rem;">
+        <div class="card-body">
+            <div class="card-content">
+                <h5 class="card-title">{{ this.trace.titre }} -                 {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                        {{ this.trace.typeTrace|split('TraceType')|last }}
+                    {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                        {{ this.trace.typeTrace|split('TraceType')|last }}
+                    {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                        {{ this.trace.typeTrace|split('TraceType')|last }}
+                    {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                        {{ this.trace.typeTrace|split('TraceType')|last }}
+                    {% endif %}</h5>
+                <hr>
 
-        <p class="card-text">{{ this.trace.description }}</p>
+                <ul>
+                    <li>
+                        Compétence A <span><i class="fa fa-check"></i></span>
+                    </li>
+                    <li>
+                        Compétence B <span><i class="fa fa-xmark"></i></span>
+                    </li>
+                </ul>
 
-        {% if '/trace' in app.request.uri %}
-        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
-            <button class="btn btn-primary">Modifier</button>
-        </a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.trace.id }}">
-                Supprimer
-            </button>
+                <hr>
+                <p class="card-text">modifié le
+                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
 
-            <a href="{{ path('app_add_trace_to_page', {'id': this.trace.id}) }}">
-            <button class="btn btn-primary">Ajouter dans une page</button>
-        </a>
+                <p class="card-text">{{ this.trace.description }}</p>
+
+                <div class="btn_grp">
+                    <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
+
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                            Supprimer
+                        </button>
+                    </a>
+
+                    <a href="{{ path('app_add_trace_to_page', {'id': this.trace.id}) }}">
+                        <button class="btn btn-primary">Ajouter dans une page</button>
+                    </a>
+                </div>
+            </div>
 
 
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace ?</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace
+                                ?</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -76,7 +96,6 @@
                     </div>
                 </div>
             </div>
-        {% endif %}
+        </div>
     </div>
-</div>
-    {% endif %}
+{% endif %}
