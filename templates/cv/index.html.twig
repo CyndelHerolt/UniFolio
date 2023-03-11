@@ -11,10 +11,13 @@
         <li class="breadcrumb-item active" aria-current="page">Bibliothèque de CV</li>
     </ol>
 </nav>
-<div class="container">
+<div class="container cvs">
     <h1>Biblitohèque de CV</h1>
     <a href="{{ path('app_cv_new', {'id': app.user.etudiant.id}) }}">
-        <button class="btn btn-primary">Créer un cv</button>
+        <button class="btn btn-primary">
+            <i class="fa-solid fa-circle-plus"></i> <br>
+            Créer un cv
+        </button>
     </a>
     {{ component('all_cv') }}
 </div>
