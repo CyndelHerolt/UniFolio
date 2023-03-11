@@ -37,6 +37,9 @@ class Portfolio
     #[ORM\Column]
     private ?bool $visibilite = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $banniere = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -163,6 +166,18 @@ class Portfolio
     public function setVisibilite(bool $visibilite): self
     {
         $this->visibilite = $visibilite;
+
+        return $this;
+    }
+
+    public function getBanniere(): ?string
+    {
+        return $this->banniere;
+    }
+
+    public function setBanniere(?string $banniere): self
+    {
+        $this->banniere = $banniere;
 
         return $this;
     }
