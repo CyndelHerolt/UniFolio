@@ -1,0 +1,25 @@
+.trace_form {
+
+  article {
+
+    form {
+
+      div {
+
+        div:nth-child(1) {
+
+          input {
+            display: none;
+          }
+        }
+
+        div:nth-child(2) {
+
+          input {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

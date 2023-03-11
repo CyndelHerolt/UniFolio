@@ -1,5 +1,5 @@
 {% if '/portfolio' in app.request.uri %}
-<div style="display: flex; flex-wrap: wrap">
+    <div class="row" >
     {% for portfolio in this.allPortfolio %}
         {{ component('portfolio_card', {'id': portfolio.id}) }}
     {% endfor %}

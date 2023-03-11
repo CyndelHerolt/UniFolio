@@ -22,6 +22,15 @@ body {
       }
     }
   }
+
+  nav {
+
+    .breadcrumb {
+      @include paragraphe;
+      padding: 15px 75px;
+      margin: 0;
+    }
+  }
 }
 
 

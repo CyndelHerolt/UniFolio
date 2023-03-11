@@ -14,13 +14,12 @@
         </ol>
     </nav>
 
-    <div class="container">
-    <h1>Bibliothèque de Portfolio</h1>
-    <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
-        <button class="btn btn-primary">Créer un portfolio</button>
-    </a>
-
-        {{ component('all_portfolio') }}
+    <div class="container portfolios">
+        <h1>Bibliothèque de Portfolios</h1>
+        <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+            <button class="btn btn-primary">Créer un portfolio</button>
+        </a>
+            {{ component('all_portfolio') }}
     </div>
 
 {% endblock %}

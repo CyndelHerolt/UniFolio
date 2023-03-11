@@ -7,13 +7,13 @@
     {% endblock %}
 
 {% block body %}
-    {#        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb"> #}
-    {#            <ol class="breadcrumb"> #}
-    {#                <li class="breadcrumb-item"><a href="#">Home</a></li> #}
-    {#                <li class="breadcrumb-item active" aria-current="page">Tableau de bord</li> #}
-    {#            </ol> #}
-    {#        </nav> #}
-    <div class="container">
+{#    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">#}
+{#        <ol class="breadcrumb">#}
+{#            <li class="breadcrumb-item"><a href="{{ path('app_logout') }}">Site public</a></li>#}
+{#            <li class="breadcrumb-item active" aria-current="page">Dashboard étudiant</li>#}
+{#        </ol>#}
+{#    </nav>#}
+    <div class="container dashboard">
         <h1>Tableau de bord</h1>
         <section class="dashboard_retours_pedagogiques">
             <div class="row">
@@ -104,13 +104,35 @@
                 <h2>Dernières traces créées</h2>
                 <article class="col-lg-12 col-12">
                     {{ component('all_trace') }}
-                    <a href="#">
-                        <button>Créer une trace</button>
-                    </a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Créer une trace
+                    </button>
                     <a href="{{ path('app_trace') }}">
                         <button>Bibliothèque de traces</button>
                     </a>
                 </article>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    {% for trace in traces %}
+                                        <li>
+                                            <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
+                                                        class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -119,6 +141,12 @@
                 <h2>Vos portfolios</h2>
                 <article class="col-lg-12 col-12">
                     {{ component('all_portfolio') }}
+                    <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+                        <button>Créer un portfolio</button>
+                    </a>
+                    <a href="{{ path('app_portfolio') }}">
+                        <button>Bibliothèque de portfolios</button>
+                    </a>
                 </article>
             </div>
         </section>
