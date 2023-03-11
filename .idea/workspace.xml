@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Portfolio] Ajout donnée 'banniere' FileType">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Style] Structure fichiers scss et tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -356,14 +358,7 @@
       <workItem from="1678440457938" duration="10583000" />
       <workItem from="1678452609261" duration="4350000" />
       <workItem from="1678468437605" duration="6800000" />
-      <workItem from="1678523006210" duration="10251000" />
-    </task>
-    <task id="LOCAL-00089" summary="feat: [Pages] Affichage des Pages et de leurs Traces grace à des Twig Components">
-      <created>1677517749541</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1677517749541</updated>
+      <workItem from="1678523006210" duration="13434000" />
     </task>
     <task id="LOCAL-00090" summary="feat: [Pages] Affichage des Pages et de leurs Traces grace à des Twig Components">
       <created>1677517865299</created>
@@ -701,7 +696,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678533359228</updated>
     </task>
-    <option name="localTasksCounter" value="138" />
+    <task id="LOCAL-00138" summary="fix: [Style] Structure fichiers scss et tests">
+      <created>1678533644216</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1678533644216</updated>
+    </task>
+    <option name="localTasksCounter" value="139" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -785,8 +787,8 @@
     <MESSAGE value="fix: [CV] Ajout collections formulaire" />
     <MESSAGE value="fix: [Dashboard etudiant] Affichage dynamique des portfolio et lien direct pr modification" />
     <MESSAGE value="feat: [Portfolio] Gestion de la visibilité" />
-    <MESSAGE value="fix: [Style] Structure fichiers scss et tests" />
     <MESSAGE value="feat: [Portfolio] Ajout donnée 'banniere' FileType" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Portfolio] Ajout donnée 'banniere' FileType" />
+    <MESSAGE value="fix: [Style] Structure fichiers scss et tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Style] Structure fichiers scss et tests" />
   </component>
 </project>

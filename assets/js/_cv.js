@@ -1,4 +1,5 @@
-//TODO: trouver pourquoi le btn d'ajout ne fonctionne pas lors de l'edition d'un cv
+
+//TODO: trouver pourquoi le btn d'ajout ne fonctionne pas lors de l'edition d'un cv qui a deja des champs
     //-----------------------------------------------------------------------------
     //---------------------------------SOFT SKILLS---------------------------------
     //-----------------------------------------------------------------------------

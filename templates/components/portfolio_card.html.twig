@@ -1,36 +1,50 @@
-<div class="card global col-lg-4 col-sm-12">
+<div class="card" style="width: 23rem;">
     <div class="card-body">
-        <h3 class="card-title">{{ this.portfolio.intitule }}</h3>
-        {% if this.portfolio.visibilite %}
-            <p>Public</p>
-        {% else %}
-            <p>Privé</p>
-        {% endif %}
+        <div class="card-header">
+            <img src="{{ this.portfolio.banniere }}" class="card-img-top" alt="...">
+        </div>
+        <div class="card-content">
+            <h3 class="card-title">{{ this.portfolio.intitule }}</h3>
+            <hr>
+            <p>modifié le : {{ this.portfolio.dateModification|date('d/m/Y') }}</p>
 
-        <h6>Pages associées :</h6>
-        {% for pages in this.portfolio.pages %}
-            {{ component('page_card', {'id': pages.id}) }}
-        {% endfor %}
+            {% if this.portfolio.visibilite %}
+                <p>Public</p>
+            {% else %}
+                <p>Privé</p>
+            {% endif %}
 
-        <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
-            <button class="btn btn-primary">Modifier</button>
-        </a>
+            {#        <h6>Pages associées :</h6> #}
+            {#        {% for pages in this.portfolio.pages %} #}
+            {#            {{ component('page_card', {'id': pages.id}) }} #}
+            {#        {% endfor %} #}
+            <div class="btn_grp">
+                <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
+                    <button class="btn btn-primary">Modifier</button>
+                </a>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.portfolio.id }}">
-            Supprimer
-        </button>
+                <!-- Button trigger modal -->
+                <a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop{{ this.portfolio.id }}">
+                        Supprimer
+                    </button>
+                </a>
 
-        <a href="{{ path('app_add_to_portfolio', {'id': this.portfolio.id}) }}">
-            <button class="btn btn-primary">Ajouter des pages</button>
-        </a>
+                <a href="{{ path('app_add_to_portfolio', {'id': this.portfolio.id}) }}">
+                    <button class="btn btn-primary">Ajouter des pages</button>
+                </a>
+            </div>
+        </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop{{ this.portfolio.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop{{ this.portfolio.id }}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer ce portfolio ?</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer ce portfolio
+                            ?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
