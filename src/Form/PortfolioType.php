@@ -98,7 +98,7 @@ class PortfolioType extends AbstractType
                 'expanded' => true,
                 'label' => 'Pages',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+                'attr' => ['class' => ""],
                 'help' => 'Choisissez les pages à inclure dans votre portfolio',
                 'required' => true,
             ])

@@ -9,14 +9,18 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_cv') }}">Bibliothèque de cv</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nouveau CV</li>
+            {% if '/edit' in app.request.uri %}
+            <li class="breadcrumb-item active" aria-current="page">Edition cv</li>
+            {% elseif '/new' in app.request.uri %}
+            <li class="breadcrumb-item active" aria-current="page">Nouveau cv</li>
+            {% endif %}
         </ol>
     </nav>
     <div class="container">
         {% if '/edit' in app.request.uri %}
-        <h1>Modifier un CV</h1>
+        <h1>Modifier {{ cv.intitule }}</h1>
         {% elseif '/new' in app.request.uri %}
-        <h1>Nouveau CV</h1>
+        <h1>Nouveau cv</h1>
         {% endif %}
         <section class="cv_form">
             <div class="row">

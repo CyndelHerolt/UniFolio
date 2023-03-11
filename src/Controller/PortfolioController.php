@@ -94,7 +94,7 @@ class PortfolioController extends AbstractController
             }
         }
 
-        return $this->render('portfolio/new.html.twig', [
+        return $this->render('portfolio/formPortfolio.html.twig', [
             'form' => $form->createView(),
             'portfolio' => $portfolio,
         ]);
@@ -115,7 +115,6 @@ class PortfolioController extends AbstractController
         $pagesToRemove = new ArrayCollection($existingPages->toArray()); // Créer une collection avec les pages déjà associées au portfolio
 
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
-
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -170,7 +169,7 @@ class PortfolioController extends AbstractController
         }
 
 
-        return $this->render('portfolio/edit.html.twig', [
+        return $this->render('portfolio/formPortfolio.html.twig', [
             'form' => $form->createView(),
             'portfolio' => $portfolio,
         ]);
@@ -244,7 +243,7 @@ class PortfolioController extends AbstractController
         }
 
 
-        return $this->render('portfolio/edit.html.twig', [
+        return $this->render('portfolio/formPortfolio.html.twig', [
             'form' => $form->createView(),
             'portfolio' => $portfolio,
         ]);

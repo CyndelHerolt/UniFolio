@@ -9,21 +9,39 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_trace') }}">Bibliothèque de traces</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Nouvelle trace</li>
+            {% if '/edit' in app.request.uri %}
+                <li class="breadcrumb-item active" aria-current="page">Edition de trace</li>
+            {% else %}
+                <li class="breadcrumb-item active" aria-current="page">Nouvelle trace</li>
+            {% endif %}
         </ol>
     </nav>
     <div class="container">
         <section class="trace_form">
             <div class="row">
-            <article class="col-lg-5 col-12">
-                <h2>Créer une nouvelle trace</h2>
-                <h3>{{ trace.display }}</h3>
+                <article class="col-lg-5 col-12">
+                    {% if '/edit' in app.request.uri %}
+                        <h2>Modifier {{ trace.titre }}</h2>
+                    {% else %}
+                        <h2>Créer une nouvelle trace</h2>
+                        <h3>{{ trace.display }}</h3>
+                    {% endif %}
 
-                {{ form(form) }}
-            </article>
+                    {{ form_start(form) }}
+                    <div class="hidden">
+                        {{ form_row(form.date_creation) }}
+                        {{ form_row(form.date_modification) }}
+                    </div>
+                    {{ form_row(form.titre) }}
+                    {{ form_row(form.contenu) }}
+                    {{ form_row(form.description) }}
+                    {{ form_end(form) }}
+                </article>
                 <article class="col-lg-5 col-12">
                     {% for competence in competences %}
-                        <p><span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span> | {{ competence.libelle }}</p>
+                        <p>
+                            <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
+                            | {{ competence.libelle }}</p>
                     {% endfor %}
                 </article>
             </div>

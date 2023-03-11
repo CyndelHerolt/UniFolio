@@ -95,7 +95,7 @@ class TraceController extends AbstractController
     ): Response
     {
 
-        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire
+        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire => donc convertion string -> file
 
         $trace = $traceRepository->find($id);
 
@@ -123,7 +123,7 @@ class TraceController extends AbstractController
             }
         }
 
-        return $this->render('trace/edit.html.twig', [
+        return $this->render('trace/formulaire.html.twig', [
             'form' => $form->createView(),
             'trace' => $trace,
             'competences' => $competence,
