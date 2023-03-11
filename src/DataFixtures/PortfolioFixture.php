@@ -32,6 +32,8 @@ class PortfolioFixture extends Fixture implements OrderedFixtureInterface
         $portfolio1 = new Portfolio();
 
         $portfolio1->setIntitule('Portfolio 1')
+            ->setVisibilite(true)
+            ->setBanniere('files_directory/640c667419045.jpg')
             ->addPage($page1)
             ->addPage($page2);
 
@@ -43,6 +45,8 @@ class PortfolioFixture extends Fixture implements OrderedFixtureInterface
         $portfolio2 = new Portfolio();
 
         $portfolio2->setIntitule('Portfolio 2')
+            ->setVisibilite(false)
+            ->setBanniere('files_directory/640c666e893d2.png')
             ->addPage($page3)
             ->addPage($page4);
 
@@ -54,6 +58,8 @@ class PortfolioFixture extends Fixture implements OrderedFixtureInterface
         $portfolio3 = new Portfolio();
 
         $portfolio3->setIntitule('Portfolio 3')
+            ->setVisibilite(true)
+            ->setBanniere('files_directory/640c667419045.jpg')
             ->addPage($page2)
             ->addPage($page4);
 
@@ -65,6 +71,8 @@ class PortfolioFixture extends Fixture implements OrderedFixtureInterface
         $portfolio4 = new Portfolio();
 
         $portfolio4->setIntitule('Portfolio 4')
+            ->setVisibilite(false)
+            ->setBanniere('files_directory/640c666e893d2.png')
             ->addPage($page3)
             ->addPage($page1);
 
