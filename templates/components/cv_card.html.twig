@@ -1,42 +1,56 @@
 {% if '/cv' in app.request.uri %}
 
-<div class="card col-lg-5 col-12">
-    <div class="card-body">
-        <h3 class="card-title">{{ this.cv.intitule }}</h3>
-        <p class="card-text">Dernière modification
-            : {{ this.cv.datemodification is empty ? this.cv.datecreation|date('d-m-Y H:i') : this.cv.datemodification|date('d-m-Y H:i') }}</p>
-    <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
-        <button class="btn btn-primary">Modifier</button>
-    </a>
+    <div class="card" style="width: 23rem;">
+        <div class="card-body">
+            <div class="card-content">
+                <h3 class="card-title">{{ this.cv.intitule }}</h3>
+                <hr>
+                <p class="card-text">Dernière modification
+                    : {{ this.cv.datemodification is empty ? this.cv.datecreation|date('d-m-Y H:i') : this.cv.datemodification|date('d-m-Y H:i') }}</p>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ this.cv.id }}">
-            Supprimer
-        </button>
+                <div class="btn_grp">
+                    <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop{{ this.cv.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer ce CV ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>La page {{ this.cv.intitule }} sera supprimée.</p>
-                        <p style="color: red">Attention, cette action est irréversible !</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a href="{{ path('app_cv_delete', {'id': this.cv.id}) }}">
-                            <button class="btn btn-primary">Supprimer</button>
-                        </a>
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.cv.id }}">
+                            Supprimer
+                        </button>
+                    </a>
+
+                    <a href="">
+                        <button class="btn btn-primary">Ajouter à un portfolio</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop{{ this.cv.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer ce CV ?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>La page {{ this.cv.intitule }} sera supprimée.</p>
+                            <p style="color: red">Attention, cette action est irréversible !</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a href="{{ path('app_cv_delete', {'id': this.cv.id}) }}">
+                                <button class="btn btn-primary">Supprimer</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endif %}

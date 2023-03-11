@@ -1,4 +1,4 @@
-<div style="display: flex; flex-wrap: wrap">
+<div class="row">
     {% for cv in this.allCv %}
         {{ component('cv_card', {'id': cv.id}) }}
     {% endfor %}
