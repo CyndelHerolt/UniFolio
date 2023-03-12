@@ -4,7 +4,7 @@
   .dashboard_retours_pedagogiques {
 
     .row {
-      @include zone(50px 0, 40px, $color-light, 10px);
+      @include zone(50px 0, 40px, $color-light, 0);
       box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
@@ -27,14 +27,14 @@
           tbody {
             tr {
               background-color: $color-primary;
-              border-radius: 5px;
+              //border-radius: 5px;
 
               td:nth-child(1) {
                 @include menu-item;
                 margin: 0;
                 padding: 10px 20px;
                 width: 20%;
-                border-radius: 5px;
+                //border-radius: 5px;
                 background-color: $color-secondary-focus;
                 color: $color-light;
                 height: 100%;
@@ -92,7 +92,7 @@
                 background-color: $color-secondary-focus;
                 color: $color-light;
                 padding: 10px;
-                border-radius: 5px;
+                //border-radius: 5px;
               }
 
               .card-text {
@@ -123,7 +123,7 @@
   .dashboard_traces {
 
     .row {
-      @include zone(50px 0, 40px, $color-light, 10px);
+      @include zone(50px 0, 40px, $color-light, 0);
       box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
@@ -142,14 +142,14 @@
           tbody {
             tr {
               background-color: $color-primary;
-              border-radius: 5px;
+              //border-radius: 5px;
 
               td:nth-child(1) {
                 @include menu-item;
                 margin: 0;
                 padding: 10px 20px;
                 width: 20%;
-                border-radius: 5px;
+                //border-radius: 5px;
                 background-color: $color-secondary-focus;
                 color: $color-light;
                 height: 100%;
@@ -183,11 +183,11 @@
         }
 
         button {
-          @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+          @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
           margin: 0 25px 0 0;
 
           &:hover {
-            @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+            @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
           }
         }
       }
@@ -198,7 +198,7 @@
   .dashboard_portfolio {
 
     .row {
-      @include zone(50px 0, 40px, $color-light, 10px);
+      @include zone(50px 0, 40px, $color-light, 0);
       box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
@@ -217,14 +217,14 @@
           tbody {
             tr {
               background-color: $color-primary;
-              border-radius: 5px;
+              //border-radius: 5px;
 
               td:nth-child(1) {
                 @include menu-item;
                 margin: 0;
                 padding: 10px 20px;
                 width: 20%;
-                border-radius: 5px;
+                //border-radius: 5px;
                 background-color: $color-secondary-focus;
                 color: $color-light;
                 height: 100%;
@@ -260,11 +260,11 @@
         a {
 
           button {
-            @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+            @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
             margin: 0 25px 0 0;
 
             &:hover {
-              @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
+              @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
             }
           }
         }

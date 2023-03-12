@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Forms] Optimisation des formulaires">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Style] Structure + tests couleurs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_to_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_to_page.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,14 +361,7 @@
       <workItem from="1678452609261" duration="4350000" />
       <workItem from="1678468437605" duration="6800000" />
       <workItem from="1678523006210" duration="21165000" />
-      <workItem from="1678615880834" duration="8885000" />
-    </task>
-    <task id="LOCAL-00099" summary="feat: [Traces] Ajout d'une trace à une Page depuis la bibliothèque de Trace">
-      <created>1677602237597</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1677602237598</updated>
+      <workItem from="1678615880834" duration="10689000" />
     </task>
     <task id="LOCAL-00100" summary="fix: [Pages] Affichage des pages propres à l'utilisateur connecté + au moins une trace obligatoire pour la création d'une page">
       <created>1677688689725</created>
@@ -707,7 +699,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678544493060</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="fix: [Style] Structure dashboard + tests couleurs">
+      <created>1678626069491</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1678626069491</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -768,8 +767,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [CV] Formulaire de modification" />
-    <MESSAGE value="fix: [Navigation] Ajout des liens vers nouvelles pages dans le menu" />
     <MESSAGE value="fix: Indentation" />
     <MESSAGE value="feat: [CV] Génération du formulaire de création de cv" />
     <MESSAGE value="feat: [CV] Révision du formulaire de création (première utilisation de CollectionType)" />
@@ -793,6 +790,8 @@
     <MESSAGE value="fix: [Style] Ajout icons" />
     <MESSAGE value="fix: [Style] Camouflage input dates" />
     <MESSAGE value="fix: [Forms] Optimisation des formulaires" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Forms] Optimisation des formulaires" />
+    <MESSAGE value="fix: [Style] Structure dashboard + tests couleurs" />
+    <MESSAGE value="fix: [Style] Structure + tests couleurs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Style] Structure + tests couleurs" />
   </component>
 </project>
