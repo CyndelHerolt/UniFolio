@@ -90,7 +90,7 @@ class TraceController extends AbstractController
         Request              $request,
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
-        string               $id,
+        int               $id,
         CompetenceRepository $competenceRepository,
     ): Response
     {
@@ -134,7 +134,7 @@ class TraceController extends AbstractController
     public function delete(
         Request         $request,
         TraceRepository $traceRepository,
-        string          $id,
+        int          $id,
     ): Response
     {
         $trace = $traceRepository->find($id);
@@ -148,7 +148,7 @@ class TraceController extends AbstractController
     public function addToPage(
         Request         $request,
         PageRepository  $pageRepository,
-        string          $id,
+        int          $id,
     ): Response
     {
         //Récupérer la bibliothèque de l'utilisateur connecté
@@ -202,12 +202,12 @@ class TraceController extends AbstractController
         ]);
     }
 
-    #[Route('/trace/show/{typeTrace}', name: 'app_show')]
+    #[Route('/trace/show/{id}', name: 'app_trace_show')]
     public function show(
-        TraceRegistry $traceRegistry,
-        string        $typeTrace): Response
+        int                $id,
+    ): Response
     {
-        $trace = $traceRegistry->getTypeTrace($typeTrace);
+        $trace = $this->traceRepository->find($id);
         return $this->render('trace/show.html.twig', [
             'trace' => $trace,
         ]);

@@ -7,11 +7,11 @@
     {% endblock %}
 
 {% block body %}
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-        </nav>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
     <div class="container dashboard">
         <h1>Tableau de bord</h1>
         <section class="dashboard_retours_pedagogiques">
@@ -112,19 +112,22 @@
                     </a>
                 </article>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <ul>
                                     {% for trace in traces %}
                                         <li>
                                             <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
-                                                        class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
+                                                        class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}
+                                            </a>
                                         </li>
                                     {% endfor %}
                                 </ul>

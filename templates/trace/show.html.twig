@@ -1,7 +1,29 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    {% include '_menu.html.twig' %}
+{% endblock %}
+
 {% block body %}
-    <h1>{{ constant('LABEL', trace) }}</h1>
+    <h1>{{ trace.titre }}</h1>
+    <ul>
+        <li>trace créée le : {{ trace.dateCreation|date('d/m/y H:i') }}</li>
+        <li>trace modifiée le : {{ trace.dateModification|date('d/m/y H:i') }}</li>
+    </ul>
+    {% if 'TraceTypeImage' in trace.typeTrace %}
+        {{ trace.typeTrace|split('TraceType')|last }}
+        <br>
+        <img src="/{{ trace.contenu }}" alt="image">
+    {% elseif 'TraceTypeLien' in trace.typeTrace %}
+        {{ trace.typeTrace|split('TraceType')|last }}
+    {% elseif 'TraceTypePdf' in trace.typeTrace %}
+        {{ trace.typeTrace|split('TraceType')|last }}
+    {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+        {{ trace.typeTrace|split('TraceType')|last }}
+    {% endif %}
+    <p>
+        {{ trace.description }}
+    </p>
 {% endblock %}
 
 {% block title %}

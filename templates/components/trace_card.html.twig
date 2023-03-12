@@ -28,8 +28,9 @@
         <div class="card-body">
 
             <div class="card-content">
-                <a href="" class="btn-see">
-                    <button>
+                <a class="btn-see">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#showStaticBackdrop{{ this.trace.id }}">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
@@ -42,7 +43,8 @@
                         {{ this.trace.typeTrace|split('TraceType')|last }}
                     {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
                         {{ this.trace.typeTrace|split('TraceType')|last }}
-                    {% endif %}</h5>
+                    {% endif %}
+                </h5>
                 <hr>
 
                 <ul>
@@ -99,6 +101,62 @@
                             <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
                                 <button class="btn btn-primary">Supprimer</button>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 2eme Modal -->
+            <div class="modal fade" id="showStaticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ this.trace.titre }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="display: flex">
+                            <div class="trace_content col-7">
+                            {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                                <img src="/{{ this.trace.contenu }}" alt="image" style="width: 100%">
+                            {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                                <a href="{{ this.trace.contenu }}">
+                                    <button>{{ this.trace.contenu }}</button>
+                                </a>
+                            {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                                <iframe src="{{ this.trace.contenu }}" width="100%" height="300" frameborder="0">{{ this.trace.contenu }}</iframe>
+                            {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                                <iframe width="100%" height="300" src="{{ this.trace.contenu }}"
+                                        title="Video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                            {% endif %}
+                            <p>
+                                {{ this.trace.description }}
+                            </p>
+                            </div>
+                            <div class="trace_competences col-5">
+                                <h3>Compétences</h3>
+                                <ul>
+                                    <li>
+                                        Compétence A <span><i class="fa fa-check"></i></span>
+                                    </li>
+                                    <li>
+                                        Compétence B <span><i class="fa fa-xmark"></i></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <ul>
+                                <li>créée le : {{ this.trace.dateCreation|date('d/m/y H:i') }}</li>
+                                <li>modifiée le : {{ this.trace.dateModification|date('d/m/y H:i') }}</li>
+                            </ul>
+                            {% for page in this.trace.pages %}
+                                {% for portfolio in page.portfolio %}
+                                    {{ portfolio.intitule }} - {{ page.intitule }}
+                                    <br>
+                                {% endfor %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
