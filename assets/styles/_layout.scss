@@ -5,11 +5,26 @@ body {
     margin-bottom: 50px;
 
     .navbar {
+      background-color: $color-secondary-focus !important;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 999;
       @include menu-item;
+
+      a {
+        color: $color-light !important;
+      }
+
+      .dropdown-menu {
+        background-color: $color-secondary-focus;
+        border: none !important;
+        width: fit-content;
+
+        .dropdown-item:hover {
+          background-color: $color-primary-focus;
+        }
+      }
 
       .logo {
         width: 25px;
@@ -35,8 +50,13 @@ body {
 
 
 footer {
-  background-color: $color-primary !important;
+  background-color: $color-secondary-focus !important;
+  color: $color-light;
   padding: 10px 40px;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 
   .container {
     padding: 0;

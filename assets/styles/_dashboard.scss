@@ -1,10 +1,11 @@
 .dashboard {
-  padding: 75px !important;
+  padding: 25px 75px !important;
 
   .dashboard_retours_pedagogiques {
 
     .row {
-      @include zone(50px 0, 40px, $color-primary, 10px);
+      @include zone(50px 0, 40px, $color-light, 10px);
+      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
         @include titre($primary-font, 20px, 1.5);
@@ -25,7 +26,7 @@
 
           tbody {
             tr {
-              background-color: $color-light;
+              background-color: $color-primary;
               border-radius: 5px;
 
               td:nth-child(1) {
@@ -34,7 +35,8 @@
                 padding: 10px 20px;
                 width: 20%;
                 border-radius: 5px;
-                background-color: $color-secondary;
+                background-color: $color-secondary-focus;
+                color: $color-light;
                 height: 100%;
               }
 
@@ -87,14 +89,15 @@
               justify-content: space-between;
 
               .card-title {
-                background-color: $color-secondary;
+                background-color: $color-secondary-focus;
+                color: $color-light;
                 padding: 10px;
                 border-radius: 5px;
               }
 
               .card-text {
                 margin: 15px 0;
-                background-color: $color-secondary;
+                background-color: $color-primary;
                 padding: 10px;
               }
 
@@ -120,7 +123,8 @@
   .dashboard_traces {
 
     .row {
-      @include zone(50px 0, 40px, $color-primary, 10px);
+      @include zone(50px 0, 40px, $color-light, 10px);
+      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
         @include titre($primary-font, 20px, 1.5);
@@ -137,7 +141,7 @@
 
           tbody {
             tr {
-              background-color: $color-light;
+              background-color: $color-primary;
               border-radius: 5px;
 
               td:nth-child(1) {
@@ -146,7 +150,8 @@
                 padding: 10px 20px;
                 width: 20%;
                 border-radius: 5px;
-                background-color: $color-secondary;
+                background-color: $color-secondary-focus;
+                color: $color-light;
                 height: 100%;
               }
 
@@ -193,7 +198,8 @@
   .dashboard_portfolio {
 
     .row {
-      @include zone(50px 0, 40px, $color-primary, 10px);
+      @include zone(50px 0, 40px, $color-light, 10px);
+      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
       h2 {
         @include titre($primary-font, 20px, 1.5);
@@ -210,7 +216,7 @@
 
           tbody {
             tr {
-              background-color: $color-light;
+              background-color: $color-primary;
               border-radius: 5px;
 
               td:nth-child(1) {
@@ -219,7 +225,8 @@
                 padding: 10px 20px;
                 width: 20%;
                 border-radius: 5px;
-                background-color: $color-secondary;
+                background-color: $color-secondary-focus;
+                color: $color-light;
                 height: 100%;
               }
 

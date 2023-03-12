@@ -20,7 +20,7 @@
     width: 100%;
 
     .card {
-      margin: 25px 5px;
+      margin: 50px 5px;
       padding: 0;
     }
 
@@ -42,8 +42,22 @@
       .card-content {
         width: 100%;
         text-align: center;
-        padding: 15px 0;
+        padding: 0 0 15px 0;
         background-color: $color-light;
+
+        .btn-see {
+
+          button {
+            @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+            margin: 0 10px;
+            position: relative;
+            bottom: 15px;
+
+            &:hover {
+              @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+            }
+          }
+        }
 
         h3 {
           @include titre($primary-font, 22px, 1.5);

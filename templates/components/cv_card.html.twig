@@ -6,7 +6,11 @@
                 <h3 class="card-title">{{ this.cv.intitule }}</h3>
                 <hr>
                 <p class="card-text">Dernière modification
-                    : {{ this.cv.datemodification is empty ? this.cv.datecreation|date('d-m-Y H:i') : this.cv.datemodification|date('d-m-Y H:i') }}</p>
+                    : {{ this.cv.datemodification is empty ? this.cv.datecreation|date('d-m-Y H:i') : this.cv.datemodification|date('d-m-Y H:i') }}
+                </p>
+                <p>
+                    Afficher le nom et la visibilité du portfolio auquel est lié le CV
+                </p>
 
                 <div class="btn_grp">
                     <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">

@@ -76,7 +76,6 @@ body {
           padding: 0;
 
           button {
-
             @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
 
             &:hover {
@@ -90,7 +89,7 @@ body {
         justify-content: space-between;
 
         article {
-          @include zone(25px 0, 0px 40px 40px 40px, $color-primary, 10px);
+          @include zone(25px 0, 0px 40px 40px 40px, $color-light, 10px);
 
           h2 {
             @include titre($primary-font, 22px, 1.5);
@@ -110,7 +109,7 @@ body {
 
         aside {
           //width: 40%;
-          @include zone(25px 0, 40px, $color-primary, 10px);
+          @include zone(25px 0, 40px, $color-light, 10px);
 
           h2 {
             @include titre($primary-font, 22px, 1.5);

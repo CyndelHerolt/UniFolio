@@ -26,8 +26,15 @@
 {% elseif '/trace' in app.request.uri %}
     <div class="card" style="width: 23rem;">
         <div class="card-body">
+
             <div class="card-content">
-                <h5 class="card-title">{{ this.trace.titre }} -                 {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                <a href="" class="btn-see">
+                    <button>
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </a>
+                <h5 class="card-title">{{ this.trace.titre }} -
+                    {% if 'TraceTypeImage' in this.trace.typeTrace %}
                         {{ this.trace.typeTrace|split('TraceType')|last }}
                     {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
                         {{ this.trace.typeTrace|split('TraceType')|last }}
