@@ -12,8 +12,9 @@
         "jquery": "^3.6.3",
         "node-sass": "^8.0.0",
         "regenerator-runtime": "^0.13.9",
+        "sass": "^1.59.2",
         "sass-loader": "^13.2.0",
-        "webpack": "^5.74.0",
+        "webpack": "^5.76.1",
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
