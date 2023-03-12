@@ -107,7 +107,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°4')
-            ->setContenu('https://www.youtube.com/watch?v=qJK_9eyRQl8')
+            ->setContenu('https://www.youtube.com/embed/iI3nE9wBn48')
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
 //        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
