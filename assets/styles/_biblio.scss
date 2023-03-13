@@ -119,6 +119,7 @@
           a:nth-child(3) {
             width: 60%;
           }
+
           //
           //a:nth-child(2) {
           //  width: 110px;
@@ -127,6 +128,31 @@
       }
 
     }
+  }
+
+  .modal_cv {
+    justify-content: center;
+
+    .cv_content {
+      padding: 25px 50px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+    }
+
+    .cv_profile {
+      display: flex;
+      justify-content: space-between;
+      margin: 25px 0;
+
+      .contact {
+        ul {
+          display: flex;
+          flex-direction: column;
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+
   }
 }
 

@@ -70,43 +70,43 @@
                             <h5 class="modal-title" id="staticBackdropLabel">{{ this.cv.intitule }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="display: flex">
-                            <div class="cv_content col-12">
-                                <ul>
-                                    <li>créé le : {{ this.cv.dateCreation|date('d/m/y H:i') }}</li>
-                                    <li>modifié le : {{ this.cv.dateModification|date('d/m/y H:i') }}</li>
-                                    <li></li>
-                                </ul>
+                        <div class="modal-body row modal_cv" style="display: flex">
+                            <div class="cv_content col-10">
 
                                 <div class="cv_header">
                                     <h2>{{ this.cv.etudiant.prenom }} {{ this.cv.etudiant.nom }}</h2>
                                     <h3>{{ this.cv.poste }}</h3>
                                 </div>
-
-                                <div class="contact">
-                                    <h4>Contact</h4>
-                                    <ul>
-                                        <li><i class="fa fa-envelope"></i> {{ this.cv.etudiant.mailUniv }}</li>
-                                        <li><i class="fa fa-phone"></i> {{ this.cv.etudiant.telephone }}</li>
-                                    </ul>
-                                </div>
-                                <div class="cv_profile">
-                                    <h4>A propos</h4>
-                                    <p>{{ this.cv.description }}</p>
+                                <hr>
+                                <div class="cv_profile row">
+                                    <div class="contact col-5">
+                                        <h4>Contact</h4>
+                                        <ul>
+                                            <li><i class="fa fa-envelope"></i> {{ this.cv.etudiant.mailUniv }}</li>
+                                            <li><i class="fa fa-phone"></i> {{ this.cv.etudiant.telephone }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="description col-7">
+                                        <h4>A propos</h4>
+                                        <p>{{ this.cv.description }}</p>
+                                    </div>
                                 </div>
                                 <div class="cv_competences">
                                     <h4>Compétences</h4>
                                     <ul>
+                                        <h5>Soft skills</h5>
                                         {% for soft_skill in this.cv.softSkills %}
                                             <li>{{ soft_skill }}</li>
                                         {% endfor %}
                                     </ul>
                                     <ul>
+                                        <h5>Hard skills</h5>
                                         {% for hard_skill in this.cv.hardSkills %}
                                             <li>{{ hard_skill }}</li>
                                         {% endfor %}
                                     </ul>
                                     <ul>
+                                        <h5>Langues</h5>
                                         {% for langue in this.cv.langues %}
                                             <li>{{ langue }}</li>
                                         {% endfor %}
@@ -148,6 +148,8 @@
                         </div>
                         <div class="modal-footer">
                             <ul>
+                                <li>créé le : {{ this.cv.dateCreation|date('d/m/y H:i') }}</li>
+                                <li>modifié le : {{ this.cv.dateModification|date('d/m/y H:i') }}</li>
                             </ul>
                             <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
                                 <button class="btn btn-primary">Modifier</button>
