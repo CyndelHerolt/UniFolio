@@ -4,6 +4,7 @@ namespace App\Components\Trace\Form;
 
 use App\Entity\Trace;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,13 +36,29 @@ class TraceTypeImageType extends AbstractType
                 'attr' => ['class' => "form-control", 'placeholder' => 'Titre de ma trace',],
                 'help' => '100 caractères maximum',
             ])
-            ->add('contenu', FileType::class, [
-                'label' => 'Image',
-                'mapped' => false,
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+            //----------------------------------------------------------------
+            ->add('contenu', CollectionType::class, [
+                'entry_type' => FileType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Image',
+                        ],
+                    'by_reference' => false,
+                    'label' => 'Image',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
                 'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
             ])
+            //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],

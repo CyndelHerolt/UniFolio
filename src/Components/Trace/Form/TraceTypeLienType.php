@@ -8,6 +8,7 @@ use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Entity\Trace;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,11 +41,29 @@ class TraceTypeLienType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
             ])
-            ->add('contenu', TextType::class, [
-                'label' => 'Fichier',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+//----------------------------------------------------------------
+            ->add('contenu', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Lien',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Lien',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
+                'help' => '',
             ])
+            //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],

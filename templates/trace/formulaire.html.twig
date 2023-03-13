@@ -33,7 +33,33 @@
                         {{ form_row(form.date_modification) }}
                     </div>
                     {{ form_row(form.titre) }}
-                    {{ form_row(form.contenu) }}
+                    <div>
+                        {% for contenu in form.contenu %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(contenu) }}
+                                <button type="button" class="btn btn-danger delete-contenu">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        {% if 'image' in trace.display %}
+                            <button type="button" class="btn btn-primary add-contenu">
+                                Ajouter une image <i class="fa fa-square-plus"></i>
+                            </button>
+                        {% elseif 'pdf' in trace.display %}
+                            <button type="button" class="btn btn-primary add-contenu">
+                                Ajouter un PDF <i class="fa fa-square-plus"></i>
+                            </button>
+                        {% elseif 'lien' in trace.display %}
+                            <button type="button" class="btn btn-primary add-contenu">
+                                Ajouter un lien <i class="fa fa-square-plus"></i>
+                            </button>
+                        {% elseif 'video' in trace.display %}
+                            <button type="button" class="btn btn-primary add-contenu">
+                                Ajouter une vidéo <i class="fa fa-square-plus"></i>
+                            </button>
+                        {% endif %}
+                    </div>
                     {{ form_row(form.description) }}
                     {{ form_end(form) }}
                 </article>

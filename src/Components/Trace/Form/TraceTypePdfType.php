@@ -4,6 +4,7 @@ namespace App\Components\Trace\Form;
 
 use App\Entity\Trace;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,13 +36,29 @@ class TraceTypePdfType extends AbstractType
                 'attr' => ['class' => "form-control"],
                 'help' => '100 caractères maximum',
             ])
-            ->add('contenu', FileType::class, [
-                'label' => 'Fichier',
-                'mapped' => false,
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+//----------------------------------------------------------------
+            ->add('contenu', CollectionType::class, [
+                'entry_type' => FileType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                        'placeholder' => 'Fichier PDF',
+                    ],
+                    'by_reference' => false,
+                    'label' => 'PDF',
+                    'label_attr' => ['class' => 'form-label'],
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
                 'help' => 'format accepté : pdf',
             ])
+            //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],

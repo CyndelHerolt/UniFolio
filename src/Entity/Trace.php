@@ -37,8 +37,8 @@ class Trace
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_trace = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $contenu = null;
+    #[ORM\Column(type: Types::JSON, length: 255, nullable: true)]
+    private ?array $contenu = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $titre = null;
@@ -203,12 +203,12 @@ class Trace
         return $this;
     }
 
-    public function getContenu(): ?string
+    public function getContenu(): ?array
     {
         return $this->contenu;
     }
 
-    public function setContenu(?string $contenu): self
+    public function setContenu(?array $contenu): self
     {
         $this->contenu = $contenu;
 
