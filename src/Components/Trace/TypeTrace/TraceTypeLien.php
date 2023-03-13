@@ -15,10 +15,11 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
     final public const ICON = 'fa-solid fa-3x fa-link';
     final public const TEMPLATE = 'Components/Trace/type/lien.html.twig';
 
-public function __construct(protected TraceRepository $traceRepository)
+    public function __construct(protected TraceRepository $traceRepository)
     {
         $this->type_trace = 'TraceTypeLien';
     }
+
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
@@ -31,16 +32,18 @@ public function __construct(protected TraceRepository $traceRepository)
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
-        $contenu = $form['contenu']->getData();
-
-        // Vérifier si le contenu est un lien valide
-        if (filter_var($contenu, FILTER_VALIDATE_URL)) {
-            // Sauvegarder le contenu dans la base de données
-            $trace->setContenu($contenu);
-            $traceRepository->save($trace, true);
-            return array('success' => true);
-        } else {
-            $error = 'Le contenu n\'est pas un lien valide';
-            return array('success' => false, 'error' => $error);
-        }    }
+        $contenus = $form['contenu']->getData();
+        foreach ($contenus as $contenu) {
+            // Vérifier si le contenu est un lien valide
+            if (filter_var($contenu, FILTER_VALIDATE_URL)) {
+                // Sauvegarder le contenu dans la base de données
+                $trace->setContenu($contenu);
+                $traceRepository->save($trace, true);
+                return array('success' => true);
+            } else {
+                $error = 'Le contenu n\'est pas un lien valide';
+                return array('success' => false, 'error' => $error);
+            }
+        }
+    }
 }

@@ -118,6 +118,7 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => 'Reseaux',
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'Sasissez le lien de votre profil sur le réseau social',
                 ],
                 'prototype' => true,
                 'label' => false,

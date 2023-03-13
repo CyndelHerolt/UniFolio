@@ -111,6 +111,7 @@ function removeLien(button) {
 
 // Fonction pour ajouter un nouveau champ contenu
 function addLien() {
+    console.log('hello')
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#trace_type_lien_contenu').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;

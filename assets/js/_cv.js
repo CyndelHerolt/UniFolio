@@ -198,3 +198,5 @@
     addButtonReseau.addEventListener('click', function () {
     addReseau();
 });
+
+console.log('addSoftSkill');

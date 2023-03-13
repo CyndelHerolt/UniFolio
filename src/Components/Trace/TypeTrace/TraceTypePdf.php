@@ -18,6 +18,7 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     {
         $this->type_trace = 'TraceTypePdf';
     }
+
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
@@ -30,25 +31,27 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
-        $pdfFile = $form['contenu']->getData();
-        if ($pdfFile) {
-            $pdfFileName = uniqid() . '.' . $pdfFile->guessExtension();
-            //Vérifier si le fichier est au bon format
-            if ($pdfFile->guessExtension() === 'pdf') {
-                //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                $pdfFile->move('files_directory', $pdfFileName);
-                //Sauvegarder le contenu dans la base de données
-                $trace->setContenu('files_directory' . '/' . $pdfFileName);
-                $traceRepository->save($trace, true);
-                return array('success' => true);
-                //return $this->redirectToRoute('app_trace');
-            } else {
-                $error = 'Le fichier n\'est pas au bon format';
-                return array('success' => false, 'error' => $error);
+        $pdfFiles = $form['contenu']->getData();
+        foreach ($pdfFiles as $pdfFile) {
+            if ($pdfFile) {
+                $pdfFileName = uniqid() . '.' . $pdfFile->guessExtension();
+                //Vérifier si le fichier est au bon format
+                if ($pdfFile->guessExtension() === 'pdf') {
+                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                    $pdfFile->move('files_directory', $pdfFileName);
+                    //Sauvegarder le contenu dans la base de données
+                    $trace->setContenu('files_directory' . '/' . $pdfFileName);
+                    $traceRepository->save($trace, true);
+                    return array('success' => true);
+                    //return $this->redirectToRoute('app_trace');
+                } else {
+                    $error = 'Le fichier n\'est pas au bon format';
+                    return array('success' => false, 'error' => $error);
+                }
             }
+            $error = 'Une erreur s\'est produite';
+            // Return an empty array if $imageFile is false
+            return array('success' => false, 'error' => $error);
         }
-        $error = 'Une erreur s\'est produite';
-        // Return an empty array if $imageFile is false
-        return array('success' => false, 'error' => $error);
     }
 }
