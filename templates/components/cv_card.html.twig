@@ -3,8 +3,9 @@
     <div class="card" style="width: 20rem;">
         <div class="card-body">
             <div class="card-content">
-                <a href="" class="btn-see">
-                    <button>
+                <a class="btn-see">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#showStaticBackdrop{{ this.cv.id }}">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
@@ -54,6 +55,113 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                             <a href="{{ path('app_cv_delete', {'id': this.cv.id}) }}">
                                 <button class="btn btn-primary">Supprimer</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2eme Modal -->
+            <div class="modal fade" id="showStaticBackdrop{{ this.cv.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ this.cv.intitule }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="display: flex">
+                            <div class="cv_content col-12">
+                                <ul>
+                                    <li>créé le : {{ this.cv.dateCreation|date('d/m/y H:i') }}</li>
+                                    <li>modifié le : {{ this.cv.dateModification|date('d/m/y H:i') }}</li>
+                                    <li></li>
+                                </ul>
+
+                                <div class="cv_header">
+                                    <h2>{{ this.cv.etudiant.prenom }} {{ this.cv.etudiant.nom }}</h2>
+                                    <h3>{{ this.cv.poste }}</h3>
+                                </div>
+
+                                <div class="contact">
+                                    <h4>Contact</h4>
+                                    <ul>
+                                        <li><i class="fa fa-envelope"></i> {{ this.cv.etudiant.mailUniv }}</li>
+                                        <li><i class="fa fa-phone"></i> {{ this.cv.etudiant.telephone }}</li>
+                                    </ul>
+                                </div>
+                                <div class="cv_profile">
+                                    <h4>A propos</h4>
+                                    <p>{{ this.cv.description }}</p>
+                                </div>
+                                <div class="cv_competences">
+                                    <h4>Compétences</h4>
+                                    <ul>
+                                        {% for soft_skill in this.cv.softSkills %}
+                                            <li>{{ soft_skill }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <ul>
+                                        {% for hard_skill in this.cv.hardSkills %}
+                                            <li>{{ hard_skill }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <ul>
+                                        {% for langue in this.cv.langues %}
+                                            <li>{{ langue }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="cv_reseaux">
+                                    <h4>Réseaux sociaux</h4>
+                                    <ul>
+                                        {% for reseau in this.cv.reseaux %}
+                                            {% if reseau matches '/.*twitter.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-twitter fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*linkedin.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-linkedin fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*github.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-github fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*dribbble.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-dribbble fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*pinterest.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-pinterest fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*instagram.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-instagram fa-2x"></i></a>
+                                            {% elseif reseau matches '/.*facebook.*/' %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa-brands fa-facebook fa-2x"></i></a>
+                                            {% else %}
+                                                <a href="{{ reseau }}" target="_blank"><i
+                                                            class="fa fa-globe fa-2x"></i></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <ul>
+                            </ul>
+                            <a href="{{ path('app_cv_edit', {'id': this.cv.id}) }}">
+                                <button class="btn btn-primary">Modifier</button>
+                            </a>
+                            <!-- Button trigger modal -->
+                            <a>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop{{ this.cv.id }}">
+                                    Supprimer
+                                </button>
+                            </a>
+
+                            <a href="">
+                                <button class="btn btn-primary">Ajouter dans un portfolio</button>
                             </a>
                         </div>
                     </div>

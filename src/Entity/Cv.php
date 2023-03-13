@@ -43,6 +43,9 @@ class Cv
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $reseaux = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $poste = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +155,18 @@ class Cv
     public function setReseaux(?array $reseaux): self
     {
         $this->reseaux = $reseaux;
+
+        return $this;
+    }
+
+    public function getPoste(): ?string
+    {
+        return $this->poste;
+    }
+
+    public function setPoste(?string $poste): self
+    {
+        $this->poste = $poste;
 
         return $this;
     }

@@ -34,6 +34,11 @@ class CvType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Intitulé de mon CV',],
             ])
+            ->add('poste', TextType::class, [
+                'label' => 'Poste',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Poste de mon CV',],
+            ])
             ->add('description', TextAreaType::class, [
                 'label' => 'Description',
                 'label_attr' => ['class' => 'form-label'],
