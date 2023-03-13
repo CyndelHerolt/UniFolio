@@ -4,6 +4,7 @@
 namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypePdfType;
+use App\Repository\TraceRepository;
 
 class TraceTypePdf extends AbstractTrace implements TraceInterface
 {
@@ -11,12 +12,20 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     final public const FORM = TraceTypePdfType::class;
     final public const HELP = 'Upload de pdf : Taille maximale XMo';
     final public const ICON = 'fa-solid fa-3x fa-file-pdf';
-
     final public const TEMPLATE = 'Components/Trace/type/pdf.html.twig';
 
+    public function __construct(protected TraceRepository $traceRepository)
+    {
+        $this->type_trace = 'TraceTypePdf';
+    }
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getTypeTrace(): ?string
+    {
+        return $this->type_trace;
     }
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array

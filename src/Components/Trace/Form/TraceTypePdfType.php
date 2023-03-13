@@ -47,6 +47,7 @@ class TraceTypePdfType extends AbstractType
                     'by_reference' => false,
                     'label' => 'PDF',
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'format accepté : pdf',
                 ],
                 'prototype' => true,
                 'label' => false,
@@ -54,9 +55,9 @@ class TraceTypePdfType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => false,
+                'mapped' => false,
                 'by_reference' => false,
                 'empty_data' => [],
-                'help' => 'format accepté : pdf',
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

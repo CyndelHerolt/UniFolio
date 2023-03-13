@@ -47,6 +47,7 @@ class TraceTypeImageType extends AbstractType
                     'by_reference' => false,
                     'label' => 'Image',
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
                 ],
                 'prototype' => true,
                 'label' => false,
@@ -56,7 +57,7 @@ class TraceTypeImageType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
-                'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
+                'mapped' => false,
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

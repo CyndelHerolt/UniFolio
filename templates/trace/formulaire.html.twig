@@ -33,6 +33,7 @@
                         {{ form_row(form.date_modification) }}
                     </div>
                     {{ form_row(form.titre) }}
+                    <hr>
                     <div>
                         {% for contenu in form.contenu %}
                             <div class="input-group mb-3">
@@ -42,24 +43,25 @@
                                 </button>
                             </div>
                         {% endfor %}
-                        {% if 'image' in trace.display %}
+                        {% if 'TraceTypeImage' in trace.typeTrace %}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter une image <i class="fa fa-square-plus"></i>
                             </button>
-                        {% elseif 'pdf' in trace.display %}
+                        {% elseif 'TraceTypePdf' in trace.typeTrace %}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter un PDF <i class="fa fa-square-plus"></i>
                             </button>
-                        {% elseif 'lien' in trace.display %}
+                        {% elseif 'TraceTypeLien' in trace.typeTrace %}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter un lien <i class="fa fa-square-plus"></i>
                             </button>
-                        {% elseif 'video' in trace.display %}
+                        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter une vidéo <i class="fa fa-square-plus"></i>
                             </button>
                         {% endif %}
                     </div>
+                    <hr>
                     {{ form_row(form.description) }}
                     {{ form_end(form) }}
                 </article>

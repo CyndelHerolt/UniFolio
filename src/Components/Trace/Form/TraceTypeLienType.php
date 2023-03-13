@@ -52,16 +52,16 @@ class TraceTypeLienType extends AbstractType
                     'by_reference' => false,
                     'label' => 'Lien',
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => '',
                 ],
                 'prototype' => true,
-                'label' => false,
+                'label' => 'Lien',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
-                'help' => '',
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

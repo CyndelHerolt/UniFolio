@@ -4,16 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [cv] Modal visualisation du cv">
-      <change afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Traces] Collection de contenu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trace.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trace.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TraceFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TraceFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -366,14 +370,7 @@
       <workItem from="1678615880834" duration="10713000" />
       <workItem from="1678634898178" duration="4558000" />
       <workItem from="1678641005708" duration="1657000" />
-      <workItem from="1678691068645" duration="10337000" />
-    </task>
-    <task id="LOCAL-00107" summary="fix: [Pages] Ajout de traces à partir de la page">
-      <created>1677863933026</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1677863933026</updated>
+      <workItem from="1678691068645" duration="12668000" />
     </task>
     <task id="LOCAL-00108" summary="feat: [Portfolios] Génération formulaire et controller">
       <created>1677933261680</created>
@@ -711,7 +708,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678698553102</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="feat: [Traces] Collection de contenu">
+      <created>1678701722010</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1678701722010</updated>
+    </task>
+    <option name="localTasksCounter" value="157" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -772,7 +776,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [js] structure des fichiers js" />
     <MESSAGE value="fix: [cv] structure des vues de formulaire" />
     <MESSAGE value="fix: [Fixtures] Ajout de fixtures pour les pages, portfolios et cv" />
     <MESSAGE value="fix: [CV] Ajout collections formulaire" />
@@ -797,6 +800,7 @@
     <MESSAGE value="feat: [Cv] Modal visualisation du cv" />
     <MESSAGE value="fix: [modal] appel du modal" />
     <MESSAGE value="fix: [cv] Modal visualisation du cv" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [cv] Modal visualisation du cv" />
+    <MESSAGE value="feat: [Traces] Collection de contenu" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Traces] Collection de contenu" />
   </component>
 </project>

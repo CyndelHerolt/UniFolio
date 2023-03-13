@@ -52,16 +52,16 @@ class TraceTypeVideoType extends AbstractType
                     'by_reference' => false,
                     'label' => 'Vidéo',
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'La vidéo doit être hébergée sur YouTube',
                 ],
                 'prototype' => true,
-                'label' => false,
+                'label' => 'Video',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
-                'help' => 'La vidéo doit être hébergée sur YouTube',
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

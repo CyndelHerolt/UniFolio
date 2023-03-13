@@ -3,6 +3,7 @@
 namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypeVideoType;
+use App\Repository\TraceRepository;
 
 class TraceTypeVideo extends AbstractTrace implements TraceInterface
 {
@@ -12,9 +13,19 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
     final public const ICON = 'fa-brands fa-3x fa-youtube';
     final public const TEMPLATE = 'Components/Trace/type/video.html.twig';
 
+    public function __construct(protected TraceRepository $traceRepository)
+    {
+        $this->type_trace = 'TraceTypeVideo';
+    }
+
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getTypeTrace(): ?string
+    {
+        return $this->type_trace;
     }
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array

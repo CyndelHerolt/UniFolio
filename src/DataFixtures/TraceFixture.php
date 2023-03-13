@@ -35,7 +35,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°1')
-            ->setContenu('files_directory/image.png')
+            ->setContenu(['files_directory/image.png'])
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->etudiantRepository->findOneByMailUniv('etudiant@mail.com')]);
@@ -53,7 +53,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°2')
-            ->setContenu('https://github.com/CyndelHerolt')
+            ->setContenu(['https://github.com/CyndelHerolt'])
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
 //        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
@@ -80,7 +80,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°3')
-            ->setContenu('files_directory/pdf.pdf')
+            ->setContenu(['files_directory/pdf.pdf'])
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
 //        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);
@@ -107,7 +107,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°4')
-            ->setContenu('https://www.youtube.com/embed/iI3nE9wBn48')
+            ->setContenu(['https://www.youtube.com/embed/iI3nE9wBn48'])
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
 //        $biblio = $this->bibliothequeRepository->findOneBy(['id' => 1]);

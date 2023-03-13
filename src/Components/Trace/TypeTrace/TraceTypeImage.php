@@ -15,11 +15,17 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
 
     public function __construct(protected TraceRepository $traceRepository)
     {
+        $this->type_trace = 'TraceTypeImage';
     }
 
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getTypeTrace(): ?string
+    {
+        return $this->type_trace;
     }
 
     public function save($form, $trace, $traceRepository, $traceRegistry): array
