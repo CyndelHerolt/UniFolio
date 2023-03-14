@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Trace] Formulaire">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [CV] ajout experience et formation (form + card)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cv.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Experience.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Experience.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Formation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Formation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -370,14 +365,7 @@
       <workItem from="1678731547996" duration="81000" />
       <workItem from="1678731830418" duration="135000" />
       <workItem from="1678777486322" duration="5499000" />
-      <workItem from="1678783693626" duration="7418000" />
-    </task>
-    <task id="LOCAL-00112" summary="fix: [Portfolio] Affichage bibliothèque de portfolio par components">
-      <created>1677951562581</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1677951562581</updated>
+      <workItem from="1678783693626" duration="9615000" />
     </task>
     <task id="LOCAL-00113" summary="feat: [Portfolio] Modification de portfolio depuis la bibliothèque (à corriger)">
       <created>1677953302995</created>
@@ -715,7 +703,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678779140658</updated>
     </task>
-    <option name="localTasksCounter" value="161" />
+    <task id="LOCAL-00161" summary="feat: [CV] ajout experience et formation (form + card)">
+      <created>1678791312019</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1678791312019</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -776,7 +771,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [CV] Ajout collections formulaire" />
     <MESSAGE value="fix: [Dashboard etudiant] Affichage dynamique des portfolio et lien direct pr modification" />
     <MESSAGE value="feat: [Portfolio] Gestion de la visibilité" />
     <MESSAGE value="feat: [Portfolio] Ajout donnée 'banniere' FileType" />
@@ -801,6 +795,7 @@
     <MESSAGE value="feat: [Traces] Collection de contenu" />
     <MESSAGE value="feat: [Cv] Ajout table experience et formation" />
     <MESSAGE value="fix: [Trace] Formulaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Trace] Formulaire" />
+    <MESSAGE value="feat: [CV] ajout experience et formation (form + card)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [CV] ajout experience et formation (form + card)" />
   </component>
 </project>

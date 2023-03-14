@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cv;
 use App\Form\CvType;
+use App\Form\ExperienceType;
 use App\Repository\CvRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -42,6 +43,7 @@ class CvController extends AbstractController
         $cv = new Cv();
 
         $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
+        $experienceForm = $this->createForm(ExperienceType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -59,6 +61,7 @@ class CvController extends AbstractController
 
         return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
+            'experience' => $experienceForm->createView(),
             ]);
     }
 
