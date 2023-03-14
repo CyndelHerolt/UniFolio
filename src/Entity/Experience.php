@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExperienceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Experience
 
     #[ORM\Column(nullable: true)]
     private array $activite = [];
+
+    #[ORM\ManyToMany(targetEntity: Cv::class, mappedBy: 'experience')]
+    private Collection $cvs;
+
+    public function __construct()
+    {
+        $this->cvs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,33 @@ class Experience
     public function setActivite(?array $activite): self
     {
         $this->activite = $activite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cv>
+     */
+    public function getCvs(): Collection
+    {
+        return $this->cvs;
+    }
+
+    public function addCv(Cv $cv): self
+    {
+        if (!$this->cvs->contains($cv)) {
+            $this->cvs->add($cv);
+            $cv->addExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCv(Cv $cv): self
+    {
+        if ($this->cvs->removeElement($cv)) {
+            $cv->removeExperience($this);
+        }
 
         return $this;
     }

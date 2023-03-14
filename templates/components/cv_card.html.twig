@@ -91,6 +91,44 @@
                                         <p>{{ this.cv.description }}</p>
                                     </div>
                                 </div>
+                                <div class="cv_exp row">
+                                    <div class="col-6">
+                                        <h4>Expériences</h4>
+                                        <ul>
+                                            {% for experience in this.cv.experience %}
+                                                <li>
+                                                    <h5>{{ experience.poste }}</h5>
+                                                    <p>{{ experience.entreprise }}</p>
+                                                    <p>{{ experience.dateDebut }}</p>
+                                                    <p>{{ experience.dateFin }}</p>
+                                                <ul>
+                                                    {% for activite in experience.activite %}
+                                                        <li>{{ activite }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>Formations</h4>
+                                        <ul>
+                                            {% for formation in this.cv.formation %}
+                                                <li>
+                                                    <h5>{{ formation.diplome }}</h5>
+                                                    <p>{{ formation.etablissement }}</p>
+                                                    <p>{{ formation.dateDebut }}</p>
+                                                    <p>{{ formation.dateFin }}</p>
+                                                    <ul>
+                                                        {% for activite in formation.activite %}
+                                                            <li>{{ activite }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div class="cv_competences">
                                     <h4>Compétences</h4>
                                     <ul>

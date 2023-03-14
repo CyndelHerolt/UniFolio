@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Cv;
+use App\Entity\Experience;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -128,6 +129,48 @@ class CvType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
+            ])
+//----------------------------------------------------------------
+            ->add('experience', CollectionType::class, [
+                'entry_type' => ExperienceType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Experiences',
+                    'label_attr' => ['class' => 'form-label'],
+                    'help' => '',
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
+            ])
+        //----------------------------------------------------------------
+            ->add('formation', CollectionType::class, [
+                'entry_type' => FormationType::class,
+                'entry_options' => [
+                    'attr' => [
+                        'class' => "form-control",
+                    ],
+                    'by_reference' => false,
+                    'label' => 'Formations',
+                    'label_attr' => ['class' => 'form-label'],
+                    'help' => '',
+                ],
+                'prototype' => true,
+                'label' => false,
+                'allow_extra_fields' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ]);
 
     }
@@ -137,6 +180,7 @@ class CvType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Cv::class,
             'user' => null,
+            'experience' => null,
             'empty_data' => new Cv(),
         ]);
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CvRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,8 +34,6 @@ class Cv
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $langues = null;
 
-//    #[ORM\Column(length: 255, nullable: true)]
-//    private ?string $soft_skills = null;
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $soft_skills = null;
 
@@ -45,6 +45,18 @@ class Cv
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poste = null;
+
+    #[ORM\ManyToMany(targetEntity: Experience::class, inversedBy: 'cvs', cascade: ['persist', 'remove'])]
+    private Collection $experience;
+
+    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'cvs', cascade: ['persist', 'remove'])]
+    private Collection $formation;
+
+    public function __construct()
+    {
+        $this->experience = new ArrayCollection();
+        $this->formation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +179,54 @@ class Cv
     public function setPoste(?string $poste): self
     {
         $this->poste = $poste;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Experience>
+     */
+    public function getExperience(): Collection
+    {
+        return $this->experience;
+    }
+
+    public function addExperience(Experience $experience): self
+    {
+        if (!$this->experience->contains($experience)) {
+            $this->experience->add($experience);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): self
+    {
+        $this->experience->removeElement($experience);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Formation>
+     */
+    public function getFormation(): Collection
+    {
+        return $this->formation;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formation->contains($formation)) {
+            $this->formation->add($formation);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        $this->formation->removeElement($formation);
 
         return $this;
     }

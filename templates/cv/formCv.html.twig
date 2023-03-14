@@ -10,17 +10,17 @@
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_cv') }}">Bibliothèque de cv</a></li>
             {% if '/edit' in app.request.uri %}
-            <li class="breadcrumb-item active" aria-current="page">Edition cv</li>
+                <li class="breadcrumb-item active" aria-current="page">Edition cv</li>
             {% elseif '/new' in app.request.uri %}
-            <li class="breadcrumb-item active" aria-current="page">Nouveau cv</li>
+                <li class="breadcrumb-item active" aria-current="page">Nouveau cv</li>
             {% endif %}
         </ol>
     </nav>
     <div class="container">
         {% if '/edit' in app.request.uri %}
-        <h1>Modifier {{ cv.intitule }}</h1>
+            <h1>Modifier {{ cv.intitule }}</h1>
         {% elseif '/new' in app.request.uri %}
-        <h1>Nouveau cv</h1>
+            <h1>Nouveau cv</h1>
         {% endif %}
         <section class="cv_form">
             <div class="row">
@@ -32,67 +32,113 @@
                     {{ form_row(form.intitule) }}
                     {{ form_row(form.poste) }}
                     {{ form_row(form.description) }}
+                    <hr>
+                    <div>
 
-                    <hr>
-                    <div>
-                        {% for softSkill in form.soft_skills %}
+                        <!-- Expériences -->
+                        {% for experience in form.experience %}
                             <div class="input-group mb-3">
-                                {{ form_widget(softSkill) }}
-                            <button type="button" class="btn btn-danger delete-soft-skill">
-                                <i class="fa-solid fa-square-minus"></i>
-                            </button>
-                            </div>
-                        {% endfor %}
-                        <button type="button" class="btn btn-primary add-soft-skill">
-                            Ajouter un soft skill <i class="fa fa-square-plus"></i>
-                        </button>
-                    </div>
-                    <hr>
-                    <div>
-                        {% for hardSkill in form.hard_skills %}
-                            <div class="input-group mb-3">
-                                {{ form_widget(hardSkill) }}
-                            <button type="button" class="btn btn-danger delete-hard-skill">
-                                <i class="fa-solid fa-square-minus"></i>
-                            </button>
-                            </div>
-                        {% endfor %}
-                        <button type="button" class="btn btn-primary add-hard-skill">
-                            Ajouter un hard skill <i class="fa fa-square-plus"></i>
-                        </button>
-                    </div>
-                    <hr>
-                    <div>
-                        {% for langue in form.langues %}
-                            <div class="input-group mb-3">
-                                {{ form_widget(langue) }}
-                            <button type="button" class="btn btn-danger delete-langue">
-                                <i class="fa-solid fa-square-minus"></i>
-                            </button>
-                            </div>
-                        {% endfor %}
-                        <button type="button" class="btn btn-primary add-langue">
-                            Ajouter une langue <i class="fa fa-square-plus"></i>
-                        </button>
-                    </div>
-                    <hr>
-                    <div>
-                        {% for reseau in form.reseaux %}
-                            <div class="input-group mb-3">
-                                {{ form_widget(reseau) }}
-                            <button type="button" class="btn btn-danger delete-reseau">
-                                <i class="fa-solid fa-square-minus"></i>
-                            </button>
-                            </div>
-                        {% endfor %}
-                        <button type="button" class="btn btn-primary add-reseau">
-                            Ajouter un reseau <i class="fa fa-square-plus"></i>
-                        </button>
-                    </div>
-                    <hr>
+                                {{ form_widget(experience) }}
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    {{ form_end(form) }}
+                                {% for activite in experience %}
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(activite) }}
+                                        <button type="button" class="btn btn-danger delete-experience-activite">
+                                            <i class="fa-solid fa-square-minus"></i>
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                                <button type="button" class="btn btn-primary add-experience-activite">
+                                    Ajouter une activité <i class="fa fa-square-plus"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-danger delete-experience">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary add-experience">
+                            Ajouter une experience <i class="fa fa-square-plus"></i>
+                        </button>
+                        <!-- Fin expériences -->
+                        <hr>
+                        <!-- Formations -->
+                        <div>
+                            {% for formation in form.formation %}
+                                <div class="input-group mb-3">
+                                    {{ form_widget(formation) }}
+
+                                    <button type="button" class="btn btn-danger delete-formation">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary add-formation">
+                                Ajouter une formation <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
+                        <!-- Fin expériences -->
+
+                        <hr>
+                        <div>
+                            {% for softSkill in form.soft_skills %}
+                                <div class="input-group mb-3">
+                                    {{ form_widget(softSkill) }}
+                                    <button type="button" class="btn btn-danger delete-soft-skill">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary add-soft-skill">
+                                Ajouter un soft skill <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
+                        <hr>
+                        <div>
+                            {% for hardSkill in form.hard_skills %}
+                                <div class="input-group mb-3">
+                                    {{ form_widget(hardSkill) }}
+                                    <button type="button" class="btn btn-danger delete-hard-skill">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary add-hard-skill">
+                                Ajouter un hard skill <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
+                        <hr>
+                        <div>
+                            {% for langue in form.langues %}
+                                <div class="input-group mb-3">
+                                    {{ form_widget(langue) }}
+                                    <button type="button" class="btn btn-danger delete-langue">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary add-langue">
+                                Ajouter une langue <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
+                        <hr>
+                        <div>
+                            {% for reseau in form.reseaux %}
+                                <div class="input-group mb-3">
+                                    {{ form_widget(reseau) }}
+                                    <button type="button" class="btn btn-danger delete-reseau">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            <button type="button" class="btn btn-primary add-reseau">
+                                Ajouter un reseau <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
+                        <hr>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        {{ form_end(form) }}
 
                 </article>
             </div>
