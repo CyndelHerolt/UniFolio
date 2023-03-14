@@ -44,6 +44,9 @@
                             </div>
                         {% endfor %}
                         {% if 'TraceTypeImage' in trace.typeTrace %}
+{#                            {% for image in trace.contenu %}#}
+{#                                <img width="300" src="{{ asset(image) }}" alt="Mon image" />#}
+{#                            {% endfor %}#}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter une image <i class="fa fa-square-plus"></i>
                             </button>

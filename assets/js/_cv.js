@@ -1,16 +1,15 @@
-
 //TODO: trouver pourquoi le btn d'ajout ne fonctionne pas lors de l'edition d'un cv qui a deja des champs
-    //-----------------------------------------------------------------------------
-    //---------------------------------SOFT SKILLS---------------------------------
-    //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//---------------------------------SOFT SKILLS---------------------------------
+//-----------------------------------------------------------------------------
 
-    // Fonction pour supprimer un champ soft_skill
-    function removeSoftSkill(button) {
+// Fonction pour supprimer un champ soft_skill
+function removeSoftSkill(button) {
     button.closest('.input-group').remove();
 }
 
-    // Fonction pour ajouter un nouveau champ soft_skill
-    function addSoftSkill() {
+// Fonction pour ajouter un nouveau champ soft_skill
+function addSoftSkill() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
@@ -29,38 +28,40 @@
     button.style.width = 'fit-content';
     button.style.height = 'fit-content';
     button.addEventListener('click', function () {
-    removeSoftSkill(button);
-});
+        removeSoftSkill(button);
+    });
     formGroup.appendChild(button);
     const addButtonSoft = document.querySelector('.add-soft-skill');
     addButtonSoft.parentNode.insertBefore(formGroup, addButtonSoft);
 }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
-    document.querySelectorAll('.delete-soft-skill').forEach(function (button) {
+// Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
+document.querySelectorAll('.delete-soft-skill').forEach(function (button) {
     button.addEventListener('click', function () {
         removeSoftSkill(button);
     });
 });
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
-    const addButtonSoft = document.querySelector('.add-soft-skill');
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
+const addButtonSoft = document.querySelector('.add-soft-skill');
+if (addButtonSoft) {
     addButtonSoft.addEventListener('click', function () {
-    addSoftSkill();
-});
+        addSoftSkill();
+    })
+}
 
-    //-----------------------------------------------------------------------------
-    //----------------------------HARD SKILLS---------------------------------
-    //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//----------------------------HARD SKILLS---------------------------------
+//-----------------------------------------------------------------------------
 
 
-    // Fonction pour supprimer un champ hard_skill
-    function removeHardSkill(button) {
+// Fonction pour supprimer un champ hard_skill
+function removeHardSkill(button) {
     button.closest('.input-group').remove();
 }
 
-    // Fonction pour ajouter un nouveau champ hard_skill
-    function addHardSkill() {
+// Fonction pour ajouter un nouveau champ hard_skill
+function addHardSkill() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_hard_skills').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
@@ -79,38 +80,40 @@
     button.style.width = 'fit-content';
     button.style.height = 'fit-content';
     button.addEventListener('click', function () {
-    removeHardSkill(button);
-});
+        removeHardSkill(button);
+    });
     formGroup.appendChild(button);
     const addButtonHard = document.querySelector('.add-hard-skill');
     addButtonHard.parentNode.insertBefore(formGroup, addButtonHard);
 }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ hard_skill
-    document.querySelectorAll('.delete-hard-skill').forEach(function (button) {
+// Gestionnaire d'événement pour le bouton de suppression d'un champ hard_skill
+document.querySelectorAll('.delete-hard-skill').forEach(function (button) {
     button.addEventListener('click', function () {
         removeHardSkill(button);
     });
 });
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ hard_skill
-    const addButtonHard = document.querySelector('.add-hard-skill');
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ hard_skill
+const addButtonHard = document.querySelector('.add-hard-skill');
+if (addButtonHard) {
     addButtonHard.addEventListener('click', function () {
-    addHardSkill();
-});
+        addHardSkill();
+    })
+}
 
-    //-----------------------------------------------------------------------------
-    //----------------------------LANGUES---------------------------------
-    //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//----------------------------LANGUES---------------------------------
+//-----------------------------------------------------------------------------
 
 
-    // Fonction pour supprimer un champ langue
-    function removeLangue(button) {
+// Fonction pour supprimer un champ langue
+function removeLangue(button) {
     button.closest('.input-group').remove();
 }
 
-    // Fonction pour ajouter un nouveau champ langue
-    function addLangue() {
+// Fonction pour ajouter un nouveau champ langue
+function addLangue() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_langues').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
@@ -129,38 +132,40 @@
     button.style.width = 'fit-content';
     button.style.height = 'fit-content';
     button.addEventListener('click', function () {
-    removeLangue(button);
-});
+        removeLangue(button);
+    });
     formGroup.appendChild(button);
     const addButtonLangue = document.querySelector('.add-langue');
     addButtonLangue.parentNode.insertBefore(formGroup, addButtonLangue);
 }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ langue
-    document.querySelectorAll('.delete-langue').forEach(function (button) {
+// Gestionnaire d'événement pour le bouton de suppression d'un champ langue
+document.querySelectorAll('.delete-langue').forEach(function (button) {
     button.addEventListener('click', function () {
         removeLangue(button);
     });
 });
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ langue
-    const addButtonLangue = document.querySelector('.add-langue');
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ langue
+const addButtonLangue = document.querySelector('.add-langue');
+if (addButtonLangue) {
     addButtonLangue.addEventListener('click', function () {
-    addLangue();
-});
+        addLangue();
+    })
+}
 
-    //-----------------------------------------------------------------------------
-    //----------------------------RESEAUX---------------------------------
-    //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//----------------------------RESEAUX---------------------------------
+//-----------------------------------------------------------------------------
 
 
-    // Fonction pour supprimer un champ reseau
-    function removeReseau(button) {
+// Fonction pour supprimer un champ reseau
+function removeReseau(button) {
     button.closest('.input-group').remove();
 }
 
-    // Fonction pour ajouter un nouveau champ reseau
-    function addReseau() {
+// Fonction pour ajouter un nouveau champ reseau
+function addReseau() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_reseaux').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
@@ -179,24 +184,24 @@
     button.style.width = 'fit-content';
     button.style.height = 'fit-content';
     button.addEventListener('click', function () {
-    removeReseau(button);
-});
+        removeReseau(button);
+    });
     formGroup.appendChild(button);
     const addButtonReseau = document.querySelector('.add-reseau');
     addButtonReseau.parentNode.insertBefore(formGroup, addButtonReseau);
 }
 
-    // Gestionnaire d'événement pour le bouton de suppression d'un champ reseau
-    document.querySelectorAll('.delete-reseau').forEach(function (button) {
+// Gestionnaire d'événement pour le bouton de suppression d'un champ reseau
+document.querySelectorAll('.delete-reseau').forEach(function (button) {
     button.addEventListener('click', function () {
         removeReseau(button);
     });
 });
 
-    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ reseau
-    const addButtonReseau = document.querySelector('.add-reseau');
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ reseau
+const addButtonReseau = document.querySelector('.add-reseau');
+if (addButtonReseau) {
     addButtonReseau.addEventListener('click', function () {
-    addReseau();
-});
-
-console.log('addSoftSkill');
+        addReseau();
+    })
+}

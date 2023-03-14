@@ -37,7 +37,7 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
             // Vérifier si le contenu est un lien valide
             if (filter_var($contenu, FILTER_VALIDATE_URL)) {
                 // Sauvegarder le contenu dans la base de données
-                $trace->setContenu($contenu);
+                $trace->setContenu([$contenu]);
                 $traceRepository->save($trace, true);
                 return array('success' => true);
             } else {

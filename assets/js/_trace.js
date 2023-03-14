@@ -44,9 +44,11 @@ document.querySelectorAll('.delete-contenu').forEach(function (button) {
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
 const addButtonImage = document.querySelector('.add-contenu');
-addButtonImage.addEventListener('click', function () {
-    addImage()
-});
+if (addButtonImage) {
+    addButtonImage.addEventListener('click', function () {
+        addImage()
+    })
+}
 
 
 //-----------------------------------------------------------------------------
@@ -95,9 +97,11 @@ document.querySelectorAll('.delete-contenu').forEach(function (button) {
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
 const addButtonPdf = document.querySelector('.add-contenu');
-addButtonPdf.addEventListener('click', function () {
-    addPdf()
-});
+if (addButtonPdf) {
+    addButtonPdf.addEventListener('click', function () {
+        addPdf()
+    })
+}
 
 
 //-----------------------------------------------------------------------------
@@ -147,9 +151,11 @@ document.querySelectorAll('.delete-contenu').forEach(function (button) {
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
 const addButtonLien = document.querySelector('.add-contenu');
-addButtonLien.addEventListener('click', function () {
-    addLien()
-});
+if (addButtonLien) {
+    addButtonLien.addEventListener('click', function () {
+        addLien()
+    })
+}
 
 //-----------------------------------------------------------------------------
 //---------------------------------VIDEO---------------------------------------
@@ -197,6 +203,8 @@ document.querySelectorAll('.delete-contenu').forEach(function (button) {
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
 const addButtonVideo = document.querySelector('.add-contenu');
-addButtonVideo.addEventListener('click', function () {
-    addVideo()
-});
+if (addButtonVideo) {
+    addButtonVideo.addEventListener('click', function () {
+        addVideo()
+    })
+}

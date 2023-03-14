@@ -99,6 +99,11 @@ class TraceController extends AbstractController
 
         $trace = $traceRepository->find($id);
 
+//        $contenus = $trace->getContenu();
+//        foreach ($contenus as $contenu) {
+//
+//        }
+
         if (!$trace) {
             throw $this->createNotFoundException('Trace non trouvée.');
         }
