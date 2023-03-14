@@ -39,7 +39,10 @@
                         <!-- Expériences -->
                         {% for experience in form.experience %}
                             <div class="input-group mb-3">
-                                {{ form_widget(experience) }}
+                                {{ form_row(experience.poste) }}
+                                {{ form_row(experience.entreprise) }}
+                                {{ form_row(experience.date_debut) }}
+                                {{ form_row(experience.date_fin) }}
 
                                 {% for activite in experience.activite %}
                                     <div class="input-group mb-3">
@@ -54,24 +57,13 @@
                                 </button>
 
                                 <button type="button" class="btn btn-danger delete-experience">
-                                    <i class="fa-solid fa-square-minus"></i>
+                                    Supprimer l'expérience<i class="fa-solid fa-square-minus"></i>
                                 </button>
                             </div>
                         {% endfor %}
                         <button type="button" class="btn btn-primary add-experience">
                             Ajouter une experience <i class="fa fa-square-plus"></i>
                         </button>
-                        {#                        {% for activite in experience.activite %} #}
-                        {#                            <div class="input-group mb-3"> #}
-                        {#                                {{ form_widget(activite) }} #}
-                        {#                                <button type="button" class="btn btn-danger delete-experience-activite"> #}
-                        {#                                    <i class="fa-solid fa-square-minus"></i> #}
-                        {#                                </button> #}
-                        {#                            </div> #}
-                        {#                        {% endfor %} #}
-                        {#                        <button type="button" class="btn btn-primary add-experience-activite"> #}
-                        {#                            Ajouter une activité <i class="fa fa-square-plus"></i> #}
-                        {#                        </button> #}
                         <!-- Fin expériences -->
                         <hr>
                         <!-- Formations -->

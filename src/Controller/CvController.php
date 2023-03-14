@@ -6,6 +6,7 @@ use App\Entity\Cv;
 use App\Form\CvType;
 use App\Form\ExperienceType;
 use App\Repository\CvRepository;
+use App\Repository\ExperienceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,6 +48,20 @@ class CvController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+//TODO: Supprimer les exp et activités si elles ne sont plus dans le formulaire et les remplacer si elles ont été modifiées
+            //------------------------------AJOUT EXPERIENCE--------------------------------
+            foreach ($cv->getExperience() as $experience) {
+                $cv->addExperience($experience);
+                $experience->addCv($cv);
+            }
+            //-------------------------------------------------------------------------------
+            //------------------------------AJOUT FORMATION--------------------------------
+            foreach ($cv->getFormation() as $formation) {
+                $cv->addFormation($formation);
+                $formation->addCv($cv);
+            }
+            //-------------------------------------------------------------------------------
+
 
             $cv->setEtudiant($user);
             $cv->setDateCreation(new \DateTimeImmutable());
@@ -54,23 +69,23 @@ class CvController extends AbstractController
             $cvRepository->save($cv, true);
 
             return $this->redirectToRoute('app_cv');
-        }
-        elseif ($form->isSubmitted() && !$form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('danger', 'Le formulaire n\'est pas valide');
         }
 
         return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
             'experience' => $experienceForm->createView(),
-            ]);
+        ]);
     }
 
     #[Route('/cv/edit/{id}', name: 'app_cv_edit')]
     public function edit(
-        Request      $request,
-        CvRepository $cvRepository,
-        Cv           $cv,
-        int          $id,
+        Request              $request,
+        CvRepository         $cvRepository,
+        ExperienceRepository $experienceRepository,
+        Cv                   $cv,
+        int                  $id,
     ): Response
     {
         $user = $this->security->getUser()->getEtudiant();
@@ -80,17 +95,23 @@ class CvController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //------------------------------AJOUT EXPERIENCE--------------------------------
+            foreach ($cv->getExperience() as $experience) {
+                $cv->addExperience($experience);
+                $experience->addCv($cv);
+            }
+            //-------------------------------------------------------------------------------
             $cv->setDateModification(new \DateTimeImmutable());
             $cvRepository->save($cv, true);
+
 
             return $this->redirectToRoute('app_cv');
         }
 
         return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
-            'cv'   => $cv,
-            ]);
+            'cv' => $cv,
+        ]);
     }
 
     #[Route('/cv/delete/{id}', name: 'app_cv_delete')]

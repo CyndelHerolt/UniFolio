@@ -211,12 +211,12 @@ if (addButtonReseau) {
 //-----------------------------------------------------------------------------
 
 
-// Fonction pour supprimer un champ reseau
+// Fonction pour supprimer un champ experience
 function removeExperience(button) {
     button.closest('.input-group').remove();
 }
 
-// Fonction pour ajouter un nouveau champ reseau
+// Fonction pour ajouter un nouveau champ experience
 function addExperience() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_experience').dataset.prototype;
@@ -311,9 +311,9 @@ if (addButtonFormation) {
     })
 }
 
-//-----------------------------------------------------------------------------
-//----------------------------EXP-ACTIVITES------------------------------------
-//-----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// ----------------------------EXP-ACTIVITES------------------------------------
+// -----------------------------------------------------------------------------
 
 
 // Fonction pour supprimer un champ formation
@@ -321,14 +321,14 @@ function removeExperienceActivite(button) {
     button.closest('.input-group').remove();
 }
 
-// Fonction pour ajouter un nouveau champ reseau
+// Fonction pour ajouter un nouveau champ activite
 function addExperienceActivite() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_experience_0_activite').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
     // Création du nouveau champ reseau
     const newForm = prototype.replace(/__name__/g, index);
-    // Ajout du nouveau champ reseau au formulaire
+    // Ajout du nouveau champ activite au formulaire
     const formGroup = document.createElement('div');
     formGroup.classList.add('input-group', 'mb-3');
     formGroup.style.display = 'flex';
@@ -348,14 +348,14 @@ function addExperienceActivite() {
     addButtonExperienceActivite.parentNode.insertBefore(formGroup, addButtonExperienceActivite);
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ reseau
+// Gestionnaire d'événement pour le bouton de suppression d'un champ activite
 document.querySelectorAll('.delete-experience-activite').forEach(function (button) {
     button.addEventListener('click', function () {
         removeExperienceActivite(button);
     });
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ reseau
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ activite
 const addButtonExperienceActivite = document.querySelector('.add-experience-activite');
 if (addButtonExperienceActivite) {
     addButtonExperienceActivite.addEventListener('click', function () {
