@@ -7,6 +7,7 @@ use App\Form\CvType;
 use App\Form\ExperienceType;
 use App\Repository\CvRepository;
 use App\Repository\ExperienceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,24 +87,20 @@ class CvController extends AbstractController
         ExperienceRepository $experienceRepository,
         Cv                   $cv,
         int                  $id,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $user = $this->security->getUser()->getEtudiant();
 
-        $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
         $cv = $cvRepository->findOneBy(['id' => $id]);
+        $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //------------------------------AJOUT EXPERIENCE--------------------------------
-            foreach ($cv->getExperience() as $experience) {
-                $cv->addExperience($experience);
-                $experience->addCv($cv);
-            }
-            //-------------------------------------------------------------------------------
+            $cv = $form->getData(); // Récupère l'objet CV mis à jour par le formulaire
             $cv->setDateModification(new \DateTimeImmutable());
-            $cvRepository->save($cv, true);
 
+            $cvRepository->save($cv, true);
 
             return $this->redirectToRoute('app_cv');
         }

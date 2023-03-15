@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout activité d'experience dans le formulaire">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cv.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -371,14 +371,9 @@
       <workItem from="1678801940328" duration="25000" />
       <workItem from="1678801989960" duration="360000" />
       <workItem from="1678802370252" duration="4981000" />
-      <workItem from="1678815614312" duration="3489000" />
-    </task>
-    <task id="LOCAL-00114" summary="feat: [Navigation] Accès à la bibliothèque de portfolios depuis le menu">
-      <created>1677953328198</created>
-      <option name="number" value="00114" />
-      <option name="presentableId" value="LOCAL-00114" />
-      <option name="project" value="LOCAL" />
-      <updated>1677953328198</updated>
+      <workItem from="1678815614312" duration="4177000" />
+      <workItem from="1678863375148" duration="16522000" />
+      <workItem from="1678885495175" duration="82000" />
     </task>
     <task id="LOCAL-00115" summary="feat: [Portfolio] Modification de portfolio depuis la bibliothèque (à corriger)">
       <created>1678029989479</created>
@@ -716,7 +711,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678799630744</updated>
     </task>
-    <option name="localTasksCounter" value="163" />
+    <task id="LOCAL-00163" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
+      <created>1678819188804</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1678819188804</updated>
+    </task>
+    <option name="localTasksCounter" value="164" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -777,7 +779,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Portfolio] Gestion de la visibilité" />
     <MESSAGE value="feat: [Portfolio] Ajout donnée 'banniere' FileType" />
     <MESSAGE value="fix: [Style] Structure fichiers scss et tests" />
     <MESSAGE value="fix: [Portfolio] Import image banniere demo" />
@@ -802,6 +803,7 @@
     <MESSAGE value="fix: [Trace] Formulaire" />
     <MESSAGE value="feat: [CV] ajout experience et formation (form + card)" />
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] ajout activité d'experience dans le formulaire" />
+    <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire (en cours)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] ajout activité d'experience dans le formulaire (en cours)" />
   </component>
 </project>

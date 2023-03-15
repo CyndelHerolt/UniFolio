@@ -46,10 +46,10 @@ class Cv
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poste = null;
 
-    #[ORM\ManyToMany(targetEntity: Experience::class, inversedBy: 'cvs', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Experience::class, inversedBy: 'cvs', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $experience;
 
-    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'cvs', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'cvs', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $formation;
 
     public function __construct()

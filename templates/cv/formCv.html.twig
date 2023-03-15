@@ -34,15 +34,16 @@
                     {{ form_row(form.description) }}
                     <hr>
                     <div>
-
-                        {#                        {{ dump(experience.activite) }} #}
+                    <h2>Experiences</h2>
                         <!-- Expériences -->
+{#                        {{ form_row(form.experience) }}#}
                         {% for experience in form.experience %}
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 bloc_experience">
                                 {{ form_row(experience.poste) }}
                                 {{ form_row(experience.entreprise) }}
                                 {{ form_row(experience.date_debut) }}
                                 {{ form_row(experience.date_fin) }}
+{#                                {{  form_widget(experience) }}#}
 
                                 {% for activite in experience.activite %}
                                     <div class="input-group mb-3">
@@ -57,7 +58,7 @@
                                 </button>
 
                                 <button type="button" class="btn btn-danger delete-experience">
-                                    Supprimer l'expérience<i class="fa-solid fa-square-minus"></i>
+                                    Supprimer l'expérience <i class="fa-solid fa-square-minus"></i>
                                 </button>
                             </div>
                         {% endfor %}
@@ -67,13 +68,30 @@
                         <!-- Fin expériences -->
                         <hr>
                         <!-- Formations -->
+                        <h2>Formations</h2>
                         <div>
                             {% for formation in form.formation %}
                                 <div class="input-group mb-3">
-                                    {{ form_widget(formation) }}
+                                    {{ form_row(formation.diplome) }}
+                                    {{ form_row(formation.etablissement) }}
+                                    {{ form_row(formation.date_debut) }}
+                                    {{ form_row(formation.date_fin) }}
+{#                                    {{ form_widget(formation) }}#}
+
+                                    {% for activite in formation.activite %}
+                                        <div class="input-group mb-3">
+                                            {{ form_widget(activite) }}
+                                            <button type="button" class="btn btn-danger delete-formation-activite">
+                                                <i class="fa-solid fa-square-minus"></i>
+                                            </button>
+                                        </div>
+                                    {% endfor %}
+                                    <button type="button" class="btn btn-primary add-formation-activite">
+                                        Ajouter une activité <i class="fa fa-square-plus"></i>
+                                    </button>
 
                                     <button type="button" class="btn btn-danger delete-formation">
-                                        <i class="fa-solid fa-square-minus"></i>
+                                        Supprimer une formation <i class="fa-solid fa-square-minus"></i>
                                     </button>
                                 </div>
                             {% endfor %}
