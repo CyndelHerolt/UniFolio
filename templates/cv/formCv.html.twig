@@ -36,32 +36,34 @@
                     <div>
                     <h2>Experiences</h2>
                         <!-- Expériences -->
-{#                        {{ form_row(form.experience) }}#}
-                        {% for experience in form.experience %}
-                            <div class="input-group mb-3 bloc_experience">
-                                {{ form_row(experience.poste) }}
-                                {{ form_row(experience.entreprise) }}
-                                {{ form_row(experience.date_debut) }}
-                                {{ form_row(experience.date_fin) }}
+{#                        {% for experience in form.experience %}#}
+                            <div class=" mb-3 bloc_experience">
+                        {{ form_row(form.experience) }}
+{#                                {{ form_row(experience.poste) }}#}
+{#                                {{ form_row(experience.entreprise) }}#}
+{#                                {{ form_row(experience.date_debut) }}#}
+{#                                {{ form_row(experience.date_fin) }}#}
 {#                                {{  form_widget(experience) }}#}
 
-                                {% for activite in experience.activite %}
-                                    <div class="input-group mb-3">
-                                        {{ form_widget(activite) }}
+{#                                {{ form_widget(form.experience.vars.prototype) }}#}
+
+{#                                {% for activite in experience.activite %}#}
+{#                                    <div class="input-group mb-3">#}
+{#                                        {{ form_widget(activite) }}#}
                                         <button type="button" class="btn btn-danger delete-experience-activite">
                                             <i class="fa-solid fa-square-minus"></i>
                                         </button>
-                                    </div>
-                                {% endfor %}
-                                <button type="button" class="btn btn-primary add-experience-activite">
-                                    Ajouter une activité <i class="fa fa-square-plus"></i>
-                                </button>
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{#                                <div><button type="button" class="btn btn-primary add-experience-activite">#}
+{#                                    Ajouter une activité **<i class="fa fa-square-plus"></i>#}
+{#                                </button></div>#}
 
-                                <button type="button" class="btn btn-danger delete-experience">
-                                    Supprimer l'expérience <i class="fa-solid fa-square-minus"></i>
-                                </button>
+{#                                <button type="button" class="btn btn-danger delete-experience">#}
+{#                                    Supprimer l'expérience <i class="fa-solid fa-square-minus"></i>#}
+{#                                </button>#}
                             </div>
-                        {% endfor %}
+{#                        {% endfor %}#}
                         <button type="button" class="btn btn-primary add-experience">
                             Ajouter une experience <i class="fa fa-square-plus"></i>
                         </button>

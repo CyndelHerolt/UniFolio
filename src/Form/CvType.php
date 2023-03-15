@@ -135,7 +135,7 @@ class CvType extends AbstractType
                 'entry_type' => ExperienceType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control experience",
                     ],
                     'by_reference' => false,
                     'label' => 'Experiences',
