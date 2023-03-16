@@ -5,9 +5,11 @@
 document.querySelectorAll('.soft_skills').forEach((event) => {
     // event = .soft_skills (chaque bloc soft_skills)
     console.log(event)
+    // ajouter la classe 'soft_skills' à chaque élément parent de .soft_skills
+    event.parentNode.classList.add('soft_skills_div')
     event.style.border = '1px solid red'
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.innerHTML += (
+    event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
             '<i class="fa-solid fa-square-minus"></i>' +
         '</button>'
@@ -16,7 +18,7 @@ document.querySelectorAll('.soft_skills').forEach((event) => {
 
 // Fonction pour supprimer un champ soft_skill
 function removeSoftSkill(button) {
-    button.closest('.input-group').remove();
+    button.closest('.soft_skills_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ soft_skill
