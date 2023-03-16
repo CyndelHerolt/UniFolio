@@ -384,14 +384,13 @@
       <workItem from="1678962306221" duration="61000" />
       <workItem from="1678962386704" duration="1210000" />
       <workItem from="1678963707654" duration="58000" />
-      <workItem from="1678963784692" duration="1673000" />
-    </task>
-    <task id="LOCAL-00118" summary="feat: [Portfolio] Ajout d'une page directement depuis la bibliothèque">
-      <created>1678095453624</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1678095453624</updated>
+      <workItem from="1678963784692" duration="1915000" />
+      <workItem from="1678973312411" duration="4400000" />
+      <workItem from="1678985690359" duration="584000" />
+      <workItem from="1678986293910" duration="2412000" />
+      <workItem from="1678988751344" duration="17000" />
+      <workItem from="1678988783644" duration="23000" />
+      <workItem from="1678988822958" duration="850000" />
     </task>
     <task id="LOCAL-00119" summary="feat: [Portfolio] Ajout d'une page directement depuis la bibliothèque">
       <created>1678100555964</created>
@@ -729,7 +728,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678964746895</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
+      <created>1678965502978</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1678965502978</updated>
+    </task>
+    <option name="localTasksCounter" value="168" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,7 +1,18 @@
-//TODO: trouver pourquoi le btn d'ajout ne fonctionne pas lors de l'edition d'un cv qui a deja des champs
 //-----------------------------------------------------------------------------
 //---------------------------------SOFT SKILLS---------------------------------
 //-----------------------------------------------------------------------------
+
+document.querySelectorAll('.soft_skills').forEach((event) => {
+    // event = .soft_skills (chaque bloc soft_skills)
+    console.log(event)
+    event.style.border = '1px solid red'
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-soft-skill">' +
+            '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
 
 // Fonction pour supprimer un champ soft_skill
 function removeSoftSkill(button) {
@@ -9,10 +20,10 @@ function removeSoftSkill(button) {
 }
 
 // Fonction pour ajouter un nouveau champ soft_skill
-function addSoftSkill() {
+function addSoftSkill(event) {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
+    const index = document.querySelectorAll('.soft_skills').length;
     // Création du nouveau champ soft_skill
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ soft_skill au formulaire
@@ -21,14 +32,20 @@ function addSoftSkill() {
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-soft-skill');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.querySelector('.soft_skills').innerHTML += (
+        '<button type="button" class="btn btn-danger delete-soft-skill">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+    // const button = document.createElement('button');
+    // button.type = 'button';
+    // button.classList.add('btn', 'btn-danger', 'delete-soft-skill');
+    // button.innerHTML = '<i class="fa fa-square-minus"></i>';
+    // button.style.width = 'fit-content';
+    // button.style.height = 'fit-content';
+    const button = formGroup.querySelector('.delete-soft-skill')
     button.addEventListener('click', function () {
-        removeSoftSkill(button);
+        removeSoftSkill(this);
     });
     formGroup.appendChild(button);
     const addButtonSoft = document.querySelector('.add-soft-skill');
@@ -189,13 +206,15 @@ function addReseau() {
     formGroup.appendChild(button);
     const addButtonReseau = document.querySelector('.add-reseau');
     addButtonReseau.parentNode.insertBefore(formGroup, addButtonReseau);
-}
 
+}
 // Gestionnaire d'événement pour le bouton de suppression d'un champ reseau
 document.querySelectorAll('.delete-reseau').forEach(function (button) {
     button.addEventListener('click', function () {
         removeReseau(button);
     });
+
+
 });
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ reseau
@@ -289,10 +308,11 @@ document.querySelectorAll('.delete-experience').forEach(function (event) {
 function addExperienceActivite(event) {
     console.log(event);
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+    formGroup.classList.add('experience-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
-    formGroup.innerHTML = '<input type="text" id="a" class="form-control">';
+    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+    formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
@@ -323,5 +343,5 @@ document.querySelectorAll('.delete-experience-activite').forEach(function (butto
 
 // Fonction pour supprimer un champ formation
 function removeExperienceActivite(button) {
-    button.closest('.input-group').remove();
+    button.closest('.experience-activite').remove();
 }

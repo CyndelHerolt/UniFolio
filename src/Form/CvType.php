@@ -50,7 +50,7 @@ class CvType extends AbstractType
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control soft_skills",
                         'placeholder' => 'Soft Skills de mon CV',
                     ],
                     'by_reference' => false,

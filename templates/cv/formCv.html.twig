@@ -103,19 +103,19 @@
                         <!-- Fin expériences -->
 
                         <hr>
-                        <div>
-                            {% for softSkill in form.soft_skills %}
+{#                        <div>#}
+{#                            {% for softSkill in form.soft_skills %}#}
                                 <div class="input-group mb-3">
-                                    {{ form_widget(softSkill) }}
-                                    <button type="button" class="btn btn-danger delete-soft-skill">
-                                        <i class="fa-solid fa-square-minus"></i>
-                                    </button>
+                                    {{ form_widget(form.soft_skills) }}
+{#                                    <button type="button" class="btn btn-danger delete-soft-skill">#}
+{#                                        <i class="fa-solid fa-square-minus"></i>#}
+{#                                    </button>#}
                                 </div>
-                            {% endfor %}
+{#                            {% endfor %}#}
                             <button type="button" class="btn btn-primary add-soft-skill">
                                 Ajouter un soft skill <i class="fa fa-square-plus"></i>
                             </button>
-                        </div>
+{#                        </div>#}
                         <hr>
                         <div>
                             {% for hardSkill in form.hard_skills %}
