@@ -7,6 +7,7 @@
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -383,14 +384,7 @@
       <workItem from="1678962306221" duration="61000" />
       <workItem from="1678962386704" duration="1210000" />
       <workItem from="1678963707654" duration="58000" />
-      <workItem from="1678963784692" duration="922000" />
-    </task>
-    <task id="LOCAL-00117" summary="feat: [Portfolio] Suppression de portfolio depuis la bibliothèque">
-      <created>1678033186323</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1678033186323</updated>
+      <workItem from="1678963784692" duration="1673000" />
     </task>
     <task id="LOCAL-00118" summary="feat: [Portfolio] Ajout d'une page directement depuis la bibliothèque">
       <created>1678095453624</created>
@@ -728,7 +722,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678901863437</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
+      <created>1678964746894</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1678964746895</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

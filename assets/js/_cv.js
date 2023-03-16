@@ -257,6 +257,10 @@ function addExperience(event) {
     formGroup.querySelector('.delete-experience').addEventListener('click', function () {
         removeExperience(this);
     });
+    // Attacher un gestionnaire d'événements au nouveau bouton "add-experience-activite"
+    formGroup.querySelector('.add-experience-activite').addEventListener('click', function () {
+        addExperienceActivite(this);
+    });
 }
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ experience
@@ -280,3 +284,44 @@ document.querySelectorAll('.delete-experience').forEach(function (event) {
         removeExperience(event);
     });
 });
+
+// Fonction pour ajouter un nouveau champ experience activite
+function addExperienceActivite(event) {
+    console.log(event);
+    const formGroup = document.createElement('div');
+    formGroup.classList.add('input-group', 'mb-3');
+    formGroup.style.display = 'flex';
+    formGroup.style.alignItems = 'flex-end';
+    formGroup.innerHTML = '<input type="text" id="a" class="form-control">';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
+    button.innerHTML = '<i class="fa fa-square-minus"></i>';
+    button.style.width = 'fit-content';
+    button.style.height = 'fit-content';
+    button.addEventListener('click', function () {
+        removeExperienceActivite(button);
+    });
+    formGroup.appendChild(button);
+    // const addButtonExperienceActivite = document.querySelector('.add-experience-activite');
+    event.parentNode.insertBefore(formGroup, event);
+}
+
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ experience activite
+document.querySelectorAll('.add-experience-activite').forEach(function (event) {
+    event.addEventListener('click', function () {
+        addExperienceActivite(event);
+    });
+});
+
+// Gestionnaire d'événement pour le bouton de suppression d'un champ activite
+document.querySelectorAll('.delete-experience-activite').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removeExperienceActivite(button);
+    });
+});
+
+// Fonction pour supprimer un champ formation
+function removeExperienceActivite(button) {
+    button.closest('.input-group').remove();
+}
