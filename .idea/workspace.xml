@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout activité d'experience dans le formulaire">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout collection de soft_skills">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -388,14 +390,7 @@
       <workItem from="1678986293910" duration="2412000" />
       <workItem from="1678988751344" duration="17000" />
       <workItem from="1678988783644" duration="23000" />
-      <workItem from="1678988822958" duration="1497000" />
-    </task>
-    <task id="LOCAL-00120" summary="feat: [CV] Génération du formulaire de création de cv">
-      <created>1678211808482</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1678211808482</updated>
+      <workItem from="1678988822958" duration="2989000" />
     </task>
     <task id="LOCAL-00121" summary="feat: [CV] Génération de la bibliothèque et du formulaire de création de cv">
       <created>1678214323007</created>
@@ -733,7 +728,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678989716035</updated>
     </task>
-    <option name="localTasksCounter" value="169" />
+    <task id="LOCAL-00169" summary="fix: [CV] ajout collection de soft_skills">
+      <created>1678990387495</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1678990387495</updated>
+    </task>
+    <option name="localTasksCounter" value="170" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -794,7 +796,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Portfolio] Ajout donnée 'banniere' FileType" />
     <MESSAGE value="fix: [Style] Structure fichiers scss et tests" />
     <MESSAGE value="fix: [Portfolio] Import image banniere demo" />
     <MESSAGE value="fix: [Portfolio] Structure mise en page" />
@@ -819,6 +820,7 @@
     <MESSAGE value="feat: [CV] ajout experience et formation (form + card)" />
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire (en cours)" />
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] ajout activité d'experience dans le formulaire" />
+    <MESSAGE value="fix: [CV] ajout collection de soft_skills" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] ajout collection de soft_skills" />
   </component>
 </project>

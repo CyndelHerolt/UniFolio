@@ -23,28 +23,27 @@ function removeSoftSkill(button) {
 
 // Fonction pour ajouter un nouveau champ soft_skill
 function addSoftSkill(event) {
-    // Récupération du prototype et incrémentation du compteur
+    // Récupération du prototype
     const prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
+    // Récupération du nombre de champs soft_skill
     const index = document.querySelectorAll('.soft_skills').length;
     // Création du nouveau champ soft_skill
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ soft_skill au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+
+    // Injection du prototype et des btns ds le nouveau bloc
+    formGroup.classList.add('input-group', 'mb-3', 'soft_skills_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    formGroup.querySelector('.soft_skills').innerHTML += (
+    formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
         '<i class="fa-solid fa-square-minus"></i>' +
         '</button>'
     )
-    // const button = document.createElement('button');
-    // button.type = 'button';
-    // button.classList.add('btn', 'btn-danger', 'delete-soft-skill');
-    // button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    // button.style.width = 'fit-content';
-    // button.style.height = 'fit-content';
+
+
     const button = formGroup.querySelector('.delete-soft-skill')
     button.addEventListener('click', function () {
         removeSoftSkill(this);
