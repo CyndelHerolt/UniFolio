@@ -7,7 +7,6 @@
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout collection de soft_skills">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
@@ -391,14 +390,12 @@
       <workItem from="1678986293910" duration="2412000" />
       <workItem from="1678988751344" duration="17000" />
       <workItem from="1678988783644" duration="23000" />
-      <workItem from="1678988822958" duration="4201000" />
-    </task>
-    <task id="LOCAL-00122" summary="feat: [CV] Formulaire de modification">
-      <created>1678216687415</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1678216687415</updated>
+      <workItem from="1678988822958" duration="6474000" />
+      <workItem from="1678995912549" duration="18000" />
+      <workItem from="1678995943324" duration="146000" />
+      <workItem from="1678996118713" duration="22000" />
+      <workItem from="1678996157579" duration="70000" />
+      <workItem from="1678996250467" duration="63000" />
     </task>
     <task id="LOCAL-00123" summary="fix: [Navigation] Ajout des liens vers nouvelles pages dans le menu">
       <created>1678216716184</created>
@@ -736,7 +733,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678991869178</updated>
     </task>
-    <option name="localTasksCounter" value="171" />
+    <task id="LOCAL-00171" summary="fix: [CV] ajout collection de soft_skills">
+      <created>1678993108917</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1678993108917</updated>
+    </task>
+    <option name="localTasksCounter" value="172" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

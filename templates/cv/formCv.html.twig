@@ -33,111 +33,60 @@
                     {{ form_row(form.poste) }}
                     {{ form_row(form.description) }}
                     <hr>
-                    <div>
-                        <!-- Expériences -->
-                        {#                        {% for experience in form.experience %} #}
-                        <div class=" mb-3 bloc_experience">
-                            {{ form_row(form.experience) }}
-                            {#                                {{ form_row(experience.poste) }} #}
-                            {#                                {{ form_row(experience.entreprise) }} #}
-                            {#                                {{ form_row(experience.date_debut) }} #}
-                            {#                                {{ form_row(experience.date_fin) }} #}
-                            {#                                {{  form_widget(experience) }} #}
 
-                            {#                                {{ form_widget(form.experience.vars.prototype) }} #}
-
-                            {#                                {% for activite in experience.activite %} #}
-                            {#                                    <div class="input-group mb-3"> #}
-                            {#                                        {{ form_widget(activite) }} #}
-                            {#                                        <button type="button" class="btn btn-danger delete-experience-activite"> #}
-                            {#                                            <i class="fa-solid fa-square-minus"></i> #}
-                            {#                                        </button> #}
-                            {#                                    </div> #}
-                            {#                                {% endfor %} #}
-                            {#                                <div><button type="button" class="btn btn-primary add-experience-activite"> #}
-                            {#                                    Ajouter une activité **<i class="fa fa-square-plus"></i> #}
-                            {#                                </button></div> #}
-
-                            {#                                <button type="button" class="btn btn-danger delete-experience"> #}
-                            {#                                    Supprimer l'expérience <i class="fa-solid fa-square-minus"></i> #}
-                            {#                                </button> #}
-                        </div>
-                        {#                        {% endfor %} #}
-                        <button type="button" class="btn btn-primary add-experience">
-                            Ajouter une experience <i class="fa fa-square-plus"></i>
-                        </button>
-                        <!-- Fin expériences -->
-                        <hr>
-                        <!-- Formations -->
-                        <h2>Formations</h2>
-                        <div>
-                            {% for formation in form.formation %}
-                                <div class="input-group mb-3">
-                                    {{ form_row(formation.diplome) }}
-                                    {{ form_row(formation.etablissement) }}
-                                    {{ form_row(formation.date_debut) }}
-                                    {{ form_row(formation.date_fin) }}
-                                    {#                                    {{ form_widget(formation) }} #}
-
-                                    {% for activite in formation.activite %}
-                                        <div class="input-group mb-3">
-                                            {{ form_widget(activite) }}
-                                            <button type="button" class="btn btn-danger delete-formation-activite">
-                                                <i class="fa-solid fa-square-minus"></i>
-                                            </button>
-                                        </div>
-                                    {% endfor %}
-                                    <button type="button" class="btn btn-primary add-formation-activite">
-                                        Ajouter une activité <i class="fa fa-square-plus"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-danger delete-formation">
-                                        Supprimer une formation <i class="fa-solid fa-square-minus"></i>
-                                    </button>
-                                </div>
-                            {% endfor %}
-                            <button type="button" class="btn btn-primary add-formation">
-                                Ajouter une formation <i class="fa fa-square-plus"></i>
-                            </button>
-                        </div>
-                        <!-- Fin expériences -->
-
-                        <hr>
-
-                        <div class="input-group mb-3">
-                            {{ form_widget(form.soft_skills) }}
-                        </div>
-                        <button type="button" class="btn btn-primary add-soft-skill">
-                            Ajouter un soft skill <i class="fa fa-square-plus"></i>
-                        </button>
-
-                        <hr>
-
-                        <div class="input-group mb-3">
-                            {{ form_widget(form.hard_skills) }}
-                        </div>
-                        <button type="button" class="btn btn-primary add-hard-skill">
-                            Ajouter un hard skill <i class="fa fa-square-plus"></i>
-                        </button>
-
-                        <hr>
-
-                        <div class="input-group mb-3">
-                            {{ form_widget(form.langues) }}
-                        </div>
-                        <button type="button" class="btn btn-primary add-langue">
-                            Ajouter une langue <i class="fa fa-square-plus"></i>
-                        </button>
-
+                    <!-- Expériences -->
+                    <div class=" mb-3 bloc_experience">
+                        {{ form_row(form.experience) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-experience">
+                        Ajouter une experience <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin expériences -->
                     <hr>
-
-                            <div class="input-group mb-3">
-                                {{ form_widget(form.reseaux) }}
-                            </div>
-                        <button type="button" class="btn btn-primary add-reseau">
-                            Ajouter un reseau <i class="fa fa-square-plus"></i>
-                        </button>
-
+                    <!-- Formations -->
+                    <div class="mb-3">
+                        {{ form_row(form.formation) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-formation">
+                        Ajouter une formation <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin formations -->
+                    <hr>
+                    <!-- SoftSkills -->
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.soft_skills) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-soft-skill">
+                        Ajouter un soft skill <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin SofSkills -->
+                    <hr>
+                    <!-- HardSkills -->
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.hard_skills) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-hard-skill">
+                        Ajouter un hard skill <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin HardSkills -->
+                    <hr>
+                    <!-- Langues -->
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.langues) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-langue">
+                        Ajouter une langue <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin Langues -->
+                    <hr>
+                    <!-- Reseaux -->
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.reseaux) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-reseau">
+                        Ajouter un reseau <i class="fa fa-square-plus"></i>
+                    </button>
+                    <!-- Fin reseaux -->
                     <hr>
 
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -294,6 +294,12 @@ if (addButtonReseau) {
 document.querySelectorAll('.experience').forEach((event) => {
     // event = .experience (chaque bloc experience)
     console.log(event)
+
+    event.lastChild.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-experience-activite">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
     // pour chaque bloc experience existant, on ajoute les boutons pour manipuler le form
     event.innerHTML += (
         '<div><button type="button" class="btn btn-primary add-experience-activite">' +
@@ -304,6 +310,7 @@ document.querySelectorAll('.experience').forEach((event) => {
         'Supprimer l\'expérience <i class="fa-solid fa-square-minus"></i>' +
         '</button>'
     )
+
 })
 
 // Fonction pour ajouter un nouveau champ experience
@@ -406,4 +413,126 @@ document.querySelectorAll('.delete-experience-activite').forEach(function (butto
 // Fonction pour supprimer un champ formation
 function removeExperienceActivite(button) {
     button.closest('.experience-activite').remove();
+}
+
+
+//-----------------------------------------------------------------------------
+//----------------------------FORMATIONS(--------------------------------------
+//-----------------------------------------------------------------------------
+
+document.querySelectorAll('.formation').forEach((event) => {
+    // event = .formation (chaque bloc formation)
+    console.log(event)
+    // pour chaque bloc formation existant, on ajoute les boutons pour manipuler le form
+    event.innerHTML += (
+        '<div><button type="button" class="btn btn-primary add-formation-activite">' +
+        'Ajouter une activité <i class="fa fa-square-plus"></i>' +
+        '</button></div>' +
+        '<br>' +
+        '<button type="button" class="btn btn-danger delete-formation">' +
+        'Supprimer la formation <i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+// Fonction pour ajouter un nouveau champ formation
+function addFormation(event) {
+    // console.log(event);
+    // Récupération du prototype
+    const prototype = document.querySelector('#cv_formation').dataset.prototype;
+    // Récupération du nombre d'expériences existantes
+    const index = document.querySelectorAll('.formation').length;
+    // Création du nouveau form formation
+    const newForm = prototype.replace(/__name__/g, index);
+    // Création d'un bloc formation pour le nouveau form
+    const formGroup = document.createElement('div');
+
+    // Injection du prototype et des boutons dans le nouveau bloc formation
+    formGroup.innerHTML = newForm;
+    formGroup.querySelector('.formation').innerHTML += (
+        '<div><button type="button" class="btn btn-primary add-formation-activite">' +
+        'Ajouter une activité <i class="fa fa-square-plus"></i>' +
+        '</button></div>' +
+        '<br>' +
+        '<button type="button" class="btn btn-danger delete-formation">' +
+        'Supprimer l\'expérience <i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+    // Injection du nouveau bloc formation
+    event.parentNode.insertBefore(formGroup, event);
+    console.log(document.querySelectorAll('.formation'));
+
+    // Attacher un gestionnaire d'événements au nouveau bouton "delete-formation"
+    formGroup.querySelector('.delete-formation').addEventListener('click', function () {
+        removeFormation(this);
+    });
+    // Attacher un gestionnaire d'événements au nouveau bouton "add-formation-activite"
+    formGroup.querySelector('.add-formation-activite').addEventListener('click', function () {
+        addFormationActivite(this);
+    });
+}
+
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ formation
+const addButtonFormation = document.querySelector('.add-formation');
+if (addButtonFormation) {
+    addButtonFormation.addEventListener('click', function (event) {
+        addFormation(event.target);
+    })
+}
+
+// Fonction pour supprimer un champ formation
+function removeFormation(event) {
+    event.closest('.formation').remove();
+    console.log(event);
+}
+
+// Gestionnaire d'événement pour le bouton de suppression d'un champ formation
+document.querySelectorAll('.delete-formation').forEach(function (event) {
+    event.addEventListener('click', function () {
+        console.log(event);
+        removeFormation(event);
+    });
+});
+
+// Fonction pour ajouter un nouveau champ formation activite
+function addFormationActivite(event) {
+    console.log(event);
+    const formGroup = document.createElement('div');
+    formGroup.classList.add('formation-activite');
+    formGroup.style.display = 'flex';
+    formGroup.style.alignItems = 'flex-end';
+    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+    formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('btn', 'btn-danger', 'delete-formation-activite');
+    button.innerHTML = '<i class="fa fa-square-minus"></i>';
+    button.style.width = 'fit-content';
+    button.style.height = 'fit-content';
+    button.addEventListener('click', function () {
+        removeFormationActivite(button);
+    });
+    formGroup.appendChild(button);
+    // const addButtonFormationActivite = document.querySelector('.add-formation-activite');
+    event.parentNode.insertBefore(formGroup, event);
+}
+
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ formation activite
+document.querySelectorAll('.add-formation-activite').forEach(function (event) {
+    event.addEventListener('click', function () {
+        addFormationActivite(event);
+    });
+});
+
+// Gestionnaire d'événement pour le bouton de suppression d'un champ activite
+document.querySelectorAll('.delete-formation-activite').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removeFormationActivite(button);
+    });
+});
+
+// Fonction pour supprimer un champ formation
+function removeFormationActivite(button) {
+    button.closest('.formation-activite').remove();
 }
