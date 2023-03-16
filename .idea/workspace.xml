@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -390,14 +391,7 @@
       <workItem from="1678986293910" duration="2412000" />
       <workItem from="1678988751344" duration="17000" />
       <workItem from="1678988783644" duration="23000" />
-      <workItem from="1678988822958" duration="2989000" />
-    </task>
-    <task id="LOCAL-00121" summary="feat: [CV] Génération de la bibliothèque et du formulaire de création de cv">
-      <created>1678214323007</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1678214323007</updated>
+      <workItem from="1678988822958" duration="4201000" />
     </task>
     <task id="LOCAL-00122" summary="feat: [CV] Formulaire de modification">
       <created>1678216687415</created>
@@ -735,7 +729,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678990387495</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="fix: [CV] ajout collection de soft_skills">
+      <created>1678991869177</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1678991869178</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

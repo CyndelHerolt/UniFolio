@@ -7,7 +7,9 @@ document.querySelectorAll('.soft_skills').forEach((event) => {
     console.log(event)
     // ajouter la classe 'soft_skills' à chaque élément parent de .soft_skills
     event.parentNode.classList.add('soft_skills_div')
-    event.style.border = '1px solid red'
+    event.parentNode.classList.add('input-group', 'mb-3', 'soft_skills_div')
+    event.style.display = 'flex';
+    event.style.alignItems = 'flex-end';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
@@ -72,33 +74,52 @@ if (addButtonSoft) {
 //----------------------------HARD SKILLS---------------------------------
 //-----------------------------------------------------------------------------
 
+document.querySelectorAll('.hard_skills').forEach((event) => {
+    // event = .hard_skills (chaque bloc hard_skills)
+    console.log(event)
+    // ajouter la classe 'hard_skills' à chaque élément parent de .hard_skills
+    event.parentNode.classList.add('input-group', 'mb-3','hard_skills_div')
+    event.style.display = 'flex';
+    event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-hard-skill">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
 
 // Fonction pour supprimer un champ hard_skill
 function removeHardSkill(button) {
-    button.closest('.input-group').remove();
+    button.closest('.hard_skills_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ hard_skill
-function addHardSkill() {
-    // Récupération du prototype et incrémentation du compteur
+function addHardSkill(event) {
+    // Récupération du prototype
     const prototype = document.querySelector('#cv_hard_skills').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
+    // Récupération du nombre de champs hard_skill
+    const index = document.querySelectorAll('.hard_skills').length;
     // Création du nouveau champ hard_skill
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ hard_skill au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+
+    // Injection du prototype et des btns ds le nouveau bloc
+    formGroup.classList.add('input-group', 'mb-3', 'hard_skills_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-hard-skill');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-hard-skill">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+
+    const button = formGroup.querySelector('.delete-hard-skill')
     button.addEventListener('click', function () {
-        removeHardSkill(button);
+        removeHardSkill(this);
     });
     formGroup.appendChild(button);
     const addButtonHard = document.querySelector('.add-hard-skill');
@@ -120,51 +141,72 @@ if (addButtonHard) {
     })
 }
 
+
 //-----------------------------------------------------------------------------
 //----------------------------LANGUES---------------------------------
 //-----------------------------------------------------------------------------
 
 
-// Fonction pour supprimer un champ langue
+document.querySelectorAll('.langues').forEach((event) => {
+    // event = .langues (chaque bloc langues)
+    console.log(event)
+    // ajouter la classe 'langues' à chaque élément parent de .langues
+    event.parentNode.classList.add('input-group', 'mb-3', 'langues_div')
+    event.style.display = 'flex';
+    event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-langue">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+// Fonction pour supprimer un champ soft_skill
 function removeLangue(button) {
-    button.closest('.input-group').remove();
+    button.closest('.langues_div').remove();
 }
 
-// Fonction pour ajouter un nouveau champ langue
-function addLangue() {
-    // Récupération du prototype et incrémentation du compteur
+// Fonction pour ajouter un nouveau champ soft_skill
+function addLangue(event) {
+    // Récupération du prototype
     const prototype = document.querySelector('#cv_langues').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
-    // Création du nouveau champ langue
+    // Récupération du nombre de champs soft_skill
+    const index = document.querySelectorAll('.langues').length;
+    // Création du nouveau champ soft_skill
     const newForm = prototype.replace(/__name__/g, index);
-    // Ajout du nouveau champ langue au formulaire
+    // Ajout du nouveau champ soft_skill au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+
+    // Injection du prototype et des btns ds le nouveau bloc
+    formGroup.classList.add('input-group', 'mb-3', 'langues_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-langue');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-langue">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+
+    const button = formGroup.querySelector('.delete-langue')
     button.addEventListener('click', function () {
-        removeLangue(button);
+        removeLangue(this);
     });
     formGroup.appendChild(button);
     const addButtonLangue = document.querySelector('.add-langue');
     addButtonLangue.parentNode.insertBefore(formGroup, addButtonLangue);
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ langue
+// Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
 document.querySelectorAll('.delete-langue').forEach(function (button) {
     button.addEventListener('click', function () {
         removeLangue(button);
     });
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ langue
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
 const addButtonLangue = document.querySelector('.add-langue');
 if (addButtonLangue) {
     addButtonLangue.addEventListener('click', function () {
@@ -177,54 +219,73 @@ if (addButtonLangue) {
 //-----------------------------------------------------------------------------
 
 
-// Fonction pour supprimer un champ reseau
+document.querySelectorAll('.reseaux').forEach((event) => {
+    // event = .reseaux (chaque bloc reseaux)
+    console.log(event)
+    // ajouter la classe 'reseaux' à chaque élément parent de .reseaux
+    event.parentNode.classList.add('input-group', 'mb-3', 'reseaux_div')
+    event.style.display = 'flex';
+    event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-reseau">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+// Fonction pour supprimer un champ soft_skill
 function removeReseau(button) {
-    button.closest('.input-group').remove();
+    button.closest('.reseaux_div').remove();
 }
 
-// Fonction pour ajouter un nouveau champ reseau
-function addReseau() {
-    // Récupération du prototype et incrémentation du compteur
+// Fonction pour ajouter un nouveau champ soft_skill
+function addReseau(event) {
+    // Récupération du prototype
     const prototype = document.querySelector('#cv_reseaux').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
-    // Création du nouveau champ reseau
+    // Récupération du nombre de champs soft_skill
+    const index = document.querySelectorAll('.reseaux').length;
+    // Création du nouveau champ soft_skill
     const newForm = prototype.replace(/__name__/g, index);
-    // Ajout du nouveau champ reseau au formulaire
+    // Ajout du nouveau champ soft_skill au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+
+    // Injection du prototype et des btns ds le nouveau bloc
+    formGroup.classList.add('input-group', 'mb-3', 'reseaux_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-reseau');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-reseau">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+
+    const button = formGroup.querySelector('.delete-reseau')
     button.addEventListener('click', function () {
-        removeReseau(button);
+        removeReseau(this);
     });
     formGroup.appendChild(button);
     const addButtonReseau = document.querySelector('.add-reseau');
     addButtonReseau.parentNode.insertBefore(formGroup, addButtonReseau);
-
 }
-// Gestionnaire d'événement pour le bouton de suppression d'un champ reseau
+
+// Gestionnaire d'événement pour le bouton de suppression d'un champ soft_skill
 document.querySelectorAll('.delete-reseau').forEach(function (button) {
     button.addEventListener('click', function () {
         removeReseau(button);
     });
-
-
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ reseau
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ soft_skill
 const addButtonReseau = document.querySelector('.add-reseau');
 if (addButtonReseau) {
     addButtonReseau.addEventListener('click', function () {
         addReseau();
     })
 }
+
 
 //-----------------------------------------------------------------------------
 //----------------------------EXPERIENCES--------------------------------------
