@@ -50,6 +50,7 @@ class ExperienceType extends AbstractType
                     'label' => 'activités',
                     'label_attr' => ['class' => 'form-label'],
                 ],
+                'attr' => ['class' => 'exp-activite'],
                 'prototype' => true,
                 'label' => false,
                 'allow_extra_fields' => true,

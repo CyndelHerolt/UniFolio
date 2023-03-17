@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] ajout collection de soft_skills">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] formulaire cv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ExperienceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ExperienceType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -395,14 +395,8 @@
       <workItem from="1678995943324" duration="146000" />
       <workItem from="1678996118713" duration="22000" />
       <workItem from="1678996157579" duration="70000" />
-      <workItem from="1678996250467" duration="63000" />
-    </task>
-    <task id="LOCAL-00123" summary="fix: [Navigation] Ajout des liens vers nouvelles pages dans le menu">
-      <created>1678216716184</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1678216716184</updated>
+      <workItem from="1678996250467" duration="133000" />
+      <workItem from="1679036435324" duration="3046000" />
     </task>
     <task id="LOCAL-00124" summary="fix: Indentation">
       <created>1678216744303</created>
@@ -740,7 +734,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678993108917</updated>
     </task>
-    <option name="localTasksCounter" value="172" />
+    <task id="LOCAL-00172" summary="fix: [CV] formulaire cv">
+      <created>1678996378180</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1678996378181</updated>
+    </task>
+    <option name="localTasksCounter" value="173" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -801,7 +802,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Style] Structure fichiers scss et tests" />
     <MESSAGE value="fix: [Portfolio] Import image banniere demo" />
     <MESSAGE value="fix: [Portfolio] Structure mise en page" />
     <MESSAGE value="fix: [Fixture] m.a.j Fixture portfolio" />
@@ -826,6 +826,7 @@
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire (en cours)" />
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
     <MESSAGE value="fix: [CV] ajout collection de soft_skills" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] ajout collection de soft_skills" />
+    <MESSAGE value="fix: [CV] formulaire cv" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] formulaire cv" />
   </component>
 </project>
