@@ -296,10 +296,10 @@ document.querySelectorAll('.experience').forEach((event) => {
     console.log(event)
 
     const existingActivites = event.lastChild
-    console.log(existingActivites)
+    // console.log(existingActivites)
     const existingActivitesDiv = existingActivites.firstChild
-    if (existingActivitesDiv.classList.contains('exp-activite')) {
-    console.log(existingActivitesDiv)
+    if (existingActivitesDiv.lastChild) {
+
         existingActivites.classList.add('experience-activite')
         existingActivitesDiv.innerHTML += (
             '<button type="button" class="btn btn-danger delete-experience-activite">' +
