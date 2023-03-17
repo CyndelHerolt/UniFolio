@@ -378,7 +378,7 @@ document.querySelectorAll('.delete-experience').forEach(function (event) {
         removeExperience(event);
     });
 });
-
+// TODO: lier l'input à l'objet pr save
 // Fonction pour ajouter un nouveau champ experience activite
 function addExperienceActivite(event) {
     console.log(event);
@@ -387,7 +387,8 @@ function addExperienceActivite(event) {
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
-    formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
+    let index = document.querySelectorAll('.exp-activite').length;
+    formGroup.innerHTML += '<input type="text" name="activite" id="cv_experience_0_activite_1" class="form-control">';
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');

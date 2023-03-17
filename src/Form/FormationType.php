@@ -45,6 +45,7 @@ class FormationType extends AbstractType
                     'label' => 'Activité',
                     'label_attr' => ['class' => 'form-label'],
                 ],
+                'attr' => ['class' => 'form-activite'],
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,

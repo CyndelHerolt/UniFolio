@@ -105,9 +105,9 @@ class CvController extends AbstractController
             }
 
 
-            dd($request);
+//            dd($request);
 
-            $cvRepository->save($cv, false);
+            $cvRepository->save($cv, true);
 
             return $this->redirectToRoute('app_cv');
         }
