@@ -299,7 +299,6 @@ document.querySelectorAll('.experience').forEach((event) => {
     // console.log(existingActivites)
     const existingActivitesDiv = existingActivites.firstChild
     if (existingActivitesDiv.lastChild) {
-
         existingActivites.classList.add('experience-activite')
         existingActivitesDiv.innerHTML += (
             '<button type="button" class="btn btn-danger delete-experience-activite">' +
@@ -433,12 +432,14 @@ document.querySelectorAll('.formation').forEach((event) => {
 
     const existingActivites = event.lastChild
     const existingActivitesDiv = existingActivites.firstChild
-    existingActivites.classList.add('experience-activite')
-    existingActivitesDiv.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-experience-activite">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
+    if (existingActivitesDiv.lastChild) {
+        existingActivites.classList.add('experience-activite')
+        existingActivitesDiv.innerHTML += (
+            '<button type="button" class="btn btn-danger delete-experience-activite">' +
+            '<i class="fa-solid fa-square-minus"></i>' +
+            '</button>'
+        )
+    }
     // pour chaque bloc formation existant, on ajoute les boutons pour manipuler le form
     event.innerHTML += (
         '<div><button type="button" class="btn btn-primary add-formation-activite">' +

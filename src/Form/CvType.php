@@ -159,7 +159,7 @@ class CvType extends AbstractType
                         'class' => "form-control formation",
                     ],
                     'by_reference' => false,
-                    'label' => 'false',
+                    'label' => false,
                     'label_attr' => ['class' => 'form-label'],
                     'help' => '',
                 ],
