@@ -104,7 +104,6 @@ class CvController extends AbstractController
                 $experience->setActivite($experience->getActivite());
             }
 
-
 //            dd($request);
 
             $cvRepository->save($cv, true);
