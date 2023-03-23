@@ -49,7 +49,6 @@ class CvController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-//TODO: Supprimer les exp et activités si elles ne sont plus dans le formulaire et les remplacer si elles ont été modifiées
             //------------------------------AJOUT EXPERIENCE--------------------------------
             foreach ($cv->getExperience() as $experience) {
                 $cv->addExperience($experience);

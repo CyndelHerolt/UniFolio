@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [CV] formulaire cv">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Trace] Visualisation de toutes les infos de la trace dans un modal">
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ExperienceFixture.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataFixtures/FormationFixture.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -397,6 +403,7 @@
       <workItem from="1679036435324" duration="4091000" />
       <workItem from="1679064207978" duration="1495000" />
       <workItem from="1679072878203" duration="3569000" />
+      <workItem from="1679556512410" duration="779000" />
     </task>
     <task id="LOCAL-00128" summary="fix: [CV] Ajout dynamique de champs">
       <created>1678358404869</created>

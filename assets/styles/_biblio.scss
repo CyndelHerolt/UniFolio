@@ -153,6 +153,12 @@
       }
     }
 
+    .cv_exp ul, .cv_form ul {
+      display: flex;
+      flex-direction: column;
+      padding: 0 !important;
+    }
+
   }
 }
 

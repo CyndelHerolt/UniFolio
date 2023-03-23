@@ -19,7 +19,7 @@
     <div class="container">
         <section class="trace_form">
             <div class="row">
-                <article class="col-lg-5 col-12">
+                <article class="col-lg-4 col-12">
                     {% if '/edit' in app.request.uri %}
                         <h2>Modifier {{ trace.titre }}</h2>
                     {% else %}
@@ -44,9 +44,6 @@
                             </div>
                         {% endfor %}
                         {% if 'TraceTypeImage' in trace.typeTrace %}
-{#                            {% for image in trace.contenu %}#}
-{#                                <img width="300" src="{{ asset(image) }}" alt="Mon image" />#}
-{#                            {% endfor %}#}
                             <button type="button" class="btn btn-primary add-contenu">
                                 Ajouter une image <i class="fa fa-square-plus"></i>
                             </button>
