@@ -47,6 +47,8 @@ class PageType extends AbstractType
             $pages = array_unique($pages, SORT_REGULAR);
             $pagesCount = count($pages);
         }
+
+        //TODO: transférer cette partie dans le portfolio (c'est l'ordre de la page dans le portfolio qui ns intéresse ici) -> peut-être du coup passer l'ordre dans page_portfolio ?
         //Si l'url contient "/new" alors on ajoute 1 à $pagesCount
         if (strpos($_SERVER['REQUEST_URI'], 'new')) {
             // créer un tableau avec les valeurs de 1 à $pagesCount
