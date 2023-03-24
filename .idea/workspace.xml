@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Trace] Visualisation de toutes les infos de la trace dans un modal">
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/ExperienceFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/FormationFixture.php" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Fixtures] Génération de fixtures">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/CvFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -403,21 +397,8 @@
       <workItem from="1679036435324" duration="4091000" />
       <workItem from="1679064207978" duration="1495000" />
       <workItem from="1679072878203" duration="3569000" />
-      <workItem from="1679556512410" duration="779000" />
-    </task>
-    <task id="LOCAL-00128" summary="fix: [CV] Ajout dynamique de champs">
-      <created>1678358404869</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1678358404869</updated>
-    </task>
-    <task id="LOCAL-00129" summary="fix: [Suppression] Correction du ciblage">
-      <created>1678444520405</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1678444520405</updated>
+      <workItem from="1679556512410" duration="2739000" />
+      <workItem from="1679648314301" duration="2662000" />
     </task>
     <task id="LOCAL-00130" summary="fix: [js] structure des fichiers js">
       <created>1678449524226</created>
@@ -748,7 +729,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679076285952</updated>
     </task>
-    <option name="localTasksCounter" value="177" />
+    <task id="LOCAL-00177" summary="fix: [Cv] Affichage des infos du CV">
+      <created>1679557373006</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1679557373016</updated>
+    </task>
+    <task id="LOCAL-00178" summary="fix: [Fixtures] Génération de fixtures">
+      <created>1679557502567</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1679557502567</updated>
+    </task>
+    <option name="localTasksCounter" value="179" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -809,8 +804,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] Import image banniere demo" />
-    <MESSAGE value="fix: [Portfolio] Structure mise en page" />
     <MESSAGE value="fix: [Fixture] m.a.j Fixture portfolio" />
     <MESSAGE value="fix: [Page] Structure mise en page" />
     <MESSAGE value="fix: [Traces] Structure mise en page" />
@@ -834,6 +827,8 @@
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
     <MESSAGE value="fix: [CV] ajout collection de soft_skills" />
     <MESSAGE value="fix: [CV] formulaire cv" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [CV] formulaire cv" />
+    <MESSAGE value="fix: [Cv] Affichage des infos du CV" />
+    <MESSAGE value="fix: [Fixtures] Génération de fixtures" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Fixtures] Génération de fixtures" />
   </component>
 </project>

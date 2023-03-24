@@ -39,6 +39,27 @@ class PageType extends AbstractType
         $user = $options['user'];
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
         $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
+        $pages = [];
+        foreach ($traces as $trace) {
+            $pages = array_merge($pages, $trace->getPages()->toArray());
+            //            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+            $pages = array_unique($pages, SORT_REGULAR);
+            $pagesCount = count($pages);
+        }
+        //Si l'url contient "/new" alors on ajoute 1 à $pagesCount
+        if (strpos($_SERVER['REQUEST_URI'], 'new')) {
+            // créer un tableau avec les valeurs de 1 à $pagesCount
+            $pagesCount = array_fill(1, $pagesCount+1, $pagesCount);
+        }
+        //Si l'url contient "/edit" alors on ne change pas $pagesCount
+        if (strpos($_SERVER['REQUEST_URI'], 'edit')) {
+            // créer un tableau avec les valeurs de 1 à $pagesCount
+            $pagesCount = array_fill(1, $pagesCount, $pagesCount);
+        }
+
+
+//        dd($pagesCount);
         //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -46,7 +67,7 @@ class PageType extends AbstractType
 
         $builder
             ->add('ordre', ChoiceType::class, [
-                'choices'=>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                'choices'=>[$pagesCount],
                 'label' => 'Ordre',
             ])
             ->add('intitule', TextType::class, [
