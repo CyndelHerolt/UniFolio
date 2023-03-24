@@ -109,10 +109,10 @@ class PageController extends AbstractController
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
         $trace = $form->get('trace')->getData();
+        $page->setOrdre($form->get('ordre')->getData());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             //Si il n'y a pas de trace sélectionnée dans le formulaire
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');

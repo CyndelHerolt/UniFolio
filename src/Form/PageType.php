@@ -53,14 +53,19 @@ class PageType extends AbstractType
         if (strpos($_SERVER['REQUEST_URI'], 'new')) {
             // créer un tableau avec les valeurs de 1 à $pagesCount
             $pagesCount = array_fill(1, $pagesCount+1, $pagesCount);
+            $pagesCount = array_keys($pagesCount);
+            $pagesCount = array_flip($pagesCount);
+            $pagesCount = array_map(fn($value) => $value+1, $pagesCount);
         }
         //Si l'url contient "/edit" alors on ne change pas $pagesCount
         if (strpos($_SERVER['REQUEST_URI'], 'edit')) {
             // créer un tableau avec les valeurs de 1 à $pagesCount
             $pagesCount = array_fill(1, $pagesCount, $pagesCount);
+            // les clés du tableau sont les valeurs du tableau
+            $pagesCount = array_keys($pagesCount);
+            $pagesCount = array_flip($pagesCount);
+            $pagesCount = array_map(fn($value) => $value+1, $pagesCount);
         }
-
-
 //        dd($pagesCount);
         //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -71,6 +76,9 @@ class PageType extends AbstractType
             ->add('ordre', ChoiceType::class, [
                 'choices'=>[$pagesCount],
                 'label' => 'Ordre',
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
             ])
             ->add('intitule', TextType::class, [
                 'label' => 'Intitule',
