@@ -182,4 +182,29 @@
             </div>
         </div>
     </div>
+
+{% elseif '/portfolio' in app.request.uri %}
+<h5>{{ this.trace.titre }}</h5>
+    <div class="trace_content col-12">
+        {% for contenu in this.trace.contenu %}
+            {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                <img src="/{{ contenu }}" alt="image" style="width: 100%">
+            {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                <a href="{{ contenu }}">
+                    <button>{{ contenu }}</button>
+                </a>
+            {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                <iframe src="{{ contenu }}" width="100%" height="300"
+                        frameborder="0">{{ contenu }}</iframe>
+            {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                <iframe width="100%" height="300" src="{{ contenu }}"
+                        title="Video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            {% endif %}
+        {% endfor %}
+        <p>
+            {{ this.trace.description }}
+        </p>
+    </div>
 {% endif %}

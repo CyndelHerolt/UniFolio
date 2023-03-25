@@ -1,11 +1,12 @@
-<div class="card" style="width: 20rem;">
+<div class="card">
     <div class="card-body">
         <div class="card-header">
             <img src="{{ this.portfolio.banniere }}" class="card-img-top" alt="...">
         </div>
         <div class="card-content">
-            <a href="" class="btn-see">
-                <button>
+            <a class="btn-see">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#showStaticBackdrop{{ this.portfolio.id }}">
                     <i class="fa fa-eye"></i>
                 </button>
             </a>
@@ -19,10 +20,10 @@
                 <p>Privé</p>
             {% endif %}
 
-            {#        <h6>Pages associées :</h6> #}
-            {#        {% for pages in this.portfolio.pages %} #}
-            {#            {{ component('page_card', {'id': pages.id}) }} #}
-            {#        {% endfor %} #}
+{#                    <h6>Pages associées :</h6>#}
+{#                    {% for pages in this.portfolio.pages %}#}
+{#                        {{ component('page_card', {'id': pages.id}) }}#}
+{#                    {% endfor %}#}
             <div class="btn_grp">
                 <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
                     <button class="btn btn-primary">Modifier</button>
@@ -42,7 +43,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal delete -->
         <div class="modal fade" id="staticBackdrop{{ this.portfolio.id }}" data-bs-backdrop="static"
              data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -61,6 +62,55 @@
                         <a href="{{ path('app_portfolio_delete', {'id': this.portfolio.id}) }}">
                             <button class="btn btn-primary">Supprimer</button>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal visu -->
+        <div class="modal fade modal-portfolio" id="showStaticBackdrop{{ this.portfolio.id }}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="banner" style="background-image: url({{ this.portfolio.banniere }});">
+                        </div>
+                        <div class="title">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ this.portfolio.intitule }}</h5>
+                        </div>
+                        <div class="pages">
+                            {% for pages in this.portfolio.pages %}
+                                {{ component('page_card', {'id': pages.id}) }}
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+{#                        <ul>#}
+{#                            <h6>Portfolios qui contiennent cette page : </h6>#}
+{#                            {% for portfolio in this.page.portfolio %}#}
+{#                                <li>{{ portfolio.intitule }}</li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+
+{#                        <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">#}
+{#                            <button class="btn btn-primary">Modifier</button>#}
+{#                        </a>#}
+
+{#                        <!-- Button trigger modal -->#}
+{#                        <a>#}
+{#                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
+{#                                    data-bs-target="#staticBackdrop{{ this.page.id }}">#}
+{#                                Supprimer#}
+{#                            </button>#}
+{#                        </a>#}
+
+{#                        <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">#}
+{#                            <button class="btn btn-primary">Ajouter dans une page</button>#}
+{#                        </a>#}
                     </div>
                 </div>
             </div>

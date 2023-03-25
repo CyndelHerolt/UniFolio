@@ -88,7 +88,6 @@ class PageController extends AbstractController
             }
         }
 
-
         return $this->render('page/new.html.twig', [
             'form' => $form->createView(),
             'page' => $page,

@@ -20,10 +20,19 @@
     width: 100%;
 
     .card {
+      width: 27vw;
       margin: 50px 5px;
       padding: 0;
       box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
       border: none;
+    }
+    @media screen {
+
+        @media (max-width: 992px) {
+            .card {
+            width: 90vw;
+            }
+        }
     }
 
     .card-body {
@@ -159,6 +168,45 @@
       padding: 0 !important;
     }
 
+  }
+
+  .modal-portfolio {
+
+    .modal-body {
+      padding: 0;
+
+      .banner {
+        height: 300px;
+        width: 100%;
+        background-size: cover;
+        background-position: center
+      }
+
+      .title {
+        width: 50%;
+        padding: 25px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        position: relative;
+        bottom: 40px;
+        background-color: $color-light;
+        box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+      }
+
+
+      .page-portfolio {
+        width: 70%;
+        margin: 25px auto;
+
+        ul {
+          padding: 0 50px;
+          display: block !important;
+          list-style: none;
+        }
+      }
+    }
   }
 }
 
