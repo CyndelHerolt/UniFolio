@@ -88,7 +88,7 @@ class PageController extends AbstractController
             }
         }
 
-        return $this->render('page/new.html.twig', [
+        return $this->render('page/formPage.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
         ]);
@@ -123,7 +123,7 @@ class PageController extends AbstractController
             }
         }
 
-        return $this->render('page/edit.html.twig', [
+        return $this->render('page/formPage.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
         ]);

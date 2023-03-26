@@ -39,34 +39,36 @@ class PageType extends AbstractType
         $user = $options['user'];
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
         $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
-        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
+
+//        $tracesCount = count($traces);
+//        // Si l'url contient "/new" alors on ajoute 1 à $tracesCount
+//        if (strpos($_SERVER['REQUEST_URI'], 'new')) {
+//            $tracesCount++;
+//        }
+//        $tracesChoices = [];
+//        for ($i = 1; $i <= $tracesCount; $i++) {
+//            $tracesChoices[$i] = $i;
+//        }
+
         $pages = [];
         foreach ($traces as $trace) {
             $pages = array_merge($pages, $trace->getPages()->toArray());
-            //            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+            // Si deux pages sont les mêmes, ne les afficher qu'une seule fois
             $pages = array_unique($pages, SORT_REGULAR);
-            $pagesCount = count($pages);
         }
 
         //TODO: transférer cette partie dans le portfolio (c'est l'ordre de la page dans le portfolio qui ns intéresse ici) -> peut-être du coup passer l'ordre dans page_portfolio ?
-        //Si l'url contient "/new" alors on ajoute 1 à $pagesCount
+        $pagesCount = count($pages);
+
+        // Si l'url contient "/new" alors on ajoute 1 à $pagesCount
         if (strpos($_SERVER['REQUEST_URI'], 'new')) {
-            // créer un tableau avec les valeurs de 1 à $pagesCount
-            $pagesCount = array_fill(1, $pagesCount+1, $pagesCount);
-            $pagesCount = array_keys($pagesCount);
-            $pagesCount = array_flip($pagesCount);
-            $pagesCount = array_map(fn($value) => $value+1, $pagesCount);
+            $pagesCount++;
         }
-        //Si l'url contient "/edit" alors on ne change pas $pagesCount
-        if (strpos($_SERVER['REQUEST_URI'], 'edit')) {
-            // créer un tableau avec les valeurs de 1 à $pagesCount
-            $pagesCount = array_fill(1, $pagesCount, $pagesCount);
-            // les clés du tableau sont les valeurs du tableau
-            $pagesCount = array_keys($pagesCount);
-            $pagesCount = array_flip($pagesCount);
-            $pagesCount = array_map(fn($value) => $value+1, $pagesCount);
+
+        $choices = [];
+        for ($i = 1; $i <= $pagesCount; $i++) {
+            $choices[$i] = $i;
         }
-//        dd($pagesCount);
         //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -74,7 +76,7 @@ class PageType extends AbstractType
 
         $builder
             ->add('ordre', ChoiceType::class, [
-                'choices'=>[$pagesCount],
+                'choices'=>[$choices],
                 'label' => 'Ordre',
                 'required' => true,
                 'expanded' => true,
@@ -82,6 +84,9 @@ class PageType extends AbstractType
             ])
             ->add('intitule', TextType::class, [
                 'label' => 'Intitule',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
 
             ->add('trace', EntityType::class, [
@@ -93,10 +98,18 @@ class PageType extends AbstractType
                 'expanded' => true,
                 'required' => true,
             ])
-
-            ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
-            ]);
+            ;
+//        foreach ($traces as $trace) {
+//            $builder->add('trace', EntityType::class, [
+//                'class' => Trace::class,
+//                'choices' => $tracesChoices,
+//                'label' => 'Traces',
+//                'multiple' => true,
+//                'choice_label' => 'titre',
+//                'expanded' => true,
+//                'required' => true,
+//            ]);
+//        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

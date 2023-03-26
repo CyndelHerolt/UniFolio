@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+    {% block title %}UniFolio - Edition de page{% endblock %}
+
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+{% block body %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_page') }}">Bibliothèque de pages</a></li>
+            {% if '/edit' in app.request.uri %}
+            <li class="breadcrumb-item active" aria-current="page">Edition de page</li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">Nouvelle page</li>
+            {% endif %}
+        </ol>
+    </nav>
+    <div class="container">
+        <section class="page_form">
+            <div class="row">
+                <article class="col-lg-6 col-12">
+                    {% if '/edit' in app.request.uri %}
+                    <h2>Modifier {{ page.intitule }}</h2>
+                    {% else %}
+                    <h2>Composer une nouvelle page</h2>
+                    {% endif %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.ordre) }}
+                    {{ form_row(form.intitule) }}
+                    {{ form_row(form.trace) }}
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    {{ form_end(form) }}
+                </article>
+                <aside class="col-lg-6 col-12">
+                    <h2>Prévisualisation</h2>
+                </aside>
+            </div>
+        </section>
+    </div>
+{% endblock %}
