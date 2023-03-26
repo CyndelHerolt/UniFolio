@@ -12,39 +12,43 @@
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_portfolio') }}">Bibliothèque de portfolios</a></li>
             {% if '/edit' in app.request.uri %}
-            <li class="breadcrumb-item active" aria-current="page">Edition portfolio</li>
+                <li class="breadcrumb-item active" aria-current="page">Edition portfolio</li>
             {% elseif '/new' in app.request.uri %}
-            <li class="breadcrumb-item active" aria-current="page">Nouveau portfolio</li>
+                <li class="breadcrumb-item active" aria-current="page">Nouveau portfolio</li>
             {% endif %}
         </ol>
     </nav>
     <div class="container">
         <section class="portfolio_form">
-            {% if '/edit' in app.request.uri %}
-                <h1>Modifier {{ portfolio.intitule }}</h1>
-            {% elseif '/new' in app.request.uri %}
-                <h1>Nouveau portfolio</h1>
-            {% endif %}
             <div class="row">
-                <article class="col-lg-5 col-12">
+                <article class="col-lg-6 col-12">
+                    {% if '/edit' in app.request.uri %}
+                        <h2>Modifier {{ portfolio.intitule }}</h2>
+                    {% elseif '/new' in app.request.uri %}
+                        <h2>Nouveau portfolio</h2>
+                    {% endif %}
                     {% if '/page' in app.request.uri %}
-                    {{ form_start(form) }}
+                        {{ form_start(form) }}
                         {{ form_row(form.pages) }}
                         {{ form_end(form) }}
                     {% elseif '/portfolio' in app.request.uri %}
-                    {{ form_start(form) }}
-                    <div class="hidden">
-                    {{ form_row(form.date_creation) }}
-                    {{ form_row(form.date_modification) }}
-                    </div>
-                    {{ form_row(form.intitule) }}
-                    {{ form_row(form.banniere) }}
-                    {{ form_row(form.pages) }}
-                    {{ form_row(form.visibilite) }}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    {{ form_end(form) }}
+                        {{ form_start(form) }}
+                        <div class="hidden">
+                            {{ form_row(form.date_creation) }}
+                            {{ form_row(form.date_modification) }}
+                        </div>
+                        {{ form_row(form.intitule) }}
+                        {{ form_row(form.banniere) }}
+                        {{ form_row(form.pages) }}
+                        {{ form_row(form.visibilite) }}
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        {{ form_end(form) }}
                     {% endif %}
                 </article>
+                <aside class="col-lg-6 col-12">
+                    <h2>Prévisualisation</h2>
+                    {# TODO: Live component ? #}
+                </aside>
             </div>
         </section>
     </div>
