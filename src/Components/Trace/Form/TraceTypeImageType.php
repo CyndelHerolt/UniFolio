@@ -66,11 +66,7 @@ class TraceTypeImageType extends AbstractType
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
-            ->add('enregistrer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ]);
+        ;
     }
 
 

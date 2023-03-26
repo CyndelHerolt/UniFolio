@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block title %}UniFolio - Bibliothèque de traces{% endblock %}
+
+    {% block title %}UniFolio - Edition de trace{% endblock %}
 
     {% block header %}
         {% include "_menu.html.twig" %}
@@ -19,14 +20,13 @@
     <div class="container">
         <section class="trace_form">
             <div class="row">
-                <article class="col-lg-4 col-12">
+                <article class="col-lg-6 col-12">
                     {% if '/edit' in app.request.uri %}
                         <h2>Modifier {{ trace.titre }}</h2>
                     {% else %}
                         <h2>Créer une nouvelle trace</h2>
                         <h3>{{ trace.display }}</h3>
                     {% endif %}
-
                     {{ form_start(form) }}
                     <div class="hidden">
                         {{ form_row(form.date_creation) }}
@@ -63,15 +63,25 @@
                     </div>
                     <hr>
                     {{ form_row(form.description) }}
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
                     {{ form_end(form) }}
                 </article>
-                <article class="col-lg-5 col-12">
-                    {% for competence in competences %}
-                        <p>
-                            <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
-                            | {{ competence.libelle }}</p>
-                    {% endfor %}
-                </article>
+                <aside class="col-lg-6 col-12">
+                    <h2>Compétences relatives à cette trace</h2>
+                    <form action="">
+                        <button>Ajouter des compétences</button>
+                        <ul>
+                        {% for competence in competences|slice(0,5) %}
+                            <div>
+                            <li>
+                                <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
+                                | {{ competence.libelle }}
+                            </li>
+                            </div>
+                        {% endfor %}
+                        </ul>
+                    </form>
+                </aside>
             </div>
         </section>
     </div>

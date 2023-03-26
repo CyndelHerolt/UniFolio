@@ -1,12 +1,42 @@
 .trace_form, .portfolio_form {
+  @include zone(25px 0, 0, $color-light, 0);
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
-  article {
+  .row {
+    justify-content: space-around;
 
-    form {
+    article, aside {
+      padding: 50px 100px;
 
-      .hidden {
-        display: none;
+      form {
+
+        .hidden {
+          display: none;
+        }
+
+        button {
+          @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+
+          &:hover {
+            @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+          }
+        }
       }
+
+      ul {
+        padding: 0;
+
+        div {
+          padding: 15px 35px;
+            margin: 15px 0;
+          background-color: $color-light;
+          box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+        }
+      }
+    }
+
+    aside {
+      background-color: $color-primary;
     }
   }
 }

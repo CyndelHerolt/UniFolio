@@ -65,11 +65,6 @@ class TraceTypePdfType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
-            ])
-            ->add('Envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
             ]);
     }
 

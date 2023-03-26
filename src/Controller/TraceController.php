@@ -78,7 +78,7 @@ class TraceController extends AbstractController
             }
         }
 
-        return $this->render('trace/formulaire.html.twig', [
+        return $this->render('trace/formTrace.html.twig', [
             'form' => $form->createView(),
             'trace' => $traceRegistry->getTypeTrace($id),
             'competences' => $competence,
@@ -128,7 +128,7 @@ class TraceController extends AbstractController
             }
         }
 
-        return $this->render('trace/formulaire.html.twig', [
+        return $this->render('trace/formTrace.html.twig', [
             'form' => $form->createView(),
             'trace' => $trace,
             'competences' => $competence,

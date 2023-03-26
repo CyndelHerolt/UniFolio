@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Affichage modal">
+      <change afterPath="$PROJECT_DIR$/templates/page/formPage.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/page_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/page_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TraceBisController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceBisController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/formulaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,23 +210,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\components" />
@@ -406,14 +414,9 @@
       <workItem from="1679657286324" duration="3895000" />
       <workItem from="1679684714526" duration="5515000" />
       <workItem from="1679744031659" duration="506000" />
-      <workItem from="1679744558550" duration="2569000" />
-    </task>
-    <task id="LOCAL-00133" summary="fix: [CV] Ajout collections formulaire">
-      <created>1678456636780</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1678456636780</updated>
+      <workItem from="1679744558550" duration="2649000" />
+      <workItem from="1679831466176" duration="5000" />
+      <workItem from="1679831838535" duration="3429000" />
     </task>
     <task id="LOCAL-00134" summary="fix: [Dashboard etudiant] Affichage dynamique des portfolio et lien direct pr modification">
       <created>1678472098867</created>
@@ -751,7 +754,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679659390166</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="fix: [Portfolio] Affichage modal">
+      <created>1679749876034</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1679749876034</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -812,7 +822,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Page] Structure mise en page" />
     <MESSAGE value="fix: [Traces] Structure mise en page" />
     <MESSAGE value="fix: [Cv] Structure mise en page" />
     <MESSAGE value="fix: [Style] Ajout icons" />
@@ -837,6 +846,7 @@
     <MESSAGE value="fix: [Cv] Affichage des infos du CV" />
     <MESSAGE value="fix: [Fixtures] Génération de fixtures" />
     <MESSAGE value="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées" />
+    <MESSAGE value="fix: [Portfolio] Affichage modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Affichage modal" />
   </component>
 </project>

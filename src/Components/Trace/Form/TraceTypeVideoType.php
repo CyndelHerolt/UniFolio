@@ -68,11 +68,6 @@ class TraceTypeVideoType extends AbstractType
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
-            ])
-            ->add('Envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
             ]);
     }
 
