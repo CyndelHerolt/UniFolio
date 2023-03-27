@@ -66,6 +66,7 @@ class TraceTypeImageType extends AbstractType
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
+                'mapped' => true,
             ])
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
@@ -74,6 +75,8 @@ class TraceTypeImageType extends AbstractType
                 'help' => '100 caractères maximum',
             ])
             //----------------------------------------------------------------
+
+            // TODO: garder le fichier dans la database meme si il n'est pas affiché dans le formulaire
             ->add('contenu', CollectionType::class, [
                 'entry_type' => FileType::class,
                 'entry_options' => [
@@ -81,6 +84,7 @@ class TraceTypeImageType extends AbstractType
                         'class' => "form-control",
                         'placeholder' => 'Image',
                     ],
+                    'data_class' => null,
                     'by_reference' => false,
                     'label' => 'Image',
                     'label_attr' => ['class' => 'form-label'],
@@ -94,7 +98,7 @@ class TraceTypeImageType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
-                'mapped' => false,
+                'mapped' => true,
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
