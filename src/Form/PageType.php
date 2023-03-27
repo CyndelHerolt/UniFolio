@@ -64,7 +64,6 @@ class PageType extends AbstractType
         if (strpos($_SERVER['REQUEST_URI'], 'new')) {
             $pagesCount++;
         }
-
         $choices = [];
         for ($i = 1; $i <= $pagesCount; $i++) {
             $choices[$i] = $i;
