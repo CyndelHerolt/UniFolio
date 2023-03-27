@@ -32,10 +32,11 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
         $trace1 = new Trace();
 
         $trace1->setTypeTrace('App\Components\Trace\TypeTrace\TraceTypeImage')
+            ->setOrdre(1)
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°1')
-            ->setContenu(['files_directory/image.png'])
+            ->setContenu(['files_directory/image.jpg'])
             ->setDescription('un commentaire pour justifier la pertinence de la trace.');
 
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->etudiantRepository->findOneByMailUniv('etudiant@mail.com')]);
@@ -50,6 +51,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
         $trace2 = new Trace();
 
         $trace2->setTypeTrace('App\Components\Trace\TypeTrace\TraceTypeLien')
+            ->setOrdre(2)
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°2')
@@ -77,6 +79,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
         $trace3 = new Trace();
 
         $trace3->setTypeTrace('App\Components\Trace\TypeTrace\TraceTypePdf')
+            ->setOrdre(3)
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°3')
@@ -104,6 +107,7 @@ class TraceFixture extends Fixture implements OrderedFixtureInterface
         $trace4 = new Trace();
 
         $trace4->setTypeTrace('App\Components\Trace\TypeTrace\TraceTypeVideo')
+            ->setOrdre(4)
             ->setDateCreation(new \DateTimeImmutable())
             ->setDateModification(new \DateTimeImmutable())
             ->setTitre('trace n°4')
