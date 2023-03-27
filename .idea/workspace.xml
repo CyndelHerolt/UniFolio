@@ -405,14 +405,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-      <workItem from="1679896767239" duration="6657000" />
-    </task>
-    <task id="LOCAL-00137" summary="feat: [Portfolio] Ajout donnée 'banniere' FileType">
-      <created>1678533359228</created>
-      <option name="number" value="00137" />
-      <option name="presentableId" value="LOCAL-00137" />
-      <option name="project" value="LOCAL" />
-      <updated>1678533359228</updated>
+      <workItem from="1679896767239" duration="7054000" />
     </task>
     <task id="LOCAL-00138" summary="fix: [Style] Structure fichiers scss et tests">
       <created>1678533644216</created>
@@ -750,7 +743,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679903055251</updated>
     </task>
-    <option name="localTasksCounter" value="186" />
+    <task id="LOCAL-00186" summary="fix: [Page] Gestion des doublons d'attributs 'ordre'">
+      <created>1679903564922</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1679903564922</updated>
+    </task>
+    <option name="localTasksCounter" value="187" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
