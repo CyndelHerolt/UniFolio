@@ -62,7 +62,7 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>Nom de l'étudiant</th>
+                                    <th>Nom de l'étudiant.e</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
                                     <th>Traces</th>
@@ -91,7 +91,7 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>Nom de l'étudiant</th>
+                                    <th>Nom de l'étudiant.e</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
                                     <th>Traces</th>
@@ -120,7 +120,7 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>Nom de l'étudiant</th>
+                                    <th>Nom de l'étudiant.e</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
                                     <th>Traces</th>
@@ -143,7 +143,22 @@
             <div class="row">
                 <h2>Retours pédagogiques</h2>
                 <article>
-
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nom de l'étudiant.e</th>
+                            <th>Date</th>
+                            <th>Support</th>
+                            <th>Contenu</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ include('components/retour_pedagogique_table.html.twig') }}
+                        {{ include('components/retour_pedagogique_table.html.twig') }}
+                        {{ include('components/retour_pedagogique_table.html.twig') }}
+                        {{ include('components/retour_pedagogique_table.html.twig') }}
+                        </tbody>
+                    </table>
                 </article>
             </div>
         </section>

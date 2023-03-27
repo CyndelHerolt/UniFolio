@@ -359,6 +359,59 @@
         font-weight: 500;
       }
 
+      table {
+        width: 98%;
+        border-collapse: separate;
+        border-spacing: 0 25px;
+        text-align: center;
+
+        tbody {
+          tr {
+            background-color: $color-primary;
+            //border-radius: 5px;
+
+            td:nth-child(1) {
+              @include menu-item;
+              margin: 0;
+              padding: 10px 20px;
+              width: 20%;
+              //border-radius: 5px;
+              background-color: $color-secondary-focus;
+              color: $color-light;
+              height: 100%;
+            }
+
+            .commentaire {
+              width: 30%;
+                text-align: left;
+            }
+
+            .table-btn {
+              display: flex;
+              justify-content: flex-end;
+              margin: 10px 0;
+
+              .btn-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: fit-content;
+                position: relative;
+                left: 30px;
+
+                button {
+                  @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+                  margin: 0 10px;
+
+                  &:hover {
+                    @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

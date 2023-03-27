@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant">
+      <change afterPath="$PROJECT_DIR$/src/Components/RetourPedagogique/AllRetourPedagogiqueComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/RetourPedagogique/RetourPedagogiqueTableComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/all_retour_pedagogique.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/retour_pedagogique_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -408,14 +411,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-      <workItem from="1679896767239" duration="22704000" />
-    </task>
-    <task id="LOCAL-00143" summary="fix: [Traces] Structure mise en page">
-      <created>1678540100234</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1678540100234</updated>
+      <workItem from="1679896767239" duration="27663000" />
     </task>
     <task id="LOCAL-00144" summary="fix: [Cv] Structure mise en page">
       <created>1678540566400</created>
@@ -753,7 +749,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679923969218</updated>
     </task>
-    <option name="localTasksCounter" value="192" />
+    <task id="LOCAL-00192" summary="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant">
+      <created>1679926023334</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1679926023334</updated>
+    </task>
+    <option name="localTasksCounter" value="193" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
