@@ -334,7 +334,7 @@ function addExperience(event) {
     // Injection du prototype et des boutons dans le nouveau bloc experience
     formGroup.innerHTML = newForm;
     formGroup.querySelector('.experience').innerHTML += (
-        '<div><button type="button" class="btn btn-primary add-experience-activite">' +
+        '<div><button type="button" class="btn btn-primary add-experience-activite" data-exp="'+index+'">' +
         'Ajouter une activité <i class="fa fa-square-plus"></i>' +
         '</button></div>' +
         '<br>' +
@@ -387,8 +387,8 @@ function addExperienceActivite(event) {
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
-    let index = document.querySelectorAll('.exp-activite').length;
-    formGroup.innerHTML += '<input type="text" name="activite" id="cv_experience_0_activite_1" class="form-control">';
+    let index = document.querySelectorAll('.experience-activite').length;
+    formGroup.innerHTML += '<input type="text" name="activite_'+index+'" id="cv_experience_0_activite_1" class="form-control">';
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
