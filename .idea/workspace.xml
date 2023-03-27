@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Gestion des doublons d'attributs 'ordre'">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Flash messages">
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -405,14 +404,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-      <workItem from="1679896767239" duration="7054000" />
-    </task>
-    <task id="LOCAL-00138" summary="fix: [Style] Structure fichiers scss et tests">
-      <created>1678533644216</created>
-      <option name="number" value="00138" />
-      <option name="presentableId" value="LOCAL-00138" />
-      <option name="project" value="LOCAL" />
-      <updated>1678533644216</updated>
+      <workItem from="1679896767239" duration="7110000" />
     </task>
     <task id="LOCAL-00139" summary="fix: [Portfolio] Import image banniere demo">
       <created>1678536686195</created>
@@ -750,7 +742,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679903564922</updated>
     </task>
-    <option name="localTasksCounter" value="187" />
+    <task id="LOCAL-00187" summary="fix: [Page] Flash messages">
+      <created>1679903968272</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1679903968273</updated>
+    </task>
+    <option name="localTasksCounter" value="188" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -811,7 +810,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Style] Camouflage input dates" />
     <MESSAGE value="fix: [Forms] Optimisation des formulaires" />
     <MESSAGE value="fix: [Style] Structure dashboard + tests couleurs" />
     <MESSAGE value="fix: [Style] Structure + tests couleurs" />
@@ -836,6 +834,7 @@
     <MESSAGE value="fix: [Trace] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Portfolio] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
+    <MESSAGE value="fix: [Page] Flash messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Flash messages" />
   </component>
 </project>

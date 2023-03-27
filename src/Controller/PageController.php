@@ -256,11 +256,9 @@ class PageController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Récupérer les id traces sélectionnées dans le formulaire
-//            $traces = $request->request->all()['form'];
             $traces = $form->get('trace')->getData();
 //            dd($traces);
 
-            //TODO: Test si aucune trace n'a été sélectionnée
             //Si il n'y a pas de trace sélectionnée dans le formulaire
             if ($traces->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
@@ -280,7 +278,7 @@ class PageController extends AbstractController
                 return $this->redirectToRoute('app_page');
             }
         }
-//        }
+
         return $this->render('page/edit.html.twig', [
             'form' => $form->createView(),
             'page' => $page,
