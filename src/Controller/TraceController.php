@@ -45,9 +45,8 @@ class TraceController extends AbstractController
         Request                $request,
         TraceRepository        $traceRepository,
         TraceRegistry          $traceRegistry,
-        BibliothequeRepository $bibliothequeRepository,
         CompetenceRepository   $competenceRepository,
-        Security       $security,
+        Security               $security,
         string                 $id,
     ): Response
     {
@@ -62,13 +61,33 @@ class TraceController extends AbstractController
         $trace = new Trace();
         $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
         $trace->setTypetrace($id);
+        $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
+//        dd($traces);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
+                //Récupérer l'ordre saisi dans le form
+                $ordreSaisi = $form->get('ordre')->getData();
+//                dd($ordreSaisi);
+
+                //Pour chaque page
+                foreach ($traces as $traceStock) {
+                    //Récupérer l'ordre de la trace
+                    $ordre = $traceStock->getOrdre();
+//            dd($ordre);
+                    //Si l'ordre saisi est égal à l'ordre de la trace
+                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
+                        // Attribuer l'ordre saisi à la trace en cours d'édition
+                        $trace->setOrdre($ordreSaisi);
+                        //Attribuer l'ordre qui se trouve en dernière position du tableau de choices à la trace en cours de boucle
+                        $traceStock->setOrdre(count($traces) + 1);
+                    }
+                }
+
                 //Lier la trace à la Bibliotheque de l'utilisateur connecté
-                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
+                $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                 $trace->setBibliotheque($biblio);
 
                 $traceRepository->save($trace, true);
@@ -92,8 +111,8 @@ class TraceController extends AbstractController
         Request              $request,
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
-        Security       $security,
-        int               $id,
+        Security             $security,
+        int                  $id,
         CompetenceRepository $competenceRepository,
     ): Response
     {
@@ -103,23 +122,40 @@ class TraceController extends AbstractController
         $trace = $traceRepository->find($id);
         $user = $security->getUser()->getEtudiant();
 
-//        $contenus = $trace->getContenu();
-//        foreach ($contenus as $contenu) {
-//
-//        }
-
         if (!$trace) {
             throw $this->createNotFoundException('Trace non trouvée.');
         }
 
         $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
         $competence = $competenceRepository->findAll();
+        $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
 
         $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
+
+        $ordreOrigine = $trace->getOrdre();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+
+                //Récupérer l'ordre saisi dans le form
+                $ordreSaisi = $form->get('ordre')->getData();
+//                dd($ordreSaisi);
+
+                //Pour chaque trace
+                foreach ($traces as $traceStock) {
+                    //Récupérer l'ordre de la trace
+                    $ordre = $traceStock->getOrdre();
+//            dd($ordre);
+                    //Si l'ordre saisi est égal à l'ordre de la trace
+                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
+                        // Attribuer l'ordre saisi à la trace en cours d'édition
+                        $trace->setOrdre($ordreSaisi);
+                        //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
+                        $traceStock->setOrdre($ordreOrigine);
+                    }
+                }
+
                 $form->getData()->setDatemodification(new \DateTimeImmutable());
 //                dump($trace);
 //                die();
@@ -143,10 +179,19 @@ class TraceController extends AbstractController
     public function delete(
         Request         $request,
         TraceRepository $traceRepository,
-        int          $id,
+        int             $id,
     ): Response
     {
         $trace = $traceRepository->find($id);
+        $type = $trace->getTypetrace();
+
+        //Si la trace est de type image ou pdf, il faut supprimer le fichier
+        if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
+            $document = $trace->getContenu();
+            foreach ($document as $doc) {
+                unlink($doc);
+            }
+        }
 
         $traceRepository->remove($trace, true);
         $this->addFlash('success', 'La trace a été supprimée avec succès.');
@@ -155,9 +200,9 @@ class TraceController extends AbstractController
 
     #[Route('/trace/page/{id}', name: 'app_add_trace_to_page')]
     public function addToPage(
-        Request         $request,
-        PageRepository  $pageRepository,
-        int          $id,
+        Request        $request,
+        PageRepository $pageRepository,
+        int            $id,
     ): Response
     {
         //Récupérer la bibliothèque de l'utilisateur connecté
@@ -213,7 +258,7 @@ class TraceController extends AbstractController
 
     #[Route('/trace/show/{id}', name: 'app_trace_show')]
     public function show(
-        int                $id,
+        int $id,
     ): Response
     {
         $trace = $this->traceRepository->find($id);
