@@ -47,6 +47,7 @@ class TraceController extends AbstractController
         TraceRegistry          $traceRegistry,
         BibliothequeRepository $bibliothequeRepository,
         CompetenceRepository   $competenceRepository,
+        Security       $security,
         string                 $id,
     ): Response
     {
@@ -56,9 +57,10 @@ class TraceController extends AbstractController
         //dump($traceType);
         //die();
         $competence = $competenceRepository->findAll();
+        $user = $security->getUser()->getEtudiant();
 
         $trace = new Trace();
-        $form = $this->createForm($traceType::FORM, $trace);
+        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
         $trace->setTypetrace($id);
 
         $form->handleRequest($request);
@@ -90,6 +92,7 @@ class TraceController extends AbstractController
         Request              $request,
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
+        Security       $security,
         int               $id,
         CompetenceRepository $competenceRepository,
     ): Response
@@ -98,6 +101,7 @@ class TraceController extends AbstractController
         //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire => donc convertion string -> file
 
         $trace = $traceRepository->find($id);
+        $user = $security->getUser()->getEtudiant();
 
 //        $contenus = $trace->getContenu();
 //        foreach ($contenus as $contenu) {
@@ -111,7 +115,7 @@ class TraceController extends AbstractController
         $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
         $competence = $competenceRepository->findAll();
 
-        $form = $this->createForm($traceType::FORM, $trace);
+        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
