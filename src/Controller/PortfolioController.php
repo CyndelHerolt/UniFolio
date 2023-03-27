@@ -184,6 +184,10 @@ class PortfolioController extends AbstractController
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
         $portfolioRepository->remove($portfolio, true);
+        $document = $portfolio->getBanniere();
+        if ($document) {
+            unlink($document);
+        }
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
         return $this->redirectToRoute('app_portfolio');
     }
