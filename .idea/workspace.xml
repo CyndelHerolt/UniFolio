@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Flash messages">
+      <change afterPath="$PROJECT_DIR$/src/Components/Groupe/AllEtudiantComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Groupe/EtudiantTableComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,21 +410,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-      <workItem from="1679896767239" duration="10056000" />
-    </task>
-    <task id="LOCAL-00140" summary="fix: [Portfolio] Structure mise en page">
-      <created>1678536735247</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1678536735247</updated>
-    </task>
-    <task id="LOCAL-00141" summary="fix: [Fixture] m.a.j Fixture portfolio">
-      <created>1678536761662</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1678536761662</updated>
+      <workItem from="1679896767239" duration="20659000" />
     </task>
     <task id="LOCAL-00142" summary="fix: [Page] Structure mise en page">
       <created>1678538606358</created>
@@ -756,7 +741,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679904012164</updated>
     </task>
-    <option name="localTasksCounter" value="189" />
+    <task id="LOCAL-00189" summary="fix: [Trace] Ajout de l'attribut 'ordre' dans le formulaire">
+      <created>1679907190788</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1679907190788</updated>
+    </task>
+    <task id="LOCAL-00190" summary="fix: [Page] Flash messages">
+      <created>1679907272520</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1679907272520</updated>
+    </task>
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -817,7 +816,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Forms] Optimisation des formulaires" />
     <MESSAGE value="fix: [Style] Structure dashboard + tests couleurs" />
     <MESSAGE value="fix: [Style] Structure + tests couleurs" />
     <MESSAGE value="fix: [Fixture] Lien trace vidéo" />
@@ -841,6 +839,7 @@
     <MESSAGE value="fix: [Trace] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Portfolio] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
+    <MESSAGE value="fix: [Trace] Ajout de l'attribut 'ordre' dans le formulaire" />
     <MESSAGE value="fix: [Page] Flash messages" />
     <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Flash messages" />
   </component>
