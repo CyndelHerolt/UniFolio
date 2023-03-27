@@ -71,6 +71,9 @@ class PageController extends AbstractController
         $user = $this->security->getUser()->getEtudiant();
         $page = new Page();
 
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
+        $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
         $trace = $form->get('trace')->getData();
@@ -81,9 +84,40 @@ class PageController extends AbstractController
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
             } else {
+
+                //Récupérer l'ordre saisi dans le form
+                $ordreSaisi = $form->get('ordre')->getData();
+//                dd($ordreSaisi);
+
+                $pages = [];
+                //Pour chaque trace de la bibliothèque de l'utilisateur
+                foreach ($traces as $existingTrace) {
+//                    dd($traces);
+                    // Récupérer les pages et les regrouper dans un tableau
+                    $pages = array_merge($pages, $existingTrace->getPages()->toArray());
+                    // Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+                    $pages = array_unique($pages, SORT_REGULAR);
+//                    dd($pages);
+                }
+//                    dd($pages);
+                //Pour chaque page
+                foreach ($pages as $pageStock) {
+                    //Récupérer l'ordre de la page
+                    $ordre = $pageStock->getOrdre();
+//            dd($ordre);
+                    //Si l'ordre saisi est égal à l'ordre de la page
+                    if ($ordre === $ordreSaisi && $pageStock !== $page) {
+                        // Attribuer l'ordre saisi à la page en cours d'édition
+                        $page->setOrdre($ordreSaisi);
+                        //Attribuer l'ordre qui se trouve en dernière position du tableau de choices à la page en cours de boucle
+                        $pageStock->setOrdre(count($pages)+1);
+                    }
+                }
+
+
                 $pageRepository->save($page, true);
 
-                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+                $this->addFlash('success', 'La page a été créée avec succès.');
                 return $this->redirectToRoute('app_page');
             }
         }
@@ -112,7 +146,6 @@ class PageController extends AbstractController
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
         $trace = $form->get('trace')->getData();
-//        $page->setOrdre($form->get('ordre')->getData());
         $ordreOrigine = $page->getOrdre();
 
         $form->handleRequest($request);
@@ -153,7 +186,7 @@ class PageController extends AbstractController
 
                 $pageRepository->save($page, true);
 
-                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+                $this->addFlash('success', 'La page a bien été modifiée.');
                 return $this->redirectToRoute('app_page');
             }
         }
@@ -223,19 +256,20 @@ class PageController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Récupérer les id traces sélectionnées dans le formulaire
-            $traces = $request->request->all()['form']['trace'];
+            $traces = $request->request->all()['form'];
+            dd($traces);
 
             //TODO: Test si aucune trace n'a été sélectionnée
             //Si il n'y a pas de trace sélectionnée dans le formulaire
-//            if ($traces->isEmpty()) {
-//                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
-//            } else {
+            if ($traces->isEmpty()) {
+                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
+            } else {
             foreach ($traces as $trace) {
                 $trace = $traceRepository->find(['id' => $trace]);
                 // Ajouter la trace aux pages sélectionnées
                 $page->addTrace($trace);
             }
-//                }
+                }
             foreach ($existingTraces as $existingTrace) {
                 $page->addTrace($existingTrace);
             }

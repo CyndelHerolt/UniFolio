@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Mise en forme du formulaire">
-      <change afterPath="$PROJECT_DIR$/templates/page/formPage.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Gestion des doublons d'attributs 'ordre'">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trace.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trace.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,13 +405,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-    </task>
-    <task id="LOCAL-00136" summary="fix: [Style] Structure fichiers scss et tests">
-      <created>1678533257868</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1678533257868</updated>
+      <workItem from="1679896767239" duration="6657000" />
     </task>
     <task id="LOCAL-00137" summary="feat: [Portfolio] Ajout donnée 'banniere' FileType">
       <created>1678533359228</created>
@@ -754,7 +743,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679835477266</updated>
     </task>
-    <option name="localTasksCounter" value="185" />
+    <task id="LOCAL-00185" summary="fix: [Page] Gestion des doublons d'attributs 'ordre'">
+      <created>1679903055251</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1679903055251</updated>
+    </task>
+    <option name="localTasksCounter" value="186" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -815,7 +811,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Style] Ajout icons" />
     <MESSAGE value="fix: [Style] Camouflage input dates" />
     <MESSAGE value="fix: [Forms] Optimisation des formulaires" />
     <MESSAGE value="fix: [Style] Structure dashboard + tests couleurs" />
@@ -840,6 +835,7 @@
     <MESSAGE value="fix: [Portfolio] Affichage modal" />
     <MESSAGE value="fix: [Trace] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Portfolio] Mise en forme du formulaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Mise en forme du formulaire" />
+    <MESSAGE value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
   </component>
 </project>
