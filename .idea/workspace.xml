@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Page] Flash messages">
-      <change afterPath="$PROJECT_DIR$/src/Components/Groupe/AllEtudiantComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Groupe/EtudiantTableComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,14 +408,7 @@
       <workItem from="1679744558550" duration="2649000" />
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
-      <workItem from="1679896767239" duration="20659000" />
-    </task>
-    <task id="LOCAL-00142" summary="fix: [Page] Structure mise en page">
-      <created>1678538606358</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1678538606358</updated>
+      <workItem from="1679896767239" duration="22704000" />
     </task>
     <task id="LOCAL-00143" summary="fix: [Traces] Structure mise en page">
       <created>1678540100234</created>
@@ -755,7 +746,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679907272520</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant">
+      <created>1679923969218</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1679923969218</updated>
+    </task>
+    <option name="localTasksCounter" value="192" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,7 +814,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Style] Structure dashboard + tests couleurs" />
     <MESSAGE value="fix: [Style] Structure + tests couleurs" />
     <MESSAGE value="fix: [Fixture] Lien trace vidéo" />
     <MESSAGE value="feat: [Trace] Visualisation de toutes les infos de la trace dans un modal" />
@@ -841,6 +838,7 @@
     <MESSAGE value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
     <MESSAGE value="fix: [Trace] Ajout de l'attribut 'ordre' dans le formulaire" />
     <MESSAGE value="fix: [Page] Flash messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Page] Flash messages" />
+    <MESSAGE value="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant" />
   </component>
 </project>

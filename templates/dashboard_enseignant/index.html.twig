@@ -17,52 +17,85 @@
         <h1>Tableau de bord</h1>
         <section class="dashboard_infos_groupe">
             <div class="row">
-                            <h2>Etudiants suivis</h2>
+                <h2>Etudiants suivis</h2>
                 <article class="col-lg-12 col-12">
-                        <div class="col-lg-12 col-12">
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Chercher un étudiant" aria-label="Search">
-                                <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
-                        </div>
-
+                    <div class="col-lg-12 col-12">
+                        <form class="d-flex">
+                            {#                            TODO: Recherche interne par Algolia ? #}
+                            <input class="form-control me-2" type="search" placeholder="Chercher un étudiant"
+                                   aria-label="Search">
+                            <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+                    {#                    TODO: Affichage dynamique des années #}
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">B.U.T 1</button>
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                    type="button" role="tab" aria-controls="home" aria-selected="true">B.U.T 1
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">B.U.T 2</button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                    type="button" role="tab" aria-controls="profile" aria-selected="false">B.U.T 2
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">B.U.T 3</button>
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                                    type="button" role="tab" aria-controls="contact" aria-selected="false">B.U.T 3
+                            </button>
                         </li>
                     </ul>
-{#                    TODO: Affichage dynamique des étudiants suivis + systeme de pages -> Live Components ? #}
+                    {#                    TODO: Affichage dynamique des étudiants suivis + systeme de pages -> Live Components ? #}
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Trier par groupe de TP
+                            </button>
+                            {#                            TODO: dropdown => groupe dont l'enseignant est chargé #}
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">A</a></li>
+                                <li><a class="dropdown-item" href="#">C</a></li>
+                                <li><a class="dropdown-item" href="#">E</a></li>
+                                <li><a class="dropdown-item" href="#">G</a></li>
+                            </ul>
                             <table>
                                 <thead>
                                 <tr>
                                     <th>Nom de l'étudiant</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
+                                    <th>Traces</th>
+                                    <th>Portfolios</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {{ include('components/etudiant_table.html.twig') }}
-                                    {{ include('components/etudiant_table.html.twig') }}
-                                    {{ include('components/etudiant_table.html.twig') }}
-                                    {{ include('components/etudiant_table.html.twig') }}
+                                {{ include('components/etudiant_table.html.twig') }}
+                                {{ include('components/etudiant_table.html.twig') }}
+                                {{ include('components/etudiant_table.html.twig') }}
+                                {{ include('components/etudiant_table.html.twig') }}
                                 </tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Trier par groupe de TP
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">A</a></li>
+                                <li><a class="dropdown-item" href="#">C</a></li>
+                                <li><a class="dropdown-item" href="#">E</a></li>
+                                <li><a class="dropdown-item" href="#">G</a></li>
+                            </ul>
                             <table>
                                 <thead>
                                 <tr>
                                     <th>Nom de l'étudiant</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
+                                    <th>Traces</th>
+                                    <th>Portfolios</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -74,12 +107,24 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Trier par groupe de TP
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">A</a></li>
+                                <li><a class="dropdown-item" href="#">C</a></li>
+                                <li><a class="dropdown-item" href="#">E</a></li>
+                                <li><a class="dropdown-item" href="#">G</a></li>
+                            </ul>
                             <table>
                                 <thead>
                                 <tr>
                                     <th>Nom de l'étudiant</th>
                                     <th>Groupe de TP</th>
                                     <th>Dernier retour pédagogique</th>
+                                    <th>Traces</th>
+                                    <th>Portfolios</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -91,6 +136,14 @@
                             </table>
                         </div>
                     </div>
+                </article>
+            </div>
+        </section>
+        <section class="dashboard_retours_pedagogiques_enseignant">
+            <div class="row">
+                <h2>Retours pédagogiques</h2>
+                <article>
+
                 </article>
             </div>
         </section>
