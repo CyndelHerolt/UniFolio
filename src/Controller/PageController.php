@@ -105,10 +105,15 @@ class PageController extends AbstractController
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
 
+        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
+        $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+//        dd($traces);
+
         $form = $this->createForm(PageType::class, $page, ['user' => $user]);
 
         $trace = $form->get('trace')->getData();
-        $page->setOrdre($form->get('ordre')->getData());
+//        $page->setOrdre($form->get('ordre')->getData());
+        $ordreOrigine = $page->getOrdre();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -116,6 +121,36 @@ class PageController extends AbstractController
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
             } else {
+
+                //Récupérer l'ordre saisi dans le form
+                $ordreSaisi = $form->get('ordre')->getData();
+//                dd($ordreSaisi);
+
+                $pages = [];
+                //Pour chaque trace de la bibliothèque de l'utilisateur
+                foreach ($traces as $existingTrace) {
+//                    dd($traces);
+                    // Récupérer les pages et les regrouper dans un tableau
+                    $pages = array_merge($pages, $existingTrace->getPages()->toArray());
+                    // Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+                    $pages = array_unique($pages, SORT_REGULAR);
+//                    dd($pages);
+                }
+//                    dd($pages);
+                //Pour chaque page
+                foreach ($pages as $pageStock) {
+                    //Récupérer l'ordre de la page
+                    $ordre = $pageStock->getOrdre();
+//            dd($ordre);
+                    //Si l'ordre saisi est égal à l'ordre de la page
+                    if ($ordre === $ordreSaisi && $pageStock !== $page) {
+                        // Attribuer l'ordre saisi à la page en cours d'édition
+                        $page->setOrdre($ordreSaisi);
+                        //Attribuer l'ordre de la page en cours d'édition à la page en cours de boucle
+                        $pageStock->setOrdre($ordreOrigine);
+                    }
+                }
+
                 $pageRepository->save($page, true);
 
                 $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
@@ -133,7 +168,7 @@ class PageController extends AbstractController
     public function delete(
         Request        $request,
         PageRepository $pageRepository,
-        int         $id,
+        int            $id,
     ): Response
     {
         $page = $pageRepository->find($id);
@@ -195,21 +230,21 @@ class PageController extends AbstractController
 //            if ($traces->isEmpty()) {
 //                $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
 //            } else {
-                foreach ($traces as $trace) {
-                        $trace = $traceRepository->find(['id' => $trace]);
-                        // Ajouter la trace aux pages sélectionnées
-                        $page->addTrace($trace);
-                    }
-//                }
-                foreach ($existingTraces as $existingTrace) {
-                    $page->addTrace($existingTrace);
-                }
-
-                $pageRepository->save($page, true);
-
-                $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
-                return $this->redirectToRoute('app_page');
+            foreach ($traces as $trace) {
+                $trace = $traceRepository->find(['id' => $trace]);
+                // Ajouter la trace aux pages sélectionnées
+                $page->addTrace($trace);
             }
+//                }
+            foreach ($existingTraces as $existingTrace) {
+                $page->addTrace($existingTrace);
+            }
+
+            $pageRepository->save($page, true);
+
+            $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
+            return $this->redirectToRoute('app_page');
+        }
 //        }
         return $this->render('page/edit.html.twig', [
             'form' => $form->createView(),
