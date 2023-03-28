@@ -389,8 +389,9 @@ function addExperienceActivite(event) {
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     let index = document.querySelectorAll('.experience-activite').length;
     let indexExp = event.closest('.experience').id;
+    // let indexExp = document.querySelectorAll('.experience').length;
     console.log(indexExp);
-    formGroup.innerHTML += '<input type="text" name="activite_'+index+'" id="'+indexExp+'_activite_'+index+'" class="form-control">';
+    formGroup.innerHTML += '<input type="text" name="'+indexExp+'_activite_'+index+'" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');

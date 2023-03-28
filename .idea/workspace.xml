@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [CV] Attribution data dynamique btn ajout activite">
-      <change afterPath="$PROJECT_DIR$/public/files_directory/image.jpg" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [CV] Attribution d'id uniques aux activités d'experience">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/63fe0935d04fd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/63fe1dfa799b9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeImageType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TraceFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TraceFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ExperienceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ExperienceType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -413,42 +412,10 @@
       <workItem from="1679831466176" duration="5000" />
       <workItem from="1679831838535" duration="10127000" />
       <workItem from="1679896767239" duration="27785000" />
-      <workItem from="1679934400224" duration="7194000" />
-    </task>
-    <task id="LOCAL-00146" summary="fix: [Style] Camouflage input dates">
-      <created>1678544449757</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1678544449757</updated>
-    </task>
-    <task id="LOCAL-00147" summary="fix: [Forms] Optimisation des formulaires">
-      <created>1678544493060</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1678544493060</updated>
-    </task>
-    <task id="LOCAL-00148" summary="fix: [Style] Structure dashboard + tests couleurs">
-      <created>1678626069491</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1678626069491</updated>
-    </task>
-    <task id="LOCAL-00149" summary="fix: [Style] Structure + tests couleurs">
-      <created>1678627882183</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1678627882183</updated>
-    </task>
-    <task id="LOCAL-00150" summary="fix: [Fixture] Lien trace vidéo">
-      <created>1678639067334</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1678639067334</updated>
+      <workItem from="1679934400224" duration="7866000" />
+      <workItem from="1679948061691" duration="1268000" />
+      <workItem from="1679983453821" duration="6491000" />
+      <workItem from="1679990066255" duration="7142000" />
     </task>
     <task id="LOCAL-00151" summary="feat: [Trace] Visualisation de toutes les infos de la trace dans un modal">
       <created>1678639142226</created>
@@ -758,7 +725,42 @@
       <option name="project" value="LOCAL" />
       <updated>1679931159479</updated>
     </task>
-    <option name="localTasksCounter" value="195" />
+    <task id="LOCAL-00195" summary="feat: [Trace] Gestion de l'attribution de l'ordre">
+      <created>1679942468927</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1679942468927</updated>
+    </task>
+    <task id="LOCAL-00196" summary="feat: [Trace] Gestion de l'attribution de l'ordre">
+      <created>1679942506142</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1679942506142</updated>
+    </task>
+    <task id="LOCAL-00197" summary="feat: [Trace] Gestion des fichiers dans le form">
+      <created>1679942546892</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1679942546892</updated>
+    </task>
+    <task id="LOCAL-00198" summary="feat: [Portfolio] Suppression de l'image si portfolio supprimé">
+      <created>1679942626651</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1679942626651</updated>
+    </task>
+    <task id="LOCAL-00199" summary="feat: [CV] Attribution d'id uniques aux activités d'experience">
+      <created>1679990033933</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1679990033933</updated>
+    </task>
+    <option name="localTasksCounter" value="200" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -819,10 +821,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Fixture] Lien trace vidéo" />
-    <MESSAGE value="feat: [Trace] Visualisation de toutes les infos de la trace dans un modal" />
-    <MESSAGE value="fix: [Style] Correction responsive" />
-    <MESSAGE value="feat: [Cv] Modal visualisation du cv" />
     <MESSAGE value="fix: [modal] appel du modal" />
     <MESSAGE value="fix: [cv] Modal visualisation du cv" />
     <MESSAGE value="feat: [Traces] Collection de contenu" />
@@ -844,6 +842,10 @@
     <MESSAGE value="fix: [Page] Flash messages" />
     <MESSAGE value="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant" />
     <MESSAGE value="feat: [CV] Attribution data dynamique btn ajout activite" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [CV] Attribution data dynamique btn ajout activite" />
+    <MESSAGE value="feat: [Trace] Gestion de l'attribution de l'ordre" />
+    <MESSAGE value="feat: [Trace] Gestion des fichiers dans le form" />
+    <MESSAGE value="feat: [Portfolio] Suppression de l'image si portfolio supprimé" />
+    <MESSAGE value="feat: [CV] Attribution d'id uniques aux activités d'experience" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [CV] Attribution d'id uniques aux activités d'experience" />
   </component>
 </project>
