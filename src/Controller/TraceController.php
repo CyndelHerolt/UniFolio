@@ -42,12 +42,12 @@ class TraceController extends AbstractController
 
     #[Route('/trace/formulaire/{id}', name: 'app_trace_new')]
     public function new(
-        Request                $request,
-        TraceRepository        $traceRepository,
-        TraceRegistry          $traceRegistry,
-        CompetenceRepository   $competenceRepository,
-        Security               $security,
-        string                 $id,
+        Request              $request,
+        TraceRepository      $traceRepository,
+        TraceRegistry        $traceRegistry,
+        CompetenceRepository $competenceRepository,
+        Security             $security,
+        string               $id,
     ): Response
     {
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FROM, class, ICON, save...)
@@ -134,8 +134,23 @@ class TraceController extends AbstractController
 
         $ordreOrigine = $trace->getOrdre();
 
+        //Récupérer les images existantes dans la db
+        $ImageOrigine = $trace->getContenu();
+
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+//            dd($form);
+            $existingImages = $request->request->All()['img'];
+
+//        dd($existingImage);
+//            commun aux 2 tableaux
+//            dd(array_intersect($existingImages, $ImageOrigine));
+//            inverse de array_intersect
+//            dd(array_diff($existingImages, $ImageOrigine));
+
+            $trace->setContenu(array_intersect($existingImages, $ImageOrigine));
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
                 //Récupérer l'ordre saisi dans le form

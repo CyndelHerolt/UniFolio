@@ -4,6 +4,8 @@ namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypeImageType;
 use App\Repository\TraceRepository;
+use Symfony\Component\DomCrawler\Crawler;
+
 
 class TraceTypeImage extends AbstractTrace implements TraceInterface
 {
@@ -28,11 +30,12 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): array
+    public function save($form, $trace, $traceRepository, $traceRegistry, ): array
     {
         $imageFiles = $form['contenu']->getData();
+//        dd($imageFiles);
         if ($imageFiles) {
-            $contenu = [];
+            $contenu = $trace->getContenu();
             foreach ($imageFiles as $imageFile) {
 //            dd($imageFiles);
 //            dd($imageFile);
@@ -52,14 +55,14 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
 //            dd($contenu);
             //Sauvegarder le contenu dans la base de données
             $trace->setContenu($contenu);
-            $traceRepository->save($trace, true);
-            return array('success' => true);
         }
+        $traceRepository->save($trace, true);
+        return array('success' => true);
 //        elseif (!$imageFiles) {
 //            $error = 'Aucun fichier n\'a été sélectionné';
 //            return array('success' => false, 'error' => $error);
 //        }
-        $error = '';
+//        $error = '';
         // Return an empty array if $imageFile is false
         return array('success' => false, 'error' => $error);
     }

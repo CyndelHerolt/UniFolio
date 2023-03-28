@@ -98,6 +98,7 @@ class TraceTypeImageType extends AbstractType
                 'by_reference' => false,
                 'empty_data' => [],
                 'mapped' => true,
+                'data' => [],
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
