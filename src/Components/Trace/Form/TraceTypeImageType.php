@@ -76,12 +76,11 @@ class TraceTypeImageType extends AbstractType
             ])
             //----------------------------------------------------------------
 
-            // TODO: garder le fichier dans la database meme si il n'est pas affiché dans le formulaire
             ->add('contenu', CollectionType::class, [
                 'entry_type' => FileType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control image_trace",
                         'placeholder' => 'Image',
                     ],
                     'data_class' => null,

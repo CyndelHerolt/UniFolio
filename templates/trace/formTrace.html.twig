@@ -35,17 +35,30 @@
                     {{ form_row(form.ordre) }}
                     {{ form_row(form.titre) }}
                     <hr>
-                    <div>
+                    <div id="image_trace">
                         {% for contenu in form.contenu %}
                             <div class="input-group mb-3">
                                 {{ form_widget(contenu) }}
-                                <button type="button" class="btn btn-danger delete-contenu">
-                                    <i class="fa-solid fa-square-minus"></i>
-                                </button>
+
                             </div>
                         {% endfor %}
                         {% if 'TraceTypeImage' in trace.typeTrace %}
-                            <button type="button" class="btn btn-primary add-contenu">
+                            {# TODO: Si form.contenu.vars.data existe, enregistrer data dans la DB à la soumission du form #}
+                            {# {{ dump(form.contenu.vars.data) }} #}
+                            {% for data in form.contenu.vars.data %}
+                                <div class="image_trace_div">
+                                    <p>Image.s déjà dans la DB</p>
+                                    <img src="{{ asset(data) }}" data-file="registered" style="width: 100px"
+                                         alt="image déjà enregistrée"/>
+                                    {# <input type="file" value="{{ asset(data) }}"> #}
+                                    <button type="button" class="btn btn-danger delete-image">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                                <hr>
+                            {% endfor %}
+
+                            <button type="button" class="btn btn-primary add-image">
                                 Ajouter une image <i class="fa fa-square-plus"></i>
                             </button>
                         {% elseif 'TraceTypePdf' in trace.typeTrace %}
@@ -72,14 +85,14 @@
                     <form action="">
                         <button>Ajouter des compétences</button>
                         <ul>
-                        {% for competence in competences|slice(0,5) %}
-                            <div>
-                            <li>
-                                <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
-                                | {{ competence.libelle }}
-                            </li>
-                            </div>
-                        {% endfor %}
+                            {% for competence in competences|slice(0,5) %}
+                                <div>
+                                    <li>
+                                        <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
+                                        | {{ competence.libelle }}
+                                    </li>
+                                </div>
+                            {% endfor %}
                         </ul>
                     </form>
                 </aside>

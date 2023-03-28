@@ -54,10 +54,11 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
             $trace->setContenu($contenu);
             $traceRepository->save($trace, true);
             return array('success' => true);
-        } elseif (!$imageFiles) {
-            $error = 'Aucun fichier n\'a été sélectionné';
-            return array('success' => false, 'error' => $error);
         }
+//        elseif (!$imageFiles) {
+//            $error = 'Aucun fichier n\'a été sélectionné';
+//            return array('success' => false, 'error' => $error);
+//        }
         $error = '';
         // Return an empty array if $imageFile is false
         return array('success' => false, 'error' => $error);
