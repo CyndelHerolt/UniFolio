@@ -65,4 +65,4 @@ Pour vous connecter (/login), utilisez l'un des login ci-dessous, et le mot de p
 
 ## Licence
 
-[MPL2.0](https://choosealicense.com/licenses/mpl-2.0/)
+[MIT](https://choosealicense.com/licenses/mit/)
