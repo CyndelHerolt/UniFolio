@@ -2,19 +2,19 @@
 //---------------------------------IMAGE-------------------------------------
 //-----------------------------------------------------------------------------
 
-document.querySelectorAll('.image_trace').forEach(event => {
-    console.log(event)
-    event.parentNode.classList.add('image_trace_div')
-    event.parentNode.classList.add('input-group', 'mb-3');
-    event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
-    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.parentNode.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-image">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
-})
+// document.querySelectorAll('.image_trace').forEach(event => {
+//     console.log(event)
+//     event.parentNode.classList.add('image_trace_div')
+//     event.parentNode.classList.add('input-group', 'mb-3');
+//     event.style.display = 'flex';
+//     event.style.alignItems = 'flex-end';
+//     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+//     event.parentNode.innerHTML += (
+//         '<button type="button" class="btn btn-danger delete-image">' +
+//         '<i class="fa-solid fa-square-minus"></i>' +
+//         '</button>'
+//     )
+// })
 
 
 // Fonction pour supprimer un champ contenu
@@ -27,7 +27,7 @@ function addImage() {
     // Récupération du prototype
     const prototype = document.querySelector('#trace_type_image_contenu').dataset.prototype;
     // Récupération du nombre de champs contenu
-    const index = document.querySelectorAll('.image_trace').length;
+    const index = document.querySelectorAll('.contenu_trace').length;
     // console.log(index)
     // Création du nouveau champ contenu
     const newForm = prototype.replace(/__name__/g, index);
@@ -75,7 +75,7 @@ if (addButtonImage) {
 
 // Fonction pour supprimer un champ contenu
 function removePdf(button) {
-    button.closest('.input-group').remove();
+    button.closest('.pdf_trace_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ contenu
@@ -87,13 +87,13 @@ function addPdf() {
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+    formGroup.classList.add('input-group', 'mb-3', 'pdf_trace_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
     const button = document.createElement('button');
     button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-contenu');
+    button.classList.add('btn', 'btn-danger', 'delete-pdf');
     button.innerHTML = '<i class="fa fa-square-minus"></i>';
     button.style.width = 'fit-content';
     button.style.height = 'fit-content';
@@ -101,20 +101,20 @@ function addPdf() {
         removePdf(button);
     });
     formGroup.appendChild(button);
-    const addButton = document.querySelector('.add-contenu');
+    const addButton = document.querySelector('.add-pdf');
     addButton.parentNode.insertBefore(formGroup, addButton);
     // console.log('addPdf');
 }
 
 // Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-contenu').forEach(function (button) {
+document.querySelectorAll('.delete-pdf').forEach(function (button) {
     button.addEventListener('click', function () {
         removePdf(button);
     });
 });
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonPdf = document.querySelector('.add-contenu');
+const addButtonPdf = document.querySelector('.add-pdf');
 if (addButtonPdf) {
     addButtonPdf.addEventListener('click', function () {
         addPdf()
@@ -126,104 +126,140 @@ if (addButtonPdf) {
 //---------------------------------LIEN----------------------------------------
 //-----------------------------------------------------------------------------
 
+document.querySelectorAll('.lien_trace').forEach(event => {
+    // console.log(event)
+    event.parentNode.classList.add('lien_trace_div')
+    // event.parentNode.classList.add('input-group', 'mb-3');
+    // event.style.display = 'flex';
+    // event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-lien">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+
 // Fonction pour supprimer un champ contenu
 function removeLien(button) {
-    button.closest('.input-group').remove();
+    button.closest('.lien_trace_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ contenu
 function addLien() {
-    console.log('hello')
-    // Récupération du prototype et incrémentation du compteur
+    // Récupération du prototype
     const prototype = document.querySelector('#trace_type_lien_contenu').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
+    // Récupération du nombre de champs contenu
+    const index = document.querySelectorAll('.lien_trace').length;
+    // console.log(index)
     // Création du nouveau champ contenu
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+    formGroup.classList.add('input-group', 'mb-3', 'lien_trace_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-contenu');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-lien">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+    const button = formGroup.querySelector('.delete-lien');
     button.addEventListener('click', function () {
         removeLien(button);
     });
     formGroup.appendChild(button);
-    const addButton = document.querySelector('.add-contenu');
-    addButton.parentNode.insertBefore(formGroup, addButton);
-    // console.log('addLien');
+    const addButtonLien = document.querySelector('.add-lien');
+    addButtonLien.parentNode.insertBefore(formGroup, addButtonLien);
 }
 
 // Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-contenu').forEach(function (button) {
+document.querySelectorAll('.delete-lien').forEach(function (button) {
     button.addEventListener('click', function () {
         removeLien(button);
     });
 });
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonLien = document.querySelector('.add-contenu');
+const addButtonLien = document.querySelector('.add-lien');
 if (addButtonLien) {
     addButtonLien.addEventListener('click', function () {
         addLien()
     })
 }
 
+
+
 //-----------------------------------------------------------------------------
 //---------------------------------VIDEO---------------------------------------
 //-----------------------------------------------------------------------------
 
+document.querySelectorAll('.video_trace').forEach(event => {
+    // console.log(event)
+    event.parentNode.classList.add('video_trace_div')
+    // event.parentNode.classList.add('input-group', 'mb-3');
+    // event.style.display = 'flex';
+    // event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-video">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+
 // Fonction pour supprimer un champ contenu
 function removeVideo(button) {
-    button.closest('.input-group').remove();
+    button.closest('.video_trace_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ contenu
 function addVideo() {
-    // Récupération du prototype et incrémentation du compteur
+    // Récupération du prototype
     const prototype = document.querySelector('#trace_type_video_contenu').dataset.prototype;
-    const index = document.querySelectorAll('.input-group').length;
+    // Récupération du nombre de champs contenu
+    const index = document.querySelectorAll('.video_trace').length;
+    // console.log(index)
     // Création du nouveau champ contenu
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3');
+    formGroup.classList.add('input-group', 'mb-3', 'video_trace_div');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML = newForm;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.classList.add('btn', 'btn-danger', 'delete-contenu');
-    button.innerHTML = '<i class="fa fa-square-minus"></i>';
-    button.style.width = 'fit-content';
-    button.style.height = 'fit-content';
+    formGroup.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-video">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+
+    const button = formGroup.querySelector('.delete-video');
     button.addEventListener('click', function () {
         removeVideo(button);
     });
     formGroup.appendChild(button);
-    const addButton = document.querySelector('.add-contenu');
-    addButton.parentNode.insertBefore(formGroup, addButton);
-    // console.log('addVideo');
+    const addButtonVideo = document.querySelector('.add-video');
+    addButtonVideo.parentNode.insertBefore(formGroup, addButtonVideo);
 }
 
 // Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-contenu').forEach(function (button) {
+document.querySelectorAll('.delete-video').forEach(function (button) {
     button.addEventListener('click', function () {
         removeVideo(button);
     });
 });
 
 // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonVideo = document.querySelector('.add-contenu');
+const addButtonVideo = document.querySelector('.add-video');
 if (addButtonVideo) {
     addButtonVideo.addEventListener('click', function () {
         addVideo()
     })
 }
+
 

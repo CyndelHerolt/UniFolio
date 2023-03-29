@@ -32,26 +32,28 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
         $pdfFiles = $form['contenu']->getData();
-        foreach ($pdfFiles as $pdfFile) {
-            if ($pdfFile) {
+        if ($pdfFiles) {
+            $contenu = $trace->getContenu();
+            foreach ($pdfFiles as $pdfFile) {
                 $pdfFileName = uniqid() . '.' . $pdfFile->guessExtension();
                 //Vérifier si le fichier est au bon format
                 if ($pdfFile->guessExtension() === 'pdf') {
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
                     $pdfFile->move('files_directory', $pdfFileName);
-                    //Sauvegarder le contenu dans la base de données
-                    $trace->setContenu('files_directory' . '/' . $pdfFileName);
-                    $traceRepository->save($trace, true);
-                    return array('success' => true);
-                    //return $this->redirectToRoute('app_trace');
+                    $contenu[] = 'files_directory' . '/' . $pdfFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);
                 }
             }
-            $error = 'Une erreur s\'est produite';
-            // Return an empty array if $imageFile is false
-            return array('success' => false, 'error' => $error);
+            $trace->setContenu($contenu);
         }
+        $traceRepository->save($trace, true);
+        return array('success' => true);
+
+//
+//            $error = 'Une erreur s\'est produite';
+//            // Return an empty array if $imageFile is false
+//            return array('success' => false, 'error' => $error);
     }
 }

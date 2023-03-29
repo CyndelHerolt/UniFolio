@@ -30,14 +30,19 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry, ): array
+    public function save($form, $trace, $traceRepository, $traceRegistry): array
     {
+        $max_size = 2 * 1024 * 1024; // 2 Mo en octets
         $imageFiles = $form['contenu']->getData();
 //        dd($imageFiles);
         if ($imageFiles) {
             $contenu = $trace->getContenu();
             foreach ($imageFiles as $imageFile) {
-//            dd($imageFiles);
+                // Vérifier si la taille de l'image est inférieure ou égale à 2 Mo
+//                if ($imageFile->getSize() > $max_size) {
+//                    $error = 'Le fichier doit faire 2mo maximum';
+//                    return array('success' => false, 'error' => $error);
+//                }
 //            dd($imageFile);
                 $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
                 //Vérifier si le fichier est au bon format
@@ -45,25 +50,14 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
                     $imageFile->move('files_directory', $imageFileName);
                     $contenu[] = 'files_directory' . '/' . $imageFileName;
-//                    $contenu[] = $contenu;
-//                    dd($contenu);
-                } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                }  else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);
                 }
             }
-//            dd($contenu);
-            //Sauvegarder le contenu dans la base de données
-            $trace->setContenu($contenu);
         }
-        $traceRepository->save($trace, true);
-        return array('success' => true);
-//        elseif (!$imageFiles) {
-//            $error = 'Aucun fichier n\'a été sélectionné';
-//            return array('success' => false, 'error' => $error);
-//        }
-//        $error = '';
-        // Return an empty array if $imageFile is false
-        return array('success' => false, 'error' => $error);
+            $trace->setContenu($contenu);
+            $traceRepository->save($trace, true);
+            return array('success' => true);
     }
 }

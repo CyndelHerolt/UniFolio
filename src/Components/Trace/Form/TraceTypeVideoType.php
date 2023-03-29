@@ -74,7 +74,7 @@ class TraceTypeVideoType extends AbstractType
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control video_trace",
                         'placeholder' => 'lien de la vidéo',
                     ],
                     'by_reference' => false,
@@ -90,6 +90,7 @@ class TraceTypeVideoType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
+                'mapped' => true,
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

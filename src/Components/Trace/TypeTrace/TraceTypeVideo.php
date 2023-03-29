@@ -43,9 +43,15 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
                 // Construire le lien embed à partir de l'ID
                 $contenu = 'https://www.youtube.com/embed/' . $youtubeId;
                 // Sauvegarder le contenu dans la base de données
-                $trace->setContenu($contenu);
+                $trace->setContenu([$contenu]);
                 return array('success' => true);
-            } else {
+            }
+            elseif (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $contenu, $matches)) {
+                // Sauvegarder le contenu dans la base de données
+                $trace->setContenu([$contenu]);
+                return array('success' => true);
+            }
+            else {
                 $error = 'Le lien n\'est pas un lien YouTube valide';
                 return array('success' => false, 'error' => $error);
             }

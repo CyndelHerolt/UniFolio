@@ -75,7 +75,7 @@ class TraceTypePdfType extends AbstractType
                 'entry_type' => FileType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control pdf-trace",
                         'placeholder' => 'Fichier PDF',
                     ],
                     'by_reference' => false,
@@ -89,9 +89,10 @@ class TraceTypePdfType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => false,
-                'mapped' => false,
+                'mapped' => true,
                 'by_reference' => false,
                 'empty_data' => [],
+                'data' => [],
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [

@@ -75,13 +75,13 @@ public function __construct(
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
+                        'class' => "form-control lien_trace",
                         'placeholder' => 'Lien',
                     ],
                     'by_reference' => false,
-                    'label' => 'Lien',
+                    'label' => false,
                     'label_attr' => ['class' => 'form-label'],
-                    'help' => '',
+                    'help' => 'Saisissez un lien valide',
                 ],
                 'prototype' => true,
                 'label' => 'Lien',
@@ -91,6 +91,7 @@ public function __construct(
                 'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
+                'mapped' => true,
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
