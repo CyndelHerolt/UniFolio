@@ -7,20 +7,12 @@
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Trace] Gestion de collection de média dans le formulaire">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/_trace.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_trace.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeLienType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypePdfType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/Form/TraceTypeVideoType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeImage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeLien.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypePdf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/TypeTrace/TraceTypeVideo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Page.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Portfolio.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Portfolio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/trace_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -428,14 +420,7 @@
       <workItem from="1680019730324" duration="3789000" />
       <workItem from="1680069275548" duration="5266000" />
       <workItem from="1680074657707" duration="10888000" />
-      <workItem from="1680091992795" duration="2497000" />
-    </task>
-    <task id="LOCAL-00154" summary="fix: [modal] appel du modal">
-      <created>1678696624933</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1678696624933</updated>
+      <workItem from="1680091992795" duration="8457000" />
     </task>
     <task id="LOCAL-00155" summary="fix: [cv] Modal visualisation du cv">
       <created>1678698553102</created>
@@ -773,7 +758,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680022728524</updated>
     </task>
-    <option name="localTasksCounter" value="203" />
+    <task id="LOCAL-00203" summary="fix: [Trace] Gestion de collection de média dans le formulaire">
+      <created>1680094594934</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1680094594935</updated>
+    </task>
+    <option name="localTasksCounter" value="204" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

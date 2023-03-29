@@ -143,6 +143,8 @@ class TraceController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+//            dd($request);
+
 //            dd($form);
 //TODO: pas d'image depuis la db mais nouvelle image => ok
             if ($trace->getTypetrace() == TraceTypeImage::class

@@ -35,14 +35,11 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
         $contenus = $form['contenu']->getData();
         foreach ($contenus as $contenu) {
             // Vérifier si le contenu est un lien valide
-            if (filter_var($contenu, FILTER_VALIDATE_URL)) {
-
-                $trace->setContenu([$contenu]);
-                return array('success' => true);
-            } else {
+            if (!filter_var($contenu, FILTER_VALIDATE_URL)) {
                 $error = 'Le contenu n\'est pas un lien valide';
                 return array('success' => false, 'error' => $error);
             }
         }
+                return array('success' => true);
     }
 }
