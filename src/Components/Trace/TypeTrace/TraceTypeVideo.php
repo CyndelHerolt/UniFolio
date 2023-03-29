@@ -37,21 +37,18 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
             if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $contenu, $matches) || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $contenu, $matches)) {
 //                dd($matches);
                 $youtubeId = $matches[3];
-            if ($youtubeId) {
-                // Construire le lien embed à partir de l'ID
-                $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
-                // Ajouter le lien embed au tableau des contenus
-                $contenus[] = $Embedcontenu;
-                $contenus = array_diff($contenus, array($contenu));
             }
+                if ($youtubeId) {
+                    // Construire le lien embed à partir de l'ID
+                    $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
+                    // Ajouter le lien embed au tableau des contenus
+                    $contenus[] = $Embedcontenu;
+                    $contenus = array_diff($contenus, array($contenu));
+                }
+            if (!$youtubeId && !preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $contenu)) {
+                $error = 'Le lien n\'est pas un lien YouTube valide';
+                return array('success' => false, 'error' => $error);
             }
-//            elseif (preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $contenu, $matches)) {
-//                $youtubeId = $matches[3];
-//            }
-//            if (!preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $contenu)) {
-//                $error = 'Le lien n\'est pas un lien YouTube valide';
-//                return array('success' => false, 'error' => $error);
-//            }
         }
         // Ajouter les contenus au tableau des contenus
 //        dd($contenus);
