@@ -62,6 +62,8 @@ class CvController extends AbstractController
             }
             //-------------------------------------------------------------------------------
 
+            dd($request);
+
 
             $cv->setEtudiant($user);
             $cv->setDateCreation(new \DateTimeImmutable());
@@ -103,7 +105,7 @@ class CvController extends AbstractController
                 $experience->setActivite($experience->getActivite());
             }
 
-            dd($request);
+//            dd($request);
 
             $cvRepository->save($cv, true);
 

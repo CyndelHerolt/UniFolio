@@ -388,10 +388,10 @@ function addExperienceActivite(event) {
     formGroup.style.alignItems = 'flex-end';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     let index = document.querySelectorAll('.experience-activite').length;
-    let indexExp = event.closest('.experience').id;
+    let indexExp = event.closest('.experience').id.split('_')[2];
     // let indexExp = document.querySelectorAll('.experience').length;
-    console.log(indexExp);
-    formGroup.innerHTML += '<input type="text" name="'+indexExp+'_activite_'+index+'" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
+    // console.log(indexExp);
+    formGroup.innerHTML += '<input type="text" name="cv[experience]['+indexExp+'][activite]['+index+']" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
@@ -422,7 +422,7 @@ document.querySelectorAll('.delete-experience-activite').forEach(function (butto
 
 // Fonction pour supprimer un champ formation
 function removeExperienceActivite(button) {
-    button.closest('.experience-activite').remove();
+    button.closest('div').remove();
 }
 
 
