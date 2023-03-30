@@ -30,10 +30,15 @@ class Page
     #[ORM\ManyToMany(targetEntity: Portfolio::class, inversedBy: 'pages')]
     private Collection $portfolio;
 
+    #[ORM\OneToMany(mappedBy: 'OrdrePage', targetEntity: TracePage::class)]
+    private Collection $tracePages;
+
     public function __construct()
     {
         $this->trace = new ArrayCollection();
         $this->portfolio = new ArrayCollection();
+        $this->tracePages = new ArrayCollection();
+        $this->pageTraces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,6 +126,36 @@ class Page
     public function removePortfolio(Portfolio $portfolio): self
     {
         $this->portfolio->removeElement($portfolio);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TracePage>
+     */
+    public function getTracePages(): Collection
+    {
+        return $this->tracePages;
+    }
+
+    public function addTracePage(TracePage $tracePage): self
+    {
+        if (!$this->tracePages->contains($tracePage)) {
+            $this->tracePages->add($tracePage);
+            $tracePage->setOrdrePage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTracePage(TracePage $tracePage): self
+    {
+        if ($this->tracePages->removeElement($tracePage)) {
+            // set the owning side to null (unless already changed)
+            if ($tracePage->getOrdrePage() === $this) {
+                $tracePage->setOrdrePage(null);
+            }
+        }
 
         return $this;
     }

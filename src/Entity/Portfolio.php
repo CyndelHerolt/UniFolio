@@ -40,12 +40,17 @@ class Portfolio
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banniere = null;
 
+    #[ORM\OneToMany(mappedBy: 'OrdrePage', targetEntity: PortfolioPage::class)]
+    private Collection $portfolioPages;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
         $this->date_modification = null;
         $this->pages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->pagePortfolios = new ArrayCollection();
+        $this->portfolioPages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +183,36 @@ class Portfolio
     public function setBanniere(?string $banniere): self
     {
         $this->banniere = $banniere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PortfolioPage>
+     */
+    public function getPortfolioPages(): Collection
+    {
+        return $this->portfolioPages;
+    }
+
+    public function addPortfolioPage(PortfolioPage $portfolioPage): self
+    {
+        if (!$this->portfolioPages->contains($portfolioPage)) {
+            $this->portfolioPages->add($portfolioPage);
+            $portfolioPage->setOrdrePage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePortfolioPage(PortfolioPage $portfolioPage): self
+    {
+        if ($this->portfolioPages->removeElement($portfolioPage)) {
+            // set the owning side to null (unless already changed)
+            if ($portfolioPage->getOrdrePage() === $this) {
+                $portfolioPage->setOrdrePage(null);
+            }
+        }
 
         return $this;
     }
