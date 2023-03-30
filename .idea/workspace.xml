@@ -4,20 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [README] maj license">
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AnneeFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/DepartementFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/DiplomeFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Admin] Révision des infos affichées dans l'admin">
+      <change afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/SuiviEtudiantTableComponent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/all_suivi_etudiant.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/PortfolioCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/PortfolioCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/TraceCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/TraceCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Page.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Portfolio.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Portfolio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Groupe/AllEtudiantComponent.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Groupe/EtudiantTableComponent.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/RetourPedagogique/AllRetourPedagogiqueComponent.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/RetourPedagogique/RetourPedagogiqueTableComponent.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/all_retour_pedagogique.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/retour_pedagogique_table.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +227,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -434,28 +439,13 @@
       <workItem from="1680157267263" duration="168000" />
       <workItem from="1680157447242" duration="28000" />
       <workItem from="1680157488443" duration="75000" />
-      <workItem from="1680157664931" duration="14962000" />
-    </task>
-    <task id="LOCAL-00159" summary="feat: [Cv] Ajout table experience et formation">
-      <created>1678779097487</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1678779097488</updated>
-    </task>
-    <task id="LOCAL-00160" summary="fix: [Trace] Formulaire">
-      <created>1678779140658</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1678779140658</updated>
-    </task>
-    <task id="LOCAL-00161" summary="feat: [CV] ajout experience et formation (form + card)">
-      <created>1678791312019</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1678791312019</updated>
+      <workItem from="1680157664931" duration="17533000" />
+      <workItem from="1680184701046" duration="1320000" />
+      <workItem from="1680186045029" duration="3594000" />
+      <workItem from="1680194582973" duration="1822000" />
+      <workItem from="1680196439329" duration="103000" />
+      <workItem from="1680196555449" duration="85000" />
+      <workItem from="1680196653633" duration="4627000" />
     </task>
     <task id="LOCAL-00162" summary="fix: [CV] ajout activité d'experience dans le formulaire">
       <created>1678799630744</created>
@@ -779,7 +769,28 @@
       <option name="project" value="LOCAL" />
       <updated>1680108873924</updated>
     </task>
-    <option name="localTasksCounter" value="208" />
+    <task id="LOCAL-00208" summary="feat: [Fixtures] Ajout des Fixtures">
+      <created>1680182121142</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1680182121143</updated>
+    </task>
+    <task id="LOCAL-00209" summary="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre">
+      <created>1680182220163</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1680182220163</updated>
+    </task>
+    <task id="LOCAL-00210" summary="feat: [Admin] Révision des infos affichées dans l'admin">
+      <created>1680182284729</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1680182284729</updated>
+    </task>
+    <option name="localTasksCounter" value="211" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -840,9 +851,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Trace] Formulaire" />
-    <MESSAGE value="feat: [CV] ajout experience et formation (form + card)" />
-    <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire (en cours)" />
     <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
     <MESSAGE value="fix: [CV] ajout collection de soft_skills" />
     <MESSAGE value="fix: [CV] formulaire cv" />
@@ -865,6 +873,9 @@
     <MESSAGE value="fix: [Trace] Gestion de collection de média dans le formulaire" />
     <MESSAGE value="fix: [CV] Envoi DB activites" />
     <MESSAGE value="fix: [README] maj license" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [README] maj license" />
+    <MESSAGE value="feat: [Fixtures] Ajout des Fixtures" />
+    <MESSAGE value="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre" />
+    <MESSAGE value="feat: [Admin] Révision des infos affichées dans l'admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Admin] Révision des infos affichées dans l'admin" />
   </component>
 </project>

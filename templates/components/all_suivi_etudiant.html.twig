@@ -1,0 +1,18 @@
+{% if '/dashboard' in app.request.uri %}
+    <table>
+        <thead>
+        <tr>
+            <th>Nom de l'étudiant.e</th>
+            <th>Groupe de TP</th>
+            <th>Dernier retour pédagogique</th>
+            <th>Traces</th>
+            <th>Portfolios</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for etudiant in this.allSuiviEtudiant %}
+            {{ component('suivi_etudiant_table', {'id': etudiant.id}) }}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

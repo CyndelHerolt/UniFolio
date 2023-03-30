@@ -1,0 +1,15 @@
+<tr>
+    <td>{{ this.etudiant.prenom }} {{ this.etudiant.nom }}</td>
+    <td>
+        {% for groupe in this.etudiant.groupe %}
+        {% if 'TP' in groupe.libelle %}
+            <p>{{ groupe.libelle }}</p>
+        {% endif %}
+        {% endfor %}
+    </td>
+    <td>hello</td>
+    <td>hello</td>
+    <td>{% for portfolio in this.etudiant.portfolios %}
+            <p>{{ portfolio.intitule }}</p>
+        {% endfor %}</td>
+</tr>
