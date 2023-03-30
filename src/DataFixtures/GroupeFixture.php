@@ -52,6 +52,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
         $enseignant2 = $this->enseignantRepository->findOneBy(['nom' => 'enseignant2']);
         $enseignant3 = $this->enseignantRepository->findOneBy(['nom' => 'enseignant3']);
         $enseignant4 = $this->enseignantRepository->findOneBy(['nom' => 'enseignant4']);
+        $enseignant5 = $this->enseignantRepository->findOneBy(['nom' => 'Doe']);
 
         $typeGroupe1 = $this->typeGroupeRepository->findOneBy(['libelle' => 'CM']);
         $typeGroupe2 = $this->typeGroupeRepository->findOneBy(['libelle' => 'TD']);
@@ -62,10 +63,11 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             ->setCodeApogee('TS123S1CM')
             ->setOrdre(1)
             ->setTypeGroupe($typeGroupe1)
-            ->setEnseignant($enseignant1)
-            ->setEnseignant($enseignant2)
-            ->setEnseignant($enseignant3)
-            ->setEnseignant($enseignant4)
+//            ->setEnseignant($enseignant1)
+//            ->setEnseignant($enseignant2)
+//            ->setEnseignant($enseignant3)
+//            ->setEnseignant($enseignant4)
+//            ->setEnseignant($enseignant5)
             ->addEtudiant($etudiant1)
             ->addEtudiant($etudiant2)
             ->addEtudiant($etudiant3)
@@ -84,6 +86,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             ->setTypeGroupe($typeGroupe2)
             ->setEnseignant($enseignant1)
             ->setEnseignant($enseignant2)
+            ->setEnseignant($enseignant5)
             ->addEtudiant($etudiant1)
             ->addEtudiant($etudiant2);
 
@@ -108,6 +111,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             ->setTypeGroupe($typeGroupe2)
             ->setEnseignant($enseignant3)
             ->setEnseignant($enseignant4)
+            ->setEnseignant($enseignant5)
             ->addEtudiant($etudiant5)
             ->addEtudiant($etudiant6);
 
@@ -132,6 +136,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             ->setTypeGroupe($typeGroupe3)
             ->setEnseignant($enseignant1)
             ->setEnseignant($enseignant2)
+            ->setEnseignant($enseignant5)
             ->addEtudiant($etudiant1);
 
         $manager->persist($groupe6);
@@ -208,6 +213,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             ->setOrdre(1)
             ->setTypeGroupe($typeGroupe3)
             ->setEnseignant($enseignant4)
+            ->setEnseignant($enseignant5)
             ->setEnseignant($enseignant1)
             ->addEtudiant($etudiant8);
 

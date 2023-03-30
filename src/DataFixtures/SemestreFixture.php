@@ -9,7 +9,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class SemestreFixture
+class SemestreFixture extends Fixture implements OrderedFixtureInterface
 {
     private $anneeRepository;
 
