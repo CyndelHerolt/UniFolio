@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Admin] Révision des infos affichées dans l'admin">
-      <change afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/SuiviEtudiantTableComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/all_suivi_etudiant.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Fixtures] m.a.j des fixutres - liens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Groupe/AllEtudiantComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Groupe/EtudiantTableComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/RetourPedagogique/AllRetourPedagogiqueComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/RetourPedagogique/RetourPedagogiqueTableComponent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/PortfolioFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/all_retour_pedagogique.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/etudiant_table.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/retour_pedagogique_table.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -445,21 +430,7 @@
       <workItem from="1680194582973" duration="1822000" />
       <workItem from="1680196439329" duration="103000" />
       <workItem from="1680196555449" duration="85000" />
-      <workItem from="1680196653633" duration="4627000" />
-    </task>
-    <task id="LOCAL-00162" summary="fix: [CV] ajout activité d'experience dans le formulaire">
-      <created>1678799630744</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1678799630744</updated>
-    </task>
-    <task id="LOCAL-00163" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
-      <created>1678819188804</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1678819188804</updated>
+      <workItem from="1680196653633" duration="6263000" />
     </task>
     <task id="LOCAL-00164" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
       <created>1678885775856</created>
@@ -790,7 +761,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680182284729</updated>
     </task>
-    <option name="localTasksCounter" value="211" />
+    <task id="LOCAL-00211" summary="feat: [Enseignants] Génération des components pour alimenter le dashboard">
+      <created>1680201455569</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1680201455569</updated>
+    </task>
+    <task id="LOCAL-00212" summary="feat: [Fixtures] m.a.j des fixutres - liens">
+      <created>1680201514571</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1680201514571</updated>
+    </task>
+    <option name="localTasksCounter" value="213" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -851,8 +836,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [CV] ajout activité d'experience dans le formulaire" />
-    <MESSAGE value="fix: [CV] ajout collection de soft_skills" />
     <MESSAGE value="fix: [CV] formulaire cv" />
     <MESSAGE value="fix: [Cv] Affichage des infos du CV" />
     <MESSAGE value="fix: [Fixtures] Génération de fixtures" />
@@ -876,6 +859,8 @@
     <MESSAGE value="feat: [Fixtures] Ajout des Fixtures" />
     <MESSAGE value="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre" />
     <MESSAGE value="feat: [Admin] Révision des infos affichées dans l'admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Admin] Révision des infos affichées dans l'admin" />
+    <MESSAGE value="feat: [Enseignants] Génération des components pour alimenter le dashboard" />
+    <MESSAGE value="feat: [Fixtures] m.a.j des fixutres - liens" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Fixtures] m.a.j des fixutres - liens" />
   </component>
 </project>
