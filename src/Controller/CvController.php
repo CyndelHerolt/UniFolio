@@ -26,6 +26,11 @@ class CvController extends AbstractController
     #[Route('/cv', name: 'app_cv')]
     public function index(): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $etudiant = $this->security->getUser()->getEtudiant();
 
         $cvs = $etudiant->getCvs();
@@ -41,6 +46,11 @@ class CvController extends AbstractController
         CvRepository $cvRepository,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $this->security->getUser()->getEtudiant();
         $cv = new Cv();
 
@@ -91,6 +101,11 @@ class CvController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $this->security->getUser()->getEtudiant();
 
         $cv = $cvRepository->findOneBy(['id' => $id]);
@@ -124,6 +139,11 @@ class CvController extends AbstractController
         int          $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $cv = $cvRepository->findOneBy(['id' => $id]);
 
         $cvRepository->remove($cv, true);

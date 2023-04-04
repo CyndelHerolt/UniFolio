@@ -34,6 +34,10 @@ class PageController extends AbstractController
     ): Response
     {
 
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         //Récupérer la bibliothèque de l'utilisateur connecté
         $etudiant = $this->security->getUser()->getEtudiant();
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
@@ -68,6 +72,11 @@ class PageController extends AbstractController
         Security       $security,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $this->security->getUser()->getEtudiant();
         $page = new Page();
 
@@ -136,6 +145,11 @@ class PageController extends AbstractController
         int            $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
 
@@ -204,6 +218,11 @@ class PageController extends AbstractController
         int            $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $page = $pageRepository->find($id);
 
         $pageRepository->remove($page, true);
@@ -220,6 +239,11 @@ class PageController extends AbstractController
         int             $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $security->getUser()->getEtudiant();
         $page = $pageRepository->findOneBy(['id' => $id]);
 

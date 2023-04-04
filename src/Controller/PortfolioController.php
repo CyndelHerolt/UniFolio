@@ -29,15 +29,19 @@ class PortfolioController extends AbstractController
         PortfolioRepository $portfolioRepository,
     ): Response
     {
-        //Récupérer les portfolios de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
 
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
 
-        return $this->render('portfolio/index.html.twig', [
-            'portfolios' => $portfolios,
-        ]);
-    }
+            //Récupérer les portfolios de l'utilisateur connecté
+            $etudiant = $this->security->getUser()->getEtudiant();
+            $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
+
+            return $this->render('portfolio/index.html.twig', [
+                'portfolios' => $portfolios,
+            ]);
+        }
 
     #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
     public function new(
@@ -46,6 +50,11 @@ class PortfolioController extends AbstractController
         Security            $security
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $security->getUser()->getEtudiant();
         $portfolio = new Portfolio();
 
@@ -109,6 +118,11 @@ class PortfolioController extends AbstractController
         int                 $id
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $security->getUser()->getEtudiant();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
         $existingPages = $portfolio->getPages(); // Récupérer les pages déjà associées au portfolio
@@ -181,6 +195,12 @@ class PortfolioController extends AbstractController
         int                 $id
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
+
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
         $portfolioRepository->remove($portfolio, true);
@@ -201,6 +221,11 @@ class PortfolioController extends AbstractController
         int                 $id
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $user = $security->getUser()->getEtudiant();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 

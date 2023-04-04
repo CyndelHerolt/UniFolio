@@ -37,6 +37,10 @@ class TraceController extends AbstractController
     ): Response
     {
 
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         return $this->render('trace/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),
         ]);
@@ -52,6 +56,11 @@ class TraceController extends AbstractController
         string               $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FROM, class, ICON, save...)
         $traceType = $traceRegistry->getTypeTrace($id);
         //dump($id);
@@ -119,7 +128,9 @@ class TraceController extends AbstractController
     ): Response
     {
 
-        //todo: dans formulaire edit : récupérer le fichier la trace à modifier et l'afficher dans le formulaire => donc convertion string -> file
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
 
         $trace = $traceRepository->find($id);
         $user = $security->getUser()->getEtudiant();
@@ -146,7 +157,6 @@ class TraceController extends AbstractController
 //            dd($request);
 
 //            dd($form);
-//TODO: pas d'image depuis la db mais nouvelle image => ok
             if ($trace->getTypetrace() == TraceTypeImage::class
             ) {
                 if ($request->request->get('contenu') == null) {
@@ -235,6 +245,11 @@ class TraceController extends AbstractController
         int             $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $trace = $traceRepository->find($id);
         $type = $trace->getTypetrace();
 
@@ -258,6 +273,11 @@ class TraceController extends AbstractController
         int            $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         //Récupérer la bibliothèque de l'utilisateur connecté
         $etudiant = $this->security->getUser()->getEtudiant();
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
@@ -314,6 +334,11 @@ class TraceController extends AbstractController
         int $id,
     ): Response
     {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
         $trace = $this->traceRepository->find($id);
         return $this->render('trace/show.html.twig', [
             'trace' => $trace,

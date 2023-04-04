@@ -16,6 +16,7 @@ class DashboardEtudiantController extends AbstractController
         TraceRegistry   $traceRegistry,
     ): Response
     {
+
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
 
