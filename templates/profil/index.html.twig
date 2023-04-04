@@ -75,7 +75,8 @@
                     <aside  class="col-lg-4 col-12">
                         <h2>Informations universitaires</h2>
                         <ul>
-                            <li>Référent des groupes : A - C</li>
+                            <li>Référent des groupes : {% for groupe in groupes %}{{ groupe.libelle }} ·
+                                {% endfor %}</li>
                         </ul>
                     </aside>
                 </div>

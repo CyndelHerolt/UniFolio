@@ -44,6 +44,7 @@ class ProfilController extends AbstractController
                 $email_perso = $enseignant->getMailPerso();
                 $email_univ = $enseignant->getMailUniv();
                 $tel = $enseignant->getTelephone();
+                $groupes = $enseignant->getGroupes();
                 $bio = null;
             }
         }
@@ -56,6 +57,7 @@ class ProfilController extends AbstractController
             'email_univ' => $email_univ,
             'tel' => $tel,
             'bio' => $bio,
+            'groupes' => $groupes ?? null
         ]);
     }
 }
