@@ -50,6 +50,7 @@ class DashboardEnseignantController extends AbstractController
                     'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
                 ]);
             } else {
+            //TODO: Reflexion => Les enseignants seront ils responsables d'un ou plusieurs groupes de TP ou d'étudiants dispersés dans tous les groupes ?
 
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'controller_name' => 'DashboardController',

@@ -13,13 +13,14 @@ class AllSuiviEtudiantComponent
 
     public function __construct(
         #[Required] public Security $security,
-        private GroupeRepository $groupeRepository
+        private GroupeRepository $groupeRepository,
     )
     {}
 
     public function getAllSuiviEtudiant(): array
     {
         $enseignant = $this->security->getUser()->getEnseignant();
+        // Récupérer les groupes de l'utilisateur connecté
         $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
 
         $etudiants = [];

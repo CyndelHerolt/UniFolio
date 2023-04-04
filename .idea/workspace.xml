@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Fixtures] m.a.j des fixutres - liens">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SuiviEtudiant/SuiviEtudiantTableComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/SuiviEtudiantTableComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/all_suivi_etudiant.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/all_suivi_etudiant.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,24 +206,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\public\files_directory" />
@@ -436,14 +439,8 @@
       <workItem from="1680196439329" duration="103000" />
       <workItem from="1680196555449" duration="85000" />
       <workItem from="1680196653633" duration="6263000" />
-      <workItem from="1680624791289" duration="1345000" />
-    </task>
-    <task id="LOCAL-00164" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
-      <created>1678885775856</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1678885775856</updated>
+      <workItem from="1680624791289" duration="3402000" />
+      <workItem from="1680628263746" duration="2963000" />
     </task>
     <task id="LOCAL-00165" summary="fix: [CV] ajout activité d'experience dans le formulaire (en cours)">
       <created>1678901863437</created>
@@ -781,7 +778,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680201514571</updated>
     </task>
-    <option name="localTasksCounter" value="213" />
+    <task id="LOCAL-00213" summary="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes">
+      <created>1680626247517</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1680626247518</updated>
+    </task>
+    <option name="localTasksCounter" value="214" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -842,7 +846,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [CV] formulaire cv" />
     <MESSAGE value="fix: [Cv] Affichage des infos du CV" />
     <MESSAGE value="fix: [Fixtures] Génération de fixtures" />
     <MESSAGE value="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées" />
@@ -867,6 +870,7 @@
     <MESSAGE value="feat: [Admin] Révision des infos affichées dans l'admin" />
     <MESSAGE value="feat: [Enseignants] Génération des components pour alimenter le dashboard" />
     <MESSAGE value="feat: [Fixtures] m.a.j des fixutres - liens" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Fixtures] m.a.j des fixutres - liens" />
+    <MESSAGE value="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes" />
   </component>
 </project>

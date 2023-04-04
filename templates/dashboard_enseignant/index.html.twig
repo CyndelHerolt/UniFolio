@@ -16,26 +16,6 @@
     <div class="container dashboard">
         <h1>Tableau de bord</h1>
 
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-        <h2>TESTS</h2>
-        {% for etudiant in etudiants %}
-            <p>{{ etudiant.prenom }} {{ etudiant.nom }}</p>
-            {% for portfolio in etudiant.portfolios %}
-                <p>{{ portfolio.intitule }}</p>
-            {% endfor %}
-            {% for groupe in etudiant.groupe %}
-                {% if 'TP' in groupe.libelle %}
-                    <p>{{ groupe.libelle }}</p>
-                {% endif %}
-            {% endfor %}
-            <hr>
-        {% endfor %}
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-        {#                        ------------------------------------------------------------------------------------------------------ -#}
-
 
         <section class="dashboard_infos_groupe">
             <div class="row">
@@ -74,15 +54,15 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 Trier par groupe de TP
                             </button>
-                            {#                            TODO: dropdown => groupe dont l'enseignant est chargés #}
+                            {# TODO: Filtre affichage selon filtre #}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">A</a></li>
-                                <li><a class="dropdown-item" href="#">C</a></li>
-                                <li><a class="dropdown-item" href="#">E</a></li>
-                                <li><a class="dropdown-item" href="#">G</a></li>
+                                {% for groupe in groupes %}
+                                    {% if 'TP' in groupe.libelle %}
+                                        <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                             <div>
-                                <h2>Hello</h2>
                                 {{ component('all_suivi_etudiant') }}
                             </div>
                         </div>
