@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal delete -->
             <div class="modal fade" id="staticBackdrop{{ this.cv.id }}" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -61,125 +61,125 @@
                 </div>
             </div>
 
-            <!-- 2eme Modal -->
+            <!-- Modal visu -->
             <div class="modal fade" id="showStaticBackdrop{{ this.cv.id }}" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">{{ this.cv.intitule }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body row modal_cv" style="display: flex">
-                            <div class="cv_content col-10">
-
-                                <div class="cv_header">
+                            <div class="cv_header row">
+                                <div class="col-8">
                                     <h2>{{ this.cv.etudiant.prenom }} {{ this.cv.etudiant.nom }}</h2>
                                     <h3>{{ this.cv.poste }}</h3>
                                 </div>
-                                <hr>
-                                <div class="cv_profile row">
-                                    <div class="contact col-5">
-                                        <h4>Contact</h4>
-                                        <ul>
-                                            <li><i class="fa fa-envelope"></i> {{ this.cv.etudiant.mailUniv }}</li>
-                                            <li><i class="fa fa-phone"></i> {{ this.cv.etudiant.telephone }}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="description col-7">
-                                        <h4>A propos</h4>
-                                        <p>{{ this.cv.description }}</p>
-                                    </div>
+                                <div class="col-4 contact">
+                                    <ul>
+                                        <li><i class="fa fa-envelope"></i> {{ this.cv.etudiant.mailUniv }}</li>
+                                        <li><i class="fa fa-phone"></i> {{ this.cv.etudiant.telephone }}</li>
+                                    </ul>
                                 </div>
-                                <div class="cv_exp row">
-                                    <div class="col-6">
-                                        <h4>Expériences</h4>
+                            </div>
+                            <hr>
+                            <div class="cv_content row">
+                                <aside class="col-lg-4 col-12">
+                                    <div class="cv_profile">
+                                        <div class="description">
+                                            <h4>A propos</h4>
+                                            <p>{{ this.cv.description }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="cv_competences">
+                                        <h4>Compétences</h4>
+                                            <h5>Soft skills</h5>
                                         <ul>
-                                            {% for experience in this.cv.experience %}
-                                                <li>{{ experience.poste }}</li>
-                                                <li>{{ experience.entreprise }}</li>
-                                                <li>{{ experience.dateDebut }}</li>
-                                                <li>{{ experience.dateFin }}</li>
-                                                <ul>
-                                                    {% for activite in experience.activite %}
-                                                        <li>{{ activite }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                                <hr>
+                                            {% for soft_skill in this.cv.softSkills %}
+                                                <li>{{ soft_skill }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                            <h5>Hard skills</h5>
+                                        <ul>
+                                            {% for hard_skill in this.cv.hardSkills %}
+                                                <li>{{ hard_skill }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                            <h5>Langues</h5>
+                                        <ul>
+                                            {% for langue in this.cv.langues %}
+                                                <li>{{ langue }}</li>
                                             {% endfor %}
                                         </ul>
                                     </div>
-                                    <div class="col-6">
-                                        <h4>Formations</h4>
+                                    <div class="cv_reseaux">
+                                        <h4>Réseaux sociaux</h4>
                                         <ul>
-                                            {% for formation in this.cv.formation %}
-                                                <li>{{ formation.diplome }}</li>
-                                                <li>{{ formation.etablissement }}</li>
-                                                <li>{{ formation.dateDebut }}</li>
-                                                <li>{{ formation.dateFin }}</li>
-                                                    <ul>
+                                            {% for reseau in this.cv.reseaux %}
+                                                {% if reseau matches '/.*twitter.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-twitter fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*linkedin.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-linkedin fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*github.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-github fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*dribbble.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-dribbble fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*pinterest.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-pinterest fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*instagram.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-instagram fa-2x"></i></a>
+                                                {% elseif reseau matches '/.*facebook.*/' %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa-brands fa-facebook fa-2x"></i></a>
+                                                {% else %}
+                                                    <a href="{{ reseau }}" target="_blank"><i
+                                                                class="fa fa-globe fa-2x"></i></a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </aside>
+                                <article class="col-lg-7 col-12">
+                                    <div class="cv_exp">
+                                            <h4>Expériences</h4>
+                                            <ul>
+                                                {% for experience in this.cv.experience %}
+                                                    <li>{{ experience.dateDebut|date('M. Y') }}
+                                                        - {{ experience.dateFin|date('M. Y') }}</li>
+                                                    <li><strong>{{ experience.poste }}</strong></li>
+                                                    <li>{{ experience.entreprise }}</li>
+                                                    <ul class="activites">
+                                                        {% for activite in experience.activite %}
+                                                            <li>{{ activite }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
+                                            <h4>Formations</h4>
+                                            <ul>
+                                                {% for formation in this.cv.formation %}
+                                                    <li>{{ formation.dateDebut|date('M. Y') }}
+                                                        - {{ formation.dateFin|date('M. Y') }}</li>
+                                                    <li><strong>{{ formation.diplome }}</strong></li>
+                                                    <li>{{ formation.etablissement }}</li>
+                                                    <ul class="activites">
                                                         {% for activite in formation.activite %}
                                                             <li>{{ activite }}</li>
                                                         {% endfor %}
                                                     </ul>
-                                                <hr>
-                                            {% endfor %}
-                                        </ul>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
                                     </div>
-                                </div>
-                                <div class="cv_competences">
-                                    <h4>Compétences</h4>
-                                    <ul>
-                                        <h5>Soft skills</h5>
-                                        {% for soft_skill in this.cv.softSkills %}
-                                            <li>{{ soft_skill }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    <ul>
-                                        <h5>Hard skills</h5>
-                                        {% for hard_skill in this.cv.hardSkills %}
-                                            <li>{{ hard_skill }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    <ul>
-                                        <h5>Langues</h5>
-                                        {% for langue in this.cv.langues %}
-                                            <li>{{ langue }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                <div class="cv_reseaux">
-                                    <h4>Réseaux sociaux</h4>
-                                    <ul>
-                                        {% for reseau in this.cv.reseaux %}
-                                            {% if reseau matches '/.*twitter.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-twitter fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*linkedin.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-linkedin fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*github.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-github fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*dribbble.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-dribbble fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*pinterest.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-pinterest fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*instagram.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-instagram fa-2x"></i></a>
-                                            {% elseif reseau matches '/.*facebook.*/' %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa-brands fa-facebook fa-2x"></i></a>
-                                            {% else %}
-                                                <a href="{{ reseau }}" target="_blank"><i
-                                                            class="fa fa-globe fa-2x"></i></a>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                                </article>
                             </div>
                         </div>
                         <div class="modal-footer">
