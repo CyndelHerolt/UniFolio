@@ -19,7 +19,7 @@
 
         <section class="dashboard_infos_groupe">
             <div class="row">
-                <h2>Etudiants suivis</h2>
+                <h2>Ensemble des étudiants</h2>
                 <article class="col-lg-12 col-12">
                     <div class="col-lg-12 col-12">
                         <form class="d-flex">
@@ -57,7 +57,8 @@
                             {# TODO: Filtre affichage selon filtre #}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 {% for groupe in groupes %}
-                                    {% if 'TP' in groupe.libelle %}
+                                    {% if 'CM' in groupe.typeGroupe.libelle %}
+{#                                    {% if 'TP' in groupe.libelle %}#}
                                         <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>
                                     {% endif %}
                                 {% endfor %}

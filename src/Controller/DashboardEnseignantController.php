@@ -32,12 +32,14 @@ class DashboardEnseignantController extends AbstractController
         $userId = $this->getUser()->getUserIdentifier();
         // Récupérer les groupes de l'utilisateur connecté
         $enseignant = $this->security->getUser()->getEnseignant();
-        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
-
+//        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
+        $groupes = $this->groupeRepository->findAll();
         $etudiants = [];
         foreach ($groupes as $groupe) {
             $etudiants = array_merge($etudiants, $groupe->getEtudiants()->toArray());
         }
+        // Récupérer les années dans une variable annee
+
 
         foreach ($etudiants as $etudiant) {
             $etudiant->getPortfolios()->toArray();
@@ -50,7 +52,7 @@ class DashboardEnseignantController extends AbstractController
                     'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
                 ]);
             } else {
-            //TODO: Reflexion => Les enseignants seront ils responsables d'un ou plusieurs groupes de TP ou d'étudiants dispersés dans tous les groupes ?
+            //TODO: Reflexion => Les enseignants seront ils "responsables" d'un ou plusieurs groupes de TP ou d'étudiants dispersés dans tous les groupes ou de compétences ?
 
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'controller_name' => 'DashboardController',

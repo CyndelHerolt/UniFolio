@@ -21,7 +21,8 @@ class AllSuiviEtudiantComponent
     {
         $enseignant = $this->security->getUser()->getEnseignant();
         // Récupérer les groupes de l'utilisateur connecté
-        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
+//        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
+        $groupes = $this->groupeRepository->findAll();
 
         $etudiants = [];
         foreach ($groupes as $groupe) {
