@@ -1,0 +1,18 @@
+{% if '/dashboard' in app.request.uri %}
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Type</th>
+            <th>Validation</th>
+            <th>Compétences</th>
+            <th>Etudiant</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for trace in this.allSuiviTrace %}
+            {{ component('suivi_trace_table', {'id': trace.id}) }}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

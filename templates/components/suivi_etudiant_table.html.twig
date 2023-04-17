@@ -10,17 +10,19 @@
     <td>hello</td>
 {#    TODO:Lien vers biblio de portfolio et biblio de traces :) #}
     <td>
-        {% for portfolio in this.etudiant.portfolios %}
-            {% for page in portfolio.pages %}
-                {% for trace in page.trace %}
-                    {{ trace.titre }}
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
+{#        {% for portfolio in this.etudiant.portfolios %}#}
+{#            {% for page in portfolio.pages %}#}
+{#                {% for trace in page.trace %}#}
+{#                    {{ trace.titre }}#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
+        lien vers traces de l'étudiant
     </td>
     <td>
-        {% for portfolio in this.etudiant.portfolios %}
-            {{ portfolio.intitule }}
-        {% endfor %}
+{#        {% for portfolio in this.etudiant.portfolios %}#}
+{#            {{ portfolio.intitule }}#}
+{#        {% endfor %}#}
+        lien vers portfolio de l'étudiant
     </td>
 </tr>

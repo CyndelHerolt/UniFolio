@@ -38,7 +38,7 @@ class DashboardEnseignantController extends AbstractController
         foreach ($groupes as $groupe) {
             $etudiants = array_merge($etudiants, $groupe->getEtudiants()->toArray());
         }
-        // Récupérer les années dans une variable annee
+        // Récupérer les années dans une variable
 
 
         foreach ($etudiants as $etudiant) {

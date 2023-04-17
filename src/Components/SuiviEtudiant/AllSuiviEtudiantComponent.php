@@ -2,9 +2,7 @@
 
 namespace App\Components\SuiviEtudiant;
 
-use App\Repository\GroupeRepository;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Contracts\Service\Attribute\Required;
+use App\Repository\EtudiantRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('all_suivi_etudiant')]
@@ -12,22 +10,13 @@ class AllSuiviEtudiantComponent
 {
 
     public function __construct(
-        #[Required] public Security $security,
-        private GroupeRepository $groupeRepository,
+        private EtudiantRepository $etudiantRepository,
     )
     {}
 
     public function getAllSuiviEtudiant(): array
     {
-        $enseignant = $this->security->getUser()->getEnseignant();
-        // Récupérer les groupes de l'utilisateur connecté
-//        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
-        $groupes = $this->groupeRepository->findAll();
-
-        $etudiants = [];
-        foreach ($groupes as $groupe) {
-            $etudiants = array_merge($etudiants, $groupe->getEtudiants()->toArray());
-        }
+        $etudiants = $this->etudiantRepository->findAll();
 
         return $etudiants;
     }
