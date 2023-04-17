@@ -1,7 +1,15 @@
 <tr>
     <td>{{ this.trace.titre }}</td>
+    <td>competence.s</td>
     <td>{{ this.trace.typeTrace }}</td>
-    <td>etat valid.</td>
-    <td>competences</td>
+    <td>
+        {% if this.trace.validations is empty %}
+            <i class="fa-solid fa-clock"></i>
+        {% endif %}
+        {% for validation in this.trace.validations %}
+        {{ validation.etat }}<br>
+        {% endfor %}
+{#        {{ this.trace.validations }}#}
+    </td>
     <td>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }}</td>
 </tr>

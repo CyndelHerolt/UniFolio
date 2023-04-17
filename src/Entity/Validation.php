@@ -22,6 +22,9 @@ class Validation
     #[ORM\ManyToOne(inversedBy: 'validations')]
     private ?Enseignant $enseignant = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $etat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Validation
     public function setEnseignant(?Enseignant $enseignant): self
     {
         $this->enseignant = $enseignant;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

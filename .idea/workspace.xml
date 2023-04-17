@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Enseignant] Prépa dashboard">
-      <change afterPath="$PROJECT_DIR$/src/Components/SuiviTrace/AllSuiviTraceComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SuiviTrace/SuiviTraceTableComponent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/all_suivi_trace.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -445,14 +440,7 @@
       <workItem from="1681678049012" duration="182000" />
       <workItem from="1681722187522" duration="5512000" />
       <workItem from="1681731784939" duration="2134000" />
-      <workItem from="1681748474088" duration="2254000" />
-    </task>
-    <task id="LOCAL-00169" summary="fix: [CV] ajout collection de soft_skills">
-      <created>1678990387495</created>
-      <option name="number" value="00169" />
-      <option name="presentableId" value="LOCAL-00169" />
-      <option name="project" value="LOCAL" />
-      <updated>1678990387495</updated>
+      <workItem from="1681748474088" duration="3293000" />
     </task>
     <task id="LOCAL-00170" summary="fix: [CV] ajout collection de soft_skills">
       <created>1678991869177</created>
@@ -790,7 +778,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681742306442</updated>
     </task>
-    <option name="localTasksCounter" value="218" />
+    <task id="LOCAL-00218" summary="fix: [Enseignant] Prépa dashboard">
+      <created>1681750798550</created>
+      <option name="number" value="00218" />
+      <option name="presentableId" value="LOCAL-00218" />
+      <option name="project" value="LOCAL" />
+      <updated>1681750798552</updated>
+    </task>
+    <option name="localTasksCounter" value="219" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
