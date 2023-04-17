@@ -54,13 +54,13 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 Trier par groupe de TP
                             </button>
-                            {# TODO: Filtre affichage selon filtre #}
+                            {# TODO: Filtre affichage #}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 {% for groupe in groupes %}
-                                    {% if 'CM' in groupe.typeGroupe.libelle %}
+{#                                    {% if 'CM' in groupe.typeGroupe.libelle %}#}
 {#                                    {% if 'TP' in groupe.libelle %}#}
                                         <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>
-                                    {% endif %}
+{#                                    {% endif %}#}
                                 {% endfor %}
                             </ul>
                             <div>
@@ -125,22 +125,20 @@
         </section>
         <section class="dashboard_retours_pedagogiques_enseignant">
             <div class="row">
-                <h2>Retours pédagogiques</h2>
+                <h2>Ensemble des traces</h2>
                 <article>
                     <table>
                         <thead>
                         <tr>
-                            <th>Nom de l'étudiant.e</th>
-                            <th>Date</th>
-                            <th>Support</th>
-                            <th>Contenu</th>
+                            <th>Titre</th>
+                            <th>Type</th>
+                            <th>Validation</th>
+                            <th>Compétences</th>
+                            <th>Etudiant</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {#                        {{ include('components/retour_pedagogique_table.html.twig') }} #}
-                        {#                        {{ include('components/retour_pedagogique_table.html.twig') }} #}
-                        {#                        {{ include('components/retour_pedagogique_table.html.twig') }} #}
-                        {#                        {{ include('components/retour_pedagogique_table.html.twig') }} #}
+
                         </tbody>
                     </table>
                 </article>
