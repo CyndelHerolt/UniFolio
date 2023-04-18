@@ -56,18 +56,12 @@ class Diplome
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getDepartement(): Collection
+    public function getDepartement(): Departement
     {
         return $this->departement;
     }
 
-    /**
-     * @param Collection $departement
-     */
-    public function setDepartement(Collection $departement): void
+    public function setDepartement(Departement $departement): void
     {
         $this->departement = $departement;
     }
