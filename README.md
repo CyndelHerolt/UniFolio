@@ -1,5 +1,7 @@
 # UniFolio
 
+[![wakatime](https://wakatime.com/badge/user/593f8558-cce2-4776-b789-4f687a124d15/project/adb9500d-e615-45e9-977c-ac49faab9167.svg)](https://wakatime.com/badge/user/593f8558-cce2-4776-b789-4f687a124d15/project/adb9500d-e615-45e9-977c-ac49faab9167)
+
 Un outil de création de portfolio à destination de l'IUT de Troyes.
 
 ## Installation
