@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Enseignant] Prépa dashboard">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Enseignant] dashboard récup. etudiants + traces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Diplome.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Diplome.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Enseignant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Admin/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/dashboard.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -440,14 +443,8 @@
       <workItem from="1681678049012" duration="182000" />
       <workItem from="1681722187522" duration="5512000" />
       <workItem from="1681731784939" duration="2134000" />
-      <workItem from="1681748474088" duration="3293000" />
-    </task>
-    <task id="LOCAL-00170" summary="fix: [CV] ajout collection de soft_skills">
-      <created>1678991869177</created>
-      <option name="number" value="00170" />
-      <option name="presentableId" value="LOCAL-00170" />
-      <option name="project" value="LOCAL" />
-      <updated>1678991869178</updated>
+      <workItem from="1681748474088" duration="4613000" />
+      <workItem from="1681798639877" duration="5898000" />
     </task>
     <task id="LOCAL-00171" summary="fix: [CV] ajout collection de soft_skills">
       <created>1678993108917</created>
@@ -785,7 +782,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681750798552</updated>
     </task>
-    <option name="localTasksCounter" value="219" />
+    <task id="LOCAL-00219" summary="fix: [Enseignant] dashboard récup. etudiants + traces">
+      <created>1681751898647</created>
+      <option name="number" value="00219" />
+      <option name="presentableId" value="LOCAL-00219" />
+      <option name="project" value="LOCAL" />
+      <updated>1681751898647</updated>
+    </task>
+    <option name="localTasksCounter" value="220" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -846,7 +850,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Trace] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Portfolio] Mise en forme du formulaire" />
     <MESSAGE value="fix: [Page] Gestion des doublons d'attributs 'ordre'" />
     <MESSAGE value="fix: [Trace] Ajout de l'attribut 'ordre' dans le formulaire" />
@@ -871,6 +874,7 @@
     <MESSAGE value="fix: [CV] m.a.j mise en forme cv" />
     <MESSAGE value="fix: [Enseignant] Accès à tous les étudiants" />
     <MESSAGE value="fix: [Enseignant] Prépa dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Enseignant] Prépa dashboard" />
+    <MESSAGE value="fix: [Enseignant] dashboard récup. etudiants + traces" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Enseignant] dashboard récup. etudiants + traces" />
   </component>
 </project>
