@@ -34,9 +34,13 @@ class Departement
     #[ORM\ManyToMany(targetEntity: Diplome::class, mappedBy: 'departement_id')]
     private Collection $diplomes;
 
+    #[ORM\ManyToMany(targetEntity: Enseignant::class, mappedBy: 'departement')]
+    private Collection $enseignants;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
+        $this->enseignants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +130,33 @@ class Departement
     {
         if ($this->diplomes->removeElement($diplome)) {
             $diplome->removeDepartementId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Enseignant>
+     */
+    public function getEnseignants(): Collection
+    {
+        return $this->enseignants;
+    }
+
+    public function addEnseignant(Enseignant $enseignant): self
+    {
+        if (!$this->enseignants->contains($enseignant)) {
+            $this->enseignants->add($enseignant);
+            $enseignant->addDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnseignant(Enseignant $enseignant): self
+    {
+        if ($this->enseignants->removeElement($enseignant)) {
+            $enseignant->removeDepartement($this);
         }
 
         return $this;

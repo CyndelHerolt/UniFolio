@@ -21,16 +21,11 @@ class Diplome
     #[ORM\Column(length: 40, nullable: true)]
     private ?string $sigle = null;
 
-    #[ORM\ManyToMany(targetEntity: Departement::class, inversedBy: 'diplomes')]
-    private Collection $departement;
+    #[ORM\ManyToOne(inversedBy: 'departement')]
+    private ?Departement $departement;
 
     #[ORM\OneToOne(mappedBy: 'diplomes', cascade: ['persist', 'remove'])]
     private ?Annee $annee = null;
-
-    public function __construct()
-    {
-        $this->departement = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -62,27 +57,19 @@ class Diplome
     }
 
     /**
-     * @return Collection<int, Departement>
+     * @return Collection
      */
-    public function getDepartementId(): Collection
+    public function getDepartement(): Collection
     {
         return $this->departement;
     }
 
-    public function addDepartementId(Departement $departementId): self
+    /**
+     * @param Collection $departement
+     */
+    public function setDepartement(Collection $departement): void
     {
-        if (!$this->departement->contains($departementId)) {
-            $this->departement->add($departementId);
-        }
-
-        return $this;
-    }
-
-    public function removeDepartementId(Departement $departementId): self
-    {
-        $this->departement->removeElement($departementId);
-
-        return $this;
+        $this->departement = $departement;
     }
 
     public function getAnnee(): ?Annee

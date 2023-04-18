@@ -42,11 +42,15 @@ class Enseignant
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $telephone = null;
 
+    #[ORM\ManyToMany(targetEntity: Departement::class, inversedBy: 'enseignants')]
+    private Collection $departement;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->departement = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,6 +226,30 @@ class Enseignant
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Departement>
+     */
+    public function getDepartement(): Collection
+    {
+        return $this->departement;
+    }
+
+    public function addDepartement(Departement $departement): self
+    {
+        if (!$this->departement->contains($departement)) {
+            $this->departement->add($departement);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartement(Departement $departement): self
+    {
+        $this->departement->removeElement($departement);
 
         return $this;
     }
