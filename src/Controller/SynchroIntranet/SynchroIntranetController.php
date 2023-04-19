@@ -21,7 +21,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SynchroIntranetController extends AbstractController
 {
-    #[Route('/test/requete', name: 'app_synchro_intranet')]
+    #[Route('/api/intranet/structure', name: 'app_synchro_intranet_structure')]
     public function index(
         HttpClientInterface   $client,
         DepartementRepository $departementRepository,
@@ -292,10 +292,24 @@ class SynchroIntranetController extends AbstractController
             }
         }
 
+
         $this->addFlash('success', 'Les données ont bien été importées.');
 
         return $this->redirectToRoute('app_dashboard', [
             'departements' => $departements
+        ]);
+    }
+
+    #[Route('/api/intranet/referentiel', name: 'app_synchro_intranet_referentiel')]
+    public function synchroReferentiel(
+        HttpClientInterface   $client,
+    ): Response
+    {
+
+
+        $this->addFlash('success', 'Les données ont bien été importées.');
+
+        return $this->redirectToRoute('app_dashboard', [
         ]);
     }
 }

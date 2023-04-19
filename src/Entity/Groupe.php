@@ -27,9 +27,6 @@ class Groupe
     #[ORM\ManyToOne(inversedBy: 'groupes')]
     private ?TypeGroupe $type_groupe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'groupes')]
-    private ?Enseignant $enseignant = null;
-
     #[ORM\ManyToMany(targetEntity: Etudiant::class, mappedBy: 'groupe')]
     private Collection $etudiants;
 
@@ -87,18 +84,6 @@ class Groupe
     public function setTypeGroupe(?TypeGroupe $type_groupe): self
     {
         $this->type_groupe = $type_groupe;
-
-        return $this;
-    }
-
-    public function getEnseignant(): ?Enseignant
-    {
-        return $this->enseignant;
-    }
-
-    public function setEnseignant(?Enseignant $enseignant): self
-    {
-        $this->enseignant = $enseignant;
 
         return $this;
     }
