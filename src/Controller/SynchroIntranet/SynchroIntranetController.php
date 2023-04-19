@@ -3,6 +3,8 @@
 namespace App\Controller\SynchroIntranet;
 
 use App\Entity\Annee;
+use App\Entity\ApcApprentissageCritique;
+use App\Entity\ApcNiveau;
 use App\Entity\ApcReferentiel;
 use App\Entity\Competence;
 use App\Entity\Departement;
@@ -11,6 +13,8 @@ use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
 use App\Repository\AnneeRepository;
+use App\Repository\ApcApprentissageCritiqueRepository;
+use App\Repository\ApcNiveauRepository;
 use App\Repository\ApcReferentielRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
@@ -310,6 +314,9 @@ class SynchroIntranetController extends AbstractController
         ApcReferentielRepository $referentielRepository,
         DepartementRepository $departementRepository,
         CompetenceRepository $competenceRepository,
+        ApcNiveauRepository $niveauRepository,
+        AnneeRepository $anneeRepository,
+        ApcApprentissageCritiqueRepository $apprentissageCritiqueRepository,
     ): Response
     {
         //-------------------------------------------------------------------------------------------------------
@@ -385,6 +392,78 @@ class SynchroIntranetController extends AbstractController
                 $newCompetence->setCouleur($competence['couleur']);
                 $newCompetence->setReferentiel($referentiel);
                 $competenceRepository->save($newCompetence, true);
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------NIVEAU--------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $niveaux = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/niveau',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $niveaux = $niveaux->toArray();
+        foreach ($niveaux as $niveau) {
+            $competence = $competenceRepository->findOneBy(['libelle' => $niveau['competences']]);
+            $existingNiveau = $niveauRepository->findOneBy(['libelle' => $niveau['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingNiveau) {
+                $existingNiveau->setLibelle($niveau['libelle']);
+                $existingNiveau->setOrdre($niveau['ordre']);
+                $existingNiveau->setCompetences($competence);
+                $niveauRepository->save($existingNiveau, true);
+            } else {
+                //Sinon, on le crée
+                $newNiveau = new ApcNiveau();
+                $newNiveau->setLibelle($niveau['libelle']);
+                $newNiveau->setOrdre($niveau['ordre']);
+                $newNiveau->setCompetences($competence);
+                $niveauRepository->save($newNiveau, true);
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------APPRENTISSAGES CRITIQUES--------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $apprentissagesCritiques = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/apprentissage_critique',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $apprentissagesCritiques = $apprentissagesCritiques->toArray();
+        foreach ($apprentissagesCritiques as $apprentissageCritique) {
+            $niveau = $niveauRepository->findOneBy(['libelle' => $apprentissageCritique['niveau']]);
+            $existingApprentissageCritique = $apprentissageCritiqueRepository->findOneBy(['libelle' => $apprentissageCritique['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingApprentissageCritique) {
+                $existingApprentissageCritique->setLibelle($apprentissageCritique['libelle']);
+                $existingApprentissageCritique->setCode($apprentissageCritique['code']);
+                $existingApprentissageCritique->setNiveaux($niveau);
+                $apprentissageCritiqueRepository->save($existingApprentissageCritique, true);
+            } else {
+                //Sinon, on le crée
+                $newApprentissageCritique = new ApcApprentissageCritique();
+                $newApprentissageCritique->setLibelle($apprentissageCritique['libelle']);
+                $newApprentissageCritique->setCode($apprentissageCritique['code']);
+                $newApprentissageCritique->setNiveaux($niveau);
+                $apprentissageCritiqueRepository->save($newApprentissageCritique, true);
             }
         }
 
