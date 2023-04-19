@@ -2,9 +2,11 @@
 
 namespace App\Controller\SynchroIntranet;
 
+use App\Entity\Annee;
 use App\Entity\Departement;
 use App\Entity\Diplome;
 use App\Entity\Semestre;
+use App\Repository\AnneeRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,7 @@ class SynchroIntranetController extends AbstractController
         HttpClientInterface   $client,
         DepartementRepository $departementRepository,
         DiplomeRepository     $diplomeRepository,
+        AnneeRepository       $anneeRepository,
 
     ): Response
     {
@@ -30,7 +33,7 @@ class SynchroIntranetController extends AbstractController
 
         $departements = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/departement/liste',
+            'http://127.0.0.1:8001/fr/api/unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -106,6 +109,45 @@ class SynchroIntranetController extends AbstractController
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------ANNEES------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------
+
+        $annees = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/annee',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $annees = $annees->toArray();
+        foreach ($annees as $annee) {
+            $diplome = $diplomeRepository->findOneBy(['libelle' => $annee['diplome']]);
+
+            $existingAnnee = $anneeRepository->findOneBy(['libelle' => $annee['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingAnnee) {
+                $existingAnnee->setLibelle($annee['libelle']);
+                $existingAnnee->setOrdre($annee['ordre']);
+                $existingAnnee->setLibelleLong($annee['libelle_long']);
+                $existingAnnee->setOptAlternance($annee['opt_alternance']);
+                $existingAnnee->setActif($annee['actif']);
+                $existingAnnee->setDiplome($diplome);
+                $anneeRepository->save($existingAnnee, true);
+            } else {
+                //Sinon, on le crée
+                $newAnnee = new Annee();
+                $newAnnee->setLibelle($annee['libelle']);
+                $newAnnee->setOrdre($annee['ordre']);
+                $newAnnee->setLibelleLong($annee['libelle_long']);
+                $newAnnee->setOptAlternance($annee['opt_alternance']);
+                $newAnnee->setActif($annee['actif']);
+                $newAnnee->setDiplome($diplome);
+                $anneeRepository->save($newAnnee, true);
+            }
+        }
 
 
         $this->addFlash('success', 'Les données ont bien été importées.');

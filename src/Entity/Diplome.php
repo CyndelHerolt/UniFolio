@@ -24,8 +24,41 @@ class Diplome
     #[ORM\ManyToOne(inversedBy: 'departement')]
     private ?Departement $departement;
 
-    #[ORM\OneToOne(mappedBy: 'diplomes', cascade: ['persist', 'remove'])]
-    private ?Annee $annee = null;
+    #[ORM\OneToMany(mappedBy: 'diplome', targetEntity: Annee::class)]
+    #[ORM\OrderBy(value: ['ordre' => 'ASC', 'libelle' => 'ASC'])]
+    private Collection $annees;
+
+    /**
+     * @param Collection $annees
+     */
+    public function __construct(Collection $annees)
+    {
+        $this->annees = new ArrayCollection();
+    }
+
+    public function addAnnee(Annee $annee): self
+    {
+        if (!$this->annees->contains($annee)) {
+            $this->annees[] = $annee;
+            $annee->setDiplome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnee(Annee $annee): self
+    {
+        if ($this->annees->contains($annee)) {
+            $this->annees->removeElement($annee);
+            // set the owning side to null (unless already changed)
+            if ($annee->getDiplome() === $this) {
+                $annee->setDiplome(null);
+            }
+        }
+
+        return $this;
+    }
+
 
     public function getId(): ?int
     {
@@ -66,25 +99,4 @@ class Diplome
         $this->departement = $departement;
     }
 
-    public function getAnnee(): ?Annee
-    {
-        return $this->annee;
-    }
-
-    public function setAnnee(?Annee $annee): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($annee === null && $this->annee !== null) {
-            $this->annee->setDiplomes(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($annee !== null && $annee->getDiplomes() !== $this) {
-            $annee->setDiplomes($this);
-        }
-
-        $this->annee = $annee;
-
-        return $this;
-    }
 }

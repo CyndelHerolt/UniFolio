@@ -30,8 +30,8 @@ class Annee
     #[ORM\Column(nullable: true)]
     private ?bool $actif = null;
 
-    #[ORM\OneToOne(inversedBy: 'annee', cascade: ['persist', 'remove'])]
-    private ?Diplome $diplomes = null;
+    #[ORM\ManyToOne(targetEntity: Diplome::class, inversedBy: 'annees')]
+    private ?Diplome $diplome = null;
 
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Semestre::class)]
     private Collection $semestres;
@@ -110,17 +110,18 @@ class Annee
         return $this;
     }
 
-    public function getDiplomes(): ?Diplome
+    public function getDiplome(): ?Diplome
     {
-        return $this->diplomes;
+        return $this->diplome;
     }
 
-    public function setDiplomes(?Diplome $diplomes): self
+    public function setDiplome(?Diplome $diplome): self
     {
-        $this->diplomes = $diplomes;
+        $this->diplome = $diplome;
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Semestre>
