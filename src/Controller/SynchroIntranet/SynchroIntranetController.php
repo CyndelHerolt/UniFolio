@@ -5,11 +5,15 @@ namespace App\Controller\SynchroIntranet;
 use App\Entity\Annee;
 use App\Entity\Departement;
 use App\Entity\Diplome;
+use App\Entity\Groupe;
 use App\Entity\Semestre;
+use App\Entity\TypeGroupe;
 use App\Repository\AnneeRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
+use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
+use App\Repository\TypeGroupeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +28,8 @@ class SynchroIntranetController extends AbstractController
         DiplomeRepository     $diplomeRepository,
         AnneeRepository       $anneeRepository,
         SemestreRepository    $semestreRepository,
+        TypeGroupeRepository  $typeGroupeRepository,
+        GroupeRepository      $groupeRepository,
 
 
     ): Response
@@ -165,7 +171,7 @@ class SynchroIntranetController extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ]
-            ]
+            ],
         );
 
         $semestres = $semestres->toArray();
@@ -201,6 +207,90 @@ class SynchroIntranetController extends AbstractController
             }
         }
 
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------TYPES GROUPES-------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $typesGroupes = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/type_groupe',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $typesGroupes = $typesGroupes->toArray();
+        foreach ($typesGroupes as $typeGroupe) {
+            $existingTypeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingTypeGroupe) {
+                $existingTypeGroupe->setLibelle($typeGroupe['libelle']);
+                $existingTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
+                foreach ($typeGroupe['semestres'] as $semestre) {
+                    $semestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+                    $existingTypeGroupe->addSemestre($semestre);
+                }
+                $typeGroupeRepository->save($existingTypeGroupe, true);
+            } else {
+                //Sinon, on le crée
+                $newTypeGroupe = new TypeGroupe();
+                $newTypeGroupe->setLibelle($typeGroupe['libelle']);
+                $newTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
+                foreach ($typeGroupe['semestres'] as $semestre) {
+                    $semestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+                    $newTypeGroupe->addSemestre($semestre);
+                }
+                $typeGroupeRepository->save($newTypeGroupe, true);
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------GROUPES-------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $groupes = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/groupe',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $groupes = $groupes->toArray();
+        foreach ($groupes as $groupe) {
+
+            $existingGroupe = $groupeRepository->findOneBy(['libelle' => $groupe['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingGroupe) {
+                $existingGroupe->setLibelle($groupe['libelle']);
+                $existingGroupe->setOrdre($groupe['ordre']);
+                $existingGroupe->setCodeApogee($groupe['code']);
+                foreach ($groupe['type'] as $typeGroupe) {
+                    $typeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+                    $existingGroupe->setTypeGroupe($typeGroupe);
+                }
+                $groupeRepository->save($existingGroupe, true);
+            } else {
+                //Sinon, on le crée
+                $newGroupe = new Groupe();
+                $newGroupe->setLibelle($groupe['libelle']);
+                $newGroupe->setOrdre($groupe['ordre']);
+                $newGroupe->setCodeApogee($groupe['code']);
+                foreach ($groupe['type'] as $typeGroupe) {
+                    $typeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+                    $newGroupe->setTypeGroupe($typeGroupe);
+                }
+                $groupeRepository->save($newGroupe, true);
+            }
+        }
 
         $this->addFlash('success', 'Les données ont bien été importées.');
 

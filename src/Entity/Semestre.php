@@ -178,6 +178,14 @@ class Semestre
         return $this->typeGroupes;
     }
 
+    /**
+     * @param Collection $typeGroupes
+     */
+    public function setTypeGroupes(Collection $typeGroupes): void
+    {
+        $this->typeGroupes = $typeGroupes;
+    }
+
     public function addTypeGroupe(TypeGroupe $typeGroupe): self
     {
         if (!$this->typeGroupes->contains($typeGroupe)) {
