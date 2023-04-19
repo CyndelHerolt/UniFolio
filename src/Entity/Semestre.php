@@ -46,6 +46,12 @@ class Semestre
     #[ORM\ManyToMany(targetEntity: TypeGroupe::class, mappedBy: 'semestre')]
     private Collection $typeGroupes;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $ordre_lmd = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $code_element = null;
+
     public function __construct()
     {
         $this->typeGroupes = new ArrayCollection();
@@ -187,6 +193,30 @@ class Semestre
         if ($this->typeGroupes->removeElement($typeGroupe)) {
             $typeGroupe->removeSemestre($this);
         }
+
+        return $this;
+    }
+
+    public function getOrdreLmd(): ?int
+    {
+        return $this->ordre_lmd;
+    }
+
+    public function setOrdreLmd(?int $ordre_lmd): self
+    {
+        $this->ordre_lmd = $ordre_lmd;
+
+        return $this;
+    }
+
+    public function getCodeElement(): ?string
+    {
+        return $this->code_element;
+    }
+
+    public function setCodeElement(?string $code_element): self
+    {
+        $this->code_element = $code_element;
 
         return $this;
     }

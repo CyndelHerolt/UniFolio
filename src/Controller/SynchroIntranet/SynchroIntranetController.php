@@ -9,6 +9,7 @@ use App\Entity\Semestre;
 use App\Repository\AnneeRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
+use App\Repository\SemestreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,8 @@ class SynchroIntranetController extends AbstractController
         DepartementRepository $departementRepository,
         DiplomeRepository     $diplomeRepository,
         AnneeRepository       $anneeRepository,
+        SemestreRepository    $semestreRepository,
+
 
     ): Response
     {
@@ -146,6 +149,55 @@ class SynchroIntranetController extends AbstractController
                 $newAnnee->setActif($annee['actif']);
                 $newAnnee->setDiplome($diplome);
                 $anneeRepository->save($newAnnee, true);
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------SEMESTRES-----------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $semestres = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/semestre',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $semestres = $semestres->toArray();
+        foreach ($semestres as $semestre) {
+            $annee = $anneeRepository->findOneBy(['libelle' => $semestre['annee']]);
+
+            $existingSemestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingSemestre) {
+                $existingSemestre->setLibelle($semestre['libelle']);
+                $existingSemestre->setOrdreAnnee($semestre['ordreAnnee']);
+                $existingSemestre->setOrdreLmd($semestre['ordreLmd']);
+                $existingSemestre->setCodeElement($semestre['code']);
+                $existingSemestre->setActif($semestre['actif']);
+                $existingSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
+                $existingSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
+                $existingSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
+                $existingSemestre->setAnnee($annee);
+                $semestreRepository->save($existingSemestre, true);
+            } else {
+                //Sinon, on le crée
+                $newSemestre = new Semestre();
+                $newSemestre->setLibelle($semestre['libelle']);
+                $newSemestre->setOrdreAnnee($semestre['ordreAnnee']);
+                $newSemestre->setOrdreLmd($semestre['ordreLmd']);
+                $newSemestre->setCodeElement($semestre['code']);
+                $newSemestre->setActif($semestre['actif']);
+                $newSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
+                $newSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
+                $newSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
+                $newSemestre->setAnnee($annee);
+                $semestreRepository->save($newSemestre, true);
             }
         }
 
