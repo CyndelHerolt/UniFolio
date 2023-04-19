@@ -33,9 +33,16 @@ class Competence
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $ue = null;
 
+    #[ORM\ManyToOne(inversedBy: 'competences')]
+    private ?ApcReferentiel $referentiel = null;
+
+    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: ApcNiveau::class)]
+    private Collection $apcNiveaux;
+
     public function __construct()
     {
         $this->validations = new ArrayCollection();
+        $this->apcNiveaux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +136,48 @@ class Competence
     public function setUe(?string $ue): self
     {
         $this->ue = $ue;
+
+        return $this;
+    }
+
+    public function getReferentiel(): ?ApcReferentiel
+    {
+        return $this->referentiel;
+    }
+
+    public function setReferentiel(?ApcReferentiel $referentiel): self
+    {
+        $this->referentiel = $referentiel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcNiveau>
+     */
+    public function getApcNiveaux(): Collection
+    {
+        return $this->apcNiveaux;
+    }
+
+    public function addApcNiveau(ApcNiveau $apcNiveau): self
+    {
+        if (!$this->apcNiveaux->contains($apcNiveau)) {
+            $this->apcNiveaux->add($apcNiveau);
+            $apcNiveau->setCompetences($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApcNiveau(ApcNiveau $apcNiveau): self
+    {
+        if ($this->apcNiveaux->removeElement($apcNiveau)) {
+            // set the owning side to null (unless already changed)
+            if ($apcNiveau->getCompetences() === $this) {
+                $apcNiveau->setCompetences(null);
+            }
+        }
 
         return $this;
     }

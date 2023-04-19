@@ -37,10 +37,14 @@ class Departement
     #[ORM\ManyToMany(targetEntity: Enseignant::class, mappedBy: 'departement')]
     private Collection $enseignants;
 
+    #[ORM\OneToMany(mappedBy: 'departement', targetEntity: ApcReferentiel::class)]
+    private Collection $apcReferentiels;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
         $this->enseignants = new ArrayCollection();
+        $this->apcReferentiels = new ArrayCollection();
     }
 
     /**
@@ -165,6 +169,36 @@ class Departement
     {
         if ($this->enseignants->removeElement($enseignant)) {
             $enseignant->removeDepartement($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcReferentiel>
+     */
+    public function getApcReferentiels(): Collection
+    {
+        return $this->apcReferentiels;
+    }
+
+    public function addApcReferentiel(ApcReferentiel $apcReferentiel): self
+    {
+        if (!$this->apcReferentiels->contains($apcReferentiel)) {
+            $this->apcReferentiels->add($apcReferentiel);
+            $apcReferentiel->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApcReferentiel(ApcReferentiel $apcReferentiel): self
+    {
+        if ($this->apcReferentiels->removeElement($apcReferentiel)) {
+            // set the owning side to null (unless already changed)
+            if ($apcReferentiel->getDepartement() === $this) {
+                $apcReferentiel->setDepartement(null);
+            }
         }
 
         return $this;

@@ -39,10 +39,14 @@ class Annee
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Bibliotheque::class)]
     private Collection $bibliotheques;
 
+    #[ORM\OneToMany(mappedBy: 'années', targetEntity: ApcNiveau::class)]
+    private Collection $apcNiveaux;
+
     public function __construct()
     {
         $this->semestres = new ArrayCollection();
         $this->bibliotheques = new ArrayCollection();
+        $this->apcNiveaux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +181,36 @@ class Annee
             // set the owning side to null (unless already changed)
             if ($bibliotheque->getAnnee() === $this) {
                 $bibliotheque->setAnnee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcNiveau>
+     */
+    public function getApcNiveaux(): Collection
+    {
+        return $this->apcNiveaux;
+    }
+
+    public function addApcNiveau(ApcNiveau $apcNiveau): self
+    {
+        if (!$this->apcNiveaux->contains($apcNiveau)) {
+            $this->apcNiveaux->add($apcNiveau);
+            $apcNiveau->setAnnées($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApcNiveau(ApcNiveau $apcNiveau): self
+    {
+        if ($this->apcNiveaux->removeElement($apcNiveau)) {
+            // set the owning side to null (unless already changed)
+            if ($apcNiveau->getAnnées() === $this) {
+                $apcNiveau->setAnnées(null);
             }
         }
 
