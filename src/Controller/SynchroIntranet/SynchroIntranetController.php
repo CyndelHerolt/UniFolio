@@ -3,12 +3,16 @@
 namespace App\Controller\SynchroIntranet;
 
 use App\Entity\Annee;
+use App\Entity\ApcReferentiel;
+use App\Entity\Competence;
 use App\Entity\Departement;
 use App\Entity\Diplome;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
 use App\Repository\AnneeRepository;
+use App\Repository\ApcReferentielRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use App\Repository\GroupeRepository;
@@ -303,8 +307,86 @@ class SynchroIntranetController extends AbstractController
     #[Route('/api/intranet/referentiel', name: 'app_synchro_intranet_referentiel')]
     public function synchroReferentiel(
         HttpClientInterface   $client,
+        ApcReferentielRepository $referentielRepository,
+        DepartementRepository $departementRepository,
+        CompetenceRepository $competenceRepository,
     ): Response
     {
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------REFERENTIEL---------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $referentiels = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/referentiel',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $referentiels = $referentiels->toArray();
+        foreach ($referentiels as $referentiel) {
+            $dept = $departementRepository->findOneBy(['libelle' => $referentiel['departement']]);
+            $existingReferentiel = $referentielRepository->findOneBy(['libelle' => $referentiel['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingReferentiel) {
+                $existingReferentiel->setLibelle($referentiel['libelle']);
+                $existingReferentiel->setDescription($referentiel['description']);
+                $existingReferentiel->setAnneePublication($referentiel['annee']);
+                $existingReferentiel->setDepartement($dept);
+                $referentielRepository->save($existingReferentiel, true);
+            } else {
+                //Sinon, on le crée
+                $newReferentiel = new ApcReferentiel();
+                $newReferentiel->setLibelle($referentiel['libelle']);
+                $newReferentiel->setDescription($referentiel['description']);
+                $newReferentiel->setAnneePublication($referentiel['annee']);
+                $newReferentiel->setDepartement($dept);
+                $referentielRepository->save($newReferentiel, true);
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------COMPETENCES---------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $competences = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/competences',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $competences = $competences->toArray();
+        foreach ($competences as $competence) {
+            $referentiel = $referentielRepository->findOneBy(['libelle' => $competence['referentiel']]);
+            $existingCompetence = $competenceRepository->findOneBy(['libelle' => $competence['libelle']]);
+            //Vérifier si le libelle du département existe déjà en base de données
+            if ($existingCompetence) {
+                $existingCompetence->setLibelle($competence['libelle']);
+                $existingCompetence->setNomCourt($competence['nom_court']);
+                $existingCompetence->setCouleur($competence['couleur']);
+                $existingCompetence->setReferentiel($referentiel);
+                $competenceRepository->save($existingCompetence, true);
+            } else {
+                //Sinon, on le crée
+                $newCompetence = new Competence();
+                $newCompetence->setLibelle($competence['libelle']);
+                $newCompetence->setNomCourt($competence['nom_court']);
+                $newCompetence->setCouleur($competence['couleur']);
+                $newCompetence->setReferentiel($referentiel);
+                $competenceRepository->save($newCompetence, true);
+            }
+        }
 
 
         $this->addFlash('success', 'Les données ont bien été importées.');
