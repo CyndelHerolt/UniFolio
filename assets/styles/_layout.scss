@@ -12,40 +12,63 @@ body {
       z-index: 999;
       @include menu-item;
 
-      a {
-        color: $color-light !important;
-      }
+      ul {
+        align-items: center;
 
-      .dropdown-menu {
-        background-color: $color-secondary-focus;
-        border: none !important;
-        width: fit-content;
+        a {
+          color: $color-light !important;
+        }
 
-        .dropdown-item:hover {
-          background-color: $color-primary-focus;
+        .break {
+          color: $color-light;
+          opacity: .2;
+            font-weight: lighter;
+          font-size: 1.25rem;
         }
       }
 
-      .logo {
-        width: 25px;
-        height: 25px;
+      ul:nth-child(2) {
+
+        li {
+
+          a {
+            font-size: .9rem;
+            font-weight: 300;
+          }
+        }
       }
 
-      .collapse {
-        display: flex;
-        justify-content: space-between;
+    .dropdown-menu {
+      background-color: $color-secondary-focus;
+      border: none !important;
+      width: fit-content;
+
+      .dropdown-item:hover {
+        background-color: $color-primary-focus;
       }
     }
-  }
 
-  nav {
+    .logo {
+      width: 25px;
+      height: 25px;
+    }
 
-    .breadcrumb {
-      @include paragraphe;
-      padding: 15px 75px;
-      margin: 0;
+    .collapse {
+      display: flex;
+      justify-content: space-between;
     }
   }
+}
+
+nav {
+
+  .breadcrumb {
+    @include paragraphe;
+    padding: 15px 75px;
+    margin: 0;
+  }
+}
+
 }
 
 
