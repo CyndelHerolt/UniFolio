@@ -3,43 +3,47 @@
 namespace App\Form;
 
 use App\Entity\Users;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Type d\'utilisateur',
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'Etudiant' => 'ROLE_ETUDIANT',
-                    'Enseignant' => 'ROLE_ENSEIGNANT',
+            ->add('username', EmailType::class, [
+                'label' => 'Email universitaire',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre email universitaire',
+                    ]),
+                    new Email([
+                        'message' => 'Veuillez saisir un email valide',
+                    ]),
                 ],
-            ])
-            ->add('password', PasswordType::class);
 
-        //roles field data transformer
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    // transform the array to a string
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    // transform the string back to an array
-                    return [$rolesString];
-                }
-            ));
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre mot de passe',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+                'help' => 'Votre mot de passe doit contenir au moins 6 caractères',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

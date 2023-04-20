@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\SynchroIntranet\UserSynchro;
 use App\Entity\Bibliotheque;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
@@ -10,12 +11,14 @@ use App\Form\UsersType;
 use App\Repository\BibliothequeRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
+use App\Repository\GroupeRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[Route('/users')]
 class UsersController extends AbstractController
@@ -36,6 +39,9 @@ class UsersController extends AbstractController
         EtudiantRepository $etudiantRepository,
         BibliothequeRepository $bibliothequeRepository,
         EnseignantRepository $enseignantRepository,
+        UserSynchro $userSynchro,
+        HttpClientInterface   $client,
+        GroupeRepository $groupeRepository,
     ): Response
     {
 
@@ -55,26 +61,39 @@ class UsersController extends AbstractController
             );
             $user->setPassword($hashedPassword);
 
-//            var_dump($user->getPassword());
+            if (str_contains($user->getUsername(), '@etudiant.univ-reims.fr')) {
+                $mailEtudiant = $user->getUsername();
+                $etudiantSynchro = $userSynchro->synchroEtudiant($mailEtudiant, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+                // Si $etuSynchro est true alors on ajoute l'utilisateur dans la base de données
+                if ($etudiantSynchro) {
+                    $user->setRoles(['ROLE_ETUDIANT']);
+                    $usersRepository->save($user, true);
+//                    dd($user);
+                }
 
-            //            dump($user->getRoles());
-//            die();
-
-            if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
-                $etudiant = new Etudiant();
-                $etudiant->setUsers($user);
-                $biblio = new Bibliotheque();
-                $biblio->setEtudiant($etudiant);
-                $etudiantRepository->save($etudiant, true);
-                $bibliothequeRepository->save($biblio, true);
+                else {
+                    dd('Erreur lors de la synchro');
+                }
             }
-            elseif (in_array('ROLE_ENSEIGNANT', $user->getRoles())) {
-                $enseignant = new Enseignant();
-                $enseignant->setUsers($user);
-                $enseignantRepository->save($enseignant, true);
-            }
+//            elseif (str_contains($user->getEmail(), '@univ-reims.fr')) {
+//                $checkEnseignant = $userSynchro->synchroEnseignant($user->getEmail());
+//            }
 
-            $usersRepository->save($user, true);
+//            if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
+//                $etudiant = new Etudiant();
+//                $etudiant->setUsers($user);
+//                $biblio = new Bibliotheque();
+//                $biblio->setEtudiant($etudiant);
+//                $etudiantRepository->save($etudiant, true);
+//                $bibliothequeRepository->save($biblio, true);
+//            }
+//            elseif (in_array('ROLE_ENSEIGNANT', $user->getRoles())) {
+//                $enseignant = new Enseignant();
+//                $enseignant->setUsers($user);
+//                $enseignantRepository->save($enseignant, true);
+//            }
+
+//            $usersRepository->save($user, true);
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }
