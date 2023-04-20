@@ -7,6 +7,7 @@ use App\Entity\Etudiant;
 use App\Entity\Enseignant;
 use App\Entity\Users;
 use App\Repository\BibliothequeRepository;
+use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
@@ -19,10 +20,10 @@ class UserSynchro extends AbstractController
 {
 
     #[Route('/api/intranet/etudiant', name: 'app_synchro_intranet_etudiant')]
-    public function synchroEtudiant (
+    public function synchroEtudiant(
         $mailEtudiant,
         $user,
-        HttpClientInterface   $client,
+        HttpClientInterface $client,
         EtudiantRepository $etudiantRepository,
         BibliothequeRepository $bibliothequeRepository,
         GroupeRepository $groupeRepository
@@ -43,44 +44,44 @@ class UserSynchro extends AbstractController
 
         $response = $response->toArray();
 
-        if (in_array($mailEtudiant, array_column($response, 'mail_univ'))) {
-           //Sélectionner l'etudiant dans le tableau
-            $etudiant = array_filter($response, function ($etudiant) use ($mailEtudiant) {
-                return $etudiant['mail_univ'] === $mailEtudiant;
-            });
-            foreach ($etudiant as $data) {
-            // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
-            $newEtudiant = new Etudiant();
-            $newEtudiant->setUsers($user);
-            $biblio = new Bibliotheque();
-            $biblio->setEtudiant($newEtudiant);
-            $newEtudiant->setNom($data['nom']);
-            $newEtudiant->setPrenom($data['prenom']);
-            $newEtudiant->setMailUniv($data['mail_univ']);
-            $newEtudiant->setMailPerso($data['mail_perso']);
-            $newEtudiant->setTelephone($data['telephone']);
-            foreach ($data['groupes'] as $groupe) {
-                $groupe = $groupeRepository->findOneBy(['libelle' => $groupe]);
-                $newEtudiant->addGroupe($groupe);
-            }
-            $etudiantRepository->save($newEtudiant, true);
-            $bibliothequeRepository->save($biblio, true);
-            }
+            if (in_array($mailEtudiant, array_column($response, 'mail_univ'))) {
+                //Sélectionner l'etudiant dans le tableau
+                $etudiant = array_filter($response, function ($etudiant) use ($mailEtudiant) {
+                    return $etudiant['mail_univ'] === $mailEtudiant;
+                });
+                foreach ($etudiant as $data) {
+                    // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
+                    $newEtudiant = new Etudiant();
+                    $newEtudiant->setUsers($user);
+                    $biblio = new Bibliotheque();
+                    $biblio->setEtudiant($newEtudiant);
+                    $newEtudiant->setNom($data['nom']);
+                    $newEtudiant->setPrenom($data['prenom']);
+                    $newEtudiant->setMailUniv($data['mail_univ']);
+                    $newEtudiant->setMailPerso($data['mail_perso']);
+                    $newEtudiant->setTelephone($data['telephone']);
+                    foreach ($data['groupes'] as $groupe) {
+                        $groupe = $groupeRepository->findOneBy(['libelle' => $groupe]);
+                        $newEtudiant->addGroupe($groupe);
+                    }
+                    $etudiantRepository->save($newEtudiant, true);
+                    $bibliothequeRepository->save($biblio, true);
+                }
 
-            return true;
-        }
-        else {
-            return false;
+                return true;
+            } else {
+                return false;
+            }
         }
 
-    }
 
     #[Route('/api/intranet/personnel', name: 'app_synchro_intranet_personnel')]
-    public function synchroEnseignant (
+    public function synchroEnseignant(
         $mailEnseignant,
         $user,
-        HttpClientInterface   $client,
+        HttpClientInterface $client,
         EnseignantRepository $enseignantRepository,
+        DepartementRepository $departementRepository,
     )
     {
 
@@ -99,25 +100,27 @@ class UserSynchro extends AbstractController
         $response = $response->toArray();
 
         if (in_array($mailEnseignant, array_column($response, 'mail_univ'))) {
-           //Sélectionner l'enseignant dans le tableau
+            //Sélectionner l'enseignant dans le tableau
             $enseignant = array_filter($response, function ($enseignant) use ($mailEnseignant) {
                 return $enseignant['mail_univ'] === $mailEnseignant;
             });
             foreach ($enseignant as $data) {
-            // Créer un nouvel enseignant dans la base de données avec les données de $enseignant
-            $newEnseignant = new Enseignant();
-            $newEnseignant->setUsers($user);
-            $newEnseignant->setNom($data['nom']);
-            $newEnseignant->setPrenom($data['prenom']);
-            $newEnseignant->setMailUniv($data['mail_univ']);
-            $newEnseignant->setMailPerso($data['mail_perso']);
-            $newEnseignant->setTelephone($data['telephone']);
-            $enseignantRepository->save($newEnseignant, true);
+                // Créer un nouvel enseignant dans la base de données avec les données de $enseignant
+                $newEnseignant = new Enseignant();
+                $newEnseignant->setUsers($user);
+                $newEnseignant->setNom($data['nom']);
+                $newEnseignant->setPrenom($data['prenom']);
+                $newEnseignant->setMailUniv($data['mail_univ']);
+                $newEnseignant->setMailPerso($data['mail_perso']);
+                $newEnseignant->setTelephone($data['telephone']);
+                foreach ($data['departements'] as $departement) {
+                    $departement = $departementRepository->findOneBy(['libelle' => $departement]);
+                    $newEnseignant->AddDepartement($departement);
+                }
+                $enseignantRepository->save($newEnseignant, true);
             }
-
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 

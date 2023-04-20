@@ -9,6 +9,7 @@ use App\Entity\Etudiant;
 use App\Entity\Users;
 use App\Form\UsersType;
 use App\Repository\BibliothequeRepository;
+use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
@@ -33,15 +34,16 @@ class UsersController extends AbstractController
 
     #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
     public function new(
-        Request $request,
-        UsersRepository $usersRepository,
+        Request                     $request,
+        UsersRepository             $usersRepository,
         UserPasswordHasherInterface $passwordHasher,
-        EtudiantRepository $etudiantRepository,
-        BibliothequeRepository $bibliothequeRepository,
-        EnseignantRepository $enseignantRepository,
-        UserSynchro $userSynchro,
-        HttpClientInterface   $client,
-        GroupeRepository $groupeRepository,
+        EtudiantRepository          $etudiantRepository,
+        BibliothequeRepository      $bibliothequeRepository,
+        EnseignantRepository        $enseignantRepository,
+        UserSynchro                 $userSynchro,
+        HttpClientInterface         $client,
+        GroupeRepository            $groupeRepository,
+        DepartementRepository       $departementRepository
     ): Response
     {
 
@@ -63,31 +65,37 @@ class UsersController extends AbstractController
 
             if (str_contains($user->getUsername(), '@etudiant.univ-reims.fr')) {
                 $mailEtudiant = $user->getUsername();
-                $etudiantSynchro = $userSynchro->synchroEtudiant($mailEtudiant, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
-                // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
-                if ($etudiantSynchro) {
-                    $user->setRoles(['ROLE_ETUDIANT']);
-                    $usersRepository->save($user, true);
+
+                if ($etudiantRepository->findOneBy(['mail_univ' => $mailEtudiant])) {
+                    $this->addFlash('danger', 'Vous avez déjà un compte.');
+                } else {
+                    $etudiantSynchro = $userSynchro->synchroEtudiant($mailEtudiant, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+                    // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
+                    if ($etudiantSynchro) {
+                        $user->setRoles(['ROLE_ETUDIANT']);
+                        $usersRepository->save($user, true);
+                    } else {
+                        $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                        return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+                    }
                 }
-                else {
-                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                    return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
-                }
-            }
-            // TODO: Trouver une autre solution que @univ pour les enseignants
+            } // TODO: Trouver une autre solution que @univ pour les enseignants (un id unique et privé, créé depuis l'intranet?)
             elseif (str_contains($user->getUsername(), '@univ-reims.fr')) {
                 $mailEnseignant = $user->getUsername();
-                $enseignantSynchro = $userSynchro->synchroEnseignant($mailEnseignant, $user, $client, $enseignantRepository);
-                if ($enseignantSynchro) {
-                    $user->setRoles(['ROLE_ENSEIGNANT']);
-                    $usersRepository->save($user, true);
+
+                if ($enseignantRepository->findOneBy(['mail_univ' => $mailEnseignant])) {
+                    $this->addFlash('danger', 'Vous avez déjà un compte.');
+                } else {
+                    $enseignantSynchro = $userSynchro->synchroEnseignant($mailEnseignant, $user, $client, $enseignantRepository, $departementRepository);
+                    if ($enseignantSynchro) {
+                        $user->setRoles(['ROLE_ENSEIGNANT']);
+                        $usersRepository->save($user, true);
+                    } else {
+                        $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                        return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
+                    }
                 }
-                else {
-                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                    return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
-                }
-            }
-            else {
+            } else {
                 $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
                 return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
             }
