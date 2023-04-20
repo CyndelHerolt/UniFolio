@@ -64,36 +64,33 @@ class UsersController extends AbstractController
             if (str_contains($user->getUsername(), '@etudiant.univ-reims.fr')) {
                 $mailEtudiant = $user->getUsername();
                 $etudiantSynchro = $userSynchro->synchroEtudiant($mailEtudiant, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
-                // Si $etuSynchro est true alors on ajoute l'utilisateur dans la base de données
+                // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
                 if ($etudiantSynchro) {
                     $user->setRoles(['ROLE_ETUDIANT']);
                     $usersRepository->save($user, true);
-//                    dd($user);
                 }
-
                 else {
-                    dd('Erreur lors de la synchro');
+                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                    return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
                 }
             }
-//            elseif (str_contains($user->getEmail(), '@univ-reims.fr')) {
-//                $checkEnseignant = $userSynchro->synchroEnseignant($user->getEmail());
-//            }
-
-//            if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
-//                $etudiant = new Etudiant();
-//                $etudiant->setUsers($user);
-//                $biblio = new Bibliotheque();
-//                $biblio->setEtudiant($etudiant);
-//                $etudiantRepository->save($etudiant, true);
-//                $bibliothequeRepository->save($biblio, true);
-//            }
-//            elseif (in_array('ROLE_ENSEIGNANT', $user->getRoles())) {
-//                $enseignant = new Enseignant();
-//                $enseignant->setUsers($user);
-//                $enseignantRepository->save($enseignant, true);
-//            }
-
-//            $usersRepository->save($user, true);
+            // TODO: Trouver une autre solution que @univ pour les enseignants
+            elseif (str_contains($user->getUsername(), '@univ-reims.fr')) {
+                $mailEnseignant = $user->getUsername();
+                $enseignantSynchro = $userSynchro->synchroEnseignant($mailEnseignant, $user, $client, $enseignantRepository);
+                if ($enseignantSynchro) {
+                    $user->setRoles(['ROLE_ENSEIGNANT']);
+                    $usersRepository->save($user, true);
+                }
+                else {
+                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                    return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
+                }
+            }
+            else {
+                $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
+            }
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }

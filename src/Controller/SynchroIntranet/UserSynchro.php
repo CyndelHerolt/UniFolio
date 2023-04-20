@@ -7,6 +7,7 @@ use App\Entity\Etudiant;
 use App\Entity\Enseignant;
 use App\Entity\Users;
 use App\Repository\BibliothequeRepository;
+use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,13 +36,12 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
                 ],
             ]
         );
 
         $response = $response->toArray();
-
-//        dd($mailEtudiant);
 
         if (in_array($mailEtudiant, array_column($response, 'mail_univ'))) {
            //Sélectionner l'etudiant dans le tableau
@@ -65,6 +65,54 @@ class UserSynchro extends AbstractController
             }
             $etudiantRepository->save($newEtudiant, true);
             $bibliothequeRepository->save($biblio, true);
+            }
+
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    #[Route('/api/intranet/personnel', name: 'app_synchro_intranet_personnel')]
+    public function synchroEnseignant (
+        $mailEnseignant,
+        $user,
+        HttpClientInterface   $client,
+        EnseignantRepository $enseignantRepository,
+    )
+    {
+
+        $response = $client->request(
+            'GET',
+            'https://127.0.0.1:8001/fr/api/unifolio/enseignant',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ],
+            ]
+        );
+
+        $response = $response->toArray();
+
+        if (in_array($mailEnseignant, array_column($response, 'mail_univ'))) {
+           //Sélectionner l'enseignant dans le tableau
+            $enseignant = array_filter($response, function ($enseignant) use ($mailEnseignant) {
+                return $enseignant['mail_univ'] === $mailEnseignant;
+            });
+            foreach ($enseignant as $data) {
+            // Créer un nouvel enseignant dans la base de données avec les données de $enseignant
+            $newEnseignant = new Enseignant();
+            $newEnseignant->setUsers($user);
+            $newEnseignant->setNom($data['nom']);
+            $newEnseignant->setPrenom($data['prenom']);
+            $newEnseignant->setMailUniv($data['mail_univ']);
+            $newEnseignant->setMailPerso($data['mail_perso']);
+            $newEnseignant->setTelephone($data['telephone']);
+            $enseignantRepository->save($newEnseignant, true);
             }
 
             return true;
