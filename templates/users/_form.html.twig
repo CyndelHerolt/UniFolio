@@ -1,4 +1,5 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+    <button class="btn btn-primary">{{ button_label|default('Créer mon compte') }}</button>
 {{ form_end(form) }}

@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Data] Requête d'import des types de groupes depuis l'intranet">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [AppEnseignant] Suppression des components de suivi des étudiants">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/SynchroIntranetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/SynchroIntranetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Semestre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Semestre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UsersType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UsersType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/new.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -443,91 +450,12 @@
       <workItem from="1681731784939" duration="2134000" />
       <workItem from="1681748474088" duration="4613000" />
       <workItem from="1681798639877" duration="24178000" />
-      <workItem from="1681884367448" duration="10231000" />
-    </task>
-    <task id="LOCAL-00179" summary="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées">
-      <created>1679653778753</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
-      <option name="project" value="LOCAL" />
-      <updated>1679653778755</updated>
-    </task>
-    <task id="LOCAL-00180" summary="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées">
-      <created>1679654992968</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1679654992968</updated>
-    </task>
-    <task id="LOCAL-00181" summary="fix: [Page] Formulaire -&gt; ordre des pages selon nombres de pages créées">
-      <created>1679659390166</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
-      <option name="project" value="LOCAL" />
-      <updated>1679659390166</updated>
-    </task>
-    <task id="LOCAL-00182" summary="fix: [Portfolio] Affichage modal">
-      <created>1679749876034</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
-      <option name="project" value="LOCAL" />
-      <updated>1679749876034</updated>
-    </task>
-    <task id="LOCAL-00183" summary="fix: [Trace] Mise en forme du formulaire">
-      <created>1679835423553</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
-      <option name="project" value="LOCAL" />
-      <updated>1679835423553</updated>
-    </task>
-    <task id="LOCAL-00184" summary="fix: [Portfolio] Mise en forme du formulaire">
-      <created>1679835477266</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1679835477266</updated>
-    </task>
-    <task id="LOCAL-00185" summary="fix: [Page] Gestion des doublons d'attributs 'ordre'">
-      <created>1679903055251</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1679903055251</updated>
-    </task>
-    <task id="LOCAL-00186" summary="fix: [Page] Gestion des doublons d'attributs 'ordre'">
-      <created>1679903564922</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1679903564922</updated>
-    </task>
-    <task id="LOCAL-00187" summary="fix: [Page] Flash messages">
-      <created>1679903968272</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1679903968273</updated>
-    </task>
-    <task id="LOCAL-00188" summary="fix: [Page] Flash messages">
-      <created>1679904012164</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1679904012164</updated>
-    </task>
-    <task id="LOCAL-00189" summary="fix: [Trace] Ajout de l'attribut 'ordre' dans le formulaire">
-      <created>1679907190788</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
-      <option name="project" value="LOCAL" />
-      <updated>1679907190788</updated>
-    </task>
-    <task id="LOCAL-00190" summary="fix: [Page] Flash messages">
-      <created>1679907272520</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
-      <option name="project" value="LOCAL" />
-      <updated>1679907272520</updated>
+      <workItem from="1681884367448" duration="18487000" />
+      <workItem from="1681914056867" duration="424000" />
+      <workItem from="1681971700518" duration="17657000" />
+      <workItem from="1682057680143" duration="389000" />
+      <workItem from="1682058143820" duration="4968000" />
+      <workItem from="1682063945120" duration="3282000" />
     </task>
     <task id="LOCAL-00191" summary="feat: [Enseignant] Génération de la structure &quot;en dur&quot; de la gestion des étudiants suivis sur le dashboard enseignant">
       <created>1679923969218</created>
@@ -788,7 +716,91 @@
       <option name="project" value="LOCAL" />
       <updated>1681886311376</updated>
     </task>
-    <option name="localTasksCounter" value="228" />
+    <task id="LOCAL-00228" summary="feat: [Data] Requête d'import des groupes depuis l'intranet">
+      <created>1681895951143</created>
+      <option name="number" value="00228" />
+      <option name="presentableId" value="LOCAL-00228" />
+      <option name="project" value="LOCAL" />
+      <updated>1681895951143</updated>
+    </task>
+    <task id="LOCAL-00229" summary="feat: [Database] Création des entités pour import du référentiel">
+      <created>1681905791736</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1681905791736</updated>
+    </task>
+    <task id="LOCAL-00230" summary="feat: [Data] Gestion de l'import de la partie &quot;Structure&quot; depuis l'Intranet">
+      <created>1681905882334</created>
+      <option name="number" value="00230" />
+      <option name="presentableId" value="LOCAL-00230" />
+      <option name="project" value="LOCAL" />
+      <updated>1681905882334</updated>
+    </task>
+    <task id="LOCAL-00231" summary="feat: [Data] Import des référentiels de compétences depuis l'intranet">
+      <created>1681909127939</created>
+      <option name="number" value="00231" />
+      <option name="presentableId" value="LOCAL-00231" />
+      <option name="project" value="LOCAL" />
+      <updated>1681909127939</updated>
+    </task>
+    <task id="LOCAL-00232" summary="feat: [Data] Import des référentiels de compétences depuis l'intranet">
+      <created>1681910410231</created>
+      <option name="number" value="00232" />
+      <option name="presentableId" value="LOCAL-00232" />
+      <option name="project" value="LOCAL" />
+      <updated>1681910410231</updated>
+    </task>
+    <task id="LOCAL-00233" summary="fix: [Register] Lien vers inscription">
+      <created>1681983038064</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1681983038064</updated>
+    </task>
+    <task id="LOCAL-00234" summary="fix: [Data] maj des entités pour suppression en cascade">
+      <created>1681983079317</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1681983079317</updated>
+    </task>
+    <task id="LOCAL-00235" summary="fix: [Structure] Division de la synchro en plusieurs controller">
+      <created>1681983125406</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1681983125406</updated>
+    </task>
+    <task id="LOCAL-00236" summary="feat: [Register] Récupération des infos d'un étudiant depuis l'intranet à la création de son compte">
+      <created>1681983159180</created>
+      <option name="number" value="00236" />
+      <option name="presentableId" value="LOCAL-00236" />
+      <option name="project" value="LOCAL" />
+      <updated>1681983159180</updated>
+    </task>
+    <task id="LOCAL-00237" summary="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte">
+      <created>1681985365697</created>
+      <option name="number" value="00237" />
+      <option name="presentableId" value="LOCAL-00237" />
+      <option name="project" value="LOCAL" />
+      <updated>1681985365697</updated>
+    </task>
+    <task id="LOCAL-00238" summary="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte">
+      <created>1682003653480</created>
+      <option name="number" value="00238" />
+      <option name="presentableId" value="LOCAL-00238" />
+      <option name="project" value="LOCAL" />
+      <updated>1682003653480</updated>
+    </task>
+    <task id="LOCAL-00239" summary="fix: [AppEnseignant] Suppression des components de suivi des étudiants">
+      <created>1682003752591</created>
+      <option name="number" value="00239" />
+      <option name="presentableId" value="LOCAL-00239" />
+      <option name="project" value="LOCAL" />
+      <updated>1682003752592</updated>
+    </task>
+    <option name="localTasksCounter" value="240" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -849,16 +861,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Portfolio] Suppression de l'image si portfolio supprimé" />
-    <MESSAGE value="feat: [CV] Attribution d'id uniques aux activités d'experience" />
-    <MESSAGE value="fix: [Trace] Conservation mais possibilité de supprimer une image lors de l'édition (en cours)" />
-    <MESSAGE value="fix: [Trace] Gestion de collection de média dans le formulaire" />
-    <MESSAGE value="fix: [CV] Envoi DB activites" />
-    <MESSAGE value="fix: [README] maj license" />
-    <MESSAGE value="feat: [Fixtures] Ajout des Fixtures" />
-    <MESSAGE value="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre" />
-    <MESSAGE value="feat: [Admin] Révision des infos affichées dans l'admin" />
-    <MESSAGE value="feat: [Enseignants] Génération des components pour alimenter le dashboard" />
     <MESSAGE value="feat: [Fixtures] m.a.j des fixutres - liens" />
     <MESSAGE value="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes" />
     <MESSAGE value="fixture: [Fixtures] Suppression des doublons" />
@@ -874,6 +876,16 @@
     <MESSAGE value="feat: [Data] Requête d'import des années depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des semestres depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des types de groupes depuis l'intranet" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Data] Requête d'import des types de groupes depuis l'intranet" />
+    <MESSAGE value="feat: [Data] Requête d'import des groupes depuis l'intranet" />
+    <MESSAGE value="feat: [Database] Création des entités pour import du référentiel" />
+    <MESSAGE value="feat: [Data] Gestion de l'import de la partie &quot;Structure&quot; depuis l'Intranet" />
+    <MESSAGE value="feat: [Data] Import des référentiels de compétences depuis l'intranet" />
+    <MESSAGE value="fix: [Register] Lien vers inscription" />
+    <MESSAGE value="fix: [Data] maj des entités pour suppression en cascade" />
+    <MESSAGE value="fix: [Structure] Division de la synchro en plusieurs controller" />
+    <MESSAGE value="feat: [Register] Récupération des infos d'un étudiant depuis l'intranet à la création de son compte" />
+    <MESSAGE value="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte" />
+    <MESSAGE value="fix: [AppEnseignant] Suppression des components de suivi des étudiants" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [AppEnseignant] Suppression des components de suivi des étudiants" />
   </component>
 </project>

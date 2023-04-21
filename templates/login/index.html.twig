@@ -7,21 +7,37 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Username :</label>
-        <input type="text" id="username" name="_username" required value="{{ last_username }}">
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" required>
-
-        {# If you want to control the URL the user is redirected to on success
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Connexion</li>
+        </ol>
+    </nav>
+    <div class="container account">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <h1>Connexion</h1>
+                <form action="{{ path('app_login') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Login URCA</label>
+                        <input type="text" id="username" name="_username" class="form-control" required
+                               value="{{ last_username }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="_password" class="form-control" required>
+                    </div>
+                    {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
 
-        {# Protection contre les attaques CSRF todo: c'est quoi une attaque CSRF ? #}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    {# Protection contre les attaques CSRF todo: c'est quoi une attaque CSRF ? #}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit">Connexion</button>
+                    <button type="submit" class="btn btn-primary">Connexion</button>
 
-        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
-    </form>
+                    <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

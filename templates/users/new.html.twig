@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Users{% endblock %}
+{% block title %}UniFolio - créer un compte{% endblock %}
 
 {% block body %}
-    <h1>Create new Users</h1>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Inscription</li>
+        </ol>
+    </nav>
+    <div class="container account">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <h1>Inscription</h1>
 
-    {{ include('users/_form.html.twig') }}
+                <div class="alert alert-primary d-flex align-items-center " role="alert">
+                    <i class="fa fa-info-circle fa-xl"></i>
+                    <div>
+                        Une fois votre compte créé, vos informations seront automatiquement récupérées depuis l'Intranet afin d'alimenter votre profil.
+                    </div>
+                </div>
 
-    <a href="{{ path('app_users_index') }}">back to list</a>
+                {{ include('users/_form.html.twig') }}
+
+                <p>Vous possédez déjà un compte ? <a href="{{ path('app_login') }}">Connexion</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -28,7 +28,7 @@
 
         div {
           padding: 15px 35px;
-            margin: 15px 0;
+          margin: 15px 0;
           background-color: $color-light;
           box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
         }
@@ -37,6 +37,37 @@
 
     aside {
       background-color: $color-primary;
+    }
+  }
+}
+
+.account {
+  padding: 0 !important;
+
+  .row {
+    justify-content: space-between;
+    margin: 0;
+
+    .col-lg-6 {
+      padding: 15px;
+        margin: 0 auto;
+
+      i {
+        margin-right: 15px;
+      }
+
+      .form-group {
+        margin: 15px 0;
+      }
+
+      button {
+        @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+        margin: 0 0 15px 0;
+
+        &:hover {
+          @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+        }
+      }
     }
   }
 }

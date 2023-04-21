@@ -18,13 +18,11 @@ class UsersType extends AbstractType
     {
         $builder
             ->add('username', EmailType::class, [
-                'label' => 'Email universitaire',
+                'label' => 'Login URCA',
+                'help' => 'Le login que vous utilisez habituellement pour vous connecter aux services de l\'URCA',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez saisir votre email universitaire',
-                    ]),
-                    new Email([
-                        'message' => 'Veuillez saisir un email valide',
+                        'message' => 'Veuillez saisir votre login URCA',
                     ]),
                 ],
 
