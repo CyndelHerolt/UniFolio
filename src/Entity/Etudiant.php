@@ -52,6 +52,9 @@ class Etudiant
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
+    #[ORM\Column(length: 75, nullable: true)]
+    private ?string $username = null;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -281,6 +284,18 @@ class Etudiant
     public function setBio(?string $bio): self
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

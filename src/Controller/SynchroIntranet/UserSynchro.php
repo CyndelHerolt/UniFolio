@@ -21,7 +21,7 @@ class UserSynchro extends AbstractController
 
     #[Route('/api/intranet/etudiant', name: 'app_synchro_intranet_etudiant')]
     public function synchroEtudiant(
-        $mailEtudiant,
+        $login,
         $user,
         HttpClientInterface $client,
         EtudiantRepository $etudiantRepository,
@@ -44,10 +44,10 @@ class UserSynchro extends AbstractController
 
         $response = $response->toArray();
 
-            if (in_array($mailEtudiant, array_column($response, 'mail_univ'))) {
+            if (in_array($login, array_column($response, 'username'))) {
                 //Sélectionner l'etudiant dans le tableau
-                $etudiant = array_filter($response, function ($etudiant) use ($mailEtudiant) {
-                    return $etudiant['mail_univ'] === $mailEtudiant;
+                $etudiant = array_filter($response, function ($etudiant) use ($login) {
+                    return $etudiant['username'] === $login;
                 });
                 foreach ($etudiant as $data) {
                     // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
@@ -57,6 +57,7 @@ class UserSynchro extends AbstractController
                     $biblio->setEtudiant($newEtudiant);
                     $newEtudiant->setNom($data['nom']);
                     $newEtudiant->setPrenom($data['prenom']);
+                    $newEtudiant->setUsername($data['username']);
                     $newEtudiant->setMailUniv($data['mail_univ']);
                     $newEtudiant->setMailPerso($data['mail_perso']);
                     $newEtudiant->setTelephone($data['telephone']);
@@ -67,7 +68,6 @@ class UserSynchro extends AbstractController
                     $etudiantRepository->save($newEtudiant, true);
                     $bibliothequeRepository->save($biblio, true);
                 }
-
                 return true;
             } else {
                 return false;
@@ -77,7 +77,7 @@ class UserSynchro extends AbstractController
 
     #[Route('/api/intranet/personnel', name: 'app_synchro_intranet_personnel')]
     public function synchroEnseignant(
-        $mailEnseignant,
+        $login,
         $user,
         HttpClientInterface $client,
         EnseignantRepository $enseignantRepository,
@@ -99,10 +99,10 @@ class UserSynchro extends AbstractController
 
         $response = $response->toArray();
 
-        if (in_array($mailEnseignant, array_column($response, 'mail_univ'))) {
+        if (in_array($login, array_column($response, 'username'))) {
             //Sélectionner l'enseignant dans le tableau
-            $enseignant = array_filter($response, function ($enseignant) use ($mailEnseignant) {
-                return $enseignant['mail_univ'] === $mailEnseignant;
+            $enseignant = array_filter($response, function ($enseignant) use ($login) {
+                return $enseignant['username'] === $login;
             });
             foreach ($enseignant as $data) {
                 // Créer un nouvel enseignant dans la base de données avec les données de $enseignant

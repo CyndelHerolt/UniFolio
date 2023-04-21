@@ -63,42 +63,27 @@ class UsersController extends AbstractController
             );
             $user->setPassword($hashedPassword);
 
-            if (str_contains($user->getUsername(), '@etudiant.univ-reims.fr')) {
-                $mailEtudiant = $user->getUsername();
+//            if (str_contains($user->getUsername(), 'login')) {
+                $login = $user->getUsername();
 
-                if ($etudiantRepository->findOneBy(['mail_univ' => $mailEtudiant])) {
+                if ($etudiantRepository->findOneBy(['username' => $login]) || $enseignantRepository->findOneBy(['username' => $login])) {
                     $this->addFlash('danger', 'Vous avez déjà un compte.');
                 } else {
-                    $etudiantSynchro = $userSynchro->synchroEtudiant($mailEtudiant, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+                    $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+                    $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
                     // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
                     if ($etudiantSynchro) {
                         $user->setRoles(['ROLE_ETUDIANT']);
                         $usersRepository->save($user, true);
-                    } else {
+                    } elseif ($enseignantSynchro) {
+                        $user->setRoles(['ROLE_ENSEIGNANT']);
+                        $usersRepository->save($user, true);
+                    }
+                    else {
                         $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
                         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
                     }
                 }
-            } // TODO: Trouver une autre solution que @univ pour les enseignants (un id unique et privé, créé depuis l'intranet?)
-            elseif (str_contains($user->getUsername(), '@univ-reims.fr')) {
-                $mailEnseignant = $user->getUsername();
-
-                if ($enseignantRepository->findOneBy(['mail_univ' => $mailEnseignant])) {
-                    $this->addFlash('danger', 'Vous avez déjà un compte.');
-                } else {
-                    $enseignantSynchro = $userSynchro->synchroEnseignant($mailEnseignant, $user, $client, $enseignantRepository, $departementRepository);
-                    if ($enseignantSynchro) {
-                        $user->setRoles(['ROLE_ENSEIGNANT']);
-                        $usersRepository->save($user, true);
-                    } else {
-                        $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                        return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
-                    }
-                }
-            } else {
-                $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
-            }
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }

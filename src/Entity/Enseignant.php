@@ -45,6 +45,9 @@ class Enseignant
     #[ORM\ManyToMany(targetEntity: Departement::class, inversedBy: 'enseignants')]
     private Collection $departement;
 
+    #[ORM\Column(length: 75, nullable: true)]
+    private ?string $username = null;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
@@ -250,6 +253,18 @@ class Enseignant
     public function removeDepartement(Departement $departement): self
     {
         $this->departement->removeElement($departement);
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
