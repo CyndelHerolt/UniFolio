@@ -14,12 +14,14 @@ use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\UsersRepository;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 #[Route('/users')]
 class UsersController extends AbstractController
@@ -43,7 +45,9 @@ class UsersController extends AbstractController
         UserSynchro                 $userSynchro,
         HttpClientInterface         $client,
         GroupeRepository            $groupeRepository,
-        DepartementRepository       $departementRepository
+        DepartementRepository       $departementRepository,
+        MailerService               $mailerService,
+        VerifyEmailHelperInterface  $verifyEmailHelper
     ): Response
     {
 
@@ -54,7 +58,7 @@ class UsersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $plaintextPassword = $user->getPassword();
-            var_dump($plaintextPassword);
+            $login = $user->getUsername();
 
 //             hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(
@@ -63,27 +67,26 @@ class UsersController extends AbstractController
             );
             $user->setPassword($hashedPassword);
 
-//            if (str_contains($user->getUsername(), 'login')) {
-                $login = $user->getUsername();
-
-                if ($etudiantRepository->findOneBy(['username' => $login]) || $enseignantRepository->findOneBy(['username' => $login])) {
-                    $this->addFlash('danger', 'Vous avez déjà un compte.');
+            if ($etudiantRepository->findOneBy(['username' => $login])) {
+                $this->addFlash('danger', 'Vous avez déjà un compte.');
+            } elseif ($enseignantRepository->findOneBy(['username' => $login])) {
+                $this->addFlash('danger', 'Vous avez déjà un compte.');
+            } else {
+                $getEmailEtudiant = $userSynchro->getEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
+                $getEmailEnseignant = $userSynchro->getEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
+                if ($getEmailEtudiant) {
+                    $user->setRoles(['ROLE_ETUDIANT']);
+                    $usersRepository->save($user, true);
+                    $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
+                } elseif ($getEmailEnseignant) {
+                    $user->setRoles(['ROLE_ENSEIGNANT']);
+                    $usersRepository->save($user, true);
+                    $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
                 } else {
-                    $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
-                    $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
-                    // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
-                    if ($etudiantSynchro) {
-                        $user->setRoles(['ROLE_ETUDIANT']);
-                        $usersRepository->save($user, true);
-                    } elseif ($enseignantSynchro) {
-                        $user->setRoles(['ROLE_ENSEIGNANT']);
-                        $usersRepository->save($user, true);
-                    }
-                    else {
-                        $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                        return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
-                    }
+                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                    return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
                 }
+            }
 
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -93,6 +96,24 @@ class UsersController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/verify', name: 'app_verify_email')]
+    public function verifyUserEmail(): Response
+    {
+        //TODO: synchro intranet
+//        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+//        $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
+//        // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
+//        if ($etudiantSynchro) {
+//            $user->setRoles(['ROLE_ETUDIANT']);
+//            $usersRepository->save($user, true);
+//        } elseif ($enseignantSynchro) {
+//            $user->setRoles(['ROLE_ENSEIGNANT']);
+//            $usersRepository->save($user, true);
+//        }
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+
     }
 
     #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
