@@ -11,6 +11,7 @@ use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\UsersRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class UserSynchro extends AbstractController
         $login,
         HttpClientInterface $client,
         MailerService $mailerService,
-        VerifyEmailHelperInterface $verifyEmailHelper
+        VerifyEmailHelperInterface $verifyEmailHelper,
     )
     {
 
@@ -57,7 +58,7 @@ class UserSynchro extends AbstractController
                         'app_verify_email',
                         $data['id'],
                         $data['mail_univ'],
-                        ['id' => $data['id']]
+                        ['id' => $data['username']]
                     );
                     $mailerService->sendMail($mailEtudiant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant : ' . $signatureComponents->getSignedUrl());
                 }
@@ -154,8 +155,8 @@ class UserSynchro extends AbstractController
                 $signatureComponents = $verifyEmailHelper->generateSignature(
                     'app_verify_email',
                     $data['id'],
-                    $data['mail_univ'],
-                    ['id' => $data['id']]
+                    $data['username'],
+                    ['id' => $data['username']]
                 );
                 $mailerService->sendMail($mailEnseignant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant : ' . $signatureComponents->getSignedUrl());
             }

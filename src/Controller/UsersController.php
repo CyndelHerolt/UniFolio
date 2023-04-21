@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 #[Route('/users')]
@@ -47,7 +48,7 @@ class UsersController extends AbstractController
         GroupeRepository            $groupeRepository,
         DepartementRepository       $departementRepository,
         MailerService               $mailerService,
-        VerifyEmailHelperInterface  $verifyEmailHelper
+        VerifyEmailHelperInterface  $verifyEmailHelper,
     ): Response
     {
 
@@ -76,6 +77,8 @@ class UsersController extends AbstractController
                 $getEmailEnseignant = $userSynchro->getEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
                 if ($getEmailEtudiant) {
                     $user->setRoles(['ROLE_ETUDIANT']);
+//                    TODO: récupérer l'email de l'étudiant depuis la requête
+//                    $user->setEmail();
                     $usersRepository->save($user, true);
                     $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
                 } elseif ($getEmailEnseignant) {
@@ -99,9 +102,31 @@ class UsersController extends AbstractController
     }
 
     #[Route('/verify', name: 'app_verify_email')]
-    public function verifyUserEmail(): Response
+    public function verifyUserEmail(
+        Request $request,
+        VerifyEmailHelperInterface $verifyEmailHelper,
+        UsersRepository $usersRepository
+    ): Response
     {
         //TODO: synchro intranet
+        $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
+//        dd($user);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        try {
+            $verifyEmailHelper->validateEmailConfirmation(
+                $request->getUri(),
+                $user->getId(),
+                $user->getEmail(),
+            );
+        } catch (VerifyEmailExceptionInterface $e) {
+            $this->addFlash('error', $e->getReason());
+            return $this->redirectToRoute('app_users_new');
+        }
+        dd('TODO');
+
+
 //        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
 //        $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
 //        // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
