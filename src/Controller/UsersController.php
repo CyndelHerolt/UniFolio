@@ -41,12 +41,9 @@ class UsersController extends AbstractController
         UsersRepository             $usersRepository,
         UserPasswordHasherInterface $passwordHasher,
         EtudiantRepository          $etudiantRepository,
-        BibliothequeRepository      $bibliothequeRepository,
         EnseignantRepository        $enseignantRepository,
         UserSynchro                 $userSynchro,
         HttpClientInterface         $client,
-        GroupeRepository            $groupeRepository,
-        DepartementRepository       $departementRepository,
         MailerService               $mailerService,
         VerifyEmailHelperInterface  $verifyEmailHelper,
     ): Response
@@ -134,7 +131,6 @@ class UsersController extends AbstractController
         }
         $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
         $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
-        // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
         if ($etudiantSynchro) {
             $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
         } elseif ($enseignantSynchro) {
@@ -154,7 +150,7 @@ class UsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher, EtudiantRepository $etudiantRepository): Response
+    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
@@ -162,7 +158,6 @@ class UsersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $plaintextPassword = $user->getPassword();
-//            var_dump($plaintextPassword);
 
 //             hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(

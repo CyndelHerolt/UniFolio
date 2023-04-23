@@ -7,6 +7,7 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
@@ -15,7 +16,7 @@
     </nav>
     <div class="container account">
         <div class="row">
-            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+            <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
                 <h1>Connexion</h1>
                 <form action="{{ path('app_login') }}" method="post">
                     <div class="form-group">

@@ -12,6 +12,8 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
+        $user = $this->getUser();
+
         if ($this->isGranted('ROLE_ETUDIANT')) {
 
             return $this->redirectToRoute('etudiant_dashboard');
@@ -25,9 +27,5 @@ class DashboardController extends AbstractController
         else {
             return $this->redirectToRoute('app_login');
         }
-
-//        return $this->render('dashboard/index.html.twig', [
-//            'controller_name' => 'DashboardController',
-//        ]);
     }
 }
