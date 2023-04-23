@@ -105,12 +105,19 @@ class UsersController extends AbstractController
     public function verifyUserEmail(
         Request                    $request,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        UsersRepository            $usersRepository
+        UsersRepository            $usersRepository,
+        UserSynchro                $userSynchro,
+        HttpClientInterface        $client,
+        EtudiantRepository         $etudiantRepository,
+        BibliothequeRepository     $bibliothequeRepository,
+        EnseignantRepository       $enseignantRepository,
+        GroupeRepository           $groupeRepository,
+        DepartementRepository      $departementRepository,
     ): Response
     {
         //TODO: synchro intranet
         $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
-//        dd($user);
+        $login = $user->getUsername();
         if (!$user) {
             throw $this->createNotFoundException();
         }
@@ -124,19 +131,18 @@ class UsersController extends AbstractController
             $this->addFlash('error', $e->getReason());
             return $this->redirectToRoute('app_users_new');
         }
-        dd('TODO');
-
-
-//        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
-//        $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
-//        // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
-//        if ($etudiantSynchro) {
+//        dd('TODO');
+        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+        $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
+        // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
+        if ($etudiantSynchro) {
 //            $user->setRoles(['ROLE_ETUDIANT']);
 //            $usersRepository->save($user, true);
-//        } elseif ($enseignantSynchro) {
-//            $user->setRoles(['ROLE_ENSEIGNANT']);
-//            $usersRepository->save($user, true);
-//        }
+            $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
+        } elseif ($enseignantSynchro) {
+            $user->setRoles(['ROLE_ENSEIGNANT']);
+            $usersRepository->save($user, true);
+        }
         return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
 
     }
