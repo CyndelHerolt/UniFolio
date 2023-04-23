@@ -51,7 +51,6 @@ class UserSynchro extends AbstractController
                     return $etudiant['username'] === $login;
                 });
                 foreach ($etudiant as $data) {
-//                    dd($data);
                     // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
                     $mailEtudiant = $data['mail_univ'];
                     $signatureComponents = $verifyEmailHelper->generateSignature(
@@ -159,7 +158,7 @@ class UserSynchro extends AbstractController
         }
 
     #[Route('/api/intranet/enseignant', name: 'app_email_intranet_enseignant')]
-    public function getEmailEnseignant(
+    public function checkEmailEnseignant(
         $login,
         HttpClientInterface $client,
         MailerService $mailerService,
@@ -190,8 +189,8 @@ class UserSynchro extends AbstractController
                 $mailEnseignant = $data['mail_univ'];
                 $signatureComponents = $verifyEmailHelper->generateSignature(
                     'app_verify_email',
-                    $data['id'],
                     $data['username'],
+                    $data['mail_univ'],
                     ['id' => $data['username']]
                 );
                 $mailerService->sendMail($mailEnseignant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant : ' . $signatureComponents->getSignedUrl());
@@ -201,8 +200,43 @@ class UserSynchro extends AbstractController
         return false;
     }
 
+    #[Route('/api/intranet/enseignant', name: 'app_get_email_intranet_enseignant')]
+    public function getEmailEnseignant(
+        $login,
+        HttpClientInterface $client,
+    )
+    {
 
-    #[Route('/api/intranet/personnel', name: 'app_synchro_intranet_personnel')]
+        $response = $client->request(
+            'GET',
+            'https://127.0.0.1:8001/fr/api/unifolio/enseignant',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ],
+            ]
+        );
+
+        $response = $response->toArray();
+
+        if (in_array($login, array_column($response, 'username'))) {
+            //Sélectionner l'etudiant dans le tableau
+            $enseignant = array_filter($response, function ($enseignant) use ($login) {
+                return $enseignant['username'] === $login;
+            });
+            foreach ($enseignant as $data) {
+                // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
+                $mailEnseignant = $data['mail_univ'];
+            }
+            return $mailEnseignant;
+        }
+        return false;
+    }
+
+
+    #[Route('/api/intranet/enseignant', name: 'app_synchro_intranet_enseignant')]
     public function synchroEnseignant(
         $login,
         $user,

@@ -73,16 +73,18 @@ class UsersController extends AbstractController
             } elseif ($enseignantRepository->findOneBy(['username' => $login])) {
                 $this->addFlash('danger', 'Vous avez déjà un compte.');
             } else {
-                $CheckEmailEtudiant = $userSynchro->CheckEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
-                $getEmailEnseignant = $userSynchro->getEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
-                if ($CheckEmailEtudiant) {
+                $checkEmailEtudiant = $userSynchro->CheckEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
+                $checkEmailEnseignant = $userSynchro->checkEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
+                if ($checkEmailEtudiant) {
                     $user->setRoles(['ROLE_ETUDIANT']);
                     $mailEtudiant = $userSynchro->getEmailEtudiant($login, $client);
                     $user->setEmail($mailEtudiant);
                     $usersRepository->save($user, true);
                     $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
-                } elseif ($getEmailEnseignant) {
+                } elseif ($checkEmailEnseignant) {
                     $user->setRoles(['ROLE_ENSEIGNANT']);
+                    $mailEnseignant = $userSynchro->getEmailEnseignant($login, $client);
+                    $user->setEmail($mailEnseignant);
                     $usersRepository->save($user, true);
                     $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
                 } else {
@@ -115,7 +117,6 @@ class UsersController extends AbstractController
         DepartementRepository      $departementRepository,
     ): Response
     {
-        //TODO: synchro intranet
         $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
         $login = $user->getUsername();
         if (!$user) {
@@ -131,17 +132,14 @@ class UsersController extends AbstractController
             $this->addFlash('error', $e->getReason());
             return $this->redirectToRoute('app_users_new');
         }
-//        dd('TODO');
         $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
         $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
         // Si $etudiantSynchro est true alors on ajoute l'utilisateur dans la base de données
         if ($etudiantSynchro) {
-//            $user->setRoles(['ROLE_ETUDIANT']);
-//            $usersRepository->save($user, true);
             $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
         } elseif ($enseignantSynchro) {
-            $user->setRoles(['ROLE_ENSEIGNANT']);
-            $usersRepository->save($user, true);
+            $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
+
         }
         return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
 
