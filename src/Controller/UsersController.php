@@ -73,12 +73,12 @@ class UsersController extends AbstractController
             } elseif ($enseignantRepository->findOneBy(['username' => $login])) {
                 $this->addFlash('danger', 'Vous avez déjà un compte.');
             } else {
-                $getEmailEtudiant = $userSynchro->getEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
+                $CheckEmailEtudiant = $userSynchro->CheckEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
                 $getEmailEnseignant = $userSynchro->getEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
-                if ($getEmailEtudiant) {
+                if ($CheckEmailEtudiant) {
                     $user->setRoles(['ROLE_ETUDIANT']);
-//                    TODO: récupérer l'email de l'étudiant depuis la requête
-//                    $user->setEmail();
+                    $mailEtudiant = $userSynchro->getEmailEtudiant($login, $client);
+                    $user->setEmail($mailEtudiant);
                     $usersRepository->save($user, true);
                     $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
                 } elseif ($getEmailEnseignant) {
@@ -103,9 +103,9 @@ class UsersController extends AbstractController
 
     #[Route('/verify', name: 'app_verify_email')]
     public function verifyUserEmail(
-        Request $request,
+        Request                    $request,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        UsersRepository $usersRepository
+        UsersRepository            $usersRepository
     ): Response
     {
         //TODO: synchro intranet
@@ -117,7 +117,7 @@ class UsersController extends AbstractController
         try {
             $verifyEmailHelper->validateEmailConfirmation(
                 $request->getUri(),
-                $user->getId(),
+                $user->getUsername(),
                 $user->getEmail(),
             );
         } catch (VerifyEmailExceptionInterface $e) {

@@ -23,7 +23,7 @@ class UserSynchro extends AbstractController
 {
 
     #[Route('/api/intranet/etudiant', name: 'app_email_intranet_etudiant')]
-    public function getEmailEtudiant(
+    public function CheckEmailEtudiant(
         $login,
         HttpClientInterface $client,
         MailerService $mailerService,
@@ -56,13 +56,49 @@ class UserSynchro extends AbstractController
                     $mailEtudiant = $data['mail_univ'];
                     $signatureComponents = $verifyEmailHelper->generateSignature(
                         'app_verify_email',
-                        $data['id'],
+                        $data['username'],
                         $data['mail_univ'],
                         ['id' => $data['username']]
                     );
                     $mailerService->sendMail($mailEtudiant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant : ' . $signatureComponents->getSignedUrl());
                 }
                 return true;
+            }
+//            dd($response);
+            return false;
+    }
+
+    #[Route('/api/intranet/etudiant', name: 'app_get_email_intranet_etudiant')]
+    public function getEmailEtudiant(
+        $login,
+        HttpClientInterface $client,
+    )
+    {
+
+        $response = $client->request(
+            'GET',
+            'https://127.0.0.1:8001/fr/api/unifolio/etudiant',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ],
+            ]
+        );
+
+        $response = $response->toArray();
+
+            if (in_array($login, array_column($response, 'username'))) {
+                //Sélectionner l'etudiant dans le tableau
+                $etudiant = array_filter($response, function ($etudiant) use ($login) {
+                    return $etudiant['username'] === $login;
+                });
+                foreach ($etudiant as $data) {
+                    // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
+                    $mailEtudiant = $data['mail_univ'];
+                    }
+                return $mailEtudiant;
             }
             return false;
     }
