@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\TypeGroupe;
-use App\Repository\TypeGroupeRepository;
+use App\Repository\SemestreRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,12 +15,12 @@ class TypeGroupeFixture extends Fixture implements OrderedFixtureInterface
     {
         return 9;
     }
-
     /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
+
         $typeGroupe1 = new TypeGroupe();
         $typeGroupe1->setLibelle('CM');
         $manager->persist($typeGroupe1);

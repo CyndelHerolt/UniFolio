@@ -271,6 +271,7 @@ class UserSynchro extends AbstractController
                 $newEnseignant->setUsers($user);
                 $newEnseignant->setNom($data['nom']);
                 $newEnseignant->setPrenom($data['prenom']);
+                $newEnseignant->setUsername($data['username']);
                 $newEnseignant->setMailUniv($data['mail_univ']);
                 $newEnseignant->setMailPerso($data['mail_perso']);
                 $newEnseignant->setTelephone($data['telephone']);

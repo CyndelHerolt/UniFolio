@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AnneeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AnneeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/DepartementFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/DepartementFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/DiplomeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/DiplomeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +57,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\wamp64\bin\php\php8.1.0\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
@@ -449,34 +456,12 @@
       <workItem from="1682057680143" duration="389000" />
       <workItem from="1682058143820" duration="4968000" />
       <workItem from="1682063945120" duration="14890000" />
-    </task>
-    <task id="LOCAL-00194" summary="feat: [CV] Attribution data dynamique btn ajout activite">
-      <created>1679931159479</created>
-      <option name="number" value="00194" />
-      <option name="presentableId" value="LOCAL-00194" />
-      <option name="project" value="LOCAL" />
-      <updated>1679931159479</updated>
-    </task>
-    <task id="LOCAL-00195" summary="feat: [Trace] Gestion de l'attribution de l'ordre">
-      <created>1679942468927</created>
-      <option name="number" value="00195" />
-      <option name="presentableId" value="LOCAL-00195" />
-      <option name="project" value="LOCAL" />
-      <updated>1679942468927</updated>
-    </task>
-    <task id="LOCAL-00196" summary="feat: [Trace] Gestion de l'attribution de l'ordre">
-      <created>1679942506142</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
-      <option name="project" value="LOCAL" />
-      <updated>1679942506142</updated>
-    </task>
-    <task id="LOCAL-00197" summary="feat: [Trace] Gestion des fichiers dans le form">
-      <created>1679942546892</created>
-      <option name="number" value="00197" />
-      <option name="presentableId" value="LOCAL-00197" />
-      <option name="project" value="LOCAL" />
-      <updated>1679942546892</updated>
+      <workItem from="1682237363827" duration="5868000" />
+      <workItem from="1682258595202" duration="63000" />
+      <workItem from="1682259087428" duration="160000" />
+      <workItem from="1682259260011" duration="4212000" />
+      <workItem from="1682270529731" duration="69000" />
+      <workItem from="1682324369388" duration="9016000" />
     </task>
     <task id="LOCAL-00198" summary="feat: [Portfolio] Suppression de l'image si portfolio supprimé">
       <created>1679942626651</created>
@@ -793,7 +778,35 @@
       <option name="project" value="LOCAL" />
       <updated>1682079821705</updated>
     </task>
-    <option name="localTasksCounter" value="243" />
+    <task id="LOCAL-00243" summary="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)">
+      <created>1682243585071</created>
+      <option name="number" value="00243" />
+      <option name="presentableId" value="LOCAL-00243" />
+      <option name="project" value="LOCAL" />
+      <updated>1682243585071</updated>
+    </task>
+    <task id="LOCAL-00244" summary="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)">
+      <created>1682244051294</created>
+      <option name="number" value="00244" />
+      <option name="presentableId" value="LOCAL-00244" />
+      <option name="project" value="LOCAL" />
+      <updated>1682244051294</updated>
+    </task>
+    <task id="LOCAL-00245" summary="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
+      <created>1682260031668</created>
+      <option name="number" value="00245" />
+      <option name="presentableId" value="LOCAL-00245" />
+      <option name="project" value="LOCAL" />
+      <updated>1682260031669</updated>
+    </task>
+    <task id="LOCAL-00246" summary="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
+      <created>1682263519025</created>
+      <option name="number" value="00246" />
+      <option name="presentableId" value="LOCAL-00246" />
+      <option name="project" value="LOCAL" />
+      <updated>1682263519025</updated>
+    </task>
+    <option name="localTasksCounter" value="247" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -854,8 +867,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [CV] m.a.j mise en forme cv" />
-    <MESSAGE value="fix: [Enseignant] Accès à tous les étudiants" />
     <MESSAGE value="fix: [Enseignant] Prépa dashboard" />
     <MESSAGE value="fix: [Enseignant] dashboard récup. etudiants + traces" />
     <MESSAGE value="fix: [Entités] Révision des relations" />
@@ -879,6 +890,8 @@
     <MESSAGE value="fix: [Connexion/Inscription] Mise en forme des formulaires" />
     <MESSAGE value="fix: [Inscription] Recherche dans DB intranet / login puisq récupération des informations" />
     <MESSAGE value="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet" />
+    <MESSAGE value="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)" />
+    <MESSAGE value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
   </component>
 </project>
