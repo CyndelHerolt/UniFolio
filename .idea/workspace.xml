@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Inscription] Interruption de la connexion si compte non vérifié">
+      <change afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/BaseEntity.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventSubscriber/ConnexionSubscriber.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AnneeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AnneeFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/DepartementFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/DepartementFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/DiplomeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/DiplomeFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/GroupeFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/SemestreFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/UsersFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -463,13 +461,6 @@
       <workItem from="1682270529731" duration="69000" />
       <workItem from="1682324369388" duration="9016000" />
     </task>
-    <task id="LOCAL-00198" summary="feat: [Portfolio] Suppression de l'image si portfolio supprimé">
-      <created>1679942626651</created>
-      <option name="number" value="00198" />
-      <option name="presentableId" value="LOCAL-00198" />
-      <option name="project" value="LOCAL" />
-      <updated>1679942626651</updated>
-    </task>
     <task id="LOCAL-00199" summary="feat: [CV] Attribution d'id uniques aux activités d'experience">
       <created>1679990033933</created>
       <option name="number" value="00199" />
@@ -806,7 +797,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682263519025</updated>
     </task>
-    <option name="localTasksCounter" value="247" />
+    <task id="LOCAL-00247" summary="fix: [Inscription] Interruption de la connexion si compte non vérifié">
+      <created>1683619413974</created>
+      <option name="number" value="00247" />
+      <option name="presentableId" value="LOCAL-00247" />
+      <option name="project" value="LOCAL" />
+      <updated>1683619413975</updated>
+    </task>
+    <option name="localTasksCounter" value="248" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -867,7 +865,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Enseignant] Prépa dashboard" />
     <MESSAGE value="fix: [Enseignant] dashboard récup. etudiants + traces" />
     <MESSAGE value="fix: [Entités] Révision des relations" />
     <MESSAGE value="feat: [Data] Mise en place de la synchronisation avec l'intranet" />
@@ -892,6 +889,7 @@
     <MESSAGE value="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet" />
     <MESSAGE value="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)" />
     <MESSAGE value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
+    <MESSAGE value="fix: [Inscription] Interruption de la connexion si compte non vérifié" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Inscription] Interruption de la connexion si compte non vérifié" />
   </component>
 </project>

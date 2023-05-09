@@ -2,7 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Annee;
 use App\Entity\Departement;
+use App\Entity\Diplome;
+use App\Entity\Enseignant;
+use App\Entity\Etudiant;
+use App\Entity\Semestre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +44,36 @@ class DepartementRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Departement[] Returns an array of Departement objects
-//     */
-//    public function findByExampleField($value): array
+    public function findDepartementEtudiant(Etudiant $etudiant): ?Departement
+    {
+        return $this->createQueryBuilder('f')
+            ->innerJoin(Diplome::class, 'd', 'WITH', 'd.departement = f.id')
+            ->innerJoin(Annee::class, 'a', 'WITH', 'a.diplome = d.id')
+            ->innerJoin(Semestre::class, 's', 'WITH', 's.annee = a.id')
+            ->innerJoin(Etudiant::class, 'e', 'WITH', 'e.semestre = s.id')
+            ->where('e.id = :etudiant')
+            ->setParameter('etudiant', $etudiant->getId())
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+//    public function findDepartementEnseignant(Enseignant $enseignant): array
 //    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
+//        return $this->createQueryBuilder('f')
+//            ->innerJoin(PersonnelDepartement::class, 'p', 'WITH', 'p.departement = f.id')
+//            ->where('p.personnel = :enseignant')
+//            ->setParameter('enseignant', $enseignant->getId())
 //            ->getQuery()
-//            ->getResult()
-//        ;
+//            ->getResult();
 //    }
 
-//    public function findOneBySomeField($value): ?Departement
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findActifs(): array
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.actif = 1')
+            ->orderBy('d.libelle')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
