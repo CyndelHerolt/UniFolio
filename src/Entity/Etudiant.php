@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant
@@ -54,6 +55,9 @@ class Etudiant
 
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $username = null;
+
+    #[ORM\ManyToOne(targetEntity: Semestre::class, inversedBy: 'etudiants')]
+    private ?Semestre $semestre = null;
 
     public function __construct()
     {
@@ -299,4 +303,22 @@ class Etudiant
 
         return $this;
     }
+
+    /**
+     * @return Semestre|null
+     */
+    public function getSemestre(): ?Semestre
+    {
+        return $this->semestre;
+    }
+
+    /**
+     * @param Semestre|null $semestre
+     */
+    public function setSemestre(?Semestre $semestre): void
+    {
+        $this->semestre = $semestre;
+    }
+
+
 }

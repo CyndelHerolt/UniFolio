@@ -8,13 +8,11 @@ use App\Entity\Diplome;
 use App\Entity\Enseignant;
 use App\Entity\EnseignantDepartement;
 use App\Entity\Etudiant;
+use App\Entity\Groupe;
 use App\Entity\Semestre;
+use App\Entity\TypeGroupe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
-/**
- * @deprecated
- */
 
 /**
  * @extends ServiceEntityRepository<Departement>
@@ -66,11 +64,24 @@ class DepartementRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
             ->innerJoin(EnseignantDepartement::class, 'p', 'WITH', 'p.departement = f.id')
-            ->where('p.personnel = :enseignant')
+            ->where('p.enseignant = :enseignant')
             ->setParameter('enseignant', $enseignant->getId())
             ->getQuery()
             ->getResult();
     }
+
+    public function findDepartementEnseignantDefaut(Enseignant $enseignant): array
+    {
+        return $this->createQueryBuilder('f')
+            ->innerJoin(EnseignantDepartement::class, 'p', 'WITH', 'p.departement = f.id')
+            ->where('p.enseignant = :enseignant')
+            ->andWhere('p.defaut = :defaut')
+            ->setParameter('enseignant', $enseignant->getId())
+            ->setParameter('defaut', true)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function findActifs(): array
     {

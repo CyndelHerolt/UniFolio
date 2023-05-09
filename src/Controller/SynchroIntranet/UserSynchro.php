@@ -12,6 +12,7 @@ use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -111,6 +112,7 @@ class UserSynchro extends AbstractController
         EtudiantRepository $etudiantRepository,
         BibliothequeRepository $bibliothequeRepository,
         GroupeRepository $groupeRepository,
+        SemestreRepository $semestreRepository,
     )
     {
 
@@ -134,6 +136,7 @@ class UserSynchro extends AbstractController
                     return $etudiant['username'] === $login;
                 });
                 foreach ($etudiant as $data) {
+                    $semestre = $semestreRepository->findOneBy(['libelle' => $data['semestre']]);
                     // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
                     $newEtudiant = new Etudiant();
                     $newEtudiant->setUsers($user);
@@ -145,6 +148,7 @@ class UserSynchro extends AbstractController
                     $newEtudiant->setMailUniv($data['mail_univ']);
                     $newEtudiant->setMailPerso($data['mail_perso']);
                     $newEtudiant->setTelephone($data['telephone']);
+                    $newEtudiant->setSemestre($semestre);
                     foreach ($data['groupes'] as $groupe) {
                         $groupe = $groupeRepository->findOneBy(['libelle' => $groupe]);
                         $newEtudiant->addGroupe($groupe);

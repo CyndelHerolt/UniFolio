@@ -14,6 +14,7 @@ use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,6 +114,7 @@ class UsersController extends AbstractController
         EnseignantRepository       $enseignantRepository,
         GroupeRepository           $groupeRepository,
         DepartementRepository      $departementRepository,
+        SemestreRepository         $semestreRepository,
     ): Response
     {
         $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
@@ -130,7 +132,7 @@ class UsersController extends AbstractController
             $this->addFlash('error', $e->getReason());
             return $this->redirectToRoute('app_users_new');
         }
-        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
+        $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository, $semestreRepository);
         $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
         if ($etudiantSynchro) {
             $user->setIsVerified(true);

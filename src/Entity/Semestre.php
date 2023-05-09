@@ -52,6 +52,12 @@ class Semestre
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $code_element = null;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Etudiant>
+     */
+    #[ORM\OneToMany(mappedBy: 'semestre', targetEntity: Etudiant::class)]
+    private Collection $etudiants;
+
     public function __construct()
     {
         $this->typeGroupes = new ArrayCollection();
@@ -228,4 +234,16 @@ class Semestre
 
         return $this;
     }
+
+
+    public function getEtudiants(): ArrayCollection|Collection
+    {
+        return $this->etudiants;
+    }
+
+    public function setEtudiants(ArrayCollection|Collection $etudiants): void
+    {
+        $this->etudiants = $etudiants;
+    }
+
 }
