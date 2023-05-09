@@ -186,4 +186,22 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/verify/resend', name: 'app_verify_resend_email')]
+    public function resendVerifyEmail(
+        UsersRepository $usersRepository,
+    )
+    {
+//        dd($_SERVER['REQUEST_METHOD']);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//            dd('ok');
+
+        }
+
+
+        return $this->render('users/resend_verify_email.html.twig');
+
+    }
+
 }

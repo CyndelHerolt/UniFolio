@@ -37,7 +37,7 @@ class Etudiant
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
     private ?AnneeUniversitaire $annee_universitaire = null;
 
-    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Bibliotheque::class)]
+    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Bibliotheque::class, cascade: ['persist', 'remove'])]
     private Collection $bibliotheques;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Portfolio::class)]

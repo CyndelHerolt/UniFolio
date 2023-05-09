@@ -23,8 +23,6 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        //TODO: Interrompre la connexion si l'utilisateur n'a pas vérifié son compte via le mail
-
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
