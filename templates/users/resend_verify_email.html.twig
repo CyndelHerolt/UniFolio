@@ -2,6 +2,10 @@
 
 {% block title %}Vérification de compte{% endblock %}
 
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">
@@ -9,7 +13,8 @@
                 <h1 class="h3 mb-3 font-weight-normal">Vérifier votre compte</h1>
 
                 <p>
-                    Un email de vérification vous a été envoyé lors de la création de votre compte. Veuillez cliquer sur le lien de vérification dans
+                    Un email de vérification vous a été envoyé lors de la création de votre compte. Veuillez cliquer sur
+                    le lien de vérification dans
                     l'email avant de vous connecter.
                 </p>
 
