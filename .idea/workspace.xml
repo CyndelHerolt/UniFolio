@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Inscription] Interruption de la connexion si compte non vérifié">
-      <change afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/BaseEntity.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventSubscriber/ConnexionSubscriber.php" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Inscription] Interruption de la connexion si compte non vérifié">
+      <change afterPath="$PROJECT_DIR$/src/Entity/EnseignantDepartement.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/EnseignantDepartementRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Enseignant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/ConnexionSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/ConnexionSubscriber.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,11 +226,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Repository" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\public\files_directory" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\components" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\assets\js" />
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\assets" />
-      <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\templates\page" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -460,20 +460,6 @@
       <workItem from="1682259260011" duration="4212000" />
       <workItem from="1682270529731" duration="69000" />
       <workItem from="1682324369388" duration="9016000" />
-    </task>
-    <task id="LOCAL-00199" summary="feat: [CV] Attribution d'id uniques aux activités d'experience">
-      <created>1679990033933</created>
-      <option name="number" value="00199" />
-      <option name="presentableId" value="LOCAL-00199" />
-      <option name="project" value="LOCAL" />
-      <updated>1679990033933</updated>
-    </task>
-    <task id="LOCAL-00200" summary="feat: [CV] Attribution d'id uniques aux activités d'experience">
-      <created>1679998115449</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
-      <option name="project" value="LOCAL" />
-      <updated>1679998115449</updated>
     </task>
     <task id="LOCAL-00201" summary="fix: [Trace] Conservation mais possibilité de supprimer une image lors de l'édition (en cours)">
       <created>1679998171302</created>
@@ -804,7 +790,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683619413975</updated>
     </task>
-    <option name="localTasksCounter" value="248" />
+    <task id="LOCAL-00248" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
+      <created>1683632629210</created>
+      <option name="number" value="00248" />
+      <option name="presentableId" value="LOCAL-00248" />
+      <option name="project" value="LOCAL" />
+      <updated>1683632629210</updated>
+    </task>
+    <task id="LOCAL-00249" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
+      <created>1683632679808</created>
+      <option name="number" value="00249" />
+      <option name="presentableId" value="LOCAL-00249" />
+      <option name="project" value="LOCAL" />
+      <updated>1683632679808</updated>
+    </task>
+    <option name="localTasksCounter" value="250" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -865,7 +865,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Enseignant] dashboard récup. etudiants + traces" />
     <MESSAGE value="fix: [Entités] Révision des relations" />
     <MESSAGE value="feat: [Data] Mise en place de la synchronisation avec l'intranet" />
     <MESSAGE value="feat: [Data] Récupération des départements depuis l'intranet" />
@@ -890,6 +889,7 @@
     <MESSAGE value="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)" />
     <MESSAGE value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
     <MESSAGE value="fix: [Inscription] Interruption de la connexion si compte non vérifié" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Inscription] Interruption de la connexion si compte non vérifié" />
+    <MESSAGE value="feat: [Inscription] Interruption de la connexion si compte non vérifié" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Inscription] Interruption de la connexion si compte non vérifié" />
   </component>
 </project>

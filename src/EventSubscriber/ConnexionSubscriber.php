@@ -33,7 +33,7 @@ class ConnexionSubscriber implements EventSubscriberInterface
             return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
         }
         elseif ($user instanceof Enseignant) {
-            $departement = $this->departementRepository->findBy(['enseignants' => $user]);
+            $departement = $this->departementRepository->findDepartementEnseignant($user);
             $this->session->getSession()->set('departement', $departement);
             return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
         }

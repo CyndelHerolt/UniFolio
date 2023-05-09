@@ -3,6 +3,7 @@
 namespace App\Controller\SynchroIntranet;
 
 use App\Entity\Bibliotheque;
+use App\Entity\EnseignantDepartement;
 use App\Entity\Etudiant;
 use App\Entity\Enseignant;
 use App\Entity\Users;
@@ -277,7 +278,8 @@ class UserSynchro extends AbstractController
                 $newEnseignant->setTelephone($data['telephone']);
                 foreach ($data['departements'] as $departement) {
                     $departement = $departementRepository->findOneBy(['libelle' => $departement]);
-                    $newEnseignant->AddDepartement($departement);
+                    $newEnseignantDepartement = new EnseignantDepartement($newEnseignant ,$departement);
+                    $newEnseignant->AddEnseignantDepartement($newEnseignantDepartement);
                 }
                 $enseignantRepository->save($newEnseignant, true);
             }

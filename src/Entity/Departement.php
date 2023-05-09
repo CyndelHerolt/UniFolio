@@ -34,8 +34,11 @@ class Departement
     #[ORM\ManyToMany(targetEntity: Diplome::class, mappedBy: 'departement_id')]
     private Collection $diplomes;
 
-    #[ORM\ManyToMany(targetEntity: Enseignant::class, mappedBy: 'departement')]
-    private Collection $enseignants;
+    /**
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\EnseignantDepartement>
+     */
+    #[ORM\OneToMany(mappedBy: 'departement', targetEntity: EnseignantDepartement::class, cascade: ['persist', 'remove'])]
+    private Collection $enseignantDepartements;
 
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: ApcReferentiel::class)]
     private Collection $apcReferentiels;
@@ -45,6 +48,7 @@ class Departement
         $this->diplomes = new ArrayCollection();
         $this->enseignants = new ArrayCollection();
         $this->apcReferentiels = new ArrayCollection();
+        $this->enseignantDepartements = new ArrayCollection();
     }
 
     /**
@@ -148,27 +152,31 @@ class Departement
     }
 
     /**
-     * @return Collection<int, Enseignant>
+     * @return Collection|EnseignantDepartement[]
      */
-    public function getEnseignants(): Collection
+    public function getEnseignantDepartements(): Collection
     {
-        return $this->enseignants;
+        return $this->enseignantDepartements;
     }
 
-    public function addEnseignant(Enseignant $enseignant): self
+    public function addEnseignantDepartement(EnseignantDepartement $enseignantDepartement): self
     {
-        if (!$this->enseignants->contains($enseignant)) {
-            $this->enseignants->add($enseignant);
-            $enseignant->addDepartement($this);
+        if (!$this->enseignantDepartements->contains($enseignantDepartement)) {
+            $this->enseignantDepartements[] = $enseignantDepartement;
+            $enseignantDepartement->setDepartement($this);
         }
 
         return $this;
     }
 
-    public function removeEnseignant(Enseignant $enseignant): self
+    public function removeEnseignantDepartement(EnseignantDepartement $enseignantDepartement): self
     {
-        if ($this->enseignants->removeElement($enseignant)) {
-            $enseignant->removeDepartement($this);
+        if ($this->enseignantDepartements->contains($enseignantDepartement)) {
+            $this->enseignantDepartements->removeElement($enseignantDepartement);
+            // set the owning side to null (unless already changed)
+            if ($enseignantDepartement->getDepartement() === $this) {
+                $enseignantDepartement->setDepartement(null);
+            }
         }
 
         return $this;
