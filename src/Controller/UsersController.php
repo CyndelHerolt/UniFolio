@@ -7,6 +7,7 @@ use App\Entity\Bibliotheque;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Users;
+use App\EventSubscriber\CheckVerifiedUserSubscriber;
 use App\Form\UsersType;
 use App\Repository\BibliothequeRepository;
 use App\Repository\DepartementRepository;
@@ -132,11 +133,13 @@ class UsersController extends AbstractController
         $etudiantSynchro = $userSynchro->synchroEtudiant($login, $user, $client, $etudiantRepository, $bibliothequeRepository, $groupeRepository);
         $enseignantSynchro = $userSynchro->synchroEnseignant($login, $user, $client, $enseignantRepository, $departementRepository);
         if ($etudiantSynchro) {
+            $user->setIsVerified(true);
             $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
         } elseif ($enseignantSynchro) {
+            $user->setIsVerified(true);
             $this->addFlash('success', 'Votre compte est vérifié, vos informations ont été mises à jour. Vous pouvez vous connecter.');
-
         }
+        $usersRepository->save($user, true);
         return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
 
     }
@@ -189,19 +192,23 @@ class UsersController extends AbstractController
 
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
     public function resendVerifyEmail(
-        UsersRepository $usersRepository,
+        Request                    $request,
     )
     {
 //        dd($_SERVER['REQUEST_METHOD']);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//            dd('ok');
+//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//
+//        }
 
-        }
+        $login = $request->query->get('login');
 
-
-        return $this->render('users/resend_verify_email.html.twig');
+        return $this->render('users/resend_verify_email.html.twig', [
+            'login' => $login,
+        ]);
 
     }
+
+    // TODO: faire une nouvelle méthode appelée par le bouton "Renvoyer le mail de vérification" qui va envoyer un nouveau mail de vérification
 
 }

@@ -7,8 +7,6 @@ use App\Security\AccountNotVerifiedAuthenticationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
@@ -23,7 +21,6 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
 
     public function onCheckPassport(CheckPassportEvent $event)
     {
-//        dd($event);
         $passport = $event->getPassport();
         $user = $passport->getUser();
         if (!$user instanceof Users) {
@@ -37,14 +34,15 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
 
     public function onLoginFailure(LoginFailureEvent $event)
     {
+        $login = $event->getPassport()->getUser()->getUsername();
         if (!$event->getException() instanceof AccountNotVerifiedAuthenticationException) {
             return;
         }
         $response = new RedirectResponse(
-            $this->router->generate('app_verify_resend_email')
+            $this->router->generate('app_verify_resend_email', ['login' => $login])
         );
+//        dd($login);
         $event->setResponse($response);
-
     }
     /**
      * @inheritDoc
