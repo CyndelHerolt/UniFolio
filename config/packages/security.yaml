@@ -32,6 +32,9 @@ security:
         login_path: app_login
         check_path: app_login
         enable_csrf: true
+#        default_target_path: app_accueil
+#        always_use_default_target_path: false
+#        use_referer: true
 
         # activate different ways to authenticate
         # https://symfony.com/doc/current/security.html#the-firewall
@@ -39,6 +42,7 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
+#    - todo: appliquer pour toutes les routes
     - { path: ^/admin, roles: ROLE_ADMIN }
 #   - { path: ^/profile, roles: ROLE_USER }
 
