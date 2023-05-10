@@ -23,17 +23,16 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/choix-departement', name: 'app_choix_departement')]
-    public function choixDepartement(EntityManagerInterface          $entityManager,
-                                     RequestStack                    $session,
-                                     Request                         $request,
-                                     EnseignantDepartementRepository $enseignantDepartementRepository,
-                                     EnseignantRepository            $enseignantRepository,
+    public function choixDepartement(
+        Request                         $request,
+        EnseignantDepartementRepository $enseignantDepartementRepository,
+        EnseignantRepository            $enseignantRepository,
     )
     {
-        // TODO: pourquoi la méthode n'est pas executée ?
+        dd('hello');
         $user = $this->getUser();
         $enseignant = $enseignantRepository->findOneBy(['username' => $user->getUsername()]);
-        if ($enseignant) {
+        if (!$enseignant) {
             return $this->redirectToRoute('app_login', ['message' => 'Vous devez être intervenant ou enseignant pour accéder à cette page.']);
         }
 
