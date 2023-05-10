@@ -32,6 +32,7 @@ security:
         login_path: app_login
         check_path: app_login
         enable_csrf: true
+      custom_authenticator: App\Security\LoginAuthenticator
 #        default_target_path: app_accueil
 #        always_use_default_target_path: false
 #        use_referer: true

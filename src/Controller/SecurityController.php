@@ -27,9 +27,11 @@ class SecurityController extends AbstractController
         Request                         $request,
         EnseignantDepartementRepository $enseignantDepartementRepository,
         EnseignantRepository            $enseignantRepository,
+        RequestStack                    $session,
+        EntityManagerInterface          $entityManager,
     )
     {
-        dd('hello');
+//        dd('hello');
         $user = $this->getUser();
         $enseignant = $enseignantRepository->findOneBy(['username' => $user->getUsername()]);
         if (!$enseignant) {
@@ -48,6 +50,14 @@ class SecurityController extends AbstractController
                         $update = $departement;
                     }
                 }
+            }
+
+            $entityManager->flush();
+            if (null !== $update && null !== $update->getDepartement()) {
+                $this->addFlash('success', 'Formation par défaut sauvegardée');
+                $session->getSession()->set('departement', $update->getDepartement()); // on sauvegarde
+
+                return $this->redirectToRoute('app_accueil');
             }
 
         }

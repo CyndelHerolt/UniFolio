@@ -15,13 +15,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
-
+/**
+ * @deprecated
+ */
 class AuthenticationSuccessSubscriber extends AbstractController implements EventSubscriberInterface
 {
-//    use TargetPathTrait;
-
     public function __construct(
         private readonly DepartementRepository $departementRepository,
         private readonly RequestStack          $session,
@@ -38,9 +38,9 @@ class AuthenticationSuccessSubscriber extends AbstractController implements Even
 //        dd($event);
 //        $passport = $event->getPassport();
 //        $user = $passport->getUser();
-//        $target = $this->getTargetPath($this->session->getSession(), $event->getAuthenticationToken()->getFirewallName());
 
         $user = $event->getAuthenticationToken()->getUser();
+ //       $user = $event->getUser();
 
         $etudiant = $this->etudiantRepository->findOneBy(['username' => $user->getUsername()]);
         $enseignant = $this->enseignantRepository->findOneBy(['username' => $user->getUsername()]);
@@ -62,10 +62,12 @@ class AuthenticationSuccessSubscriber extends AbstractController implements Even
             }
 
             $departement = $this->departementRepository->findDepartementEnseignantDefaut($enseignant);
-
+dump($departement);
             if (0 === count($departement)) {
-//            dd($event);
-                return new RedirectResponse($this->urlGenerator->generate('app_choix_departement'));
+            dump($event);
+            dump($this->urlGenerator->generate('app_choix_departement', [], UrlGeneratorInterface::ABSOLUTE_URL));
+           // dd('fin');
+                return new RedirectResponse($this->urlGenerator->generate('app_choix_departement', [], UrlGeneratorInterface::ABSOLUTE_URL));
             }
 
             if (1 === count($departement)) {
@@ -77,11 +79,12 @@ class AuthenticationSuccessSubscriber extends AbstractController implements Even
         return new RedirectResponse($this->urlGenerator->generate('app_login'));
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [
 //            CheckPassportEvent::class => ['onCheckPassport', -20],
-            'security.authentication.success' => 'onSecurityAuthenticationSuccess',
+            'security.authentication.success' => ['onSecurityAuthenticationSuccess',2000]
+
         ];
     }
 }

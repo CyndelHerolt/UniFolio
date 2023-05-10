@@ -16,7 +16,6 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login', methods: ['POST', 'GET'])]
     public function index(
         AuthenticationUtils $authenticationUtils,
-        UsersRepository     $usersRepository
     ): Response
     {
 
