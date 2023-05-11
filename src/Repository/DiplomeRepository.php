@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Departement;
 use App\Entity\Diplome;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +22,21 @@ class DiplomeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Diplome::class);
     }
+    public function findByDepartementBuilder(Departement $departement): QueryBuilder
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->orderBy('d.libelle');
+    }
+
+    public function findByDepartement(Departement $departement): array
+    {
+        return $this->findByDepartementBuilder($departement)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function save(Diplome $entity, bool $flush = false): void
     {

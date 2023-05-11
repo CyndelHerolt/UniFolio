@@ -2,23 +2,35 @@
 
 namespace App\Controller;
 
+use App\Repository\DepartementRepository;
+use App\Repository\DiplomeRepository;
+use App\Repository\EnseignantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
+use App\Repository\TypeGroupeRepository;
 use App\Repository\UsersRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\AnneeRepository;
+use ContainerPEHGF1J\getDataUserSessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class DashboardEnseignantController extends AbstractController
+class DashboardEnseignantController extends BaseController
 {
 
     public function __construct(
+
         protected GroupeRepository $groupeRepository,
+        protected DiplomeRepository $diplomeRepository,
         protected EtudiantRepository $etudiantRepository,
-        #[Required] public Security $security
+        protected AnneeRepository $anneeRepository,
+        #[Required] public Security $security,
+        EnseignantRepository $enseignantRepository,
     )
     {
     }
@@ -28,36 +40,25 @@ class DashboardEnseignantController extends AbstractController
         UsersRepository $usersRepository
     ): Response
     {
+
+        $data_user = $this->dataUserSession;
+//        dd($data_user);
+
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
-        // Récupérer les groupes de l'utilisateur connecté
-        $enseignant = $this->security->getUser()->getEnseignant();
-//        $groupes = $this->groupeRepository->findBy(['enseignant' => $enseignant]);
-        $groupes = $this->groupeRepository->findAll();
-        $etudiants = [];
-        foreach ($groupes as $groupe) {
-            $etudiants = array_merge($etudiants, $groupe->getEtudiants()->toArray());
-        }
-        // Récupérer les années dans une variable
-
-
-        foreach ($etudiants as $etudiant) {
-            $etudiant->getPortfolios()->toArray();
-        }
 
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
             if ($userId === 'enseignant') {
                 return $this->render('dashboard_enseignant/index.html.twig', [
-                    'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit'
+                    'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit', 'departement' => $departement,
                 ]);
             } else {
 
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'controller_name' => 'DashboardController',
                     'admin' => '',
-                    'groupes' => $groupes,
-                    'etudiants' => $etudiants
+                    'data_user' => $data_user,
                 ]);
             }
         } else {

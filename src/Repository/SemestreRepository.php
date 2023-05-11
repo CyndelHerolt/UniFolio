@@ -2,8 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Annee;
+use App\Entity\Departement;
+use App\Entity\Diplome;
 use App\Entity\Semestre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +25,34 @@ class SemestreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Semestre::class);
     }
+
+    public function findByDepartementBuilder(Departement $departement): QueryBuilder
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin(Annee::class, 'a', 'WITH', 'a.id = s.annee')
+            ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
+            ->where('d.departement = :departement')
+            ->setParameter('departement', $departement)
+            ->addOrderBy('s.libelle', Criteria::ASC);
+    }
+
+    public function findByDepartementActif(Departement $departement): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin(Annee::class, 'a', 'WITH', 'a.id = s.annee')
+            ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
+            ->where('d.departement = :departement')
+            ->andWhere('s.actif = 1')
+            ->setParameter('departement', $departement)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByDepartement(Departement $departement): array
+    {
+        return $this->findByDepartementBuilder($departement)->getQuery()->getResult();
+    }
+
 
     public function save(Semestre $entity, bool $flush = false): void
     {

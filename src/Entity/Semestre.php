@@ -63,6 +63,11 @@ class Semestre
         $this->typeGroupes = new ArrayCollection();
     }
 
+    private function init(): void
+    {
+        $this->typeGroupes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -29,12 +29,30 @@ class Diplome
     private Collection $annees;
 
     /**
+     * @return Collection
+     */
+    public function getAnnees(): Collection
+    {
+        return $this->annees;
+    }
+
+    /**
+     * @param Collection $annees
+     */
+    public function setAnnees(Collection $annees): void
+    {
+        $this->annees = $annees;
+    }
+
+    /**
      * @param Collection $annees
      */
 //    public function __construct(Collection $annees)
 //    {
 //        $this->annees = new ArrayCollection();
 //    }
+
+
 
     public function addAnnee(Annee $annee): self
     {

@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Annee;
+use App\Entity\Departement;
+use App\Entity\Diplome;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +21,17 @@ class AnneeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Annee::class);
+    }
+
+    public function findByDepartement(Departement $departement): array
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
+            ->where('d.departement = :departement')
+            ->andWhere('a.actif = true')
+            ->setParameter('departement', $departement->getId())
+            ->getQuery()
+            ->getResult();
     }
 
     public function save(Annee $entity, bool $flush = false): void

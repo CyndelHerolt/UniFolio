@@ -2,6 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Annee;
+use App\Entity\Departement;
+use App\Entity\Diplome;
 use App\Entity\TypeGroupe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +22,21 @@ class TypeGroupeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TypeGroupe::class);
+    }
+
+    public function findByDepartementSemestresActifs(Departement $departement): array
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.semestre', 's')
+            ->addSelect('s')
+            ->innerJoin(Annee::class, 'a', 'WITH', 's.annee = a.id')
+            ->leftJoin(Diplome::class, 'd', 'WITH', 'a.diplome = d.id')
+            ->where('d.departement = :departement')
+            ->andWhere('a.actif = true')
+            ->andWhere('s.actif = true')
+            ->setParameter('departement', $departement->getId())
+            ->getQuery()
+            ->getResult();
     }
 
     public function save(TypeGroupe $entity, bool $flush = false): void

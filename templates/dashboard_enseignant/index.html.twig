@@ -16,8 +16,12 @@
     <div class="container dashboard">
         <h1>Tableau de bord</h1>
 
-
         <section class="dashboard_infos_groupe">
+            {{ data_user.departement.libelle }}
+            |
+            {% for etudiant in data_user.etudiantsDept %}
+            {{ etudiant.prenom }}
+            {% endfor %}
             <div class="row">
                 <h2>Ensemble des étudiants</h2>
                 <article class="col-lg-12 col-12">
@@ -60,9 +64,9 @@
                             </button>
                             {# TODO: Filtre affichage #}
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                {% for groupe in groupes %}
-                                    <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>
-                                {% endfor %}
+{#                                {% for groupe in groupes %}#}
+{#                                    <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>#}
+{#                                {% endfor %}#}
                             </ul>
                             <div>
                                 {{ component('all_suivi_etudiant') }}

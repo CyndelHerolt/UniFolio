@@ -31,7 +31,8 @@ class Departement
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Diplome::class, mappedBy: 'departement_id')]
+    #[ORM\OneToMany(mappedBy: 'departement', targetEntity: Diplome::class)]
+    #[ORM\OrderBy(value: ['libelle' => 'ASC'])]
     private Collection $diplomes;
 
     /**
