@@ -31,15 +31,6 @@ class DashboardEtudiantController extends BaseController
         EnseignantRepository $enseignantRepository,
     )
     {
-        parent::__construct(
-            $requestStack,
-            $enseignantRepository,
-            $etudiantRepository,
-            $departementRepository,
-            $semestreRepository,
-            $tokenStorage,
-            $security,
-        );
     }
 
     #[Route('/dashboard/etudiant', name: 'etudiant_dashboard')]
@@ -48,9 +39,8 @@ class DashboardEtudiantController extends BaseController
         TraceRegistry   $traceRegistry,
     ): Response
     {
-        $departement = $this->getDepartement();
-        $groupes = $this->getGroupes();
 
+        $data_user = $this->dataUserSession;
 
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
@@ -67,8 +57,7 @@ class DashboardEtudiantController extends BaseController
                 return $this->render('dashboard_etudiant/index.html.twig', [
                     'admin' => '',
                     'traces' => $traceRegistry->getTypeTraces(),
-                    'departement' => $departement,
-                    'groupes' => $groupes,
+                    'data_user' => $data_user,
                 ]);
             }
         } else {

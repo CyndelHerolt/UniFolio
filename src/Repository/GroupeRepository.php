@@ -8,7 +8,6 @@ use App\Entity\Diplome;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
-use App\Enums\TypeGroupeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\QueryBuilder;
@@ -29,9 +28,32 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
-    public function findBySemestre(Semestre $semestre): array
+//    public function findByDepartementBuilder(Departement $departement): QueryBuilder
+//    {
+//        return $this->createQueryBuilder('g')
+//            ->innerJoin('g.type_groupe', 't')
+//            ->innerJoin('t.semestre', 's')
+//            ->innerJoin('s.annee', 'a')
+//            ->innerJoin('a.diplome', 'd')
+//            ->where('d.departement = :departement')
+//            ->setParameter('departement', $departement);
+//    }
+
+    public function findByDepartementBuilder(Departement $departement): QueryBuilder
     {
-        return $this->findBySemestreBuilder($semestre)
+        return $this->createQueryBuilder('g')
+        // seuls ceux qui ont une correspondance entre les colonnes 'type_groupe' de la table "Groupe" et 'id' de la table "TypeGroupe" seront inclus dans les résultats
+            ->innerJoin(TypeGroupe::class, 't', 'WITH', 'g.type_groupe = t.id')
+            ->innerJoin('t.semestre', 's')
+            ->innerJoin(Annee::class, 'a', 'WITH', 'a.id = s.annee')
+            ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
+            ->where('d.departement = :departement')
+            ->setParameter('departement', $departement->getId());
+    }
+
+    public function findByDepartement(Departement $departement): array
+    {
+        return $this->findByDepartementBuilder($departement)
             ->getQuery()
             ->getResult();
     }
@@ -46,11 +68,19 @@ class GroupeRepository extends ServiceEntityRepository
             ->addOrderBy('g.libelle', Criteria::ASC);
     }
 
+    public function findBySemestre(Semestre $semestre): array
+    {
+        return $this->findBySemestreBuilder($semestre)
+            ->getQuery()
+            ->getResult();
+    }
+
+    //todo: a corriger
     public function findByDepartementSemestreActifBuilder(Departement $departement): QueryBuilder
     {
         return $this->createQueryBuilder('g')
             ->innerJoin(TypeGroupe::class, 't', 'WITH', 'g.type_groupe = t.id')
-            ->innerJoin(Semestre::class, 's', 'WITH', 't.semestre = s.id')
+            ->innerJoin('t.semestre', 's')
             ->innerJoin(Annee::class, 'a', 'WITH', 'a.id = s.annee')
             ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
             ->where('d.departement = :departement')
@@ -61,6 +91,15 @@ class GroupeRepository extends ServiceEntityRepository
     public function findByDepartementSemestreActif(Departement $departement): array
     {
         return $this->findByDepartementSemestreActifBuilder($departement)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findByTypeGroupe(?TypeGroupe $typegroupe): array
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.type_groupe = :type_groupe')
+            ->orderBy('g.ordre', Criteria::ASC)
+            ->setParameter('type_groupe', $typegroupe)
             ->getQuery()
             ->getResult();
     }

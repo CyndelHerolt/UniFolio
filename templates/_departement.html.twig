@@ -1,0 +1,20 @@
+<div class="row dept_infos">
+    <div class="col-3">
+        <p>Département {{ data_user.departement.libelle }}</p>
+
+        {% if data_user.allDepartementsEnseignant|length > 1 %}
+            <div class="dropdown">
+                <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-shuffle"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {% for departement in data_user.allDepartementsEnseignant %}
+                        <li><a class="dropdown-item" href="#">{{ departement.libelle }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-2">
+    </div>
+</div>

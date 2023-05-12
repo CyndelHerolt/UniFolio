@@ -22,7 +22,7 @@ body {
         .break {
           color: $color-light;
           opacity: .2;
-            font-weight: lighter;
+          font-weight: lighter;
           font-size: 1.25rem;
         }
       }
@@ -38,36 +38,65 @@ body {
         }
       }
 
-    .dropdown-menu {
-      background-color: $color-secondary-focus;
-      border: none !important;
-      width: fit-content;
+      .dropdown-menu {
+        background-color: $color-secondary-focus;
+        border: none !important;
+        width: fit-content;
 
-      .dropdown-item:hover {
-        background-color: $color-primary-focus;
+        .dropdown-item:hover {
+          background-color: $color-primary-focus;
+        }
+      }
+
+      .logo {
+        width: 25px;
+        height: 25px;
+      }
+
+      .collapse {
+        display: flex;
+        justify-content: space-between;
       }
     }
 
-    .logo {
-      width: 25px;
-      height: 25px;
-    }
+    .dept_infos {
+      background-color: $color-light;
+      width: 90%;
+      margin: 0 5%;
+      padding: 10px 15px 12px 15px;
+      box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
+      border-radius: 5px;
+      position: fixed;
+      top: 54px;
 
-    .collapse {
-      display: flex;
-      justify-content: space-between;
+      .col-3 {
+        display: flex;
+        align-items: center;
+
+        p {
+            margin: 0 15px 0 0;
+        }
+
+        .dropdown {
+
+          button {
+            background-color: transparent;
+            border: none;
+
+          }
+        }
+      }
     }
   }
-}
 
-nav {
+  nav {
 
-  .breadcrumb {
-    @include paragraphe;
-    padding: 15px 75px;
-    margin: 0;
+    .breadcrumb {
+      @include paragraphe;
+      padding: 15px 75px;
+      margin: 0;
+    }
   }
-}
 
 }
 

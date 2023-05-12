@@ -3,7 +3,7 @@
 {% block title %}Hello DashboardEnseignantController!{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 
 
@@ -15,13 +15,40 @@
     </nav>
     <div class="container dashboard">
         <h1>Tableau de bord</h1>
-
+        {#        {{ data_user.departement.libelle }} #}
+        {#        <br> #}
+        {#        {% for etudiant in data_user.etudiantsDept %} #}
+        {#            {{ etudiant.prenom }} #}
+        {#        {% endfor %} #}
+        {#        <br> #}
+        {#        {% for semestre in data_user.semestresActifs %} #}
+        {#            {{ semestre.libelle }} -#}
+        {#        {% endfor %} #}
+        {#        <br> #}
+        {#        {% for annees in data_user.annees %} #}
+        {#            {{ annees.libelle }} #}
+        {#        {% endfor %} #}
+        {#        <br> #}
+        {#        {% for diplome in data_user.diplomes %} #}
+        {#            {{ diplome.sigle }} #}
+        {#        {% endfor %} #}
+        {#        {{ dump(data_user.etudiantsSemestre) }} #}
+        {#        {{ dump(data_user.semestresActifs) }} #}
+        {#        {% for semestre in data_user.etudiantsSemestre %} #}
+        {#            {% if semestre is empty %} #}
+        {#                <p>Il n'y a pas d'étudiants dans ce semestre</p> #}
+        {#                {% else %} #}
+        {#                {% for etudiant in semestre %} #}
+        {#                    {{ etudiant.prenom }} {{ etudiant.nom }} #}
+        {#                {% endfor %} #}
+        {#            {% endif %} #}
+        {#        {% endfor %} #}
+        {#        {{ dump(data_user.etudiantAnnee) }} #}
+        {#        {{ dump(data_user.annees) }} #}
+        {#        {{ dump(data_user.groupes) }} #}
+        {#        {{ dump(data_user.diplomes) }} #}
+        {#        {{ dump(data_user.annees) }} #}
         <section class="dashboard_infos_groupe">
-            {{ data_user.departement.libelle }}
-            |
-            {% for etudiant in data_user.etudiantsDept %}
-            {{ etudiant.prenom }}
-            {% endfor %}
             <div class="row">
                 <h2>Ensemble des étudiants</h2>
                 <article class="col-lg-12 col-12">
@@ -33,7 +60,7 @@
                             <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </div>
-                    {#                    TODO: Affichage dynamique des années #}
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -41,69 +68,41 @@
                                     type="button" role="tab" aria-controls="but1etudiant" aria-selected="true">B.U.T 1
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                    data-bs-target="#but2etudiant"
-                                    type="button" role="tab" aria-controls="but2etudiant" aria-selected="false">B.U.T 2
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-                                    data-bs-target="#but3etudiant"
-                                    type="button" role="tab" aria-controls="but3etudiant" aria-selected="false">B.U.T 3
-                            </button>
-                        </li>
                     </ul>
-                    {#                    TODO: Affichage dynamique des étudiants suivis + systeme de pages -> Live Components ? #}
+
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="but1etudiant" role="tabpanel"
                              aria-labelledby="but1etudiant-tab">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                Trier par groupe de TP
-                            </button>
-                            {# TODO: Filtre affichage #}
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-{#                                {% for groupe in groupes %}#}
-{#                                    <li><a class="dropdown-item" href="#">{{ groupe.libelle }}</a></li>#}
-{#                                {% endfor %}#}
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                {% for semestre in data_user.semestresActifs %}
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                data-bs-target="#but1etudiant"
+                                                type="button" role="tab" aria-controls="but1etudiant"
+                                                aria-selected="true">{{ semestre.libelle }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
                             </ul>
-                            <div>
-                                {{ component('all_suivi_etudiant') }}
-                            </div>
                         </div>
-                        <div class="tab-pane fade" id="but2etudiant" role="tabpanel" aria-labelledby="but2etudiant-tab">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Nom de l'étudiant.e</th>
-                                    <th>Groupe de TP</th>
-                                    <th>Dernier retour pédagogique</th>
-                                    <th>Traces</th>
-                                    <th>Portfolios</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <h2>HELLO</h2>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="but3etudiant" role="tabpanel" aria-labelledby="but3etudiant-tab">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Nom de l'étudiant.e</th>
-                                    <th>Groupe de TP</th>
-                                    <th>Dernier retour pédagogique</th>
-                                    <th>Traces</th>
-                                    <th>Portfolios</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <h2>HELLO</h2>
-                                </tbody>
-                            </table>
-                        </div>
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Trier par groupe de TP
+                        </button>
+                        {# TODO: Filtre affichage #}
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            {% for groupe in data_user.groupes %}
+                                <li><a class="dropdown-item" href="#">
+                                        {{ groupe.libelle }}
+                                    </a>
+                                </li>
+                                {#                                {% for groupe_data in groupe %} #}
+                                {#                                    <li><a class="dropdown-item" href="#"> #}
+                                {#                                            {{ groupe_data.libelle }} #}
+                                {#                                        </a></li> #}
+                                {#                                {% endfor %} #}
+                            {% endfor %}
+                        </ul>
                     </div>
                 </article>
             </div>
@@ -135,21 +134,7 @@
                              aria-labelledby="but1trace-tab">
                             <div>
                                 BUT1
-{#                                {{ component('all_suivi_trace') }}#}
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="but2trace" role="tabpanel" aria-labelledby="but2trace-tab">
-                            <div>
-                                BUT2
-{#                                {{ component('all_suivi_trace') }}#}
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="but3trace" role="tabpanel" aria-labelledby="but3trace-tab">
-                            <div>
-                                BUT3
-{#                                {{ component('all_suivi_trace') }}#}
+                                {#                                {{ component('all_suivi_trace') }} #}
                             </div>
                         </div>
                     </div>

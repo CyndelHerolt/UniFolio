@@ -11,7 +11,6 @@ use App\Repository\TypeGroupeRepository;
 use App\Repository\UsersRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\AnneeRepository;
-use ContainerPEHGF1J\getDataUserSessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +30,10 @@ class DashboardEnseignantController extends BaseController
         protected AnneeRepository $anneeRepository,
         #[Required] public Security $security,
         EnseignantRepository $enseignantRepository,
+        RequestStack $session,
     )
     {
+        $this->session = $session;
     }
 
     #[Route('/dashboard/enseignant', name: 'enseignant_dashboard')]
@@ -40,7 +41,7 @@ class DashboardEnseignantController extends BaseController
         UsersRepository $usersRepository
     ): Response
     {
-
+//        dd($this->session->getSession());
         $data_user = $this->dataUserSession;
 //        dd($data_user);
 

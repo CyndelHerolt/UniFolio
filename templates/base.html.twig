@@ -13,8 +13,11 @@
 </head>
 <body>
 <header>
-    {% block header %}
         {% include('_menu.html.twig') %}
+        {% if data_user is defined %}
+            {% include('_departement.html.twig') %}
+        {% endif %}
+    {% block header %}
     {% endblock %}
 </header>
 {% include "_toasts.html.twig" %}

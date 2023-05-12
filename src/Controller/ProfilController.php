@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProfilController extends AbstractController
+class ProfilController extends BaseController
+
 {
 
     #[Route('/profil', name: 'app_profil')]
     public function profil(UsersRepository $usersRepository): Response
     {
+        $data_user = $this->dataUserSession;
         $user = $usersRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $userId = $this->getUser()->getUserIdentifier();
 
@@ -57,7 +59,8 @@ class ProfilController extends AbstractController
             'email_univ' => $email_univ,
             'tel' => $tel,
             'bio' => $bio,
-            'groupes' => $groupes ?? null
+            'groupes' => $groupes ?? null,
+            'data_user' => $data_user,
         ]);
     }
 }

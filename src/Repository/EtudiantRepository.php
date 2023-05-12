@@ -2,10 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Annee;
 use App\Entity\Departement;
 use App\Entity\Etudiant;
 use App\Entity\Semestre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,6 +42,59 @@ class EtudiantRepository extends ServiceEntityRepository
         }
 
         return $t;
+    }
+
+    public function getEtudiantGroupes(Semestre $semestre): array
+    {
+        $query = $this->createQueryBuilder('e')
+            ->select('e.id, g.libelle')
+            ->join('e.groupes', 'g')
+            ->where('e.semestre = :semestre')
+            ->setParameter('semestre', $semestre->getId())
+            ->getQuery()
+            ->getResult();
+
+        $t = [];
+        foreach ($query as $q) {
+            if (!array_key_exists($q['id'], $t)) {
+                $t[$q['id']] = [];
+            }
+            $t[$q['id']][] = $q['libelle'];
+        }
+
+        return $t;
+    }
+
+    public function findByAnnee(Annee $annee): array
+    {
+        $query = $this->createQueryBuilder('e');
+        $i = 1;
+        foreach ($annee->getSemestres() as $semestre) {
+            $query->orWhere('e.semestre = ?'.$i)
+                ->setParameter($i, $semestre->getId());
+            ++$i;
+        }
+
+        return $query->orderBy('e.nom', Criteria::ASC)
+            ->addOrderBy('e.prenom', Criteria::ASC)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findBySemestreBuilder(Semestre $semestre): QueryBuilder
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.semestre = :semestre')
+            ->setParameter('semestre', $semestre)
+            ->orderBy('e.nom', Criteria::ASC)
+            ->addOrderBy('e.prenom', Criteria::ASC);
+    }
+
+    public function findBySemestre(Semestre $semestre): array
+    {
+        return $this->findBySemestreBuilder($semestre)
+            ->getQuery()
+            ->getResult();
     }
 
     public function save(Etudiant $entity, bool $flush = false): void

@@ -4,11 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Compte] Initiation de la session au login">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
+      <change afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/_departement.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/AuthenticationSuccessSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/AuthenticationSuccessSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/DataUserSession.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/DataUserSession.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/EtudiantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/EtudiantRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/GroupeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/GroupeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SemestreRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SemestreRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -456,28 +469,13 @@
       <workItem from="1682259260011" duration="4212000" />
       <workItem from="1682270529731" duration="69000" />
       <workItem from="1682324369388" duration="9016000" />
-      <workItem from="1683699579731" duration="9341000" />
-    </task>
-    <task id="LOCAL-00206" summary="fix: [CV] Envoi DB activites">
-      <created>1680101647112</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
-      <option name="project" value="LOCAL" />
-      <updated>1680101647112</updated>
-    </task>
-    <task id="LOCAL-00207" summary="fix: [README] maj license">
-      <created>1680108873924</created>
-      <option name="number" value="00207" />
-      <option name="presentableId" value="LOCAL-00207" />
-      <option name="project" value="LOCAL" />
-      <updated>1680108873924</updated>
-    </task>
-    <task id="LOCAL-00208" summary="feat: [Fixtures] Ajout des Fixtures">
-      <created>1680182121142</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
-      <option name="project" value="LOCAL" />
-      <updated>1680182121143</updated>
+      <workItem from="1683699579731" duration="13925000" />
+      <workItem from="1683718021174" duration="12764000" />
+      <workItem from="1683784404349" duration="89000" />
+      <workItem from="1683784515654" duration="25049000" />
+      <workItem from="1683870719890" duration="730000" />
+      <workItem from="1683871464654" duration="641000" />
+      <workItem from="1683872116954" duration="18712000" />
     </task>
     <task id="LOCAL-00209" summary="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre">
       <created>1680182220163</created>
@@ -801,7 +799,28 @@
       <option name="project" value="LOCAL" />
       <updated>1683701772468</updated>
     </task>
-    <option name="localTasksCounter" value="255" />
+    <task id="LOCAL-00255" summary="feat: [Compte] Initiation de la session au login">
+      <created>1683709249920</created>
+      <option name="number" value="00255" />
+      <option name="presentableId" value="LOCAL-00255" />
+      <option name="project" value="LOCAL" />
+      <updated>1683709249920</updated>
+    </task>
+    <task id="LOCAL-00256" summary="fix: [Compte] Initialisation de la session au login">
+      <created>1683720904312</created>
+      <option name="number" value="00256" />
+      <option name="presentableId" value="LOCAL-00256" />
+      <option name="project" value="LOCAL" />
+      <updated>1683720904312</updated>
+    </task>
+    <task id="LOCAL-00257" summary="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
+      <created>1683798391808</created>
+      <option name="number" value="00257" />
+      <option name="presentableId" value="LOCAL-00257" />
+      <option name="project" value="LOCAL" />
+      <updated>1683798391808</updated>
+    </task>
+    <option name="localTasksCounter" value="258" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -862,8 +881,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Data] Optimisation de la requête d'import des diplomes depuis l'intranet" />
-    <MESSAGE value="feat: [Data] Requête d'import des années depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des semestres depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des types de groupes depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des groupes depuis l'intranet" />
@@ -887,6 +904,8 @@
     <MESSAGE value="fix: [structure] lien dept enseignant" />
     <MESSAGE value="feat: [Compte] génération de la vue affichée si connexion sans verif" />
     <MESSAGE value="feat: [Compte] Initiation de la session au login" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Compte] Initiation de la session au login" />
+    <MESSAGE value="fix: [Compte] Initialisation de la session au login" />
+    <MESSAGE value="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté" />
   </component>
 </project>

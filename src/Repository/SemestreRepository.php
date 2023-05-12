@@ -53,6 +53,15 @@ class SemestreRepository extends ServiceEntityRepository
         return $this->findByDepartementBuilder($departement)->getQuery()->getResult();
     }
 
+    public function findByAnnee(Annee $annee): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function save(Semestre $entity, bool $flush = false): void
     {

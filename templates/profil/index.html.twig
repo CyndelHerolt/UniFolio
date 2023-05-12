@@ -44,7 +44,7 @@
                     <aside  class="col-lg-4 col-12">
                         <h2>Informations universitaires</h2>
                         <ul>
-                            <li>Diplôme : Bachelor Universitaire de Technologie - 2ème année</li>
+                            <li>Diplôme : </li>
                             <li>Département : Métiers du Multimédia et de l'Internet</li>
                             <li>Spécialité : Développement web et dispositifs interactifs</li>
                         </ul>
@@ -75,8 +75,11 @@
                     <aside  class="col-lg-4 col-12">
                         <h2>Informations universitaires</h2>
                         <ul>
-                            <li>Référent des groupes : {% for groupe in groupes %}{{ groupe.libelle }} ·
-                                {% endfor %}</li>
+                            <li>Département par défaut :
+                                {% for dept in data_user.departementDefaut %}
+                                {{ dept.libelle }}
+                                {% endfor %}
+                            </li>
                         </ul>
                     </aside>
                 </div>
