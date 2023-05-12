@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Classes\DataUserSession;
 use App\Entity\Departement;
-use App\Repository\EnseignantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Service\Attribute\Required;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class BaseController extends AbstractController
 {
@@ -19,6 +17,11 @@ class BaseController extends AbstractController
     public function setDataUserSession(DataUserSession $dataUserSession): void
     {
         $this->dataUserSession = $dataUserSession;
+    }
+
+    public function getDataUserSession(): DataUserSession
+    {
+        return $this->dataUserSession;
     }
 
     public function getDepartement(): ?Departement

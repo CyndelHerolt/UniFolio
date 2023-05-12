@@ -3,12 +3,8 @@
 namespace App\Classes;
 
 use App\Entity\Annee;
-use App\Entity\AnneeUniversitaire;
 use App\Entity\Departement;
 use App\Entity\Diplome;
-use App\Entity\Enseignant;
-use App\Entity\EnseignantDepartement;
-use App\Entity\Etudiant;
 use App\Entity\Semestre;
 use App\Repository\AnneeRepository;
 use App\Repository\AnneeUniversitaireRepository;
@@ -16,7 +12,9 @@ use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
+use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
+use App\Repository\TypeGroupeRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -63,6 +61,8 @@ class DataUserSession
         protected EnseignantRepository $enseignantRepository,
         protected EtudiantRepository $etudiantRepository,
         protected DepartementRepository $departementRepository,
+        protected GroupeRepository $groupeRepository,
+        protected TypeGroupeRepository $typeGroupeRepository,
         protected TokenStorageInterface $user,
         protected Security $security,
         EventDispatcherInterface $eventDispatcher,
@@ -75,8 +75,12 @@ class DataUserSession
         $enseignant = $this->enseignantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
         $etudiant = $this->etudiantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
 
+        $this->enseignant = $enseignant;
+        $this->etudiant = $etudiant;
+
         if ($enseignant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
+            $this->allDepartements = $this->departementRepository->findDepartementEnseignant($enseignant);
         } elseif ($etudiant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
         } else {
@@ -93,6 +97,7 @@ class DataUserSession
             }
             $this->diplomes = $this->diplomeRepository->findByDepartement($this->departement);
             $this->annees = $this->anneeRepository->findByDepartement($this->departement);
+            $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
         }
     }
 
@@ -110,6 +115,11 @@ class DataUserSession
         return $this->departement;
     }
 
+    public function getAllDepartementsEnseignant(): array
+    {
+        return $this->allDepartements;
+    }
+
     public function getSemestres(): array
     {
         return $this->semestres;
@@ -118,6 +128,17 @@ class DataUserSession
     public function getSemestresActifs(): array
     {
         return $this->semestresActifs;
+    }
+
+    public function getSemestresByAnnee(Annee $annee, int $ordre): array
+    {
+        $semestres = [];
+        foreach ($this->semestres as $semestre) {
+            if ($semestre->getAnnee() === $annee && $annee->getOrdre() === $ordre) {
+                $semestres[] = $semestre;
+            }
+        }
+        return $semestres;
     }
 
     public function getDiplomes(): array
@@ -135,7 +156,33 @@ class DataUserSession
     }
 
     public function getEtudiantsDept() {
-//        dd($this->etudiantRepository->findByDepartementArray($this->departement));
         return $this->etudiantRepository->findByDepartementArray($this->departement);
     }
+
+    public function getEtudiantsSemestre() {
+        foreach ($this->semestresActifs as $semestre) {
+            $etudiants[] = $this->etudiantRepository->findBySemestre($semestre);
+        }
+        return $etudiants;
+    }
+
+    public function getEtudiantAnnee() {
+        foreach ($this->annees as $annee) {
+            $etudiants[] = $this->etudiantRepository->findByAnnee($annee);
+        }
+        return $etudiants;
+    }
+
+    public function getTypesGroupe() {
+        return $this->typesGroupes;
+    }
+
+    public function getGroupes() {
+        return $this->groupeRepository->findByDepartementSemestreActif($this->departement);
+    }
+
+    public function DepartementDefaut() {
+        return $this->departementRepository->findDepartementEnseignantDefaut($this->enseignant);
+    }
+
 }
