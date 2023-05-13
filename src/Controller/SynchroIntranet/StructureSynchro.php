@@ -54,7 +54,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $departements->toArray();
         foreach ($departements as $departement) {
-            $existingDepartement = $departementRepository->findOneBy(['libelle' => $departement['libelle']]);
+            $existingDepartement = $departementRepository->findOneBy(['id' => $departement['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingDepartement) {
                 $existingDepartement->setId($departement['id']);
@@ -98,9 +98,10 @@ class StructureSynchro extends AbstractController
             //Récupérer le libellé du département du diplôme
             $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
 
-            $existingDiplome = $diplomeRepository->findOneBy(['libelle' => $diplome['libelle']]);
+            $existingDiplome = $diplomeRepository->findOneBy(['id' => $diplome['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingDiplome) {
+                $existingDiplome->setId($diplome['id']);
                 $existingDiplome->setLibelle($diplome['libelle']);
                 $existingDiplome->setSigle($diplome['sigle']);
                 $existingDiplome->setDepartement($dept);
@@ -108,6 +109,7 @@ class StructureSynchro extends AbstractController
             } else {
                 //Sinon, on le crée
                 $newDiplome = new Diplome();
+                $newDiplome->setId($diplome['id']);
                 $newDiplome->setLibelle($diplome['libelle']);
                 $newDiplome->setSigle($diplome['sigle']);
                 $newDiplome->setDepartement($dept);
@@ -135,9 +137,10 @@ class StructureSynchro extends AbstractController
         foreach ($annees as $annee) {
             $diplome = $diplomeRepository->findOneBy(['libelle' => $annee['diplome']]);
 
-            $existingAnnee = $anneeRepository->findOneBy(['libelle' => $annee['libelle']]);
+            $existingAnnee = $anneeRepository->findOneBy(['id' => $annee['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingAnnee) {
+                $existingAnnee->setId($annee['id']);
                 $existingAnnee->setLibelle($annee['libelle']);
                 $existingAnnee->setOrdre($annee['ordre']);
                 $existingAnnee->setLibelleLong($annee['libelle_long']);
@@ -148,6 +151,7 @@ class StructureSynchro extends AbstractController
             } else {
                 //Sinon, on le crée
                 $newAnnee = new Annee();
+                $newAnnee->setId($annee['id']);
                 $newAnnee->setLibelle($annee['libelle']);
                 $newAnnee->setOrdre($annee['ordre']);
                 $newAnnee->setLibelleLong($annee['libelle_long']);
@@ -174,13 +178,16 @@ class StructureSynchro extends AbstractController
             ],
         );
 
+        //todo : récup par id
+
         $semestres = $semestres->toArray();
         foreach ($semestres as $semestre) {
             $annee = $anneeRepository->findOneBy(['libelle' => $semestre['annee']]);
 
-            $existingSemestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+            $existingSemestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingSemestre) {
+                $existingSemestre->setId($semestre['id']);
                 $existingSemestre->setLibelle($semestre['libelle']);
                 $existingSemestre->setOrdreAnnee($semestre['ordreAnnee']);
                 $existingSemestre->setOrdreLmd($semestre['ordreLmd']);
@@ -194,6 +201,7 @@ class StructureSynchro extends AbstractController
             } else {
                 //Sinon, on le crée
                 $newSemestre = new Semestre();
+                $newSemestre->setId($semestre['id']);
                 $newSemestre->setLibelle($semestre['libelle']);
                 $newSemestre->setOrdreAnnee($semestre['ordreAnnee']);
                 $newSemestre->setOrdreLmd($semestre['ordreLmd']);
@@ -225,23 +233,25 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $typesGroupes->toArray();
         foreach ($typesGroupes as $typeGroupe) {
-            $existingTypeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+            $existingTypeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingTypeGroupe) {
+                $existingTypeGroupe->setId($typeGroupe['id']);
                 $existingTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $existingTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
                 foreach ($typeGroupe['semestres'] as $semestre) {
-                    $semestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+                    $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
                     $existingTypeGroupe->addSemestre($semestre);
                 }
                 $typeGroupeRepository->save($existingTypeGroupe, true);
             } else {
                 //Sinon, on le crée
                 $newTypeGroupe = new TypeGroupe();
+                $newTypeGroupe->setId($typeGroupe['id']);
                 $newTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $newTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
                 foreach ($typeGroupe['semestres'] as $semestre) {
-                    $semestre = $semestreRepository->findOneBy(['libelle' => $semestre['libelle']]);
+                    $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
                     $newTypeGroupe->addSemestre($semestre);
                 }
                 $typeGroupeRepository->save($newTypeGroupe, true);
@@ -267,25 +277,26 @@ class StructureSynchro extends AbstractController
         $groupes = $groupes->toArray();
         foreach ($groupes as $groupe) {
 
-            $existingGroupe = $groupeRepository->findOneBy(['libelle' => $groupe['libelle']]);
+            $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingGroupe) {
                 $existingGroupe->setLibelle($groupe['libelle']);
                 $existingGroupe->setOrdre($groupe['ordre']);
                 $existingGroupe->setCodeApogee($groupe['code']);
                 foreach ($groupe['type'] as $typeGroupe) {
-                    $typeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+                    $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
                     $existingGroupe->setTypeGroupe($typeGroupe);
                 }
                 $groupeRepository->save($existingGroupe, true);
             } else {
                 //Sinon, on le crée
                 $newGroupe = new Groupe();
+                $newGroupe->setId($groupe['id']);
                 $newGroupe->setLibelle($groupe['libelle']);
                 $newGroupe->setOrdre($groupe['ordre']);
                 $newGroupe->setCodeApogee($groupe['code']);
                 foreach ($groupe['type'] as $typeGroupe) {
-                    $typeGroupe = $typeGroupeRepository->findOneBy(['libelle' => $typeGroupe['libelle']]);
+                    $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
                     $newGroupe->setTypeGroupe($typeGroupe);
                 }
                 $groupeRepository->save($newGroupe, true);

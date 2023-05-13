@@ -22,14 +22,17 @@ class TypeGroupeFixture extends Fixture implements OrderedFixtureInterface
     {
 
         $typeGroupe1 = new TypeGroupe();
+        $typeGroupe1->setId(1);
         $typeGroupe1->setLibelle('CM');
         $manager->persist($typeGroupe1);
 
         $typeGroupe2 = new TypeGroupe();
+        $typeGroupe2->setId(2);
         $typeGroupe2->setLibelle('TD');
         $manager->persist($typeGroupe2);
 
         $typeGroupe3 = new TypeGroupe();
+        $typeGroupe3->setId(3);
         $typeGroupe3->setLibelle('TP');
         $manager->persist($typeGroupe3);
 

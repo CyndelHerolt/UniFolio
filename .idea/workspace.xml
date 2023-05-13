@@ -4,24 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
-      <change afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/_departement.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Filtre] Filtre Twig pour filtrage des semestres par année">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/DataUserSession.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/DataUserSession.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/EtudiantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/EtudiantRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/GroupeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/GroupeRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/SemestreRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SemestreRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Annee.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Annee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Diplome.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Diplome.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Semestre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Semestre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -475,28 +468,9 @@
       <workItem from="1683784515654" duration="25049000" />
       <workItem from="1683870719890" duration="730000" />
       <workItem from="1683871464654" duration="641000" />
-      <workItem from="1683872116954" duration="18712000" />
-    </task>
-    <task id="LOCAL-00209" summary="feat: [Trace - Page] Génération des entités pour la gestion de l'ordre">
-      <created>1680182220163</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
-      <option name="project" value="LOCAL" />
-      <updated>1680182220163</updated>
-    </task>
-    <task id="LOCAL-00210" summary="feat: [Admin] Révision des infos affichées dans l'admin">
-      <created>1680182284729</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1680182284729</updated>
-    </task>
-    <task id="LOCAL-00211" summary="feat: [Enseignants] Génération des components pour alimenter le dashboard">
-      <created>1680201455569</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1680201455569</updated>
+      <workItem from="1683872116954" duration="21384000" />
+      <workItem from="1683906190084" duration="3873000" />
+      <workItem from="1683966240166" duration="519000" />
     </task>
     <task id="LOCAL-00212" summary="feat: [Fixtures] m.a.j des fixutres - liens">
       <created>1680201514571</created>
@@ -820,7 +794,28 @@
       <option name="project" value="LOCAL" />
       <updated>1683798391808</updated>
     </task>
-    <option name="localTasksCounter" value="258" />
+    <task id="LOCAL-00258" summary="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
+      <created>1683896959254</created>
+      <option name="number" value="00258" />
+      <option name="presentableId" value="LOCAL-00258" />
+      <option name="project" value="LOCAL" />
+      <updated>1683896959254</updated>
+    </task>
+    <task id="LOCAL-00259" summary="feat: [Session] Récupération et affichage des données propres au dept.">
+      <created>1683897023136</created>
+      <option name="number" value="00259" />
+      <option name="presentableId" value="LOCAL-00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1683897023136</updated>
+    </task>
+    <task id="LOCAL-00260" summary="feat: [Filtre] Filtre Twig pour filtrage des semestres par année">
+      <created>1683897052813</created>
+      <option name="number" value="00260" />
+      <option name="presentableId" value="LOCAL-00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1683897052813</updated>
+    </task>
+    <option name="localTasksCounter" value="261" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -881,8 +876,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Data] Requête d'import des semestres depuis l'intranet" />
-    <MESSAGE value="feat: [Data] Requête d'import des types de groupes depuis l'intranet" />
     <MESSAGE value="feat: [Data] Requête d'import des groupes depuis l'intranet" />
     <MESSAGE value="feat: [Database] Création des entités pour import du référentiel" />
     <MESSAGE value="feat: [Data] Gestion de l'import de la partie &quot;Structure&quot; depuis l'Intranet" />
@@ -906,6 +899,8 @@
     <MESSAGE value="feat: [Compte] Initiation de la session au login" />
     <MESSAGE value="fix: [Compte] Initialisation de la session au login" />
     <MESSAGE value="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté" />
+    <MESSAGE value="feat: [Session] Récupération et affichage des données propres au dept." />
+    <MESSAGE value="feat: [Filtre] Filtre Twig pour filtrage des semestres par année" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Filtre] Filtre Twig pour filtrage des semestres par année" />
   </component>
 </project>
