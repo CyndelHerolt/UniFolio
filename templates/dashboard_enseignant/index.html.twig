@@ -74,7 +74,7 @@
                         <div class="tab-pane fade show active" id="but1etudiant" role="tabpanel"
                              aria-labelledby="but1etudiant-tab">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                {% for semestre in data_user.semestresActifs %}
+                                {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                                                 data-bs-target="#but1etudiant"
