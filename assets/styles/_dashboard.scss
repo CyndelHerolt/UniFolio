@@ -415,3 +415,26 @@
     }
   }
 }
+
+.dept_list {
+
+  ul {
+
+    li {
+      //width: fit-content !important;
+      margin: 0 auto !important;
+      text-align: center;
+      cursor: pointer;
+
+      label {
+        cursor: pointer;
+        width: 100%;
+        padding: 10px 0;
+      }
+    }
+
+    hr {
+      margin: 0;
+    }
+  }
+}

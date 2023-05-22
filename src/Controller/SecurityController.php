@@ -40,19 +40,27 @@ class SecurityController extends AbstractController
 
         $departements = $enseignantDepartementRepository->findByEnseignant($enseignant);
         $update = null;
+        // si le formulaire est envoyé
         if ('POST' === $request->getMethod()) {
-            foreach ($departements as $departement) {
-                if (null !== $departement->getDepartement()) {
-                    if ($departement->getDepartement()->getId() !== (int)$request->request->get('departement')) {
-                        $departement->setDefaut(false);
-                    } elseif ($departement->getDepartement()->getId() === (int)$request->request->get('departement')) {
-                        $departement->setDefaut(true);
-                        $update = $departement;
-                    }
-                }
+            $update = $enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'defaut' => true]);
+            // Si aucun departement est Defaut = true on set Defaut à true pour le departement sélectionné
+            if (null === $update) {
+                $update = $enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'departement' => $request->request->get('departement')]);
+                $update->setDefaut(true);
+                $this->redirectToRoute('app_dashboard');
+                $entityManager->flush();
+            } else {
+                // Si un departement est Defaut = true on set Defaut à false pour ce département et on set Defaut à true pour le departement sélectionné
+//                dd($update);
+                $update->setDefaut(false);
+// On set Defaut à true pour le departement sélectionné
+                $update = $enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'departement' => $request->request->get('departement')]);
+//                dd($update);
+                $update->setDefaut(true);
+                $this->redirectToRoute('app_dashboard');
+                $entityManager->flush();
             }
 
-            $entityManager->flush();
             if (null !== $update && null !== $update->getDepartement()) {
                 $this->addFlash('success', 'Formation par défaut sauvegardée');
                 $session->getSession()->set('departement', $update->getDepartement()); // on sauvegarde
