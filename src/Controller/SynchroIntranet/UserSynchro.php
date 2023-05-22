@@ -282,8 +282,10 @@ class UserSynchro extends AbstractController
                 $newEnseignant->setTelephone($data['telephone']);
                 foreach ($data['departements'] as $departement) {
                     $departement = $departementRepository->findOneBy(['libelle' => $departement]);
-                    $newEnseignantDepartement = new EnseignantDepartement($newEnseignant ,$departement);
-                    $newEnseignant->AddEnseignantDepartement($newEnseignantDepartement);
+                    if ($departement) {
+                        $newEnseignantDepartement = new EnseignantDepartement($newEnseignant, $departement);
+                        $newEnseignant->AddEnseignantDepartement($newEnseignantDepartement);
+                    }
                 }
                 $enseignantRepository->save($newEnseignant, true);
             }

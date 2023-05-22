@@ -54,26 +54,30 @@ class StructureSynchro extends AbstractController
 
         $departements = $departements->toArray();
         foreach ($departements as $departement) {
-            $existingDepartement = $departementRepository->findOneBy(['id' => $departement['id']]);
-            //Vérifier si le libelle du département existe déjà en base de données
-            if ($existingDepartement) {
-                $existingDepartement->setId($departement['id']);
-                $existingDepartement->setLibelle($departement['libelle']);
-                $existingDepartement->setLogoName($departement['logo']);
-                $existingDepartement->setCouleur($departement['couleur']);
-                $existingDepartement->setTelContact($departement['tel_contact']);
-                $existingDepartement->setDescription($departement['description']);
-                $departementRepository->save($existingDepartement, true);
-            } else {
-                //Sinon, on le crée
-                $newDepartement = new Departement();
-                $newDepartement->setId($departement['id']);
-                $newDepartement->setLibelle($departement['libelle']);
-                $newDepartement->setLogoName($departement['logo']);
-                $newDepartement->setCouleur($departement['couleur']);
-                $newDepartement->setTelContact($departement['tel_contact']);
-                $newDepartement->setDescription($departement['description']);
-                $departementRepository->save($newDepartement, true);
+//            dd($departement['typeD']);
+//Si il existe un tableau contenant 'id'=>4 dans le tableau $departement['typeD']
+            if (in_array(['id' => 4], $departement['typeD'])) {
+                $existingDepartement = $departementRepository->findOneBy(['id' => $departement['id']]);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingDepartement) {
+                    $existingDepartement->setId($departement['id']);
+                    $existingDepartement->setLibelle($departement['libelle']);
+                    $existingDepartement->setLogoName($departement['logo']);
+                    $existingDepartement->setCouleur($departement['couleur']);
+                    $existingDepartement->setTelContact($departement['tel_contact']);
+                    $existingDepartement->setDescription($departement['description']);
+                    $departementRepository->save($existingDepartement, true);
+                } else {
+                    //Sinon, on le crée
+                    $newDepartement = new Departement();
+                    $newDepartement->setId($departement['id']);
+                    $newDepartement->setLibelle($departement['libelle']);
+                    $newDepartement->setLogoName($departement['logo']);
+                    $newDepartement->setCouleur($departement['couleur']);
+                    $newDepartement->setTelContact($departement['tel_contact']);
+                    $newDepartement->setDescription($departement['description']);
+                    $departementRepository->save($newDepartement, true);
+                }
             }
         }
 
@@ -99,21 +103,23 @@ class StructureSynchro extends AbstractController
             $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
 
             $existingDiplome = $diplomeRepository->findOneBy(['id' => $diplome['id']]);
-            //Vérifier si le libelle du département existe déjà en base de données
-            if ($existingDiplome) {
-                $existingDiplome->setId($diplome['id']);
-                $existingDiplome->setLibelle($diplome['libelle']);
-                $existingDiplome->setSigle($diplome['sigle']);
-                $existingDiplome->setDepartement($dept);
-                $diplomeRepository->save($existingDiplome, true);
-            } else {
-                //Sinon, on le crée
-                $newDiplome = new Diplome();
-                $newDiplome->setId($diplome['id']);
-                $newDiplome->setLibelle($diplome['libelle']);
-                $newDiplome->setSigle($diplome['sigle']);
-                $newDiplome->setDepartement($dept);
-                $diplomeRepository->save($newDiplome, true);
+            if ($diplome['type'] === 4) {
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingDiplome) {
+                    $existingDiplome->setId($diplome['id']);
+                    $existingDiplome->setLibelle($diplome['libelle']);
+                    $existingDiplome->setSigle($diplome['sigle']);
+                    $existingDiplome->setDepartement($dept);
+                    $diplomeRepository->save($existingDiplome, true);
+                } else {
+                    //Sinon, on le crée
+                    $newDiplome = new Diplome();
+                    $newDiplome->setId($diplome['id']);
+                    $newDiplome->setLibelle($diplome['libelle']);
+                    $newDiplome->setSigle($diplome['sigle']);
+                    $newDiplome->setDepartement($dept);
+                    $diplomeRepository->save($newDiplome, true);
+                }
             }
         }
 
@@ -135,7 +141,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $annees->toArray();
         foreach ($annees as $annee) {
-            $diplome = $diplomeRepository->findOneBy(['libelle' => $annee['diplome']]);
+            $diplome = $diplomeRepository->findOneBy(['id' => $annee['diplome']]);
 
             $existingAnnee = $anneeRepository->findOneBy(['id' => $annee['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
@@ -178,11 +184,9 @@ class StructureSynchro extends AbstractController
             ],
         );
 
-        //todo : récup par id
-
         $semestres = $semestres->toArray();
         foreach ($semestres as $semestre) {
-            $annee = $anneeRepository->findOneBy(['libelle' => $semestre['annee']]);
+            $annee = $anneeRepository->findOneBy(['id' => $semestre['annee']]);
 
             $existingSemestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
@@ -275,6 +279,7 @@ class StructureSynchro extends AbstractController
         );
 
         $groupes = $groupes->toArray();
+
         foreach ($groupes as $groupe) {
 
             $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);

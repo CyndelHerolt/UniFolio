@@ -3,16 +3,6 @@
         <p>Département {{ data_user.departement.libelle }}</p>
 
         {% if data_user.allDepartementsEnseignant|length > 1 %}
-            {#            <div class="dropdown"> #}
-            {#                <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> #}
-            {#                    <i class="fa-solid fa-shuffle"></i> #}
-            {#                </button> #}
-            {#                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> #}
-            {#                    {% for departement in data_user.allDepartementsEnseignant %} #}
-            {#                        <li><a class="dropdown-item" href="{{ path('app_choix_departement') }}">{{ departement.libelle }}</a></li> #}
-            {#                    {% endfor %} #}
-            {#                </ul> #}
-            {#            </div> #}
 
             <form action="{{ path('app_choix_departement') }}" method="post" class="dept_list">
                 <div class="dropdown">
@@ -37,24 +27,6 @@
                     </ul>
                 </div>
             </form>
-
-
-            {#            <form class="form" method="post" action="{{ path('app_choix_departement') }}"> #}
-            {#                <div class="row"> #}
-            {#                    {% for departement in data_user.allDepartementsEnseignant %} #}
-            {#                        <div class="col-4 d-grid d-block mt-2"> #}
-            {#                            <input type="submit" #}
-            {#                                   name="departement" #}
-            {#                                   value="{{ departement.id }}" #}
-            {#                                   id="departement_{{ departement.id }}" #}
-            {#                                   autocomplete="off"> #}
-            {#                            <label class="btn btn-outline-primary" for="departement_{{ departement.id }}"> #}
-            {#                                {{ departement.libelle }} #}
-            {#                            </label> #}
-            {#                        </div> #}
-            {#                    {% endfor %} #}
-            {#                </div> #}
-            {#            </form> #}
 
         {% endif %}
     </div>
