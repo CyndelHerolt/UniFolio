@@ -39,6 +39,17 @@ class TypeGroupeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findTypesGroupesEtudiant($etudiant): array
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.groupes', 'g')
+            ->innerJoin('g.etudiants', 'e')
+            ->where('e.id = :etudiant')
+            ->setParameter('etudiant', $etudiant->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(TypeGroupe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -55,6 +66,14 @@ class TypeGroupeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

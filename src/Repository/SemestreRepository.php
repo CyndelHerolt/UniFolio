@@ -62,6 +62,18 @@ class SemestreRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findSemestreEtudiant($etudiant): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.typeGroupes', 'tg')
+            ->innerJoin('tg.groupes', 'g')
+            ->innerJoin('g.etudiants', 'e')
+            ->where('e.id = :etudiant')
+            ->setParameter('etudiant', $etudiant)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function save(Semestre $entity, bool $flush = false): void
     {
@@ -79,6 +91,14 @@ class SemestreRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

@@ -30,6 +30,9 @@ class TypeGroupe
     #[ORM\OneToMany(mappedBy: 'type_groupe', targetEntity: Groupe::class)]
     private Collection $groupes;
 
+    #[ORM\Column(length: 2, nullable: true)]
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->semestre = new ArrayCollection();
@@ -142,6 +145,18 @@ class TypeGroupe
                 $groupe->setTypeGroupe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

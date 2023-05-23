@@ -52,6 +52,14 @@ class AnneeRepository extends ServiceEntityRepository
         }
     }
 
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 //    /**
 //     * @return Annee[] Returns an array of Annee objects
 //     */

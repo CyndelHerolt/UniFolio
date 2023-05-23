@@ -5,6 +5,8 @@ namespace App\Classes;
 use App\Entity\Annee;
 use App\Entity\Departement;
 use App\Entity\Diplome;
+use App\Entity\Etudiant;
+use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Repository\AnneeRepository;
 use App\Repository\AnneeUniversitaireRepository;
@@ -85,24 +87,29 @@ class DataUserSession
         if ($enseignant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
             $this->allDepartements = $this->departementRepository->findDepartementEnseignant($enseignant);
+            if (null !== $this->departement) {
+                $this->semestres = $this->semestreRepository->findByDepartement($this->departement);
+                $this->semestresActifs = [];
+                foreach ($this->semestres as $semestre) {
+                    if ($semestre->isActif()) {
+                        $this->semestresActifs[] = $semestre;
+                    }
+                }
+                $this->diplomes = $this->diplomeRepository->findByDepartement($this->departement);
+                $this->annees = $this->anneeRepository->findByDepartement($this->departement);
+                $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
+            }
         } elseif ($etudiant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
+
+            $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
+            $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
+            $this->semestres = $this->semestreRepository->findSemestreEtudiant($etudiant);
+
         } else {
             throw new AccessDeniedException('Vous n\'avez pas accès à cette page');
         }
 
-        if (null !== $this->departement) {
-            $this->semestres = $this->semestreRepository->findByDepartement($this->departement);
-            $this->semestresActifs = [];
-            foreach ($this->semestres as $semestre) {
-                if ($semestre->isActif()) {
-                    $this->semestresActifs[] = $semestre;
-                }
-            }
-            $this->diplomes = $this->diplomeRepository->findByDepartement($this->departement);
-            $this->annees = $this->anneeRepository->findByDepartement($this->departement);
-            $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
-        }
 
         //Si l'utilisateur connecté a les roles admin et enseignant, on set son département defaut à true dans la table enseignant_departement
         if ($this->security->isGranted('ROLE_TEST') && $this->security->isGranted('ROLE_ENSEIGNANT')) {

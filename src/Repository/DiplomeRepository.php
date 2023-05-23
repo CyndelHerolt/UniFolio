@@ -56,6 +56,14 @@ class DiplomeRepository extends ServiceEntityRepository
         }
     }
 
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 //    /**
 //     * @return Diplome[] Returns an array of Diplome objects
 //     */

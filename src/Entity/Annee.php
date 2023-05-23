@@ -30,7 +30,8 @@ class Annee
     #[ORM\Column(nullable: true)]
     private ?bool $actif = null;
 
-    #[ORM\ManyToOne(targetEntity: Diplome::class, inversedBy: 'annees')]
+    #[ORM\ManyToOne(targetEntity: Diplome::class, inversedBy: 'annees', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'diplome_id', referencedColumnName: 'id')]
     private ?Diplome $diplome = null;
 
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Semestre::class)]

@@ -82,4 +82,12 @@ class DepartementRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 }

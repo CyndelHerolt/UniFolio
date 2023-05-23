@@ -28,6 +28,9 @@ class Diplome
     #[ORM\OrderBy(value: ['ordre' => 'ASC', 'libelle' => 'ASC'])]
     private Collection $annees;
 
+    #[ORM\ManyToOne(inversedBy: 'diplomes')]
+    private ?ApcParcours $apcParcours = null;
+
     /**
      * @return Collection
      */
@@ -122,6 +125,18 @@ class Diplome
     public function setDepartement(Departement $departement): void
     {
         $this->departement = $departement;
+    }
+
+    public function getApcParcours(): ?ApcParcours
+    {
+        return $this->apcParcours;
+    }
+
+    public function setApcParcours(?ApcParcours $apcParcours): self
+    {
+        $this->apcParcours = $apcParcours;
+
+        return $this;
     }
 
 }

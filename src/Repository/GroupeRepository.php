@@ -28,17 +28,6 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
-//    public function findByDepartementBuilder(Departement $departement): QueryBuilder
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->innerJoin('g.type_groupe', 't')
-//            ->innerJoin('t.semestre', 's')
-//            ->innerJoin('s.annee', 'a')
-//            ->innerJoin('a.diplome', 'd')
-//            ->where('d.departement = :departement')
-//            ->setParameter('departement', $departement);
-//    }
-
     public function findByDepartementBuilder(Departement $departement): QueryBuilder
     {
         return $this->createQueryBuilder('g')
@@ -106,6 +95,16 @@ class GroupeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findGroupesEtudiant($etudiant): array
+    {
+        return $this->createQueryBuilder('g')
+            ->innerJoin('g.etudiants', 'e')
+            ->where('e.id = :etudiant')
+            ->setParameter('etudiant', $etudiant)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(Groupe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -122,6 +121,14 @@ class GroupeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

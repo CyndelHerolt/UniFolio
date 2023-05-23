@@ -3,12 +3,15 @@
 namespace App\Controller\SynchroIntranet;
 
 use App\Entity\Annee;
+use App\Entity\ApcParcours;
 use App\Entity\Departement;
 use App\Entity\Diplome;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
 use App\Repository\AnneeRepository;
+use App\Repository\ApcParcoursRepository;
+use App\Repository\ApcReferentielRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use App\Repository\GroupeRepository;
@@ -30,11 +33,23 @@ class StructureSynchro extends AbstractController
         SemestreRepository    $semestreRepository,
         TypeGroupeRepository  $typeGroupeRepository,
         GroupeRepository      $groupeRepository,
+        ApcParcoursRepository $apcParcoursRepository,
+        ApcReferentielRepository $apcReferentielRepository
 
 
     ): Response
     {
         //https://symfony.com/doc/current/http_client.html
+
+
+        // Vide les tables
+//        $departementRepository->truncate();
+        $semestreRepository->truncate();
+        $anneeRepository->truncate();
+        $diplomeRepository->truncate();
+        $groupeRepository->truncate();
+        $typeGroupeRepository->truncate();
+
 
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------DEPARTEMENTS--------------------------------------------------
@@ -101,8 +116,9 @@ class StructureSynchro extends AbstractController
         foreach ($diplomes as $diplome) {
             //Récupérer le libellé du département du diplôme
             $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
+            $parcours = $apcParcoursRepository->findOneBy(['libelle' => $diplome['parcours']]);
 
-            $existingDiplome = $diplomeRepository->findOneBy(['id' => $diplome['id']]);
+            $existingDiplome = $diplomeRepository->findOneBy(['libelle' => $diplome['libelle']]);
             if ($diplome['type'] === 4) {
                 //Vérifier si le libelle du département existe déjà en base de données
                 if ($existingDiplome) {
@@ -110,6 +126,7 @@ class StructureSynchro extends AbstractController
                     $existingDiplome->setLibelle($diplome['libelle']);
                     $existingDiplome->setSigle($diplome['sigle']);
                     $existingDiplome->setDepartement($dept);
+                    $existingDiplome->setApcParcours($parcours);
                     $diplomeRepository->save($existingDiplome, true);
                 } else {
                     //Sinon, on le crée
@@ -118,10 +135,59 @@ class StructureSynchro extends AbstractController
                     $newDiplome->setLibelle($diplome['libelle']);
                     $newDiplome->setSigle($diplome['sigle']);
                     $newDiplome->setDepartement($dept);
+                    $newDiplome->setApcParcours($parcours);
                     $diplomeRepository->save($newDiplome, true);
                 }
             }
         }
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------PARCOURS------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $parcours = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/parcours',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $parcours = $parcours->toArray();
+        foreach ($parcours as $apcParcours) {
+            $referentiel = $apcReferentielRepository->findOneBy(['libelle' => $apcParcours['referentiel']]);
+
+            if ($referentiel) {
+
+                $existingParcours = $apcParcoursRepository->findOneBy(['id' => $apcParcours['id']]);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingParcours) {
+                    $existingParcours->setId($apcParcours['id']);
+                    $existingParcours->setLibelle($apcParcours['libelle']);
+                    $existingParcours->setCode($apcParcours['code']);
+                    $existingParcours->setActif($apcParcours['actif']);
+                    $existingParcours->setApcReferentiel($referentiel);
+                    $apcParcoursRepository->save($existingParcours, true);
+                } else {
+                    //Sinon, on le crée
+                    $newParcours = new ApcParcours();
+                    $newParcours->setId($apcParcours['id']);
+                    $newParcours->setLibelle($apcParcours['libelle']);
+                    $newParcours->setCode($apcParcours['code']);
+                    $newParcours->setActif($apcParcours['actif']);
+                    $newParcours->setApcReferentiel($referentiel);
+                    $apcParcoursRepository->save($newParcours, true);
+                }
+            }
+            else {
+                $this->addFlash('error', 'Le référentiel '.$apcParcours['referentiel'].' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
+            }
+        }
+
 
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------ANNEES------------------------------------------------------
@@ -243,6 +309,7 @@ class StructureSynchro extends AbstractController
                 $existingTypeGroupe->setId($typeGroupe['id']);
                 $existingTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $existingTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
+                $existingTypeGroupe->setType($typeGroupe['type']);
                 foreach ($typeGroupe['semestres'] as $semestre) {
                     $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
                     $existingTypeGroupe->addSemestre($semestre);
@@ -254,6 +321,7 @@ class StructureSynchro extends AbstractController
                 $newTypeGroupe->setId($typeGroupe['id']);
                 $newTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $newTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
+                $newTypeGroupe->setType($typeGroupe['type']);
                 foreach ($typeGroupe['semestres'] as $semestre) {
                     $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
                     $newTypeGroupe->addSemestre($semestre);

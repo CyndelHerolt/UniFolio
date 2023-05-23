@@ -31,9 +31,13 @@ class ApcReferentiel
     #[ORM\OneToMany(mappedBy: 'referentiel', targetEntity: Competence::class)]
     private Collection $competences;
 
+    #[ORM\OneToMany(mappedBy: 'ApcReferentiel', targetEntity: ApcParcours::class)]
+    private Collection $apcParcours;
+
     public function __construct()
     {
         $this->competences = new ArrayCollection();
+        $this->apcParcours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +117,36 @@ class ApcReferentiel
             // set the owning side to null (unless already changed)
             if ($competence->getReferentiel() === $this) {
                 $competence->setReferentiel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcParcours>
+     */
+    public function getApcParcours(): Collection
+    {
+        return $this->apcParcours;
+    }
+
+    public function addApcParcour(ApcParcours $apcParcour): self
+    {
+        if (!$this->apcParcours->contains($apcParcour)) {
+            $this->apcParcours->add($apcParcour);
+            $apcParcour->setApcReferentiel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApcParcour(ApcParcours $apcParcour): self
+    {
+        if ($this->apcParcours->removeElement($apcParcour)) {
+            // set the owning side to null (unless already changed)
+            if ($apcParcour->getApcReferentiel() === $this) {
+                $apcParcour->setApcReferentiel(null);
             }
         }
 
