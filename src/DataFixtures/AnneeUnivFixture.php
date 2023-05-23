@@ -13,7 +13,7 @@ class AnneeUnivFixture extends Fixture implements OrderedFixtureInterface
     public function getOrder()
     {
         // Retourner un entier qui indique l'ordre de chargement des fixations
-        return 4;
+        return 8;
     }
 
     public function load(ObjectManager $manager): void

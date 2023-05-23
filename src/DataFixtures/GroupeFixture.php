@@ -31,7 +31,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 10;
+        return 6;
     }
 
     /**
@@ -39,14 +39,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $etudiant1 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant1']);
-        $etudiant2 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant2']);
-        $etudiant3 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant3']);
-        $etudiant4 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant4']);
-        $etudiant5 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant5']);
-        $etudiant6 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant6']);
-        $etudiant7 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant7']);
-        $etudiant8 = $this->etudiantRepository->findOneBy(['nom' => 'etudiant8']);
+        $etudiant1 = $this->etudiantRepository->findOneBy(['username' => 'etudiant']);
 
         $typeGroupe1 = $this->typeGroupeRepository->findOneBy(['libelle' => 'CM']);
         $typeGroupe2 = $this->typeGroupeRepository->findOneBy(['libelle' => 'TD']);
@@ -54,62 +47,54 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
 
         $groupe1 = new Groupe();
         $groupe1->setLibelle('CM')
+            ->setId(1)
             ->setCodeApogee('TS123S1CM')
             ->setOrdre(1)
             ->setTypeGroupe($typeGroupe1)
-            ->addEtudiant($etudiant1)
-            ->addEtudiant($etudiant2)
-            ->addEtudiant($etudiant3)
-            ->addEtudiant($etudiant4)
-            ->addEtudiant($etudiant5)
-            ->addEtudiant($etudiant6)
-            ->addEtudiant($etudiant7)
-            ->addEtudiant($etudiant8);
+            ->addEtudiant($etudiant1);
 
         $manager->persist($groupe1);
 
         $groupe2 = new Groupe();
         $groupe2->setLibelle('TD AB')
+            ->setId(2)
             ->setCodeApogee('TS123S1TDAB')
             ->setOrdre(1)
             ->setTypeGroupe($typeGroupe2)
-            ->addEtudiant($etudiant1)
-            ->addEtudiant($etudiant2);
+            ->addEtudiant($etudiant1);
 
         $manager->persist($groupe2);
 
         $groupe3 = new Groupe();
         $groupe3->setLibelle('TD CD')
+            ->setId(3)
             ->setCodeApogee('TS123S1TDCD')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe2)
-            ->addEtudiant($etudiant3)
-            ->addEtudiant($etudiant4);
+            ->setTypeGroupe($typeGroupe2);
 
         $manager->persist($groupe3);
 
         $groupe4 = new Groupe();
         $groupe4->setLibelle('TD EF')
+            ->setId(4)
             ->setCodeApogee('TS123S1TDEF')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe2)
-            ->addEtudiant($etudiant5)
-            ->addEtudiant($etudiant6);
+            ->setTypeGroupe($typeGroupe2);
 
         $manager->persist($groupe4);
 
         $groupe5 = new Groupe();
         $groupe5->setLibelle('TD GH')
+            ->setId(5)
             ->setCodeApogee('TS123S1TDGH')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe2)
-            ->addEtudiant($etudiant7)
-            ->addEtudiant($etudiant8);
+            ->setTypeGroupe($typeGroupe2);
 
         $manager->persist($groupe5);
 
         $groupe6 = new Groupe();
         $groupe6->setLibelle('TP A')
+            ->setId(6)
             ->setCodeApogee('TS123S1TPA')
             ->setOrdre(1)
             ->setTypeGroupe($typeGroupe3)
@@ -119,64 +104,64 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
 
         $groupe7 = new Groupe();
         $groupe7->setLibelle('TP B')
+            ->setId(7)
             ->setCodeApogee('TS123S1TPB')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant2);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe7);
 
         $groupe8 = new Groupe();
         $groupe8->setLibelle('TP C')
+            ->setId(8)
             ->setCodeApogee('TS123S1TPC')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant3);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe8);
 
         $groupe9 = new Groupe();
         $groupe9->setLibelle('TP D')
+            ->setId(9)
             ->setCodeApogee('TS123S1TPD')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant4);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe9);
 
         $groupe10 = new Groupe();
         $groupe10->setLibelle('TP E')
+            ->setId(10)
             ->setCodeApogee('TS123S1TPE')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant5);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe10);
 
         $groupe11 = new Groupe();
         $groupe11->setLibelle('TP F')
+            ->setId(11)
             ->setCodeApogee('TS123S1TPF')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant6);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe11);
 
         $groupe12 = new Groupe();
         $groupe12->setLibelle('TP G')
+            ->setId(12)
             ->setCodeApogee('TS123S1TPG')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant7);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe12);
 
         $groupe13 = new Groupe();
         $groupe13->setLibelle('TP H')
+            ->setId(13)
             ->setCodeApogee('TS123S1TPH')
             ->setOrdre(1)
-            ->setTypeGroupe($typeGroupe3)
-            ->addEtudiant($etudiant8);
+            ->setTypeGroupe($typeGroupe3);
 
         $manager->persist($groupe13);
 

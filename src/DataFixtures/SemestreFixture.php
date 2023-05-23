@@ -22,29 +22,20 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 14;
+        return 7;
     }
 
     public function load(ObjectManager $manager)
     {
-        $annee1 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-1']);
-        $annee2 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-2-Crea']);
-        $annee3 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-2-DWeb-DI']);
-        $annee4 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-2-DWeb-DI-FC']);
-        $annee5 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-2-Strat-UX-FC']);
-        $annee6 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-3-Crea']);
-        $annee7 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-3-DWeb-DI']);
-        $annee8 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-3-DWeb-DI-FC']);
-        $annee9 = $this->anneeRepository->findOneBy(['sigle' => 'MMI-3-Strat-UX-FC']);
-        $annee10 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-1']);
-        $annee11 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-2-GC2F']);
-        $annee12 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-2-GEMA']);
-        $annee13 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-2-GEMA-FC']);
-        $annee14 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-2-GRH']);
-        $annee15 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-3-GC2F']);
-        $annee16 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-3-GEMA']);
-        $annee17 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-3-GEMA-FC']);
-        $annee18 = $this->anneeRepository->findOneBy(['sigle' => 'GEA-3-GRH']);
+        $annee1 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-1']);
+        $annee2 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-2-Crea']);
+        $annee3 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-2-DWeb-DI']);
+        $annee4 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-2-DWeb-DI-FC']);
+        $annee5 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-2-Strat-UX-FC']);
+        $annee6 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-3-Crea']);
+        $annee7 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-3-DWeb-DI']);
+        $annee8 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-3-DWeb-DI-FC']);
+        $annee9 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-3-Strat-UX-FC']);
 
         $typeGroupe1 = $this->typeGroupeRepository->findOneBy(['libelle' => 'CM']);
         $typeGroupe2 = $this->typeGroupeRepository->findOneBy(['libelle' => 'TD']);
@@ -54,6 +45,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre1 = new Semestre();
         $semestre1->setLibelle('S1-MMI')
+            ->setId(1)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -70,6 +62,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre2 = new Semestre();
         $semestre2->setLibelle('S2-MMI')
+            ->setId(2)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -85,6 +78,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre3 = new Semestre();
         $semestre3->setLibelle('S3-Crea')
+            ->setId(3)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -100,6 +94,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre4 = new Semestre();
         $semestre4->setLibelle('S4-Crea')
+            ->setId(4)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -115,6 +110,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre5 = new Semestre();
         $semestre5->setLibelle('S3-DWeb-DI')
+            ->setId(5)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -130,6 +126,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre6 = new Semestre();
         $semestre6->setLibelle('S4-DWeb-DI')
+            ->setId(6)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -145,6 +142,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre7 = new Semestre();
         $semestre7->setLibelle('S3-DWeb-DI-FC')
+            ->setId(7)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -160,6 +158,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre8 = new Semestre();
         $semestre8->setLibelle('S4-DWeb-DI-FC')
+            ->setId(8)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -175,6 +174,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre9 = new Semestre();
         $semestre9->setLibelle('S3-Strat-UX-FC')
+            ->setId(9)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -190,6 +190,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre10 = new Semestre();
         $semestre10->setLibelle('S4-Strat-UX-FC')
+            ->setId(10)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -205,6 +206,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre11 = new Semestre();
         $semestre11->setLibelle('S5-Crea')
+            ->setId(11)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -220,6 +222,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre12 = new Semestre();
         $semestre12->setLibelle('S6-Crea')
+            ->setId(12)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -235,6 +238,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre13 = new Semestre();
         $semestre13->setLibelle('S5-DWeb-DI')
+            ->setId(13)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -250,6 +254,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre14 = new Semestre();
         $semestre14->setLibelle('S6-DWeb-DI')
+            ->setId(14)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -265,6 +270,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre15 = new Semestre();
         $semestre15->setLibelle('S5-DWeb-DI-FC')
+            ->setId(15)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -280,6 +286,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre16 = new Semestre();
         $semestre16->setLibelle('S6-DWeb-DI-FC')
+            ->setId(16)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -295,6 +302,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre17 = new Semestre();
         $semestre17->setLibelle('S5-Strat-UX-FC')
+            ->setId(17)
             ->setOrdreAnnee(1)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -310,6 +318,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
 
         $semestre18 = new Semestre();
         $semestre18->setLibelle('S6-Strat-UX-FC')
+            ->setId(18)
             ->setOrdreAnnee(2)
             ->setDateCreation(new \DateTime('now'))
             ->setDateModification(new \DateTime('now'))
@@ -322,276 +331,6 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
             ->addTypeGroupe($typeGroupe2)
             ->addTypeGroupe($typeGroupe3);
         $manager->persist($semestre18);
-
-        $semestre19 = new Semestre();
-        $semestre19->setLibelle('S1-GEA')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee10)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre19);
-
-        $semestre20 = new Semestre();
-        $semestre20->setLibelle('S2-GEA')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee10)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre20);
-
-        $semestre21 = new Semestre();
-        $semestre21->setLibelle('S3-GC2F')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee11)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre21);
-
-        $semestre22 = new Semestre();
-        $semestre22->setLibelle('S4-GC2F')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee11)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre22);
-
-        $semestre23 = new Semestre();
-        $semestre23->setLibelle('S3-GEMA')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee12)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre23);
-
-        $semestre24 = new Semestre();
-        $semestre24->setLibelle('S4-GEMA')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee12)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre24);
-
-        $semestre25 = new Semestre();
-        $semestre25->setLibelle('S3-GEMA-FC')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee13)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre25);
-
-        $semestre26 = new Semestre();
-        $semestre26->setLibelle('S4-GEMA-FC')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee13)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre26);
-
-        $semestre27 = new Semestre();
-        $semestre27->setLibelle('S3-GRH')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee14)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre27);
-
-        $semestre28 = new Semestre();
-        $semestre28->setLibelle('S4-GRH')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee14)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre28);
-
-        $semestre29 = new Semestre();
-        $semestre29->setLibelle('S5-GC2F')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee15)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre29);
-
-        $semestre30 = new Semestre();
-        $semestre30->setLibelle('S6-GC2F')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee15)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre30);
-
-        $semestre31 = new Semestre();
-        $semestre31->setLibelle('S5-GEMA')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee16)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre31);
-
-        $semestre32 = new Semestre();
-        $semestre32->setLibelle('S6-GEMA')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee16)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre32);
-
-        $semestre33 = new Semestre();
-        $semestre33->setLibelle('S5-GEMA-FC')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee17)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre33);
-
-        $semestre34 = new Semestre();
-        $semestre34->setLibelle('S6-GEMA-FC')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee17)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre34);
-
-        $semestre35 = new Semestre();
-        $semestre35->setLibelle('S5-GRH')
-            ->setOrdreAnnee(1)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(true)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee18)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre35);
-
-        $semestre36 = new Semestre();
-        $semestre36->setLibelle('S6-GRH')
-            ->setOrdreAnnee(2)
-            ->setDateCreation(new \DateTime('now'))
-            ->setDateModification(new \DateTime('now'))
-            ->setActif(false)
-            ->setNbGroupesCm(1)
-            ->setNbGroupesTd(4)
-            ->setNbGroupesTp(8)
-            ->setAnnee($annee18)
-            ->addTypeGroupe($typeGroupe1)
-            ->addTypeGroupe($typeGroupe2)
-            ->addTypeGroupe($typeGroupe3);
-        $manager->persist($semestre36);
 
         $manager->flush();
     }

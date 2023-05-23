@@ -20,25 +20,20 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 13;
+        return 3;
     }
 
     public function load(ObjectManager $manager)
     {
-//TODO: Repréciser les diplomes
         $diplome1 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI']);
         $diplome2 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-Crea']);
         $diplome3 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-DWeb-DI']);
         $diplome4 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-DWeb-DI-FC']);
         $diplome5 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-Strat-UX-FC']);
-        $diplome6 = $this->diplomeRepository->findOneBy(['sigle' => 'GEA']);
-        $diplome7 = $this->diplomeRepository->findOneBy(['sigle' => 'GEA-GC2F']);
-        $diplome8 = $this->diplomeRepository->findOneBy(['sigle' => 'GEA-GEMA']);
-        $diplome9 = $this->diplomeRepository->findOneBy(['sigle' => 'GEA-GEMA-FC']);
-        $diplome10 = $this->diplomeRepository->findOneBy(['sigle' => 'GEA-GRH']);
 
         $annee1 = new Annee();
         $annee1->setLibelle('MMI-1')
+            ->setId(1)
             ->setOrdre(1)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 1ere année - MMI')
@@ -48,6 +43,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee2 = new Annee();
         $annee2->setLibelle('MMI-2-Crea')
+            ->setId(2)
             ->setOrdre(2)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Création Numérique')
@@ -57,6 +53,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee3 = new Annee();
         $annee3->setLibelle('MMI-2-DWeb-DI')
+            ->setId(3)
             ->setOrdre(2)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Développement Web et Dispositifs Interactifs')
@@ -66,6 +63,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee4 = new Annee();
         $annee4->setLibelle('MMI-2-DWeb-DI-FC')
+            ->setId(4)
             ->setOrdre(2)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Développement Web et Dispositifs Interactifs - Formation Continue')
@@ -75,6 +73,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee5 = new Annee();
         $annee5->setLibelle('MMI-2-Strat-UX-FC')
+            ->setId(5)
             ->setOrdre(2)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Stratégie de communication et Expérience Utilisateur - Formation Continue')
@@ -84,6 +83,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee6 = new Annee();
         $annee6->setLibelle('MMI-3-Crea')
+            ->setId(6)
             ->setOrdre(3)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Création Numérique')
@@ -93,6 +93,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee7 = new Annee();
         $annee7->setLibelle('MMI-3-DWeb-DI')
+            ->setId(7)
             ->setOrdre(3)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Développement Web et Dispositifs Interactifs')
@@ -102,6 +103,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee8 = new Annee();
         $annee8->setLibelle('MMI-3-DWeb-DI-FC')
+            ->setId(8)
             ->setOrdre(3)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Développement Web et Dispositifs Interactifs - Formation Continue')
@@ -111,84 +113,13 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
 
         $annee9 = new Annee();
         $annee9->setLibelle('MMI-3-Strat-UX-FC')
+            ->setId(9)
             ->setOrdre(3)
             ->setActif(1)
             ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Stratégie de communication et Expérience Utilisateur - Formation Continue')
             ->setOptAlternance(1)
             ->setDiplome($diplome5);
         $manager->persist($annee9);
-
-        $annee10 = new Annee();
-        $annee10->setLibelle('GEA-1')
-            ->setOrdre(1)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 1ere année - Gestion des Entreprises et des Administrations')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome6);
-        $manager->persist($annee10);
-
-        $annee11 = new Annee();
-        $annee11->setLibelle('GEA-2-GC2F')
-            ->setOrdre(2)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Gestion Comptable et Financière')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome7);
-        $manager->persist($annee11);
-
-        $annee12 = new Annee();
-        $annee12->setLibelle('GEA-2-GEMA')
-            ->setOrdre(2)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Gestion des Entreprises et des Administrations')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome8);
-        $manager->persist($annee12);
-
-        $annee13 = new Annee();
-        $annee13->setLibelle('GEA-2-GEMA-FC')
-            ->setOrdre(2)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 2eme année - parcours Gestion des Entreprises et des Administrations - Formation Continue')
-            ->setOptAlternance(1)
-            ->setDiplome($diplome9);
-        $manager->persist($annee13);
-
-        $annee14 = new Annee();
-        $annee14->setLibelle('GEA-2-GRH')
-            ->setOrdre(2)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Gestion Comptable et Financière')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome10);
-        $manager->persist($annee14);
-
-        $annee15 = new Annee();
-        $annee15->setLibelle('GEA-3-GC2F')
-            ->setOrdre(3)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Gestion Comptable et Financière')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome7);
-        $manager->persist($annee15);
-
-        $annee16 = new Annee();
-        $annee16->setLibelle('GEA-3-GEMA')
-            ->setOrdre(3)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Gestion des Entreprises et des Administrations')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome8);
-        $manager->persist($annee16);
-
-        $annee17 = new Annee();
-        $annee17->setLibelle('GEA-3-GRH')
-            ->setOrdre(3)
-            ->setActif(1)
-            ->setLibelleLong('Bachelor Universitaire de Technologie 3eme année - parcours Gestion des Entreprises et des Administrations')
-            ->setOptAlternance(0)
-            ->setDiplome($diplome10);
-        $manager->persist($annee17);
 
         $manager->flush();
     }
