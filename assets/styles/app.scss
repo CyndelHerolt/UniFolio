@@ -14,7 +14,7 @@ body {
   .container {
     max-width: 100vw;
     //background-color: $color-bg;
-    padding: 25px 75px;
+    padding: 25px 75px !important;
 
     h1 {
       @include titre($secondary-font, 36px, 1.5);

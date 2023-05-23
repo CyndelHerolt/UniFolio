@@ -13,12 +13,12 @@
 </head>
 <body>
 <header>
-        {% include('_menu.html.twig') %}
-        {% if data_user is defined %}
-            {% include('_departement.html.twig') %}
-        {% endif %}
     {% block header %}
     {% endblock %}
+        {% include('_menu.html.twig') %}
+    {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
+        {% include('_departement.html.twig') %}
+    {% endif %}
 </header>
 {% include "_toasts.html.twig" %}
 {% block body %}
@@ -26,5 +26,20 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
+<footer>
+
+    {% if admin is defined and admin == '/admin?_switch_user=_exit' %}
+
+        <br>
+
+        <a href="{{ admin }}">
+            <button>back to admin</button>
+        </a>
+
+        <br>
+
+    {% endif %}
+
+</footer>
 </body>
 </html>
