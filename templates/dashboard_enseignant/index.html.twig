@@ -15,39 +15,6 @@
     </nav>
     <div class="container dashboard">
         <h1>Tableau de bord</h1>
-        {#        {{ data_user.departement.libelle }} #}
-        {#        <br> #}
-        {#        {% for etudiant in data_user.etudiantsDept %} #}
-        {#            {{ etudiant.prenom }} #}
-        {#        {% endfor %} #}
-        {#        <br> #}
-        {#        {% for semestre in data_user.semestresActifs %} #}
-        {#            {{ semestre.libelle }} -#}
-        {#        {% endfor %} #}
-        {#        <br> #}
-        {#        {% for annees in data_user.annees %} #}
-        {#            {{ annees.libelle }} #}
-        {#        {% endfor %} #}
-        {#        <br> #}
-        {#        {% for diplome in data_user.diplomes %} #}
-        {#            {{ diplome.sigle }} #}
-        {#        {% endfor %} #}
-        {#        {{ dump(data_user.etudiantsSemestre) }} #}
-        {#        {{ dump(data_user.semestresActifs) }} #}
-        {#        {% for semestre in data_user.etudiantsSemestre %} #}
-        {#            {% if semestre is empty %} #}
-        {#                <p>Il n'y a pas d'étudiants dans ce semestre</p> #}
-        {#                {% else %} #}
-        {#                {% for etudiant in semestre %} #}
-        {#                    {{ etudiant.prenom }} {{ etudiant.nom }} #}
-        {#                {% endfor %} #}
-        {#            {% endif %} #}
-        {#        {% endfor %} #}
-        {#        {{ dump(data_user.etudiantAnnee) }} #}
-        {#        {{ dump(data_user.annees) }} #}
-        {#        {{ dump(data_user.groupes) }} #}
-        {#        {{ dump(data_user.diplomes) }} #}
-        {#        {{ dump(data_user.annees) }} #}
         <section class="dashboard_infos_groupe">
             <div class="row">
                 <h2>Ensemble des étudiants</h2>
@@ -61,49 +28,25 @@
                         </form>
                     </div>
 
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#but1etudiant"
-                                    type="button" role="tab" aria-controls="but1etudiant" aria-selected="true">B.U.T 1
-                            </button>
+                            <button class="nav-link active" id="but1-tab" data-bs-toggle="tab" data-bs-target="#but1"
+                                    type="button" role="tab" aria-controls="but1" aria-selected="true">B.U.T 1</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="but2-tab" data-bs-toggle="tab" data-bs-target="#but2"
+                                    type="button" role="tab" aria-controls="but2" aria-selected="false">B.U.T 2</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="but3-tab" data-bs-toggle="tab" data-bs-target="#but3"
+                                    type="button" role="tab" aria-controls="but3" aria-selected="false">B.U.T 3</button>
                         </li>
                     </ul>
 
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="but1etudiant" role="tabpanel"
-                             aria-labelledby="but1etudiant-tab">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                                data-bs-target="#but1etudiant"
-                                                type="button" role="tab" aria-controls="but1etudiant"
-                                                aria-selected="true">{{ semestre.libelle }}
-                                        </button>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Trier par groupe de TP
-                        </button>
-                        {# TODO: Filtre affichage #}
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            {% for groupe in data_user.groupes %}
-                                <li><a class="dropdown-item" href="#">
-                                        {{ groupe.libelle }}
-                                    </a>
-                                </li>
-                                {#                                {% for groupe_data in groupe %} #}
-                                {#                                    <li><a class="dropdown-item" href="#"> #}
-                                {#                                            {{ groupe_data.libelle }} #}
-                                {#                                        </a></li> #}
-                                {#                                {% endfor %} #}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    {% include('partials/_filtres_semestres.html.twig') %}
+
+
                 </article>
             </div>
         </section>
@@ -134,7 +77,16 @@
                              aria-labelledby="but1trace-tab">
                             <div>
                                 BUT1
-                                {#                                {{ component('all_suivi_trace') }} #}
+                                {{ component('all_suivi_trace') }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show" id="but2trace" role="tabpanel"
+                             aria-labelledby="but2trace-tab">
+                            <div>
+                                BUT2
+                                {{ component('all_suivi_trace') }}
                             </div>
                         </div>
                     </div>
@@ -142,19 +94,4 @@
             </div>
         </section>
     </div>
-    <footer>
-
-        {% if admin == '/admin?_switch_user=_exit' %}
-
-            <br>
-
-            <a href="{{ admin }}">
-                <button>back to admin</button>
-            </a>
-
-            <br>
-
-        {% endif %}
-
-    </footer>
 {% endblock %}

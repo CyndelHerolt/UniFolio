@@ -85,6 +85,8 @@ class GroupeRepository extends ServiceEntityRepository
             ->innerJoin(Diplome::class, 'd', 'WITH', 'd.id = a.diplome')
             ->where('d.departement = :departement')
             ->andWhere('s.actif = 1')
+            ->andWhere('t.libelle = :tlibelle')
+            ->setParameter('tlibelle', 'TP')
             ->setParameter('departement', $departement->getId());
     }
 

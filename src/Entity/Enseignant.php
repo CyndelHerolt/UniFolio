@@ -267,6 +267,15 @@ class Enseignant
         return $this;
     }
 
+    public function addDepartement(Departement $departement): self
+    {
+        $enseignantDepartement = new EnseignantDepartement($this, $departement);
+        $enseignantDepartement->setDepartement($departement);
+        $this->addEnseignantDepartement($enseignantDepartement);
+
+        return $this;
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;

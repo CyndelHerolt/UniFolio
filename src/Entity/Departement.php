@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Departement
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+//    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -52,12 +52,19 @@ class Departement
         $this->enseignantDepartements = new ArrayCollection();
     }
 
-    /**
-     * @param int|null $id
-     */
-    public function setId(?int $id): void
+    public function removeTrace(Trace $trace): self
+    {
+        $this->trace->removeElement($trace);
+
+        return $this;
+    }
+
+
+    public function setId(?int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -137,7 +144,7 @@ class Departement
     {
         if (!$this->diplomes->contains($diplome)) {
             $this->diplomes->add($diplome);
-            $diplome->addDepartementId($this);
+            $diplome->setDepartement($this);
         }
 
         return $this;
@@ -146,7 +153,7 @@ class Departement
     public function removeDiplome(Diplome $diplome): self
     {
         if ($this->diplomes->removeElement($diplome)) {
-            $diplome->removeDepartementId($this);
+            $diplome->removeDepartement($this);
         }
 
         return $this;

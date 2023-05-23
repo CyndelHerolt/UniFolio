@@ -10,11 +10,13 @@ use App\Repository\AnneeRepository;
 use App\Repository\AnneeUniversitaireRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
+use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TypeGroupeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -55,18 +57,20 @@ class DataUserSession
      * @throws NonUniqueResultException
      */
     public function __construct(
-        protected SemestreRepository $semestreRepository,
-        protected AnneeRepository $anneeRepository,
-        protected DiplomeRepository $diplomeRepository,
-        protected EnseignantRepository $enseignantRepository,
-        protected EtudiantRepository $etudiantRepository,
-        protected DepartementRepository $departementRepository,
-        protected GroupeRepository $groupeRepository,
-        protected TypeGroupeRepository $typeGroupeRepository,
-        protected TokenStorageInterface $user,
-        protected Security $security,
-        EventDispatcherInterface $eventDispatcher,
-        RequestStack $session
+        protected SemestreRepository              $semestreRepository,
+        protected AnneeRepository                 $anneeRepository,
+        protected DiplomeRepository               $diplomeRepository,
+        protected EnseignantRepository            $enseignantRepository,
+        protected EtudiantRepository              $etudiantRepository,
+        protected DepartementRepository           $departementRepository,
+        protected EnseignantDepartementRepository $enseignantDepartementRepository,
+        protected GroupeRepository                $groupeRepository,
+        protected TypeGroupeRepository            $typeGroupeRepository,
+        protected TokenStorageInterface           $user,
+        protected Security                        $security,
+        EntityManagerInterface                    $entityManager,
+        EventDispatcherInterface                  $eventDispatcher,
+        RequestStack                              $session
     )
     {
         $this->requestStack = $session;
@@ -99,6 +103,26 @@ class DataUserSession
             $this->annees = $this->anneeRepository->findByDepartement($this->departement);
             $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
         }
+
+        //Si l'utilisateur connecté a les roles admin et enseignant, on set son département defaut à true dans la table enseignant_departement
+        if ($this->security->isGranted('ROLE_TEST') && $this->security->isGranted('ROLE_ENSEIGNANT')) {
+            $departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
+            $departementDefaut = $enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'departement' => $departement]);
+            $departementDefaut->setDefaut(true);
+            if (null !== $departement) {
+                $semestres = $this->semestreRepository->findByDepartement($departement);
+                $this->semestresActifs = [];
+                foreach ($semestres as $semestre) {
+                    if ($semestre->isActif()) {
+                        $this->semestresActifs[] = $semestre;
+                    }
+                }
+                $this->diplomes = $this->diplomeRepository->findByDepartement($departement);
+                $this->annees = $this->anneeRepository->findByDepartement($departement);
+                $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($departement);
+            }
+            $entityManager->flush();
+        }
     }
 
     public function getUser(): ?UserInterface
@@ -113,6 +137,11 @@ class DataUserSession
     public function getDepartement(): ?Departement
     {
         return $this->departement;
+    }
+
+    public function setDepartement(Departement $departement): void
+    {
+        $this->departement = $departement;
     }
 
     public function getAllDepartementsEnseignant(): array
@@ -151,37 +180,44 @@ class DataUserSession
         return $this->annees;
     }
 
-    public function getAllEnseignants() {
+    public function getAllEnseignants()
+    {
         return $this->enseignantRepository->findByDepartement($this->departement);
     }
 
-    public function getEtudiantsDept() {
+    public function getEtudiantsDept()
+    {
         return $this->etudiantRepository->findByDepartementArray($this->departement);
     }
 
-    public function getEtudiantsSemestre() {
+    public function getEtudiantsSemestre()
+    {
         foreach ($this->semestresActifs as $semestre) {
             $etudiants[] = $this->etudiantRepository->findBySemestre($semestre);
         }
         return $etudiants;
     }
 
-    public function getEtudiantAnnee() {
+    public function getEtudiantAnnee()
+    {
         foreach ($this->annees as $annee) {
             $etudiants[] = $this->etudiantRepository->findByAnnee($annee);
         }
         return $etudiants;
     }
 
-    public function getTypesGroupe() {
+    public function getTypesGroupe()
+    {
         return $this->typesGroupes;
     }
 
-    public function getGroupes() {
+    public function getGroupes()
+    {
         return $this->groupeRepository->findByDepartementSemestreActif($this->departement);
     }
 
-    public function DepartementDefaut() {
+    public function DepartementDefaut()
+    {
         return $this->departementRepository->findDepartementEnseignantDefaut($this->enseignant);
     }
 

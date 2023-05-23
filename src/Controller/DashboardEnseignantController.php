@@ -6,17 +6,13 @@ use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\GroupeRepository;
-use App\Repository\SemestreRepository;
-use App\Repository\TypeGroupeRepository;
 use App\Repository\UsersRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\AnneeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class DashboardEnseignantController extends BaseController
@@ -24,13 +20,13 @@ class DashboardEnseignantController extends BaseController
 
     public function __construct(
 
-        protected GroupeRepository $groupeRepository,
-        protected DiplomeRepository $diplomeRepository,
+        protected GroupeRepository   $groupeRepository,
+        protected DiplomeRepository  $diplomeRepository,
         protected EtudiantRepository $etudiantRepository,
-        protected AnneeRepository $anneeRepository,
-        #[Required] public Security $security,
-        EnseignantRepository $enseignantRepository,
-        RequestStack $session,
+        protected AnneeRepository    $anneeRepository,
+        #[Required] public Security  $security,
+        EnseignantRepository         $enseignantRepository,
+        RequestStack                 $session,
     )
     {
         $this->session = $session;
@@ -38,7 +34,9 @@ class DashboardEnseignantController extends BaseController
 
     #[Route('/dashboard/enseignant', name: 'enseignant_dashboard')]
     public function index(
-        UsersRepository $usersRepository
+        UsersRepository       $usersRepository,
+        EnseignantRepository  $enseignantRepository,
+        DepartementRepository $departementRepository,
     ): Response
     {
 //        dd($this->session->getSession());
@@ -47,12 +45,19 @@ class DashboardEnseignantController extends BaseController
 
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
+        $enseignant = $enseignantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $departement = $departementRepository->findDepartementEnseignantDefaut($enseignant);
 
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
             if ($userId === 'enseignant') {
+                foreach ($departement as $dept) {
+                    $data_user->setDepartement($dept);
+                }
                 return $this->render('dashboard_enseignant/index.html.twig', [
-                    'controller_name' => 'DashboardController', 'admin' => '/admin?_switch_user=_exit', 'departement' => $departement,
+                    'controller_name' => 'DashboardController',
+                    'admin' => '/admin?_switch_user=_exit',
+                    'data_user' => $data_user,
                 ]);
             } else {
 
