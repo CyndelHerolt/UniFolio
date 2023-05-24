@@ -101,10 +101,10 @@ class DataUserSession
             }
         } elseif ($etudiant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
-
-            $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
-            $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
-            $this->semestres = $this->semestreRepository->findSemestreEtudiant($etudiant);
+// TODO: récupérer seulement les données propres à l'étudiant
+//            $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
+//            $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
+//            $this->semestres = $this->semestreRepository->findSemestreEtudiant($etudiant);
 
         } else {
             throw new AccessDeniedException('Vous n\'avez pas accès à cette page');

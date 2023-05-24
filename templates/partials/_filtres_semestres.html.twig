@@ -1,0 +1,124 @@
+<div class="tab-content active" id="myTabContent">
+    <div class="tab-pane fade show active" id="but1" role="tabpanel" aria-labelledby="but1-tab">
+        <ul class="nav nav-tabs" id="semestreTab" role="tablist">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link{% if loop.first %} show active {% endif %}" id="semestre{{ loop.index }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#semestre{{ loop.index }}" type="button" role="tab"
+                            aria-controls="semestre{{ loop.index }}"
+                            aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                        {{ semestre.libelle }}
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="semestreContent">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
+            <div class="tab-pane fade{% if loop.first %} show active {% endif %}" id="semestre{{ loop.index }}"
+                 role="tabpanel" aria-labelledby="semestre{{ loop.index }}-tab">
+                <ul class="nav nav-tabs" id="groupeTab{{ loop.index }}" role="tablist">
+                {% for typeGroupe in semestre.typeGroupes %}
+                    {% for groupe in typeGroupe.groupes %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link{% if 'CM' in groupe.libelle %} active{% endif %}"
+                                    id="groupe{{ loop.index }}-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#groupe{{ loop.index }}"
+                                    type="button" role="tab"
+                                    aria-controls="groupe{{ loop.index }}"
+                                    aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                                {{ groupe.libelle }}
+                            </button>
+                        </li>
+                        {% endfor %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="tab-pane fade show" id="but2" role="tabpanel" aria-labelledby="but2-tab">
+        <ul class="nav nav-tabs" id="semestreTab" role="tablist">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link{% if loop.first %} {% endif %}" id="semestre{{ loop.index }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#semestre{{ loop.index }}" type="button" role="tab"
+                            aria-controls="semestre{{ loop.index }}"
+                            aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                        {{ semestre.libelle }}
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="semestreContent">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
+                <div class="tab-pane fade{% if loop.first %} show {% endif %}" id="semestre{{ loop.index }}"
+                     role="tabpanel" aria-labelledby="semestre{{ loop.index }}-tab">
+                    <ul class="nav nav-tabs" id="groupeTab{{ loop.index }}" role="tablist">
+                        {% if semestre.annee.diplome.apcParcours != null %}
+                            {% for groupe in semestre.annee.diplome.apcParcours.groupes %}
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link{% if loop.first %} active{% endif %}"
+                                                id="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#groupe{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                                type="button" role="tab"
+                                                aria-controls="groupe{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                                aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                                            {{ groupe.libelle }}
+                                        </button>
+                                    </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="tab-pane fade show" id="but3" role="tabpanel" aria-labelledby="but3-tab">
+        <ul class="nav nav-tabs" id="semestreTab" role="tablist">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 3) %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link{% if loop.first %} {% endif %}" id="semestre{{ loop.index }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#semestre{{ loop.index }}" type="button" role="tab"
+                            aria-controls="semestre{{ loop.index }}"
+                            aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                        {{ semestre.libelle }}
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="semestreContent">
+            {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 3) %}
+                <div class="tab-pane fade{% if loop.first %} show {% endif %}" id="semestre{{ loop.index }}"
+                     role="tabpanel" aria-labelledby="semestre{{ loop.index }}-tab">
+                    <ul class="nav nav-tabs" id="groupeTab{{ loop.index }}" role="tablist">
+                        {% for typeGroupe in semestre.typeGroupes %}
+                            {% if 'TD' in typeGroupe.libelle %}
+                                {% for groupe in typeGroupe.groupes %}
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link{% if loop.first %} {% endif %}"
+                                                id="groupe{{ loop.index }}-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#groupe{{ loop.index }}"
+                                                type="button" role="tab"
+                                                aria-controls="groupe{{ loop.index }}"
+                                                aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                                            {{ groupe.libelle }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

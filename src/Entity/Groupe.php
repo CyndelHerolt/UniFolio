@@ -30,6 +30,9 @@ class Groupe
     #[ORM\ManyToMany(targetEntity: Etudiant::class, mappedBy: 'groupe', cascade: ['persist', 'remove'])]
     private Collection $etudiants;
 
+    #[ORM\ManyToOne(inversedBy: 'groupes')]
+    private ?ApcParcours $apcParcours = null;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -118,6 +121,18 @@ class Groupe
         if ($this->etudiants->removeElement($etudiant)) {
             $etudiant->removeGroupe($this);
         }
+
+        return $this;
+    }
+
+    public function getApcParcours(): ?ApcParcours
+    {
+        return $this->apcParcours;
+    }
+
+    public function setApcParcours(?ApcParcours $apcParcours): self
+    {
+        $this->apcParcours = $apcParcours;
 
         return $this;
     }

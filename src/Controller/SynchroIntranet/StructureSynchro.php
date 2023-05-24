@@ -369,42 +369,46 @@ class StructureSynchro extends AbstractController
 
         foreach ($groupes as $groupe) {
 
-//        dd($groupe['parcours']);
-            $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
-            //Vérifier si le libelle du département existe déjà en base de données
-            if ($existingGroupe) {
-                $existingGroupe->setLibelle($groupe['libelle']);
-                $existingGroupe->setOrdre($groupe['ordre']);
-                $existingGroupe->setCodeApogee($groupe['code']);
-                foreach ($groupe['type'] as $typeGroupe) {
-                    if ($typeGroupe) {
-                        $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
-                        $existingGroupe->setTypeGroupe($typeGroupe);
+            $semestre = $semestreRepository->findOneBy(['code_element' => $groupe['semestre']]);
+
+            if ($semestre) {
+
+                $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingGroupe) {
+                    $existingGroupe->setLibelle($groupe['libelle']);
+                    $existingGroupe->setOrdre($groupe['ordre']);
+                    $existingGroupe->setCodeApogee($groupe['code']);
+                    foreach ($groupe['type'] as $typeGroupe) {
+                        if ($typeGroupe) {
+                            $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
+                            $existingGroupe->setTypeGroupe($typeGroupe);
+                        }
                     }
-                }
-                foreach ($groupe['parcours'] as $parcours) {
-                    $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
-                    $existingGroupe->setApcParcours($parcours);
-                }
-                $groupeRepository->save($existingGroupe, true);
-            } else {
-                //Sinon, on le crée
-                $newGroupe = new Groupe();
-                $newGroupe->setId($groupe['id']);
-                $newGroupe->setLibelle($groupe['libelle']);
-                $newGroupe->setOrdre($groupe['ordre']);
-                $newGroupe->setCodeApogee($groupe['code']);
-                foreach ($groupe['type'] as $typeGroupe) {
-                    if ($typeGroupe) {
-                        $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
-                        $newGroupe->setTypeGroupe($typeGroupe);
+                    foreach ($groupe['parcours'] as $parcours) {
+                        $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                        $existingGroupe->setApcParcours($parcours);
                     }
+                    $groupeRepository->save($existingGroupe, true);
+                } else {
+                    //Sinon, on le crée
+                    $newGroupe = new Groupe();
+                    $newGroupe->setId($groupe['id']);
+                    $newGroupe->setLibelle($groupe['libelle']);
+                    $newGroupe->setOrdre($groupe['ordre']);
+                    $newGroupe->setCodeApogee($groupe['code']);
+                    foreach ($groupe['type'] as $typeGroupe) {
+                        if ($typeGroupe) {
+                            $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
+                            $newGroupe->setTypeGroupe($typeGroupe);
+                        }
+                    }
+                    foreach ($groupe['parcours'] as $parcours) {
+                        $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                        $newGroupe->setApcParcours($parcours);
+                    }
+                    $groupeRepository->save($newGroupe, true);
                 }
-                foreach ($groupe['parcours'] as $parcours) {
-                    $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
-                    $newGroupe->setApcParcours($parcours);
-                }
-                $groupeRepository->save($newGroupe, true);
             }
         }
 
