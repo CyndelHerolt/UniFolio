@@ -97,51 +97,6 @@ class StructureSynchro extends AbstractController
         }
 
         //-------------------------------------------------------------------------------------------------------
-        //-----------------------------------------DIPLOMES------------------------------------------------------
-        //-------------------------------------------------------------------------------------------------------
-
-        $diplomes = $client->request(
-            'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/diplome',
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
-                ]
-            ]
-        );
-
-        $diplomes = $diplomes->toArray();
-        foreach ($diplomes as $diplome) {
-            //Récupérer le libellé du département du diplôme
-            $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
-            $parcours = $apcParcoursRepository->findOneBy(['libelle' => $diplome['parcours']]);
-
-            $existingDiplome = $diplomeRepository->findOneBy(['libelle' => $diplome['libelle']]);
-            if ($diplome['type'] === 4) {
-                //Vérifier si le libelle du département existe déjà en base de données
-                if ($existingDiplome) {
-                    $existingDiplome->setId($diplome['id']);
-                    $existingDiplome->setLibelle($diplome['libelle']);
-                    $existingDiplome->setSigle($diplome['sigle']);
-                    $existingDiplome->setDepartement($dept);
-                    $existingDiplome->setApcParcours($parcours);
-                    $diplomeRepository->save($existingDiplome, true);
-                } else {
-                    //Sinon, on le crée
-                    $newDiplome = new Diplome();
-                    $newDiplome->setId($diplome['id']);
-                    $newDiplome->setLibelle($diplome['libelle']);
-                    $newDiplome->setSigle($diplome['sigle']);
-                    $newDiplome->setDepartement($dept);
-                    $newDiplome->setApcParcours($parcours);
-                    $diplomeRepository->save($newDiplome, true);
-                }
-            }
-        }
-
-        //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------PARCOURS------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------
 
@@ -185,6 +140,60 @@ class StructureSynchro extends AbstractController
             }
             else {
                 $this->addFlash('error', 'Le référentiel '.$apcParcours['referentiel'].' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
+            }
+        }
+
+
+        //-------------------------------------------------------------------------------------------------------
+        //-----------------------------------------DIPLOMES------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+
+        $diplomes = $client->request(
+            'GET',
+            'http://127.0.0.1:8001/fr/api/unifolio/diplome',
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'X_API_KEY' => $this->getParameter('api_key')
+                ]
+            ]
+        );
+
+        $diplomes = $diplomes->toArray();
+        foreach ($diplomes as $diplome) {
+            //Récupérer le libellé du département du diplôme
+            $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
+
+            $existingDiplome = $diplomeRepository->findOneBy(['libelle' => $diplome['libelle']]);
+            if ($diplome['type'] === 4) {
+//                dd($parcours);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingDiplome) {
+                    $existingDiplome->setId($diplome['id']);
+                    $existingDiplome->setLibelle($diplome['libelle']);
+                    $existingDiplome->setSigle($diplome['sigle']);
+                    $existingDiplome->setDepartement($dept);
+//                    $existingDiplome->setApcParcours($parcours);
+                    foreach ($diplome['parcours'] as $parcours) {
+                        $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                        $existingDiplome->setApcParcours($parcours);
+                    }
+                    $diplomeRepository->save($existingDiplome, true);
+                } else {
+                    //Sinon, on le crée
+                    $newDiplome = new Diplome();
+                    $newDiplome->setId($diplome['id']);
+                    $newDiplome->setLibelle($diplome['libelle']);
+                    $newDiplome->setSigle($diplome['sigle']);
+                    $newDiplome->setDepartement($dept);
+//                    $newDiplome->setApcParcours($parcours);
+                    foreach ($diplome['parcours'] as $parcours) {
+                        $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                        $newDiplome->setApcParcours($parcours);
+                    }
+                    $diplomeRepository->save($newDiplome, true);
+                }
             }
         }
 
