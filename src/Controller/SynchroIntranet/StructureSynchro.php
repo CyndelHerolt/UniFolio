@@ -26,14 +26,14 @@ class StructureSynchro extends AbstractController
 {
     #[Route('/api/intranet/structure', name: 'app_synchro_intranet_structure')]
     public function index(
-        HttpClientInterface   $client,
-        DepartementRepository $departementRepository,
-        DiplomeRepository     $diplomeRepository,
-        AnneeRepository       $anneeRepository,
-        SemestreRepository    $semestreRepository,
-        TypeGroupeRepository  $typeGroupeRepository,
-        GroupeRepository      $groupeRepository,
-        ApcParcoursRepository $apcParcoursRepository,
+        HttpClientInterface      $client,
+        DepartementRepository    $departementRepository,
+        DiplomeRepository        $diplomeRepository,
+        AnneeRepository          $anneeRepository,
+        SemestreRepository       $semestreRepository,
+        TypeGroupeRepository     $typeGroupeRepository,
+        GroupeRepository         $groupeRepository,
+        ApcParcoursRepository    $apcParcoursRepository,
         ApcReferentielRepository $apcReferentielRepository
 
 
@@ -137,9 +137,8 @@ class StructureSynchro extends AbstractController
                     $newParcours->setApcReferentiel($referentiel);
                     $apcParcoursRepository->save($newParcours, true);
                 }
-            }
-            else {
-                $this->addFlash('error', 'Le référentiel '.$apcParcours['referentiel'].' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
+            } else {
+                $this->addFlash('error', 'Le référentiel ' . $apcParcours['referentiel'] . ' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
             }
         }
 
@@ -216,30 +215,33 @@ class StructureSynchro extends AbstractController
 
         $annees = $annees->toArray();
         foreach ($annees as $annee) {
+
             $diplome = $diplomeRepository->findOneBy(['id' => $annee['diplome']]);
 
-            $existingAnnee = $anneeRepository->findOneBy(['id' => $annee['id']]);
-            //Vérifier si le libelle du département existe déjà en base de données
-            if ($existingAnnee) {
-                $existingAnnee->setId($annee['id']);
-                $existingAnnee->setLibelle($annee['libelle']);
-                $existingAnnee->setOrdre($annee['ordre']);
-                $existingAnnee->setLibelleLong($annee['libelle_long']);
-                $existingAnnee->setOptAlternance($annee['opt_alternance']);
-                $existingAnnee->setActif($annee['actif']);
-                $existingAnnee->setDiplome($diplome);
-                $anneeRepository->save($existingAnnee, true);
-            } else {
-                //Sinon, on le crée
-                $newAnnee = new Annee();
-                $newAnnee->setId($annee['id']);
-                $newAnnee->setLibelle($annee['libelle']);
-                $newAnnee->setOrdre($annee['ordre']);
-                $newAnnee->setLibelleLong($annee['libelle_long']);
-                $newAnnee->setOptAlternance($annee['opt_alternance']);
-                $newAnnee->setActif($annee['actif']);
-                $newAnnee->setDiplome($diplome);
-                $anneeRepository->save($newAnnee, true);
+            if ($diplome) {
+                $existingAnnee = $anneeRepository->findOneBy(['id' => $annee['id']]);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingAnnee) {
+                    $existingAnnee->setId($annee['id']);
+                    $existingAnnee->setLibelle($annee['libelle']);
+                    $existingAnnee->setOrdre($annee['ordre']);
+                    $existingAnnee->setLibelleLong($annee['libelle_long']);
+                    $existingAnnee->setOptAlternance($annee['opt_alternance']);
+                    $existingAnnee->setActif($annee['actif']);
+                    $existingAnnee->setDiplome($diplome);
+                    $anneeRepository->save($existingAnnee, true);
+                } else {
+                    //Sinon, on le crée
+                    $newAnnee = new Annee();
+                    $newAnnee->setId($annee['id']);
+                    $newAnnee->setLibelle($annee['libelle']);
+                    $newAnnee->setOrdre($annee['ordre']);
+                    $newAnnee->setLibelleLong($annee['libelle_long']);
+                    $newAnnee->setOptAlternance($annee['opt_alternance']);
+                    $newAnnee->setActif($annee['actif']);
+                    $newAnnee->setDiplome($diplome);
+                    $anneeRepository->save($newAnnee, true);
+                }
             }
         }
 
@@ -261,36 +263,39 @@ class StructureSynchro extends AbstractController
 
         $semestres = $semestres->toArray();
         foreach ($semestres as $semestre) {
+
             $annee = $anneeRepository->findOneBy(['id' => $semestre['annee']]);
 
-            $existingSemestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
-            //Vérifier si le libelle du département existe déjà en base de données
-            if ($existingSemestre) {
-                $existingSemestre->setId($semestre['id']);
-                $existingSemestre->setLibelle($semestre['libelle']);
-                $existingSemestre->setOrdreAnnee($semestre['ordreAnnee']);
-                $existingSemestre->setOrdreLmd($semestre['ordreLmd']);
-                $existingSemestre->setCodeElement($semestre['code']);
-                $existingSemestre->setActif($semestre['actif']);
-                $existingSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
-                $existingSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
-                $existingSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
-                $existingSemestre->setAnnee($annee);
-                $semestreRepository->save($existingSemestre, true);
-            } else {
-                //Sinon, on le crée
-                $newSemestre = new Semestre();
-                $newSemestre->setId($semestre['id']);
-                $newSemestre->setLibelle($semestre['libelle']);
-                $newSemestre->setOrdreAnnee($semestre['ordreAnnee']);
-                $newSemestre->setOrdreLmd($semestre['ordreLmd']);
-                $newSemestre->setCodeElement($semestre['code']);
-                $newSemestre->setActif($semestre['actif']);
-                $newSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
-                $newSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
-                $newSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
-                $newSemestre->setAnnee($annee);
-                $semestreRepository->save($newSemestre, true);
+            if ($annee) {
+                $existingSemestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
+                //Vérifier si le libelle du département existe déjà en base de données
+                if ($existingSemestre) {
+                    $existingSemestre->setId($semestre['id']);
+                    $existingSemestre->setLibelle($semestre['libelle']);
+                    $existingSemestre->setOrdreAnnee($semestre['ordreAnnee']);
+                    $existingSemestre->setOrdreLmd($semestre['ordreLmd']);
+                    $existingSemestre->setCodeElement($semestre['code']);
+                    $existingSemestre->setActif($semestre['actif']);
+                    $existingSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
+                    $existingSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
+                    $existingSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
+                    $existingSemestre->setAnnee($annee);
+                    $semestreRepository->save($existingSemestre, true);
+                } else {
+                    //Sinon, on le crée
+                    $newSemestre = new Semestre();
+                    $newSemestre->setId($semestre['id']);
+                    $newSemestre->setLibelle($semestre['libelle']);
+                    $newSemestre->setOrdreAnnee($semestre['ordreAnnee']);
+                    $newSemestre->setOrdreLmd($semestre['ordreLmd']);
+                    $newSemestre->setCodeElement($semestre['code']);
+                    $newSemestre->setActif($semestre['actif']);
+                    $newSemestre->setNbGroupesCm($semestre['nb_groupes_cm']);
+                    $newSemestre->setNbGroupesTd($semestre['nb_groupes_td']);
+                    $newSemestre->setNbGroupesTp($semestre['nb_groupes_tp']);
+                    $newSemestre->setAnnee($annee);
+                    $semestreRepository->save($newSemestre, true);
+                }
             }
         }
 
@@ -311,6 +316,7 @@ class StructureSynchro extends AbstractController
         );
 
         $typesGroupes = $typesGroupes->toArray();
+
         foreach ($typesGroupes as $typeGroupe) {
             $existingTypeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
@@ -319,9 +325,11 @@ class StructureSynchro extends AbstractController
                 $existingTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $existingTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
                 $existingTypeGroupe->setType($typeGroupe['type']);
-                foreach ($typeGroupe['semestres'] as $semestre) {
-                    $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
-                    $existingTypeGroupe->addSemestre($semestre);
+                if ($typeGroupe['semestres'] != null) {
+                    foreach ($typeGroupe['semestres'] as $semestre) {
+                        $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
+                        $existingTypeGroupe->addSemestre($semestre);
+                    }
                 }
                 $typeGroupeRepository->save($existingTypeGroupe, true);
             } else {
@@ -331,9 +339,13 @@ class StructureSynchro extends AbstractController
                 $newTypeGroupe->setLibelle($typeGroupe['libelle']);
                 $newTypeGroupe->setOrdreSemestre($typeGroupe['ordre']);
                 $newTypeGroupe->setType($typeGroupe['type']);
-                foreach ($typeGroupe['semestres'] as $semestre) {
-                    $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
-                    $newTypeGroupe->addSemestre($semestre);
+                if ($typeGroupe['semestres'] != null) {
+                    foreach ($typeGroupe['semestres'] as $semestre) {
+                        $semestre = $semestreRepository->findOneBy(['code_element' => $semestre['code']]);
+                        if ($semestre) {
+                            $newTypeGroupe->addSemestre($semestre);
+                        }
+                    }
                 }
                 $typeGroupeRepository->save($newTypeGroupe, true);
             }
@@ -359,6 +371,7 @@ class StructureSynchro extends AbstractController
 
         foreach ($groupes as $groupe) {
 
+//        dd($groupe['parcours']);
             $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingGroupe) {
@@ -366,8 +379,14 @@ class StructureSynchro extends AbstractController
                 $existingGroupe->setOrdre($groupe['ordre']);
                 $existingGroupe->setCodeApogee($groupe['code']);
                 foreach ($groupe['type'] as $typeGroupe) {
-                    $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
-                    $existingGroupe->setTypeGroupe($typeGroupe);
+                    if ($typeGroupe) {
+                        $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
+                        $existingGroupe->setTypeGroupe($typeGroupe);
+                    }
+                }
+                foreach ($groupe['parcours'] as $parcours) {
+                    $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                    $existingGroupe->setApcParcours($parcours);
                 }
                 $groupeRepository->save($existingGroupe, true);
             } else {
@@ -378,8 +397,14 @@ class StructureSynchro extends AbstractController
                 $newGroupe->setOrdre($groupe['ordre']);
                 $newGroupe->setCodeApogee($groupe['code']);
                 foreach ($groupe['type'] as $typeGroupe) {
-                    $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
-                    $newGroupe->setTypeGroupe($typeGroupe);
+                    if ($typeGroupe) {
+                        $typeGroupe = $typeGroupeRepository->findOneBy(['id' => $typeGroupe['id']]);
+                        $newGroupe->setTypeGroupe($typeGroupe);
+                    }
+                }
+                foreach ($groupe['parcours'] as $parcours) {
+                    $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
+                    $newGroupe->setApcParcours($parcours);
                 }
                 $groupeRepository->save($newGroupe, true);
             }
