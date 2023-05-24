@@ -31,9 +31,13 @@ class ApcParcours
     #[ORM\OneToMany(mappedBy: 'apcParcours', targetEntity: Diplome::class)]
     private Collection $diplomes;
 
+    #[ORM\OneToMany(mappedBy: 'apcParcours', targetEntity: Groupe::class)]
+    private Collection $groupes;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function setId(?int $id): self
@@ -120,6 +124,36 @@ class ApcParcours
             // set the owning side to null (unless already changed)
             if ($diplome->getApcParcours() === $this) {
                 $diplome->setApcParcours(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Groupe>
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->setApcParcours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            // set the owning side to null (unless already changed)
+            if ($groupe->getApcParcours() === $this) {
+                $groupe->setApcParcours(null);
             }
         }
 

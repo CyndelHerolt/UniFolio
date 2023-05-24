@@ -173,7 +173,6 @@ class StructureSynchro extends AbstractController
                     $existingDiplome->setLibelle($diplome['libelle']);
                     $existingDiplome->setSigle($diplome['sigle']);
                     $existingDiplome->setDepartement($dept);
-//                    $existingDiplome->setApcParcours($parcours);
                     foreach ($diplome['parcours'] as $parcours) {
                         $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
                         $existingDiplome->setApcParcours($parcours);
@@ -186,7 +185,6 @@ class StructureSynchro extends AbstractController
                     $newDiplome->setLibelle($diplome['libelle']);
                     $newDiplome->setSigle($diplome['sigle']);
                     $newDiplome->setDepartement($dept);
-//                    $newDiplome->setApcParcours($parcours);
                     foreach ($diplome['parcours'] as $parcours) {
                         $parcours = $apcParcoursRepository->findOneBy(['id' => $parcours['id']]);
                         $newDiplome->setApcParcours($parcours);
