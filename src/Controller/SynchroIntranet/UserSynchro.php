@@ -149,8 +149,9 @@ class UserSynchro extends AbstractController
                     $newEtudiant->setMailPerso($data['mail_perso']);
                     $newEtudiant->setTelephone($data['telephone']);
                     $newEtudiant->setSemestre($semestre);
+//                    dd($data['groupes']);
                     foreach ($data['groupes'] as $groupe) {
-                        $groupe = $groupeRepository->findOneBy(['libelle' => $groupe]);
+                        $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
                         $newEtudiant->addGroupe($groupe);
                     }
                     $etudiantRepository->save($newEtudiant, true);

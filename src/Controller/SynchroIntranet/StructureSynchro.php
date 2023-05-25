@@ -6,6 +6,7 @@ use App\Entity\Annee;
 use App\Entity\ApcParcours;
 use App\Entity\Departement;
 use App\Entity\Diplome;
+use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
@@ -14,6 +15,7 @@ use App\Repository\ApcParcoursRepository;
 use App\Repository\ApcReferentielRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
+use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TypeGroupeRepository;
@@ -34,7 +36,8 @@ class StructureSynchro extends AbstractController
         TypeGroupeRepository     $typeGroupeRepository,
         GroupeRepository         $groupeRepository,
         ApcParcoursRepository    $apcParcoursRepository,
-        ApcReferentielRepository $apcReferentielRepository
+        ApcReferentielRepository $apcReferentielRepository,
+        EtudiantRepository       $etudiantRepository,
 
 
     ): Response
@@ -376,6 +379,7 @@ class StructureSynchro extends AbstractController
                 $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
                 //Vérifier si le libelle du département existe déjà en base de données
                 if ($existingGroupe) {
+                    $existingGroupe->setId($groupe['id']);
                     $existingGroupe->setLibelle($groupe['libelle']);
                     $existingGroupe->setOrdre($groupe['ordre']);
                     $existingGroupe->setCodeApogee($groupe['code']);
