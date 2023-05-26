@@ -117,9 +117,9 @@
                             <div class="trace_content col-7">
                                 {% for contenu in this.trace.contenu %}
                                     {% if 'TraceTypeImage' in this.trace.typeTrace %}
-{#                                        {% for image in contenu %}#}
+                                        {% for image in contenu %}
                                             <img src="/{{ contenu }}" alt="image" style="width: 100%">
-{#                                        {% endfor %}#}
+                                        {% endfor %}
                                     {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
                                         <a href="{{ contenu }}">
                                             <button>{{ contenu }}</button>
@@ -190,7 +190,9 @@
     <div class="trace_content col-12">
         {% for contenu in this.trace.contenu %}
             {% if 'TraceTypeImage' in this.trace.typeTrace %}
-                <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                {% for image in contenu %}
+                <img src="/{{ image }}" alt="image" style="width: 100%">
+                {% endfor %}
             {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
                 <a href="{{ contenu }}">
                     <button>{{ contenu }}</button>
