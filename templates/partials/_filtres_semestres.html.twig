@@ -83,7 +83,7 @@
                                                         <td>{{ groupe.libelle }}</td>
                                                         <td>retours pédagogiques</td>
                                                         <td>liens vers les traces de l'étudiant</td>
-                                                        <td>liens vers les portfolios de l'étudiant</td>
+                                                        <td><a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque de portfolios</a></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -181,7 +181,7 @@
                                             </td>
                                             {# TODO: Lien vers bibliothèque de portfolios #}
                                             <td>
-                                                lien vers portfolio de l'étudiant
+                                                <a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque de portfolios</a>
                                             </td>
                                         </tr>
                                         {#            {% endif %} #}
