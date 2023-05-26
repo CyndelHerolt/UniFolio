@@ -20,6 +20,7 @@ class ProfilController extends BaseController
     public function profil(UsersRepository $usersRepository): Response
     {
         $data_user = $this->dataUserSession;
+//        dd($data_user);
         $user = $usersRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $userId = $this->getUser()->getUserIdentifier();
 
