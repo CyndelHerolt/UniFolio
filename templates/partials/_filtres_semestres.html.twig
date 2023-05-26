@@ -6,12 +6,14 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link{% if loop.first %} show active {% endif %}"
                             id="typeGroupe1{{ loop.index }}-tab"
-                            data-bs-toggle="tab" data-bs-target="#typeGroupe1{{ loop.index }}" type="button" role="tab"
+                            data-bs-toggle="tab" data-bs-target="#typeGroupe1{{ loop.index }}" type="button"
+                            role="tab"
                             aria-controls="typeGroupe1{{ loop.index }}"
                             aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                         {{ semestre.libelle }}
                     </button>
                 </li>
+
             {% endfor %}
         </ul>
 
@@ -96,22 +98,25 @@
             {% endfor %}
         </div>
     </div>
-    {# </div> #}
 
 
     <div class="tab-pane fade show" id="but2" role="tabpanel" aria-labelledby="but2-tab">
         <ul class="nav nav-tabs" id="semestre2Tab" role="tablist">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link{% if loop.first %} show active{% endif %}"
-                            id="groupe2{{ loop.index }}-tab"
-                            data-bs-toggle="tab" data-bs-target="#groupe2{{ loop.index }}-content" type="button"
-                            role="tab"
-                            aria-controls="groupe2{{ loop.index }}-content"
-                            aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
-                        {{ semestre.libelle }}
-                    </button>
-                </li>
+
+                    {% if semestre.annee.diplome.apcParcours.groupes is not empty %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link{% if loop.first %} show active{% endif %}"
+                                    id="groupe2{{ loop.index }}-tab"
+                                    data-bs-toggle="tab" data-bs-target="#groupe2{{ loop.index }}-content" type="button"
+                                    role="tab"
+                                    aria-controls="groupe2{{ loop.index }}-content"
+                                    aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                                {{ semestre.libelle }}
+                            </button>
+                        </li>
+                    {% endif %}
+
             {% endfor %}
         </ul>
 
