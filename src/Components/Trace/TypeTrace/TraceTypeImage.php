@@ -3,6 +3,7 @@
 namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypeImageType;
+use App\Entity\Trace;
 use App\Repository\TraceRepository;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -35,18 +36,15 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         $max_size = 2 * 1024 * 1024; // 2 Mo en octets
         $imageFiles = $form['contenu']->getData();
 
-//        dd($imageFiles);
-
-        if ($trace->getContenu() != null) {
+        if ($trace->getId() != null) {
+            if ($trace->getContenu() != null) {
                 $contenu = $trace->getContenu();
             } else {
-                $contenu = [];
+                $contenu = null;
             }
-
-//        dd($contenu);
+        }
 
         if ($imageFiles) {
-
 
             foreach ($imageFiles as $imageFile) {
                 // Vérifier si la taille de l'image est inférieure ou égale à 2 Mo
@@ -54,7 +52,6 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                     $error = 'Le fichier doit faire 2mo maximum';
                     return array('success' => false, 'error' => $error);
                 }
-//            dd($imageFile);
                 $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
                 //Vérifier si le fichier est au bon format
                 if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
@@ -67,7 +64,6 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 }
             }
         }
-//        dd($contenu);
 
         $trace->setContenu($contenu);
         $traceRepository->save($trace, true);
