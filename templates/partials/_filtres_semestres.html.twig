@@ -1,13 +1,13 @@
 {# todo: rename #}
 <div class="tab-content active" id="myTabContent">
     <div class="tab-pane fade show active" id="but1" role="tabpanel" aria-labelledby="but1-tab">
-        <ul class="nav nav-tabs" id="semestreTab" role="tablist">
+        <ul class="nav nav-tabs" id="semestre1Tab" role="tablist">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
                 <li class="nav-item" role="presentation">
                     <button class="nav-link{% if loop.first %} show active {% endif %}"
-                            id="semestre{{ loop.index }}-tab"
-                            data-bs-toggle="tab" data-bs-target="#typeGroupe{{ loop.index }}" type="button" role="tab"
-                            aria-controls="typeGroupe{{ loop.index }}"
+                            id="typeGroupe1{{ loop.index }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#typeGroupe1{{ loop.index }}" type="button" role="tab"
+                            aria-controls="typeGroupe1{{ loop.index }}"
                             aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                         {{ semestre.libelle }}
                     </button>
@@ -15,19 +15,19 @@
             {% endfor %}
         </ul>
 
-        <div class="tab-content" id="typeGroupeContent">
+        <div class="tab-content" id="typeGroupe1Content">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 1) %}
-                <div class="tab-pane fade{% if loop.first %} show active {% endif %}" id="typeGroupe{{ loop.index }}"
-                     role="tabpanel" aria-labelledby="typeGroupe{{ loop.index }}-tab">
-                    <ul class="nav nav-tabs" id="groupeTab{{ loop.index }}" role="tablist">
+                <div class="tab-pane fade{% if loop.first %} show active{% endif %}" id="typeGroupe1{{ loop.index }}"
+                     role="tabpanel" aria-labelledby="typeGroupe1{{ loop.index }}-tab">
+                    <ul class="nav nav-tabs" id="groupe1Tab{{ loop.index }}" role="tablist">
                         {% for typeGroupe in semestre.typeGroupes %}
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link{% if loop.first %} show active{% endif %}"
-                                        id="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-tab"
+                                        id="groupe1{{ loop.index }}-{{ typeGroupe.id }}-tab"
                                         data-bs-toggle="tab"
-                                        data-bs-target="#groupe{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                        data-bs-target="#groupe1{{ loop.index }}-{{ typeGroupe.id }}-content"
                                         type="button" role="tab"
-                                        aria-controls="groupe{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                        aria-controls="groupe1{{ loop.index }}-{{ typeGroupe.id }}-content"
                                         aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                                     {{ typeGroupe.libelle }}
                                 </button>
@@ -35,28 +35,60 @@
                         {% endfor %}
                     </ul>
 
-                    <div class="tab-content" id="groupeContent{{ loop.index }}">
+                    <div class="tab-content" id="groupe1Content{{ loop.index }}">
                         {% for typeGroupe in semestre.typeGroupes %}
                             <div class="tab-pane fade{% if loop.first %} show active{% endif %}"
-                                 id="groupe{{ loop.parent.loop.index }}-{{ loop.index }}"
-                                 role="tabpanel"
-                                 aria-labelledby="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-tab">
-                                <ul class="nav nav-tabs" id="sousGroupeTab{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                 id="groupe1{{ loop.index }}-{{ typeGroupe.id }}-content" role="tabpanel"
+                                 aria-labelledby="groupe1{{ loop.index }}-{{ typeGroupe.id }}-tab">
+                                <ul class="nav nav-tabs" id="groupe1Tab{{ loop.index }}-{{ typeGroupe.id }}"
                                     role="tablist">
                                     {% for groupe in typeGroupe.groupes %}
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link{% if loop.first %} show active{% endif %}"
-                                                    id="sousGroupe{{ loop.parent.loop.parent.loop.index }}-{{ loop.parent.loop.index }}-{{ loop.index }}-tab"
+                                                    id="groupe1{{ loop.index }}-{{ typeGroupe.id }}-{{ loop.index }}-tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#sousGroupe{{ loop.parent.loop.parent.loop.index }}-{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                                    data-bs-target="#groupe1{{ loop.index }}-{{ typeGroupe.id }}-{{ loop.index }}-content"
                                                     type="button" role="tab"
-                                                    aria-controls="sousGroupe{{ loop.parent.loop.parent.loop.index }}-{{ loop.parent.loop.index }}-{{ loop.index }}"
+                                                    aria-controls="groupe1{{ loop.index }}-{{ typeGroupe.id }}-{{ loop.index }}-content"
                                                     aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                                                 {{ groupe.libelle }}
                                             </button>
                                         </li>
                                     {% endfor %}
                                 </ul>
+
+                                <div class="tab-content"
+                                     id="groupe1Content{{ loop.index }}-{{ typeGroupe.id }}">
+                                    {% for groupe in typeGroupe.groupes %}
+                                        <div class="tab-pane fade{% if loop.first %} show active{% endif %}"
+                                             id="groupe1{{ loop.index }}-{{ typeGroupe.id }}-{{ loop.index }}-content"
+                                             role="tabpanel"
+                                             aria-labelledby="groupe1{{ loop.index }}-{{ typeGroupe.id }}-{{ loop.index }}-tab">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>Nom de l'étudiant.e</th>
+                                                    <th>Groupe</th>
+                                                    <th>Dernier retour pédagogique</th>
+                                                    <th>Traces</th>
+                                                    <th>Portfolios</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for etudiant in groupe.etudiants %}
+                                                    <tr>
+                                                        <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+                                                        <td>{{ groupe.libelle }}</td>
+                                                        <td>retours pédagogiques</td>
+                                                        <td>liens vers les traces de l'étudiant</td>
+                                                        <td>liens vers les portfolios de l'étudiant</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -64,15 +96,18 @@
             {% endfor %}
         </div>
     </div>
+    {# </div> #}
+
 
     <div class="tab-pane fade show" id="but2" role="tabpanel" aria-labelledby="but2-tab">
-        <ul class="nav nav-tabs" id="semestreTab" role="tablist">
+        <ul class="nav nav-tabs" id="semestre2Tab" role="tablist">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link{% if loop.first %} show active{% endif %}" id="semestre{{ loop.index }}-tab"
-                            data-bs-toggle="tab" data-bs-target="#semestre{{ loop.index }}-content" type="button"
+                    <button class="nav-link{% if loop.first %} show active{% endif %}"
+                            id="groupe2{{ loop.index }}-tab"
+                            data-bs-toggle="tab" data-bs-target="#groupe2{{ loop.index }}-content" type="button"
                             role="tab"
-                            aria-controls="semestre{{ loop.index }}-content"
+                            aria-controls="groupe2{{ loop.index }}-content"
                             aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                         {{ semestre.libelle }}
                     </button>
@@ -80,21 +115,21 @@
             {% endfor %}
         </ul>
 
-        <div class="tab-content" id="typeGroupeContent">
+        <div class="tab-content" id="groupe2Content">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
                 <div class="tab-pane fade{% if loop.first %} show active{% endif %}"
-                     id="semestre{{ loop.index }}-content"
-                     role="tabpanel" aria-labelledby="semestre{{ loop.index }}-tab">
-                    <ul class="nav nav-tabs" id="groupeTab{{ loop.index }}" role="tablist">
+                     id="groupe2{{ loop.index }}-content"
+                     role="tabpanel" aria-labelledby="groupe2{{ loop.index }}-tab">
+                    <ul class="nav nav-tabs" id="groupe2Tab{{ loop.index }}" role="tablist">
                         {% if semestre.annee.diplome.apcParcours != null %}
                             {% for groupe in semestre.annee.diplome.apcParcours.groupes %}
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link{% if loop.first %} show active{% endif %}"
-                                            id="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-tab"
+                                            id="etudiant2{{ loop.parent.loop.index }}-{{ groupe.id }}-tab"
                                             data-bs-toggle="tab"
-                                            data-bs-target="#groupe{{ loop.parent.loop.index }}-{{ loop.index }}-content"
+                                            data-bs-target="#etudiant2{{ loop.parent.loop.index }}-{{ groupe.id }}-content"
                                             type="button" role="tab"
-                                            aria-controls="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-content"
+                                            aria-controls="etudiant2{{ loop.parent.loop.index }}-{{ groupe.id }}-content"
                                             aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
                                         {{ groupe.libelle }}
                                     </button>
@@ -103,23 +138,57 @@
                         {% endif %}
                     </ul>
 
-                    <div class="tab-content" id="groupeContent{{ loop.index }}">
-                        {% if semestre.annee.diplome.apcParcours != null %}
-                            {% for groupe in semestre.annee.diplome.apcParcours.groupes %}
-                                <div class="tab-pane fade{% if loop.first %} show active{% endif %}"
-                                     id="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-content" role="tabpanel"
-                                     aria-labelledby="groupe{{ loop.parent.loop.index }}-{{ loop.index }}-tab">
+                    <div class="tab-content" id="etudiant2Content{{ loop.index }}">
+                        {% for groupe in semestre.annee.diplome.apcParcours.groupes %}
+                            <div class="tab-pane fade{% if loop.first %} show active{% endif %}"
+                                 id="etudiant2{{ loop.parent.loop.index }}-{{ groupe.id }}-content" role="tabpanel"
+                                 aria-labelledby="etudiant2{{ loop.parent.loop.index }}-{{ groupe.id }}-tab">
 
-                                    {% include('partials/_etudiant_by_group.html.twig') %}
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Nom de l'étudiant.e</th>
+                                        <th>Groupe de TP</th>
+                                        <th>Dernier retour pédagogique</th>
+                                        <th>Traces</th>
+                                        <th>Portfolios</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for etudiant in groupe.etudiants %}
 
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                                        <tr>
+                                            <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+                                            <td>
+                                                {% for groupeTP in etudiant.groupe %}
+                                                    {% if 'TP' in groupeTP.libelle %}
+                                                        {{ groupeTP.libelle }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                hello
+                                            </td>
+                                            {# TODO: Lien vers bibliothèque de traces #}
+
+                                            <td>
+                                                lien vers traces de l'étudiant
+                                            </td>
+                                            {# TODO: Lien vers bibliothèque de portfolios #}
+                                            <td>
+                                                lien vers portfolio de l'étudiant
+                                            </td>
+                                        </tr>
+                                        {#            {% endif %} #}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endfor %}
                     </div>
+
                 </div>
             {% endfor %}
         </div>
     </div>
-
-
 </div>
