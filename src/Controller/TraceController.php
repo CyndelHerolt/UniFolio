@@ -61,7 +61,7 @@ class TraceController extends AbstractController
             'ROLE_ETUDIANT'
         );
 
-        //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FROM, class, ICON, save...)
+        //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
         $traceType = $traceRegistry->getTypeTrace($id);
         //dump($id);
         //dump($traceType);
@@ -256,6 +256,7 @@ class TraceController extends AbstractController
         //Si la trace est de type image ou pdf, il faut supprimer le fichier
         if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
             $document = $trace->getContenu();
+//                dd($document);
             foreach ($document as $doc) {
                 unlink($doc);
             }

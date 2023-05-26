@@ -27,8 +27,8 @@ function addImage() {
     // Récupération du prototype
     const prototype = document.querySelector('#trace_type_image_contenu').dataset.prototype;
     // Récupération du nombre de champs contenu
-    const index = document.querySelectorAll('.contenu_trace').length;
-    // console.log(index)
+    const index = document.querySelectorAll('.image_trace').length;
+    console.log(index)
     // Création du nouveau champ contenu
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire

@@ -34,15 +34,26 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
     {
         $max_size = 2 * 1024 * 1024; // 2 Mo en octets
         $imageFiles = $form['contenu']->getData();
+
 //        dd($imageFiles);
+
+        if ($trace->getContenu() != null) {
+                $contenu = $trace->getContenu();
+            } else {
+                $contenu = [];
+            }
+
+//        dd($contenu);
+
         if ($imageFiles) {
-            $contenu = $trace->getContenu();
+
+
             foreach ($imageFiles as $imageFile) {
                 // Vérifier si la taille de l'image est inférieure ou égale à 2 Mo
-//                if ($imageFile->getSize() > $max_size) {
-//                    $error = 'Le fichier doit faire 2mo maximum';
-//                    return array('success' => false, 'error' => $error);
-//                }
+                if ($imageFile->getSize() > $max_size) {
+                    $error = 'Le fichier doit faire 2mo maximum';
+                    return array('success' => false, 'error' => $error);
+                }
 //            dd($imageFile);
                 $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
                 //Vérifier si le fichier est au bon format
@@ -50,14 +61,17 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
                     $imageFile->move('files_directory', $imageFileName);
                     $contenu[] = 'files_directory' . '/' . $imageFileName;
-                }  else {
+                } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);
                 }
             }
         }
-            $trace->setContenu($contenu);
-            $traceRepository->save($trace, true);
-            return array('success' => true);
+//        dd($contenu);
+
+        $trace->setContenu($contenu);
+        $traceRepository->save($trace, true);
+        return array('success' => true);
     }
+
 }
