@@ -83,7 +83,9 @@
                                                         <td>{{ groupe.libelle }}</td>
                                                         <td>retours pédagogiques</td>
                                                         <td>liens vers les traces de l'étudiant</td>
-                                                        <td><a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque de portfolios</a></td>
+                                                        <td>
+                                                            <a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque
+                                                                de portfolios</a></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -104,18 +106,18 @@
         <ul class="nav nav-tabs" id="semestre2Tab" role="tablist">
             {% for semestre in data_user.semestresActifs|filter(semestre => semestre.annee.ordre == 2) %}
 
-                    {% if semestre.annee.diplome.apcParcours.groupes is not empty %}
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link{% if loop.first %} show active{% endif %}"
-                                    id="groupe2{{ loop.index }}-tab"
-                                    data-bs-toggle="tab" data-bs-target="#groupe2{{ loop.index }}-content" type="button"
-                                    role="tab"
-                                    aria-controls="groupe2{{ loop.index }}-content"
-                                    aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
-                                {{ semestre.libelle }}
-                            </button>
-                        </li>
-                    {% endif %}
+                {% if semestre.annee.diplome.apcParcours.groupes is not empty %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link{% if loop.first %} show active{% endif %}"
+                                id="groupe2{{ loop.index }}-tab"
+                                data-bs-toggle="tab" data-bs-target="#groupe2{{ loop.index }}-content" type="button"
+                                role="tab"
+                                aria-controls="groupe2{{ loop.index }}-content"
+                                aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                            {{ semestre.libelle }}
+                        </button>
+                    </li>
+                {% endif %}
 
             {% endfor %}
         </ul>
@@ -181,7 +183,8 @@
                                             </td>
                                             {# TODO: Lien vers bibliothèque de portfolios #}
                                             <td>
-                                                <a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque de portfolios</a>
+                                                <a href="{{ path('app_vue_portfolio', {'id': etudiant.id}) }}">bibliothèque
+                                                    de portfolios</a>
                                             </td>
                                         </tr>
                                         {#            {% endif %} #}

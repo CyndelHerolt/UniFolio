@@ -7,7 +7,6 @@ use App\Entity\Trace;
 use App\Repository\TraceRepository;
 use Symfony\Component\DomCrawler\Crawler;
 
-
 class TraceTypeImage extends AbstractTrace implements TraceInterface
 {
     final public const TAG_TYPE_TRACE = 'image.s';
