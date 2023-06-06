@@ -39,6 +39,16 @@ class CompetenceRepository extends ServiceEntityRepository
         }
     }
 
+    public function truncate(): void
+    {
+        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->createQueryBuilder('c')
+            ->delete()
+            ->getQuery()
+            ->execute();
+        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+    }
+
 //    /**
 //     * @return Competence[] Returns an array of Competence objects
 //     */

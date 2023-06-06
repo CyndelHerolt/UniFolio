@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApcApprentissageCritique
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+//    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -22,6 +22,12 @@ class ApcApprentissageCritique
 
     #[ORM\ManyToOne(inversedBy: 'apcApprentissageCritiques')]
     private ?ApcNiveau $niveaux = null;
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getId(): ?int
     {

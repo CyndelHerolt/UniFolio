@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApcReferentiel
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+//    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -31,13 +31,20 @@ class ApcReferentiel
     #[ORM\OneToMany(mappedBy: 'referentiel', targetEntity: Competence::class)]
     private Collection $competences;
 
-    #[ORM\OneToMany(mappedBy: 'ApcReferentiel', targetEntity: ApcParcours::class)]
+    #[ORM\OneToMany(mappedBy: 'ApcReferentiel', targetEntity: ApcParcours::class, cascade: ['persist', 'remove'])]
     private Collection $apcParcours;
 
     public function __construct()
     {
         $this->competences = new ArrayCollection();
         $this->apcParcours = new ArrayCollection();
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getId(): ?int

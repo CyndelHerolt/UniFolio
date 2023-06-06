@@ -99,51 +99,51 @@ class StructureSynchro extends AbstractController
             }
         }
 
-        //-------------------------------------------------------------------------------------------------------
-        //-----------------------------------------PARCOURS------------------------------------------------------
-        //-------------------------------------------------------------------------------------------------------
-
-        $parcours = $client->request(
-            'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/parcours',
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
-                ]
-            ]
-        );
-
-        $parcours = $parcours->toArray();
-        foreach ($parcours as $apcParcours) {
-            $referentiel = $apcReferentielRepository->findOneBy(['libelle' => $apcParcours['referentiel']]);
-
-            if ($referentiel) {
-
-                $existingParcours = $apcParcoursRepository->findOneBy(['id' => $apcParcours['id']]);
-                //Vérifier si le libelle du département existe déjà en base de données
-                if ($existingParcours) {
-                    $existingParcours->setId($apcParcours['id']);
-                    $existingParcours->setLibelle($apcParcours['libelle']);
-                    $existingParcours->setCode($apcParcours['code']);
-                    $existingParcours->setActif($apcParcours['actif']);
-                    $existingParcours->setApcReferentiel($referentiel);
-                    $apcParcoursRepository->save($existingParcours, true);
-                } else {
-                    //Sinon, on le crée
-                    $newParcours = new ApcParcours();
-                    $newParcours->setId($apcParcours['id']);
-                    $newParcours->setLibelle($apcParcours['libelle']);
-                    $newParcours->setCode($apcParcours['code']);
-                    $newParcours->setActif($apcParcours['actif']);
-                    $newParcours->setApcReferentiel($referentiel);
-                    $apcParcoursRepository->save($newParcours, true);
-                }
-            } else {
-                $this->addFlash('error', 'Le référentiel ' . $apcParcours['referentiel'] . ' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
-            }
-        }
+//        //-------------------------------------------------------------------------------------------------------
+//        //-----------------------------------------PARCOURS------------------------------------------------------
+//        //-------------------------------------------------------------------------------------------------------
+//
+//        $parcours = $client->request(
+//            'GET',
+//            'http://127.0.0.1:8001/fr/api/unifolio/parcours',
+//            [
+//                'headers' => [
+//                    'Accept' => 'application/json',
+//                    'Content-Type' => 'application/json',
+//                    'X_API_KEY' => $this->getParameter('api_key')
+//                ]
+//            ]
+//        );
+//
+//        $parcours = $parcours->toArray();
+//        foreach ($parcours as $apcParcours) {
+//            $referentiel = $apcReferentielRepository->findOneBy(['libelle' => $apcParcours['referentiel']]);
+//
+//            if ($referentiel) {
+//
+//                $existingParcours = $apcParcoursRepository->findOneBy(['id' => $apcParcours['id']]);
+//                //Vérifier si le libelle du département existe déjà en base de données
+//                if ($existingParcours) {
+//                    $existingParcours->setId($apcParcours['id']);
+//                    $existingParcours->setLibelle($apcParcours['libelle']);
+//                    $existingParcours->setCode($apcParcours['code']);
+//                    $existingParcours->setActif($apcParcours['actif']);
+//                    $existingParcours->setApcReferentiel($referentiel);
+//                    $apcParcoursRepository->save($existingParcours, true);
+//                } else {
+//                    //Sinon, on le crée
+//                    $newParcours = new ApcParcours();
+//                    $newParcours->setId($apcParcours['id']);
+//                    $newParcours->setLibelle($apcParcours['libelle']);
+//                    $newParcours->setCode($apcParcours['code']);
+//                    $newParcours->setActif($apcParcours['actif']);
+//                    $newParcours->setApcReferentiel($referentiel);
+//                    $apcParcoursRepository->save($newParcours, true);
+//                }
+//            } else {
+//                $this->addFlash('error', 'Le référentiel ' . $apcParcours['referentiel'] . ' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
+//            }
+//        }
 
 
         //-------------------------------------------------------------------------------------------------------

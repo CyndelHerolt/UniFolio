@@ -39,6 +39,27 @@ class ApcNiveauRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByAnnee($competence, $annee) {
+        return $this->createQueryBuilder('n')
+            ->where('n.competences = :competence')
+            ->andWhere('n.ordre = :ordre')
+            ->setParameter('competence', $competence)
+            ->setParameter('ordre', $annee)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function truncate(): void
+    {
+        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->createQueryBuilder('n')
+            ->delete()
+            ->getQuery()
+            ->execute();
+        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+    }
+
 //    /**
 //     * @return ApcNiveau[] Returns an array of ApcNiveau objects
 //     */

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApcNiveau
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+//    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -33,6 +33,12 @@ class ApcNiveau
     public function __construct()
     {
         $this->apcApprentissageCritiques = new ArrayCollection();
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getId(): ?int

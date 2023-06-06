@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Competence
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+//    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -36,13 +36,19 @@ class Competence
     #[ORM\ManyToOne(inversedBy: 'competences')]
     private ?ApcReferentiel $referentiel = null;
 
-    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: ApcNiveau::class)]
+    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: ApcNiveau::class, cascade: ['persist'])]
     private Collection $apcNiveaux;
 
     public function __construct()
     {
         $this->validations = new ArrayCollection();
         $this->apcNiveaux = new ArrayCollection();
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getId(): ?int
