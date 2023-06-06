@@ -15,3 +15,6 @@ import './bootstrap';
 
 
 import './js/main.js';
+
+//importer le controller stimulus qui se trouve dans assets/controllers/
+import './controllers/formTraceController.js';

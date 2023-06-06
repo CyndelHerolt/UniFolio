@@ -5,6 +5,7 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -106,7 +107,8 @@ class TraceTypeImageType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
-            ]);
+            ])
+            ;
     }
 
 

@@ -27,101 +27,100 @@
                         <h2>Créer une nouvelle trace</h2>
                         <h3>{{ trace.display }}</h3>
                     {% endif %}
-                    {{ form_start(form) }}
-                    <div class="hidden">
-                        {{ form_row(form.date_creation) }}
-                        {{ form_row(form.date_modification) }}
-                    </div>
-                    {{ form_row(form.ordre) }}
-                    {{ form_row(form.titre) }}
-                    <hr>
+                    <form>
+                        {{ form_start(form) }}
+                        <div class="hidden">
+                            {{ form_row(form.date_creation) }}
+                            {{ form_row(form.date_modification) }}
+                        </div>
+                        {{ form_row(form.ordre) }}
+                        {{ form_row(form.titre) }}
+                        <hr>
 
-                    <!-- Images -->
+                        <!-- Images -->
 
-                    {% if 'TraceTypeImage' in trace.typeTrace %}
-                        {# {{ dump(form.contenu.vars.data) }} #}
-                        {% if '/edit' in app.request.uri %}
-                            {% for data in trace.contenu %}
-                                <div class="image_trace_div">
-                                    <p>Image.s déjà dans la DB</p>
-                                    {#                                {% for test in data %} #}
-                                    <input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
-                                    <img src="{{ asset(data) }}" class="image_registered" data-file="registered"
-                                         style="width: 100px" alt="image déjà enregistrée"/>
-                                    {#                                     <input type="file" value="{{ asset(data) }}"> #}
-                                    <button type="button" class="btn btn-danger delete-image">
-                                        <i class="fa-solid fa-square-minus"></i>
-                                    </button>
-                                    {#                                {% endfor %} #}
-                                    <hr>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                        {% if 'TraceTypeImage' in trace.typeTrace %}
+                            {# {{ dump(form.contenu.vars.data) }} #}
+                            {% if '/edit' in app.request.uri %}
+                                {% for data in trace.contenu %}
+                                    <div class="image_trace_div">
+                                        <p>Image.s déjà dans la DB</p>
+                                        {#                                {% for test in data %} #}
+                                        <input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
+                                        <img src="{{ asset(data) }}" class="image_registered" data-file="registered"
+                                             style="width: 100px" alt="image déjà enregistrée"/>
+                                        {#                                     <input type="file" value="{{ asset(data) }}"> #}
+                                        <button type="button" class="btn btn-danger delete-image">
+                                            <i class="fa-solid fa-square-minus"></i>
+                                        </button>
+                                        {#                                {% endfor %} #}
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
 
-                        <button type="button" class="btn btn-primary add-image">
-                            Ajouter une image <i class="fa fa-square-plus"></i>
-                        </button>
+                            <button type="button" class="btn btn-primary add-image">
+                                Ajouter une image <i class="fa fa-square-plus"></i>
+                            </button>
 
-                        <!-- Pdf -->
+                            <!-- Pdf -->
 
-                    {% elseif 'TraceTypePdf' in trace.typeTrace %}
-                        {% if '/edit' in app.request.uri %}
-                            {% for data in trace.contenu %}
-                                <div class="pdf_trace_div">
-                                    <p>Pdf déjà dans la DB</p>
-                                    <input type="hidden" name="pdf[{{ loop.index }}]" value="{{ data }}">
-                                    <iframe src="{{ asset(data) }}" style="width: 50%"></iframe>
-                                    <button type="button" class="btn btn-danger delete-pdf">
-                                        <i class="fa-solid fa-square-minus"></i>
-                                    </button>
-                                    <hr>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                        {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                            {% if '/edit' in app.request.uri %}
+                                {% for data in trace.contenu %}
+                                    <div class="pdf_trace_div">
+                                        <p>Pdf déjà dans la DB</p>
+                                        <input type="hidden" name="pdf[{{ loop.index }}]" value="{{ data }}">
+                                        <iframe src="{{ asset(data) }}" style="width: 50%"></iframe>
+                                        <button type="button" class="btn btn-danger delete-pdf">
+                                            <i class="fa-solid fa-square-minus"></i>
+                                        </button>
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <button type="button" class="btn btn-primary add-pdf">
                                 Ajouter un PDF <i class="fa fa-square-plus"></i>
                             </button>
 
-                        <!-- Liens -->
+                            <!-- Liens -->
 
-                    {% elseif 'TraceTypeLien' in trace.typeTrace %}
-                        <div class="input-group mb-3">
-                            {{ form_widget(form.contenu) }}
-                        </div>
-                        <button type="button" class="btn btn-primary add-lien">
-                            Ajouter un lien <i class="fa fa-square-plus"></i>
-                        </button>
+                        {% elseif 'TraceTypeLien' in trace.typeTrace %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.contenu) }}
+                            </div>
+                            <button type="button" class="btn btn-primary add-lien">
+                                Ajouter un lien <i class="fa fa-square-plus"></i>
+                            </button>
 
-                        <!-- Videos -->
+                            <!-- Videos -->
 
-                    {% elseif 'TraceTypeVideo' in trace.typeTrace %}
-                        <div class="input-group mb-3">
-                            {{ form_widget(form.contenu) }}
-                        </div>
-                        <button type="button" class="btn btn-primary add-video">
-                            Ajouter une vidéo <i class="fa fa-square-plus"></i>
-                        </button>
-                    {% endif %}
-                    <hr>
-                    {{ form_row(form.description) }}
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    {{ form_end(form) }}
+                        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.contenu) }}
+                            </div>
+                            <button type="button" class="btn btn-primary add-video">
+                                Ajouter une vidéo <i class="fa fa-square-plus"></i>
+                            </button>
+                        {% endif %}
+                        <hr>
+                        {{ form_row(form.description) }}
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        {{ form_end(form) }}
+                    </form>
                 </article>
                 <aside class="col-lg-6 col-12">
                     <h2>Compétences relatives à cette trace</h2>
-                    <form action="">
-                        <button>Ajouter des compétences</button>
-                        <ul>
-                            {% for competence in competences|slice(0,5) %}
-                                <div>
-                                    <li>
-                                        <span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span>
-                                        | {{ competence.libelle }}
-                                    </li>
-                                </div>
-                            {% endfor %}
-                        </ul>
+
+                    <form action="" class="secondary_form" method="post">
+                        {{ form_start(formCompetence) }}
+
+                        {{ form_row(formCompetence.libelle) }}
+
+                        {{ form_end(formCompetence) }}
+
                     </form>
+
                 </aside>
             </div>
         </section>
