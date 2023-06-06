@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliothèque de traces{% endblock %}
+
+{% block body %}
+
+    <h2>Bibliothèque de traces de {{ etudiant.prenom }} {{ etudiant.nom }}</h2>
+
+    <section>
+
+        <div class="row">
+
+            {% for trace in traces %}
+
+            {% include('\partials/_card_trace.html.twig') %}
+
+            {% else %}
+                <p>Aucune trace trouvée.</p>
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+{% endblock %}

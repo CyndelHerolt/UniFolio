@@ -7,6 +7,8 @@ use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Entity\Page;
 use App\Entity\Trace;
+use App\Form\CompetenceType;
+use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\PageRepository;
@@ -20,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class TraceController extends AbstractController
+class TraceController extends BaseController
 {
 
     public function __construct(
@@ -52,6 +54,7 @@ class TraceController extends AbstractController
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
         CompetenceRepository $competenceRepository,
+        ApcNiveauRepository  $apcNiveauRepository,
         Security             $security,
         string               $id,
     ): Response
@@ -66,8 +69,34 @@ class TraceController extends AbstractController
         //dump($id);
         //dump($traceType);
         //die();
-        $competence = $competenceRepository->findAll();
         $user = $security->getUser()->getEtudiant();
+
+
+        $semestre = $user->getSemestre();
+        $annee = $semestre->getAnnee();
+
+        $dept = $this->dataUserSession->getDepartement();
+
+        $referentiel = $dept->getApcReferentiels();
+
+
+        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+//        dd($competences);
+
+        foreach ($competences as $competence) {
+            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+        }
+
+        foreach ($niveaux as $niveau) {
+            foreach ($niveau as $niv) {
+                $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+            }
+        }
+
+//        dd($competencesNiveau);
+
+        $formCompetence = $this->createForm(CompetenceType::class, null, ['competences' => $competencesNiveau]);
 
         $trace = new Trace();
         $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
@@ -77,6 +106,12 @@ class TraceController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $formData = $request->request->all();
+            $competenceData = $request->request->get('competence');
+
+            dd($competenceData);
+
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
                 //Récupérer l'ordre saisi dans le form
@@ -101,7 +136,7 @@ class TraceController extends AbstractController
                 $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                 $trace->setBibliotheque($biblio);
 
-                $traceRepository->save($trace, true);
+//                $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
             } else {
@@ -109,11 +144,11 @@ class TraceController extends AbstractController
                 $this->addFlash('error', $error);
             }
         }
-
         return $this->render('trace/formTrace.html.twig', [
             'form' => $form->createView(),
+            'formCompetence' => $formCompetence->createView(),
             'trace' => $traceRegistry->getTypeTrace($id),
-            'competences' => $competence,
+            'competences' => $competencesNiveau,
         ]);
     }
 
@@ -163,7 +198,7 @@ class TraceController extends AbstractController
                     if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
                         $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
                         return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                    } elseif(isset($request->request->All()['img'])) {
+                    } elseif (isset($request->request->All()['img'])) {
 //                        $this->addFlash('success', 'HELLO');
                         $existingImages = $request->request->All()['img'];
                         $trace->setContenu(array_intersect($existingImages, $FileOrigine));
@@ -171,19 +206,17 @@ class TraceController extends AbstractController
 //                        dd($form->get('contenu')->getData());
                         $trace->setContenu($request->request->get('contenu'));
                     }
-                }
-                else {
+                } else {
                     $existingImages = $request->request->All()['img'];
                     $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                 }
-            }
-            elseif ($trace->getTypetrace() == TraceTypePdf::class
+            } elseif ($trace->getTypetrace() == TraceTypePdf::class
             ) {
                 if ($request->request->get('contenu') == null) {
                     if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
                         $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
                         return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                    } elseif(isset($request->request->All()['pdf'])) {
+                    } elseif (isset($request->request->All()['pdf'])) {
 //                        $this->addFlash('success', 'HELLO');
                         $existingImages = $request->request->All()['pdf'];
                         $trace->setContenu(array_intersect($existingImages, $FileOrigine));
@@ -191,53 +224,52 @@ class TraceController extends AbstractController
 //                        dd($form->get('contenu')->getData());
                         $trace->setContenu($request->request->get('contenu'));
                     }
-                }
-                else {
-                        $existingPdf = $request->request->All()['pdf'];
-                        $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
-                    }
-                }
-
-                if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
-
-                    //Récupérer l'ordre saisi dans le form
-                    $ordreSaisi = $form->get('ordre')->getData();
-//                dd($ordreSaisi);
-
-                    //Pour chaque trace
-                    foreach ($traces as $traceStock) {
-                        //Récupérer l'ordre de la trace
-                        $ordre = $traceStock->getOrdre();
-//            dd($ordre);
-                        //Si l'ordre saisi est égal à l'ordre de la trace
-                        if ($ordre === $ordreSaisi && $traceStock !== $trace) {
-                            // Attribuer l'ordre saisi à la trace en cours d'édition
-                            $trace->setOrdre($ordreSaisi);
-                            //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
-                            $traceStock->setOrdre($ordreOrigine);
-                        }
-                    }
-
-                    $form->getData()->setDatemodification(new \DateTimeImmutable());
-//                dump($trace);
-//                die();
-                    $traceRepository->save($trace, true);
-                    $this->addFlash('success', 'La trace a été modifiée avec succès.');
-                    return $this->redirectToRoute('app_trace');
                 } else {
-                    $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
-                    $this->addFlash('error', $error);
+                    $existingPdf = $request->request->All()['pdf'];
+                    $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
                 }
             }
 
-            return $this->render('trace/formTrace.html.twig', [
-                'form' => $form->createView(),
-                'trace' => $trace,
-                'competences' => $competence,
-            ]);
+            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+
+                //Récupérer l'ordre saisi dans le form
+                $ordreSaisi = $form->get('ordre')->getData();
+//                dd($ordreSaisi);
+
+                //Pour chaque trace
+                foreach ($traces as $traceStock) {
+                    //Récupérer l'ordre de la trace
+                    $ordre = $traceStock->getOrdre();
+//            dd($ordre);
+                    //Si l'ordre saisi est égal à l'ordre de la trace
+                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
+                        // Attribuer l'ordre saisi à la trace en cours d'édition
+                        $trace->setOrdre($ordreSaisi);
+                        //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
+                        $traceStock->setOrdre($ordreOrigine);
+                    }
+                }
+
+                $form->getData()->setDatemodification(new \DateTimeImmutable());
+//                dump($trace);
+//                die();
+                $traceRepository->save($trace, true);
+                $this->addFlash('success', 'La trace a été modifiée avec succès.');
+                return $this->redirectToRoute('app_trace');
+            } else {
+                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                $this->addFlash('error', $error);
+            }
         }
 
-        #[
+        return $this->render('trace/formTrace.html.twig', [
+            'form' => $form->createView(),
+            'trace' => $trace,
+            'competences' => $competence,
+        ]);
+    }
+
+    #[
         Route('/trace/delete/{id}', name: 'app_trace_delete')]
     public function delete(
         Request         $request,
