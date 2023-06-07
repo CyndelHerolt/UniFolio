@@ -7,6 +7,7 @@ use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Entity\Page;
 use App\Entity\Trace;
+use App\Entity\Validation;
 use App\Form\CompetenceType;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
@@ -64,9 +65,7 @@ class TraceController extends BaseController
         );
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
         $traceType = $traceRegistry->getTypeTrace($id);
-        //dump($id);
-        //dump($traceType);
-        //die();
+
         $user = $security->getUser()->getEtudiant();
 
 
@@ -76,7 +75,6 @@ class TraceController extends BaseController
         $dept = $this->dataUserSession->getDepartement();
 
         $referentiel = $dept->getApcReferentiels();
-
 
         $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
@@ -94,20 +92,25 @@ class TraceController extends BaseController
 
 //        dd($competencesNiveau);
 
-        $formCompetence = $this->createForm(CompetenceType::class, null, ['competences' => $competencesNiveau]);
-
         $trace = new Trace();
-        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
+        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
         $trace->setTypetrace($id);
         $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
-//        dd($traces);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        $formCompetence->handleRequest($request);
 
-            $formData = $request->request->all();
-            dd($formData);
+//            dd($form->get('competences')->getData());
+
+            $competencesForm = $form->get('competences')->getData();
+            $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+
+            foreach ($competences as $competence) {
+                $validation = new Validation();
+                $validation->setEtat(0);
+                $competence->addValidation($validation);
+                $trace->addValidation($validation);
+            }
 
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
@@ -131,7 +134,9 @@ class TraceController extends BaseController
                 $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                 $trace->setBibliotheque($biblio);
 
-//                $traceRepository->save($trace, true);
+//                $trace->addValidation($validation);
+
+                $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
             } else {
@@ -141,7 +146,6 @@ class TraceController extends BaseController
         }
         return $this->render('trace/formTrace.html.twig', [
             'form' => $form->createView(),
-            'formCompetence' => $formCompetence->createView(),
             'trace' => $traceRegistry->getTypeTrace($id),
             'competences' => $competencesNiveau,
         ]);

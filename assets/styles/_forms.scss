@@ -50,7 +50,7 @@
 
     .col-lg-5 {
       padding: 15px;
-        margin: 0 auto;
+      margin: 0 auto;
 
       i {
         margin-right: 15px;
@@ -74,9 +74,19 @@
 
 .secondary_form {
   div {
+
     padding: 0 !important;
     margin: 15px 0;
     background-color: transparent !important;
     box-shadow: none !important;
   }
+
+    button {
+      @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+      margin: 15px 0 0 0;
+
+      &:hover {
+        @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+      }
+    }
 }

@@ -24,7 +24,7 @@ class Competence
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $couleur = null;
 
-    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: Validation::class)]
+    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: Validation::class, cascade: ['persist'])]
     private Collection $validations;
 
     #[ORM\Column(length: 20, nullable: true)]

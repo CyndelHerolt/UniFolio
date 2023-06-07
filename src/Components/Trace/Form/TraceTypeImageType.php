@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -46,6 +48,8 @@ class TraceTypeImageType extends AbstractType
         for ($i = 1; $i <= $tracesCount; $i++) {
             $choices[$i] = $i;
         }
+
+        $competences = $options['competences'];
 
 
         $builder
@@ -108,6 +112,14 @@ class TraceTypeImageType extends AbstractType
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
+            ->add('competences', ChoiceType::class, [
+                'choices' => array_combine($competences, $competences),
+                'label' => false,
+                'multiple' => true,
+                'required' => true,
+                'expanded' => true,
+                'mapped' => false,
+            ])
             ;
     }
 
@@ -117,6 +129,7 @@ class TraceTypeImageType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Trace::class,
             'user' => null,
+            'competences' => null,
         ]);
     }
 }
