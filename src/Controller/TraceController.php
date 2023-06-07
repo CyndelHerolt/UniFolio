@@ -106,11 +106,11 @@ class TraceController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+        $formCompetence->handleRequest($request);
 
             $formData = $request->request->all();
-            $competenceData = $request->request->get('competence');
-
-            dd($competenceData);
+            $competenceData = $request->request->get('competenceLibelle');
+            dd($formData, $competenceData);
 
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 

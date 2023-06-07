@@ -17,16 +17,13 @@ class CompetenceType extends AbstractType
         $competences = $options['competences'];
 
         $builder
-            ->add('libelle', ChoiceType::class, [
-                'choices' => [$competences],
-                'choice_label' => function ($choice, $key, $value) {
-                    return $value;
-                },
+            ->add('competenceLibelle', ChoiceType::class, [
+                'choices' => array_combine($competences, $competences),
                 'label' => false,
                 'multiple' => true,
                 'required' => true,
                 'expanded' => true,
-                'mapped' => true,
+                'mapped' => false,
             ])
         ;
     }
