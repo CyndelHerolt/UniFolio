@@ -59,11 +59,9 @@ class TraceController extends BaseController
         string               $id,
     ): Response
     {
-
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
         );
-
         //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
         $traceType = $traceRegistry->getTypeTrace($id);
         //dump($id);
@@ -109,15 +107,13 @@ class TraceController extends BaseController
         $formCompetence->handleRequest($request);
 
             $formData = $request->request->all();
-            $competenceData = $request->request->get('competenceLibelle');
-            dd($formData, $competenceData);
+            dd($formData);
 
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
                 //Récupérer l'ordre saisi dans le form
                 $ordreSaisi = $form->get('ordre')->getData();
 //                dd($ordreSaisi);
-
                 //Pour chaque page
                 foreach ($traces as $traceStock) {
                     //Récupérer l'ordre de la trace
@@ -131,7 +127,6 @@ class TraceController extends BaseController
                         $traceStock->setOrdre(count($traces) + 1);
                     }
                 }
-
                 //Lier la trace à la Bibliotheque de l'utilisateur connecté
                 $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                 $trace->setBibliotheque($biblio);

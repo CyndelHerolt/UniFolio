@@ -27,8 +27,8 @@
                         <h2>Créer une nouvelle trace</h2>
                         <h3>{{ trace.display }}</h3>
                     {% endif %}
-                    <form method="post" data-controller="traceform" data-action="submit->traceform#submitForms" data-formtrace-target="traceform">
-                        {{ form_start(form, {'attr': {'id': 'form-trace'}}) }}
+                    <form name="trace_type_image" method="post" enctype="multipart/form-data" data-controller="formtrace" data-action="submit->traceform#submitForms" data-formtrace-target="traceform">
+                        {{ form_start(form) }}
                         <div class="hidden">
                             {{ form_row(form.date_creation) }}
                             {{ form_row(form.date_modification) }}
@@ -112,7 +112,7 @@
                 <aside class="col-lg-6 col-12">
                     <h2>Compétences relatives à cette trace</h2>
 
-                    <form action="" class="secondary_form" method="post" data-controller="formtrace" data-formtrace-target="competenceform">
+                    <form name="competence" class="secondary_form" method="post" data-controller="formtrace" data-action="change->competenceform#change" data-formtrace-target="competenceform" >
 
                         {{ form_start(formCompetence) }}
 
@@ -127,5 +127,3 @@
         </section>
     </div>
 {% endblock %}
-
-
