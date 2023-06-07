@@ -14,6 +14,7 @@ use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
+use App\Repository\ValidationRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -67,7 +68,6 @@ class TraceController extends BaseController
         $traceType = $traceRegistry->getTypeTrace($id);
 
         $user = $security->getUser()->getEtudiant();
-
 
         $semestre = $user->getSemestre();
         $annee = $semestre->getAnnee();
@@ -156,9 +156,11 @@ class TraceController extends BaseController
         Request              $request,
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
+        ApcNiveauRepository  $apcNiveauRepository,
         Security             $security,
         int                  $id,
         CompetenceRepository $competenceRepository,
+        ValidationRepository $validationRepository,
     ): Response
     {
 
@@ -169,6 +171,28 @@ class TraceController extends BaseController
         $trace = $traceRepository->find($id);
         $user = $security->getUser()->getEtudiant();
 
+
+        $semestre = $user->getSemestre();
+        $annee = $semestre->getAnnee();
+
+        $dept = $this->dataUserSession->getDepartement();
+
+        $referentiel = $dept->getApcReferentiels();
+
+        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+//        dd($competences);
+
+        foreach ($competences as $competence) {
+            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+        }
+
+        foreach ($niveaux as $niveau) {
+            foreach ($niveau as $niv) {
+                $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+            }
+        }
+
         if (!$trace) {
             throw $this->createNotFoundException('Trace non trouvée.');
         }
@@ -177,7 +201,15 @@ class TraceController extends BaseController
         $competence = $competenceRepository->findAll();
         $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
 
-        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user]);
+        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+
+        $existingCompetences = [];
+        foreach ($trace->getValidations() as $validation) {
+            $existingCompetences[] = $validation->getCompetences()->getLibelle();
+        }
+
+        // Pré remplissage du formulaire
+        $form->get('competences')->setData($existingCompetences);
 
         $ordreOrigine = $trace->getOrdre();
 
@@ -188,9 +220,32 @@ class TraceController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            dd($request);
+            $competencesForm = $form->get('competences')->getData();
+            $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+            $validations = $trace->getValidations();
 
-//            dd($form);
+            foreach ($competences as $competence) {
+
+                // Si la compétence n'est pas déjà liée à la trace
+                if (!in_array($competence->getLibelle(), $existingCompetences)) {
+                    $validation = new Validation();
+                    $validation->setEtat(0);
+                    $competence->addValidation($validation);
+                    $trace->addValidation($validation);
+                }
+
+               // supprimer les validations des compétences non sélectionnées
+                foreach ($validations as $validation) {
+                    if (!in_array($validation->getCompetences()->getLibelle(), $competencesForm)) {
+                        $validation->getCompetences()->removeValidation($validation);
+                        $trace->removeValidation($validation);
+                        $validationRepository->remove($validation);
+                    }
+                }
+
+            }
+
+
             if ($trace->getTypetrace() == TraceTypeImage::class
             ) {
                 if ($request->request->get('contenu') == null) {

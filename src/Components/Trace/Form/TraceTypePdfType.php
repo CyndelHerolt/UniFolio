@@ -44,6 +44,8 @@ class TraceTypePdfType extends AbstractType
             $choices[$i] = $i;
         }
 
+        $competences = $options['competences'];
+
         $builder
             ->add('date_creation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
@@ -100,6 +102,15 @@ class TraceTypePdfType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
+            ])
+            //----------------------------------------------------------------
+            ->add('competences', ChoiceType::class, [
+                'choices' => array_combine($competences, $competences),
+                'label' => false,
+                'multiple' => true,
+                'required' => true,
+                'expanded' => true,
+                'mapped' => false,
             ]);
     }
 
@@ -108,6 +119,7 @@ class TraceTypePdfType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Trace::class,
             'user' => null,
+            'competences' => null,
         ]);
     }
 }

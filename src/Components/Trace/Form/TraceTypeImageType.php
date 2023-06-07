@@ -51,7 +51,6 @@ class TraceTypeImageType extends AbstractType
 
         $competences = $options['competences'];
 
-
         $builder
             ->add('date_creation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
@@ -112,6 +111,7 @@ class TraceTypeImageType extends AbstractType
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
+            //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
                 'choices' => array_combine($competences, $competences),
                 'label' => false,

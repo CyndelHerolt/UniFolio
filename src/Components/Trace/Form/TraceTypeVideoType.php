@@ -44,6 +44,8 @@ class TraceTypeVideoType extends AbstractType
             $choices[$i] = $i;
         }
 
+        $competences = $options['competences'];
+
         $builder
             ->add('date_creation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
@@ -97,7 +99,17 @@ class TraceTypeVideoType extends AbstractType
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
-            ]);
+            ])
+            //----------------------------------------------------------------
+            ->add('competences', ChoiceType::class, [
+                'choices' => array_combine($competences, $competences),
+                'label' => false,
+                'multiple' => true,
+                'required' => true,
+                'expanded' => true,
+                'mapped' => false,
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -105,6 +117,7 @@ class TraceTypeVideoType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Trace::class,
             'user' => null,
+            'competences' => null,
         ]);
     }
 }

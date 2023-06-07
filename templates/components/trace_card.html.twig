@@ -48,12 +48,16 @@
                 <hr>
 
                 <ul>
-                    <li>
-                        Compétence A <span><i class="fa fa-check"></i></span>
-                    </li>
-                    <li>
-                        Compétence B <span><i class="fa fa-xmark"></i></span>
-                    </li>
+                    {% for validation in this.trace.validations %}
+                        <li>
+                            {{ validation.competences.nomCourt }}
+                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
+                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
                 </ul>
 
                 <hr>
@@ -139,12 +143,16 @@
                             <div class="trace_competences col-5">
                                 <h3>Compétences</h3>
                                 <ul>
-                                    <li>
-                                        Compétence A <span><i class="fa fa-check"></i></span>
-                                    </li>
-                                    <li>
-                                        Compétence B <span><i class="fa fa-xmark"></i></span>
-                                    </li>
+                                    {% for validation in this.trace.validations %}
+                                        <li>
+                                            {{ validation.competences.nomCourt }}
+                                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
+                                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
