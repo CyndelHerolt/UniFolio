@@ -39,6 +39,20 @@ class TraceRepository extends ServiceEntityRepository
         }
     }
 
+    // Requete pour récupérer les traces en fonction des compétences récupérées dans le controller
+    public function findByCompetence(array $competences): array
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->join('t.validations', 'v')
+            ->join('v.competences', 'c')
+            ->where('c.id IN (:competences)')
+            ->setParameter('competences', $competences)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
 //    /**
 //     * @return Trace[] Returns an array of Trace objects
 //     */

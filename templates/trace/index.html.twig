@@ -15,6 +15,16 @@
     <div class="container traces">
         <h1>Bibliothèque de traces</h1>
 
+        <form action="{{ path('app_trace') }}" method="post">
+                <fieldset>
+                    {% for competence in competences %}
+                        <input type="checkbox" id="{{ competence.id }}" name="{{ competence.id }}" value="{{ competence.id }}">
+                        <label for="{{ competence.id }}">{{ competence.libelle }}</label><br>
+                    {% endfor %}
+                </fieldset>
+                <input type="submit" value="Filtrer" class="btn btn-primary">
+        </form>
+
         <!-- Button trigger modal -->
         <a>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

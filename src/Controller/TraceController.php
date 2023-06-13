@@ -8,7 +8,6 @@ use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Entity\Page;
 use App\Entity\Trace;
 use App\Entity\Validation;
-use App\Form\CompetenceType;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
@@ -16,7 +15,6 @@ use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +28,7 @@ class TraceController extends BaseController
     public function __construct(
         protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
+        public CompetenceRepository   $competenceRepository,
         #[Required] public Security   $security
     )
     {
@@ -45,8 +44,15 @@ class TraceController extends BaseController
             'ROLE_ETUDIANT'
         );
 
+        $dept = $this->dataUserSession->getDepartement();
+
+        $referentiel = $dept->getApcReferentiels();
+
+        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
         return $this->render('trace/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),
+            'competences' => $competences,
         ]);
     }
 
@@ -198,7 +204,6 @@ class TraceController extends BaseController
         }
 
         $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
-        $competence = $competenceRepository->findAll();
         $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
 
         $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);

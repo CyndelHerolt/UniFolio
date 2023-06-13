@@ -22,7 +22,14 @@ class AllTraceComponent {
         // Récupérer la bibliothèque de l'utilisateur connecté
         $etudiant = $this->security->getUser()->getEtudiant();
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
-        $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+
+        // Si un formulaire en méthode post est reçu
+        if ($_POST) {
+            // On récupère les compétences sélectionnées
+            $traces = $this->traceRepository->findByCompetence($_POST);
+        } else {
+            $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+        }
 
         return $traces;
     }
