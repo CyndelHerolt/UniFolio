@@ -12,6 +12,7 @@ use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\TypeGroupe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,6 +48,9 @@ class DepartementRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findDepartementEtudiant(Etudiant $etudiant): ?Departement
     {
         return $this->createQueryBuilder('f')

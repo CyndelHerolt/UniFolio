@@ -18,19 +18,20 @@ use Symfony\Contracts\Service\Attribute\Required;
 class DashboardEnseignantController extends BaseController
 {
 
-    public function __construct(
-
-        protected GroupeRepository   $groupeRepository,
-        protected DiplomeRepository  $diplomeRepository,
-        protected EtudiantRepository $etudiantRepository,
-        protected AnneeRepository    $anneeRepository,
-        #[Required] public Security  $security,
-        EnseignantRepository         $enseignantRepository,
-        RequestStack                 $session,
-    )
-    {
-        $this->session = $session;
-    }
+//    private RequestStack $session;
+//
+//    public function __construct(
+//
+//        protected GroupeRepository   $groupeRepository,
+//        protected DiplomeRepository  $diplomeRepository,
+//        protected EtudiantRepository $etudiantRepository,
+//        protected AnneeRepository    $anneeRepository,
+//        #[Required] public Security  $security,
+//        RequestStack                 $session,
+//    )
+//    {
+//        $this->session = $session;
+//    }
 
     #[Route('/dashboard/enseignant', name: 'enseignant_dashboard')]
     public function index(
@@ -55,14 +56,12 @@ class DashboardEnseignantController extends BaseController
                     $data_user->setDepartement($dept);
                 }
                 return $this->render('dashboard_enseignant/index.html.twig', [
-                    'controller_name' => 'DashboardController',
                     'admin' => '/admin?_switch_user=_exit',
                     'data_user' => $data_user,
                 ]);
             } else {
 
                 return $this->render('dashboard_enseignant/index.html.twig', [
-                    'controller_name' => 'DashboardController',
                     'admin' => '',
                     'data_user' => $data_user,
                 ]);

@@ -16,9 +16,7 @@ class AllSuiviEtudiantComponent
 
     public function getAllSuiviEtudiant(): array
     {
-        $etudiants = $this->etudiantRepository->findAll();
-
-        return $etudiants;
+        return $this->etudiantRepository->findAll();
     }
 
 }

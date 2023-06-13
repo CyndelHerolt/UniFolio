@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
                 $entityManager->flush();
             }
 
-            if (null !== $update && null !== $update->getDepartement()) {
+            if (null !== $update->getDepartement()) {
                 $this->addFlash('success', 'Formation par défaut sauvegardée');
                 $session->getSession()->set('departement', $update->getDepartement()); // on sauvegarde
 

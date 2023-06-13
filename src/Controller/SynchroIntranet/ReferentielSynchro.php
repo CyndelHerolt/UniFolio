@@ -253,7 +253,6 @@ class ReferentielSynchro extends AbstractController
 
         $this->addFlash('success', 'Les données ont bien été importées.');
 
-        return $this->redirectToRoute('app_dashboard', [
-        ]);
+        return $this->redirectToRoute('app_dashboard');
     }
 }

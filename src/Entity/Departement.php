@@ -36,7 +36,7 @@ class Departement
     private Collection $diplomes;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\EnseignantDepartement>
+     * @var Collection<int, EnseignantDepartement>
      */
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: EnseignantDepartement::class, cascade: ['persist', 'remove'])]
     private Collection $enseignantDepartements;

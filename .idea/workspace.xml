@@ -1,20 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="php" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Filtre] Filtre Twig pour filtrage des semestres par année">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TypeGroupeFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/DataUserSession.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/DataUserSession.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Cv/AllCvComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Cv/AllCvComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Cv/CvCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Cv/CvCardComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SuiviTrace/AllSuiviTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviTrace/AllSuiviTraceComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Annee.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Annee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Diplome.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Diplome.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groupe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Bibliotheque.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Bibliotheque.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Enseignant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/EnseignantDepartement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/EnseignantDepartement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ResetPasswordRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ResetPasswordRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Semestre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Semestre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TypeGroupe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Trace.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trace.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ApcApprentissageCritiqueRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcApprentissageCritiqueRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ApcNiveauRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcNiveauRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ApcParcoursRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcParcoursRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ApcReferentielRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcReferentielRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/TraceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TraceRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_card_trace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_card_trace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_filtres_semestres.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_filtres_semestres.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/vue_trace/bibliotheque.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/vue_trace/bibliotheque.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +92,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="NamedScopeManager">
+    <scope name="php" pattern="file[UniFolio]:src//*" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\wamp64\bin\php\php8.1.0\php.exe">
     <include_path>
@@ -215,6 +254,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/var/www/html/Portfolio_universitaire&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -222,7 +262,8 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -470,217 +511,28 @@
       <workItem from="1683871464654" duration="641000" />
       <workItem from="1683872116954" duration="21384000" />
       <workItem from="1683906190084" duration="3873000" />
-      <workItem from="1683966240166" duration="519000" />
-    </task>
-    <task id="LOCAL-00212" summary="feat: [Fixtures] m.a.j des fixutres - liens">
-      <created>1680201514571</created>
-      <option name="number" value="00212" />
-      <option name="presentableId" value="LOCAL-00212" />
-      <option name="project" value="LOCAL" />
-      <updated>1680201514571</updated>
-    </task>
-    <task id="LOCAL-00213" summary="fix: [Security] Ajout des tests de rôle pour accéder aux fonctionnalités étudiantes">
-      <created>1680626247517</created>
-      <option name="number" value="00213" />
-      <option name="presentableId" value="LOCAL-00213" />
-      <option name="project" value="LOCAL" />
-      <updated>1680626247518</updated>
-    </task>
-    <task id="LOCAL-00214" summary="fixture: [Fixtures] Suppression des doublons">
-      <created>1680768389150</created>
-      <option name="number" value="00214" />
-      <option name="presentableId" value="LOCAL-00214" />
-      <option name="project" value="LOCAL" />
-      <updated>1680768389151</updated>
-    </task>
-    <task id="LOCAL-00215" summary="fix: [CV] m.a.j mise en forme cv">
-      <created>1680774523594</created>
-      <option name="number" value="00215" />
-      <option name="presentableId" value="LOCAL-00215" />
-      <option name="project" value="LOCAL" />
-      <updated>1680774523594</updated>
-    </task>
-    <task id="LOCAL-00216" summary="fix: [Enseignant] Accès à tous les étudiants">
-      <created>1680776691795</created>
-      <option name="number" value="00216" />
-      <option name="presentableId" value="LOCAL-00216" />
-      <option name="project" value="LOCAL" />
-      <updated>1680776691795</updated>
-    </task>
-    <task id="LOCAL-00217" summary="fix: [Enseignant] Prépa dashboard">
-      <created>1681742306442</created>
-      <option name="number" value="00217" />
-      <option name="presentableId" value="LOCAL-00217" />
-      <option name="project" value="LOCAL" />
-      <updated>1681742306442</updated>
-    </task>
-    <task id="LOCAL-00218" summary="fix: [Enseignant] Prépa dashboard">
-      <created>1681750798550</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
-      <option name="project" value="LOCAL" />
-      <updated>1681750798552</updated>
-    </task>
-    <task id="LOCAL-00219" summary="fix: [Enseignant] dashboard récup. etudiants + traces">
-      <created>1681751898647</created>
-      <option name="number" value="00219" />
-      <option name="presentableId" value="LOCAL-00219" />
-      <option name="project" value="LOCAL" />
-      <updated>1681751898647</updated>
-    </task>
-    <task id="LOCAL-00220" summary="fix: [Entités] Révision des relations">
-      <created>1681810941079</created>
-      <option name="number" value="00220" />
-      <option name="presentableId" value="LOCAL-00220" />
-      <option name="project" value="LOCAL" />
-      <updated>1681810941079</updated>
-    </task>
-    <task id="LOCAL-00221" summary="feat: [Data] Mise en place de la synchronisation avec l'intranet">
-      <created>1681810999936</created>
-      <option name="number" value="00221" />
-      <option name="presentableId" value="LOCAL-00221" />
-      <option name="project" value="LOCAL" />
-      <updated>1681810999936</updated>
-    </task>
-    <task id="LOCAL-00222" summary="feat: [Data] Mise en place de la synchronisation avec l'intranet">
-      <created>1681811020174</created>
-      <option name="number" value="00222" />
-      <option name="presentableId" value="LOCAL-00222" />
-      <option name="project" value="LOCAL" />
-      <updated>1681811020174</updated>
-    </task>
-    <task id="LOCAL-00223" summary="feat: [Data] Récupération des départements depuis l'intranet">
-      <created>1681820403797</created>
-      <option name="number" value="00223" />
-      <option name="presentableId" value="LOCAL-00223" />
-      <option name="project" value="LOCAL" />
-      <updated>1681820403797</updated>
-    </task>
-    <task id="LOCAL-00224" summary="feat: [Data] Récupération des diplome depuis l'intranet">
-      <created>1681827255338</created>
-      <option name="number" value="00224" />
-      <option name="presentableId" value="LOCAL-00224" />
-      <option name="project" value="LOCAL" />
-      <updated>1681827255338</updated>
-    </task>
-    <task id="LOCAL-00225" summary="fix: [Data] Optimisation de la requête d'import des diplomes depuis l'intranet">
-      <created>1681837380045</created>
-      <option name="number" value="00225" />
-      <option name="presentableId" value="LOCAL-00225" />
-      <option name="project" value="LOCAL" />
-      <updated>1681837380045</updated>
-    </task>
-    <task id="LOCAL-00226" summary="feat: [Data] Requête d'import des années depuis l'intranet">
-      <created>1681885567337</created>
-      <option name="number" value="00226" />
-      <option name="presentableId" value="LOCAL-00226" />
-      <option name="project" value="LOCAL" />
-      <updated>1681885567338</updated>
-    </task>
-    <task id="LOCAL-00227" summary="feat: [Data] Requête d'import des semestres depuis l'intranet">
-      <created>1681886311376</created>
-      <option name="number" value="00227" />
-      <option name="presentableId" value="LOCAL-00227" />
-      <option name="project" value="LOCAL" />
-      <updated>1681886311376</updated>
-    </task>
-    <task id="LOCAL-00228" summary="feat: [Data] Requête d'import des groupes depuis l'intranet">
-      <created>1681895951143</created>
-      <option name="number" value="00228" />
-      <option name="presentableId" value="LOCAL-00228" />
-      <option name="project" value="LOCAL" />
-      <updated>1681895951143</updated>
-    </task>
-    <task id="LOCAL-00229" summary="feat: [Database] Création des entités pour import du référentiel">
-      <created>1681905791736</created>
-      <option name="number" value="00229" />
-      <option name="presentableId" value="LOCAL-00229" />
-      <option name="project" value="LOCAL" />
-      <updated>1681905791736</updated>
-    </task>
-    <task id="LOCAL-00230" summary="feat: [Data] Gestion de l'import de la partie &quot;Structure&quot; depuis l'Intranet">
-      <created>1681905882334</created>
-      <option name="number" value="00230" />
-      <option name="presentableId" value="LOCAL-00230" />
-      <option name="project" value="LOCAL" />
-      <updated>1681905882334</updated>
-    </task>
-    <task id="LOCAL-00231" summary="feat: [Data] Import des référentiels de compétences depuis l'intranet">
-      <created>1681909127939</created>
-      <option name="number" value="00231" />
-      <option name="presentableId" value="LOCAL-00231" />
-      <option name="project" value="LOCAL" />
-      <updated>1681909127939</updated>
-    </task>
-    <task id="LOCAL-00232" summary="feat: [Data] Import des référentiels de compétences depuis l'intranet">
-      <created>1681910410231</created>
-      <option name="number" value="00232" />
-      <option name="presentableId" value="LOCAL-00232" />
-      <option name="project" value="LOCAL" />
-      <updated>1681910410231</updated>
-    </task>
-    <task id="LOCAL-00233" summary="fix: [Register] Lien vers inscription">
-      <created>1681983038064</created>
-      <option name="number" value="00233" />
-      <option name="presentableId" value="LOCAL-00233" />
-      <option name="project" value="LOCAL" />
-      <updated>1681983038064</updated>
-    </task>
-    <task id="LOCAL-00234" summary="fix: [Data] maj des entités pour suppression en cascade">
-      <created>1681983079317</created>
-      <option name="number" value="00234" />
-      <option name="presentableId" value="LOCAL-00234" />
-      <option name="project" value="LOCAL" />
-      <updated>1681983079317</updated>
-    </task>
-    <task id="LOCAL-00235" summary="fix: [Structure] Division de la synchro en plusieurs controller">
-      <created>1681983125406</created>
-      <option name="number" value="00235" />
-      <option name="presentableId" value="LOCAL-00235" />
-      <option name="project" value="LOCAL" />
-      <updated>1681983125406</updated>
-    </task>
-    <task id="LOCAL-00236" summary="feat: [Register] Récupération des infos d'un étudiant depuis l'intranet à la création de son compte">
-      <created>1681983159180</created>
-      <option name="number" value="00236" />
-      <option name="presentableId" value="LOCAL-00236" />
-      <option name="project" value="LOCAL" />
-      <updated>1681983159180</updated>
-    </task>
-    <task id="LOCAL-00237" summary="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte">
-      <created>1681985365697</created>
-      <option name="number" value="00237" />
-      <option name="presentableId" value="LOCAL-00237" />
-      <option name="project" value="LOCAL" />
-      <updated>1681985365697</updated>
-    </task>
-    <task id="LOCAL-00238" summary="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte">
-      <created>1682003653480</created>
-      <option name="number" value="00238" />
-      <option name="presentableId" value="LOCAL-00238" />
-      <option name="project" value="LOCAL" />
-      <updated>1682003653480</updated>
-    </task>
-    <task id="LOCAL-00239" summary="fix: [AppEnseignant] Suppression des components de suivi des étudiants">
-      <created>1682003752591</created>
-      <option name="number" value="00239" />
-      <option name="presentableId" value="LOCAL-00239" />
-      <option name="project" value="LOCAL" />
-      <updated>1682003752592</updated>
-    </task>
-    <task id="LOCAL-00240" summary="fix: [Connexion/Inscription] Mise en forme des formulaires">
-      <created>1682067489156</created>
-      <option name="number" value="00240" />
-      <option name="presentableId" value="LOCAL-00240" />
-      <option name="project" value="LOCAL" />
-      <updated>1682067489158</updated>
-    </task>
-    <task id="LOCAL-00241" summary="fix: [Inscription] Recherche dans DB intranet / login puisq récupération des informations">
-      <created>1682069041203</created>
-      <option name="number" value="00241" />
-      <option name="presentableId" value="LOCAL-00241" />
-      <option name="project" value="LOCAL" />
-      <updated>1682069041203</updated>
+      <workItem from="1683966240166" duration="706000" />
+      <workItem from="1684735189660" duration="24322000" />
+      <workItem from="1684770631501" duration="2386000" />
+      <workItem from="1684822101017" duration="485000" />
+      <workItem from="1684822868494" duration="1710000" />
+      <workItem from="1684824606845" duration="21451000" />
+      <workItem from="1684907629526" duration="15201000" />
+      <workItem from="1684927693284" duration="9306000" />
+      <workItem from="1684994250285" duration="23451000" />
+      <workItem from="1685080470915" duration="6216000" />
+      <workItem from="1685088403240" duration="13075000" />
+      <workItem from="1685906396852" duration="25000" />
+      <workItem from="1685943073722" duration="8972000" />
+      <workItem from="1686030971818" duration="22399000" />
+      <workItem from="1686064568455" duration="732000" />
+      <workItem from="1686118059930" duration="300000" />
+      <workItem from="1686118401866" duration="21902000" />
+      <workItem from="1686151386158" duration="1352000" />
+      <workItem from="1686204642408" duration="17000" />
+      <workItem from="1686575003660" duration="3842000" />
+      <workItem from="1686636762072" duration="8192000" />
+      <workItem from="1686659275863" duration="3369000" />
     </task>
     <task id="LOCAL-00242" summary="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet">
       <created>1682079821705</created>
@@ -815,7 +667,217 @@
       <option name="project" value="LOCAL" />
       <updated>1683897052813</updated>
     </task>
-    <option name="localTasksCounter" value="261" />
+    <task id="LOCAL-00261" summary="fix: [Data] Récupération des data depuis l'intranet par l'id">
+      <created>1683966870505</created>
+      <option name="number" value="00261" />
+      <option name="presentableId" value="LOCAL-00261" />
+      <option name="project" value="LOCAL" />
+      <updated>1683966870506</updated>
+    </task>
+    <task id="LOCAL-00262" summary="fix: [Filter] Filtre semestres/annees">
+      <created>1683966905323</created>
+      <option name="number" value="00262" />
+      <option name="presentableId" value="LOCAL-00262" />
+      <option name="project" value="LOCAL" />
+      <updated>1683966905323</updated>
+    </task>
+    <task id="LOCAL-00263" summary="fix: [Session] Changement de dept par défaut depuis le dashboard">
+      <created>1684738910220</created>
+      <option name="number" value="00263" />
+      <option name="presentableId" value="LOCAL-00263" />
+      <option name="project" value="LOCAL" />
+      <updated>1684738910221</updated>
+    </task>
+    <task id="LOCAL-00264" summary="fix: [Structure] Récupération uniquement des départements qui proposent le BUT">
+      <created>1684762651804</created>
+      <option name="number" value="00264" />
+      <option name="presentableId" value="LOCAL-00264" />
+      <option name="project" value="LOCAL" />
+      <updated>1684762651804</updated>
+    </task>
+    <task id="LOCAL-00265" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
+      <created>1684834615653</created>
+      <option name="number" value="00265" />
+      <option name="presentableId" value="LOCAL-00265" />
+      <option name="project" value="LOCAL" />
+      <updated>1684834615654</updated>
+    </task>
+    <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
+      <created>1684834757552</created>
+      <option name="number" value="00266" />
+      <option name="presentableId" value="LOCAL-00266" />
+      <option name="project" value="LOCAL" />
+      <updated>1684834757552</updated>
+    </task>
+    <task id="LOCAL-00267" summary="fix: [Data] Manipulation des data pour le user admin et ses roles">
+      <created>1684834815711</created>
+      <option name="number" value="00267" />
+      <option name="presentableId" value="LOCAL-00267" />
+      <option name="project" value="LOCAL" />
+      <updated>1684834815711</updated>
+    </task>
+    <task id="LOCAL-00268" summary="fix: [DataBase] Ajout d'une table Apc_Parcours pour lier les groupes et les diplomes">
+      <created>1684850880835</created>
+      <option name="number" value="00268" />
+      <option name="presentableId" value="LOCAL-00268" />
+      <option name="project" value="LOCAL" />
+      <updated>1684850880835</updated>
+    </task>
+    <task id="LOCAL-00269" summary="fix: [Intranet] Correction bug + ajout apc Referentiel">
+      <created>1684850945020</created>
+      <option name="number" value="00269" />
+      <option name="presentableId" value="LOCAL-00269" />
+      <option name="project" value="LOCAL" />
+      <updated>1684850945020</updated>
+    </task>
+    <task id="LOCAL-00270" summary="fix: [Synchro] Récupération des data de la table apcParcours et lien avec l'entité Diplome">
+      <created>1684908734068</created>
+      <option name="number" value="00270" />
+      <option name="presentableId" value="LOCAL-00270" />
+      <option name="project" value="LOCAL" />
+      <updated>1684908734068</updated>
+    </task>
+    <task id="LOCAL-00271" summary="fix: [Synchro] Réduction de la quantité de data à l'essentiel">
+      <created>1684915629342</created>
+      <option name="number" value="00271" />
+      <option name="presentableId" value="LOCAL-00271" />
+      <option name="project" value="LOCAL" />
+      <updated>1684915629342</updated>
+    </task>
+    <task id="LOCAL-00272" summary="fix: [Synchro] Réduction de la quantité de data à l'essentiel">
+      <created>1684916798634</created>
+      <option name="number" value="00272" />
+      <option name="presentableId" value="LOCAL-00272" />
+      <option name="project" value="LOCAL" />
+      <updated>1684916798634</updated>
+    </task>
+    <task id="LOCAL-00273" summary="fix: [Dashboard] Filtres par Années, Semestres et Groupes">
+      <created>1684923143734</created>
+      <option name="number" value="00273" />
+      <option name="presentableId" value="LOCAL-00273" />
+      <option name="project" value="LOCAL" />
+      <updated>1684923143734</updated>
+    </task>
+    <task id="LOCAL-00274" summary="fix: [Dashboard] Filtres par Années, Semestres, Type et Groupes">
+      <created>1684936252829</created>
+      <option name="number" value="00274" />
+      <option name="presentableId" value="LOCAL-00274" />
+      <option name="project" value="LOCAL" />
+      <updated>1684936252830</updated>
+    </task>
+    <task id="LOCAL-00275" summary="fix: [Dashboard] Filtres par Années, Semestres, Type et Groupes">
+      <created>1684937573455</created>
+      <option name="number" value="00275" />
+      <option name="presentableId" value="LOCAL-00275" />
+      <option name="project" value="LOCAL" />
+      <updated>1684937573456</updated>
+    </task>
+    <task id="LOCAL-00276" summary="fix: [Synchro] Assignation des groupes etudiants">
+      <created>1685004159487</created>
+      <option name="number" value="00276" />
+      <option name="presentableId" value="LOCAL-00276" />
+      <option name="project" value="LOCAL" />
+      <updated>1685004159488</updated>
+    </task>
+    <task id="LOCAL-00277" summary="fix: [Dashboard enseignant] Filtres par année, semestre, groupe. ok!">
+      <created>1685085458534</created>
+      <option name="number" value="00277" />
+      <option name="presentableId" value="LOCAL-00277" />
+      <option name="project" value="LOCAL" />
+      <updated>1685085458535</updated>
+    </task>
+    <task id="LOCAL-00278" summary="fix: [Dashboard enseignant] Filtres par année, semestre, groupe. ok!">
+      <created>1685086729241</created>
+      <option name="number" value="00278" />
+      <option name="presentableId" value="LOCAL-00278" />
+      <option name="project" value="LOCAL" />
+      <updated>1685086729241</updated>
+    </task>
+    <task id="LOCAL-00279" summary="fix: [Dashboard enseignant] Filtres par année, semestre, groupe. ok!">
+      <created>1685090679175</created>
+      <option name="number" value="00279" />
+      <option name="presentableId" value="LOCAL-00279" />
+      <option name="project" value="LOCAL" />
+      <updated>1685090679175</updated>
+    </task>
+    <task id="LOCAL-00280" summary="feat: [Suivi portfolio] Récupération et affichages des portolios/etudiant">
+      <created>1685090721625</created>
+      <option name="number" value="00280" />
+      <option name="presentableId" value="LOCAL-00280" />
+      <option name="project" value="LOCAL" />
+      <updated>1685090721625</updated>
+    </task>
+    <task id="LOCAL-00281" summary="fix: [Création trace] CRUD trace type image (ajout edit et delete images multiples)">
+      <created>1685100725120</created>
+      <option name="number" value="00281" />
+      <option name="presentableId" value="LOCAL-00281" />
+      <option name="project" value="LOCAL" />
+      <updated>1685100725120</updated>
+    </task>
+    <task id="LOCAL-00282" summary="fix: [Création trace] CRUD trace type image + pdf (ajout edit et delete images+pdf multiples)">
+      <created>1685103337752</created>
+      <option name="number" value="00282" />
+      <option name="presentableId" value="LOCAL-00282" />
+      <option name="project" value="LOCAL" />
+      <updated>1685103337752</updated>
+    </task>
+    <task id="LOCAL-00283" summary="fix: [Profil] Récupération et affichage des données du user (en cours)">
+      <created>1685104250591</created>
+      <option name="number" value="00283" />
+      <option name="presentableId" value="LOCAL-00283" />
+      <option name="project" value="LOCAL" />
+      <updated>1685104250591</updated>
+    </task>
+    <task id="LOCAL-00284" summary="fix: [Structure] Récupération des référentiels depuis l'Intranet">
+      <created>1686057340782</created>
+      <option name="number" value="00284" />
+      <option name="presentableId" value="LOCAL-00284" />
+      <option name="project" value="LOCAL" />
+      <updated>1686057340783</updated>
+    </task>
+    <task id="LOCAL-00285" summary="feat: [Suivi Etudiant] Accès aux traces + portfolios pr les enseignants">
+      <created>1686057465136</created>
+      <option name="number" value="00285" />
+      <option name="presentableId" value="LOCAL-00285" />
+      <option name="project" value="LOCAL" />
+      <updated>1686057465136</updated>
+    </task>
+    <task id="LOCAL-00286" summary="fix: [Compétences] Lien compétences|traces (en cours)">
+      <created>1686057516890</created>
+      <option name="number" value="00286" />
+      <option name="presentableId" value="LOCAL-00286" />
+      <option name="project" value="LOCAL" />
+      <updated>1686057516890</updated>
+    </task>
+    <task id="LOCAL-00287" summary="fix: [Compétences] Lien compétences|traces (en cours)">
+      <created>1686121267479</created>
+      <option name="number" value="00287" />
+      <option name="presentableId" value="LOCAL-00287" />
+      <option name="project" value="LOCAL" />
+      <updated>1686121267479</updated>
+    </task>
+    <task id="LOCAL-00288" summary="fix: [Compétences] Lien compétences|traces (en cours)">
+      <created>1686128438990</created>
+      <option name="number" value="00288" />
+      <option name="presentableId" value="LOCAL-00288" />
+      <option name="project" value="LOCAL" />
+      <updated>1686128438990</updated>
+    </task>
+    <task id="LOCAL-00289" summary="fix: [Compétences] Lien compétences|traces">
+      <created>1686140304711</created>
+      <option name="number" value="00289" />
+      <option name="presentableId" value="LOCAL-00289" />
+      <option name="project" value="LOCAL" />
+      <updated>1686140304711</updated>
+    </task>
+    <task id="LOCAL-00290" summary="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace">
+      <created>1686152746044</created>
+      <option name="number" value="00290" />
+      <option name="presentableId" value="LOCAL-00290" />
+      <option name="project" value="LOCAL" />
+      <updated>1686152746045</updated>
+    </task>
+    <option name="localTasksCounter" value="291" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -876,31 +938,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Data] Requête d'import des groupes depuis l'intranet" />
-    <MESSAGE value="feat: [Database] Création des entités pour import du référentiel" />
-    <MESSAGE value="feat: [Data] Gestion de l'import de la partie &quot;Structure&quot; depuis l'Intranet" />
-    <MESSAGE value="feat: [Data] Import des référentiels de compétences depuis l'intranet" />
-    <MESSAGE value="fix: [Register] Lien vers inscription" />
-    <MESSAGE value="fix: [Data] maj des entités pour suppression en cascade" />
-    <MESSAGE value="fix: [Structure] Division de la synchro en plusieurs controller" />
-    <MESSAGE value="feat: [Register] Récupération des infos d'un étudiant depuis l'intranet à la création de son compte" />
-    <MESSAGE value="feat: [Register] Récupération des infos d'un enseignant depuis l'intranet à la création de son compte" />
-    <MESSAGE value="fix: [AppEnseignant] Suppression des components de suivi des étudiants" />
-    <MESSAGE value="fix: [Connexion/Inscription] Mise en forme des formulaires" />
-    <MESSAGE value="fix: [Inscription] Recherche dans DB intranet / login puisq récupération des informations" />
-    <MESSAGE value="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet" />
-    <MESSAGE value="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)" />
-    <MESSAGE value="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet" />
-    <MESSAGE value="fix: [Inscription] Interruption de la connexion si compte non vérifié" />
-    <MESSAGE value="feat: [Inscription] Interruption de la connexion si compte non vérifié" />
-    <MESSAGE value="feat: [Session] Initialisation de session" />
-    <MESSAGE value="fix: [structure] lien dept enseignant" />
-    <MESSAGE value="feat: [Compte] génération de la vue affichée si connexion sans verif" />
-    <MESSAGE value="feat: [Compte] Initiation de la session au login" />
-    <MESSAGE value="fix: [Compte] Initialisation de la session au login" />
-    <MESSAGE value="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté" />
     <MESSAGE value="feat: [Session] Récupération et affichage des données propres au dept." />
     <MESSAGE value="feat: [Filtre] Filtre Twig pour filtrage des semestres par année" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Filtre] Filtre Twig pour filtrage des semestres par année" />
+    <MESSAGE value="fix: [Data] Récupération des data depuis l'intranet par l'id" />
+    <MESSAGE value="fix: [Filter] Filtre semestres/annees" />
+    <MESSAGE value="fix: [Session] Changement de dept par défaut depuis le dashboard" />
+    <MESSAGE value="fix: [Structure] Récupération uniquement des départements qui proposent le BUT" />
+    <MESSAGE value="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure" />
+    <MESSAGE value="fix: [Data] Manipulation des data pour le user admin et ses roles" />
+    <MESSAGE value="fix: [DataBase] Ajout d'une table Apc_Parcours pour lier les groupes et les diplomes" />
+    <MESSAGE value="fix: [Intranet] Correction bug + ajout apc Referentiel" />
+    <MESSAGE value="fix: [Synchro] Récupération des data de la table apcParcours et lien avec l'entité Diplome" />
+    <MESSAGE value="fix: [Synchro] Réduction de la quantité de data à l'essentiel" />
+    <MESSAGE value="fix: [Dashboard] Filtres par Années, Semestres et Groupes" />
+    <MESSAGE value="fix: [Dashboard] Filtres par Années, Semestres, Type et Groupes" />
+    <MESSAGE value="fix: [Synchro] Assignation des groupes etudiants" />
+    <MESSAGE value="fix: [Dashboard enseignant] Filtres par année, semestre, groupe. ok!" />
+    <MESSAGE value="feat: [Suivi portfolio] Récupération et affichages des portolios/etudiant" />
+    <MESSAGE value="fix: [Création trace] CRUD trace type image (ajout edit et delete images multiples)" />
+    <MESSAGE value="fix: [Création trace] CRUD trace type image + pdf (ajout edit et delete images+pdf multiples)" />
+    <MESSAGE value="fix: [Profil] Récupération et affichage des données du user (en cours)" />
+    <MESSAGE value="fix: [Structure] Récupération des référentiels depuis l'Intranet" />
+    <MESSAGE value="feat: [Suivi Etudiant] Accès aux traces + portfolios pr les enseignants" />
+    <MESSAGE value="fix: [Compétences] Lien compétences|traces (en cours)" />
+    <MESSAGE value="fix: [Compétences] Lien compétences|traces" />
+    <MESSAGE value="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace" />
   </component>
 </project>

@@ -20,8 +20,6 @@ class AllCvComponent
     public function getAllCv(): array
     {
         $etudiant = $this->security->getUser()->getEtudiant();
-        $cvs = $this->cvRepository->findBy(['etudiant' => $etudiant]);
-
-        return $cvs;
+        return $this->cvRepository->findBy(['etudiant' => $etudiant]);
     }
 }

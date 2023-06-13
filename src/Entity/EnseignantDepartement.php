@@ -12,7 +12,7 @@ class EnseignantDepartement extends BaseEntity
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $defaut = false;
 
-    public function __construct(#[ORM\ManyToOne(targetEntity: Enseignant::class, inversedBy: 'enseignantDepartements', cascade: ['persist', 'remove'])] private Enseignant $enseignant, #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'enseignantDepartements', cascade: ['persist', 'remove'])] private Departement $departement)
+    public function __construct(#[ORM\ManyToOne(targetEntity: Enseignant::class, cascade: ['persist', 'remove'], inversedBy: 'enseignantDepartements')] private Enseignant $enseignant, #[ORM\ManyToOne(targetEntity: Departement::class, cascade: ['persist', 'remove'], inversedBy: 'enseignantDepartements')] private Departement $departement)
     {
 //        $this->addRole('ROLE_PERMANENT');
 //        $this->annee = (int) date('Y');

@@ -23,10 +23,7 @@ class AllPortfolioComponent
     {
         // Récupérer les portfolios de l'utilisateur connecté
          $etudiant = $this->security->getUser()->getEtudiant();
-         $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant]);
-
-
-        return $portfolios;
+        return $this->portfolioRepository->findBy(['etudiant' => $etudiant]);
     }
 
 }

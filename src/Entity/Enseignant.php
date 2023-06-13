@@ -43,7 +43,7 @@ class Enseignant
     private ?string $telephone = null;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\EnseignantDepartement>
+     * @var Collection<int, EnseignantDepartement>
      */
     #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: EnseignantDepartement::class, cascade: ['persist', 'remove'])]
     private Collection $enseignantDepartements;

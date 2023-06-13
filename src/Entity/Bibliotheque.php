@@ -15,7 +15,7 @@ class Bibliotheque
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bibliotheques', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'bibliotheques')]
     private ?Etudiant $etudiant = null;
 
     #[ORM\ManyToOne(inversedBy: 'bibliotheques')]

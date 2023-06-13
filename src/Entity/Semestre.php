@@ -53,7 +53,7 @@ class Semestre
     private ?string $code_element = null;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\Etudiant>
+     * @var Collection<int, Etudiant>
      */
     #[ORM\OneToMany(mappedBy: 'semestre', targetEntity: Etudiant::class)]
     private Collection $etudiants;

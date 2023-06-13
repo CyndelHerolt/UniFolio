@@ -4,6 +4,7 @@ namespace App\EventSubscriber;
 
 use App\Entity\Users;
 use App\Security\AccountNotVerifiedAuthenticationException;
+use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
@@ -19,12 +20,15 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
         $this->router = $router;
     }
 
+    /**
+     * @throws Exception
+     */
     public function onCheckPassport(CheckPassportEvent $event)
     {
         $passport = $event->getPassport();
         $user = $passport->getUser();
         if (!$user instanceof Users) {
-            throw new \Exception('Unexpected user type');
+            throw new Exception('Unexpected user type');
         }
 
         if (!$user->getIsVerified()) {

@@ -119,9 +119,6 @@ class UsersController extends AbstractController
     {
         $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
         $login = $user->getUsername();
-        if (!$user) {
-            throw $this->createNotFoundException();
-        }
         try {
             $verifyEmailHelper->validateEmailConfirmation(
                 $request->getUri(),

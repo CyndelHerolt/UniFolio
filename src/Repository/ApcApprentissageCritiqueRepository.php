@@ -41,12 +41,12 @@ class ApcApprentissageCritiqueRepository extends ServiceEntityRepository
 
     public function truncate(): void
     {
-        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->getEntityManager()->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=0');
         $this->createQueryBuilder('a')
             ->delete()
             ->getQuery()
             ->execute();
-        $this->getEntityManager()->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+        $this->getEntityManager()->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=1');
     }
 
 //    /**

@@ -1,15 +1,20 @@
 <tr>
     <td>{{ this.trace.titre }}</td>
-    <td>competence.s</td>
     <td>{{ this.trace.typeTrace }}</td>
     <td>
-        {% if this.trace.validations is empty %}
-            <i class="fa-solid fa-clock"></i>
-        {% endif %}
         {% for validation in this.trace.validations %}
-        {{ validation.etat }}<br>
+            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
+            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+            {% endif %}<br>
         {% endfor %}
-{#        {{ this.trace.validations }}#}
+        {#        {{ this.trace.validations }} #}
+    </td>
+    <td>
+        {% for validation in this.trace.validations %}
+            {{ validation.competences.nomCourt }}
+        {% endfor %}
     </td>
     <td>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }}</td>
 </tr>

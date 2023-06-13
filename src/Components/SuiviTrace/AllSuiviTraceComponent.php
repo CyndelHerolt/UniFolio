@@ -17,8 +17,6 @@ class AllSuiviTraceComponent
 
     public function getAllSuiviTrace(): array
     {
-        $traces = $this->traceRepository->findAll();
-
-        return $traces;
+        return $this->traceRepository->findAll();
     }
 }

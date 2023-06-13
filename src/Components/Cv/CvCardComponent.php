@@ -16,8 +16,6 @@ class CvCardComponent
 
     public function getCv(): Cv
     {
-        $cv = $this->cvRepository->find($this->id);
-
-        return $cv;
+        return $this->cvRepository->find($this->id);
     }
 }

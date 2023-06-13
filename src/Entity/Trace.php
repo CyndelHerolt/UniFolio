@@ -100,9 +100,7 @@ class Trace
 
         $this->bibliotheque = $bibliotheque;
 
-        if ($bibliotheque !== null) {
-            $bibliotheque->addTrace($this);
-        }
+        $bibliotheque?->addTrace($this);
 
         return $this;
     }

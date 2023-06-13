@@ -49,7 +49,6 @@ class DashboardEtudiantController extends BaseController
 
             if ($userId === 'etudiant') {
                 return $this->render('dashboard_etudiant/index.html.twig', [
-                    'controller_name' => 'DashboardController',
                     'admin' => '/admin?_switch_user=_exit',
                     'traces' => $traceRegistry->getTypeTraces(),
                 ]);

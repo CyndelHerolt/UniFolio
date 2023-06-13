@@ -30,7 +30,7 @@ class Annee
     #[ORM\Column(nullable: true)]
     private ?bool $actif = null;
 
-    #[ORM\ManyToOne(targetEntity: Diplome::class, inversedBy: 'annees', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Diplome::class, cascade: ['persist', 'remove'], inversedBy: 'annees')]
     #[ORM\JoinColumn(name: 'diplome_id', referencedColumnName: 'id')]
     private ?Diplome $diplome = null;
 
@@ -207,7 +207,7 @@ class Annee
     {
         if (!$this->apcNiveaux->contains($apcNiveau)) {
             $this->apcNiveaux->add($apcNiveau);
-            $apcNiveau->setAnnées($this);
+            $apcNiveau->setAnnees($this);
         }
 
         return $this;
@@ -217,8 +217,8 @@ class Annee
     {
         if ($this->apcNiveaux->removeElement($apcNiveau)) {
             // set the owning side to null (unless already changed)
-            if ($apcNiveau->getAnnées() === $this) {
-                $apcNiveau->setAnnées(null);
+            if ($apcNiveau->getAnnees() === $this) {
+                $apcNiveau->setAnnees(null);
             }
         }
 

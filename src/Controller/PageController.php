@@ -23,7 +23,7 @@ class PageController extends AbstractController
     public function __construct(
         protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        #[Required] public Security   $security
+       // #[Required] public Security   $security
     )
     {
     }
@@ -39,17 +39,19 @@ class PageController extends AbstractController
         );
 
         //Récupérer la bibliothèque de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
+        $etudiant = $this->getUser()->getEtudiant();
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
 
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
-        if ($traces->isEmpty()) {
-            $add = false;
-        } else {
-            $add = true;
-        }
+//        if ($traces->isEmpty()) {
+//            $add = false;
+//        } else {
+//            $add = true;
+//        }
+
+        $add = !$traces->isEmpty();
 
         // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
         $pages = [];
@@ -77,7 +79,7 @@ class PageController extends AbstractController
             'ROLE_ETUDIANT'
         );
 
-        $user = $this->security->getUser()->getEtudiant();
+        $user = $this->getUser()->getEtudiant();
         $page = new Page();
 
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
@@ -215,7 +217,7 @@ class PageController extends AbstractController
     public function delete(
         Request        $request,
         PageRepository $pageRepository,
-        int            $id,
+        Page            $page,
     ): Response
     {
 
@@ -223,7 +225,7 @@ class PageController extends AbstractController
             'ROLE_ETUDIANT'
         );
 
-        $page = $pageRepository->find($id);
+       // $page = $pageRepository->find($id);
 
         $pageRepository->remove($page, true);
         $this->addFlash('success', 'La page a été supprimée avec succès.');
