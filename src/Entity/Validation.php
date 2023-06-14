@@ -23,7 +23,7 @@ class Validation
     private ?Enseignant $enseignant = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $etat = null;
+    private ?int $etat = null;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class Validation
         return $this;
     }
 
-    public function isEtat(): ?bool
+    public function isEtat(): ?int
     {
         return $this->etat;
     }
 
-    public function setEtat(?bool $etat): self
+    public function setEtat(?int $etat): self
     {
         $this->etat = $etat;
 

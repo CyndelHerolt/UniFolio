@@ -53,6 +53,7 @@ class TraceController extends BaseController
         return $this->render('trace/index.html.twig', [
             'traces' => $traceRegistry->getTypeTraces(),
             'competences' => $competences,
+
         ]);
     }
 
