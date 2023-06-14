@@ -7,6 +7,7 @@ use App\Entity\Commentaire;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
+use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Entity\Semestre;
 use App\Entity\Templates;
@@ -61,16 +62,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
 
         yield MenuItem::section('Utilisateurs');
-        yield MenuItem::linkToCrud('Gestion des utilisateurs', 'fas fa-list', Users::class);
         yield MenuItem::linkToCrud('Gestion des etudiants', 'fas fa-list', Etudiant::class);
-        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
+        yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
 
         yield MenuItem::section('Portfolios');
         yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
+        yield MenuItem::linkToCrud('Gestion des pages', 'fas fa-list', Page::class);
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
-        yield MenuItem::linkToCrud('Gestion des validations', 'fas fa-list', Validation::class);
-        yield MenuItem::linkToCrud('Gestion des templates', 'fas fa-list', Templates::class);
 
         yield MenuItem::section('Formation');
         yield MenuItem::linkToCrud('Gestion des années universitaires', 'fas fa-list', AnneeUniversitaire::class);
