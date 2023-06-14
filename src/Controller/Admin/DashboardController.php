@@ -71,10 +71,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
 
-        yield MenuItem::section('Formation');
-        yield MenuItem::linkToCrud('Gestion des années universitaires', 'fas fa-list', AnneeUniversitaire::class);
-        yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
-
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

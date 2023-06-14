@@ -129,6 +129,9 @@ class DataUserSession
                 $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($departement);
             }
             $entityManager->flush();
+        } elseif ($this->security->isGranted('ROLE_TEST') && $this->security->isGranted('ROLE_ETUDIANT')) {
+            $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
+            $entityManager->flush();
         }
     }
 
