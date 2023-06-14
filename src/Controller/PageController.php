@@ -6,6 +6,7 @@ use App\Entity\Page;
 use App\Entity\Trace;
 use App\Form\PageType;
 use App\Repository\BibliothequeRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,13 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class PageController extends AbstractController
+class PageController extends BaseController
 {
 
     public function __construct(
         protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-       // #[Required] public Security   $security
+        public CompetenceRepository   $competenceRepository,
     )
     {
     }
@@ -45,12 +46,6 @@ class PageController extends AbstractController
         // Récupérer les traces de la bibliothèque
         $traces = $biblio->getTraces();
 
-//        if ($traces->isEmpty()) {
-//            $add = false;
-//        } else {
-//            $add = true;
-//        }
-
         $add = !$traces->isEmpty();
 
         // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
@@ -61,9 +56,18 @@ class PageController extends AbstractController
             $pages = array_unique($pages, SORT_REGULAR);
         }
 
+        $dept = $this->dataUserSession->getDepartement();
+
+        $referentiel = $dept->getApcReferentiels();
+
+
+        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+
         return $this->render('page/index.html.twig', [
             'pages' => $pages,
             'add' => $add,
+            'competences' => $competences,
         ]);
     }
 
@@ -217,7 +221,7 @@ class PageController extends AbstractController
     public function delete(
         Request        $request,
         PageRepository $pageRepository,
-        Page            $page,
+        Page           $page,
     ): Response
     {
 
@@ -225,7 +229,7 @@ class PageController extends AbstractController
             'ROLE_ETUDIANT'
         );
 
-       // $page = $pageRepository->find($id);
+        // $page = $pageRepository->find($id);
 
         $pageRepository->remove($page, true);
         $this->addFlash('success', 'La page a été supprimée avec succès.');

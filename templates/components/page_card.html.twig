@@ -2,12 +2,12 @@
 {% if '/portfolio' in app.request.uri %}
 
     <div class="page-portfolio">
-            <h3>{{ this.page.intitule }}</h3>
-                <ul>
-                    {% for trace in this.page.trace %}
-                        {{ component('trace_card', {'id': trace.id}) }}
-                    {% endfor %}
-                </ul>
+        <h3>{{ this.page.intitule }}</h3>
+        <ul>
+            {% for trace in this.page.trace %}
+                {{ component('trace_card', {'id': trace.id}) }}
+            {% endfor %}
+        </ul>
     </div>
 
 {% elseif '/page' in app.request.uri %}
@@ -26,7 +26,22 @@
                 <h6>Traces associées :</h6>
                 <ul>
                     {% for trace in this.page.trace %}
-                        <li>{{ trace.titre }}</li>
+                        <li>
+                            {{ trace.titre }}
+                            <span>
+                            {% for validation in trace.validations %}
+                                {{ validation.competences.nomCourt }}
+                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                 style="color: #4c008b"></i>
+                                {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                     style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                     style="color: limegreen"></i>
+                                {% endif %}
+                            {% endfor %}
+                            </span>
+                        </li>
                     {% endfor %}
                 </ul>
 
@@ -95,18 +110,21 @@
                                                 <h5 class="card-title">{{ trace.titre }}</h5>
                                                 <ul>
                                                     <li>créée le : {{ trace.dateCreation|date('d/m/y H:i') }}</li>
-                                                    <li>modifiée le : {{ trace.dateModification|date('d/m/y H:i') }}</li>
+                                                    <li>modifiée le
+                                                        : {{ trace.dateModification|date('d/m/y H:i') }}</li>
                                                 </ul>
                                                 {% for contenu in trace.contenu %}
                                                 {% if 'TraceTypeImage' in trace.typeTrace %}
                                                     <img src="{{ asset(contenu) }}" class="card-img-top" alt="...">
 
                                                 {% elseif 'TraceTypeLien' in trace.typeTrace %}
-                                                    <a href="{{ contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
+                                                    <a href="{{ contenu }}" class="card-img-top" target="_blank">Lien
+                                                        vers le contenu</a>
 
                                                 {% elseif 'TraceTypePdf' in trace.typeTrace %}
                                                     <a href="{{ asset(contenu) }}" class="card-img-top" target="_blank">
-                                                        <iframe src="{{ asset(contenu) }}" class="card-img-top"></iframe>
+                                                        <iframe src="{{ asset(contenu) }}"
+                                                                class="card-img-top"></iframe>
                                                     </a>
 
                                                 {% elseif 'TraceTypeVideo' in trace.typeTrace %}
@@ -126,10 +144,10 @@
                         </div>
                         <div class="modal-footer">
                             <ul>
-                            <h6>Portfolios qui contiennent cette page : </h6>
-                            {% for portfolio in this.page.portfolio %}
-                                <li>{{ portfolio.intitule }}</li>
-                            {% endfor %}
+                                <h6>Portfolios qui contiennent cette page : </h6>
+                                {% for portfolio in this.page.portfolio %}
+                                    <li>{{ portfolio.intitule }}</li>
+                                {% endfor %}
                             </ul>
 
                             <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">
