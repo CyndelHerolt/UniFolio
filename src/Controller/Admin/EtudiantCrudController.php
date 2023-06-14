@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Etudiant;
 use App\Entity\Users;
 use App\Form\UsersType;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -12,9 +13,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Faker\Provider\Text;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\HttpFoundation\Request;
 
 class EtudiantCrudController extends AbstractCrudController
 {
+
     public static function getEntityFqcn(): string
     {
         return Etudiant::class;
@@ -37,22 +40,22 @@ class EtudiantCrudController extends AbstractCrudController
 
         //todo: ajouter les champs de l'utilisateur et gérer l'envoi en db
 
-//        yield FormField::addPanel('Informations Utilisateur')->setIcon('fa fa-user');
-//        yield 'user' => FormField::addPanel('Utilisateur')
-//            ->setFormType(UsersType::class)
-//            ->setFormTypeOptions([
-////                'required' => 'true',
-//            ]);
-//        // Ajoutez le formulaire UsersType ici
-//        yield ChoiceField::new('roles')
-//            ->setChoices(['ROLE_ETUDIANT' => 'ROLE_ETUDIANT', 'ROLE_ADMIN' => 'ROLE_ADMIN'])
-//            ->allowMultipleChoices()
-//            ->setRequired(true)
-//            ->setFormTypeOption('mapped', false)
-//            ->setFormTypeOption('label', 'Rôles')
-//            ->setFormTypeOption('help', 'Choisissez le rôle de l\'utilisateur')
-//            ->setFormTypeOption('attr', ['class' => 'form-control'])
-//            ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+        yield FormField::addPanel('Informations Utilisateur')->setIcon('fa fa-user');
+        yield 'user' => FormField::addPanel('Utilisateur')
+            ->setFormType(UsersType::class)
+            ->setFormTypeOptions([
+//                'required' => 'true',
+            ]);
+        // Ajoutez le formulaire UsersType ici
+        yield ChoiceField::new('roles')
+            ->setChoices(['ROLE_ETUDIANT' => 'ROLE_ETUDIANT', 'ROLE_ADMIN' => 'ROLE_ADMIN'])
+            ->allowMultipleChoices()
+            ->setRequired(true)
+            ->setFormTypeOption('mapped', false)
+            ->setFormTypeOption('label', 'Rôles')
+            ->setFormTypeOption('help', 'Choisissez le rôle de l\'utilisateur')
+            ->setFormTypeOption('attr', ['class' => 'form-control'])
+            ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -67,12 +70,18 @@ class EtudiantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e étudiant.e');
     }
 
-//    public function createEntity(string $entityFqcn)
-//    {
-//        $etudiant = new Etudiant();
-//        $user = new Users();
-//        $etudiant->setUsers($user);
-//
-//        return $etudiant;
-//    }
+    public function createEntity(string $entityFqcn)
+    {
+        $etudiant = new Etudiant();
+        $user = new Users();
+        $etudiant->setUsers($user);
+
+        return $etudiant;
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+
+
+    }
 }
