@@ -20,7 +20,7 @@
 
             <section class="profil">
                 <div class="row">
-                    <article  class="col-lg-7 col-12">
+                    <article class="col-lg-7 col-12">
                         <div class="btn-profil">
                             <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
                                 <button>Editer le profil</button>
@@ -28,28 +28,33 @@
                         </div>
                         <h2>Informations d'identification</h2>
                         <div class="row">
-                        <div class="col-lg-5 col-12">
-                        <ul>
-                            <li>Prénom Nom : {{ prenom }} {{ nom }}</li>
-                            <li>Mail universitaire : {{ email_univ }}</li>
-                            <li>Mail personnel : {{ email_perso }}</li>
-                            <li>Téléphone : {{ tel }}</li>
-                        </ul>
-                        </div>
-                        <div class="col-lg-7 col-12">
-                            <p>Bio : {{ bio }}</p>
-                        </div>
+                            <div class="col-lg-5 col-12">
+                                <ul>
+                                    <li>Prénom Nom : {{ prenom }} {{ nom }}</li>
+                                    <li>Mail universitaire : {{ email_univ }}</li>
+                                    <li>Mail personnel : {{ email_perso }}</li>
+                                    <li>Téléphone : {{ tel }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-7 col-12">
+                                <p>Bio : {{ bio }}</p>
+                            </div>
                         </div>
                     </article>
-                    <aside  class="col-lg-4 col-12">
+                    <aside class="col-lg-4 col-12">
                         <h2>Informations universitaires</h2>
                         <ul>
-                            <li>Diplôme : </li>
-                            <li>Département : {{ data_user.departement.libelle }}</li>
-                            <li>Spécialité :</li>
+                            <li>Diplôme : {{ data_user.etudiant.semestre.annee.diplome.libelle }}</li>
+                            <li>Groupe :
+                                {% for groupe in data_user.etudiant.groupe %}
+                                    {% if "TP" in groupe.libelle %}
+                                        {{ groupe.libelle }}
+                                    {% endif %}
+                                {% endfor %}
+                            </li>
                         </ul>
-                        <hr>
-                        <p>Recherche une alternance</p>
+{#                        <hr>#}
+{#                        <p>Recherche une alternance</p>#}
                     </aside>
                 </div>
             </section>
@@ -58,12 +63,12 @@
 
             <section class="profil">
                 <div class="row">
-                    <article  class="col-lg-7 col-12">
-                <div class="btn-profil">
-                    <a href="{{ path('app_profil_edit_edit', {'id': app.user.enseignant.id}) }}">
-                        <button>Editer le profil</button>
-                    </a>
-                </div>
+                    <article class="col-lg-7 col-12">
+                        <div class="btn-profil">
+                            <a href="{{ path('app_profil_edit_edit', {'id': app.user.enseignant.id}) }}">
+                                <button>Editer le profil</button>
+                            </a>
+                        </div>
                         <h2>Informations d'identification</h2>
                         <ul>
                             <li>Prénom Nom : {{ prenom }} {{ nom }}</li>
@@ -72,12 +77,12 @@
                             <li>Téléphone : {{ tel }}</li>
                         </ul>
                     </article>
-                    <aside  class="col-lg-4 col-12">
+                    <aside class="col-lg-4 col-12">
                         <h2>Informations universitaires</h2>
                         <ul>
                             <li>Département par défaut :
                                 {% for dept in data_user.departementDefaut %}
-                                {{ dept.libelle }}
+                                    {{ dept.libelle }}
                                 {% endfor %}
                             </li>
                         </ul>

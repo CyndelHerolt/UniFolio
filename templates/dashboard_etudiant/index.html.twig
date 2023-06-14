@@ -13,7 +13,7 @@
         </ol>
     </nav>
     <div class="container dashboard">
-        <p>Département {{ data_user.departement.libelle }}</p>
+        <p>Département {{ data_user.etudiant.semestre.annee.diplome.departement.libelle }}</p>
         <h1>Tableau de bord</h1>
         <section class="dashboard_retours_pedagogiques">
             <div class="row">
@@ -154,15 +154,4 @@
             </div>
         </section>
     </div>
-    <footer>
-
-        {% if admin == '/admin?_switch_user=_exit' %}
-            <br>
-            <a href="{{ admin }}">
-                <button>back to admin</button>
-            </a>
-            <br>
-        {% endif %}
-
-    </footer>
 {% endblock %}

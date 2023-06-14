@@ -101,11 +101,9 @@ class DataUserSession
             }
         } elseif ($etudiant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
-// TODO: récupérer seulement les données propres à l'étudiant
-//            $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
-//            $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
-//            $this->semestres = $this->semestreRepository->findSemestreEtudiant($etudiant);
-
+                // TODO: récupérer seulement les données propres à l'étudiant
+            $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
+            $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
         } else {
             throw new AccessDeniedException('Vous n\'avez pas accès à cette page');
         }
@@ -130,7 +128,7 @@ class DataUserSession
             }
             $entityManager->flush();
         } elseif ($this->security->isGranted('ROLE_TEST') && $this->security->isGranted('ROLE_ETUDIANT')) {
-            $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
+
             $entityManager->flush();
         }
     }
