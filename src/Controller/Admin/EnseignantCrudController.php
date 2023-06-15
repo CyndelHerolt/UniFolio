@@ -23,6 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Security\Permission;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class EnseignantCrudController extends AbstractCrudController
@@ -91,7 +92,7 @@ class EnseignantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e enseignant.e');
     }
 
-    public function new(AdminContext $context)
+    public function new(AdminContext $context) : Response
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
