@@ -23,15 +23,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Security\Permission;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class EtudiantCrudController extends AbstractCrudController
 {
 
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+    )
     {
         $this->entityManager = $entityManager;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public static function getEntityFqcn(): string
@@ -41,6 +46,8 @@ class EtudiantCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+
+        // Etudiant
         yield FormField::addPanel('Informations Etudiant')->setIcon('fa fa-user');
         yield TextField::new('prenom', 'Prénom')
             ->setFormTypeOption('required', 'true');
@@ -52,54 +59,41 @@ class EtudiantCrudController extends AbstractCrudController
             ->setFormTypeOption('required', 'true')
             ->setFormType(EmailType::class);
         yield TextField::new('telephone', 'Téléphone');
-        yield TextField::new('bio', 'Bio');
 
-//        yield FormField::addPanel('Informations Utilisateur')->setIcon('fa fa-user');
-//        yield 'user' => FormField::addPanel('Utilisateur')
-//            ->setFormType(UsersType::class)
-//            ->setFormTypeOptions([
-//                'required' => 'true',
-//            ]);
+        //User
+            yield TextField::new('username');
+        //Si on se trouve sur la page new
+        if ($pageName == Crud::PAGE_NEW) {
+            yield TextField::new('password')
+                ->setFormTypeOption('mapped', false);
 
-        yield TextField::new('username')
-            // mapped false pour ne pas envoyer en db
-            ->setFormTypeOption('mapped', false);
-        yield TextField::new('password')
-            ->setFormTypeOption('mapped', false);
-
-        yield ChoiceField::new('roles')
-            ->setChoices(['ROLE_ETUDIANT' => 'ROLE_ETUDIANT', 'ROLE_ADMIN' => 'ROLE_ADMIN'])
-            ->allowMultipleChoices()
-            ->setRequired(true)
-            ->setFormTypeOption('mapped', false)
-            ->setFormTypeOption('label', 'Rôles')
-            ->setFormTypeOption('help', 'Choisissez le rôle de l\'utilisateur')
-            ->setFormTypeOption('attr', ['class' => 'form-control'])
-            ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+            yield ChoiceField::new('roles')
+                ->setChoices(['ROLE_ETUDIANT' => 'ROLE_ETUDIANT', 'ROLE_ADMIN' => 'ROLE_ADMIN'])
+                ->allowMultipleChoices()
+                ->setRequired(true)
+                ->setFormTypeOption('mapped', false)
+                ->setFormTypeOption('label', 'Rôles')
+                ->setFormTypeOption('help', 'Choisissez le rôle de l\'utilisateur')
+                ->setFormTypeOption('attr', ['class' => 'form-control'])
+                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+        }
     }
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('Etudiant.e')
-            ->setEntityLabelInPlural('Etudiant.es')
-            ->showEntityActionsInlined()
-            ->setPaginatorPageSize(20)
-            ->setPageTitle('index', 'Liste des étudiant.es')
-            ->setPageTitle('new', 'Ajouter un.e étudiant.e')
-            ->setPageTitle('edit', 'Modifier un.e étudiant.e');
-    }
+        public
+        function configureCrud(Crud $crud): Crud
+        {
+            return $crud
+                ->setEntityLabelInSingular('Etudiant.e')
+                ->setEntityLabelInPlural('Etudiant.es')
+                ->showEntityActionsInlined()
+                ->setPaginatorPageSize(20)
+                ->setPageTitle('index', 'Liste des étudiant.es')
+                ->setPageTitle('new', 'Ajouter un.e étudiant.e')
+                ->setPageTitle('edit', 'Modifier un.e étudiant.e');
+        }
 
-//    public function createEntity(string $entityFqcn)
-//    {
-//        $etudiant = new Etudiant();
-//        $user = new Users();
-//        $etudiant->setUsers($user);
-//
-//        return $etudiant;
-//    }
-
-    public function new(AdminContext $context)
+        public
+        function new(AdminContext $context)
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -128,8 +122,6 @@ class EtudiantCrudController extends AbstractCrudController
 
         if ($newForm->isSubmitted() && $newForm->isValid()) {
 
-//            dd($context->getRequest()->request);
-
             $this->processUploadedFiles($newForm);
 
             $event = new BeforeEntityPersistedEvent($entityInstance);
@@ -137,9 +129,21 @@ class EtudiantCrudController extends AbstractCrudController
             $entityInstance = $event->getEntityInstance();
 
             $user = new Users();
+
+            // password hashing
+            $plaintextPassword = $context->getRequest()->request->all('Etudiant')['password'];
+
+            // hash the password (based on the security.yaml config for the $user class)
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $plaintextPassword
+            );
+
+
             $user->setUsername($context->getRequest()->request->all('Etudiant')['username']);
-            $user->setPassword($context->getRequest()->request->all('Etudiant')['password']);
+            $user->setPassword($hashedPassword);
             $user->setRoles($context->getRequest()->request->all('Etudiant')['roles']);
+            $user->setIsVerified(true);
 
             $etudiant = new Etudiant();
             $etudiant->setUsername($context->getRequest()->request->all('Etudiant')['username']);
@@ -148,7 +152,6 @@ class EtudiantCrudController extends AbstractCrudController
             $etudiant->setMailPerso($context->getRequest()->request->all('Etudiant')['mail_perso']);
             $etudiant->setMailUniv($context->getRequest()->request->all('Etudiant')['mail_univ']);
             $etudiant->setTelephone($context->getRequest()->request->all('Etudiant')['telephone']);
-            $etudiant->setBio($context->getRequest()->request->all('Etudiant')['bio']);
 
             $user->setEtudiant($etudiant);
 
