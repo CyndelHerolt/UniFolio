@@ -13,18 +13,24 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\ForbiddenActionException;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\InsufficientEntityPermissionException;
 use EasyCorp\Bundle\EasyAdminBundle\Factory\EntityFactory;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Security\Permission;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 class EnseignantCrudController extends AbstractCrudController
 {
@@ -32,7 +38,7 @@ class EnseignantCrudController extends AbstractCrudController
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface      $entityManager,
         UserPasswordHasherInterface $passwordHasher,
     )
     {
@@ -62,22 +68,23 @@ class EnseignantCrudController extends AbstractCrudController
         yield TextField::new('telephone', 'Téléphone');
 
         //User
-        yield TextField::new('username');
+        yield TextField::new('username')
+            ->setFormTypeOption('required', 'true');
         //Si on se trouve sur la page new
         if ($pageName == Crud::PAGE_NEW) {
             yield TextField::new('password')
-                ->setFormTypeOption('mapped', false);
-
-            yield ChoiceField::new('roles')
-                ->setChoices(['ENSEIGNANT' => 'ROLE_ENSEIGNANT', 'ADMIN' => 'ROLE_ADMIN'])
-                ->allowMultipleChoices()
-                ->setRequired(true)
                 ->setFormTypeOption('mapped', false)
-                ->setFormTypeOption('label', 'Rôles')
-                ->setFormTypeOption('help', 'Choisissez le rôle de l\'utilisateur')
-                ->setFormTypeOption('attr', ['class' => 'form-control'])
-                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+                ->setFormTypeOption('required', 'true');
         }
+        yield ChoiceField::new('roles')
+            ->setChoices(['ENSEIGNANT' => 'ROLE_ENSEIGNANT', 'ADMIN' => 'ROLE_ADMIN', 'TEST' => 'ROLE_TEST'])
+            ->allowMultipleChoices()
+            ->setRequired(true)
+            ->setFormTypeOption('mapped', false)
+            ->setFormTypeOption('label', 'Rôles')
+            ->setFormTypeOption('help', 'Veuillez sélectionner tous les rôles qui s\'appliquent à cet utilisateur.')
+            ->setFormTypeOption('attr', ['class' => 'form-control'])
+            ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -92,7 +99,7 @@ class EnseignantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e enseignant.e');
     }
 
-    public function new(AdminContext $context) : Response
+    public function new(AdminContext $context)
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -171,6 +178,101 @@ class EnseignantCrudController extends AbstractCrudController
             'templateName' => 'crud/new',
             'entity' => $context->getEntity(),
             'new_form' => $newForm,
+        ]));
+
+        $event = new AfterCrudActionEvent($context, $responseParameters);
+        $this->container->get('event_dispatcher')->dispatch($event);
+        if ($event->isPropagationStopped()) {
+            return $event->getResponse();
+        }
+
+        return $responseParameters;
+    }
+
+    public function edit(AdminContext $context)
+    {
+        $event = new BeforeCrudActionEvent($context);
+        $this->container->get('event_dispatcher')->dispatch($event);
+        if ($event->isPropagationStopped()) {
+            return $event->getResponse();
+        }
+
+        if (!$this->isGranted(Permission::EA_EXECUTE_ACTION, ['action' => Action::EDIT, 'entity' => $context->getEntity()])) {
+            throw new ForbiddenActionException($context);
+        }
+
+        if (!$context->getEntity()->isAccessible()) {
+            throw new InsufficientEntityPermissionException($context);
+        }
+
+        $this->container->get(EntityFactory::class)->processFields($context->getEntity(), FieldCollection::new($this->configureFields(Crud::PAGE_EDIT)));
+        $context->getCrud()->setFieldAssets($this->getFieldAssets($context->getEntity()->getFields()));
+        $this->container->get(EntityFactory::class)->processActions($context->getEntity(), $context->getCrud()->getActionsConfig());
+        $entityInstance = $context->getEntity()->getInstance();
+
+        if ($context->getRequest()->isXmlHttpRequest()) {
+            if ('PATCH' !== $context->getRequest()->getMethod()) {
+                throw new MethodNotAllowedHttpException(['PATCH']);
+            }
+
+            if (!$this->isCsrfTokenValid(BooleanField::CSRF_TOKEN_NAME, $context->getRequest()->query->get('csrfToken'))) {
+                if (class_exists(InvalidCsrfTokenException::class)) {
+                    throw new InvalidCsrfTokenException();
+                } else {
+                    return new Response('Invalid CSRF token.', 400);
+                }
+            }
+
+            $fieldName = $context->getRequest()->query->get('fieldName');
+            $newValue = 'true' === mb_strtolower($context->getRequest()->query->get('newValue'));
+
+            try {
+                $event = $this->ajaxEdit($context->getEntity(), $fieldName, $newValue);
+            } catch (\Exception) {
+                throw new BadRequestHttpException();
+            }
+
+            if ($event->isPropagationStopped()) {
+                return $event->getResponse();
+            }
+
+            return new Response($newValue ? '1' : '0');
+        }
+
+
+        $editForm = $this->createEditForm($context->getEntity(), $context->getCrud()->getEditFormOptions(), $context);
+        $editForm->handleRequest($context->getRequest());
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+//            dd($context->getRequest()->request->all('Enseignant')['roles']);
+
+            $this->processUploadedFiles($editForm);
+
+            $event = new BeforeEntityUpdatedEvent($entityInstance);
+            $this->container->get('event_dispatcher')->dispatch($event);
+            $entityInstance = $event->getEntityInstance();
+
+            $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $context->getRequest()->request->all('Enseignant')['username']]);
+
+            $user->setUsername($context->getRequest()->request->all('Enseignant')['username']);
+            $user->setRoles($context->getRequest()->request->all('Enseignant')['roles']);
+
+            $usersRepository = $this->entityManager->getRepository(Users::class);
+            $usersRepository->save($user, true);
+
+
+            $this->updateEntity($this->container->get('doctrine')->getManagerForClass($context->getEntity()->getFqcn()), $entityInstance);
+
+            $this->container->get('event_dispatcher')->dispatch(new AfterEntityUpdatedEvent($entityInstance));
+
+            return $this->getRedirectResponseAfterSave($context, Action::EDIT);
+        }
+
+        $responseParameters = $this->configureResponseParameters(KeyValueStore::new([
+            'pageName' => Crud::PAGE_EDIT,
+            'templateName' => 'crud/edit',
+            'edit_form' => $editForm,
+            'entity' => $context->getEntity(),
         ]));
 
         $event = new AfterCrudActionEvent($context, $responseParameters);

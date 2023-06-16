@@ -7,15 +7,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    private ?Departement $departement = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $prenom = null;
@@ -126,6 +128,20 @@ class Etudiant
     public function getGroupe(): Collection
     {
         return $this->groupe;
+    }
+
+    public function getGroupeId(): array
+    {
+        $groupes = [];
+        foreach ($this->groupe as $groupe) {
+            $groupes[] = $groupe->getId();
+        }
+        return $groupes;
+    }
+
+    public function setGroupeId($groupes)
+    {
+
     }
 
     public function addGroupe(Groupe $groupe): self
@@ -312,12 +328,32 @@ class Etudiant
         return $this->semestre;
     }
 
+    public function getSemestreId(): ?int
+    {
+        return $this->semestre?->getId();
+    }
+
+    public function setSemestreId($semestre)
+    {
+
+    }
+
     /**
      * @param Semestre|null $semestre
      */
     public function setSemestre(?Semestre $semestre): void
     {
         $this->semestre = $semestre;
+    }
+
+    public function getDepartement(): int
+    {
+        return $this->semestre?->getAnnee()?->getDiplome()?->getDepartement()?->getId();
+    }
+
+    public function setDepartement($departement)
+    {
+
     }
 
 
