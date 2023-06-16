@@ -20,7 +20,7 @@
     <div class="container">
         <section class="page_form">
             <div class="row">
-                <article class="col-lg-6 col-12">
+                <article class="col-lg-10 col-12">
                     {% if '/edit' in app.request.uri %}
                     <h2>Modifier {{ page.intitule }}</h2>
                     {% else %}
@@ -33,9 +33,7 @@
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     {{ form_end(form) }}
                 </article>
-                <aside class="col-lg-6 col-12">
-                    <h2>Prévisualisation</h2>
-                </aside>
+
             </div>
         </section>
     </div>
