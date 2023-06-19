@@ -30,15 +30,15 @@ class Page
     #[ORM\ManyToMany(targetEntity: Portfolio::class, inversedBy: 'pages')]
     private Collection $portfolio;
 
-    #[ORM\OneToMany(mappedBy: 'OrdrePage', targetEntity: TracePage::class)]
-    private Collection $tracePages;
+    #[ORM\OneToMany(mappedBy: 'page', targetEntity: OrdreTrace::class)]
+    private Collection $ordreTraces;
 
     public function __construct()
     {
         $this->trace = new ArrayCollection();
         $this->portfolio = new ArrayCollection();
-        $this->tracePages = new ArrayCollection();
         $this->pageTraces = new ArrayCollection();
+        $this->ordreTraces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,29 +131,29 @@ class Page
     }
 
     /**
-     * @return Collection<int, TracePage>
+     * @return Collection<int, OrdreTrace>
      */
-    public function getTracePages(): Collection
+    public function getOrdreTraces(): Collection
     {
-        return $this->tracePages;
+        return $this->ordreTraces;
     }
 
-    public function addTracePage(TracePage $tracePage): self
+    public function addOrdreTrace(OrdreTrace $ordreTrace): static
     {
-        if (!$this->tracePages->contains($tracePage)) {
-            $this->tracePages->add($tracePage);
-            $tracePage->setOrdrePage($this);
+        if (!$this->ordreTraces->contains($ordreTrace)) {
+            $this->ordreTraces->add($ordreTrace);
+            $ordreTrace->setPage($this);
         }
 
         return $this;
     }
 
-    public function removeTracePage(TracePage $tracePage): self
+    public function removeOrdreTrace(OrdreTrace $ordreTrace): static
     {
-        if ($this->tracePages->removeElement($tracePage)) {
+        if ($this->ordreTraces->removeElement($ordreTrace)) {
             // set the owning side to null (unless already changed)
-            if ($tracePage->getOrdrePage() === $this) {
-                $tracePage->setOrdrePage(null);
+            if ($ordreTrace->getPage() === $this) {
+                $ordreTrace->setPage(null);
             }
         }
 

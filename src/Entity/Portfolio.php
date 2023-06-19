@@ -40,8 +40,8 @@ class Portfolio
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banniere = null;
 
-    #[ORM\OneToMany(mappedBy: 'OrdrePage', targetEntity: PortfolioPage::class)]
-    private Collection $portfolioPages;
+    #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: OrdrePage::class)]
+    private Collection $ordrePages;
 
     public function __construct()
     {
@@ -50,7 +50,7 @@ class Portfolio
         $this->pages = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->pagePortfolios = new ArrayCollection();
-        $this->portfolioPages = new ArrayCollection();
+        $this->ordrePages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,29 +188,29 @@ class Portfolio
     }
 
     /**
-     * @return Collection<int, PortfolioPage>
+     * @return Collection<int, OrdrePage>
      */
-    public function getPortfolioPages(): Collection
+    public function getOrdrePages(): Collection
     {
-        return $this->portfolioPages;
+        return $this->ordrePages;
     }
 
-    public function addPortfolioPage(PortfolioPage $portfolioPage): self
+    public function addOrdrePage(OrdrePage $ordrePage): static
     {
-        if (!$this->portfolioPages->contains($portfolioPage)) {
-            $this->portfolioPages->add($portfolioPage);
-            $portfolioPage->setOrdrePage($this);
+        if (!$this->ordrePages->contains($ordrePage)) {
+            $this->ordrePages->add($ordrePage);
+            $ordrePage->setPortfolio($this);
         }
 
         return $this;
     }
 
-    public function removePortfolioPage(PortfolioPage $portfolioPage): self
+    public function removeOrdrePage(OrdrePage $ordrePage): static
     {
-        if ($this->portfolioPages->removeElement($portfolioPage)) {
+        if ($this->ordrePages->removeElement($ordrePage)) {
             // set the owning side to null (unless already changed)
-            if ($portfolioPage->getOrdrePage() === $this) {
-                $portfolioPage->setOrdrePage(null);
+            if ($ordrePage->getPortfolio() === $this) {
+                $ordrePage->setPortfolio(null);
             }
         }
 

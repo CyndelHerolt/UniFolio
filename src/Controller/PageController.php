@@ -256,6 +256,7 @@ class PageController extends BaseController
         //Récupérer les traces liées à la page dont l'id est passé en paramètre
         $existingTraces = $page->getTrace();
 
+        //todo: récupérer seulement les pages dans lesquelles la trace n'est pas
 
         $form = $this->createFormBuilder($page)
             ->add('trace', EntityType::class, [

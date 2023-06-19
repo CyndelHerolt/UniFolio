@@ -121,22 +121,24 @@ class TraceController extends BaseController
 
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
-                //Récupérer l'ordre saisi dans le form
-                $ordreSaisi = $form->get('ordre')->getData();
-//                dd($ordreSaisi);
-                //Pour chaque page
-                foreach ($traces as $traceStock) {
-                    //Récupérer l'ordre de la trace
-                    $ordre = $traceStock->getOrdre();
-//            dd($ordre);
-                    //Si l'ordre saisi est égal à l'ordre de la trace
-                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
-                        // Attribuer l'ordre saisi à la trace en cours d'édition
-                        $trace->setOrdre($ordreSaisi);
-                        //Attribuer l'ordre qui se trouve en dernière position du tableau de choices à la trace en cours de boucle
-                        $traceStock->setOrdre(count($traces) + 1);
-                    }
-                }
+//                //Récupérer l'ordre saisi dans le form
+//                $ordreSaisi = $form->get('ordre')->getData();
+////                dd($ordreSaisi);
+//                //Pour chaque page
+//                foreach ($traces as $traceStock) {
+//                    //Récupérer l'ordre de la trace
+//                    $ordre = $traceStock->getOrdre();
+////            dd($ordre);
+//                    //Si l'ordre saisi est égal à l'ordre de la trace
+//                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
+//                        // Attribuer l'ordre saisi à la trace en cours d'édition
+//                        $trace->setOrdre($ordreSaisi);
+//                        //Attribuer l'ordre qui se trouve en dernière position du tableau de choices à la trace en cours de boucle
+//                        $traceStock->setOrdre(count($traces) + 1);
+//                    }
+//                }
+
+
                 //Lier la trace à la Bibliotheque de l'utilisateur connecté
                 $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                 $trace->setBibliotheque($biblio);

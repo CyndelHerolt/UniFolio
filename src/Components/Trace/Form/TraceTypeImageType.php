@@ -38,16 +38,16 @@ class TraceTypeImageType extends AbstractType
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
         $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
 
-        $tracesCount = count($traces);
-
-        // Si l'url contient "/new" alors on ajoute 1 à $tracesCount
-        if (strpos($_SERVER['REQUEST_URI'], 'formulaire')) {
-            $tracesCount++;
-        }
-        $choices = [];
-        for ($i = 1; $i <= $tracesCount; $i++) {
-            $choices[$i] = $i;
-        }
+//        $tracesCount = count($traces);
+//
+//        // Si l'url contient "/new" alors on ajoute 1 à $tracesCount
+//        if (strpos($_SERVER['REQUEST_URI'], 'formulaire')) {
+//            $tracesCount++;
+//        }
+//        $choices = [];
+//        for ($i = 1; $i <= $tracesCount; $i++) {
+//            $choices[$i] = $i;
+//        }
 
         $competences = $options['competences'];
 
@@ -64,14 +64,14 @@ class TraceTypeImageType extends AbstractType
                 'disabled' => true,
                 'label' => ' ',
             ])
-            ->add('ordre', ChoiceType::class, [
-                'choices' => [$choices],
-                'label' => 'Ordre',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => false,
-                'mapped' => true,
-            ])
+//            ->add('ordre', ChoiceType::class, [
+//                'choices' => [$choices],
+//                'label' => 'Ordre',
+//                'required' => true,
+//                'expanded' => true,
+//                'multiple' => false,
+//                'mapped' => true,
+//            ])
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
                 'label_attr' => ['class' => 'form-label'],
