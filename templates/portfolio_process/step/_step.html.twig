@@ -1,0 +1,5 @@
+{{ include('portfolio_process/nav_creation.html.twig') }}
+
+{% if step is not null %}
+    {{ include('portfolio_process/step/_'~step~'.html.twig') }}
+{% endif %}

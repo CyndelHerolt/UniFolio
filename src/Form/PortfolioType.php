@@ -40,24 +40,24 @@ class PortfolioType extends AbstractType
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
-        //Récupérer la bibliothèque de l'utilisateur connecté
-        $user = $this->security->getUser()->getEtudiant();
-        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
-
-        // Récupérer les traces de la bibliothèque
-        $traces = $biblio->getTraces();
-        if ($traces->isEmpty()) {
-            $add = false;
-        } else {
-            $add = true;
-        }
-        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
-        $pages = [];
-        foreach ($traces as $trace) {
-            $pages = array_merge($pages, $trace->getPages()->toArray());
-//            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
-            $pages = array_unique($pages, SORT_REGULAR);
-        }
+//        //Récupérer la bibliothèque de l'utilisateur connecté
+//        $user = $this->security->getUser()->getEtudiant();
+//        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
+//
+//        // Récupérer les traces de la bibliothèque
+//        $traces = $biblio->getTraces();
+//        if ($traces->isEmpty()) {
+//            $add = false;
+//        } else {
+//            $add = true;
+//        }
+//        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
+//        $pages = [];
+//        foreach ($traces as $trace) {
+//            $pages = array_merge($pages, $trace->getPages()->toArray());
+////            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
+//            $pages = array_unique($pages, SORT_REGULAR);
+//        }
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -90,18 +90,18 @@ class PortfolioType extends AbstractType
                 'required' => true,
                 'mapped' => false,
             ])
-            ->add('pages', EntityType::class, [
-                'class' => Page::class,
-                'choices' => $pages,
-                'choice_label' => 'intitule',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Pages',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => ""],
-                'help' => 'Choisissez les pages à inclure dans votre portfolio',
-                'required' => true,
-            ])
+//            ->add('pages', EntityType::class, [
+//                'class' => Page::class,
+//                'choices' => $pages,
+//                'choice_label' => 'intitule',
+//                'multiple' => true,
+//                'expanded' => true,
+//                'label' => 'Pages',
+//                'label_attr' => ['class' => 'form-label'],
+//                'attr' => ['class' => ""],
+//                'help' => 'Choisissez les pages à inclure dans votre portfolio',
+//                'required' => true,
+//            ])
             ->add('visibilite', ChoiceType::class, [
                 'choices' => [
                     'Public' => 'public',

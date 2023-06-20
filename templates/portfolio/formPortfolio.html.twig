@@ -21,7 +21,7 @@
     <div class="container">
         <section class="portfolio_form">
             <div class="row">
-                <article class="col-lg-6 col-12">
+                <article class="col-lg-10 col-12">
                     {% if '/edit' in app.request.uri %}
                         <h2>Modifier {{ portfolio.intitule }}</h2>
                     {% elseif '/new' in app.request.uri %}
@@ -45,10 +45,6 @@
                         {{ form_end(form) }}
                     {% endif %}
                 </article>
-                <aside class="col-lg-6 col-12">
-                    <h2>Prévisualisation</h2>
-                    {# TODO: Live component ? #}
-                </aside>
             </div>
         </section>
     </div>
