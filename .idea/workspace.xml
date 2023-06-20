@@ -9,48 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Portfolio] tests new process">
+      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_newPage.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Classes/DataUserSession.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/DataUserSession.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Cv/AllCvComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Cv/AllCvComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Cv/CvCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Cv/CvCardComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portfolio/AllPortfolioComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviEtudiant/AllSuiviEtudiantComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SuiviTrace/AllSuiviTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SuiviTrace/AllSuiviTraceComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Trace/AllTraceComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEnseignantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardEtudiantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TraceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TraceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Annee.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Annee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Bibliotheque.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Bibliotheque.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Enseignant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/EnseignantDepartement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/EnseignantDepartement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ResetPasswordRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ResetPasswordRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Semestre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Semestre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trace.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trace.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CheckVerifiedUserSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApcApprentissageCritiqueRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcApprentissageCritiqueRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApcNiveauRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcNiveauRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApcParcoursRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcParcoursRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApcReferentielRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApcReferentielRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CompetenceRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DepartementRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TraceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TraceRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_etudiant_table.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/suivi_trace_table.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/_card_trace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_card_trace.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/_filtres_semestres.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_filtres_semestres.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/vue_trace/bibliotheque.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/vue_trace/bibliotheque.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/creation_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/creation_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/page.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/portfolio.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_portfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_portfolio.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -533,34 +506,14 @@
       <workItem from="1686575003660" duration="3842000" />
       <workItem from="1686636762072" duration="8192000" />
       <workItem from="1686659275863" duration="3369000" />
-    </task>
-    <task id="LOCAL-00242" summary="fix: [Inscription] Envoi de mail à la création du compte afin de vérifier l'identité avant la récupération des données depuis l'intranet">
-      <created>1682079821705</created>
-      <option name="number" value="00242" />
-      <option name="presentableId" value="LOCAL-00242" />
-      <option name="project" value="LOCAL" />
-      <updated>1682079821705</updated>
-    </task>
-    <task id="LOCAL-00243" summary="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)">
-      <created>1682243585071</created>
-      <option name="number" value="00243" />
-      <option name="presentableId" value="LOCAL-00243" />
-      <option name="project" value="LOCAL" />
-      <updated>1682243585071</updated>
-    </task>
-    <task id="LOCAL-00244" summary="fix: [Inscription] système envoi de mail pour vérification de compte (en cours)">
-      <created>1682244051294</created>
-      <option name="number" value="00244" />
-      <option name="presentableId" value="LOCAL-00244" />
-      <option name="project" value="LOCAL" />
-      <updated>1682244051294</updated>
-    </task>
-    <task id="LOCAL-00245" summary="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
-      <created>1682260031668</created>
-      <option name="number" value="00245" />
-      <option name="presentableId" value="LOCAL-00245" />
-      <option name="project" value="LOCAL" />
-      <updated>1682260031669</updated>
+      <workItem from="1686903569011" duration="7389000" />
+      <workItem from="1686917670883" duration="867000" />
+      <workItem from="1686918578356" duration="4366000" />
+      <workItem from="1686945316215" duration="712000" />
+      <workItem from="1687154902865" duration="16000" />
+      <workItem from="1687156480955" duration="7748000" />
+      <workItem from="1687241684179" duration="23661000" />
+      <workItem from="1687275052536" duration="4365000" />
     </task>
     <task id="LOCAL-00246" summary="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
       <created>1682263519025</created>
@@ -877,7 +830,35 @@
       <option name="project" value="LOCAL" />
       <updated>1686152746045</updated>
     </task>
-    <option name="localTasksCounter" value="291" />
+    <task id="LOCAL-00291" summary="fix: [Admin] CRUD - new etudiant / structure">
+      <created>1686920605070</created>
+      <option name="number" value="00291" />
+      <option name="presentableId" value="LOCAL-00291" />
+      <option name="project" value="LOCAL" />
+      <updated>1686920605070</updated>
+    </task>
+    <task id="LOCAL-00292" summary="refactor : nettoyage">
+      <created>1686920627678</created>
+      <option name="number" value="00292" />
+      <option name="presentableId" value="LOCAL-00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1686920627678</updated>
+    </task>
+    <task id="LOCAL-00293" summary="feat: [Portfolio] mise en place de la notion d'ordre pour les pages et les traces (en cours)">
+      <created>1687178783752</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1687178783753</updated>
+    </task>
+    <task id="LOCAL-00294" summary="feat: [Portfolio] tests new process">
+      <created>1687253166504</created>
+      <option name="number" value="00294" />
+      <option name="presentableId" value="LOCAL-00294" />
+      <option name="project" value="LOCAL" />
+      <updated>1687253166504</updated>
+    </task>
+    <option name="localTasksCounter" value="295" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -938,10 +919,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: [Session] Récupération et affichage des données propres au dept." />
-    <MESSAGE value="feat: [Filtre] Filtre Twig pour filtrage des semestres par année" />
-    <MESSAGE value="fix: [Data] Récupération des data depuis l'intranet par l'id" />
-    <MESSAGE value="fix: [Filter] Filtre semestres/annees" />
     <MESSAGE value="fix: [Session] Changement de dept par défaut depuis le dashboard" />
     <MESSAGE value="fix: [Structure] Récupération uniquement des départements qui proposent le BUT" />
     <MESSAGE value="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure" />
@@ -963,6 +940,10 @@
     <MESSAGE value="fix: [Compétences] Lien compétences|traces (en cours)" />
     <MESSAGE value="fix: [Compétences] Lien compétences|traces" />
     <MESSAGE value="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace" />
+    <MESSAGE value="fix: [Admin] CRUD - new etudiant / structure" />
+    <MESSAGE value="refactor : nettoyage" />
+    <MESSAGE value="feat: [Portfolio] mise en place de la notion d'ordre pour les pages et les traces (en cours)" />
+    <MESSAGE value="feat: [Portfolio] tests new process" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Portfolio] tests new process" />
   </component>
 </project>

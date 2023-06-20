@@ -34,16 +34,16 @@ class PortfolioController extends AbstractController
             'ROLE_ETUDIANT'
         );
 
-            //Récupérer les portfolios de l'utilisateur connecté
-            $etudiant = $this->security->getUser()->getEtudiant();
-            $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
+        //Récupérer les portfolios de l'utilisateur connecté
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
 
-            return $this->render('portfolio/index.html.twig', [
-                'portfolios' => $portfolios,
-            ]);
-        }
+        return $this->render('portfolio/index.html.twig', [
+            'portfolios' => $portfolios,
+        ]);
+    }
 
-    #[Route('/portfolio/new/{id}', name: 'app_portfolio_new')]
+    #[Route('/portfolio/new', name: 'app_portfolio_new')]
     public function new(
         Request             $request,
         PortfolioRepository $portfolioRepository,
@@ -61,46 +61,49 @@ class PortfolioController extends AbstractController
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pages = $form->get('pages')->getData();
+        if ($form->isSubmitted() && $form->isValid()
+        ) {
+//            $pages = $form->get('pages')->getData();
 
-            if ($pages->isEmpty()) {
-                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-            } else {
-                $portfolio->setEtudiant($user);
+//            if ($pages->isEmpty()) {
+//                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
+//            } else {
+            $portfolio->setEtudiant($user);
 
-                //TODO: transformer en service
-                $imageFile = $form['banniere']->getData();
-                if ($imageFile) {
-                    $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
-                    //Vérifier si le fichier est au bon format
-                    if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                        //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                        $imageFile->move('files_directory', $imageFileName);
+            $imageFile = $form['banniere']->getData();
+            if ($imageFile) {
+                $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
+                //Vérifier si le fichier est au bon format
+                if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                    $imageFile->move('files_directory', $imageFileName);
 //                //Sauvegarder le contenu dans la base de données
-                        $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
-                    } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                        $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
-                    }
-
-                    foreach ($pages as $page) {
-                        $portfolio->addPage($page);
-                        $page->addPortfolio($portfolio);
-                    }
-
-                    if ($form->get('visibilite')->getData() === 'public') {
-                        $portfolio->setVisibilite(true);
-                    } elseif ($form->get('visibilite')->getData() === 'prive') {
-                        $portfolio->setVisibilite(false);
-                    }
-
-
-                    $portfolioRepository->save($portfolio, true);
-
-                    $this->addFlash('success', 'Le Portfolio a été créé avec succès');
-                    return $this->redirectToRoute('app_portfolio');
+                    $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                    $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                 }
+
+//                    foreach ($pages as $page) {
+//                        $portfolio->addPage($page);
+//                        $page->addPortfolio($portfolio);
+//                    }
+
+                if ($form->get('visibilite')->getData() === 'public') {
+                    $portfolio->setVisibilite(true);
+                } elseif ($form->get('visibilite')->getData() === 'prive') {
+                    $portfolio->setVisibilite(false);
+                }
+
+
+                $this->addFlash('success', 'Le Portfolio a été créé avec succès');
+//                    return $this->redirectToRoute('app_portfolio');
             }
+
+            $portfolioRepository->save($portfolio, true);
+            return $this->json([
+                'success' => true,
+            ]);
+//            }
         }
 
         return $this->render('portfolio/formPortfolio.html.twig', [

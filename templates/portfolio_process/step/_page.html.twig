@@ -1,2 +1,29 @@
-{{ form_start(form) }}
-                        {{ form_end(form) }}
+{# <a href="#" {{ stimulus_action('creation', 'addTrace', 'click', {url:path('app_trace')}) }}>lien</a> #}
+
+{# <div {{ stimulus_target('creation', 'zone') }}> #}
+
+{# </div> #}
+
+{# {{ form_start(form) }} #}
+{# {{ form_widget(form) }} #}
+{# {{ form_end(form) }} #}
+
+<h4>Ajouter une page</h4>
+
+<div class="alert alert-info mb-2">
+    Choisissez une page déjà existante pour la dupliquer dans ce questionnaire, ou ajoutez une page vide
+</div>
+
+<label for="selectPage" class="sr-only">Choisir une page à ajouter</label>
+<select class="form-select"
+        id="selectPage"
+        is="select-complete" {{ stimulus_action('creation', 'addPage') }}>
+    <option value="">Choisir...</option>
+    <option value="new">Ajouter une nouvelle page</option>
+    {% for page in pages %}
+        <option value="{{ page.id }}">{{ page.intitule }}</option>
+    {% endfor %}
+</select>
+
+
+

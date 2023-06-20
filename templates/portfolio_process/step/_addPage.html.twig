@@ -1,0 +1,33 @@
+<hr>
+
+<div style="display: flex">
+    <h2>{{ page.intitule }}</h2>
+
+    <button class="btn-danger btn">
+        <i class="fa-solid fa-minus-square"></i>
+    </button>
+    <button class="btn-warning btn">
+        <i class="fa-solid fa-edit"></i>
+    </button>
+</div>
+
+<hr>
+
+<div class="alert alert-info mb-2">
+    Choisissez une trace déjà existante pour la dupliquer dans cette page, ou ajoutez une trace vide.
+</div>
+
+<label for="selectTrace" class="sr-only">Choisir une trace</label>
+<select class="form-select"
+        id="selectTrace"
+        is="select-complete" {{ stimulus_action('creation', 'addTrace') }}>
+    <option value="">Choisir...</option>
+    <option value="new">Ajouter une nouvelle trace</option>
+    {% for trace in traces %}
+        <option value="{{ trace.id }}">{{ trace.titre }}</option>
+    {% endfor %}
+</select>
+
+<div {{ stimulus_target('creation', 'traceZone') }}>
+
+</div>
