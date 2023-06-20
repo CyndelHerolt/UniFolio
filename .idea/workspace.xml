@@ -10,20 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Portfolio] tests new process">
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_newPage.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/controllers/creation_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/creation_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/page.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/portfolio.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_portfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_portfolio.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -513,14 +504,7 @@
       <workItem from="1687154902865" duration="16000" />
       <workItem from="1687156480955" duration="7748000" />
       <workItem from="1687241684179" duration="23661000" />
-      <workItem from="1687275052536" duration="4365000" />
-    </task>
-    <task id="LOCAL-00246" summary="fix: [Inscription] Création de compte =&gt; envoi de mail pour vérifier le compte avant de récupérer les infos depuis l'intranet">
-      <created>1682263519025</created>
-      <option name="number" value="00246" />
-      <option name="presentableId" value="LOCAL-00246" />
-      <option name="project" value="LOCAL" />
-      <updated>1682263519025</updated>
+      <workItem from="1687275052536" duration="5614000" />
     </task>
     <task id="LOCAL-00247" summary="fix: [Inscription] Interruption de la connexion si compte non vérifié">
       <created>1683619413974</created>
@@ -858,7 +842,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687253166504</updated>
     </task>
-    <option name="localTasksCounter" value="295" />
+    <task id="LOCAL-00295" summary="feat: [Portfolio] tests new process">
+      <created>1687279582985</created>
+      <option name="number" value="00295" />
+      <option name="presentableId" value="LOCAL-00295" />
+      <option name="project" value="LOCAL" />
+      <updated>1687279582986</updated>
+    </task>
+    <option name="localTasksCounter" value="296" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

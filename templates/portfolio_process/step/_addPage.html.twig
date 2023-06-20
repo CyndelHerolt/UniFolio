@@ -6,7 +6,7 @@
     <button class="btn-danger btn">
         <i class="fa-solid fa-minus-square"></i>
     </button>
-    <button class="btn-warning btn">
+    <button class="btn-warning btn" {{ stimulus_action('creation', 'editPage', 'click') }} value="{{ page.id }}">
         <i class="fa-solid fa-edit"></i>
     </button>
 </div>

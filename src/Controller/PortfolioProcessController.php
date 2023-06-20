@@ -83,6 +83,12 @@ class PortfolioProcessController extends AbstractController
                 $form = $this->createForm(PageType::class);
                 break;
 
+            case 'editPage':
+                //todo: si nouvelle page, créer une page vide ?
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $form = $this->createForm(PageType::class, $page);
+                break;
+
             case 'addTrace':
                 if ($traceRepository->findOneBy(['id' => $request->query->get('trace')])) {
                     $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
