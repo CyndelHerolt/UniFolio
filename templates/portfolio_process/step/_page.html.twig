@@ -10,8 +10,8 @@
         is="select-complete" {{ stimulus_action('creation', 'addPage') }}>
     <option value="">Choisir...</option>
     <option value="new">Ajouter une nouvelle page</option>
-    {% for page in pages %}
-        <option value="{{ page.id }}">{{ page.intitule }}</option>
+    {% for element in liste %}
+        <option value="{{ element.id }}">{{ element.intitule }}</option>
     {% endfor %}
 </select>
 

@@ -4,11 +4,13 @@
         <a class="nav-link {% if step == 'portfolio' %} active {% endif %}" aria-current="page" href="#">Portfolio</a>
     </li>
 
-    {% if page is not null %}
+    {% if pages is not null %}
+        {% for page in pages %}
         <li class="nav-item" value="{{ page.id }}" {{ stimulus_action('creation', 'addPage', 'click') }} >
             <a class="nav-link {% if step == 'addPage' or step =='editPage' %} active {% endif %}" aria-current="page"
                href="#">{{ page.intitule }}</a>
         </li>
+        {% endfor %}
     {% endif %}
 
     <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'page'}) }}>

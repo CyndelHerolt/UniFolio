@@ -10,6 +10,7 @@ use App\Form\PageType;
 use App\Form\PortfolioType;
 use App\Repository\BibliothequeRepository;
 use App\Repository\PageRepository;
+use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,20 +21,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class PortfolioProcessController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(
+        Request $request,
+    ): Response
     {
+
+        $id = $request->query->get('id');
+//        dd($id);
+
         return $this->render('portfolio_process/index.html.twig', [
             'step' => 'portfolio',
+            'id' => $id,
         ]);
     }
 
 
-    #[Route('/step', name: 'step')]
+    #[Route('/step/{id}', name: 'step')]
     public function step(
         Request                $request,
         BibliothequeRepository $bibliothequeRepository,
         PageRepository         $pageRepository,
         TraceRepository        $traceRepository,
+        PortfolioRepository    $portfolioRepository,
     ): Response
     {
         // passer step dans l'url pr récup
@@ -41,12 +50,16 @@ class PortfolioProcessController extends AbstractController
 //        dd($step);
         $form = null;
 
-//        $step = 'portfolio';
+        // Récupérer la variable 'id' de la requête
+        $id = $request->attributes->get('id');
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        $pages = $portfolio->getPages();
 
         switch ($step) {
 
             case 'portfolio':
-                $form = $this->createForm(PortfolioType::class);
+                $form = $this->createForm(PortfolioType::class, $portfolio);
                 break;
 
 //            case 'newPage':
@@ -59,9 +72,13 @@ class PortfolioProcessController extends AbstractController
 
                 if ($pageRepository->findOneBy(['id' => $request->query->get('page')])) {
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                    $portfolio->addPage($page);
+                    $pageRepository->save($page, true);
                 } else {
                     $page = new Page();
                     $page->setIntitule('Nouvelle page');
+                    $portfolio->addPage($page);
+                    $pageRepository->save($page, true);
                 }
 
             case 'page':
@@ -73,11 +90,11 @@ class PortfolioProcessController extends AbstractController
                 $traces = $biblio->getTraces();
 
                 // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
-                $pages = [];
+                $liste = [];
                 foreach ($traces as $trace) {
-                    $pages = array_merge($pages, $trace->getPages()->toArray());
+                    $liste = array_merge($liste, $trace->getPages()->toArray());
 //            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
-                    $pages = array_unique($pages, SORT_REGULAR);
+                    $liste = array_unique($liste, SORT_REGULAR);
                 }
 
                 $form = $this->createForm(PageType::class);
@@ -106,10 +123,13 @@ class PortfolioProcessController extends AbstractController
         return $this->render('portfolio_process/step/_step.html.twig', [
             'step' => $step,
             'form' => $form,
-            'pages' => $pages ?? null,
+            'liste' => $liste ?? null,
             'page' => $page ?? null,
+            'pages' => $pages ?? null,
             'traces' => $traces ?? null,
             'trace' => $trace ?? null,
+            'id' => $id ?? null,
+            'portfolio' => $portfolio ?? null,
         ]);
     }
 }
