@@ -1,14 +1,30 @@
-<hr>
+<div class="card">
+    <div style="display: flex; justify-content: space-between">
+        <div class="trace" style="display: flex; flex-direction: column">
+            <h4>{{ trace.titre }}</h4>
 
-<div style="display: flex">
-    <h2>{{ trace.titre }}</h2>
+            <h5>Compétences</h5>
+            <ul>
+                {% for validation in trace.validations %}
+                    <li>
+                        {{ validation.competences.libelle }}
+                        {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
+                        {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                        {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                        {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <button class="btn-danger btn">
-        <i class="fa-solid fa-minus-square"></i>
-    </button>
-    <button class="btn-warning btn">
-        <i class="fa-solid fa-edit"></i>
-    </button>
+        <div>
+            <button class="btn-danger btn">
+                <i class="fa-solid fa-minus-square"></i>
+            </button>
+            <button class="btn-warning btn">
+                <i class="fa-solid fa-edit"></i>
+            </button>
+        </div>
+    </div>
 </div>
-
-<hr>

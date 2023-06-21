@@ -24,36 +24,39 @@ export default class extends Controller {
             page: _value,
         })
         console.log(params.toString());
+        console.log('hello');
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        console.log(response);
         this.stepZoneTarget.innerHTML = await response.text()
+
+        // this.navTabsTarget.innerHTML += "<li class=\"nav-item\">\n" +
+        //     "        <a class=\"nav-link active \" href=\"#\">Ajouter une page</a>\n" +
+        //     "    </li>"
     }
 
-    async editPage(event) {
-        const _value = event.currentTarget.value
+    // async editPage(event) {
+    //     const _value = event.currentTarget.value
+    //
+    //     const params = new URLSearchParams({
+    //         step: 'editPage',
+    //         page: _value,
+    //     })
+    //     console.log(params.toString());
+    //     const response = await fetch(`${this.urlValue}?${params.toString()}`)
+    //     console.log(response);
+    //     this.stepZoneTarget.innerHTML = await response.text()
+    // }
 
-        const params = new URLSearchParams({
-            step: 'editPage',
-            page: _value,
-        })
-        console.log(params.toString());
-        const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        console.log(response);
-        this.stepZoneTarget.innerHTML = await response.text()
-    }
-
-    async addTrace(event) {
-        const _value = event.currentTarget.value
-
-        const params = new URLSearchParams({
-            step: 'addTrace',
-            trace: _value,
-        })
-        console.log(params.toString());
-        const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        console.log(response);
-        this.traceZoneTarget.innerHTML += await response.text()
-    }
+    // async addTrace(event) {
+    //     const _value = event.currentTarget.value
+    //
+    //     const params = new URLSearchParams({
+    //         step: 'addTrace',
+    //         trace: _value,
+    //     })
+    //     console.log(params.toString());
+    //     const response = await fetch(`${this.urlValue}?${params.toString()}`)
+    //     this.traceZoneTarget.innerHTML += await response.text()
+    // }
 
     async _changeStep(step, page) {
         // this.stepZoneTarget.innerHTML = window.da.loaderStimulus

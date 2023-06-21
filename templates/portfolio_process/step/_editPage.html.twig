@@ -1,7 +1,33 @@
-<h4>Edition de la page {{ page.intitule }}</h4>
+<h4>Edition de la
+    {% if page.intitule is defined %}
+    page {{ page.intitule }}</h4>
+    {% else %}
+    nouvelle page
+    {% endif %}
 
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Create" />
 {{ form_end(form) }}
-```
+
+<hr>
+
+<div class="alert alert-info mb-2">
+    Choisissez une trace déjà existante pour la dupliquer dans cette page, ou ajoutez une trace vide.
+</div>
+<div {{ stimulus_target('page', 'traceZone') }}>
+
+</div>
+
+<label for="selectTrace" class="sr-only">Choisir une trace</label>
+<select class="form-select"
+        id="selectTrace"
+        is="select-complete" {{ stimulus_action('page', 'addTrace') }}>
+    <option value="">Choisir...</option>
+    <option value="new">Ajouter une nouvelle trace</option>
+    {% for trace in traces %}
+        <option value="{{ trace.id }}">{{ trace.titre }}</option>
+    {% endfor %}
+</select>
+
+
+<button class="btn btn-primary">Enregistrer</button>

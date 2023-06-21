@@ -84,6 +84,11 @@ class PortfolioProcessController extends AbstractController
                 break;
 
             case 'editPage':
+                $etudiant = $this->getUser()->getEtudiant();
+                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+
+                // Récupérer les traces de la bibliothèque
+                $traces = $biblio->getTraces();
                 //todo: si nouvelle page, créer une page vide ?
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
                 $form = $this->createForm(PageType::class, $page);

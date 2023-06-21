@@ -1,8 +1,18 @@
 <ul class="nav nav-tabs" {{ stimulus_target('creation', 'navTabs') }}>
+
     <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'portfolio'}) }}>
         <a class="nav-link {% if step == 'portfolio' %} active {% endif %}" aria-current="page" href="#">Portfolio</a>
     </li>
+
+    {% if page is not null %}
+        <li class="nav-item" value="{{ page.id }}" {{ stimulus_action('creation', 'addPage', 'click') }} >
+            <a class="nav-link {% if step == 'addPage' or step =='editPage' %} active {% endif %}" aria-current="page"
+               href="#">{{ page.intitule }}</a>
+        </li>
+    {% endif %}
+
     <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'page'}) }}>
         <a class="nav-link {% if step == 'page' %} active {% endif %}" href="#">Ajouter une page</a>
     </li>
+
 </ul>

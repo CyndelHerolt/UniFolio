@@ -10,11 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Portfolio] tests new process">
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/page_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/portfolio_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/trace_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/controllers/creation_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/creation_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -504,14 +511,8 @@
       <workItem from="1687154902865" duration="16000" />
       <workItem from="1687156480955" duration="7748000" />
       <workItem from="1687241684179" duration="23661000" />
-      <workItem from="1687275052536" duration="5614000" />
-    </task>
-    <task id="LOCAL-00247" summary="fix: [Inscription] Interruption de la connexion si compte non vérifié">
-      <created>1683619413974</created>
-      <option name="number" value="00247" />
-      <option name="presentableId" value="LOCAL-00247" />
-      <option name="project" value="LOCAL" />
-      <updated>1683619413975</updated>
+      <workItem from="1687275052536" duration="5632000" />
+      <workItem from="1687329311956" duration="7631000" />
     </task>
     <task id="LOCAL-00248" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
       <created>1683632629210</created>
@@ -849,7 +850,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687279582986</updated>
     </task>
-    <option name="localTasksCounter" value="296" />
+    <task id="LOCAL-00296" summary="feat: [Portfolio] tests new process">
+      <created>1687280811132</created>
+      <option name="number" value="00296" />
+      <option name="presentableId" value="LOCAL-00296" />
+      <option name="project" value="LOCAL" />
+      <updated>1687280811132</updated>
+    </task>
+    <option name="localTasksCounter" value="297" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
