@@ -96,7 +96,7 @@ class PortfolioController extends AbstractController
 
 
                 $this->addFlash('success', 'Le Portfolio a été créé avec succès');
-//                    return $this->redirectToRoute('app_portfolio');
+                    return $this->redirectToRoute('app_portfolio_process_index');
             }
 
             $portfolioRepository->save($portfolio, true);

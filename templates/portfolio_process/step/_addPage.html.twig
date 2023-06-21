@@ -3,7 +3,7 @@
 <div style="display: flex">
     <h4>{{ page.intitule }}</h4>
 
-    <button class="btn-danger btn">
+    <button class="btn-danger btn" {{ stimulus_action('page', 'deletePage', 'click') }}>
         <i class="fa-solid fa-minus-square"></i>
     </button>
     <button class="btn-warning btn" {{ stimulus_action('page', 'editPage', 'click') }} value="{{ page.id }}">
@@ -19,6 +19,8 @@
     <div {{ stimulus_target('page', 'traceZone') }}>
 
     </div>
+
+<hr>
 
     <label for="selectTrace" class="sr-only">Choisir une trace</label>
     <select class="form-select"

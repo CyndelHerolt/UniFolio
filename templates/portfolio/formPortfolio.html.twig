@@ -29,7 +29,7 @@
                     {% endif %}
                     {% if '/page' in app.request.uri %}
                         {{ form_start(form) }}
-                        {{ form_row(form.pages) }}
+{#                        {{ form_row(form.pages) }}#}
                         {{ form_end(form) }}
                     {% elseif '/portfolio' in app.request.uri %}
                         {{ form_start(form) }}
@@ -39,7 +39,7 @@
                         </div>
                         {{ form_row(form.intitule) }}
                         {{ form_row(form.banniere) }}
-                        {{ form_row(form.pages) }}
+{#                        {{ form_row(form.pages) }}#}
                         {{ form_row(form.visibilite) }}
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         {{ form_end(form) }}

@@ -21,6 +21,10 @@ export default class extends Controller {
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
+    async deletePage(event) {
+
+    }
+
     async addTrace(event) {
         const _value = event.currentTarget.value
 
@@ -32,5 +36,6 @@ export default class extends Controller {
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.traceZoneTarget.innerHTML += await response.text()
     }
+
 
 }
