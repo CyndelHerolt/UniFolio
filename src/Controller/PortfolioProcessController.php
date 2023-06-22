@@ -135,7 +135,8 @@ class PortfolioProcessController extends BaseController
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,
-                        'step' => 'portfolio',
+                        'step' => 'addPage',
+                        'page' => $page->getId(),
                     ]);
                 }
                 break;
@@ -171,9 +172,14 @@ class PortfolioProcessController extends BaseController
 
                 if ($trace->getTypeTrace() == null) {
                     $typesNewTrace = $traceRegistry->getTypeTraces();
-                }
-                else {
-                    $typesTrace = $traceRegistry->getTypeTrace($type);
+                } else {
+                    // passer directement à l'étape suivante
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'formTrace',
+                        'trace' => $trace->getId(),
+                        'type' => $type,
+                    ]);
                 }
                 break;
 
@@ -208,6 +214,71 @@ class PortfolioProcessController extends BaseController
                 $trace->setTypetrace($type);
 
                 break;
+
+            case 'deleteTrace':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                $pages = $trace->getPages();
+                foreach ($pages as $page) {
+                    //Si la page est dans portfolio
+                    if ($portfolio->getPages()->contains($page)) {
+                        $trace->removePage($page);
+                        $traceRepository->save($trace, true);
+                    }
+                }
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
+
+            case 'saveTrace':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                $type = $request->query->get('type');
+
+                $traceType = $traceRegistry->getTypeTrace($type);
+
+                $user = $security->getUser()->getEtudiant();
+
+                $semestre = $user->getSemestre();
+                $annee = $semestre->getAnnee();
+
+                $dept = $this->dataUserSession->getDepartement();
+
+                $referentiel = $dept->getApcReferentiels();
+
+                $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                foreach ($competences as $competence) {
+                    $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                }
+
+                foreach ($niveaux as $niveau) {
+                    foreach ($niveau as $niv) {
+                        $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                    }
+                }
+
+                $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted()
+//                    && $form->isValid()
+                ) {
+
+                    //todo: récupérer et lier les compétences
+
+                    $trace = $form->getData();
+                    $traceRepository->save($trace, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'portfolio',
+                    ]);
+                }
+                break;
+
         }
 
         return $this->render('portfolio_process/step/_step.html.twig', [
@@ -223,6 +294,7 @@ class PortfolioProcessController extends BaseController
             'portfolio' => $portfolio ?? null,
             'typesTrace' => $typesTrace ?? null,
             'typesNewTrace' => $typesNewTrace ?? null,
+            'traceType' => $traceType ?? null,
         ]);
     }
 }

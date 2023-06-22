@@ -2,7 +2,7 @@
     <article class="col-lg-6 col-12">
             <h4>Modifier {{ trace.titre }}</h4>
 
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {id:'formTrace'}}) }}
         <div class="hidden">
             {{ form_row(form.date_creation) }}
             {{ form_row(form.date_modification) }}
@@ -75,7 +75,10 @@
 
             {{ form_row(form.competences) }}
 
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button class="btn btn-primary" {{ stimulus_action('trace', 'saveTrace', 'click') }}
+                    value="{{ trace.id }}"
+                    data-type="{{ constant('class', traceType) }}">
+                Enregistrer</button>
 
         </div>
 
