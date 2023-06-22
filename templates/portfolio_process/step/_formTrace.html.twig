@@ -1,0 +1,84 @@
+<div class="row">
+    <article class="col-lg-6 col-12">
+            <h4>Modifier {{ trace.titre }}</h4>
+
+        {{ form_start(form) }}
+        <div class="hidden">
+            {{ form_row(form.date_creation) }}
+            {{ form_row(form.date_modification) }}
+        </div>
+        {#                    {{ form_row(form.ordre) }}#}
+        {{ form_row(form.titre) }}
+        <hr>
+
+        <!-- Images -->
+
+        {% if 'TraceTypeImage' in trace.typeTrace %}
+                {% for data in trace.contenu %}
+                    <div class="image_trace_div">
+                        <p>Image.s déjà dans la DB</p><input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
+                        <img src="{{ asset(data) }}" class="image_registered" data-file="registered"
+                             style="width: 100px" alt="image déjà enregistrée"/><button type="button" class="btn btn-danger delete-image">
+                            <i class="fa-solid fa-square-minus"></i>
+                        </button><hr>
+                    </div>
+                {% endfor %}
+            <button type="button" class="btn btn-primary add-image">
+                Ajouter une image <i class="fa fa-square-plus"></i>
+            </button>
+
+            <!-- Pdf -->
+
+        {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                {% for data in trace.contenu %}
+                    <div class="pdf_trace_div">
+                        <p>Pdf déjà dans la DB</p>
+                        <input type="hidden" name="pdf[{{ loop.index }}]" value="{{ data }}">
+                        <iframe src="{{ asset(data) }}" style="width: 50%"></iframe>
+                        <button type="button" class="btn btn-danger delete-pdf">
+                            <i class="fa-solid fa-square-minus"></i>
+                        </button>
+                        <hr>
+                    </div>
+                {% endfor %}
+            <button type="button" class="btn btn-primary add-pdf">
+                Ajouter un PDF <i class="fa fa-square-plus"></i>
+            </button>
+
+            <!-- Liens -->
+
+        {% elseif 'TraceTypeLien' in trace.typeTrace %}
+            <div class="input-group mb-3">
+                {{ form_widget(form.contenu) }}
+            </div>
+            <button type="button" class="btn btn-primary add-lien">
+                Ajouter un lien <i class="fa fa-square-plus"></i>
+            </button>
+
+            <!-- Videos -->
+
+        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+            <div class="input-group mb-3">
+                {{ form_widget(form.contenu) }}
+            </div>
+            <button type="button" class="btn btn-primary add-video">
+                Ajouter une vidéo <i class="fa fa-square-plus"></i>
+            </button>
+        {% endif %}
+        <hr>
+        {{ form_row(form.description) }}
+    </article>
+    <aside class="col-lg-6 col-12">
+        <h4>Compétences relatives à cette trace</h4>
+
+        <div class="secondary_form">
+
+            {{ form_row(form.competences) }}
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+        </div>
+
+        {{ form_end(form) }}
+    </aside>
+</div>

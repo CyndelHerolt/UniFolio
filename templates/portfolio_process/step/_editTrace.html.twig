@@ -1,0 +1,23 @@
+<h4>Edition de la trace {{ trace.titre }}</h4>
+
+{% if typesNewTrace is not null %}
+        <div class="card">
+                <div class="card-header">
+                    <h5>Types de traces</h5>
+                </div>
+                <div class="card-body">
+                    <ul style="list-style: none; display: flex; justify-content: space-evenly">
+                        {% for typeTrace in typesNewTrace %}
+                            <li value="{{ trace.id }}" style="display: flex; flex-direction: column; align-items: center"
+                                data-type="{{ constant('class', typeTrace) }}"
+                                    {{ stimulus_action('trace', 'formTrace', 'click') }}>
+                                <i class="{{ constant('ICON', typeTrace) }}"></i>
+                                {{ typeTrace.display }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+{% endif %}
+

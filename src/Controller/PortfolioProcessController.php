@@ -4,21 +4,25 @@
 
 namespace App\Controller;
 
+use App\Components\Trace\TraceRegistry;
 use App\Entity\Page;
 use App\Entity\Trace;
 use App\Form\PageType;
 use App\Form\PortfolioType;
+use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/portfolio/process', name: 'app_portfolio_process_')]
-class PortfolioProcessController extends AbstractController
+class PortfolioProcessController extends BaseController
 {
     #[Route('/', name: 'index')]
     public function index(
@@ -43,6 +47,10 @@ class PortfolioProcessController extends AbstractController
         PageRepository         $pageRepository,
         TraceRepository        $traceRepository,
         PortfolioRepository    $portfolioRepository,
+        TraceRegistry          $traceRegistry,
+        Security               $security,
+        CompetenceRepository   $competenceRepository,
+        ApcNiveauRepository    $apcNiveauRepository,
     ): Response
     {
         // passer step dans l'url pr récup
@@ -156,11 +164,54 @@ class PortfolioProcessController extends AbstractController
                     $traceRepository->save($trace, true);
                 }
                 break;
+
+            case 'editTrace':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+
+                if ($trace->getTypeTrace() == null) {
+                    $typesNewTrace = $traceRegistry->getTypeTraces();
+                }
+                else {
+                    $typesTrace = $traceRegistry->getTypeTrace($trace->getId());
+                }
+                break;
+
+            case 'formTrace':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                $type = $request->query->get('type');
+
+                $traceType = $traceRegistry->getTypeTrace($type);
+
+                $user = $security->getUser()->getEtudiant();
+
+                $semestre = $user->getSemestre();
+                $annee = $semestre->getAnnee();
+
+                $dept = $this->dataUserSession->getDepartement();
+
+                $referentiel = $dept->getApcReferentiels();
+
+                $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                foreach ($competences as $competence) {
+                    $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                }
+
+                foreach ($niveaux as $niveau) {
+                    foreach ($niveau as $niv) {
+                        $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                    }
+                }
+
+                $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+                $trace->setTypetrace($type);
+
+                break;
         }
 
         return $this->render('portfolio_process/step/_step.html.twig', [
             'step' => $step,
-            'form' => $form,
+            'form' => $form ?? null,
             'liste' => $liste ?? null,
             'page' => $page ?? null,
             'pages' => $pages ?? null,
@@ -169,6 +220,8 @@ class PortfolioProcessController extends AbstractController
             'trace' => $trace ?? null,
             'id' => $id ?? null,
             'portfolio' => $portfolio ?? null,
+            'typesTrace' => $typesTrace ?? null,
+            'typesNewTrace' => $typesNewTrace ?? null,
         ]);
     }
 }
