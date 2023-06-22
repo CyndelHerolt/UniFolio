@@ -10,10 +10,12 @@ export default class extends Controller {
 
     async editTrace(event) {
         const _value = event.currentTarget.value
+        const type = event.currentTarget.dataset.type
 
         const params = new URLSearchParams({
             step: 'editTrace',
             trace: _value,
+            type: type,
         })
         console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
@@ -21,6 +23,8 @@ export default class extends Controller {
         //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
     }
+
+    //todo: une méthode pour éditer une nouvelle trace et une méthode pour éditer une trace existante ?
 
     async formTrace(event) {
         const _value = event.currentTarget.value

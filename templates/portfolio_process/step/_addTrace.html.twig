@@ -22,7 +22,8 @@
             <button class="btn-danger btn">
                 <i class="fa-solid fa-minus-square"></i>
             </button>
-            <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }} value="{{trace.id }}">
+            <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }} value="{{trace.id}}"
+            data-type="{{ trace.typeTrace }}">
                 <i class="fa-solid fa-edit"></i>
             </button>
         </div>

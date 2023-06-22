@@ -167,12 +167,13 @@ class PortfolioProcessController extends BaseController
 
             case 'editTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                $type = $request->query->get('type');
 
                 if ($trace->getTypeTrace() == null) {
                     $typesNewTrace = $traceRegistry->getTypeTraces();
                 }
                 else {
-                    $typesTrace = $traceRegistry->getTypeTrace($trace->getId());
+                    $typesTrace = $traceRegistry->getTypeTrace($type);
                 }
                 break;
 
