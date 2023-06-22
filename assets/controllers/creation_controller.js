@@ -24,7 +24,6 @@ export default class extends Controller {
             page: _value,
         })
         console.log(params.toString());
-        console.log('hello');
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.stepZoneTarget.innerHTML = await response.text()
 

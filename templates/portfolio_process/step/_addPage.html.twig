@@ -1,9 +1,7 @@
-<hr>
-
 <div style="display: flex">
     <h4>{{ page.intitule }}</h4>
 
-    <button class="btn-danger btn" {{ stimulus_action('page', 'deletePage', 'click') }}>
+    <button class="btn-danger btn" {{ stimulus_action('page', 'deletePage', 'click') }} value="{{ page.id }}">
         <i class="fa-solid fa-minus-square"></i>
     </button>
     <button class="btn-warning btn" {{ stimulus_action('page', 'editPage', 'click') }} value="{{ page.id }}">
@@ -11,25 +9,29 @@
     </button>
 </div>
 
-<hr>
-    <div class="alert alert-info mb-2">
-        Choisissez une trace déjà existante pour la dupliquer dans cette page, ou ajoutez une trace vide.
-    </div>
+<div class="alert alert-info mb-2">
+    Choisissez une trace déjà existante pour la dupliquer dans cette page, ou ajoutez une trace vide.
+</div>
 
-    <div {{ stimulus_target('page', 'traceZone') }}>
+<div {{ stimulus_target('page', 'traceZone') }}>
 
-    </div>
+</div>
 
-<hr>
+{% if existingTraces is not null %}
+    {% for trace in existingTraces %}
+        {% include('portfolio_process/step/_addTrace.html.twig') %}
+    {% endfor %}
+{% endif %}
 
-    <label for="selectTrace" class="sr-only">Choisir une trace</label>
-    <select class="form-select"
-            id="selectTrace"
-            is="select-complete" {{ stimulus_action('page', 'addTrace', 'change') }}>
-        <option value="">Choisir...</option>
-        <option value="new">Ajouter une nouvelle trace</option>
-        {% for trace in traces %}
-            <option value="{{ trace.id }}">{{ trace.titre }}</option>
-        {% endfor %}
-    </select>
+
+<label for="selectTrace" class="sr-only">Choisir une trace</label>
+<select class="form-select"
+        id="selectTrace"
+        is="select-complete" {{ stimulus_action('page', 'addTrace', 'change') }}>
+    <option value="">Choisir...</option>
+    <option data-page-id="{{ page.id }}" value="new">Ajouter une nouvelle trace</option>
+    {% for trace in traces %}
+        <option data-page-id="{{ page.id }}" value="{{ trace.id }}">{{ trace.titre }}</option>
+    {% endfor %}
+</select>
 

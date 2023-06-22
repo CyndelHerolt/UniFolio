@@ -1,11 +1,6 @@
-<h4>Edition de la
-    {% if page.intitule is defined %}
-    page {{ page.intitule }}</h4>
-    {% else %}
-    nouvelle page
-    {% endif %}
+<h4>Edition de la page {{ page.intitule }}</h4>
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {id:'formPage'}}) }}
     {{ form_widget(form) }}
 {{ form_end(form) }}
 
@@ -18,16 +13,27 @@
 
 </div>
 
-<label for="selectTrace" class="sr-only">Choisir une trace</label>
-<select class="form-select"
-        id="selectTrace"
-        is="select-complete" {{ stimulus_action('page', 'addTrace') }}>
-    <option value="">Choisir...</option>
-    <option value="new">Ajouter une nouvelle trace</option>
-    {% for trace in traces %}
-        <option value="{{ trace.id }}">{{ trace.titre }}</option>
+{% if existingTraces is not null %}
+    {% for trace in existingTraces %}
+        {% include('portfolio_process/step/_addTrace.html.twig') %}
     {% endfor %}
-</select>
+{% endif %}
 
+<form>
+    <label for="selectTrace" class="sr-only">Choisir une trace</label>
+    <select class="form-select"
+            id="selectTrace"
+            is="select-complete"
+            {{ stimulus_action('page', 'addTrace') }}>
+        <option value="">Choisir...</option>
+        <option data-page-id="{{ page.id }}" value="new">Ajouter une nouvelle trace</option>
+        {% for trace in traces %}
+            <option data-page-id="{{ page.id }}" value="{{ trace.id }}">{{ trace.titre }}</option>
+        {% endfor %}
+    </select>
+</form>
 
-<button class="btn btn-primary">Enregistrer</button>
+<button class="btn btn-primary d-block" value="{{ page.id }}"
+        {{ stimulus_action('page', 'savePage', 'click') }}>
+    Enregister
+</button>

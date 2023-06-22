@@ -74,30 +74,30 @@ class PageType extends AbstractType
 //----------------------------------------------------------------------------------------------------------------------
 
         $builder
-            ->add('ordre', ChoiceType::class, [
-                'choices'=>[$choices],
-                'label' => 'Ordre',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => false,
-            ])
+//            ->add('ordre', ChoiceType::class, [
+//                'choices'=>[$choices],
+//                'label' => 'Ordre',
+//                'required' => true,
+//                'expanded' => true,
+//                'multiple' => false,
+//            ])
             ->add('intitule', TextType::class, [
                 'label' => 'Intitule',
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ])
+            ]);
 
-            ->add('trace', EntityType::class, [
-                'class' => Trace::class,
-                'choices' => $traces,
-                'label' => 'Traces',
-                'multiple' => true,
-                'choice_label' => 'titre',
-                'expanded' => true,
-                'required' => true,
-            ])
-            ;
+//            ->add('trace', EntityType::class, [
+//                'class' => Trace::class,
+//                'choices' => $traces,
+//                'label' => 'Traces',
+//                'multiple' => true,
+//                'choice_label' => 'titre',
+//                'expanded' => true,
+//                'required' => true,
+//            ])
+//            ;
 //        foreach ($traces as $trace) {
 //            $builder->add('trace', EntityType::class, [
 //                'class' => Trace::class,

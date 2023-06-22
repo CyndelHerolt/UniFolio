@@ -72,6 +72,7 @@ class PortfolioProcessController extends AbstractController
 
                 if ($pageRepository->findOneBy(['id' => $request->query->get('page')])) {
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                    $existingTraces = $page->getTrace();
                     $portfolio->addPage($page);
                     $pageRepository->save($page, true);
                 } else {
@@ -80,6 +81,7 @@ class PortfolioProcessController extends AbstractController
                     $portfolio->addPage($page);
                     $pageRepository->save($page, true);
                 }
+                break;
 
             case 'page':
 
@@ -103,21 +105,57 @@ class PortfolioProcessController extends AbstractController
             case 'editPage':
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
+                $traces = $biblio->getTraces();
 
                 // Récupérer les traces de la bibliothèque
-                $traces = $biblio->getTraces();
-                //todo: si nouvelle page, créer une page vide ?
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $existingTraces = $page->getTrace();
                 $form = $this->createForm(PageType::class, $page);
                 break;
 
+            case 'savePage':
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $form = $this->createForm(PageType::class, $page);
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $page = $form->getData();
+                    $pageRepository->save($page, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'portfolio',
+                    ]);
+                }
+                break;
+
+            case 'deletePage':
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $portfolio->removePage($page);
+                $pageRepository->remove($page, true);
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'portfolio',
+                ]);
+
             case 'addTrace':
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
                 if ($traceRepository->findOneBy(['id' => $request->query->get('trace')])) {
                     $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                    $trace->addPage($page);
+                    $traceRepository->save($trace, true);
                 } else {
                     $trace = new Trace();
                     $trace->setTitre('Nouvelle trace');
+                    $trace->addPage($page);
+                    $traceRepository->save($trace, true);
                 }
+                break;
         }
 
         return $this->render('portfolio_process/step/_step.html.twig', [
@@ -127,6 +165,7 @@ class PortfolioProcessController extends AbstractController
             'page' => $page ?? null,
             'pages' => $pages ?? null,
             'traces' => $traces ?? null,
+            'existingTraces' => $existingTraces ?? null,
             'trace' => $trace ?? null,
             'id' => $id ?? null,
             'portfolio' => $portfolio ?? null,

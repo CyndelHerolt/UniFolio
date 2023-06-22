@@ -21,18 +21,48 @@ export default class extends Controller {
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
-    async deletePage(event) {
+    async savePage(event) {
+        const _value = event.currentTarget.value
 
+        const formData = new FormData(document.getElementById('formPage'));
+
+        const params = new URLSearchParams({
+            step: 'savePage',
+            page: _value,
+        })
+
+        // Envoyer les données du formulaire via une requête POST
+        const response = await fetch(`${this.urlValue}?${params.toString()}`, {
+            method: 'POST',
+            body: formData
+        });
+        this.stepZoneTarget.innerHTML = await response.text()
+    }
+
+    async deletePage(event) {
+        const _value = event.currentTarget.value
+
+        const params = new URLSearchParams({
+            step: 'deletePage',
+            page: _value,
+        })
+        if (confirm('Voulez-vous vraiment supprimer cette page ?')) {
+            const response = await fetch(`${this.urlValue}?${params.toString()}`)
+            this.stepZoneTarget.innerHTML = await response.text()
+        }
     }
 
     async addTrace(event) {
         const _value = event.currentTarget.value
+// récupérer data-page-id="{{ page.id }}" dans l'option
+        const pageId = event.target.options[event.target.selectedIndex].dataset.pageId;
+        console.log(pageId);
 
         const params = new URLSearchParams({
             step: 'addTrace',
             trace: _value,
+            page: pageId,
         })
-        console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.traceZoneTarget.innerHTML += await response.text()
     }
