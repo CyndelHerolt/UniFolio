@@ -294,23 +294,23 @@ class TraceController extends BaseController
 
             if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
 
-                //Récupérer l'ordre saisi dans le form
-                $ordreSaisi = $form->get('ordre')->getData();
-//                dd($ordreSaisi);
-
-                //Pour chaque trace
-                foreach ($traces as $traceStock) {
-                    //Récupérer l'ordre de la trace
-                    $ordre = $traceStock->getOrdre();
-//            dd($ordre);
-                    //Si l'ordre saisi est égal à l'ordre de la trace
-                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
-                        // Attribuer l'ordre saisi à la trace en cours d'édition
-                        $trace->setOrdre($ordreSaisi);
-                        //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
-                        $traceStock->setOrdre($ordreOrigine);
-                    }
-                }
+//                //Récupérer l'ordre saisi dans le form
+//                $ordreSaisi = $form->get('ordre')->getData();
+////                dd($ordreSaisi);
+//
+//                //Pour chaque trace
+//                foreach ($traces as $traceStock) {
+//                    //Récupérer l'ordre de la trace
+//                    $ordre = $traceStock->getOrdre();
+////            dd($ordre);
+//                    //Si l'ordre saisi est égal à l'ordre de la trace
+//                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
+//                        // Attribuer l'ordre saisi à la trace en cours d'édition
+//                        $trace->setOrdre($ordreSaisi);
+//                        //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
+//                        $traceStock->setOrdre($ordreOrigine);
+//                    }
+//                }
 
                 $form->getData()->setDatemodification(new \DateTimeImmutable());
 //                dump($trace);

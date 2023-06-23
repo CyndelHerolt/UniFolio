@@ -58,6 +58,7 @@ export default class extends Controller {
     async saveTrace(event) {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
+        const competences = document.getElementById('competences')
 
         const formData = new FormData(document.getElementById('formTrace'));
 
@@ -65,6 +66,7 @@ export default class extends Controller {
             step: 'saveTrace',
             trace: _value,
             type: type,
+            competences: competences,
         })
 
         // Envoyer les données du formulaire via une requête POST

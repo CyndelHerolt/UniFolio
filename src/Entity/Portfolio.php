@@ -40,7 +40,7 @@ class Portfolio
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banniere = null;
 
-    #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: OrdrePage::class)]
+    #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: OrdrePage::class, cascade: ['persist', 'remove'])]
     private Collection $ordrePages;
 
     public function __construct()

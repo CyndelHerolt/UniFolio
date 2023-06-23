@@ -8,6 +8,17 @@ export default class extends Controller {
         urlSave: String,
     }
 
+    async left(event) {
+        const _value = event.currentTarget.value
+
+        const params = new URLSearchParams({
+            step: 'left',
+            page: _value,
+        })
+        const response = await fetch(`${this.urlValue}?${params.toString()}`)
+        this.stepZoneTarget.innerHTML = await response.text()
+    }
+
     async editPage(event) {
         const _value = event.currentTarget.value
 
@@ -66,6 +77,5 @@ export default class extends Controller {
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.traceZoneTarget.innerHTML += await response.text()
     }
-
 
 }

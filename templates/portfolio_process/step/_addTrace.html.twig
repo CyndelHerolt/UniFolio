@@ -26,6 +26,12 @@
             data-type="{{ trace.typeTrace }}">
                 <i class="fa-solid fa-edit"></i>
             </button>
+            <button class="btn-primary btn" {{ stimulus_action('page', 'up', 'click') }} value="{{ page.id }}">
+                <i class="fa-solid fa-angle-up"></i>
+            </button>
+            <button class="btn-primary btn" {{ stimulus_action('page', 'down', 'click') }} value="{{ page.id }}">
+                <i class="fa-solid fa-angle-down"></i>
+            </button>
         </div>
     </div>
 </div>

@@ -5,17 +5,22 @@
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
+use App\Components\Trace\TypeTrace\TraceTypeImage;
+use App\Components\Trace\TypeTrace\TraceTypePdf;
+use App\Entity\OrdrePage;
 use App\Entity\Page;
 use App\Entity\Trace;
+use App\Entity\Validation;
 use App\Form\PageType;
 use App\Form\PortfolioType;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\OrdrePageRepository;
 use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +56,8 @@ class PortfolioProcessController extends BaseController
         Security               $security,
         CompetenceRepository   $competenceRepository,
         ApcNiveauRepository    $apcNiveauRepository,
+        ValidationRepository   $validationRepository,
+        OrdrePageRepository    $ordrePageRepository,
     ): Response
     {
         // passer step dans l'url pr récup
@@ -70,15 +77,23 @@ class PortfolioProcessController extends BaseController
                 $form = $this->createForm(PortfolioType::class, $portfolio);
                 break;
 
-//            case 'newPage':
-
             case 'addPage':
 
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
                 $traces = $biblio->getTraces();
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
 
-                if ($pageRepository->findOneBy(['id' => $request->query->get('page')])) {
+                if ($ordrePage !== null) {
+                    if ($ordrePage->getOrdre() == 1) {
+                        $ordreMin = true;
+                    } else {
+                        $ordreMax = $portfolio->getOrdrePages()->last();
+                    }
+                }
+
+                if ($page) {
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
                     $existingTraces = $page->getTrace();
                     $portfolio->addPage($page);
@@ -87,6 +102,19 @@ class PortfolioProcessController extends BaseController
                     $page = new Page();
                     $page->setIntitule('Nouvelle page');
                     $portfolio->addPage($page);
+                    if ($portfolio->getOrdrePages()->count() > 0) {
+                        $ordreMax = $portfolio->getOrdrePages()->last();
+                        $ordre = $ordreMax->getOrdre() + 1;
+                    } else {
+                        $ordre = 1;
+                    }
+                    $newOrdrePage = new OrdrePage();
+                    $newOrdrePage->setOrdre($ordre);
+                    $newOrdrePage->setPage($page);
+                    $newOrdrePage->setPortfolio($portfolio);
+                    $portfolio->addOrdrePage($newOrdrePage);
+                    $ordrePageRepository->save($newOrdrePage, true);
+
                     $pageRepository->save($page, true);
                 }
                 break;
@@ -110,6 +138,11 @@ class PortfolioProcessController extends BaseController
                 $form = $this->createForm(PageType::class);
                 break;
 
+            case 'left':
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+
             case 'editPage':
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
@@ -117,6 +150,7 @@ class PortfolioProcessController extends BaseController
 
                 // Récupérer les traces de la bibliothèque
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
                 $existingTraces = $page->getTrace();
                 $form = $this->createForm(PageType::class, $page);
                 break;
@@ -143,6 +177,9 @@ class PortfolioProcessController extends BaseController
 
             case 'deletePage':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $portfolio->removeOrdrePage($ordrePage);
+                $ordrePageRepository->remove($ordrePage, true);
                 $portfolio->removePage($page);
                 $pageRepository->remove($page, true);
 
@@ -211,7 +248,19 @@ class PortfolioProcessController extends BaseController
                 }
 
                 $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+
+                $existingCompetences = [];
+                foreach ($trace->getValidations() as $validation) {
+                    $existingCompetences[] = $validation->getCompetences()->getLibelle();
+                }
+
+                // Pré remplissage du formulaire
+                $form->get('competences')->setData($existingCompetences);
+
                 $trace->setTypetrace($type);
+
+                //Récupérer les images existantes dans la db
+                $FileOrigine = $trace->getContenu();
 
                 break;
 
@@ -260,17 +309,93 @@ class PortfolioProcessController extends BaseController
                 }
 
                 $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
-
                 $form->handleRequest($request);
-
                 if ($form->isSubmitted()
 //                    && $form->isValid()
                 ) {
 
-                    //todo: récupérer et lier les compétences
+                    $existingCompetences = [];
+                    foreach ($trace->getValidations() as $validation) {
+                        $existingCompetences[] = $validation->getCompetences()->getLibelle();
+                    }
 
-                    $trace = $form->getData();
-                    $traceRepository->save($trace, true);
+                    $competencesForm = $form->get('competences')->getData();
+
+                    $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+
+                    $validations = $trace->getValidations();
+
+                    foreach ($competences as $competence) {
+
+                        // Si la compétence n'est pas déjà liée à la trace
+                        if (!in_array($competence->getLibelle(), $existingCompetences)) {
+                            $validation = new Validation();
+                            $validation->setEtat(0);
+                            $competence->addValidation($validation);
+                            $trace->addValidation($validation);
+                        }
+
+                        // supprimer les validations des compétences non sélectionnées
+                        foreach ($validations as $validation) {
+                            if (!in_array($validation->getCompetences()->getLibelle(), $competencesForm)) {
+                                $validation->getCompetences()->removeValidation($validation);
+                                $trace->removeValidation($validation);
+                                $validationRepository->remove($validation);
+                            }
+                        }
+                    }
+
+                    $FileOrigine = $trace->getContenu();
+
+                    if ($trace->getTypetrace() == TraceTypeImage::class
+                    ) {
+                        if ($request->request->get('contenu') == null) {
+                            if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
+                                $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
+                                return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
+                            } elseif (isset($request->request->All()['img'])) {
+//                        $this->addFlash('success', 'HELLO');
+                                $existingImages = $request->request->All()['img'];
+                                $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                            } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['img'])) {
+//                        dd($form->get('contenu')->getData());
+                                $trace->setContenu($request->request->get('contenu'));
+                            }
+                        } else {
+                            $existingImages = $request->request->All()['img'];
+                            $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                        }
+                    } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                    ) {
+                        if ($request->request->get('contenu') == null) {
+                            if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
+                                $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
+                                return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
+                            } elseif (isset($request->request->All()['pdf'])) {
+//                        $this->addFlash('success', 'HELLO');
+                                $existingImages = $request->request->All()['pdf'];
+                                $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                            } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
+//                        dd($form->get('contenu')->getData());
+                                $trace->setContenu($request->request->get('contenu'));
+                            }
+                        } else {
+                            $existingPdf = $request->request->All()['pdf'];
+                            $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
+                        }
+                    }
+
+                    if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+                        $form->getData()->setDatemodification(new \DateTimeImmutable());
+                        $traceRepository->save($trace, true);
+                        $this->addFlash('success', 'La trace a été modifiée avec succès.');
+                    } else {
+                        $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                        $this->addFlash('error', $error);
+                    }
+
+//                        $trace = $form->getData();
+//                        $traceRepository->save($trace, true);
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,
@@ -281,8 +406,7 @@ class PortfolioProcessController extends BaseController
 
         }
 
-        return $this->render('portfolio_process/step/_step.html.twig', [
-            'step' => $step,
+        return $this->render('portfolio_process/step/_step.html.twig', ['step' => $step,
             'form' => $form ?? null,
             'liste' => $liste ?? null,
             'page' => $page ?? null,
@@ -295,6 +419,9 @@ class PortfolioProcessController extends BaseController
             'typesTrace' => $typesTrace ?? null,
             'typesNewTrace' => $typesNewTrace ?? null,
             'traceType' => $traceType ?? null,
+            'ordrePage' => $ordrePage ?? null,
+            'ordreMax' => $ordreMax ?? null,
+            'ordreMin' => $ordreMin ?? null,
         ]);
     }
 }
