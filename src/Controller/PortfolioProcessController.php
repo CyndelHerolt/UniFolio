@@ -78,7 +78,6 @@ class PortfolioProcessController extends BaseController
                 break;
 
             case 'addPage':
-
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
                 $traces = $biblio->getTraces();
@@ -89,7 +88,7 @@ class PortfolioProcessController extends BaseController
                     if ($ordrePage->getOrdre() == 1) {
                         $ordreMin = true;
                     } else {
-                        $ordreMax = $portfolio->getOrdrePages()->last();
+                        $ordreMax = $portfolio->getOrdrePages()->count();
                     }
                 }
 
@@ -120,7 +119,6 @@ class PortfolioProcessController extends BaseController
                 break;
 
             case 'page':
-
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
 
@@ -139,9 +137,40 @@ class PortfolioProcessController extends BaseController
                 break;
 
             case 'left':
-
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $ordre = $ordrePage->getOrdre();
+
+                $previousPage = $ordrePageRepository->findOneBy(['ordre' => $ordre - 1]);
+
+                $ordrePage->setOrdre($ordre - 1);
+                $previousPage->setOrdre($previousPage->getOrdre() +1);
+                $ordrePageRepository->save($ordrePage, true);
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
+
+                case 'right':
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $ordre = $ordrePage->getOrdre();
+
+                $nextPage = $ordrePageRepository->findOneBy(['ordre' => $ordre + 1]);
+
+                $ordrePage->setOrdre($ordre + 1);
+                $nextPage->setOrdre($nextPage->getOrdre() -1);
+                $ordrePageRepository->save($ordrePage, true);
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
 
             case 'editPage':
                 $etudiant = $this->getUser()->getEtudiant();
@@ -156,7 +185,6 @@ class PortfolioProcessController extends BaseController
                 break;
 
             case 'savePage':
-
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
                 $form = $this->createForm(PageType::class, $page);

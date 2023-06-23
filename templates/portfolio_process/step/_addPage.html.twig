@@ -10,7 +10,7 @@
     <button class="btn-primary btn" {{ stimulus_action('page', 'left', 'click') }} value="{{ page.id }}" {% if ordreMin == true %} disabled {% endif %}>
         <i class="fa-solid fa-angle-left"></i>
     </button>
-    <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }} value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax.ordre %} disabled {% endif %}>
+    <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }} value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax %} disabled {% endif %}>
         <i class="fa-solid fa-angle-right"></i>
     </button>
 </div>

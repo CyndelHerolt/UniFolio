@@ -33,12 +33,31 @@ class Page
     #[ORM\OneToMany(mappedBy: 'page', targetEntity: OrdreTrace::class)]
     private Collection $ordreTraces;
 
+    #[ORM\OneToOne(mappedBy: 'page', targetEntity: OrdrePage::class)]
+    private ?OrdrePage $ordrePage = null;
+
     public function __construct()
     {
         $this->trace = new ArrayCollection();
         $this->portfolio = new ArrayCollection();
         $this->pageTraces = new ArrayCollection();
         $this->ordreTraces = new ArrayCollection();
+    }
+
+    /**
+     * @return OrdrePage|null
+     */
+    public function getOrdrePage(): ?OrdrePage
+    {
+        return $this->ordrePage;
+    }
+
+    /**
+     * @param OrdrePage|null $ordrePage
+     */
+    public function setOrdrePage(?OrdrePage $ordrePage): void
+    {
+        $this->ordrePage = $ordrePage;
     }
 
     public function getId(): ?int

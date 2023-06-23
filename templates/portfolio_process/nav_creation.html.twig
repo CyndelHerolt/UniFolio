@@ -5,7 +5,7 @@
     </li>
 
     {% if pages is not null %}
-        {% for page in pages %}
+        {% for page in pages|sort((a, b) => a.ordrePage.ordre <=> b.ordrePage.ordre) %}
         <li class="nav-item" value="{{ page.id }}" {{ stimulus_action('creation', 'addPage', 'click') }} >
             <a class="nav-link {% if step == 'addPage' or step =='editPage' or step == 'editTrace' or step == 'formTrace'%} active {% endif %}" aria-current="page"
                href="#">{{ page.intitule }}</a>
