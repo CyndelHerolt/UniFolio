@@ -3,6 +3,8 @@
         <div class="trace" style="display: flex; flex-direction: column">
             <h4>{{ trace.titre }}</h4>
 
+            <h4>{{ step }}</h4>
+
             <h5>Compétences</h5>
             <ul>
                 {% for validation in trace.validations %}
@@ -26,10 +28,10 @@
             data-type="{{ trace.typeTrace }}">
                 <i class="fa-solid fa-edit"></i>
             </button>
-            <button class="btn-primary btn" {{ stimulus_action('page', 'up', 'click') }} value="{{ page.id }}">
+            <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}" data-page="{{ page.id }}">
                 <i class="fa-solid fa-angle-up"></i>
             </button>
-            <button class="btn-primary btn" {{ stimulus_action('page', 'down', 'click') }} value="{{ page.id }}">
+            <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}" data-page="{{ page.id }}">
                 <i class="fa-solid fa-angle-down"></i>
             </button>
         </div>

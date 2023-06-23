@@ -8,6 +8,30 @@ export default class extends Controller {
         urlSave: String,
     }
 
+    async up(event) {
+        const _value = event.currentTarget.value
+        const page = event.currentTarget.dataset.page
+
+        const params = new URLSearchParams({
+            step: 'up',
+            trace: _value,
+            page: page,
+        })
+        const response = await fetch(`${this.urlValue}?${params.toString()}`)
+        this.stepZoneTarget.innerHTML = await response.text()
+    }
+
+    async down(event) {
+        const _value = event.currentTarget.value
+
+        const params = new URLSearchParams({
+            step: 'down',
+            trace: _value,
+        })
+        const response = await fetch(`${this.urlValue}?${params.toString()}`)
+        this.stepZoneTarget.innerHTML = await response.text()
+    }
+
     async editTrace(event) {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
@@ -56,9 +80,9 @@ export default class extends Controller {
     }
 
     async saveTrace(event) {
+        event.preventDefault()
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
-        const competences = document.getElementById('competences')
 
         const formData = new FormData(document.getElementById('formTrace'));
 
@@ -66,7 +90,6 @@ export default class extends Controller {
             step: 'saveTrace',
             trace: _value,
             type: type,
-            competences: competences,
         })
 
         // Envoyer les données du formulaire via une requête POST

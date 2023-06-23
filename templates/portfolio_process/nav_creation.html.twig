@@ -1,3 +1,4 @@
+{{ step }}
 <ul class="nav nav-tabs" {{ stimulus_target('creation', 'navTabs') }}>
 
     <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'portfolio'}) }}>
@@ -5,10 +6,10 @@
     </li>
 
     {% if pages is not null %}
-        {% for page in pages|sort((a, b) => a.ordrePage.ordre <=> b.ordrePage.ordre) %}
-        <li class="nav-item" value="{{ page.id }}" {{ stimulus_action('creation', 'addPage', 'click') }} >
-            <a class="nav-link {% if step == 'addPage' or step =='editPage' or step == 'editTrace' or step == 'formTrace'%} active {% endif %}" aria-current="page"
-               href="#">{{ page.intitule }}</a>
+        {% for pageA in pages|sort((a, b) => a.ordrePage.ordre <=> b.ordrePage.ordre) %}
+        <li class="nav-item" value="{{ pageA.id }}" {{ stimulus_action('creation', 'addPage', 'click') }} >
+            <a class="nav-link {% if (step == 'addPage' or step =='editPage' or step == 'editTrace' or step == 'formTrace') and pageA.id == page.id%} active {% endif %}" aria-current="page"
+               href="#">{{ pageA.intitule }}</a>
         </li>
         {% endfor %}
     {% endif %}

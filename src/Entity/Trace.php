@@ -49,6 +49,25 @@ class Trace
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
 
+    #[ORM\OneToOne(mappedBy: 'trace', targetEntity: OrdreTrace::class, cascade: ['persist', 'remove'])]
+    private ?OrdreTrace $ordreTrace = null;
+
+    /**
+     * @return OrdreTrace|null
+     */
+    public function getOrdreTrace(): ?OrdreTrace
+    {
+        return $this->ordreTrace;
+    }
+
+    /**
+     * @param OrdreTrace|null $ordreTrace
+     */
+    public function setOrdreTrace(?OrdreTrace $ordreTrace): void
+    {
+        $this->ordreTrace = $ordreTrace;
+    }
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();

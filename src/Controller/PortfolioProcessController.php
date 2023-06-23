@@ -1,13 +1,11 @@
 <?php
-
-// Equivalent à QuestionnaireController.php dans l'Intranet ?
-
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
 use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Entity\OrdrePage;
+use App\Entity\OrdreTrace;
 use App\Entity\Page;
 use App\Entity\Trace;
 use App\Entity\Validation;
@@ -17,6 +15,7 @@ use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\OrdrePageRepository;
+use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
@@ -44,6 +43,7 @@ class PortfolioProcessController extends BaseController
         ]);
     }
 
+//TODO: au final quelques trucs à revoir sur la structure => ajout de 2 nouvelles pages d'affilé, gestion des ordres de pages (on delete), gestion des ordres de traces, nav qui est importée dans traceZone
 
     #[Route('/step/{id}', name: 'step')]
     public function step(
@@ -58,6 +58,7 @@ class PortfolioProcessController extends BaseController
         ApcNiveauRepository    $apcNiveauRepository,
         ValidationRepository   $validationRepository,
         OrdrePageRepository    $ordrePageRepository,
+        OrdreTraceRepository   $ordreTraceRepository,
     ): Response
     {
         // passer step dans l'url pr récup
@@ -217,19 +218,63 @@ class PortfolioProcessController extends BaseController
                 ]);
 
             case 'addTrace':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
 
-                if ($traceRepository->findOneBy(['id' => $request->query->get('trace')])) {
-                    $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+                if ($ordreTrace !== null) {
+                    if ($ordreTrace->getOrdre() == 1) {
+                        $ordreMin = true;
+                    } else {
+                        $ordreMin = false;
+                        $ordreMax = $page->getOrdreTraces()->count();
+                    }
+                }
+
+                if ($trace) {
                     $trace->addPage($page);
                     $traceRepository->save($trace, true);
                 } else {
                     $trace = new Trace();
                     $trace->setTitre('Nouvelle trace');
                     $trace->addPage($page);
+
+                    if ($page->getOrdreTraces()->count() > 0) {
+                        $ordreMax = $page->getOrdreTraces()->last();
+                        $ordre = $ordreMax->getOrdre() + 1;
+                    } else {
+                        $ordre = 1;
+                    }
+                    $newOrdreTrace = new OrdreTrace();
+                    $newOrdreTrace->setOrdre($ordre);
+                    $newOrdreTrace->setTrace($trace);
+                    $newOrdreTrace->setPage($page);
+                    $page->addOrdreTrace($newOrdreTrace);
+                    $ordreTraceRepository->save($newOrdreTrace, true);
+
                     $traceRepository->save($trace, true);
                 }
                 break;
+
+            case 'up':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+                $ordre = $ordreTrace->getOrdre();
+
+                $previousTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre - 1]);
+
+                $ordreTrace->setOrdre($ordre - 1);
+                $previousTrace->setOrdre($previousTrace->getOrdre() +1);
+                $ordreTraceRepository->save($ordreTrace, true);
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
 
             case 'editTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
@@ -299,6 +344,8 @@ class PortfolioProcessController extends BaseController
                     //Si la page est dans portfolio
                     if ($portfolio->getPages()->contains($page)) {
                         $trace->removePage($page);
+                        $ordre = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+//                        $ordreTraceRepository->remove($ordre, true);
                         $traceRepository->save($trace, true);
                     }
                 }
@@ -341,6 +388,8 @@ class PortfolioProcessController extends BaseController
                 if ($form->isSubmitted()
 //                    && $form->isValid()
                 ) {
+
+//                    dd($form->getData());
 
                     $existingCompetences = [];
                     foreach ($trace->getValidations() as $validation) {
