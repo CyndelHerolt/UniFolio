@@ -25,18 +25,11 @@ Mettre à jour le fichier .env.local avec vos informations
     // version courte
     bin/console d:d:c
 
-Mettre à jour la database avec les données
-
+Mettre à jour la database
     bin/console doctrine:schema:update --force
 
     // version courte
     bin/console d:s:u -f
-
-Installer les fixtures et avoir un jeu de données fictives
-
-    bin/console doctrine:fixtures:load
-
-    bin/console d:f:l
 
 ### Installation des dépendances front
 
@@ -54,16 +47,6 @@ ou
 
     yarn encore dev --watch
 
-### Démonstration
-
-Normalement, le projet est maintenant installé et fonctionnel. Vous pouvez accéder à la page d'accueil en tapant l'url suivante dans votre navigateur : http://localhost:8000/.
-
-#### Comptes utilisateurs
-Pour vous connecter (/login), utilisez l'un des login ci-dessous, et le mot de passe « test »
-
-- admin
-- enseignantTest
-- etudiantTest
 
 ## Licence
 
