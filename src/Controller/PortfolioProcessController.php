@@ -145,8 +145,13 @@ class PortfolioProcessController extends BaseController
 
                 $previousPage = $ordrePageRepository->findOneBy(['ordre' => $ordre - 1]);
 
-                $ordrePage->setOrdre($ordre - 1);
-                $previousPage->setOrdre($previousPage->getOrdre() +1);
+                if ($previousPage) {
+                    $ordrePage->setOrdre($ordre - 1);
+                    $previousPage->setOrdre($previousPage->getOrdre() + 1);
+                } else {
+                    $ordrePage->setOrdre($ordre == 1);
+                }
+
                 $ordrePageRepository->save($ordrePage, true);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
@@ -207,6 +212,15 @@ class PortfolioProcessController extends BaseController
             case 'deletePage':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
                 $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                // pour chaque page dont l'ordre est supérieur à celle qu'on supprime, on décrémente l'ordre
+                $ordre = $ordrePage->getOrdre();
+                $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio]);
+                foreach ($ordrePages as $ordreOthersPage) {
+                    if ($ordreOthersPage->getOrdre() > $ordre) {
+                        $ordreOthersPage->setOrdre($ordreOthersPage->getOrdre() - 1);
+                        $ordrePageRepository->save($ordreOthersPage, true);
+                    }
+                }
                 $portfolio->removeOrdrePage($ordrePage);
                 $ordrePageRepository->remove($ordrePage, true);
                 $portfolio->removePage($page);

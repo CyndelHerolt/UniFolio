@@ -30,10 +30,10 @@ class Page
     #[ORM\ManyToMany(targetEntity: Portfolio::class, inversedBy: 'pages')]
     private Collection $portfolio;
 
-    #[ORM\OneToMany(mappedBy: 'page', targetEntity: OrdreTrace::class)]
+    #[ORM\OneToMany(mappedBy: 'page', targetEntity: OrdreTrace::class, cascade: ['persist', 'remove'])]
     private Collection $ordreTraces;
 
-    #[ORM\OneToOne(mappedBy: 'page', targetEntity: OrdrePage::class)]
+    #[ORM\OneToOne(mappedBy: 'page', targetEntity: OrdrePage::class, cascade: ['persist', 'remove'])]
     private ?OrdrePage $ordrePage = null;
 
     public function __construct()
