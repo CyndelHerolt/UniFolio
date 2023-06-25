@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import {Controller} from '@hotwired/stimulus';
 
 export default class extends Controller {
     static targets = ['navTabs', 'stepZone', 'page', 'zone', 'traceZone']
@@ -85,8 +85,11 @@ export default class extends Controller {
             trace: _value,
             page: pageId,
         })
+
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.traceZoneTarget.innerHTML += await response.text()
+        // Remettre la sélection sur l'option "Choisir..."
+        event.target.selectedIndex = 0;
     }
 
 }

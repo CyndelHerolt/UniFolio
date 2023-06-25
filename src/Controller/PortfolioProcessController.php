@@ -43,7 +43,7 @@ class PortfolioProcessController extends BaseController
         ]);
     }
 
-//TODO: au final quelques trucs à revoir sur la structure => ajout de 2 nouvelles pages d'affilé, gestion des ordres de pages (on delete), gestion des ordres de traces, nav qui est importée dans traceZone
+//TODO: gestion des ordres de traces
 
     #[Route('/step/{id}', name: 'step')]
     public function step(

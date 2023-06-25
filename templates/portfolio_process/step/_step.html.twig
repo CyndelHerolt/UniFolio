@@ -1,7 +1,9 @@
-{{ include('portfolio_process/nav_creation.html.twig') }}
+{% if step == 'portfolio' or step == 'addPage' or step == 'page' %}
+    {{ include('portfolio_process/nav_creation.html.twig') }}
+{% endif %}
 
 {% if step is not null %}
     {{ include('portfolio_process/step/_'~step~'.html.twig') }}
-    {% elseif 'delete' in step %}
+{% elseif 'delete' in step %}
 
 {% endif %}
