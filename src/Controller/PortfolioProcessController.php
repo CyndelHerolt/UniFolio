@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
@@ -160,7 +161,7 @@ class PortfolioProcessController extends BaseController
                     'page' => $page->getId(),
                 ]);
 
-                case 'right':
+            case 'right':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
                 $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
@@ -169,7 +170,7 @@ class PortfolioProcessController extends BaseController
                 $nextPage = $ordrePageRepository->findOneBy(['ordre' => $ordre + 1]);
 
                 $ordrePage->setOrdre($ordre + 1);
-                $nextPage->setOrdre($nextPage->getOrdre() -1);
+                $nextPage->setOrdre($nextPage->getOrdre() - 1);
                 $ordrePageRepository->save($ordrePage, true);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
@@ -281,7 +282,7 @@ class PortfolioProcessController extends BaseController
                 $previousTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre - 1]);
 
                 $ordreTrace->setOrdre($ordre - 1);
-                $previousTrace->setOrdre($previousTrace->getOrdre() +1);
+                $previousTrace->setOrdre($previousTrace->getOrdre() + 1);
                 $ordreTraceRepository->save($ordreTrace, true);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
@@ -353,16 +354,18 @@ class PortfolioProcessController extends BaseController
 
             case 'deleteTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
-                $pages = $trace->getPages();
-                foreach ($pages as $page) {
-                    //Si la page est dans portfolio
-                    if ($portfolio->getPages()->contains($page)) {
-                        $trace->removePage($page);
-                        $ordre = $ordreTraceRepository->findOneBy(['trace' => $trace]);
-//                        $ordreTraceRepository->remove($ordre, true);
-                        $traceRepository->save($trace, true);
-                    }
-                }
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordreTraceRepository->remove($ordreTrace, true);
+//                $pages = $trace->getPages();
+//                foreach ($pages as $page) {
+//                    //Si la page est dans portfolio
+//                    if ($portfolio->getPages()->contains($page)) {
+//                        $page->removeOrdreTrace($ordreTrace);
+//                        $trace->removePage($page);
+//                        $traceRepository->save($trace, true);
+//                    }
+//                }
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,

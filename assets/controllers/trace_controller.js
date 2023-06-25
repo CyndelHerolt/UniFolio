@@ -48,8 +48,6 @@ export default class extends Controller {
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
-    //todo: une méthode pour éditer une nouvelle trace et une méthode pour éditer une trace existante ?
-
     async formTrace(event) {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
@@ -68,10 +66,12 @@ export default class extends Controller {
 
     async deleteTrace(event) {
         const _value = event.currentTarget.value
+        const page = event.currentTarget.dataset.page
 
         const params = new URLSearchParams({
             step: 'deleteTrace',
             trace: _value,
+            page: page,
         })
         if (confirm('Voulez-vous vraiment supprimer cette page ?')) {
             const response = await fetch(`${this.urlValue}?${params.toString()}`)

@@ -24,8 +24,8 @@
 </div>
 
 {% if existingTraces is not null %}
-{#    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}#}
-    {% for trace in existingTraces %}
+    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
+{#    {% for trace in existingTraces %}#}
         {% include('portfolio_process/step/_addTrace.html.twig') %}
     {% endfor %}
 {% endif %}
