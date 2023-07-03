@@ -23,10 +23,12 @@ export default class extends Controller {
 
     async down(event) {
         const _value = event.currentTarget.value
+        const page = event.currentTarget.dataset.page
 
         const params = new URLSearchParams({
             step: 'down',
             trace: _value,
+            page: page,
         })
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.stepZoneTarget.innerHTML = await response.text()
@@ -60,7 +62,7 @@ export default class extends Controller {
         console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         console.log(response);
-        //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
+        //remplacer le contenu de la zone de trace définie dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
@@ -73,7 +75,7 @@ export default class extends Controller {
             trace: _value,
             page: page,
         })
-        if (confirm('Voulez-vous vraiment supprimer cette page ?')) {
+        if (confirm('Voulez-vous vraiment supprimer cette trace ?')) {
             const response = await fetch(`${this.urlValue}?${params.toString()}`)
             this.stepZoneTarget.innerHTML = await response.text()
         }

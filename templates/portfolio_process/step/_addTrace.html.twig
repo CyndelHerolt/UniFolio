@@ -18,17 +18,21 @@
         </div>
 
         <div>
-            <button class="btn-danger btn"  {{ stimulus_action('trace', 'deleteTrace', 'click') }} value="{{trace.id}}" data-page="{{ page.id }}">
+            <button class="btn-danger btn" {{ stimulus_action('trace', 'deleteTrace', 'click') }} value="{{ trace.id }}"
+                    data-page="{{ page.id }}">
                 <i class="fa-solid fa-minus-square"></i>
             </button>
-            <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }} value="{{trace.id}}"
-            data-type="{{ trace.typeTrace }}">
+            <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }} value="{{ trace.id }}"
+                    data-type="{{ trace.typeTrace }}">
                 <i class="fa-solid fa-edit"></i>
             </button>
-            <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}" data-page="{{ page.id }}">
+            <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}"
+                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is not defined or trace.ordreTrace.ordre is defined and trace.ordreTrace.ordre == 1 %} disabled {% endif %}>
                 <i class="fa-solid fa-angle-up"></i>
             </button>
-            <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}" data-page="{{ page.id }}">
+            <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}"
+                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and tracesCount == trace.ordreTrace.ordre %} disabled {% endif %}>
+                {{ ordreMaxTrace }}
                 <i class="fa-solid fa-angle-down"></i>
             </button>
         </div>

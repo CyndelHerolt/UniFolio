@@ -87,7 +87,7 @@ export default class extends Controller {
         })
 
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        this.traceZoneTarget.innerHTML += await response.text()
+        this.stepZoneTarget.innerHTML = await response.text()
         // Remettre la sélection sur l'option "Choisir..."
         event.target.selectedIndex = 0;
     }

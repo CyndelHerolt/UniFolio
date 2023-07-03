@@ -7,10 +7,12 @@
     <button class="btn-warning btn" {{ stimulus_action('page', 'editPage', 'click') }} value="{{ page.id }}">
         <i class="fa-solid fa-edit"></i>
     </button>
-    <button class="btn-primary btn" {{ stimulus_action('page', 'left', 'click') }} value="{{ page.id }}" {% if ordreMin == true %} disabled {% endif %}>
+    <button class="btn-primary btn" {{ stimulus_action('page', 'left', 'click') }}
+            value="{{ page.id }}" {% if ordreMin == true %} disabled {% endif %}>
         <i class="fa-solid fa-angle-left"></i>
     </button>
-    <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }} value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax %} disabled {% endif %}>
+    <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }}
+            value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax %} disabled {% endif %}>
         <i class="fa-solid fa-angle-right"></i>
     </button>
 </div>
@@ -24,9 +26,9 @@
 </div>
 
 {% if existingTraces is not null %}
+        {% set tracesCount = existingTraces|length %}
     {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
-{#    {% for trace in existingTraces %}#}
-        {% include('portfolio_process/step/_addTrace.html.twig') %}
+            {% include 'portfolio_process/step/_addTrace.html.twig' with {tracesCount: tracesCount} %}
     {% endfor %}
 {% endif %}
 

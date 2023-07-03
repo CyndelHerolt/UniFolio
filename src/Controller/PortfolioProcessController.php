@@ -235,16 +235,6 @@ class PortfolioProcessController extends BaseController
             case 'addTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
-                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
-
-                if ($ordreTrace !== null) {
-                    if ($ordreTrace->getOrdre() == 1) {
-                        $ordreMin = true;
-                    } else {
-                        $ordreMin = false;
-                        $ordreMax = $page->getOrdreTraces()->count();
-                    }
-                }
 
                 if ($trace) {
                     $trace->addPage($page);
@@ -254,12 +244,13 @@ class PortfolioProcessController extends BaseController
                     $trace->setTitre('Nouvelle trace');
                     $trace->addPage($page);
 
-                    if ($page->getOrdreTraces()->count() > 0) {
-                        $ordreMax = $page->getOrdreTraces()->last();
-                        $ordre = $ordreMax->getOrdre() + 1;
-                    } else {
-                        $ordre = 1;
+                    $ordre = 1;
+                    // ajouter 1 à l'ordre de toutes les traces de la page
+                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
+                    foreach ($ordreTraces as $ordreTrace) {
+                        $ordreTrace->setOrdre($ordreTrace->getOrdre() + 1);
                     }
+
                     $newOrdreTrace = new OrdreTrace();
                     $newOrdreTrace->setOrdre($ordre);
                     $newOrdreTrace->setTrace($trace);
@@ -269,6 +260,11 @@ class PortfolioProcessController extends BaseController
 
                     $traceRepository->save($trace, true);
                 }
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
                 break;
 
             case 'up':
@@ -281,8 +277,34 @@ class PortfolioProcessController extends BaseController
 
                 $previousTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre - 1]);
 
-                $ordreTrace->setOrdre($ordre - 1);
-                $previousTrace->setOrdre($previousTrace->getOrdre() + 1);
+                if ($previousTrace) {
+                    $ordreTrace->setOrdre($ordre - 1);
+                    $previousTrace->setOrdre($previousTrace->getOrdre() + 1);
+                } else {
+                    $ordreTrace->setOrdre($ordre == 1);
+                }
+
+                $ordreTraceRepository->save($ordreTrace, true);
+
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $id,
+                    'step' => 'addPage',
+                    'page' => $page->getId(),
+                ]);
+
+            case 'down':
+                $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+                $ordre = $ordreTrace->getOrdre();
+
+                $nextTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre + 1]);
+
+                $ordreTrace->setOrdre($ordre + 1);
+                $nextTrace->setOrdre($nextTrace->getOrdre() - 1);
+
                 $ordreTraceRepository->save($ordreTrace, true);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
@@ -352,20 +374,24 @@ class PortfolioProcessController extends BaseController
 
                 break;
 
+            //todo: revoir
             case 'deleteTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                //pour chaque trace dont l'ordre est supérieur à celui de la trace à supprimer, on décrémente l'ordre
+                $ordre = $ordreTrace->getOrdre();
+                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
+                foreach ($ordreTraces as $ordreTrace) {
+                    if ($ordreTrace->getOrdre() > $ordre) {
+                        $ordreTrace->setOrdre($ordreTrace->getOrdre() - 1);
+                        $ordreTraceRepository->save($ordreTrace, true);
+                    }
+                }
+                $trace->removePage($page);
+                $page->removeTrace($trace);
                 $ordreTraceRepository->remove($ordreTrace, true);
-//                $pages = $trace->getPages();
-//                foreach ($pages as $page) {
-//                    //Si la page est dans portfolio
-//                    if ($portfolio->getPages()->contains($page)) {
-//                        $page->removeOrdreTrace($ordreTrace);
-//                        $trace->removePage($page);
-//                        $traceRepository->save($trace, true);
-//                    }
-//                }
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
@@ -373,6 +399,7 @@ class PortfolioProcessController extends BaseController
                     'page' => $page->getId(),
                 ]);
 
+            //todo: corriger la gestion du contenu dans les form de trace
             case 'saveTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $type = $request->query->get('type');
@@ -405,9 +432,6 @@ class PortfolioProcessController extends BaseController
                 if ($form->isSubmitted()
 //                    && $form->isValid()
                 ) {
-
-//                    dd($form->getData());
-
                     $existingCompetences = [];
                     foreach ($trace->getValidations() as $validation) {
                         $existingCompetences[] = $validation->getCompetences()->getLibelle();
@@ -514,8 +538,10 @@ class PortfolioProcessController extends BaseController
             'typesNewTrace' => $typesNewTrace ?? null,
             'traceType' => $traceType ?? null,
             'ordrePage' => $ordrePage ?? null,
+            'ordreTrace' => $ordreTrace ?? null,
             'ordreMax' => $ordreMax ?? null,
             'ordreMin' => $ordreMin ?? null,
-        ]);
+            'ordreMaxTrace' => $ordreMaxTrace ?? null,
+            'ordreMinTrace' => $ordreMinTrace ?? null,]);
     }
 }

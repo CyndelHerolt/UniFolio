@@ -25,7 +25,7 @@ class Trace
     #[ORM\ManyToOne(inversedBy: 'traces')]
     private ?Bibliotheque $bibliotheque = null;
 
-    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Validation::class)]
+    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Validation::class, cascade: ['persist', 'remove'])]
     private Collection $validations;
 
     #[ORM\ManyToMany(targetEntity: Page::class, mappedBy: 'trace')]
