@@ -76,7 +76,7 @@ export default class extends Controller {
 
     async addTrace(event) {
         const _value = event.currentTarget.value
-// récupérer data-page-id="{{ page.id }}" dans l'option
+        // récupérer data-page-id="{{ page.id }}" dans l'option
         const pageId = event.target.options[event.target.selectedIndex].dataset.pageId;
         console.log(pageId);
 

@@ -55,18 +55,6 @@ export default class extends Controller {
             body: dataForm,
         });
         this.stepZoneTarget.innerHTML = await response.text()
-
-        // const body = {
-        //     method: 'POST',
-        //     body: dataForm,
-        // }
-        //
-        // await fetch(event.params.url, body).then((response) => response.json()).then((data) => {
-        //     if (data.success === true) {
-        //
-        //     }
-        // //     todo: récupérer les erreurs et les afficher
-        // })
     }
 
 }

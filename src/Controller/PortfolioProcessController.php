@@ -330,6 +330,8 @@ class PortfolioProcessController extends BaseController
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $type = $request->query->get('type');
 
+                $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage();
+
                 if ($trace->getTypeTrace() == null) {
                     $typesNewTrace = $traceRegistry->getTypeTraces();
                 } else {
@@ -346,6 +348,8 @@ class PortfolioProcessController extends BaseController
             case 'formTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $type = $request->query->get('type');
+
+                $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage();
 
                 $traceType = $traceRegistry->getTypeTrace($type);
 
@@ -382,9 +386,6 @@ class PortfolioProcessController extends BaseController
 
                 $trace->setTypetrace($type);
 
-                //Récupérer les images existantes dans la db
-                $FileOrigine = $trace->getContenu();
-
                 break;
 
             case 'deleteTrace':
@@ -419,6 +420,8 @@ class PortfolioProcessController extends BaseController
 
                 $traceType = $traceRegistry->getTypeTrace($type);
 
+                $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage()->getId();
+
                 $user = $security->getUser()->getEtudiant();
 
                 $semestre = $user->getSemestre();
@@ -443,7 +446,7 @@ class PortfolioProcessController extends BaseController
                 $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
                 $form->handleRequest($request);
                 if ($form->isSubmitted()
-//                    && $form->isValid()
+                    && $form->isValid()
                 ) {
                     $existingCompetences = [];
                     foreach ($trace->getValidations() as $validation) {
@@ -478,8 +481,7 @@ class PortfolioProcessController extends BaseController
 
                     $FileOrigine = $trace->getContenu();
 
-                    if ($trace->getTypetrace() == TraceTypeImage::class
-                    ) {
+                    if ($trace->getTypetrace() == TraceTypeImage::class) {
                         if ($request->request->get('contenu') == null) {
                             if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
                                 $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
@@ -496,18 +498,15 @@ class PortfolioProcessController extends BaseController
                             $existingImages = $request->request->All()['img'];
                             $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                         }
-                    } elseif ($trace->getTypetrace() == TraceTypePdf::class
-                    ) {
+                    } elseif ($trace->getTypetrace() == TraceTypePdf::class) {
                         if ($request->request->get('contenu') == null) {
                             if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
                                 $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
                                 return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
                             } elseif (isset($request->request->All()['pdf'])) {
-//                        $this->addFlash('success', 'HELLO');
                                 $existingImages = $request->request->All()['pdf'];
                                 $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                             } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
-//                        dd($form->get('contenu')->getData());
                                 $trace->setContenu($request->request->get('contenu'));
                             }
                         } else {
@@ -518,6 +517,7 @@ class PortfolioProcessController extends BaseController
 
                     if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
+                        $trace->setTypeTrace($type);
                         $traceRepository->save($trace, true);
                         $this->addFlash('success', 'La trace a été modifiée avec succès.');
                     } else {
@@ -525,12 +525,10 @@ class PortfolioProcessController extends BaseController
                         $this->addFlash('error', $error);
                     }
 
-//                        $trace = $form->getData();
-//                        $traceRepository->save($trace, true);
-
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,
-                        'step' => 'portfolio',
+                        'step' => 'addPage',
+                        'page' => $page
                     ]);
                 }
                 break;

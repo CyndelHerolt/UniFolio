@@ -2,28 +2,13 @@
 //---------------------------------IMAGE-------------------------------------
 //-----------------------------------------------------------------------------
 
-// document.querySelectorAll('.image_trace').forEach(event => {
-//     console.log(event)
-//     event.parentNode.classList.add('image_trace_div')
-//     event.parentNode.classList.add('input-group', 'mb-3');
-//     event.style.display = 'flex';
-//     event.style.alignItems = 'flex-end';
-//     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-//     event.parentNode.innerHTML += (
-//         '<button type="button" class="btn btn-danger delete-image">' +
-//         '<i class="fa-solid fa-square-minus"></i>' +
-//         '</button>'
-//     )
-// })
-
-
 // Fonction pour supprimer un champ contenu
 function removeImage(button) {
     button.closest('.image_trace_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ contenu
-function addImage() {
+export function addImage() {
     // Récupération du prototype
     const prototype = document.querySelector('#trace_type_image_contenu').dataset.prototype;
     // Récupération du nombre de champs contenu
@@ -59,15 +44,6 @@ document.querySelectorAll('.delete-image').forEach(function (button) {
     });
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonImage = document.querySelector('.add-image');
-if (addButtonImage) {
-    addButtonImage.addEventListener('click', function () {
-        addImage()
-    })
-}
-
-
 
 //-----------------------------------------------------------------------------
 //---------------------------------PDF-----------------------------------------
@@ -79,7 +55,7 @@ function removePdf(button) {
 }
 
 // Fonction pour ajouter un nouveau champ contenu
-function addPdf() {
+export function addPdf() {
     // Récupération du prototype et incrémentation du compteur
     const prototype = document.querySelector('#trace_type_pdf_contenu').dataset.prototype;
     const index = document.querySelectorAll('.input-group').length;
@@ -113,14 +89,6 @@ document.querySelectorAll('.delete-pdf').forEach(function (button) {
     });
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonPdf = document.querySelector('.add-pdf');
-if (addButtonPdf) {
-    addButtonPdf.addEventListener('click', function () {
-        addPdf()
-    })
-}
-
 
 //-----------------------------------------------------------------------------
 //---------------------------------LIEN----------------------------------------
@@ -147,7 +115,7 @@ function removeLien(button) {
 }
 
 // Fonction pour ajouter un nouveau champ contenu
-function addLien() {
+export function addLien() {
     // Récupération du prototype
     const prototype = document.querySelector('#trace_type_lien_contenu').dataset.prototype;
     // Récupération du nombre de champs contenu
@@ -183,15 +151,6 @@ document.querySelectorAll('.delete-lien').forEach(function (button) {
     });
 });
 
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonLien = document.querySelector('.add-lien');
-if (addButtonLien) {
-    addButtonLien.addEventListener('click', function () {
-        addLien()
-    })
-}
-
-
 
 //-----------------------------------------------------------------------------
 //---------------------------------VIDEO---------------------------------------
@@ -218,7 +177,7 @@ function removeVideo(button) {
 }
 
 // Fonction pour ajouter un nouveau champ contenu
-function addVideo() {
+export function addVideo() {
     // Récupération du prototype
     const prototype = document.querySelector('#trace_type_video_contenu').dataset.prototype;
     // Récupération du nombre de champs contenu
@@ -253,13 +212,5 @@ document.querySelectorAll('.delete-video').forEach(function (button) {
         removeVideo(button);
     });
 });
-
-// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
-const addButtonVideo = document.querySelector('.add-video');
-if (addButtonVideo) {
-    addButtonVideo.addEventListener('click', function () {
-        addVideo()
-    })
-}
 
 

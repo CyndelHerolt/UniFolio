@@ -1,4 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
+import {addImage, addLien, addPdf, addVideo} from "../js/_trace";
 
 export default class extends Controller {
     static targets = ['stepZone']
@@ -59,11 +60,38 @@ export default class extends Controller {
             trace: _value,
             type: type,
         })
-        console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        console.log(response);
         //remplacer le contenu de la zone de trace définie dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
+
+        // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
+        const addButtonImage = document.querySelector('.add-image');
+        if (addButtonImage) {
+            addButtonImage.addEventListener('click', function () {
+                addImage()
+            })
+        }
+
+        const addButtonPdf = document.querySelector('.add-pdf');
+        if (addButtonPdf) {
+            addButtonPdf.addEventListener('click', function () {
+                addPdf()
+            })
+        }
+
+        const addButtonLien = document.querySelector('.add-lien');
+        if (addButtonLien) {
+            addButtonLien.addEventListener('click', function () {
+                addLien()
+            })
+        }
+
+        const addButtonVideo = document.querySelector('.add-video');
+        if (addButtonVideo) {
+            addButtonVideo.addEventListener('click', function () {
+                addVideo()
+            })
+        }
     }
 
     async deleteTrace(event) {
