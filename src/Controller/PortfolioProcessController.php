@@ -265,7 +265,6 @@ class PortfolioProcessController extends BaseController
                     'step' => 'addPage',
                     'page' => $page->getId(),
                 ]);
-                break;
 
             case 'up':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
@@ -374,7 +373,6 @@ class PortfolioProcessController extends BaseController
 
                 break;
 
-            //todo: revoir
             case 'deleteTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
@@ -383,15 +381,16 @@ class PortfolioProcessController extends BaseController
                 //pour chaque trace dont l'ordre est supérieur à celui de la trace à supprimer, on décrémente l'ordre
                 $ordre = $ordreTrace->getOrdre();
                 $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
-                foreach ($ordreTraces as $ordreTrace) {
-                    if ($ordreTrace->getOrdre() > $ordre) {
-                        $ordreTrace->setOrdre($ordreTrace->getOrdre() - 1);
-                        $ordreTraceRepository->save($ordreTrace, true);
+                foreach ($ordreTraces as $ordreOthersTrace) {
+                    if ($ordreOthersTrace->getOrdre() > $ordre) {
+                        $ordreOthersTrace->setOrdre($ordreOthersTrace->getOrdre() - 1);
+                        $ordreTraceRepository->save($ordreOthersTrace, true);
                     }
                 }
-                $trace->removePage($page);
-                $page->removeTrace($trace);
+
+                $page->removeOrdreTrace($ordreTrace);
                 $ordreTraceRepository->remove($ordreTrace, true);
+                $page->removeTrace($trace);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
