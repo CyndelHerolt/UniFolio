@@ -20,12 +20,8 @@
                 <p>Privé</p>
             {% endif %}
 
-{#                    <h6>Pages associées :</h6>#}
-{#                    {% for pages in this.portfolio.pages %}#}
-{#                        {{ component('page_card', {'id': pages.id}) }}#}
-{#                    {% endfor %}#}
             <div class="btn_grp">
-                <a href="{{ path('app_portfolio_edit', {'id': this.portfolio.id}) }}">
+                <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
                     <button class="btn btn-primary">Modifier</button>
                 </a>
 
@@ -35,10 +31,6 @@
                             data-bs-target="#staticBackdrop{{ this.portfolio.id }}">
                         Supprimer
                     </button>
-                </a>
-
-                <a href="{{ path('app_add_to_portfolio', {'id': this.portfolio.id}) }}">
-                    <button class="btn btn-primary">Ajouter des pages</button>
                 </a>
             </div>
         </div>
@@ -82,35 +74,11 @@
                             <h5 class="modal-title" id="staticBackdropLabel">{{ this.portfolio.intitule }}</h5>
                         </div>
                         <div class="pages">
-                            {% for pages in this.portfolio.pages %}
+                            {% for pages in this.portfolio.pages|sort((a,b)=> a.ordrePage.ordre <=> b.ordrePage.ordre) %}
                                 {{ component('page_card', {'id': pages.id}) }}
                                 <hr>
                             {% endfor %}
                         </div>
-                    </div>
-                    <div class="modal-footer">
-{#                        <ul>#}
-{#                            <h6>Portfolios qui contiennent cette page : </h6>#}
-{#                            {% for portfolio in this.page.portfolio %}#}
-{#                                <li>{{ portfolio.intitule }}</li>#}
-{#                            {% endfor %}#}
-{#                        </ul>#}
-
-{#                        <a href="{{ path('app_page_edit', {'id': this.page.id}) }}">#}
-{#                            <button class="btn btn-primary">Modifier</button>#}
-{#                        </a>#}
-
-{#                        <!-- Button trigger modal -->#}
-{#                        <a>#}
-{#                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
-{#                                    data-bs-target="#staticBackdrop{{ this.page.id }}">#}
-{#                                Supprimer#}
-{#                            </button>#}
-{#                        </a>#}
-
-{#                        <a href="{{ path('app_add_to_page', {'id': this.page.id}) }}">#}
-{#                            <button class="btn btn-primary">Ajouter dans une page</button>#}
-{#                        </a>#}
                     </div>
                 </div>
             </div>

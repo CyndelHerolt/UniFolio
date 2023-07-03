@@ -4,7 +4,7 @@
     <div class="page-portfolio">
         <h3>{{ this.page.intitule }}</h3>
         <ul>
-            {% for trace in this.page.trace %}
+            {% for trace in this.page.trace|sort((a,b)=> a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
                 {{ component('trace_card', {'id': trace.id}) }}
             {% endfor %}
         </ul>

@@ -63,11 +63,7 @@ class PortfolioController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()
         ) {
-//            $pages = $form->get('pages')->getData();
 
-//            if ($pages->isEmpty()) {
-//                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-//            } else {
             $portfolio->setEtudiant($user);
 
 //            $imageFile = $form['banniere']->getData();
@@ -83,13 +79,6 @@ class PortfolioController extends AbstractController
 //                    $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
 //                }
 //
-////                    foreach ($pages as $page) {
-////                        $portfolio->addPage($page);
-////                        $page->addPortfolio($portfolio);
-////                    }
-//
-//
-//
 //                $this->addFlash('success', 'Le Portfolio a été créé avec succès');
 //                    return $this->redirectToRoute('app_portfolio_process_index');
 //            }
@@ -103,91 +92,7 @@ class PortfolioController extends AbstractController
             $portfolioRepository->save($portfolio, true);
 
             return $this->redirectToRoute('app_portfolio_process_index', ['id' => $portfolio->getId()]);
-//            return $this->json([
-//                'success' => true,
-//            ]);
-//            }
         }
-
-        return $this->render('portfolio/formPortfolio.html.twig', [
-            'form' => $form->createView(),
-            'portfolio' => $portfolio,
-        ]);
-    }
-
-    #[
-        Route('/portfolio/edit/{id}', name: 'app_portfolio_edit')]
-    public function edit(
-        Request             $request,
-        PortfolioRepository $portfolioRepository,
-        Security            $security,
-        int                 $id
-    ): Response
-    {
-
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
-
-        $user = $security->getUser()->getEtudiant();
-        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
-        $existingPages = $portfolio->getPages(); // Récupérer les pages déjà associées au portfolio
-        $pagesToRemove = new ArrayCollection($existingPages->toArray()); // Créer une collection avec les pages déjà associées au portfolio
-
-        $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pages = $form->get('pages')->getData();
-
-            if ($pages->isEmpty()) {
-                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-            } else {
-
-                //Pour chaque page déjà associée au portfolio
-                foreach ($pagesToRemove as $pageToRemove) {
-                    //Si la page n'est plus sélectionnée
-                    if (!$pages->contains($pageToRemove)) {
-                        //Retirer la page du portfolio
-                        $portfolio->removePage($pageToRemove);
-                        $pageToRemove->removePortfolio($portfolio);
-                    }
-                }
-
-                //Pour chaque page sélectionnée
-                foreach ($pages as $page) {
-                    //Ajouter la page au portfolio
-                    $portfolio->addPage($page);
-                    $page->addPortfolio($portfolio);
-                }
-
-                if ($form->get('visibilite')->getData() === 'public') {
-                    $portfolio->setVisibilite(true);
-                } elseif ($form->get('visibilite')->getData() === 'prive') {
-                    $portfolio->setVisibilite(false);
-                }
-
-                $imageFile = $form['banniere']->getData();
-                if ($imageFile) {
-                    $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
-                    //Vérifier si le fichier est au bon format
-                    if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                        //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                        $imageFile->move('files_directory', $imageFileName);
-//                //Sauvegarder le contenu dans la base de données
-                        $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
-                    } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                        $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
-                    }
-                }
-
-                $portfolioRepository->save($portfolio, true);
-
-                $this->addFlash('success', 'Le Portfolio a été modifié avec succès');
-                return $this->redirectToRoute('app_portfolio');
-            }
-        }
-
 
         return $this->render('portfolio/formPortfolio.html.twig', [
             'form' => $form->createView(),
@@ -216,71 +121,5 @@ class PortfolioController extends AbstractController
         }
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
         return $this->redirectToRoute('app_portfolio');
-    }
-
-    #[Route('portfolio/page/{id}', name: 'app_add_to_portfolio')]
-    public function addPage(
-        Request             $request,
-        PortfolioRepository $portfolioRepository,
-        PageRepository      $pageRepository,
-        Security            $security,
-        int                 $id
-    ): Response
-    {
-
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
-
-        $user = $security->getUser()->getEtudiant();
-        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
-
-        $existingPages = $portfolio->getPages();
-
-        $form = $this->createFormBuilder($portfolio)
-            ->add('pages', EntityType::class, [
-                'class' => Page::class,
-                'query_builder' => function (PageRepository $pageRepository) use ($user, $portfolio) {
-                    return $pageRepository->createQueryBuilder('p')
-                        ->andWhere('p NOT IN (:portfolio)')
-                        ->setParameters(['portfolio' => $portfolio->getPages()->toArray()]);
-                },
-                'choice_label' => 'intitule',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Pages',
-                'mapped' => false,
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pages = $request->request->all()['form']['pages'];
-
-            if ($pages->isEmpty()) {
-                $this->addFlash('danger', 'Vous devez sélectionner au moins une page');
-            } else {
-                foreach ($pages as $page) {
-                    $page = $pageRepository->findOneBy(['id' => $page]);
-                    $portfolio->addPage($page);
-                    $page->addPortfolio($portfolio);
-                }
-                foreach ($existingPages as $existingPage) {
-                    $portfolio->addPage($existingPage);
-//                    $existingPage->addPortfolio($portfolio);
-                }
-
-                $portfolioRepository->save($portfolio, true);
-
-                $this->addFlash('success', 'La page a été ajoutée au portfolio avec succès');
-                return $this->redirectToRoute('app_portfolio');
-            }
-        }
-
-
-        return $this->render('portfolio/formPortfolio.html.twig', [
-            'form' => $form->createView(),
-            'portfolio' => $portfolio,
-        ]);
     }
 }

@@ -57,7 +57,6 @@ class PageType extends AbstractType
             $pages = array_unique($pages, SORT_REGULAR);
         }
 
-        //TODO: transférer cette partie dans le portfolio (c'est l'ordre de la page dans le portfolio qui ns intéresse ici) -> peut-être du coup passer l'ordre dans page_portfolio ?
         $pagesCount = count($pages);
 
         // Si l'url contient "/new" alors on ajoute 1 à $pagesCount

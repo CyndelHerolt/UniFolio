@@ -90,18 +90,6 @@ class PortfolioType extends AbstractType
 //                'required' => true,
 //                'mapped' => false,
 //            ])
-//            ->add('pages', EntityType::class, [
-//                'class' => Page::class,
-//                'choices' => $pages,
-//                'choice_label' => 'intitule',
-//                'multiple' => true,
-//                'expanded' => true,
-//                'label' => 'Pages',
-//                'label_attr' => ['class' => 'form-label'],
-//                'attr' => ['class' => ""],
-//                'help' => 'Choisissez les pages à inclure dans votre portfolio',
-//                'required' => true,
-//            ])
             ->add('visibilite', ChoiceType::class, [
                 'choices' => [
                     'Public' => 'public',
