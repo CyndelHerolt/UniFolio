@@ -1,7 +1,13 @@
-
 <h4>Edition de {{ portfolio.intitule }}</h4>
 
-                        {{ form_start(form, {'attr': {id:'portfolio'}}) }}
-                        {{ form_end(form) }}
+{{ form_start(form, {'attr': {id:'portfolio'}}) }}
+<div class="hidden">
+    {{ form_row(form.date_creation) }}
+    {{ form_row(form.date_modification) }}
+</div>
+{{ form_row(form.intitule) }}
+    {# {{ form_row(form.banniere) }} #}
+    {{ form_row(form.visibilite) }}
+{{ form_end(form) }}
 
-<button {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>save</button>
+<button {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>Enregistrer</button>

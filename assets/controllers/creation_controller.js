@@ -43,20 +43,30 @@ export default class extends Controller {
     async save(event) {
         document.getElementById('portfolio')
         const form = document.getElementById('portfolio')
-        console.log(form)
         const dataForm = new FormData(form)
 
-        const body = {
+        const params = new URLSearchParams({
+            step: 'savePortfolio',
+        })
+
+        // Envoyer les données du formulaire via une requête POST
+        const response = await fetch(`${this.urlValue}?${params.toString()}`, {
             method: 'POST',
             body: dataForm,
-        }
+        });
+        this.stepZoneTarget.innerHTML = await response.text()
 
-        await fetch(event.params.url, body).then((response) => response.json()).then((data) => {
-            if (data.success === true) {
-                console.log('ok')
-            }
-        //     todo: récupérer les erreurs et les afficher
-        })
+        // const body = {
+        //     method: 'POST',
+        //     body: dataForm,
+        // }
+        //
+        // await fetch(event.params.url, body).then((response) => response.json()).then((data) => {
+        //     if (data.success === true) {
+        //
+        //     }
+        // //     todo: récupérer les erreurs et les afficher
+        // })
     }
 
 }

@@ -1,5 +1,5 @@
 <div class="row">
-        {{ form_start(form, {'attr': {id:'formTrace'}}) }}
+    {{ form_start(form, {'attr': {id:'formTrace'}}) }}
     <article class="col-lg-6 col-12">
         <h4>Modifier {{ trace.titre }}</h4>
 
@@ -7,7 +7,6 @@
             {{ form_row(form.date_creation) }}
             {{ form_row(form.date_modification) }}
         </div>
-        {#                    {{ form_row(form.ordre) }} #}
         {{ form_row(form.titre) }}
         <hr>
 
@@ -86,5 +85,5 @@
         </div>
 
     </aside>
-        {{ form_end(form) }}
+    {{ form_end(form) }}
 </div>

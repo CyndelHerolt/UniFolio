@@ -12,11 +12,6 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_portfolio') }}">Bibliothèque de portfolios</a></li>
-            {% if '/edit' in app.request.uri %}
-                <li class="breadcrumb-item active" aria-current="page">Edition portfolio</li>
-            {% elseif '/new' in app.request.uri %}
-                <li class="breadcrumb-item active" aria-current="page">Nouveau portfolio</li>
-            {% endif %}
         </ol>
     </nav>
     <div class="container">
@@ -26,12 +21,12 @@
 
                     <div {{ stimulus_controller('creation', { url: path('app_portfolio_process_step', {id:id})}) | stimulus_controller('page', { url: path('app_portfolio_process_step', {id:id}) }) | stimulus_controller('trace', { url: path('app_portfolio_process_step', {id:id}) }) }}>
 
-                            <div {{ stimulus_target('creation', 'stepZone') }}{{ stimulus_target('page', 'stepZone') }}{{ stimulus_target('trace', 'stepZone') }}>
-
-                            </div>
+                        <div {{ stimulus_target('creation', 'stepZone') }}{{ stimulus_target('page', 'stepZone') }}{{ stimulus_target('trace', 'stepZone') }}>
 
                         </div>
+                    </div>
                 </article>
+                <button class="btn-primary"><a href="{{ path('app_portfolio') }}">Enregistrer le portfolio</a></button>
             </div>
         </section>
     </div>

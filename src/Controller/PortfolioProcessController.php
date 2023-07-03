@@ -44,8 +44,6 @@ class PortfolioProcessController extends BaseController
         ]);
     }
 
-//TODO: gestion des ordres de traces
-
     #[Route('/step/{id}', name: 'step')]
     public function step(
         Request                $request,
@@ -64,7 +62,6 @@ class PortfolioProcessController extends BaseController
     {
         // passer step dans l'url pr récup
         $step = $request->query->get('step', 'portfolio');
-//        dd($step);
         $form = null;
 
         // Récupérer la variable 'id' de la requête
@@ -77,6 +74,17 @@ class PortfolioProcessController extends BaseController
 
             case 'portfolio':
                 $form = $this->createForm(PortfolioType::class, $portfolio);
+                break;
+
+            case 'savePortfolio':
+                $form = $this->createForm(PortfolioType::class, $portfolio);
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $portfolioRepository->save($portfolio, true);
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $portfolio->getId(),
+                        'step' => 'portfolio']);
+                }
                 break;
 
             case 'addPage':
@@ -105,7 +113,7 @@ class PortfolioProcessController extends BaseController
                     $portfolio->addPage($page);
                     if ($portfolio->getOrdrePages()->count() > 0) {
                         $ordreMax = $portfolio->getOrdrePages()->last();
-                        $ordre = $ordreMax->getOrdre() + 1;
+                        $ordre = $ordreMax->getOrdre() + 2;
                     } else {
                         $ordre = 1;
                     }
@@ -114,9 +122,15 @@ class PortfolioProcessController extends BaseController
                     $newOrdrePage->setPage($page);
                     $newOrdrePage->setPortfolio($portfolio);
                     $portfolio->addOrdrePage($newOrdrePage);
-                    $ordrePageRepository->save($newOrdrePage, true);
 
+                    $ordrePageRepository->save($newOrdrePage, true);
                     $pageRepository->save($page, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addPage',
+                        'page' => $page->getId(),
+                    ]);
                 }
                 break;
 

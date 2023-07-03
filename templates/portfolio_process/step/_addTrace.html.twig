@@ -27,7 +27,7 @@
                 <i class="fa-solid fa-edit"></i>
             </button>
             <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}"
-                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is not defined or trace.ordreTrace.ordre is defined and trace.ordreTrace.ordre == 1 %} disabled {% endif %}>
+                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and trace.ordreTrace.ordre == 1 %} disabled {% endif %}>
                 <i class="fa-solid fa-angle-up"></i>
             </button>
             <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}"
