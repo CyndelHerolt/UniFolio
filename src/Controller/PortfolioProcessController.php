@@ -443,6 +443,8 @@ class PortfolioProcessController extends BaseController
 
                 $user = $security->getUser()->getEtudiant();
 
+                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $user]);
+
                 $semestre = $user->getSemestre();
                 $annee = $semestre->getAnnee();
 
@@ -534,6 +536,7 @@ class PortfolioProcessController extends BaseController
 
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
                         $trace->setTypeTrace($type);
+                        $trace->setBibliotheque($biblio);
                         $traceRepository->save($trace, true);
                     }
 
