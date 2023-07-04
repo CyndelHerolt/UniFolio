@@ -20,20 +20,6 @@
     {% endfor %}
 {% endif %}
 
-<form>
-    <label for="selectTrace" class="sr-only">Choisir une trace</label>
-    <select class="form-select"
-            id="selectTrace"
-            is="select-complete"
-            {{ stimulus_action('page', 'addTrace') }}>
-        <option value="">Choisir...</option>
-        <option data-page-id="{{ page.id }}" value="new">Ajouter une nouvelle trace</option>
-        {% for trace in traces %}
-            <option data-page-id="{{ page.id }}" value="{{ trace.id }}">{{ trace.titre }}</option>
-        {% endfor %}
-    </select>
-</form>
-
 <button class="btn btn-primary d-block" value="{{ page.id }}"
         {{ stimulus_action('page', 'savePage', 'click') }}>
     Enregister
