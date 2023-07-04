@@ -46,9 +46,15 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
             if (!filter_var($lien, FILTER_VALIDATE_URL)) {
                 $error = 'Le contenu n\'est pas un lien valide';
                 return array('success' => false, 'error' => $error);
+            } else {
+                $contenu[] = $lien;
             }
         }
-         $trace->setContenu($contenu);
-                return array('success' => true);
+
+        //retirer les doublons
+        $contenu = array_unique($contenu);
+
+        $trace->setContenu($contenu);
+        return array('success' => true);
     }
 }

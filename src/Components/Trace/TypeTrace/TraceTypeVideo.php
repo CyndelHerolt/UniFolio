@@ -30,35 +30,39 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
 
     public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
-        $contenus = $form['contenu']->getData();
+        $videos = $form['contenu']->getData();
 
-        $contenus = [];
+        $contenu = [];
         if ($existingContenu != null) {
             foreach ($existingContenu as $content) {
-                $contenus[] = $content;
+                $contenu[] = $content;
             }
         }
 
+        if ($videos) {
+
         $youtubeId = null;
-        foreach ($contenus as $contenu) {
-            if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $contenu, $matches) || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $contenu, $matches)) {
+        foreach ($videos as $video) {
+            if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video, $matches) || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $video, $matches)) {
 //                dd($matches);
                 $youtubeId = $matches[3];
             }
-                if ($youtubeId) {
-                    // Construire le lien embed à partir de l'ID
-                    $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
-                    // Ajouter le lien embed au tableau des contenus
-                    $contenus[] = $Embedcontenu;
-                    $contenus = array_diff($contenus, array($contenu));
-                }
-            if (!$youtubeId && !preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $contenu)) {
+            if ($youtubeId) {
+                // Construire le lien embed à partir de l'ID
+                $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
+                // Ajouter le lien embed au tableau des video
+                $videos[] = $Embedcontenu;
+                $videos = array_diff($videos, array($video));
+            }
+            if (!$youtubeId && !preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $video)) {
                 $error = 'Le lien n\'est pas un lien YouTube valide';
                 return array('success' => false, 'error' => $error);
             }
         }
-        // Ajouter les contenus au tableau des contenus
-        $trace->setContenu($contenus);
+    }
+
+//        dd($contenu);
+        $trace->setContenu($contenu);
         return array('success' => true);
     }
 }

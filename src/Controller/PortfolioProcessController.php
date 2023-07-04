@@ -497,14 +497,14 @@ class PortfolioProcessController extends BaseController
                         }
                     } elseif ($trace->getTypetrace() == TraceTypeLien::class
                     ) {
-                        if ($request->request->All()['trace_type_lien']['contenu']) {
+                        if (isset($request->request->All()['trace_type_lien']['contenu'])) {
                             $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
                         } else {
                             $existingContenu = null;
                         }
                     } elseif ($trace->getTypetrace() == TraceTypeVideo::class
                     ) {
-                        if ($request->request->All()['trace_type_video']['contenu']) {
+                        if (isset($request->request->All()['trace_type_video']['contenu'])) {
                             $existingContenu = $request->request->All()['trace_type_video']['contenu'];
                         } else {
                             $existingContenu = null;
@@ -512,7 +512,6 @@ class PortfolioProcessController extends BaseController
                     } else {
                         $existingContenu = null;
                     }
-
 
                     if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
 
@@ -527,7 +526,7 @@ class PortfolioProcessController extends BaseController
                         'page' => $page
                     ]);
                 }
-
+                //todo: gérer les erreurs
                 $error = [
 
                 ];
