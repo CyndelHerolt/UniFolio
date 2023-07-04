@@ -210,13 +210,13 @@ export default class extends Controller {
                 method: 'POST',
                 body: formData,
             })
-                .then(async response => {
-                    if (response.status === 500) {
-                        const reponse = await response.json()
-                    console.log(reponse);
-                    } else {
+                // .then(async response => {
+                //     if (response.status === 500) {
+                //         const reponse = await response.json()
+                //     console.log(reponse);
+                //     } else {
                         this.stepZoneTarget.innerHTML = await response.text()
-                    }
-                })
+                //     }
+                // })
     }
 }
