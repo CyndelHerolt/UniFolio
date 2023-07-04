@@ -287,10 +287,10 @@ class PortfolioProcessController extends BaseController
 
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
-                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace, 'page' => $page]);
                 $ordre = $ordreTrace->getOrdre();
 
-                $previousTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre - 1]);
+                $previousTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre - 1, 'page' => $page]);
 
                 if ($previousTrace) {
                     $ordreTrace->setOrdre($ordre - 1);
@@ -509,6 +509,8 @@ class PortfolioProcessController extends BaseController
                         } else {
                             $existingContenu = null;
                         }
+                    } else {
+                        $existingContenu = null;
                     }
 
 
