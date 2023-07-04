@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
 use App\Components\Trace\TypeTrace\TraceTypeImage;
+use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
+use App\Components\Trace\TypeTrace\TraceTypeVideo;
 use App\Entity\OrdrePage;
 use App\Entity\OrdreTrace;
 use App\Entity\Page;
@@ -413,7 +415,6 @@ class PortfolioProcessController extends BaseController
                     'page' => $page->getId(),
                 ]);
 
-            //todo: corriger la gestion du contenu dans les form de trace
             case 'saveTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $type = $request->query->get('type');
@@ -479,49 +480,46 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
-                    $FileOrigine = $trace->getContenu();
+//                    dd($request->request->All()['trace_type_video']['contenu']);
 
-                    if ($trace->getTypetrace() == TraceTypeImage::class) {
-                        if ($request->request->get('contenu') == null) {
-                            if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
-                                $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
-                                return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                            } elseif (isset($request->request->All()['img'])) {
-//                        $this->addFlash('success', 'HELLO');
-                                $existingImages = $request->request->All()['img'];
-                                $trace->setContenu(array_intersect($existingImages, $FileOrigine));
-                            } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['img'])) {
-//                        dd($form->get('contenu')->getData());
-                                $trace->setContenu($request->request->get('contenu'));
-                            }
+                    if ($trace->getTypetrace() == TraceTypeImage::class
+                    ) {
+                        if (isset($request->request->All()['img'])) {
+                            $existingContenu = $request->request->All()['img'];
                         } else {
-                            $existingImages = $request->request->All()['img'];
-                            $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                            $existingContenu = null;
                         }
-                    } elseif ($trace->getTypetrace() == TraceTypePdf::class) {
-                        if ($request->request->get('contenu') == null) {
-                            if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
-                                $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
-                                return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                            } elseif (isset($request->request->All()['pdf'])) {
-                                $existingImages = $request->request->All()['pdf'];
-                                $trace->setContenu(array_intersect($existingImages, $FileOrigine));
-                            } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
-                                $trace->setContenu($request->request->get('contenu'));
-                            }
+                    } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                    ) {
+                        if (isset($request->request->All()['pdf'])) {
+                            $existingContenu = $request->request->All()['pdf'];
                         } else {
-                            $existingPdf = $request->request->All()['pdf'];
-                            $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
+                            $existingContenu = null;
+                        }
+                    } elseif ($trace->getTypetrace() == TraceTypeLien::class
+                    ) {
+                        if ($request->request->All()['trace_type_lien']['contenu']) {
+                            $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
+                        } else {
+                            $existingContenu = null;
+                        }
+                    } elseif ($trace->getTypetrace() == TraceTypeVideo::class
+                    ) {
+                        if ($request->request->All()['trace_type_video']['contenu']) {
+                            $existingContenu = $request->request->All()['trace_type_video']['contenu'];
+                        } else {
+                            $existingContenu = null;
                         }
                     }
 
-                    if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+
+                    if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
+
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
                         $trace->setTypeTrace($type);
                         $traceRepository->save($trace, true);
-                        $this->addFlash('success', 'La trace a été modifiée avec succès.');
                     } else {
-                        $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                        $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['error'];
                         $this->addFlash('error', $error);
                     }
 

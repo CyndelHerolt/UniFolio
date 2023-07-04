@@ -30,16 +30,25 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): array
+    public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
-        $contenus = $form['contenu']->getData();
-        foreach ($contenus as $contenu) {
+        $liens = $form['contenu']->getData();
+
+        $contenu = [];
+        if ($existingContenu != null) {
+            foreach ($existingContenu as $content) {
+                $contenu[] = $content;
+            }
+        }
+
+        foreach ($liens as $lien) {
             // Vérifier si le contenu est un lien valide
-            if (!filter_var($contenu, FILTER_VALIDATE_URL)) {
+            if (!filter_var($lien, FILTER_VALIDATE_URL)) {
                 $error = 'Le contenu n\'est pas un lien valide';
                 return array('success' => false, 'error' => $error);
             }
         }
+         $trace->setContenu($contenu);
                 return array('success' => true);
     }
 }

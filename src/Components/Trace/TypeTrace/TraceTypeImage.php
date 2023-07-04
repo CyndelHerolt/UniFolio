@@ -30,18 +30,17 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): array
+    public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
         $max_size = 2 * 1024 * 1024; // 2 Mo en octets
         $imageFiles = $form['contenu']->getData();
 
-        if ($trace->getId() != null) {
-            if ($trace->getContenu() != null) {
-                $contenu = $trace->getContenu();
-            } else {
-                $contenu = null;
+            $contenu = [];
+            if ($existingContenu != null) {
+                foreach ($existingContenu as $content) {
+                    $contenu[] = $content;
+                }
             }
-        }
 
         if ($imageFiles) {
 
@@ -64,9 +63,12 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
             }
         }
 
+        if (empty($contenu)) {
+            $error = 'Veuillez ajouter un fichier';
+            return array('success' => false, 'error' => $error);
+        }
+
         $trace->setContenu($contenu);
-        $traceRepository->save($trace, true);
         return array('success' => true);
     }
-
 }

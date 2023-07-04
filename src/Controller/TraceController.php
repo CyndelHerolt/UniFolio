@@ -173,8 +173,6 @@ class TraceController extends BaseController
 
         $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
-//        dd($competences);
-
         foreach ($competences as $competence) {
             $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
         }

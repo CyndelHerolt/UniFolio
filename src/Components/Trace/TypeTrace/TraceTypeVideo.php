@@ -28,9 +28,16 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): array
+    public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
         $contenus = $form['contenu']->getData();
+
+        $contenus = [];
+        if ($existingContenu != null) {
+            foreach ($existingContenu as $content) {
+                $contenus[] = $content;
+            }
+        }
 
         $youtubeId = null;
         foreach ($contenus as $contenu) {
@@ -51,7 +58,6 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
             }
         }
         // Ajouter les contenus au tableau des contenus
-//        dd($contenus);
         $trace->setContenu($contenus);
         return array('success' => true);
     }
