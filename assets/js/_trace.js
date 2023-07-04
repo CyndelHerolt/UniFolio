@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 
 // Fonction pour supprimer un champ contenu
-function removeImage(button) {
+export function removeImage(button) {
     button.closest('.image_trace_div').remove();
 }
 
@@ -37,20 +37,13 @@ export function addImage() {
     addButtonImg.parentNode.insertBefore(formGroup, addButtonImg);
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-image').forEach(function (button) {
-    button.addEventListener('click', function () {
-        removeImage(button);
-    });
-});
-
 
 //-----------------------------------------------------------------------------
 //---------------------------------PDF-----------------------------------------
 //-----------------------------------------------------------------------------
 
 // Fonction pour supprimer un champ contenu
-function removePdf(button) {
+export function removePdf(button) {
     button.closest('.pdf_trace_div').remove();
 }
 
@@ -82,35 +75,14 @@ export function addPdf() {
     // console.log('addPdf');
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-pdf').forEach(function (button) {
-    button.addEventListener('click', function () {
-        removePdf(button);
-    });
-});
-
 
 //-----------------------------------------------------------------------------
 //---------------------------------LIEN----------------------------------------
 //-----------------------------------------------------------------------------
 
-document.querySelectorAll('.lien_trace').forEach(event => {
-    // console.log(event)
-    event.parentNode.classList.add('lien_trace_div')
-    // event.parentNode.classList.add('input-group', 'mb-3');
-    // event.style.display = 'flex';
-    // event.style.alignItems = 'flex-end';
-    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.parentNode.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-lien">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
-})
-
 
 // Fonction pour supprimer un champ contenu
-function removeLien(button) {
+export function removeLien(button) {
     button.closest('.lien_trace_div').remove();
 }
 
@@ -144,35 +116,13 @@ export function addLien() {
     addButtonLien.parentNode.insertBefore(formGroup, addButtonLien);
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-lien').forEach(function (button) {
-    button.addEventListener('click', function () {
-        removeLien(button);
-    });
-});
-
-
 //-----------------------------------------------------------------------------
 //---------------------------------VIDEO---------------------------------------
 //-----------------------------------------------------------------------------
 
-document.querySelectorAll('.video_trace').forEach(event => {
-    // console.log(event)
-    event.parentNode.classList.add('video_trace_div')
-    // event.parentNode.classList.add('input-group', 'mb-3');
-    // event.style.display = 'flex';
-    // event.style.alignItems = 'flex-end';
-    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.parentNode.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-video">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
-})
-
 
 // Fonction pour supprimer un champ contenu
-function removeVideo(button) {
+export function removeVideo(button) {
     button.closest('.video_trace_div').remove();
 }
 
@@ -206,11 +156,5 @@ export function addVideo() {
     addButtonVideo.parentNode.insertBefore(formGroup, addButtonVideo);
 }
 
-// Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
-document.querySelectorAll('.delete-video').forEach(function (button) {
-    button.addEventListener('click', function () {
-        removeVideo(button);
-    });
-});
 
 

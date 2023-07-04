@@ -1,5 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
-import {addImage, addLien, addPdf, addVideo} from "../js/_trace";
+import {addImage, addLien, addPdf, addVideo, removeImage, removeLien, removePdf, removeVideo} from "../js/_trace";
 
 export default class extends Controller {
     static targets = ['stepZone']
@@ -49,6 +49,87 @@ export default class extends Controller {
         console.log(response);
         //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
+        // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
+        const addButtonImage = document.querySelector('.add-image');
+        if (addButtonImage) {
+            addButtonImage.addEventListener('click', function () {
+                addImage()
+            })
+        }
+
+        const addButtonPdf = document.querySelector('.add-pdf');
+        if (addButtonPdf) {
+            addButtonPdf.addEventListener('click', function () {
+                addPdf()
+            })
+        }
+
+        const addButtonLien = document.querySelector('.add-lien');
+        if (addButtonLien) {
+            addButtonLien.addEventListener('click', function () {
+                addLien()
+            })
+        }
+
+        const addButtonVideo = document.querySelector('.add-video');
+        if (addButtonVideo) {
+            addButtonVideo.addEventListener('click', function () {
+                addVideo()
+            })
+        }
+
+        // Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
+        document.querySelectorAll('.delete-image').forEach(function (button) {
+            button.addEventListener('click', function () {
+                removeImage(button);
+            });
+        });
+
+        document.querySelectorAll('.delete-pdf').forEach(function (button) {
+            button.addEventListener('click', function () {
+                removePdf(button);
+            });
+        });
+
+        document.querySelectorAll('.lien_trace').forEach(event => {
+            // console.log(event)
+            event.parentNode.classList.add('lien_trace_div')
+            // event.parentNode.classList.add('input-group', 'mb-3');
+            // event.style.display = 'flex';
+            // event.style.alignItems = 'flex-end';
+            // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+            event.parentNode.innerHTML += (
+                '<button type="button" class="btn btn-danger delete-lien">' +
+                '<i class="fa-solid fa-square-minus"></i>' +
+                '</button>'
+            )
+        })
+
+        document.querySelectorAll('.delete-lien').forEach(function (button) {
+            button.addEventListener('click', function () {
+                removeLien(button);
+            });
+        });
+
+        document.querySelectorAll('.video_trace').forEach(event => {
+            // console.log(event)
+            event.parentNode.classList.add('video_trace_div')
+            // event.parentNode.classList.add('input-group', 'mb-3');
+            // event.style.display = 'flex';
+            // event.style.alignItems = 'flex-end';
+            // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+            event.parentNode.innerHTML += (
+                '<button type="button" class="btn btn-danger delete-video">' +
+                '<i class="fa-solid fa-square-minus"></i>' +
+                '</button>'
+            )
+        })
+
+        document.querySelectorAll('.delete-video').forEach(function (button) {
+            button.addEventListener('click', function () {
+                removeVideo(button);
+            });
+        });
     }
 
     async formTrace(event) {
