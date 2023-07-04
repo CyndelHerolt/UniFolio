@@ -81,7 +81,24 @@ class PortfolioProcessController extends BaseController
             case 'savePortfolio':
                 $form = $this->createForm(PortfolioType::class, $portfolio);
                 $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted()) {
+
+
+                    $imageFile = $form['banniere']->getData();
+                    if ($imageFile) {
+                        $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
+                        //Vérifier si le fichier est au bon format
+                        if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                            //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                            $imageFile->move('files_directory', $imageFileName);
+                            //Sauvegarder le contenu dans la base de données
+                            $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                        } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                            $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
+                        }
+                    }
+
+
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $portfolio->getId(),

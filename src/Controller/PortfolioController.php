@@ -66,22 +66,22 @@ class PortfolioController extends AbstractController
 
             $portfolio->setEtudiant($user);
 
-//            $imageFile = $form['banniere']->getData();
-//            if ($imageFile) {
-//                $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
-//                //Vérifier si le fichier est au bon format
-//                if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-//                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-//                    $imageFile->move('files_directory', $imageFileName);
-////                //Sauvegarder le contenu dans la base de données
-//                    $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
-//                } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-//                    $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
-//                }
-//
-//                $this->addFlash('success', 'Le Portfolio a été créé avec succès');
-//                    return $this->redirectToRoute('app_portfolio_process_index');
-//            }
+            $imageFile = $form['banniere']->getData();
+            if ($imageFile) {
+                $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
+                //Vérifier si le fichier est au bon format
+                if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                    $imageFile->move('files_directory', $imageFileName);
+//                //Sauvegarder le contenu dans la base de données
+                    $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                    $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
+                }
+
+                $this->addFlash('success', 'Le Portfolio a été créé avec succès');
+                    return $this->redirectToRoute('app_portfolio_process_index');
+            }
 
             if ($form->get('visibilite')->getData() === 'public') {
                 $portfolio->setVisibilite(true);

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="card-header">
-{#            <img src="{{ this.portfolio.banniere }}" class="card-img-top" alt="...">#}
+            <img src="{{ this.portfolio.banniere }}" class="card-img-top" alt="...">
         </div>
         <div class="card-content">
             <a class="btn-see">
@@ -12,7 +12,7 @@
             </a>
             <h3 class="card-title">{{ this.portfolio.intitule }}</h3>
             <hr>
-            <p>modifié le : {{ this.portfolio.dateModification|date('d/m/Y') }}</p>
+            <p>Modifié le : {{ this.portfolio.dateModification|date('d/m/Y') }}</p>
 
             {% if this.portfolio.visibilite %}
                 <p>Public</p>

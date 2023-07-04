@@ -5,8 +5,12 @@
     {{ form_row(form.date_creation) }}
     {{ form_row(form.date_modification) }}
 </div>
+{% if portfolio.banniere is not null %}
+    <div style="width: 100%; height: 150px; overflow: hidden; background-image: url({{ asset(portfolio.banniere) }}); background-position: center; background-size: cover">
+    </div>
+{% endif %}
 {{ form_row(form.intitule) }}
-    {# {{ form_row(form.banniere) }} #}
+     {{ form_row(form.banniere) }}
     {{ form_row(form.visibilite) }}
 {{ form_end(form) }}
 

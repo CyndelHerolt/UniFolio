@@ -82,14 +82,14 @@ class PortfolioType extends AbstractType
                 'attr' => ['class' => "form-control", 'placeholder' => 'Intitulé de mon portfolio',],
                 'help' => '100 caractères maximum',
             ])
-//            ->add('banniere', FileType::class, [
-//                'label' => 'Bannière',
-//                'label_attr' => ['class' => 'form-label'],
-//                'attr' => ['class' => "form-control"],
-//                'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
-//                'required' => true,
-//                'mapped' => false,
-//            ])
+            ->add('banniere', FileType::class, [
+                'label' => 'Bannière',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
+                'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
+                'required' => true,
+                'mapped' => false,
+            ])
             ->add('visibilite', ChoiceType::class, [
                 'choices' => [
                     'Public' => 'public',
