@@ -115,7 +115,7 @@ class PortfolioProcessController extends BaseController
                     $portfolio->addPage($page);
                     if ($portfolio->getOrdrePages()->count() > 0) {
                         $ordreMax = $portfolio->getOrdrePages()->last();
-                        $ordre = $ordreMax->getOrdre() + 2;
+                        $ordre = $ordreMax->getOrdre() + 1;
                     } else {
                         $ordre = 1;
                     }
@@ -157,10 +157,10 @@ class PortfolioProcessController extends BaseController
             case 'left':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
-                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
                 $ordre = $ordrePage->getOrdre();
 
-                $previousPage = $ordrePageRepository->findOneBy(['ordre' => $ordre - 1]);
+                $previousPage = $ordrePageRepository->findOneBy(['ordre' => $ordre - 1, 'portfolio' => $portfolio]);
 
                 if ($previousPage) {
                     $ordrePage->setOrdre($ordre - 1);
@@ -180,10 +180,10 @@ class PortfolioProcessController extends BaseController
             case 'right':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
-                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
                 $ordre = $ordrePage->getOrdre();
 
-                $nextPage = $ordrePageRepository->findOneBy(['ordre' => $ordre + 1]);
+                $nextPage = $ordrePageRepository->findOneBy(['ordre' => $ordre + 1, 'portfolio' => $portfolio]);
 
                 $ordrePage->setOrdre($ordre + 1);
                 $nextPage->setOrdre($nextPage->getOrdre() - 1);
