@@ -195,7 +195,7 @@ export default class extends Controller {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
 
-        const formData = new FormData(document.getElementById('formTrace'));
+        const formData = await new FormData(document.getElementById('formTrace'));
 
         const params = new URLSearchParams({
             step: 'saveTrace',
@@ -203,11 +203,20 @@ export default class extends Controller {
             type: type,
         })
 
+        console.log(formData.getAll('trace_type_pdf'));
+
         // Envoyer les données du formulaire via une requête POST
-        const response = await fetch(`${this.urlValue}?${params.toString()}`, {
-            method: 'POST',
-            body: formData
-        });
-        this.stepZoneTarget.innerHTML = await response.text()
+            const response = await fetch(`${this.urlValue}?${params.toString()}`, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(async response => {
+                    if (response.status === 500) {
+                        const reponse = await response.json()
+                    console.log(reponse);
+                    } else {
+                        this.stepZoneTarget.innerHTML = await response.text()
+                    }
+                })
     }
 }

@@ -29,15 +29,14 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
         return $this->type_trace;
     }
 
-    public function save($form, $trace, $traceRepository, $traceRegistry): array
+    public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
         $pdfFiles = $form['contenu']->getData();
 
-        if($trace->getId() !== null){
-            if ($trace->getContenu() != null) {
-                $contenu = $trace->getContenu();
-            } else {
-                $contenu = null;
+        $contenu = [];
+        if ($existingContenu != null) {
+            foreach ($existingContenu as $content) {
+                $contenu[] = $content;
             }
         }
 
@@ -55,6 +54,11 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
                     return array('success' => false, 'error' => $error);
                 }
             }
+        }
+
+        if (empty($contenu)) {
+            $error = 'Veuillez ajouter un fichier';
+            return array('success' => false, 'error' => $error);
         }
 
         $trace->setContenu($contenu);

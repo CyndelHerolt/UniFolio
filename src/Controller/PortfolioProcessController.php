@@ -312,15 +312,16 @@ class PortfolioProcessController extends BaseController
 
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
-                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace, 'page' => $page]);
                 $ordre = $ordreTrace->getOrdre();
 
-                $nextTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre + 1]);
+                $nextTrace = $ordreTraceRepository->findOneBy(['ordre' => $ordre + 1, 'page' => $page]);
 
                 $ordreTrace->setOrdre($ordre + 1);
                 $nextTrace->setOrdre($nextTrace->getOrdre() - 1);
 
                 $ordreTraceRepository->save($ordreTrace, true);
+
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
@@ -480,8 +481,6 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
-//                    dd($request->request->All()['trace_type_video']['contenu']);
-
                     if ($trace->getTypetrace() == TraceTypeImage::class
                     ) {
                         if (isset($request->request->All()['img'])) {
@@ -518,9 +517,6 @@ class PortfolioProcessController extends BaseController
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
                         $trace->setTypeTrace($type);
                         $traceRepository->save($trace, true);
-                    } else {
-                        $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['error'];
-                        $this->addFlash('error', $error);
                     }
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
@@ -529,8 +525,12 @@ class PortfolioProcessController extends BaseController
                         'page' => $page
                     ]);
                 }
-                break;
 
+                $error = [
+
+                ];
+
+                return $this->json(['success' => false, 'error' => $form->getErrors(true, false)], 500);
         }
 
         return $this->render('portfolio_process/step/_step.html.twig', ['step' => $step,
