@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
 use App\Components\Trace\TypeTrace\TraceTypeImage;
+use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
+use App\Components\Trace\TypeTrace\TraceTypeVideo;
 use App\Entity\Page;
 use App\Entity\Trace;
 use App\Entity\Validation;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
@@ -224,7 +227,7 @@ class TraceController extends BaseController
                     $trace->addValidation($validation);
                 }
 
-               // supprimer les validations des compétences non sélectionnées
+                // supprimer les validations des compétences non sélectionnées
                 foreach ($validations as $validation) {
                     if (!in_array($validation->getCompetences()->getLibelle(), $competencesForm)) {
                         $validation->getCompetences()->removeValidation($validation);
@@ -274,34 +277,46 @@ class TraceController extends BaseController
                 }
             }
 
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+            if ($trace->getTypetrace() == TraceTypeImage::class
+            ) {
+                if (isset($request->request->All()['img'])) {
+                    $existingContenu = $request->request->All()['img'];
+                } else {
+                    $existingContenu = null;
+                }
+            } elseif ($trace->getTypetrace() == TraceTypePdf::class
+            ) {
+                if (isset($request->request->All()['pdf'])) {
+                    $existingContenu = $request->request->All()['pdf'];
+                } else {
+                    $existingContenu = null;
+                }
+            } elseif ($trace->getTypetrace() == TraceTypeLien::class
+            ) {
+                if (isset($request->request->All()['trace_type_lien']['contenu'])) {
+                    $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
+                } else {
+                    $existingContenu = null;
+                }
+            } elseif ($trace->getTypetrace() == TraceTypeVideo::class
+            ) {
+                if (isset($request->request->All()['trace_type_video']['contenu'])) {
+                    $existingContenu = $request->request->All()['trace_type_video']['contenu'];
+                } else {
+                    $existingContenu = null;
+                }
+            } else {
+                $existingContenu = null;
+            }
 
-//                //Récupérer l'ordre saisi dans le form
-//                $ordreSaisi = $form->get('ordre')->getData();
-////                dd($ordreSaisi);
-//
-//                //Pour chaque trace
-//                foreach ($traces as $traceStock) {
-//                    //Récupérer l'ordre de la trace
-//                    $ordre = $traceStock->getOrdre();
-////            dd($ordre);
-//                    //Si l'ordre saisi est égal à l'ordre de la trace
-//                    if ($ordre === $ordreSaisi && $traceStock !== $trace) {
-//                        // Attribuer l'ordre saisi à la trace en cours d'édition
-//                        $trace->setOrdre($ordreSaisi);
-//                        //Attribuer l'ordre de la trace en cours d'édition à la trace en cours de boucle
-//                        $traceStock->setOrdre($ordreOrigine);
-//                    }
-//                }
+            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
 
                 $form->getData()->setDatemodification(new \DateTimeImmutable());
-//                dump($trace);
-//                die();
                 $traceRepository->save($trace, true);
                 $this->addFlash('success', 'La trace a été modifiée avec succès.');
                 return $this->redirectToRoute('app_trace');
             } else {
-                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['error'];
                 $this->addFlash('error', $error);
             }
         }
@@ -316,9 +331,10 @@ class TraceController extends BaseController
     #[
         Route('/trace/delete/{id}', name: 'app_trace_delete')]
     public function delete(
-        Request         $request,
-        TraceRepository $traceRepository,
-        int             $id,
+        Request              $request,
+        TraceRepository      $traceRepository,
+        OrdreTraceRepository $ordreTraceRepository,
+        int                  $id,
     ): Response
     {
 
@@ -338,6 +354,7 @@ class TraceController extends BaseController
             }
         }
 
+        $ordreTraceRepository->remove($trace->getOrdreTrace(), true);
         $traceRepository->remove($trace, true);
         $this->addFlash('success', 'La trace a été supprimée avec succès.');
         return $this->redirectToRoute('app_trace');

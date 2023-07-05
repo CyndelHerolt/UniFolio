@@ -116,7 +116,9 @@ class PortfolioProcessController extends BaseController
                 if ($ordrePage !== null) {
                     if ($ordrePage->getOrdre() == 1) {
                         $ordreMin = true;
+                        $ordreMax = $portfolio->getOrdrePages()->count();
                     } else {
+                        $ordreMin = false;
                         $ordreMax = $portfolio->getOrdrePages()->count();
                     }
                 }
@@ -426,7 +428,9 @@ class PortfolioProcessController extends BaseController
                     }
                 }
 
+                $page->removeOrdreTrace($ordreTrace);
                 $ordreTraceRepository->remove($ordreTrace, true);
+                $page->removeTrace($trace);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
