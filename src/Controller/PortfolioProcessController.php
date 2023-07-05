@@ -66,7 +66,11 @@ class PortfolioProcessController extends BaseController
         $id = $request->attributes->get('id');
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
-        $pages = $portfolio->getPages();
+        $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
+        $pages = [];
+        foreach ($ordrePages as $ordrePage) {
+            $pages[] = $ordrePage->getPage();
+        }
 
         switch ($step) {
 
@@ -107,7 +111,7 @@ class PortfolioProcessController extends BaseController
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
                 $traces = $biblio->getTraces();
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
-                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
 
                 if ($ordrePage !== null) {
                     if ($ordrePage->getOrdre() == 1) {
@@ -118,14 +122,17 @@ class PortfolioProcessController extends BaseController
                 }
 
                 if ($page) {
-                    $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
-                    $existingTraces = $page->getTrace();
+                    $ordreTrace = $ordreTraceRepository->findBy(['page' => $page]);
+                    $existingTraces = [];
+                    foreach ($ordreTrace as $ordre) {
+                        $existingTraces[] = $ordre->getTrace();
+                    }
                     $portfolio->addPage($page);
                     $pageRepository->save($page, true);
                 } else {
                     $page = new Page();
                     $page->setIntitule('Nouvelle page');
-                    $portfolio->addPage($page);
+//                    $portfolio->addPage($page);
                     if ($portfolio->getOrdrePages()->count() > 0) {
                         $ordreMax = $portfolio->getOrdrePages()->last();
                         $ordre = $ordreMax->getOrdre() + 1;
@@ -155,13 +162,15 @@ class PortfolioProcessController extends BaseController
 
                 // Récupérer les traces de la bibliothèque
                 $traces = $biblio->getTraces();
+                $ordreTraces = [];
+                foreach ($traces as $trace) {
+                    $ordreTraces = $ordreTraceRepository->findBy(['trace' => $trace]);
+                }
 
                 // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
                 $liste = [];
-                foreach ($traces as $trace) {
-                    $liste = array_merge($liste, $trace->getPages()->toArray());
-//            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
-                    $liste = array_unique($liste, SORT_REGULAR);
+                foreach ($ordreTraces as $ordreTrace) {
+                    $liste[] = $ordreTrace->getPage();
                 }
 
                 $form = $this->createForm(PageType::class);
@@ -213,10 +222,13 @@ class PortfolioProcessController extends BaseController
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
                 $traces = $biblio->getTraces();
 
-                // Récupérer les traces de la bibliothèque
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
-                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page]);
-                $existingTraces = $page->getTrace();
+                $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
+                $ordreTrace = $ordreTraceRepository->findBy(['page' => $page]);
+                $existingTraces = [];
+                foreach ($ordreTrace as $ordre) {
+                    $existingTraces[] = $ordre->getTrace();
+                }
                 $form = $this->createForm(PageType::class, $page);
                 break;
 
@@ -253,7 +265,6 @@ class PortfolioProcessController extends BaseController
                 }
                 $portfolio->removeOrdrePage($ordrePage);
                 $ordrePageRepository->remove($ordrePage, true);
-                $portfolio->removePage($page);
                 $pageRepository->remove($page, true);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
@@ -265,30 +276,26 @@ class PortfolioProcessController extends BaseController
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
-                if ($trace) {
-                    $trace->addPage($page);
-                    $traceRepository->save($trace, true);
-                } else {
+                if (!$trace) {
                     $trace = new Trace();
                     $trace->setTitre('Nouvelle trace');
-                    $trace->addPage($page);
 
-                    $ordre = 1;
                     // ajouter 1 à l'ordre de toutes les traces de la page
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
                     foreach ($ordreTraces as $ordreTrace) {
                         $ordreTrace->setOrdre($ordreTrace->getOrdre() + 1);
                     }
-
-                    $newOrdreTrace = new OrdreTrace();
-                    $newOrdreTrace->setOrdre($ordre);
-                    $newOrdreTrace->setTrace($trace);
-                    $newOrdreTrace->setPage($page);
-                    $page->addOrdreTrace($newOrdreTrace);
-                    $ordreTraceRepository->save($newOrdreTrace, true);
-
-                    $traceRepository->save($trace, true);
                 }
+
+                $ordre = 1;
+                $newOrdreTrace = new OrdreTrace();
+                $newOrdreTrace->setOrdre($ordre);
+                $newOrdreTrace->setTrace($trace);
+                $newOrdreTrace->setPage($page);
+                $page->addOrdreTrace($newOrdreTrace);
+                $ordreTraceRepository->save($newOrdreTrace, true);
+
+                $traceRepository->save($trace, true);
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
                     'step' => 'addPage',
@@ -406,8 +413,8 @@ class PortfolioProcessController extends BaseController
 
             case 'deleteTrace':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
-                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace, 'page' => $page]);
 
                 //pour chaque trace dont l'ordre est supérieur à celui de la trace à supprimer, on décrémente l'ordre
                 $ordre = $ordreTrace->getOrdre();
@@ -419,9 +426,7 @@ class PortfolioProcessController extends BaseController
                     }
                 }
 
-                $page->removeOrdreTrace($ordreTrace);
                 $ordreTraceRepository->remove($ordreTrace, true);
-                $page->removeTrace($trace);
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,

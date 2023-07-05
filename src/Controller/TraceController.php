@@ -119,8 +119,9 @@ class TraceController extends BaseController
                 $trace->addValidation($validation);
             }
 
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry)['success']) {
+            $existingTrace = null;
 
+            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['success']) {
 
                 //Lier la trace à la Bibliotheque de l'utilisateur connecté
                 $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
@@ -132,7 +133,7 @@ class TraceController extends BaseController
                 $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                 return $this->redirectToRoute('app_trace');
             } else {
-                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry)['error'];
+                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['error'];
                 $this->addFlash('error', $error);
             }
         }

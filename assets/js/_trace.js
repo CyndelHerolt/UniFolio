@@ -37,6 +37,21 @@ export function addImage() {
     addButtonImg.parentNode.insertBefore(formGroup, addButtonImg);
 }
 
+// Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
+const addButtonImage = document.querySelector('.add-image');
+if (addButtonImage) {
+    addButtonImage.addEventListener('click', function () {
+        addImage()
+    })
+}
+
+// Gestionnaire d'événement pour le bouton de suppression d'un champ contenu
+document.querySelectorAll('.delete-image').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removeImage(button);
+    });
+});
+
 
 //-----------------------------------------------------------------------------
 //---------------------------------PDF-----------------------------------------
@@ -75,6 +90,18 @@ export function addPdf() {
     // console.log('addPdf');
 }
 
+const addButtonPdf = document.querySelector('.add-pdf');
+if (addButtonPdf) {
+    addButtonPdf.addEventListener('click', function () {
+        addPdf()
+    })
+}
+
+document.querySelectorAll('.delete-pdf').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removePdf(button);
+    });
+});
 
 //-----------------------------------------------------------------------------
 //---------------------------------LIEN----------------------------------------
@@ -116,6 +143,33 @@ export function addLien() {
     addButtonLien.parentNode.insertBefore(formGroup, addButtonLien);
 }
 
+const addButtonLien = document.querySelector('.add-lien');
+if (addButtonLien) {
+    addButtonLien.addEventListener('click', function () {
+        addLien()
+    })
+}
+
+document.querySelectorAll('.lien_trace').forEach(event => {
+    // console.log(event)
+    event.parentNode.classList.add('lien_trace_div')
+    // event.parentNode.classList.add('input-group', 'mb-3');
+    // event.style.display = 'flex';
+    // event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-lien">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+document.querySelectorAll('.delete-lien').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removeLien(button);
+    });
+});
+
 //-----------------------------------------------------------------------------
 //---------------------------------VIDEO---------------------------------------
 //-----------------------------------------------------------------------------
@@ -156,5 +210,31 @@ export function addVideo() {
     addButtonVideo.parentNode.insertBefore(formGroup, addButtonVideo);
 }
 
+const addButtonVideo = document.querySelector('.add-video');
+if (addButtonVideo) {
+    addButtonVideo.addEventListener('click', function () {
+        addVideo()
+    })
+}
+
+document.querySelectorAll('.video_trace').forEach(event => {
+    // console.log(event)
+    event.parentNode.classList.add('video_trace_div')
+    // event.parentNode.classList.add('input-group', 'mb-3');
+    // event.style.display = 'flex';
+    // event.style.alignItems = 'flex-end';
+    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
+    event.parentNode.innerHTML += (
+        '<button type="button" class="btn btn-danger delete-video">' +
+        '<i class="fa-solid fa-square-minus"></i>' +
+        '</button>'
+    )
+})
+
+document.querySelectorAll('.delete-video').forEach(function (button) {
+    button.addEventListener('click', function () {
+        removeVideo(button);
+    });
+});
 
 

@@ -13,10 +13,10 @@ class OrdrePage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'ordrePages', cascade: ['persist', 'remove'])]
     private ?Page $page = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ordrePages')]
+    #[ORM\ManyToOne(inversedBy: 'ordrePagesPortfolio')]
     private ?Portfolio $portfolio = null;
 
     #[ORM\Column(nullable: true)]
