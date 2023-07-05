@@ -452,6 +452,8 @@ class PortfolioProcessController extends BaseController
 
                 $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage()->getId();
 
+                $user = $security->getUser()->getEtudiant();
+
                 $semestre = $user->getSemestre();
                 $annee = $semestre->getAnnee();
 
