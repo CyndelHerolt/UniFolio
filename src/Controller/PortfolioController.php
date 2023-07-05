@@ -64,6 +64,7 @@ class PortfolioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()
         ) {
 
+
             $portfolio->setEtudiant($user);
 
             $imageFile = $form['banniere']->getData();
@@ -78,9 +79,6 @@ class PortfolioController extends AbstractController
                 } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                 }
-
-                $this->addFlash('success', 'Le Portfolio a été créé avec succès');
-                    return $this->redirectToRoute('app_portfolio_process_index');
             }
 
             if ($form->get('visibilite')->getData() === 'public') {

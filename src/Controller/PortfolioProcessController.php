@@ -36,9 +36,7 @@ class PortfolioProcessController extends BaseController
         Request $request,
     ): Response
     {
-
         $id = $request->query->get('id');
-//        dd($id);
 
         return $this->render('portfolio_process/index.html.twig', [
             'step' => 'portfolio',
@@ -62,11 +60,9 @@ class PortfolioProcessController extends BaseController
         OrdreTraceRepository   $ordreTraceRepository,
     ): Response
     {
-        // passer step dans l'url pr récup
         $step = $request->query->get('step', 'portfolio');
         $form = null;
 
-        // Récupérer la variable 'id' de la requête
         $id = $request->attributes->get('id');
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
