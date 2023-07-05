@@ -14,4 +14,4 @@
     {{ form_row(form.visibilite) }}
 {{ form_end(form) }}
 
-<button {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>Enregistrer</button>
+<button class="btn btn-primary d-block" {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>Enregistrer les modifications</button>
