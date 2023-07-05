@@ -19,18 +19,42 @@
         </ol>
     </nav>
     <div class="container">
+        
+        <div style="display: flex; justify-content: space-between">
+            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
+                <div style="display: flex; align-items: center; justify-content: space-around">
+                    <p style="margin: 0">1</p>
+                    <div>
+                        <p style="margin: 0">Initialisation d'un portfolio</p>
+                        <small>Completion après enregistrement</small>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
+                <div style="display: flex; align-items: center; justify-content: space-around">
+                        <p style="margin: 0">2</p>
+                        <div>
+                            <p style="margin: 0">Création d'une ou plusieurs pages</p>
+                            <small>Qui regroupera un ensemble de traces</small>
+                        </div>
+                </div>
+            </div>
+            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
+                <div style="display: flex; align-items: center; justify-content: space-around">
+                        <p style="margin: 0">3</p>
+                        <div>
+                            <p style="margin: 0">Création ou ajout de traces</p>
+                            <small>Depuis une page</small>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+        
         <section class="portfolio_form">
             <div class="row">
                 <article class="col-lg-10 col-12">
-                    {% if '/edit' in app.request.uri %}
-                        <h2>Modifier {{ portfolio.intitule }}</h2>
-                    {% elseif '/new' in app.request.uri %}
                         <h2>Nouveau portfolio</h2>
-                    {% endif %}
-                    {% if '/page' in app.request.uri %}
-                        {{ form_start(form) }}
-                        {{ form_end(form) }}
-                    {% elseif '/portfolio' in app.request.uri %}
                         {{ form_start(form) }}
                         <div class="hidden">
                             {{ form_row(form.date_creation) }}
@@ -41,10 +65,10 @@
                         {{ form_row(form.visibilite) }}
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         {{ form_end(form) }}
-                    {% endif %}
+
                 </article>
             </div>
         </section>
     </div>
-
 {% endblock %}
+

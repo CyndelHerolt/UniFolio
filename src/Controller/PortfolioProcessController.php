@@ -278,9 +278,15 @@ class PortfolioProcessController extends BaseController
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
+                $user = $security->getUser()->getEtudiant();
+
+                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $user]);
+
                 if (!$trace) {
                     $trace = new Trace();
                     $trace->setTitre('Nouvelle trace');
+                    $trace->setBibliotheque($biblio);
+
 
                     // ajouter 1 à l'ordre de toutes les traces de la page
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
@@ -446,10 +452,6 @@ class PortfolioProcessController extends BaseController
 
                 $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage()->getId();
 
-                $user = $security->getUser()->getEtudiant();
-
-                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $user]);
-
                 $semestre = $user->getSemestre();
                 $annee = $semestre->getAnnee();
 
@@ -541,7 +543,6 @@ class PortfolioProcessController extends BaseController
 
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
                         $trace->setTypeTrace($type);
-                        $trace->setBibliotheque($biblio);
                         $traceRepository->save($trace, true);
                     }
 
