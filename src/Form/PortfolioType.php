@@ -85,7 +85,10 @@ class PortfolioType extends AbstractType
             ->add('banniere', FileType::class, [
                 'label' => 'Bannière',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+                'attr' => [
+                    'class' => "form-control",
+                    'accept' => '.jpg, .jpeg, .png, .gif, .svg, .webp'
+                ],
                 'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
                 'required' => true,
                 'mapped' => false,
