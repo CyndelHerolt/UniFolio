@@ -3,7 +3,8 @@
         <div class="trace" style="display: flex; flex-direction: column">
             <h5>{{ trace.titre }}</h5>
 
-            <button class="step-trace-see-content">Voir le contenu</button>
+            <button class="step-trace-see-content" data-bs-toggle="modal"
+                    data-bs-target="#showStaticBackdrop{{ trace.id }}">Voir le contenu</button>
 
             <h6>Compétences</h6>
             <ul>
@@ -43,6 +44,59 @@
                     {{ ordreMaxTrace }}
                     <i class="fa-solid fa-angle-down"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="showStaticBackdrop{{ trace.id }}" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{ trace.titre }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="display: flex">
+                <div class="trace_content col-7">
+                    {% for contenu in trace.contenu %}
+                        {% if 'TraceTypeImage' in trace.typeTrace %}
+                            <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                        {% elseif 'TraceTypeLien' in trace.typeTrace %}
+                            <a href="{{ contenu }}">
+                                <button>{{ contenu }}</button>
+                            </a>
+                        {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                            <iframe src="{{ contenu }}" width="100%" height="300"
+                                    frameborder="0">{{ contenu }}</iframe>
+                        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+                            <iframe width="100%" height="300" src="{{ contenu }}"
+                                    title="Video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        {% endif %}
+                    {% endfor %}
+                    <p>
+                        {{ trace.description }}
+                    </p>
+                </div>
+                <div class="trace_competences col-5">
+                    <h3>Compétences</h3>
+                    <ul>
+                        {% for validation in trace.validations %}
+                            <li>
+                                {{ validation.competences.nomCourt }}
+                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
+                                {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
