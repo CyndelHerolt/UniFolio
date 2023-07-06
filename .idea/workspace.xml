@@ -12,8 +12,7 @@
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Amélioration CSS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_formTrace.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -577,7 +576,7 @@
       <workItem from="1688571392732" duration="748000" />
       <workItem from="1688573319239" duration="1273000" />
       <workItem from="1688623465584" duration="10262000" />
-      <workItem from="1688633979140" duration="11840000" />
+      <workItem from="1688633979140" duration="12638000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -922,7 +921,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="342" />
+    <option name="localTasksCounter" value="343" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -35,6 +35,14 @@
       }
     }
 
+    .trace-form {
+      padding: 25px 50px 25px 0;
+    }
+
+    .competences {
+      padding: 25px 50px;
+    }
+
     aside {
       background-color: $color-primary;
     }
@@ -94,9 +102,14 @@
 #formTrace {
   display: flex;
 
+
 }
 
 .portfolio_form {
+
+  .nav-link {
+    color: $color-secondary-focus;
+  }
 
   i {
     color: $color-light;
