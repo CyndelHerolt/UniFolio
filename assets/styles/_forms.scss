@@ -101,11 +101,16 @@
 
 #formTrace {
   display: flex;
-
-
 }
 
 .portfolio_form {
+
+  .nav-item:hover {
+
+    .nav-link {
+      color: #6848BDFF;
+    }
+  }
 
   .nav-link {
     color: $color-secondary-focus;
