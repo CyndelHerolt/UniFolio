@@ -125,7 +125,14 @@ class PortfolioProcessController extends BaseController
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
                 $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
-                $traces = $biblio->getTraces();
+                $allTraces = $biblio->getTraces();
+                $traces = [];
+                foreach ($allTraces as $trace) {
+                    $ordreTrace = $ordreTraceRepository->findOneBy(['trace' => $trace, 'page' => $page]);
+                    if (!$ordreTrace) {
+                        $traces[] = $trace;
+                    }
+                }
 
                 if ($ordrePage !== null) {
                     if ($ordrePage->getOrdre() == 1) {
