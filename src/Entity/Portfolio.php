@@ -43,6 +43,9 @@ class Portfolio
     #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: OrdrePage::class, cascade: ['persist', 'remove'])]
     private Collection $ordrePages;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -213,6 +216,18 @@ class Portfolio
                 $ordrePage->setPortfolio(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

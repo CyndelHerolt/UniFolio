@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -81,6 +82,17 @@ class PortfolioType extends AbstractType
                 'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
                 'required' => true,
                 'mapped' => false,
+            ])
+            ->add('description', TextAreaType::class, [
+                'label' => 'Paragraphe d\'introduction',
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
+                'attr' => [
+                    'class' => "form-control",
+                    'placeholder' => 'Ce portfolio ...',
+                ],
+                'help' => 'Un court paragraphe pour présenter votre portfolio',
             ])
             ->add('visibilite', ChoiceType::class, [
                 'choices' => [
