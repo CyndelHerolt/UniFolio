@@ -104,6 +104,36 @@
     justify-content: space-between;
   }
 
+  .step-page-actions {
+    display: flex;
+
+    .step-page-crud, .step-page-order {
+
+      button {
+        width: 50px;
+        margin: 0 0 10px 10px;
+      }
+    }
+
+    .step-page-crud button:nth-child(1) {
+      background-color: #AD1E1E;
+      border: none;
+
+      &:hover {
+        background-color: #c23131;
+      }
+    }
+
+    .step-page-order button {
+      background-color: $color-secondary-focus;
+      border: none;
+
+      &:hover {
+        background-color: #33294d;
+      }
+    }
+  }
+
   .step-card {
     padding: 15px 25px;
     margin: 25px 0;
@@ -160,6 +190,7 @@
   .step-trace-see-content {
     @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
     margin: 10px 0;
+    width: fit-content;
 
     &:hover {
       background-color: #33294d;
