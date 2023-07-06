@@ -1,4 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
+import {createAndShow} from "../js/_toast";
 
 export default class extends Controller {
     static targets = ['navTabs', 'stepZone', 'page', 'zone', 'traceZone']
@@ -40,6 +41,7 @@ export default class extends Controller {
 
 
     async save(event) {
+
         document.getElementById('portfolio')
         const form = document.getElementById('portfolio')
         const dataForm = new FormData(form)
@@ -92,6 +94,7 @@ export default class extends Controller {
                     }
                 } else if (fetchResponse.status !== 500) {
                     this.stepZoneTarget.innerHTML = await fetchResponse.text();
+                    createAndShow('success', 'Les modifications ont été enregistrées avec succès.')
                 }
             })
     }

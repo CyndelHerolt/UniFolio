@@ -123,9 +123,9 @@ class PortfolioProcessController extends BaseController
             case 'addPage':
                 $etudiant = $this->getUser()->getEtudiant();
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
-                $traces = $biblio->getTraces();
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
                 $ordrePage = $ordrePageRepository->findOneBy(['page' => $page, 'portfolio' => $portfolio]);
+                $traces = $biblio->getTraces();
 
                 if ($ordrePage !== null) {
                     if ($ordrePage->getOrdre() == 1) {
@@ -148,7 +148,6 @@ class PortfolioProcessController extends BaseController
                 } else {
                     $page = new Page();
                     $page->setIntitule('Nouvelle page');
-//                    $portfolio->addPage($page);
                     if ($portfolio->getOrdrePages()->count() > 0) {
                         $ordreMax = $portfolio->getOrdrePages()->last();
                         $ordre = $ordreMax->getOrdre() + 1;
@@ -170,26 +169,6 @@ class PortfolioProcessController extends BaseController
                         'page' => $page->getId(),
                     ]);
                 }
-                break;
-
-            case 'page':
-                $etudiant = $this->getUser()->getEtudiant();
-                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
-
-                // Récupérer les traces de la bibliothèque
-                $traces = $biblio->getTraces();
-                $ordreTraces = [];
-                foreach ($traces as $trace) {
-                    $ordreTraces = $ordreTraceRepository->findBy(['trace' => $trace]);
-                }
-
-                // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
-                $liste = [];
-                foreach ($ordreTraces as $ordreTrace) {
-                    $liste[] = $ordreTrace->getPage();
-                }
-
-                $form = $this->createForm(PageType::class);
                 break;
 
             case 'left':

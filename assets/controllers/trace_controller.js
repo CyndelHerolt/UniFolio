@@ -1,5 +1,6 @@
 import {Controller} from '@hotwired/stimulus';
 import {addImage, addLien, addPdf, addVideo, removeImage, removeLien, removePdf, removeVideo} from "../js/_trace";
+import {createAndShow} from "../js/_toast";
 
 export default class extends Controller {
     static targets = ['stepZone']
@@ -251,7 +252,7 @@ export default class extends Controller {
                                 field = document.querySelector(`[name="trace_type_video[${error.field}]"]`);
                             }
 
-console.log(error.field)
+                            console.log(error.field)
                             if (error.field === 'contenu') {
                                 // Find the error container
                                 const errorContainer = document.querySelector('.contenu-error');
@@ -283,6 +284,7 @@ console.log(error.field)
                     }
                 } else if (fetchResponse.status !== 500) {
                     this.stepZoneTarget.innerHTML = await fetchResponse.text();
+                    createAndShow('success', 'Les modifications ont été enregistrées avec succès.')
                 }
             })
     }
