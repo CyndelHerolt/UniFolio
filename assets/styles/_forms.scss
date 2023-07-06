@@ -81,16 +81,97 @@
     box-shadow: none !important;
   }
 
-    button {
-      @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
-      margin: 15px 0 0 0;
+  button {
+    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+    margin: 15px 0 0 0;
 
-      &:hover {
-        @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-      }
+    &:hover {
+      @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
     }
+  }
 }
 
 #formTrace {
   display: flex;
+
+}
+
+.portfolio_form {
+
+  .step-title {
+    margin: 25px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .step-card {
+    padding: 15px 25px;
+    margin: 25px 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    ul {
+      list-style: none;
+    }
+
+    .step-trace-actions {
+      display: flex;
+      flex-direction: column;
+
+      .step-trace-crud, .step-trace-order {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          width: 50px;
+          margin: 0 0 10px 10px;
+        }
+      }
+
+      .step-trace-crud button:nth-child(1) {
+        background-color: #AD1E1E;
+        border: none;
+
+        &:hover {
+          background-color: #c23131;
+        }
+      }
+
+      .step-trace-order button {
+        background-color: $color-secondary-focus;
+        border: none;
+
+        &:hover {
+          background-color: #33294d;
+        }
+      }
+    }
+  }
+
+  .alert-info {
+    background-color: $color-primary;
+    border: solid 1px $color-secondary;
+    padding: 10px 15px;
+  }
+
+  .form-group {
+    margin: 15px 0;
+  }
+
+  .step-trace-see-content {
+    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+    margin: 10px 0;
+
+    &:hover {
+      background-color: #33294d;
+    }
+  }
+
+  .save {
+    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+    margin: 15px 0 0 auto;
+
+    &:hover {
+      @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+    }
+  }
 }

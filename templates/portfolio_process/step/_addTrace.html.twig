@@ -1,8 +1,11 @@
-<div class="card">
+<div class="card step-card">
     <div style="display: flex; justify-content: space-between">
         <div class="trace" style="display: flex; flex-direction: column">
-            <h4>{{ trace.titre }}</h4>
-            <h5>Compétences</h5>
+            <h5>{{ trace.titre }}</h5>
+
+            <button class="step-trace-see-content">Voir le contenu</button>
+
+            <h6>Compétences</h6>
             <ul>
                 {% for validation in trace.validations %}
                     <li>
@@ -17,24 +20,30 @@
             </ul>
         </div>
 
-        <div>
-            <button class="btn-danger btn" {{ stimulus_action('trace', 'deleteTrace', 'click') }} value="{{ trace.id }}"
-                    data-page="{{ page.id }}">
-                <i class="fa-solid fa-minus-square"></i>
-            </button>
-            <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }} value="{{ trace.id }}"
-                    data-type="{{ trace.typeTrace }}">
-                <i class="fa-solid fa-edit"></i>
-            </button>
-            <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}"
-                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and trace.ordreTrace.ordre == 1 %} disabled {% endif %}>
-                <i class="fa-solid fa-angle-up"></i>
-            </button>
-            <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}"
-                    data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and tracesCount == trace.ordreTrace.ordre %} disabled {% endif %}>
-                {{ ordreMaxTrace }}
-                <i class="fa-solid fa-angle-down"></i>
-            </button>
+        <div class="step-trace-actions">
+            <div class="step-trace-crud">
+                <button class="btn-danger btn" {{ stimulus_action('trace', 'deleteTrace', 'click') }}
+                        value="{{ trace.id }}"
+                        data-page="{{ page.id }}">
+                    <i class="fa-solid fa-minus-square"></i>
+                </button>
+                <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }}
+                        value="{{ trace.id }}"
+                        data-type="{{ trace.typeTrace }}">
+                    <i class="fa-solid fa-edit"></i>
+                </button>
+            </div>
+            <div class="step-trace-order">
+                <button class="btn-primary btn" {{ stimulus_action('trace', 'up', 'click') }} value="{{ trace.id }}"
+                        data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and trace.ordreTrace.ordre == 1 %} disabled {% endif %}>
+                    <i class="fa-solid fa-angle-up"></i>
+                </button>
+                <button class="btn-primary btn" {{ stimulus_action('trace', 'down', 'click') }} value="{{ trace.id }}"
+                        data-page="{{ page.id }}" {% if trace.ordreTrace.ordre is defined and tracesCount == trace.ordreTrace.ordre %} disabled {% endif %}>
+                    {{ ordreMaxTrace }}
+                    <i class="fa-solid fa-angle-down"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

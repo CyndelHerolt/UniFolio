@@ -1,37 +1,27 @@
-<div style="display: flex">
+<div class="step-title">
     <h4>{{ page.intitule }}</h4>
 
-    <button class="btn-danger btn" {{ stimulus_action('page', 'deletePage', 'click') }} value="{{ page.id }}">
-        <i class="fa-solid fa-minus-square"></i>
-    </button>
-    <button class="btn-warning btn" {{ stimulus_action('page', 'editPage', 'click') }} value="{{ page.id }}">
-        <i class="fa-solid fa-edit"></i>
-    </button>
-    <button class="btn-primary btn" {{ stimulus_action('page', 'left', 'click') }}
-            value="{{ page.id }}" {% if ordreMin == true %} disabled {% endif %}>
-        <i class="fa-solid fa-angle-left"></i>
-    </button>
-    <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }}
-            value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax %} disabled {% endif %}>
-        <i class="fa-solid fa-angle-right"></i>
-    </button>
+    <div class="step-actions">
+        <button class="btn-danger btn" {{ stimulus_action('page', 'deletePage', 'click') }} value="{{ page.id }}">
+            <i class="fa-solid fa-minus-square"></i>
+        </button>
+        <button class="btn-warning btn" {{ stimulus_action('page', 'editPage', 'click') }} value="{{ page.id }}">
+            <i class="fa-solid fa-edit"></i>
+        </button>
+        <button class="btn-primary btn" {{ stimulus_action('page', 'left', 'click') }}
+                value="{{ page.id }}" {% if ordreMin == true %} disabled {% endif %}>
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+        <button class="btn-primary btn" {{ stimulus_action('page', 'right', 'click') }}
+                value="{{ page.id }}" {% if ordreMax is not null and ordrePage is not null and ordrePage.ordre == ordreMax %} disabled {% endif %}>
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
+    </div>
 </div>
 
 <div class="alert alert-info mb-2">
     Choisissez une trace déjà existante pour la dupliquer dans cette page, ou ajoutez une trace vide.
 </div>
-
-<div {{ stimulus_target('page', 'traceZone') }}{{ stimulus_target('trace', 'traceZone') }}>
-
-</div>
-
-{% if existingTraces is not null %}
-        {% set tracesCount = existingTraces|length %}
-    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
-            {% include 'portfolio_process/step/_addTrace.html.twig' with {tracesCount: tracesCount} %}
-    {% endfor %}
-{% endif %}
-
 
 <label for="selectTrace" class="sr-only">Choisir une trace</label>
 <select class="form-select"
@@ -44,3 +34,15 @@
     {% endfor %}
 </select>
 
+<hr>
+
+<div {{ stimulus_target('page', 'traceZone') }}{{ stimulus_target('trace', 'traceZone') }}>
+
+</div>
+
+{% if existingTraces is not null %}
+    {% set tracesCount = existingTraces|length %}
+    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
+        {% include 'portfolio_process/step/_addTrace.html.twig' with {tracesCount: tracesCount} %}
+    {% endfor %}
+{% endif %}

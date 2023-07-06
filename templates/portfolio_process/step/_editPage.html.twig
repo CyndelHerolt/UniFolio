@@ -17,7 +17,7 @@
     {% endfor %}
 {% endif %}
 
-<button class="btn btn-primary d-block" value="{{ page.id }}"
+<button class="btn btn-primary d-block save" value="{{ page.id }}"
         {{ stimulus_action('page', 'savePage', 'click') }}>
     Enregister les modifications
 </button>

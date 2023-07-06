@@ -1,5 +1,6 @@
-<h4>Edition de {{ portfolio.intitule }}</h4>
-
+<div class="step-title">
+    <h4>Edition de {{ portfolio.intitule }}</h4>
+</div>
 {{ form_start(form, {'attr': {id:'portfolio'}}) }}
 <div class="hidden">
     {{ form_row(form.date_creation) }}
@@ -10,17 +11,11 @@
     </div>
 {% endif %}
 {{ form_row(form.intitule) }}
-{% if error is defined %}
-    {{ error }}
-{% endif %}
-     {{ form_row(form.banniere) }}
-    {{ form_row(form.visibilite) }}
+{{ form_row(form.banniere) }}
+{{ form_row(form.description) }}
+{{ form_row(form.visibilite) }}
 {{ form_end(form) }}
 
-<div id="error-zone">
-
-</div>
-
-<button class="btn btn-primary d-block" {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>
+<button class="btn btn-primary d-block save" {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>
     Enregistrer les modifications
 </button>
