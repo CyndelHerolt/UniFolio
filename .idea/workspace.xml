@@ -9,19 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Portfolio] tests new process">
-      <change afterPath="$PROJECT_DIR$/assets/controllers/page_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/controllers/portfolio_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/controllers/trace_controller.js" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Portfolio] Amélioration CSS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/creation_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/creation_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addPage.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addTrace.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_page.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +52,53 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Controller/AbstractCrudController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/page/content.html.twig" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
+    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -225,7 +264,8 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/var/www/html/Portfolio_universitaire&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hero0005/Desktop/trek&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -234,7 +274,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -512,133 +552,32 @@
       <workItem from="1687156480955" duration="7748000" />
       <workItem from="1687241684179" duration="23661000" />
       <workItem from="1687275052536" duration="5632000" />
-      <workItem from="1687329311956" duration="7631000" />
-    </task>
-    <task id="LOCAL-00248" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
-      <created>1683632629210</created>
-      <option name="number" value="00248" />
-      <option name="presentableId" value="LOCAL-00248" />
-      <option name="project" value="LOCAL" />
-      <updated>1683632629210</updated>
-    </task>
-    <task id="LOCAL-00249" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
-      <created>1683632679808</created>
-      <option name="number" value="00249" />
-      <option name="presentableId" value="LOCAL-00249" />
-      <option name="project" value="LOCAL" />
-      <updated>1683632679808</updated>
-    </task>
-    <task id="LOCAL-00250" summary="feat: [Inscription] Interruption de la connexion si compte non vérifié">
-      <created>1683637876234</created>
-      <option name="number" value="00250" />
-      <option name="presentableId" value="LOCAL-00250" />
-      <option name="project" value="LOCAL" />
-      <updated>1683637876234</updated>
-    </task>
-    <task id="LOCAL-00251" summary="feat: [Session] Initialisation de session">
-      <created>1683650220725</created>
-      <option name="number" value="00251" />
-      <option name="presentableId" value="LOCAL-00251" />
-      <option name="project" value="LOCAL" />
-      <updated>1683650220725</updated>
-    </task>
-    <task id="LOCAL-00252" summary="fix: [structure] lien dept enseignant">
-      <created>1683650289889</created>
-      <option name="number" value="00252" />
-      <option name="presentableId" value="LOCAL-00252" />
-      <option name="project" value="LOCAL" />
-      <updated>1683650289889</updated>
-    </task>
-    <task id="LOCAL-00253" summary="feat: [Compte] génération de la vue affichée si connexion sans verif">
-      <created>1683650341773</created>
-      <option name="number" value="00253" />
-      <option name="presentableId" value="LOCAL-00253" />
-      <option name="project" value="LOCAL" />
-      <updated>1683650341773</updated>
-    </task>
-    <task id="LOCAL-00254" summary="feat: [Compte] Initiation de la session au login">
-      <created>1683701772468</created>
-      <option name="number" value="00254" />
-      <option name="presentableId" value="LOCAL-00254" />
-      <option name="project" value="LOCAL" />
-      <updated>1683701772468</updated>
-    </task>
-    <task id="LOCAL-00255" summary="feat: [Compte] Initiation de la session au login">
-      <created>1683709249920</created>
-      <option name="number" value="00255" />
-      <option name="presentableId" value="LOCAL-00255" />
-      <option name="project" value="LOCAL" />
-      <updated>1683709249920</updated>
-    </task>
-    <task id="LOCAL-00256" summary="fix: [Compte] Initialisation de la session au login">
-      <created>1683720904312</created>
-      <option name="number" value="00256" />
-      <option name="presentableId" value="LOCAL-00256" />
-      <option name="project" value="LOCAL" />
-      <updated>1683720904312</updated>
-    </task>
-    <task id="LOCAL-00257" summary="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
-      <created>1683798391808</created>
-      <option name="number" value="00257" />
-      <option name="presentableId" value="LOCAL-00257" />
-      <option name="project" value="LOCAL" />
-      <updated>1683798391808</updated>
-    </task>
-    <task id="LOCAL-00258" summary="fix: [Session] Initialisation du DataUserSession pour récupérer les données propres au user connecté">
-      <created>1683896959254</created>
-      <option name="number" value="00258" />
-      <option name="presentableId" value="LOCAL-00258" />
-      <option name="project" value="LOCAL" />
-      <updated>1683896959254</updated>
-    </task>
-    <task id="LOCAL-00259" summary="feat: [Session] Récupération et affichage des données propres au dept.">
-      <created>1683897023136</created>
-      <option name="number" value="00259" />
-      <option name="presentableId" value="LOCAL-00259" />
-      <option name="project" value="LOCAL" />
-      <updated>1683897023136</updated>
-    </task>
-    <task id="LOCAL-00260" summary="feat: [Filtre] Filtre Twig pour filtrage des semestres par année">
-      <created>1683897052813</created>
-      <option name="number" value="00260" />
-      <option name="presentableId" value="LOCAL-00260" />
-      <option name="project" value="LOCAL" />
-      <updated>1683897052813</updated>
-    </task>
-    <task id="LOCAL-00261" summary="fix: [Data] Récupération des data depuis l'intranet par l'id">
-      <created>1683966870505</created>
-      <option name="number" value="00261" />
-      <option name="presentableId" value="LOCAL-00261" />
-      <option name="project" value="LOCAL" />
-      <updated>1683966870506</updated>
-    </task>
-    <task id="LOCAL-00262" summary="fix: [Filter] Filtre semestres/annees">
-      <created>1683966905323</created>
-      <option name="number" value="00262" />
-      <option name="presentableId" value="LOCAL-00262" />
-      <option name="project" value="LOCAL" />
-      <updated>1683966905323</updated>
-    </task>
-    <task id="LOCAL-00263" summary="fix: [Session] Changement de dept par défaut depuis le dashboard">
-      <created>1684738910220</created>
-      <option name="number" value="00263" />
-      <option name="presentableId" value="LOCAL-00263" />
-      <option name="project" value="LOCAL" />
-      <updated>1684738910221</updated>
-    </task>
-    <task id="LOCAL-00264" summary="fix: [Structure] Récupération uniquement des départements qui proposent le BUT">
-      <created>1684762651804</created>
-      <option name="number" value="00264" />
-      <option name="presentableId" value="LOCAL-00264" />
-      <option name="project" value="LOCAL" />
-      <updated>1684762651804</updated>
-    </task>
-    <task id="LOCAL-00265" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
-      <created>1684834615653</created>
-      <option name="number" value="00265" />
-      <option name="presentableId" value="LOCAL-00265" />
-      <option name="project" value="LOCAL" />
-      <updated>1684834615654</updated>
+      <workItem from="1687329311956" duration="21555000" />
+      <workItem from="1687371726268" duration="1044000" />
+      <workItem from="1687414814836" duration="21551000" />
+      <workItem from="1687447700258" duration="6343000" />
+      <workItem from="1687500402534" duration="21154000" />
+      <workItem from="1687530989981" duration="4095000" />
+      <workItem from="1687537395918" duration="2000" />
+      <workItem from="1687597985181" duration="36000" />
+      <workItem from="1687611295979" duration="70000" />
+      <workItem from="1687689227068" duration="10977000" />
+      <workItem from="1687948952652" duration="95000" />
+      <workItem from="1687949234922" duration="30000" />
+      <workItem from="1688365224751" duration="24257000" />
+      <workItem from="1688400040577" duration="911000" />
+      <workItem from="1688400984757" duration="323000" />
+      <workItem from="1688401867585" duration="150000" />
+      <workItem from="1688402493147" duration="79000" />
+      <workItem from="1688402597875" duration="2427000" />
+      <workItem from="1688450549433" duration="21460000" />
+      <workItem from="1688484030597" duration="3330000" />
+      <workItem from="1688536881931" duration="14611000" />
+      <workItem from="1688560131800" duration="6891000" />
+      <workItem from="1688571392732" duration="748000" />
+      <workItem from="1688573319239" duration="1273000" />
+      <workItem from="1688623465584" duration="10262000" />
+      <workItem from="1688633979140" duration="11840000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -857,15 +796,144 @@
       <option name="project" value="LOCAL" />
       <updated>1687280811132</updated>
     </task>
-    <option name="localTasksCounter" value="297" />
+    <task id="LOCAL-00297" summary="feat: [Portfolio] tests new process">
+      <created>1687337937384</created>
+      <option name="number" value="00297" />
+      <option name="presentableId" value="LOCAL-00297" />
+      <option name="project" value="LOCAL" />
+      <updated>1687337937385</updated>
+    </task>
+    <task id="LOCAL-00298" summary="feat: [Portfolio] tests new process">
+      <created>1687344647302</created>
+      <option name="number" value="00298" />
+      <option name="presentableId" value="LOCAL-00298" />
+      <option name="project" value="LOCAL" />
+      <updated>1687344647302</updated>
+    </task>
+    <task id="LOCAL-00299" summary="feat: [Portfolio] tests new process">
+      <created>1687373075229</created>
+      <option name="number" value="00299" />
+      <option name="presentableId" value="LOCAL-00299" />
+      <option name="project" value="LOCAL" />
+      <updated>1687373075229</updated>
+    </task>
+    <task id="LOCAL-00300" summary="feat: [Portfolio] process -&gt; création portfolio + ajout et création de page + ajout trace =&gt; ok">
+      <created>1687426139255</created>
+      <option name="number" value="00300" />
+      <option name="presentableId" value="LOCAL-00300" />
+      <option name="project" value="LOCAL" />
+      <updated>1687426139255</updated>
+    </task>
+    <task id="LOCAL-00301" summary="feat: [Portfolio] process -&gt; création portfolio + ajout et création de page + ajout trace =&gt; ok">
+      <created>1687442959873</created>
+      <option name="number" value="00301" />
+      <option name="presentableId" value="LOCAL-00301" />
+      <option name="project" value="LOCAL" />
+      <updated>1687442959873</updated>
+    </task>
+    <task id="LOCAL-00302" summary="feat: [Portfolio] process -&gt; création portfolio + ajout et création de page + ajout trace =&gt; ok">
+      <created>1687443462842</created>
+      <option name="number" value="00302" />
+      <option name="presentableId" value="LOCAL-00302" />
+      <option name="project" value="LOCAL" />
+      <updated>1687443462842</updated>
+    </task>
+    <task id="LOCAL-00303" summary="feat: [Portfolio] process -&gt; création portfolio + ajout et création de page + ajout trace =&gt; ok">
+      <created>1687454765046</created>
+      <option name="number" value="00303" />
+      <option name="presentableId" value="LOCAL-00303" />
+      <option name="project" value="LOCAL" />
+      <updated>1687454765046</updated>
+    </task>
+    <task id="LOCAL-00304" summary="feat: [Portfolio] process -&gt; création portfolio + ajout et création de page + ajout trace =&gt; ok">
+      <created>1687514642818</created>
+      <option name="number" value="00304" />
+      <option name="presentableId" value="LOCAL-00304" />
+      <option name="project" value="LOCAL" />
+      <updated>1687514642818</updated>
+    </task>
+    <task id="LOCAL-00305" summary="feat: [Portfolio] process -&gt; gestion ordre des pages">
+      <created>1687522861706</created>
+      <option name="number" value="00305" />
+      <option name="presentableId" value="LOCAL-00305" />
+      <option name="project" value="LOCAL" />
+      <updated>1687522861706</updated>
+    </task>
+    <task id="LOCAL-00306" summary="feat: [Portfolio] process -&gt; gestion ordre des pages">
+      <created>1687537243576</created>
+      <option name="number" value="00306" />
+      <option name="presentableId" value="LOCAL-00306" />
+      <option name="project" value="LOCAL" />
+      <updated>1687537243577</updated>
+    </task>
+    <task id="LOCAL-00307" summary="fix: [Portfolio] process -&gt; gestion ordre des pages">
+      <created>1687696269754</created>
+      <option name="number" value="00307" />
+      <option name="presentableId" value="LOCAL-00307" />
+      <option name="project" value="LOCAL" />
+      <updated>1687696269754</updated>
+    </task>
+    <task id="LOCAL-00308" summary="fix: [Portfolio] process -&gt; ajout de plusieurs nouvelles traces d'affilé">
+      <created>1687698374617</created>
+      <option name="number" value="00308" />
+      <option name="presentableId" value="LOCAL-00308" />
+      <option name="project" value="LOCAL" />
+      <updated>1687698374617</updated>
+    </task>
+    <task id="LOCAL-00309" summary="fix: [Portfolio] process -&gt; delete page">
+      <created>1687702401390</created>
+      <option name="number" value="00309" />
+      <option name="presentableId" value="LOCAL-00309" />
+      <option name="project" value="LOCAL" />
+      <updated>1687702401390</updated>
+    </task>
+    <task id="LOCAL-00310" summary="fix: [Portfolio] process -&gt; add trace + gestion ordres">
+      <created>1688375658482</created>
+      <option name="number" value="00310" />
+      <option name="presentableId" value="LOCAL-00310" />
+      <option name="project" value="LOCAL" />
+      <updated>1688375658483</updated>
+    </task>
+    <task id="LOCAL-00311" summary="fix: [Portfolio] process -&gt; delete trace">
+      <created>1688376165565</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
+      <option name="project" value="LOCAL" />
+      <updated>1688376165565</updated>
+    </task>
+    <task id="LOCAL-00312" summary="fix: [Portfolio] process">
+      <created>1688388431804</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
+      <option name="project" value="LOCAL" />
+      <updated>1688388431804</updated>
+    </task>
+    <task id="LOCAL-00313" summary="fix: [Portfolio] edit trace">
+      <created>1688392155904</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
+      <option name="project" value="LOCAL" />
+      <updated>1688392155904</updated>
+    </task>
+    <task id="LOCAL-00314" summary="fix: [General] Nettoyage">
+      <created>1688392264696</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
+      <option name="project" value="LOCAL" />
+      <updated>1688392264696</updated>
+    </task>
+    <option name="localTasksCounter" value="342" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
     <option featureType="dependencySupport" implementationName="javascript:npm:webpack" />
     <option featureType="dependencySupport" implementationName="javascript:npm:karma" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
     <option featureType="dependencySupport" implementationName="javascript:npm:postcss" />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -918,31 +986,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Session] Changement de dept par défaut depuis le dashboard" />
-    <MESSAGE value="fix: [Structure] Récupération uniquement des départements qui proposent le BUT" />
-    <MESSAGE value="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure" />
-    <MESSAGE value="fix: [Data] Manipulation des data pour le user admin et ses roles" />
-    <MESSAGE value="fix: [DataBase] Ajout d'une table Apc_Parcours pour lier les groupes et les diplomes" />
-    <MESSAGE value="fix: [Intranet] Correction bug + ajout apc Referentiel" />
-    <MESSAGE value="fix: [Synchro] Récupération des data de la table apcParcours et lien avec l'entité Diplome" />
-    <MESSAGE value="fix: [Synchro] Réduction de la quantité de data à l'essentiel" />
-    <MESSAGE value="fix: [Dashboard] Filtres par Années, Semestres et Groupes" />
-    <MESSAGE value="fix: [Dashboard] Filtres par Années, Semestres, Type et Groupes" />
-    <MESSAGE value="fix: [Synchro] Assignation des groupes etudiants" />
-    <MESSAGE value="fix: [Dashboard enseignant] Filtres par année, semestre, groupe. ok!" />
-    <MESSAGE value="feat: [Suivi portfolio] Récupération et affichages des portolios/etudiant" />
-    <MESSAGE value="fix: [Création trace] CRUD trace type image (ajout edit et delete images multiples)" />
-    <MESSAGE value="fix: [Création trace] CRUD trace type image + pdf (ajout edit et delete images+pdf multiples)" />
-    <MESSAGE value="fix: [Profil] Récupération et affichage des données du user (en cours)" />
-    <MESSAGE value="fix: [Structure] Récupération des référentiels depuis l'Intranet" />
-    <MESSAGE value="feat: [Suivi Etudiant] Accès aux traces + portfolios pr les enseignants" />
-    <MESSAGE value="fix: [Compétences] Lien compétences|traces (en cours)" />
-    <MESSAGE value="fix: [Compétences] Lien compétences|traces" />
-    <MESSAGE value="fix: [Compétences] Lien compétences|traces à la création et l'édition d'une trace" />
-    <MESSAGE value="fix: [Admin] CRUD - new etudiant / structure" />
-    <MESSAGE value="refactor : nettoyage" />
-    <MESSAGE value="feat: [Portfolio] mise en place de la notion d'ordre pour les pages et les traces (en cours)" />
-    <MESSAGE value="feat: [Portfolio] tests new process" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Portfolio] tests new process" />
+    <MESSAGE value="fix: [Portfolio] process" />
+    <MESSAGE value="fix: [Portfolio] edit trace" />
+    <MESSAGE value="fix: [General] Nettoyage" />
+    <MESSAGE value="fix: [Portfolio] Transfert des gestion d'évènements (contenu trace) vers le controller stimulus" />
+    <MESSAGE value="fix: [Portfolio] upload media trace" />
+    <MESSAGE value="fix: [Portfolio] gestion ordre traces" />
+    <MESSAGE value="fix: [Portfolio] gestion ordre pages" />
+    <MESSAGE value="fix: [Portfolio] crud portfolio" />
+    <MESSAGE value="fix: [Portfolio] edit page" />
+    <MESSAGE value="fix: [Portfolio] tests errors" />
+    <MESSAGE value="fix: [Portfolio] assignation trace-&gt;bibliotheque user" />
+    <MESSAGE value="fix: [Portfolio] redirect vers process après new" />
+    <MESSAGE value="fix: [Portfolio] crud trace/page" />
+    <MESSAGE value="fix: [Portfolio] crud trace" />
+    <MESSAGE value="fix: [Portfolio] avertissement conservation des traces on delete" />
+    <MESSAGE value="fix: [Portfolio] Ajout test extension fichier form portfolio" />
+    <MESSAGE value="fix: [Portfolio] Modifs btn save general" />
+    <MESSAGE value="fix: [Portfolio] crud traces" />
+    <MESSAGE value="fix: [Portfolio] guide process" />
+    <MESSAGE value="fix: [Portfolio] gestion affichage erreurs forms" />
+    <MESSAGE value="fix: [Portfolio] gestion affichage errors/success forms" />
+    <MESSAGE value="fix: [Portfolio] suppression des traces déjà dans la page dans select ajout" />
+    <MESSAGE value="fix: [Portfolio] suppression de l'étape du choix de la page à créer" />
+    <MESSAGE value="fix: [Portfolio] ajout d'une propriété Description" />
+    <MESSAGE value="fix: [Portfolio] Amélioration CSS" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [Portfolio] Amélioration CSS" />
   </component>
 </project>
