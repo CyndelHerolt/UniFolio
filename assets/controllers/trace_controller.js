@@ -44,9 +44,7 @@ export default class extends Controller {
             trace: _value,
             type: type,
         })
-        console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        console.log(response);
         //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
 
@@ -94,7 +92,6 @@ export default class extends Controller {
         });
 
         document.querySelectorAll('.lien_trace').forEach(event => {
-            // console.log(event)
             event.parentNode.classList.add('lien_trace_div')
             // event.parentNode.classList.add('input-group', 'mb-3');
             // event.style.display = 'flex';
@@ -114,7 +111,6 @@ export default class extends Controller {
         });
 
         document.querySelectorAll('.video_trace').forEach(event => {
-            // console.log(event)
             event.parentNode.classList.add('video_trace_div')
             // event.parentNode.classList.add('input-group', 'mb-3');
             // event.style.display = 'flex';
@@ -205,20 +201,89 @@ export default class extends Controller {
             type: type,
         })
 
-        console.log(formData.getAll('trace_type_pdf'));
-
         // Envoyer les données du formulaire via une requête POST
-            const response = await fetch(`${this.urlValue}?${params.toString()}`, {
-                method: 'POST',
-                body: formData,
-            })
-                .then(async response => {
-                    if (response.status === 500) {
-                        const reponse = await response.json()
-                    console.log(reponse);
-                    } else {
-                        this.stepZoneTarget.innerHTML = await response.text()
+        const response = await fetch(`${this.urlValue}?${params.toString()}`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(async fetchResponse => {
+
+                // Remove existing error messages
+                document.querySelectorAll('.invalid-feedback').forEach((element) => {
+                    element.remove();
+                });
+
+                // Remove "is-invalid" class from fields
+                document.querySelectorAll('.is-invalid').forEach((element) => {
+                    element.classList.remove('is-invalid');
+                });
+
+                // Remove style from .competences
+                document.querySelector('.competences').style.border = 'none';
+                document.getElementById('zone-error').innerHTML = '';
+
+                const contentType = fetchResponse.headers.get('content-type');
+
+                if (contentType && contentType.includes('application/json')) {
+                    const jsonResponse = await fetchResponse.json();
+
+                    if (fetchResponse.status === 500 && jsonResponse.errors && jsonResponse.errors.length > 0) {
+                        // Loop through each error
+                        jsonResponse.errors.forEach((error) => {
+                            // Create an error message element
+                            const errorElement = document.createElement('div');
+                            errorElement.innerHTML = error.message;
+                            errorElement.classList.add('invalid-feedback');
+
+                            let field
+
+                            if (type === 'App\\Components\\Trace\\TypeTrace\\TraceTypeImage') {
+                                // Find the form field
+                                field = document.querySelector(`[name="trace_type_image[${error.field}]"]`);
+                            } else if (type === 'App\\Components\\Trace\\TypeTrace\\TraceTypePdf') {
+                                // Find the form field
+                                field = document.querySelector(`[name="trace_type_pdf[${error.field}]"]`);
+                            } else if (type === 'App\\Components\\Trace\\TypeTrace\\TraceTypeLien') {
+                                // Find the form field
+                                field = document.querySelector(`[name="trace_type_lien[${error.field}]"]`);
+                            } else if (type === 'App\\Components\\Trace\\TypeTrace\\TraceTypeVideo') {
+                                // Find the form field
+                                field = document.querySelector(`[name="trace_type_video[${error.field}]"]`);
+                            }
+
+console.log(error.field)
+                            if (error.field === 'contenu') {
+                                // Find the error container
+                                const errorContainer = document.querySelector('.contenu-error');
+                                errorContainer.style.color = '#dc3545';
+                                // Append the error message to the container
+                                errorContainer.innerHTML = errorElement.innerHTML;
+                            }
+
+                            if (error.field === 'competences') {
+
+                                // Find the error container
+                                const errorContainer = document.getElementById('zone-error');
+                                const formCompetences = document.querySelector('.competences');
+                                errorContainer.style.color = '#dc3545';
+                                formCompetences.style.border = '1px solid #dc3545';
+
+                                // Append the error message to the container
+                                errorContainer.innerHTML = errorElement.innerHTML;
+                            }
+
+                            // Append the error message to the form field
+                            if (field) {
+                                field.parentNode.insertBefore(errorElement, field.nextSibling);
+
+                                // Add "is-invalid" class to the form field
+                                field.classList.add("is-invalid");
+                            }
+                        });
                     }
-                })
+                } else if (fetchResponse.status !== 500) {
+                    this.stepZoneTarget.innerHTML = await fetchResponse.text();
+                }
+            })
     }
 }

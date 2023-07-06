@@ -19,6 +19,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class TraceTypeImageType extends AbstractType
@@ -34,21 +38,6 @@ class TraceTypeImageType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $user = $options['user'];
-        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
-        $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
-
-//        $tracesCount = count($traces);
-//
-//        // Si l'url contient "/new" alors on ajoute 1 à $tracesCount
-//        if (strpos($_SERVER['REQUEST_URI'], 'formulaire')) {
-//            $tracesCount++;
-//        }
-//        $choices = [];
-//        for ($i = 1; $i <= $tracesCount; $i++) {
-//            $choices[$i] = $i;
-//        }
-
         $competences = $options['competences'];
 
         $builder
@@ -64,19 +53,26 @@ class TraceTypeImageType extends AbstractType
                 'disabled' => true,
                 'label' => ' ',
             ])
-//            ->add('ordre', ChoiceType::class, [
-//                'choices' => [$choices],
-//                'label' => 'Ordre',
-//                'required' => true,
-//                'expanded' => true,
-//                'multiple' => false,
-//                'mapped' => true,
-//            ])
             ->add('titre', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un intitulé',
+                    ]),
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
                 'label' => 'Titre',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Titre de ma trace',],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
+                'attr' => [
+                    'class' => "form-control",
+                    'placeholder' => 'Titre de ma trace',
+                ],
                 'help' => '100 caractères maximum',
+                'required' => true,
             ])
             //----------------------------------------------------------------
 
@@ -106,6 +102,11 @@ class TraceTypeImageType extends AbstractType
             ])
             //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre commentaire',
+                    ]),
+                ],
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
@@ -113,12 +114,21 @@ class TraceTypeImageType extends AbstractType
             ])
             //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
+                'constraints' => [
+                    new Count([
+                        'min' => 1,
+                        'minMessage' => 'Veuillez sélectionner au moins une compétence',
+                    ]),
+                ],
                 'choices' => array_combine($competences, $competences),
                 'label' => false,
                 'multiple' => true,
                 'required' => true,
                 'expanded' => true,
                 'mapped' => false,
+                'attr' => [
+                    'class' => "form-check"
+                ],
             ])
             ;
     }

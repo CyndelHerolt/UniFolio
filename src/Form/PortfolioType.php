@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class PortfolioType extends AbstractType
@@ -34,35 +36,6 @@ class PortfolioType extends AbstractType
         array                $options,
     ): void
     {
-//----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
-//-----------------------Récupération des données de l'utilisateur pour choiceType--------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
-
-//        //Récupérer la bibliothèque de l'utilisateur connecté
-//        $user = $this->security->getUser()->getEtudiant();
-//        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $user]);
-//
-//        // Récupérer les traces de la bibliothèque
-//        $traces = $biblio->getTraces();
-//        if ($traces->isEmpty()) {
-//            $add = false;
-//        } else {
-//            $add = true;
-//        }
-//        // Récupérer les pages associées aux traces(donc les pages de l'étudiant connecté)
-//        $pages = [];
-//        foreach ($traces as $trace) {
-//            $pages = array_merge($pages, $trace->getPages()->toArray());
-////            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
-//            $pages = array_unique($pages, SORT_REGULAR);
-//        }
-
-//----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
         $builder
             ->add('date_creation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
@@ -77,10 +50,26 @@ class PortfolioType extends AbstractType
                 'label' => 'Date de modification',
             ])
             ->add('intitule', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un intitulé',
+                    ]),
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
                 'label' => 'Intitulé',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Intitulé de mon portfolio',],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
+                'attr' => [
+                    'class' => "form-control",
+                    'placeholder' => 'Intitulé de mon portfolio',
+                    'maxlength' => 100,
+                    ],
                 'help' => '100 caractères maximum',
+                'required' => true,
             ])
             ->add('banniere', FileType::class, [
                 'label' => 'Bannière',

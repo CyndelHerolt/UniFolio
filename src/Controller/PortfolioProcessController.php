@@ -24,6 +24,7 @@ use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,8 +82,7 @@ class PortfolioProcessController extends BaseController
             case 'savePortfolio':
                 $form = $this->createForm(PortfolioType::class, $portfolio);
                 $form->handleRequest($request);
-                if ($form->isSubmitted()) {
-
+                if ($form->isSubmitted() && $form->isValid()) {
 
                     $imageFile = $form['banniere']->getData();
                     if ($imageFile) {
@@ -98,13 +98,27 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
-
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $portfolio->getId(),
                         'step' => 'portfolio']);
                 }
-                break;
+
+                $errors = $form->getErrors(true, true);
+                $errorsOutput = [];
+                foreach ($errors as $error) {
+                    if ($error->getOrigin()) {
+                        $errorsOutput[] = [
+                            'field' => $error->getOrigin()->getName(), 'message' => $error->getMessage()
+                        ];
+                    } else {
+                        $errorsOutput[] = [
+                            'message' => $error->getMessage()
+                        ];
+                    }
+                }
+
+                return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
             case 'addPage':
                 $etudiant = $this->getUser()->getEtudiant();
@@ -251,7 +265,22 @@ class PortfolioProcessController extends BaseController
                         'page' => $page->getId(),
                     ]);
                 }
-                break;
+
+                $errors = $form->getErrors(true, true);
+                $errorsOutput = [];
+                foreach ($errors as $error) {
+                    if ($error->getOrigin()) {
+                        $errorsOutput[] = [
+                            'field' => $error->getOrigin()->getName(), 'message' => $error->getMessage()
+                        ];
+                    } else {
+                        $errorsOutput[] = [
+                            'message' => $error->getMessage()
+                        ];
+                    }
+                }
+
+                return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
             case 'deletePage':
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
@@ -288,14 +317,14 @@ class PortfolioProcessController extends BaseController
                     $trace->setBibliotheque($biblio);
 
 
-                    // ajouter 1 à l'ordre de toutes les traces de la page
-                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
-                    foreach ($ordreTraces as $ordreTrace) {
-                        $ordreTrace->setOrdre($ordreTrace->getOrdre() + 1);
-                    }
                 }
 
                 $ordre = 1;
+                // ajouter 1 à l'ordre de toutes les traces de la page
+                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
+                foreach ($ordreTraces as $ordreTrace) {
+                    $ordreTrace->setOrdre($ordreTrace->getOrdre() + 1);
+                }
                 $newOrdreTrace = new OrdreTrace();
                 $newOrdreTrace->setOrdre($ordre);
                 $newOrdreTrace->setTrace($trace);
@@ -475,8 +504,7 @@ class PortfolioProcessController extends BaseController
 
                 $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
                 $form->handleRequest($request);
-                if ($form->isSubmitted()
-                    && $form->isValid()
+                if ($form->isSubmitted() && $form->isValid()
                 ) {
                     $existingCompetences = [];
                     foreach ($trace->getValidations() as $validation) {
@@ -541,11 +569,25 @@ class PortfolioProcessController extends BaseController
                         $existingContenu = null;
                     }
 
-                    if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
+                    $result = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu);
 
+                    if ($result['success']) {
                         $form->getData()->setDatemodification(new \DateTimeImmutable());
                         $trace->setTypeTrace($type);
                         $traceRepository->save($trace, true);
+                    } else {
+                        $errorsOutput = [];
+
+                        // Ajout de l'erreur retournée par la fonction save()
+                        if (isset($result['error'])) {
+                            // Spécifiez 'contenu' comme le champ d'origine de l'erreur.
+                            $errorsOutput[] = [
+                                'field' => 'contenu',
+                                'message' => $result['error']
+                            ];
+                        }
+
+                        return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
                     }
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
@@ -554,12 +596,24 @@ class PortfolioProcessController extends BaseController
                         'page' => $page
                     ]);
                 }
-                //todo: gérer les erreurs
-                $error = [
 
-                ];
+                $errors = $form->getErrors(true, true);
+                $errorsOutput = [];
+                foreach ($errors as $error) {
+                    if ($error->getOrigin()) {
+                        $errorsOutput[] = [
+                            'field' => $error->getOrigin()->getName(), 'message' => $error->getMessage()
+                        ];
+                    } else {
+                        $errorsOutput[] = [
+                            'message' => $error->getMessage()
+                        ];
+                    }
+                }
 
-                return $this->json(['success' => false, 'error' => $form->getErrors(true, false)], 500);
+                return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
+
+
         }
 
         return $this->render('portfolio_process/step/_step.html.twig', ['step' => $step,
@@ -580,6 +634,8 @@ class PortfolioProcessController extends BaseController
             'ordreMax' => $ordreMax ?? null,
             'ordreMin' => $ordreMin ?? null,
             'ordreMaxTrace' => $ordreMaxTrace ?? null,
-            'ordreMinTrace' => $ordreMinTrace ?? null,]);
+            'ordreMinTrace' => $ordreMinTrace ?? null,
+            'error' => $error ?? null,
+        ]);
     }
 }

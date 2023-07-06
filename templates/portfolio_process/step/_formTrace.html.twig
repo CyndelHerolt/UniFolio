@@ -27,6 +27,9 @@
             <button type="button" class="btn btn-primary add-image">
                 Ajouter une image <i class="fa fa-square-plus"></i>
             </button>
+                <div class="contenu-error">
+
+                </div>
 
             <!-- Pdf -->
 
@@ -45,6 +48,9 @@
             <button type="button" class="btn btn-primary add-pdf">
                 Ajouter un PDF <i class="fa fa-square-plus"></i>
             </button>
+            <div class="contenu-error">
+
+            </div>
 
             <!-- Liens -->
 
@@ -55,6 +61,9 @@
             <button type="button" class="btn btn-primary add-lien">
                 Ajouter un lien <i class="fa fa-square-plus"></i>
             </button>
+            <div class="contenu-error">
+
+            </div>
 
             <!-- Videos -->
 
@@ -65,25 +74,33 @@
             <button type="button" class="btn btn-primary add-video">
                 Ajouter une vidéo <i class="fa fa-square-plus"></i>
             </button>
+            <div class="contenu-error">
+
+            </div>
         {% endif %}
+
         <hr>
         {{ form_row(form.description) }}
     </article>
-    <aside class="col-lg-6 col-12">
+    <aside class="col-lg-6 col-12 competences">
         <h4>Compétences relatives à cette trace</h4>
 
         <div class="secondary_form">
 
             {{ form_row(form.competences, {'attr': {id:'competences'}}) }}
 
-            <button class="btn btn-primary" {{ stimulus_action('trace', 'saveTrace', 'click') }}
-                    value="{{ trace.id }}"
-                    data-type="{{ constant('class', traceType) }}">
-                Enregistrer les modifications
-            </button>
+            <div id="zone-error">
+
+            </div>
+
 
         </div>
 
     </aside>
     {{ form_end(form) }}
+    <button class="btn btn-primary" {{ stimulus_action('trace', 'saveTrace', 'click') }}
+            value="{{ trace.id }}"
+            data-type="{{ constant('class', traceType) }}">
+        Enregistrer les modifications
+    </button>
 </div>
