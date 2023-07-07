@@ -464,6 +464,9 @@ class PortfolioProcessController extends BaseController
                 $page->removeOrdreTrace($ordreTrace);
                 $ordreTraceRepository->remove($ordreTrace, true);
                 $page->removeTrace($trace);
+                if ($trace->getTypeTrace() == null) {
+                    $traceRepository->remove($trace, true);
+                }
 
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
