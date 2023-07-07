@@ -40,6 +40,7 @@ class TraceController extends BaseController
     #[Route('/trace', name: 'app_trace')]
     public function index(
         TraceRegistry $traceRegistry,
+        Request       $request,
     ): Response
     {
 
@@ -53,10 +54,13 @@ class TraceController extends BaseController
 
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
+        $competenceId = $request ? $request->query->get('competence') : null;
+        $competence = $this->competenceRepository->findOneBy(['id' => $competenceId]);
+
         return $this->render('trace/index.html.twig', [
             'typesTraces' => $traceRegistry->getTypeTraces(),
             'competences' => $competences,
-
+            'competence'  => $competence,
         ]);
     }
 

@@ -10,17 +10,7 @@
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
-                <h5 class="card-title">{{ this.trace.titre }} -
-                    {% if 'TraceTypeImage' in this.trace.typeTrace %}
-                        {{ this.trace.typeTrace|split('TraceType')|last }}
-                    {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-                        {{ this.trace.typeTrace|split('TraceType')|last }}
-                    {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-                        {{ this.trace.typeTrace|split('TraceType')|last }}
-                    {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                        {{ this.trace.typeTrace|split('TraceType')|last }}
-                    {% endif %}
-                </h5>
+                <h5 class="card-title">{{ this.trace.titre }}</h5>
                 <hr>
 
                 <ul>

@@ -15,13 +15,14 @@
     </nav>
 
     <div class="container portfolios">
-        <h1>Bibliothèque de Portfolios</h1>
-        <a href="{{ path('app_portfolio_new') }}">
+        <div class="row" style="display: flex">
+        <h1 style="width: fit-content;">Bibliothèque de Portfolios</h1>
+        <a href="{{ path('app_portfolio_new') }}" style="width: fit-content;">
             <button class="btn btn-primary">
                 <i class="fa-solid fa-circle-plus"></i> <br>
-                Créer un portfolio
             </button>
         </a>
+        </div>
             {{ component('all_portfolio') }}
     </div>
 
