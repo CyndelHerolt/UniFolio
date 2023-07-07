@@ -42,7 +42,12 @@ class AllTraceComponent extends BaseController
             }
         } else {
             $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
-
+            // retirer les traces qui n'ont pas de type
+            foreach ($traces as $key => $trace) {
+                if ($trace->getTypeTrace() == null) {
+                    unset($traces[$key]);
+                }
+            }
         }
 
         return $traces;

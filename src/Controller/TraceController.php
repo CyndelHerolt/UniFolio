@@ -54,7 +54,7 @@ class TraceController extends BaseController
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
         return $this->render('trace/index.html.twig', [
-            'traces' => $traceRegistry->getTypeTraces(),
+            'typesTraces' => $traceRegistry->getTypeTraces(),
             'competences' => $competences,
 
         ]);
@@ -348,13 +348,15 @@ class TraceController extends BaseController
         //Si la trace est de type image ou pdf, il faut supprimer le fichier
         if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
             $document = $trace->getContenu();
-//                dd($document);
             foreach ($document as $doc) {
                 unlink($doc);
             }
         }
 
-        $ordreTraceRepository->remove($trace->getOrdreTrace(), true);
+        if ($trace->getOrdreTrace()) {
+            $ordreTraceRepository->remove($trace->getOrdreTrace(), true);
+        }
+
         $traceRepository->remove($trace, true);
         $this->addFlash('success', 'La trace a été supprimée avec succès.');
         return $this->redirectToRoute('app_trace');

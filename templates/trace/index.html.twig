@@ -45,7 +45,7 @@
                     </div>
                     <div class="modal-body">
                         <ul>
-                            {% for trace in traces %}
+                            {% for trace in typesTraces %}
                                 <li>
                                     <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
                                                 class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>

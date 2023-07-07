@@ -161,6 +161,12 @@
     margin: 25px 0;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
+    .alert-warning {
+      background-color: #fff3cd;
+      border: solid 1px #ffe28a;
+      padding: 10px 15px;
+    }
+
     ul {
       list-style: none;
     }

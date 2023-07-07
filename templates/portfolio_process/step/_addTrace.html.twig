@@ -3,9 +3,15 @@
         <div class="trace" style="display: flex; flex-direction: column">
             <h5>{{ trace.titre }}</h5>
 
+            {% if trace.typeTrace is not null %}
             <button class="step-trace-see-content" data-bs-toggle="modal"
-                    data-bs-target="#showStaticBackdrop{{ trace.id }}">Voir le contenu</button>
-
+                    data-bs-target="#showStaticBackdrop{{ trace.id }}">Voir le contenu
+            </button>
+            {% else %}
+                <div class="alert alert-warning mb-2">
+                    Cette trace est vide, éditez-la.
+                </div>
+            {% endif %}
             <h6>Compétences</h6>
             <ul>
                 {% for validation in trace.validations %}
@@ -50,7 +56,6 @@
 </div>
 
 
-
 <div class="modal fade" id="showStaticBackdrop{{ trace.id }}" data-bs-backdrop="static"
      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -88,10 +93,13 @@
                         {% for validation in trace.validations %}
                             <li>
                                 {{ validation.competences.nomCourt }}
-                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
+                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                 style="color: darkblue"></i>
                                 {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                     style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                     style="color: limegreen"></i>
                                 {% endif %}
                             </li>
                         {% endfor %}

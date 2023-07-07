@@ -1,29 +1,5 @@
 {# templates/components/trace_card.html.twig #}
-{% if '/page' in app.request.uri %}
-    <div class="card col-11">
-        <div class="card-body">
-            <h5 class="card-title">{{ this.trace.titre }}</h5>
-            {% if 'TraceTypeImage' in this.trace.typeTrace %}
-                <img src="{{ asset(this.trace.contenu) }}" class="card-img-top" alt="...">
-
-            {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-                <a href="{{ this.trace.contenu }}" class="card-img-top" target="_blank">Lien vers le contenu</a>
-
-            {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-                <a href="{{ asset(this.trace.contenu) }}" class="card-img-top" target="_blank">
-                    <iframe src="{{ asset(this.trace.contenu) }}" class="card-img-top"></iframe>
-                </a>
-
-            {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                <iframe width="560" height="auto" src="{{ asset(this.trace.contenu) }}"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen class="card-img-top"></iframe>
-
-            {% endif %}
-        </div>
-    </div>
-{% elseif '/trace' in app.request.uri%}
+{% if '/trace' in app.request.uri%}
     <div class="card" style="width: 20rem;">
         <div class="card-body">
 
@@ -77,15 +53,11 @@
                             Supprimer
                         </button>
                     </a>
-
-                    <a href="{{ path('app_add_trace_to_page', {'id': this.trace.id}) }}">
-                        <button class="btn btn-primary">Ajouter dans une page</button>
-                    </a>
                 </div>
             </div>
 
 
-            <!-- Modal -->
+            <!-- Modal Delete -->
             <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -108,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 2eme Modal -->
+            <!-- Modal Show -->
             <div class="modal fade" id="showStaticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -168,10 +140,6 @@
                                         data-bs-target="#staticBackdrop{{ this.trace.id }}">
                                     Supprimer
                                 </button>
-                            </a>
-
-                            <a href="{{ path('app_add_trace_to_page', {'id': this.trace.id}) }}">
-                                <button class="btn btn-primary">Ajouter dans une page</button>
                             </a>
 
                             <ul>
