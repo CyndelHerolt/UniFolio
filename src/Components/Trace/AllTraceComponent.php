@@ -46,7 +46,7 @@ class AllTraceComponent extends BaseController
                 // On récupère les compétences sélectionnées
                 $traces = $this->traceRepository->findByCompetence($competence);
             } else {
-                $this->addFlash('danger', 'Aucune trace ne correspond à la recherche');
+                // Sinon on récupère toutes les traces et "msg d'erreur"
                 $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
             }
         } else {
