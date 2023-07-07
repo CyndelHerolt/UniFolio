@@ -46,7 +46,8 @@
                                     </div>
                                     {% for competenceChoice in competences %}
                                         <div style="display: flex" class="form-check">
-                                            <input type="checkbox" id="{{ competenceChoice.id }}" name="{{ competenceChoice.id }}"
+                                            <input type="checkbox" id="{{ competenceChoice.id }}"
+                                                   name="{{ competenceChoice.id }}"
                                                    value="{{ competenceChoice.id }}"
                                                    class="form-check-input" {{ stimulus_action('tracesFiltres', 'filtreCompetences') }} {% if competence != null and competence.id == competenceChoice.id %}checked{% endif %}>
                                             <label for="{{ competenceChoice.id }}" style="margin-left: 10px"
