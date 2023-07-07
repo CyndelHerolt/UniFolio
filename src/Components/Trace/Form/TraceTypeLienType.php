@@ -87,7 +87,7 @@ public function __construct(
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
-                    'help' => 'Saisissez un lien valide',
+                    'help' => 'Format du lien : https://www.exemple.com',
                 ],
                 'prototype' => true,
                 'label' => 'Lien',
