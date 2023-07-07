@@ -302,8 +302,6 @@ class PortfolioProcessController extends BaseController
                     $trace = new Trace();
                     $trace->setTitre('Nouvelle trace');
                     $trace->setBibliotheque($biblio);
-
-
                 }
 
                 $ordre = 1;
@@ -323,13 +321,21 @@ class PortfolioProcessController extends BaseController
 
                 $typesNewTrace = $traceRegistry->getTypeTraces();
 
-                return $this->redirectToRoute('app_portfolio_process_step', [
-                    'id' => $id,
-                    'step' => 'editTrace',
-                    'page' => $page->getId(),
-                    'trace' => $trace->getId(),
-                    'typesNewTrace' => $typesNewTrace,
-                ]);
+                if ($trace->getTypeTrace() == null) {
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'editTrace',
+                        'page' => $page->getId(),
+                        'trace' => $trace->getId(),
+                        'typesNewTrace' => $typesNewTrace,
+                    ]);
+                } else {
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addPage',
+                        'page' => $page->getId(),
+                    ]);
+                }
 
             case 'up':
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
