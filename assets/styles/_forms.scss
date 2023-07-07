@@ -116,10 +116,6 @@
     color: $color-secondary-focus;
   }
 
-  i {
-    color: $color-light;
-  }
-
   .step-title {
     margin: 25px 0;
     display: flex;
@@ -134,6 +130,10 @@
       button {
         width: 50px;
         margin: 0 0 10px 10px;
+      }
+
+      i {
+        color: $color-light;
       }
     }
 
@@ -176,6 +176,10 @@
         button {
           width: 50px;
           margin: 0 0 10px 10px;
+        }
+
+        i {
+          color: $color-light;
         }
       }
 

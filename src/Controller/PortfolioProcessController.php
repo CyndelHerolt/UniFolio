@@ -293,6 +293,7 @@ class PortfolioProcessController extends BaseController
                 $trace = $traceRepository->findOneBy(['id' => $request->query->get('trace')]);
                 $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
+
                 $user = $security->getUser()->getEtudiant();
 
                 $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $user]);
@@ -319,10 +320,15 @@ class PortfolioProcessController extends BaseController
                 $ordreTraceRepository->save($newOrdreTrace, true);
 
                 $traceRepository->save($trace, true);
+
+                $typesNewTrace = $traceRegistry->getTypeTraces();
+
                 return $this->redirectToRoute('app_portfolio_process_step', [
                     'id' => $id,
-                    'step' => 'addPage',
+                    'step' => 'editTrace',
                     'page' => $page->getId(),
+                    'trace' => $trace->getId(),
+                    'typesNewTrace' => $typesNewTrace,
                 ]);
 
             case 'up':

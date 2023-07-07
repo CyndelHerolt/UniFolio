@@ -39,11 +39,13 @@ export default class extends Controller {
     async editTrace(event) {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
+        const page = event.currentTarget.dataset.page
 
         const params = new URLSearchParams({
             step: 'editTrace',
             trace: _value,
             type: type,
+            page: page,
         })
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
