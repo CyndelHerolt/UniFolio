@@ -37,9 +37,9 @@
                 </ul>
 
                 <hr>
-                <p class="card-text">modifié le
-                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}</p>
-                <p class="card-text">{{ this.trace.description }}</p>
+                <p class="card-text">Modifié le
+                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                </p>
 
                 <div class="btn_grp">
                     <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
@@ -143,8 +143,8 @@
                             </a>
 
                             <ul>
-                                <li>créée le : {{ this.trace.dateCreation|date('d/m/y H:i') }}</li>
-                                <li>modifiée le : {{ this.trace.dateModification|date('d/m/y H:i') }}</li>
+                                <li>Créée le : {{ this.trace.dateCreation|date('d/m/y H:i') }}</li>
+                                <li>Modifiée le : {{ this.trace.dateModification|date('d/m/y H:i') }}</li>
                             </ul>
                             {% for page in this.trace.pages %}
                                 {% for portfolio in page.portfolio %}

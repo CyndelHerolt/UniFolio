@@ -7,6 +7,7 @@ use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\TraceRepository;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -19,23 +20,31 @@ class AllTraceComponent extends BaseController
         public BibliothequeRepository $bibliothequeRepository,
         public CompetenceRepository   $competenceRepository,
         #[Required] public Security   $security,
+        RequestStack $requestStack,
     )
     {
+        $this->requestStack = $requestStack;
     }
 
     public function getAllTrace(): array
     {
+        $request = $this->requestStack->getCurrentRequest();
+
         // Récupérer la bibliothèque de l'utilisateur connecté
         $etudiant = $this->security->getUser()->getEtudiant();
         $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
 
-        // todo: corriger l'affichage du message flash en cas de recherche infructueuse
+        // Vérifier si la requête n'est pas null (ce sera le cas si le composant est appelé hors d'une requête),
+        // puis récupérer le paramètre 'competence' de la requête
+        $competence = [];
+        $competence[] = $request ? $request->query->get('competence') : null;
+
 
         // Si un formulaire en méthode post est reçu
-        if ($_POST) {
-            if ($this->traceRepository->findByCompetence($_POST) != null) {
+        if ($competence !== null) {
+            if ($this->traceRepository->findByCompetence($competence) != null) {
                 // On récupère les compétences sélectionnées
-                $traces = $this->traceRepository->findByCompetence($_POST);
+                $traces = $this->traceRepository->findByCompetence($competence);
             } else {
                 $this->addFlash('danger', 'Aucune trace ne correspond à la recherche');
                 $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);

@@ -13,6 +13,8 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     final public const HELP = 'Upload de pdf : Taille maximale XMo';
     final public const ICON = 'fa-solid fa-3x fa-file-pdf';
     final public const TEMPLATE = 'Components/Trace/type/pdf.html.twig';
+    final public const ID = '3';
+
 
     public function __construct(protected TraceRepository $traceRepository)
     {
@@ -22,6 +24,11 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getId(): ?string
+    {
+        return self::ID;
     }
 
     public function getTypeTrace(): ?string

@@ -12,6 +12,7 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
     final public const HELP = 'Upload de vidéo : lien Youtube';
     final public const ICON = 'fa-brands fa-3x fa-youtube';
     final public const TEMPLATE = 'Components/Trace/type/video.html.twig';
+    final public const ID = '4';
 
     public function __construct(protected TraceRepository $traceRepository)
     {
@@ -21,6 +22,11 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getId(): ?string
+    {
+        return self::ID;
     }
 
     public function getTypeTrace(): ?string

@@ -14,6 +14,7 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
     final public const HELP = 'Upload de lien - lien absolu';
     final public const ICON = 'fa-solid fa-3x fa-link';
     final public const TEMPLATE = 'Components/Trace/type/lien.html.twig';
+    final public const ID = '2';
 
     public function __construct(protected TraceRepository $traceRepository)
     {
@@ -23,6 +24,11 @@ class TraceTypeLien extends AbstractTrace implements TraceInterface
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getId(): ?string
+    {
+        return self::ID;
     }
 
     public function getTypeTrace(): ?string

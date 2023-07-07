@@ -11,7 +11,7 @@
 
     {% endblock %}
 </head>
-<body>
+<body {{ stimulus_controller('tracesFiltres', { url: path('app_trace')}) }}{{ stimulus_target('tracesFiltres', 'traceZone') }}>
 <header>
     {% block header %}
     {% endblock %}

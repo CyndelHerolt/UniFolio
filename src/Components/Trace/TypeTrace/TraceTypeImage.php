@@ -9,11 +9,12 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class TraceTypeImage extends AbstractTrace implements TraceInterface
 {
-    final public const TAG_TYPE_TRACE = 'image.s';
+    final public const TAG_TYPE_TRACE = 'image';
     final public const FORM = TraceTypeImageType::class;
     final public const HELP = 'Upload d\'image - format accepté : jpg, jpeg, png, gif';
     final public const ICON = 'fa-solid fa-3x fa-image';
     final public const TEMPLATE = 'Components/Trace/type/image.html.twig';
+    final public const ID = '1';
 
     public function __construct(protected TraceRepository $traceRepository)
     {
@@ -23,6 +24,11 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
     public function display(): string
     {
         return self::TAG_TYPE_TRACE;
+    }
+
+    public function getId(): ?string
+    {
+        return self::ID;
     }
 
     public function getTypeTrace(): ?string
