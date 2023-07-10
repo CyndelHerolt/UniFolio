@@ -39,8 +39,6 @@ class AllTraceComponent extends BaseController
         $competence = [];
         $competence[] = $request ? $request->query->get('competence') : null;
 
-
-        // Si un formulaire en méthode post est reçu
         if ($competence !== null) {
             if ($this->traceRepository->findByCompetence($competence) != null) {
                 // On récupère les compétences sélectionnées
@@ -52,12 +50,12 @@ class AllTraceComponent extends BaseController
         } else {
             $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
             // retirer les traces qui n'ont pas de type
+        }
             foreach ($traces as $key => $trace) {
                 if ($trace->getTypeTrace() == null) {
                     unset($traces[$key]);
                 }
             }
-        }
 
         return $traces;
     }
