@@ -4,9 +4,8 @@
             <img src="{{ asset(this.portfolio.banniere) }}" class="card-img-top" alt="...">
         </div>
         <div class="card-content">
-            <a class="btn-see">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#showStaticBackdrop{{ this.portfolio.id }}">
+            <a class="btn-see" href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
+                <button>
                     <i class="fa fa-eye"></i>
                 </button>
             </a>
@@ -54,31 +53,6 @@
                         <a href="{{ path('app_portfolio_delete', {'id': this.portfolio.id}) }}">
                             <button class="btn btn-primary">Supprimer</button>
                         </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal visu -->
-        <div class="modal fade modal-portfolio" id="showStaticBackdrop{{ this.portfolio.id }}" data-bs-backdrop="static"
-             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="banner" style="background-image: url({{ this.portfolio.banniere }});">
-                        </div>
-                        <div class="title">
-                            <h5 class="modal-title" id="staticBackdropLabel">{{ this.portfolio.intitule }}</h5>
-                        </div>
-                        <div class="pages">
-                            {% for pages in this.portfolio.pages|sort((a,b)=> a.ordrePage.ordre <=> b.ordrePage.ordre) %}
-                                {{ component('page_card', {'id': pages.id}) }}
-                                <hr>
-                            {% endfor %}
-                        </div>
                     </div>
                 </div>
             </div>

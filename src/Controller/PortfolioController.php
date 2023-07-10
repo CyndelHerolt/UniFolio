@@ -2,11 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\OrdrePage;
 use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
+use App\Repository\OrdrePageRepository;
+use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
+use App\Repository\TraceRepository;
+use App\Repository\ValidationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +45,102 @@ class PortfolioController extends AbstractController
 
         return $this->render('portfolio/index.html.twig', [
             'portfolios' => $portfolios,
+        ]);
+    }
+
+    #[Route('/portfolio/show', name: 'app_portfolio_index')]
+    public function indexShow(
+        Request             $request,
+        PortfolioRepository $portfolioRepository,
+    ): Response
+    {
+        $id = $request->query->get('id');
+
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        return $this->render('portfolio/show.html.twig', [
+            'step' => 'portfolio',
+            'id' => $id,
+            'portfolio' => $portfolio,
+            'etudiant' => $etudiant,
+        ]);
+    }
+
+    #[Route('/portfolio/show/{id}', name: 'app_portfolio_show')]
+    public function show(
+        PortfolioRepository  $portfolioRepository,
+        OrdrePageRepository  $ordrePageRepository,
+        PageRepository       $pageRepository,
+        OrdreTraceRepository $ordreTraceRepository,
+        TraceRepository      $traceRepository,
+        ValidationRepository $validationRepository,
+        Request              $request,
+                             $id
+    ): Response
+    {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
+        $step = $request->query->get('step', 'portfolio');
+
+        //Récupérer le portfolio de l'utilisateur connecté
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $portfolio = $portfolioRepository->findOneBy(['etudiant' => $etudiant, 'id' => $id]);
+
+
+        switch ($step) {
+
+            case 'portfolio' :
+                //Récupérer les pages du portfolio
+                $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
+                $pages = [];
+                foreach ($ordrePages as $ordrePage) {
+                    $pages[] = $ordrePage->getPage();
+                }
+
+                foreach ($pages as $page) {
+                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                    $traces = [];
+                    foreach ($ordreTraces as $ordreTrace) {
+                        $traces[] = $ordreTrace->getTrace();
+                    }
+                }
+
+                foreach ($traces as $trace) {
+                    $validations = $validationRepository->findBy(['trace' => $trace]);
+                }
+
+                $competences = [];
+                foreach ($validations as $validation) {
+                    $competences[] = $validation->getApcNiveau();
+                }
+
+            case 'page' :
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                $traces = [];
+                foreach ($ordreTraces as $ordreTrace) {
+                    $traces[] = $ordreTrace->getTrace();
+                }
+
+                break;
+
+        }
+
+        return $this->render('portfolio/_step.html.twig', [
+            'step' => $step ?? null,
+            'etudiant' => $etudiant ?? null,
+            'portfolio' => $portfolio ?? null,
+            'pages' => $pages ?? null,
+            'traces' => $traces ?? null,
+            'validations' => $validations ?? null,
+            'competences' => $competences ?? null,
+            'page' => $page ?? null,
         ]);
     }
 

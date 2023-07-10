@@ -631,7 +631,8 @@ class PortfolioProcessController extends BaseController
 
         }
 
-        return $this->render('portfolio_process/step/_step.html.twig', ['step' => $step,
+        return $this->render('portfolio_process/step/_step.html.twig', [
+            'step' => $step,
             'form' => $form ?? null,
             'liste' => $liste ?? null,
             'page' => $page ?? null,

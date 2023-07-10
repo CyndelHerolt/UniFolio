@@ -11,6 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -56,7 +57,19 @@ class PageType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
+            ])
+            ->add('description', TextAreaType::class, [
+                'label' => 'Description',
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
+                'attr' => [
+                    'class' => "form-control",
+                    'placeholder' => 'Chapô de ma page',
+                ],
+                'help' => 'Une phrase pour résumer le contenu de la page',
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Portfolio{% endblock %}
+
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+
+{% block body %}
+
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_portfolio') }}">Bibliothèque de
+                    portfolios</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Portfolio {{ portfolio.intitule }}</li>
+        </ol>
+    </nav>
+
+    <div class="container" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
+
+        <div class="portfolios">
+
+            <h1>Portfolio de {{ etudiant.prenom }} {{ etudiant.nom }}</h1>
+
+
+            <div class="banner" style="background-image: url({{ asset(portfolio.banniere) }});">
+            </div>
+            <div class="title">
+                <h2 class="modal-title" id="staticBackdropLabel">{{ portfolio.intitule }}</h2>
+            </div>
+
+            <div {{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('portfolioPage', 'zone') }}>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -90,7 +90,7 @@ class PortfolioType extends AbstractType
                 ],
                 'attr' => [
                     'class' => "form-control",
-                    'placeholder' => 'Ce portfolio ...',
+                    'placeholder' => 'Description de mon portfolio',
                 ],
                 'help' => 'Un court paragraphe pour présenter votre portfolio',
             ])

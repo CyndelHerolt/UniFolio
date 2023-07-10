@@ -1,0 +1,48 @@
+<div class="pages">
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ page.intitule }}</h2>
+            <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
+            <hr>
+
+            {% for trace in traces %}
+                <h3>{{ trace.titre }}</h3>
+
+                {% for contenu in trace.contenu %}
+                    {% if 'TraceTypeImage' in trace.typeTrace %}
+                        <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                    {% elseif 'TraceTypeLien' in trace.typeTrace %}
+                        <a href="{{ contenu }}">
+                            <button>{{ contenu }}</button>
+                        </a>
+                    {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                        <iframe src="{{ contenu }}" width="100%" height="300"
+                                frameborder="0">{{ contenu }}</iframe>
+                    {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+                        <iframe width="100%" height="300" src="{{ contenu }}"
+                                title="Video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    {% endif %}
+                {% endfor %}
+
+                <p>{{ trace.description }}</p>
+
+                <ul>
+                    {% for validation in trace.validations %}
+                        <li>
+                            {{ validation.apcNiveau.libelle }}
+                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
+                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>

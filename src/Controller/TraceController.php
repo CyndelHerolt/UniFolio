@@ -32,10 +32,13 @@ class TraceController extends BaseController
         protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
         public CompetenceRepository   $competenceRepository,
+        public ApcNiveauRepository    $apcNiveauRepository,
         #[Required] public Security   $security
     )
     {
     }
+
+    //todo: spécifier l'année
 
     #[Route('/trace', name: 'app_trace')]
     public function index(
@@ -48,18 +51,41 @@ class TraceController extends BaseController
             'ROLE_ETUDIANT'
         );
 
+        $user = $this->security->getUser()->getEtudiant();
+
+        $semestre = $user->getSemestre();
+        $annee = $semestre->getAnnee();
+
         $dept = $this->dataUserSession->getDepartement();
 
         $referentiel = $dept->getApcReferentiels();
 
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
+//        dd($competences);
+
+        foreach ($competences as $competence) {
+            $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+        }
+
+        foreach ($niveaux as $niveau) {
+            foreach ($niveau as $niv) {
+                $competencesNiveau[] = $niv;
+            }
+        }
+
+//        $dept = $this->dataUserSession->getDepartement();
+//
+//        $referentiel = $dept->getApcReferentiels();
+//
+//        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
         $competenceId = $request ? $request->query->get('competence') : null;
-        $competence = $this->competenceRepository->findOneBy(['id' => $competenceId]);
+        $competence = $this->apcNiveauRepository->findOneBy(['id' => $competenceId]);
 
         return $this->render('trace/index.html.twig', [
             'typesTraces' => $traceRegistry->getTypeTraces(),
-            'competences' => $competences,
+            'competences' => $competencesNiveau,
             'competence'  => $competence,
         ]);
     }

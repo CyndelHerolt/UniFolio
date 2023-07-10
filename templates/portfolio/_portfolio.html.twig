@@ -1,0 +1,29 @@
+
+    <p>{{ portfolio.description }}</p>
+
+    {% for page in pages %}
+
+            <div class="card" data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }}>
+                <div class="card-body">
+                    <h5 class="card-title">{{ page.intitule }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
+                    <hr>
+                    <ul>
+                        {% for validation in validations %}
+                            <li>
+                                {{ validation.apcNiveau.libelle }}
+                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                 style="color: #4c008b"></i>
+                                {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                     style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                     style="color: limegreen"></i>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+    {% endfor %}
+</div>
