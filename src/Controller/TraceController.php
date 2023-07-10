@@ -100,7 +100,7 @@ class TraceController extends BaseController
 
         foreach ($niveaux as $niveau) {
             foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                $competencesNiveau[] = $niv->getLibelle();
             }
         }
 
@@ -114,15 +114,13 @@ class TraceController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            dd($form->get('competences')->getData());
-
             $competencesForm = $form->get('competences')->getData();
-            $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+            $niveaux = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
 
-            foreach ($competences as $competence) {
+            foreach ($niveaux as $niveau) {
                 $validation = new Validation();
                 $validation->setEtat(0);
-                $competence->addValidation($validation);
+                $niveau->addValidation($validation);
                 $trace->addValidation($validation);
             }
 
@@ -187,7 +185,7 @@ class TraceController extends BaseController
 
         foreach ($niveaux as $niveau) {
             foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                $competencesNiveau[] = $niv->getLibelle();
             }
         }
 
@@ -202,7 +200,7 @@ class TraceController extends BaseController
 
         $existingCompetences = [];
         foreach ($trace->getValidations() as $validation) {
-            $existingCompetences[] = $validation->getCompetences()->getLibelle();
+            $existingCompetences[] = $validation->getApcNiveau()->getLibelle();
         }
 
         // Pré remplissage du formulaire
@@ -218,7 +216,7 @@ class TraceController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $competencesForm = $form->get('competences')->getData();
-            $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+            $competences = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
             $validations = $trace->getValidations();
 
             foreach ($competences as $competence) {
@@ -233,8 +231,8 @@ class TraceController extends BaseController
 
                 // supprimer les validations des compétences non sélectionnées
                 foreach ($validations as $validation) {
-                    if (!in_array($validation->getCompetences()->getLibelle(), $competencesForm)) {
-                        $validation->getCompetences()->removeValidation($validation);
+                    if (!in_array($validation->getApcNiveau()->getLibelle(), $competencesForm)) {
+                        $validation->getApcNiveau()->removeValidation($validation);
                         $trace->removeValidation($validation);
                         $validationRepository->remove($validation);
                     }

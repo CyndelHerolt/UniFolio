@@ -24,9 +24,6 @@ class Competence
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $couleur = null;
 
-    #[ORM\OneToMany(mappedBy: 'competences', targetEntity: Validation::class, cascade: ['persist'])]
-    private Collection $validations;
-
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $code = null;
 
@@ -88,36 +85,6 @@ class Competence
     public function setCouleur(?string $couleur): self
     {
         $this->couleur = $couleur;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Validation>
-     */
-    public function getValidations(): Collection
-    {
-        return $this->validations;
-    }
-
-    public function addValidation(Validation $validation): self
-    {
-        if (!$this->validations->contains($validation)) {
-            $this->validations->add($validation);
-            $validation->setCompetences($this);
-        }
-
-        return $this;
-    }
-
-    public function removeValidation(Validation $validation): self
-    {
-        if ($this->validations->removeElement($validation)) {
-            // set the owning side to null (unless already changed)
-            if ($validation->getCompetences() === $this) {
-                $validation->setCompetences(null);
-            }
-        }
 
         return $this;
     }

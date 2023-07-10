@@ -44,7 +44,7 @@ class TraceRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('t')
             ->join('t.validations', 'v')
-            ->join('v.competences', 'c')
+            ->join('v.apcNiveau', 'c')
             ->where('c.id IN (:competences)')
             ->setParameter('competences', $competences)
             ->getQuery()

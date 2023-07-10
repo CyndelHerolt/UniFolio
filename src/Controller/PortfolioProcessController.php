@@ -440,7 +440,7 @@ class PortfolioProcessController extends BaseController
 
                 foreach ($niveaux as $niveau) {
                     foreach ($niveau as $niv) {
-                        $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                        $competencesNiveau[] = $niv->getLibelle();
                     }
                 }
 
@@ -448,7 +448,7 @@ class PortfolioProcessController extends BaseController
 
                 $existingCompetences = [];
                 foreach ($trace->getValidations() as $validation) {
-                    $existingCompetences[] = $validation->getCompetences()->getLibelle();
+                    $existingCompetences[] = $validation->getApcNiveau()->getLibelle();
                 }
 
                 // Pré remplissage du formulaire
@@ -511,7 +511,7 @@ class PortfolioProcessController extends BaseController
 
                 foreach ($niveaux as $niveau) {
                     foreach ($niveau as $niv) {
-                        $competencesNiveau[] = $niv->getCompetences()->getLibelle();
+                        $competencesNiveau[] = $niv->getLibelle();
                     }
                 }
 
@@ -521,12 +521,12 @@ class PortfolioProcessController extends BaseController
                 ) {
                     $existingCompetences = [];
                     foreach ($trace->getValidations() as $validation) {
-                        $existingCompetences[] = $validation->getCompetences()->getLibelle();
+                        $existingCompetences[] = $validation->getApcNiveau()->getLibelle();
                     }
 
                     $competencesForm = $form->get('competences')->getData();
 
-                    $competences = $competenceRepository->findBy(['libelle' => $competencesForm]);
+                    $competences = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
 
                     $validations = $trace->getValidations();
 
@@ -542,8 +542,8 @@ class PortfolioProcessController extends BaseController
 
                         // supprimer les validations des compétences non sélectionnées
                         foreach ($validations as $validation) {
-                            if (!in_array($validation->getCompetences()->getLibelle(), $competencesForm)) {
-                                $validation->getCompetences()->removeValidation($validation);
+                            if (!in_array($validation->getApcNiveau()->getLibelle(), $competencesForm)) {
+                                $validation->getApcNiveau()->removeValidation($validation);
                                 $trace->removeValidation($validation);
                                 $validationRepository->remove($validation);
                             }

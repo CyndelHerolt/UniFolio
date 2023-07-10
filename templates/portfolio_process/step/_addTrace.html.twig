@@ -16,7 +16,7 @@
             <ul>
                 {% for validation in trace.validations %}
                     <li>
-                        {{ validation.competences.libelle }}
+                        {{ validation.apcNiveau.libelle }}
                         {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
                         {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
                         {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
@@ -92,7 +92,7 @@
                     <ul>
                         {% for validation in trace.validations %}
                             <li>
-                                {{ validation.competences.nomCourt }}
+                                {{ validation.apcNiveau.libelle }}
                                 {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
                                                                  style="color: darkblue"></i>
                                 {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>

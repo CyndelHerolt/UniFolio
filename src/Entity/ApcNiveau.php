@@ -30,9 +30,13 @@ class ApcNiveau
     #[ORM\ManyToOne(inversedBy: 'apcNiveaux')]
     private ?Annee $annees = null;
 
+    #[ORM\OneToMany(mappedBy: 'apcNiveau', targetEntity: Validation::class, cascade: ['persist'])]
+    private Collection $validation;
+
     public function __construct()
     {
         $this->apcApprentissageCritiques = new ArrayCollection();
+        $this->validation = new ArrayCollection();
     }
 
     public function setId(int $id): self
@@ -120,6 +124,36 @@ class ApcNiveau
     public function setAnnees(?Annee $annees): self
     {
         $this->annees = $annees;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Validation>
+     */
+    public function getValidation(): Collection
+    {
+        return $this->validation;
+    }
+
+    public function addValidation(Validation $validation): static
+    {
+        if (!$this->validation->contains($validation)) {
+            $this->validation->add($validation);
+            $validation->setApcNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(Validation $validation): static
+    {
+        if ($this->validation->removeElement($validation)) {
+            // set the owning side to null (unless already changed)
+            if ($validation->getApcNiveau() === $this) {
+                $validation->setApcNiveau(null);
+            }
+        }
 
         return $this;
     }

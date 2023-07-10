@@ -17,13 +17,13 @@ class Validation
     private ?Trace $trace = null;
 
     #[ORM\ManyToOne(inversedBy: 'validations')]
-    private ?Competence $competences = null;
-
-    #[ORM\ManyToOne(inversedBy: 'validations')]
     private ?Enseignant $enseignant = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $etat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'validation')]
+    private ?ApcNiveau $apcNiveau = null;
 
     public function getId(): ?int
     {
@@ -38,18 +38,6 @@ class Validation
     public function setTrace(?Trace $trace): self
     {
         $this->trace = $trace;
-
-        return $this;
-    }
-
-    public function getCompetences(): ?Competence
-    {
-        return $this->competences;
-    }
-
-    public function setCompetences(?Competence $competences): self
-    {
-        $this->competences = $competences;
 
         return $this;
     }
@@ -74,6 +62,18 @@ class Validation
     public function setEtat(?int $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getApcNiveau(): ?ApcNiveau
+    {
+        return $this->apcNiveau;
+    }
+
+    public function setApcNiveau(?ApcNiveau $apcNiveau): static
+    {
+        $this->apcNiveau = $apcNiveau;
 
         return $this;
     }
