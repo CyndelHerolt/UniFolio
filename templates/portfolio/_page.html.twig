@@ -1,5 +1,7 @@
 <div class="pages">
 
+    <a href="{{ path('app_portfolio_index', {id: portfolio.id}) }}"><button class="btn btn-info" style="position:fixed; top: 4rem; right: 2rem; z-index: 9999999">Retour</button></a>
+
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">{{ page.intitule }}</h2>
@@ -11,7 +13,9 @@
 
                 {% for contenu in trace.contenu %}
                     {% if 'TraceTypeImage' in trace.typeTrace %}
-                        <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                        <div class="images" style="display: flex; justify-content: space-around; align-content: center">
+                            <img src="/{{ contenu }}" alt="image" style="max-height: 30rem; margin: 35px auto">
+                        </div>
                     {% elseif 'TraceTypeLien' in trace.typeTrace %}
                         <a href="{{ contenu }}">
                             <button>{{ contenu }}</button>
@@ -33,7 +37,8 @@
                     {% for validation in trace.validations %}
                         <li>
                             {{ validation.apcNiveau.libelle }}
-                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
+                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                             style="color: #4c008b"></i>
                             {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
                             {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
                             {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
@@ -41,7 +46,9 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <hr>
             {% endfor %}
+
 
         </div>
     </div>
