@@ -81,7 +81,9 @@ class PortfolioProcessController extends BaseController
 
             case 'deleteBanniere':
                 $banniere = $portfolio->getBanniere();
-                unlink($banniere);
+                if ($banniere != 'files_directory/banniere.jpg') {
+                    unlink($banniere);
+                }
                 // bannière par défaut
                 $portfolio->setBanniere('files_directory/banniere.jpg');
                 $portfolioRepository->save($portfolio, true);
