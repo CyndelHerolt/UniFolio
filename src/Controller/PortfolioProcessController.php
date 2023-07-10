@@ -79,6 +79,16 @@ class PortfolioProcessController extends BaseController
                 $form = $this->createForm(PortfolioType::class, $portfolio);
                 break;
 
+            case 'deleteBanniere':
+                $banniere = $portfolio->getBanniere();
+                unlink($banniere);
+                // bannière par défaut
+                $portfolio->setBanniere('files_directory/banniere.jpg');
+                $portfolioRepository->save($portfolio, true);
+                return $this->redirectToRoute('app_portfolio_process_step', [
+                    'id' => $portfolio->getId(),
+                    'step' => 'portfolio']);
+
             case 'savePortfolio':
                 $form = $this->createForm(PortfolioType::class, $portfolio);
                 $form->handleRequest($request);
@@ -96,6 +106,8 @@ class PortfolioProcessController extends BaseController
                         } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                             $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                         }
+                    } else {
+                        $portfolio->setBanniere('files_directory/banniere.jpg');
                     }
 
                     $portfolioRepository->save($portfolio, true);

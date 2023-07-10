@@ -39,6 +39,14 @@ export default class extends Controller {
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
+    async deleteBanniere(event) {
+        const params = new URLSearchParams({
+            step: 'deleteBanniere',
+        })
+        const response = await fetch(`${this.urlValue}?${params.toString()}`)
+        this.stepZoneTarget.innerHTML = await response.text()
+    }
+
 
     async save(event) {
 

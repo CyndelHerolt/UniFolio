@@ -79,6 +79,8 @@ class PortfolioController extends AbstractController
                 } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                 }
+            } else {
+                $portfolio->setBanniere('files_directory/banniere.jpg');
             }
 
             if ($form->get('visibilite')->getData() === 'public') {
@@ -114,7 +116,7 @@ class PortfolioController extends AbstractController
 
         $portfolioRepository->remove($portfolio, true);
         $document = $portfolio->getBanniere();
-        if ($document) {
+        if ($document !== 'files_directory/banniere.jpg') {
             unlink($document);
         }
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');

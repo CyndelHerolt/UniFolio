@@ -19,7 +19,7 @@ label.required::after {
           display: none;
         }
 
-        button {
+        .btn-primary {
           @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
 
           &:hover {
