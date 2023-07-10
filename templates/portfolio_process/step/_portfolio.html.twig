@@ -1,13 +1,14 @@
 <div class="step-title">
     <h4>Edition de {{ portfolio.intitule }}</h4>
 </div>
+    <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
 {{ form_start(form, {'attr': {id:'portfolio'}}) }}
 <div class="hidden">
     {{ form_row(form.date_creation) }}
     {{ form_row(form.date_modification) }}
 </div>
 {% if portfolio.banniere is not null %}
-    <div style="width: 100%; height: 150px; overflow: hidden; background-image: url({{ asset(portfolio.banniere) }}); background-position: center; background-size: cover">
+    <div style="width: 100%; height: 150px; overflow: hidden; background-image: url({{ asset(portfolio.banniere) }}); background-position: center; background-size: cover; margin-top: 15px;">
     </div>
 {% endif %}
 {{ form_row(form.intitule) }}

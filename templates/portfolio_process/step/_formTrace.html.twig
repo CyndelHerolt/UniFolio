@@ -2,6 +2,7 @@
     {{ form_start(form, {'attr': {id:'formTrace'}}) }}
     <article class="col-lg-7 col-12 trace-form">
         <h4>Modifier {{ trace.titre }}</h4>
+        <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
 
         <div class="hidden">
             {{ form_row(form.date_creation) }}
@@ -13,6 +14,7 @@
         <!-- Images -->
 
         {% if 'TraceTypeImage' in trace.typeTrace %}
+            <label class="form-label required">Image.s</label> <br>
             {% for data in trace.contenu %}
                 <div class="image_trace_div">
                     <p>Image.s déjà dans la DB</p><input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
@@ -34,6 +36,7 @@
             <!-- Pdf -->
 
         {% elseif 'TraceTypePdf' in trace.typeTrace %}
+            <label class="form-label required">Pdf</label> <br>
             {% for data in trace.contenu %}
                 <div class="pdf_trace_div">
                     <p>Pdf déjà dans la DB</p>
@@ -56,6 +59,7 @@
 
         {% elseif 'TraceTypeLien' in trace.typeTrace %}
             <div class="input-group mb-3">
+                <label class="form-label required">Lien.s</label>
                 {{ form_widget(form.contenu) }}
             </div>
             <button type="button" class="btn btn-primary add-lien">
@@ -69,6 +73,7 @@
 
         {% elseif 'TraceTypeVideo' in trace.typeTrace %}
             <div class="input-group mb-3">
+                <label class="form-label required">Vidéo.s</label>
                 {{ form_widget(form.contenu) }}
             </div>
             <button type="button" class="btn btn-primary add-video">
@@ -83,7 +88,7 @@
         {{ form_row(form.description) }}
     </article>
     <aside class="col-lg-5 col-12 competences">
-        <h4>Compétences relatives à cette trace</h4>
+        <h4>Compétences relatives à cette trace <span style="color: red">*</span></h4>
 
         <div class="secondary_form">
 

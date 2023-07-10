@@ -81,12 +81,11 @@ class TraceTypeImageType extends AbstractType
                 'entry_options' => [
                     'attr' => [
                         'class' => "form-control image_trace",
-                        'placeholder' => 'Image',
+                        'accept' => 'jpg, jpeg, png, gif, svg, webp'
                     ],
                     'data_class' => null,
                     'by_reference' => false,
-                    'label' => 'Image',
-                    'label_attr' => ['class' => 'form-label'],
+                    'label' => false,
                     'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
                 ],
                 'prototype' => true,

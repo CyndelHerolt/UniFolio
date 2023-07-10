@@ -80,7 +80,7 @@ class PortfolioType extends AbstractType
                     'accept' => '.jpg, .jpeg, .png, .gif, .svg, .webp'
                 ],
                 'help' => 'formats acceptés : jpg, jpeg, png, gif, svg, webp',
-                'required' => true,
+                'required' => false,
                 'mapped' => false,
             ])
             ->add('description', TextAreaType::class, [

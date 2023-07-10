@@ -75,11 +75,10 @@ class TraceTypePdfType extends AbstractType
                 'entry_options' => [
                     'attr' => [
                         'class' => "form-control pdf-trace",
-                        'placeholder' => 'Fichier PDF',
+                        'accept' => 'pdf',
                     ],
                     'by_reference' => false,
-                    'label' => 'PDF',
-                    'label_attr' => ['class' => 'form-label'],
+                    'label' => false,
                     'help' => 'format accepté : pdf',
                 ],
                 'prototype' => true,
