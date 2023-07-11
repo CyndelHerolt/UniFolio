@@ -13,6 +13,7 @@ import 'bootstrap';
 // start the Stimulus application
 import './bootstrap';
 
-
 import './js/main.js';
 
+// assets/app.js
+// import '@symfony/ux-live-component/dist/live.css';
