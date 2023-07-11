@@ -1,15 +1,15 @@
+<p>{{ portfolio.description }}</p>
 
-    <p>{{ portfolio.description }}</p>
+{% for page in pages %}
 
-    {% for page in pages %}
-
-            <div class="card" data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }}>
-                <div class="card-body">
-                    <h5 class="card-title">{{ page.intitule }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
-                    <hr>
-                    <ul>
-                        {% for validation in validations %}
+    <div class="card" data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }}>
+        <div class="card-body">
+            <h5 class="card-title">{{ page.intitule }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
+            <hr>
+            <ul>
+                {% for ordre in page.ordreTraces %}
+                        {% for validation in ordre.trace.validations %}
                             <li>
                                 {{ validation.apcNiveau.libelle }}
                                 {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
@@ -22,8 +22,9 @@
                                 {% endif %}
                             </li>
                         {% endfor %}
-                    </ul>
-                </div>
-            </div>
-    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endfor %}
 </div>

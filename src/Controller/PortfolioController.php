@@ -101,22 +101,15 @@ class PortfolioController extends AbstractController
                     $pages[] = $ordrePage->getPage();
                 }
 
+                $traces = [];
                 foreach ($pages as $page) {
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
-                    $traces = [];
                     foreach ($ordreTraces as $ordreTrace) {
                         $traces[] = $ordreTrace->getTrace();
                     }
                 }
 
-                foreach ($traces as $trace) {
-                    $validations = $validationRepository->findBy(['trace' => $trace]);
-                }
-
-                $competences = [];
-                foreach ($validations as $validation) {
-                    $competences[] = $validation->getApcNiveau();
-                }
+                break;
 
             case 'page' :
 

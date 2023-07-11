@@ -112,6 +112,7 @@ class PortfolioProcessController extends BaseController
                         $portfolio->setBanniere('files_directory/banniere.jpg');
                     }
 
+                    $portfolio->setDateModification(new \DateTime());
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $portfolio->getId(),
@@ -169,6 +170,7 @@ class PortfolioProcessController extends BaseController
                 } else {
                     $page = new Page();
                     $page->setIntitule('Nouvelle page');
+                    $page->setDescription('Chapô de ma page');
                     if ($portfolio->getOrdrePages()->count() > 0) {
                         $ordreMax = $portfolio->getOrdrePages()->last();
                         $ordre = $ordreMax->getOrdre() + 1;
