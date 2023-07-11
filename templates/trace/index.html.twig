@@ -21,46 +21,6 @@
                 </button>
             </a>
         </div>
-        <div class="row">
-            <div class="accordion accordion-flush col-12" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
-                            Filtrer par compétences
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                         data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body row">
-                            <div>
-                                <h6>Compétences</h6>
-                                <fieldset>
-                                    <div style="display: flex" class="form-check">
-                                        <input type="checkbox" id="reset" name="reset"
-                                               value="reset"
-                                               class="form-check-input" {{ stimulus_action('tracesFiltres', 'filtreCompetences') }}>
-                                        <label for="reset" style="margin-left: 10px"
-                                               class="form-check-label">Toutes les compétences</label><br>
-                                    </div>
-                                    {% for competenceChoice in competences %}
-                                        <div style="display: flex" class="form-check">
-                                            <input type="checkbox" id="{{ competenceChoice.id }}"
-                                                   name="{{ competenceChoice.id }}"
-                                                   value="{{ competenceChoice.id }}"
-                                                   class="form-check-input" {{ stimulus_action('tracesFiltres', 'filtreCompetences') }} {% if competence != null and competence.id == competenceChoice.id %}checked{% endif %}>
-                                            <label for="{{ competenceChoice.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">{{ competenceChoice.libelle }}</label><br>
-                                        </div>
-                                    {% endfor %}
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

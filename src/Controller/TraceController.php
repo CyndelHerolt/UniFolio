@@ -62,8 +62,6 @@ class TraceController extends BaseController
 
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
-//        dd($competences);
-
         foreach ($competences as $competence) {
             $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
         }
@@ -73,12 +71,6 @@ class TraceController extends BaseController
                 $competencesNiveau[] = $niv;
             }
         }
-
-//        $dept = $this->dataUserSession->getDepartement();
-//
-//        $referentiel = $dept->getApcReferentiels();
-//
-//        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
         $competenceId = $request ? $request->query->get('competence') : null;
         $competence = $this->apcNiveauRepository->findOneBy(['id' => $competenceId]);
