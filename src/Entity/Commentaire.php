@@ -29,6 +29,12 @@ class Commentaire
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?Enseignant $enseignant = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $contenu = null;
+
+    #[ORM\Column]
+    private ?bool $visibilite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,30 @@ class Commentaire
     public function setEnseignant(?Enseignant $enseignant): self
     {
         $this->enseignant = $enseignant;
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(string $contenu): static
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function isVisibilite(): ?bool
+    {
+        return $this->visibilite;
+    }
+
+    public function setVisibilite(bool $visibilite): static
+    {
+        $this->visibilite = $visibilite;
 
         return $this;
     }
