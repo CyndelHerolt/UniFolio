@@ -18,21 +18,6 @@ use Symfony\Contracts\Service\Attribute\Required;
 class DashboardEnseignantController extends BaseController
 {
 
-//    private RequestStack $session;
-//
-//    public function __construct(
-//
-//        protected GroupeRepository   $groupeRepository,
-//        protected DiplomeRepository  $diplomeRepository,
-//        protected EtudiantRepository $etudiantRepository,
-//        protected AnneeRepository    $anneeRepository,
-//        #[Required] public Security  $security,
-//        RequestStack                 $session,
-//    )
-//    {
-//        $this->session = $session;
-//    }
-
     #[Route('/dashboard/enseignant', name: 'enseignant_dashboard')]
     public function index(
         UsersRepository       $usersRepository,
@@ -40,9 +25,7 @@ class DashboardEnseignantController extends BaseController
         DepartementRepository $departementRepository,
     ): Response
     {
-//        dd($this->session->getSession());
         $data_user = $this->dataUserSession;
-//        dd($data_user);
 
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();

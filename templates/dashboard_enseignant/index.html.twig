@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardEnseignantController!{% endblock %}
+{% block title %}UniFolio - Dashboard{% endblock %}
 
     {% block header %}
-        {#        {% include "_menu.html.twig" %} #}
+
     {% endblock %}
 
 
@@ -14,82 +14,9 @@
         </ol>
     </nav>
     <div class="container dashboard">
-        <h1>Tableau de bord</h1>
-        <section class="dashboard_infos_groupe">
-            <div class="row">
-                <h2>Ensemble des étudiants</h2>
-                <article class="col-lg-12 col-12">
-                    <div class="col-lg-12 col-12">
-                        <form class="d-flex">
-                            {#                            TODO: Recherche interne par Algolia ? #}
-                            <input class="form-control me-2" type="search" placeholder="Chercher un étudiant"
-                                   aria-label="Search">
-                            <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                    </div>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="but1-tab" data-bs-toggle="tab" data-bs-target="#but1"
-                                    type="button" role="tab" aria-controls="but1" aria-selected="true">B.U.T 1</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="but2-tab" data-bs-toggle="tab" data-bs-target="#but2"
-                                    type="button" role="tab" aria-controls="but2" aria-selected="false">B.U.T 2</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="but3-tab" data-bs-toggle="tab" data-bs-target="#but3"
-                                    type="button" role="tab" aria-controls="but3" aria-selected="false">B.U.T 3</button>
-                        </li>
-                    </ul>
+        <h1>Traces</h1>
 
-                    {% include('partials/_filtres_semestres.html.twig') %}
+        {{ component('AllTraceEvalComponent') }}
 
-
-                </article>
-            </div>
-        </section>
-        <section class="dashboard_retours_pedagogiques_enseignant">
-            <div class="row">
-                <h2>Ensemble des traces</h2>
-                <article>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#but1trace"
-                                    type="button" role="tab" aria-controls="but1trace" aria-selected="true">B.U.T 1
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#but2trace"
-                                    type="button" role="tab" aria-controls="but2trace" aria-selected="false">B.U.T 2
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#but3trace"
-                                    type="button" role="tab" aria-controls="but3trace" aria-selected="false">B.U.T 3
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="but1trace" role="tabpanel"
-                             aria-labelledby="but1trace-tab">
-                            <div>
-                                BUT1
-                                {{ component('all_suivi_trace') }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show" id="but2trace" role="tabpanel"
-                             aria-labelledby="but2trace-tab">
-                            <div>
-                                BUT2
-                                {{ component('all_suivi_trace') }}
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
     </div>
 {% endblock %}
