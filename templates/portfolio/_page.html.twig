@@ -18,7 +18,7 @@
                         </div>
                     {% elseif 'TraceTypeLien' in trace.typeTrace %}
                         <a href="{{ contenu }}">
-                            <button>{{ contenu }}</button>
+                            <button class="btn-primary">{{ contenu }}</button>
                         </a>
                     {% elseif 'TraceTypePdf' in trace.typeTrace %}
                         <iframe src="{{ contenu }}" width="100%" height="300"
