@@ -47,11 +47,11 @@ class StructureSynchro extends AbstractController
 
         // Vide les tables
 //        $departementRepository->truncate();
-        $semestreRepository->truncate();
-        $anneeRepository->truncate();
-        $diplomeRepository->truncate();
-        $groupeRepository->truncate();
-        $typeGroupeRepository->truncate();
+//        $semestreRepository->truncate();
+//        $anneeRepository->truncate();
+//        $diplomeRepository->truncate();
+//        $groupeRepository->truncate();
+//        $typeGroupeRepository->truncate();
 
 
         //-------------------------------------------------------------------------------------------------------
@@ -329,7 +329,11 @@ class StructureSynchro extends AbstractController
                 if ($typeGroupe['semestres'] != null) {
                     foreach ($typeGroupe['semestres'] as $semestre) {
                         $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
-                        $existingTypeGroupe->addSemestre($semestre);
+                        if ($semestre) {
+                            $existingTypeGroupe->addSemestre($semestre);
+                        } else {
+                            $typeGroupeRepository->remove($existingTypeGroupe, true);
+                        };
                     }
                 }
                 $typeGroupeRepository->save($existingTypeGroupe, true);
