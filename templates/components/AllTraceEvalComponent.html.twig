@@ -61,13 +61,6 @@
                         <div>
                             <fieldset>
                                 {% for grp in groupes %}
-
-{#                                    {% for semestre in grp.typeGroupe.semestre %}#}
-{#                                        {% if semestre.annee.id == selectedAnnee %}#}
-{#                                            {{ semestre.libelle }}#}
-{#                                        {% endif %}#}
-{#                                    {% endfor %}#}
-
                                     {% if grp.typeGroupe.type == 'TP' %}
                                         <div style="display: flex" class="form-check">
                                             <input type="checkbox" id="{{ grp.id }}"
@@ -104,7 +97,20 @@
                     <div class="accordion-body row">
                         <div>
                             <fieldset>
-
+                                {% for etudiant in etudiants %}
+                                        <div style="display: flex" class="form-check">
+                                            <input type="checkbox" id="{{ etudiant.id }}"
+                                                   name="{{ etudiant.id }}"
+                                                   data-model="selectedCompetences[]"
+                                                   data-action="live#action"
+                                                   data-action-name="changeCompetences"
+                                                   value="{{ etudiant.id }}"
+                                                   class="form-check-input">
+                                            <label for="{{ etudiant.id }}" style="margin-left: 10px"
+                                                   class="form-check-label">{{ etudiant.prenom }}</label><br>
+                                        </div>
+                                        <hr>
+                                {% endfor %}
                             </fieldset>
                         </div>
                     </div>

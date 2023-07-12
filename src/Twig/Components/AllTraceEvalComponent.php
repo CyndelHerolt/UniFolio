@@ -101,6 +101,8 @@ final class AllTraceEvalComponent extends BaseController
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
                     $competencesNiveau = array_merge($competencesNiveau, $niveaux);
+                    //supprimer les doublons du tableau
+                    $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
                 }
             }
         }
@@ -126,10 +128,32 @@ final class AllTraceEvalComponent extends BaseController
         } else {
             $groupes = [];
             foreach ($this->annees as $annee) {
-                $groupesPerAnnee = $this->groupeRepository->findByAnnee($annee);
-                $this->groupes = array_merge($groupes, $groupesPerAnnee);
+                $groupes = $this->groupeRepository->findByAnnee($annee);
+//                $this->groupes = array_merge($groupes, $groupesPerAnnee);
             }
+            $this->groupes = $groupes;
         }
+
+        if ($this->selectedAnnee !== null) {
+            $etudiants = [];
+            $groupes = $this->groupes;
+            foreach ($groupes as $groupe) {
+                $etudiantsGroupe = $groupe->getEtudiants();
+                foreach ($etudiantsGroupe as $etudiant) {
+                    $etudiants[] = $etudiant;
+                    //supprimer les doublons du tableau
+                    $etudiants = array_unique($etudiants, SORT_REGULAR);
+                }
+            }
+            $this->etudiants = $etudiants;
+        } else {
+            $etudiants = [];
+            foreach ($this->annees as $annee) {
+                $etudiants = $this->etudiantRepository->findByAnnee($annee);
+            }
+            $this->etudiants = $etudiants;
+            }
+
 
         $this->allTraces = $this->getAllTrace();
     }
