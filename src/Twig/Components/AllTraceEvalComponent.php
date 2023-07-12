@@ -40,6 +40,15 @@ final class AllTraceEvalComponent extends BaseController
     public ?int $selectedAnnee = null;
 
     #[LiveProp(writable: true)]
+    public array $selectedCompetences = [];
+
+    #[LiveProp(writable: true)]
+    public array $selectedGroupes = [];
+
+    #[LiveProp(writable: true)]
+    public array $selectedEtudiants = [];
+
+    #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
     public array $niveaux = [];
 
@@ -162,25 +171,39 @@ final class AllTraceEvalComponent extends BaseController
     public function changeCompetences()
     {
         $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
     }
 
     #[LiveAction]
     public function changeGroupes()
     {
         $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
     }
 
     #[LiveAction]
     public function changeEtudiants()
     {
         $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
     }
 
+//    todo: une requete pour l'ensemble des filtres ?
     public function getAllTrace()
     {
 
+        $competence = [];
+        dump(count($this->selectedCompetences));
+        $competence = count($this->selectedCompetences) > 0 ? $this->selectedCompetences : null;
 
-        return [];
+        if ($competence !== null && $this->selectedGroupes == null && $this->selectedEtudiants == null) {
+            $traces = $this->traceRepository->findByCompetence($competence);
+        }
+        else {
+            $traces = $this->traceRepository->findAll();
+        }
+
+        return $traces;
     }
 
 }
