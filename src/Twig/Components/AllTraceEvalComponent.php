@@ -111,16 +111,18 @@ final class AllTraceEvalComponent extends BaseController
             $groupes = [];
             $annee = $this->anneeRepository->findOneBy(['id' => $this->selectedAnnee]);
             $semestres = $annee->getSemestres();
-            $semestreActif = [];
             foreach ($semestres as $semestre) {
                 if ($this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]) !== null) {
             $semestreActif = $this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]);
+            $parcours = $semestreActif->getAnnee()->getDiplome()->getApcParcours();
+                    if ($parcours !== null) {
+                        $groupes = $this->groupeRepository->findBy(['apcParcours' => $parcours]);
+                    } else {
+                        $groupes = $this->groupeRepository->findBySemestre($semestreActif);
+                    }
                 }
             }
-            //récupérer les types de groupe de semestre actif
-            $typesGroupe = $this->typeGroupeRepository->findBySemestre($semestreActif);
-            dd($typesGroupe);
-
+            $this->groupes = $groupes;
         } else {
             $groupes = [];
             foreach ($this->annees as $annee) {

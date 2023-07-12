@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annee;
+use App\Entity\ApcParcours;
 use App\Entity\Departement;
 use App\Entity\Diplome;
 use App\Entity\Groupe;
@@ -65,7 +66,8 @@ class GroupeRepository extends ServiceEntityRepository
             ->innerJoin(TypeGroupe::class, 't', 'WITH', 'g.type_groupe = t.id')
             ->innerJoin('t.semestre', 's')
             ->where('s.id = :semestre')
-            ->setParameter('semestre', $semestre->getId());
+            ->setParameter('semestre', $semestre->getId())
+;
     }
 
     public function findBySemestre(Semestre $semestre): array

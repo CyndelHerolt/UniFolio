@@ -68,7 +68,7 @@
 {#                                        {% endif %}#}
 {#                                    {% endfor %}#}
 
-{#                                    {% if grp.typeGroupe.type == 'TP' %}#}
+                                    {% if grp.typeGroupe.type == 'TP' %}
                                         <div style="display: flex" class="form-check">
                                             <input type="checkbox" id="{{ grp.id }}"
                                                    name="{{ grp.id }}"
@@ -81,9 +81,8 @@
                                                    class="form-check-label">{{ grp.libelle }}</label><br>
                                         </div>
                                         <hr>
-{#                                    {% endif %}#}
+                                    {% endif %}
                                 {% endfor %}
-                                <hr>
                             </fieldset>
                         </div>
                     </div>
