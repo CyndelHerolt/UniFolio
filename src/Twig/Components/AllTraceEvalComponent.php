@@ -115,8 +115,8 @@ final class AllTraceEvalComponent extends BaseController
             $semestres = $annee->getSemestres();
             foreach ($semestres as $semestre) {
                 if ($this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]) !== null) {
-            $semestreActif = $this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]);
-            $parcours = $semestreActif->getAnnee()->getDiplome()->getApcParcours();
+                    $semestreActif = $this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]);
+                    $parcours = $semestreActif->getAnnee()->getDiplome()->getApcParcours();
                     if ($parcours !== null) {
                         $groupes = $this->groupeRepository->findBy(['apcParcours' => $parcours]);
                     } else {
@@ -152,9 +152,27 @@ final class AllTraceEvalComponent extends BaseController
                 $etudiants = $this->etudiantRepository->findByAnnee($annee);
             }
             $this->etudiants = $etudiants;
-            }
+        }
 
 
+        $this->allTraces = $this->getAllTrace();
+    }
+
+    #[LiveAction]
+    public function changeCompetences()
+    {
+        $this->allTraces = $this->getAllTrace();
+    }
+
+    #[LiveAction]
+    public function changeGroupes()
+    {
+        $this->allTraces = $this->getAllTrace();
+    }
+
+    #[LiveAction]
+    public function changeEtudiants()
+    {
         $this->allTraces = $this->getAllTrace();
     }
 
