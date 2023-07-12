@@ -101,6 +101,19 @@ class GroupeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByNiveau($niveau): array
+    {
+        return $this->createQueryBuilder('g')
+            ->leftJoin('g.apcParcours', 'p')
+            ->innerJoin('p.ApcReferentiel', 'r')
+            ->innerJoin('r.competences', 'c')
+            ->innerJoin('c.apcNiveaux', 'n')
+            ->where('n.id = :niveau')
+            ->setParameter('niveau', $niveau)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(Groupe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
