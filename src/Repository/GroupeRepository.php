@@ -28,10 +28,22 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
+    public function findByAnnee($annee)
+    {
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.type_groupe', 't')
+            ->innerJoin('t.semestre', 's')
+            ->innerJoin('s.annee', 'a')
+            ->where('a.id = :annee')
+            ->setParameter('annee', $annee)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByDepartementBuilder(Departement $departement): QueryBuilder
     {
         return $this->createQueryBuilder('g')
-        // seuls ceux qui ont une correspondance entre les colonnes 'type_groupe' de la table "Groupe" et 'id' de la table "TypeGroupe" seront inclus dans les résultats
+            // seuls ceux qui ont une correspondance entre les colonnes 'type_groupe' de la table "Groupe" et 'id' de la table "TypeGroupe" seront inclus dans les résultats
             ->innerJoin(TypeGroupe::class, 't', 'WITH', 'g.type_groupe = t.id')
             ->innerJoin('t.semestre', 's')
             ->innerJoin(Annee::class, 'a', 'WITH', 'a.id = s.annee')
@@ -51,7 +63,8 @@ class GroupeRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('g')
             ->innerJoin(TypeGroupe::class, 't', 'WITH', 'g.type_groupe = t.id')
-            ->where('t.semestre = :semestre')
+            ->innerJoin('t.semestre', 's')
+            ->where('s.id = :semestre')
             ->setParameter('semestre', $semestre->getId());
     }
 
@@ -81,6 +94,7 @@ class GroupeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
     public function findByTypeGroupe(?TypeGroupe $typegroupe): array
     {
         return $this->createQueryBuilder('g')

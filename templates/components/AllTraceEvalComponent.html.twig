@@ -7,7 +7,7 @@
                 data-action-name="changeAnnee(id={{ annee.id }})"
         >{{ annee.libelle }}</button>
     {% endfor %}
-    
+
     <div class="row">
         <div class="accordion accordion-flush col-4" id="accordionFlushExample">
             <div class="accordion-item">
@@ -22,24 +22,24 @@
                      data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body row">
                         <div>
-                                <fieldset>
+                            <fieldset>
 
-                                    {% for cpt in niveaux %}
-                                        <div style="display: flex" class="form-check">
-                                            <input type="checkbox" id="{{ cpt.id }}"
-                                                   name="{{ cpt.id }}"
-                                                   data-model="selectedCompetences[]"
-                                                   data-action="live#action"
-                                                   data-action-name="changeCompetences"
-                                                   value="{{ cpt.id }}"
-                                                   class="form-check-input">
-                                            <label for="{{ cpt.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">{{ cpt.libelle }}</label><br>
-                                        </div>
-                                    {% endfor %}
+                                {% for cpt in niveaux %}
+                                    <div style="display: flex" class="form-check">
+                                        <input type="checkbox" id="{{ cpt.id }}"
+                                               name="{{ cpt.id }}"
+                                               data-model="selectedCompetences[]"
+                                               data-action="live#action"
+                                               data-action-name="changeCompetences"
+                                               value="{{ cpt.id }}"
+                                               class="form-check-input">
+                                        <label for="{{ cpt.id }}" style="margin-left: 10px"
+                                               class="form-check-label">{{ cpt.libelle }}</label><br>
+                                    </div>
                                     <hr>
+                                {% endfor %}
 
-                                </fieldset>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,30 @@
                     <div class="accordion-body row">
                         <div>
                             <fieldset>
+                                {% for grp in groupes %}
 
+{#                                    {% for semestre in grp.typeGroupe.semestre %}#}
+{#                                        {% if semestre.annee.id == selectedAnnee %}#}
+{#                                            {{ semestre.libelle }}#}
+{#                                        {% endif %}#}
+{#                                    {% endfor %}#}
+
+{#                                    {% if grp.typeGroupe.type == 'TP' %}#}
+                                        <div style="display: flex" class="form-check">
+                                            <input type="checkbox" id="{{ grp.id }}"
+                                                   name="{{ grp.id }}"
+                                                   data-model="selectedCompetences[]"
+                                                   data-action="live#action"
+                                                   data-action-name="changeCompetences"
+                                                   value="{{ grp.id }}"
+                                                   class="form-check-input">
+                                            <label for="{{ grp.id }}" style="margin-left: 10px"
+                                                   class="form-check-label">{{ grp.libelle }}</label><br>
+                                        </div>
+                                        <hr>
+{#                                    {% endif %}#}
+                                {% endfor %}
+                                <hr>
                             </fieldset>
                         </div>
                     </div>

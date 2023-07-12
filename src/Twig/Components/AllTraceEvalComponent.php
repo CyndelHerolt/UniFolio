@@ -14,6 +14,7 @@ use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TraceRepository;
+use App\Repository\TypeGroupeRepository;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -55,6 +56,7 @@ final class AllTraceEvalComponent extends BaseController
         public GroupeRepository      $groupeRepository,
         public SemestreRepository    $semestreRepository,
         public AnneeRepository       $anneeRepository,
+        public TypeGroupeRepository  $typeGroupeRepository,
         #[Required] public Security  $security,
         RequestStack                 $requestStack,
     )
@@ -104,6 +106,29 @@ final class AllTraceEvalComponent extends BaseController
         }
 
         $this->niveaux = $competencesNiveau;
+
+        if ($this->selectedAnnee !== null) {
+            $groupes = [];
+            $annee = $this->anneeRepository->findOneBy(['id' => $this->selectedAnnee]);
+            $semestres = $annee->getSemestres();
+            $semestreActif = [];
+            foreach ($semestres as $semestre) {
+                if ($this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]) !== null) {
+            $semestreActif = $this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]);
+                }
+            }
+            //récupérer les types de groupe de semestre actif
+            $typesGroupe = $this->typeGroupeRepository->findBySemestre($semestreActif);
+            dd($typesGroupe);
+
+        } else {
+            $groupes = [];
+            foreach ($this->annees as $annee) {
+                $groupesPerAnnee = $this->groupeRepository->findByAnnee($annee);
+                $this->groupes = array_merge($groupes, $groupesPerAnnee);
+            }
+        }
+
         $this->allTraces = $this->getAllTrace();
     }
 
