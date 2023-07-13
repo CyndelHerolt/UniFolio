@@ -2,9 +2,10 @@
 
 namespace App\Twig\Components;
 
-use App\Classes\DataUserSession;
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
+use App\Entity\Etudiant;
+use App\Entity\Groupe;
 use App\Entity\Trace;
 use App\Repository\AnneeRepository;
 use App\Repository\ApcNiveauRepository;
@@ -15,7 +16,6 @@ use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TraceRepository;
 use App\Repository\TypeGroupeRepository;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -30,11 +30,16 @@ final class AllTraceEvalComponent extends BaseController
 {
     use DefaultActionTrait;
 
-//    public array $niveaux = [];
-    public array $groupes = [];
-    public array $etudiants = [];
     public array $annee = [];
     public array $dept = [];
+
+    #[LiveProp(writable: true)]
+    /** @var Groupe[] */
+    public array $groupes = [];
+
+    #[LiveProp(writable: true)]
+    /** @var Etudiant[] */
+    public array $etudiants = [];
 
     #[LiveProp(writable: true)]
     public ?int $selectedAnnee = null;
@@ -80,6 +85,41 @@ final class AllTraceEvalComponent extends BaseController
             $this->groupes = $this->groupeRepository->findByDepartementSemestreActif($departement);
             $this->dept[] = $departement;
         }
+        $this->changeAnnee($this->selectedAnnee);
+    }
+
+
+    #[LiveAction]
+    public function changeCompetences()
+    {
+        $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
+    }
+
+    #[LiveAction]
+    public function changeGroupes()
+    {
+
+        // récupérer les étudiants des groupes sélectionnés
+        $groupes = $this->groupeRepository->findBy(['id' => $this->selectedGroupes]);
+        $this->etudiants = [];
+        foreach ($groupes as $groupe) {
+            if ($groupe->getEtudiants() !== null) {
+                foreach ($groupe->getEtudiants() as $etudiant) {
+                    $this->etudiants[] = $etudiant;
+                }
+            }
+
+        }
+
+        $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
+    }
+
+    #[LiveAction]
+    public function changeEtudiants()
+    {
+        $this->allTraces = $this->getAllTrace();
         $this->changeAnnee($this->selectedAnnee);
     }
 
@@ -138,70 +178,49 @@ final class AllTraceEvalComponent extends BaseController
             $groupes = [];
             foreach ($this->annees as $annee) {
                 $groupes = $this->groupeRepository->findByAnnee($annee);
-//                $this->groupes = array_merge($groupes, $groupesPerAnnee);
             }
             $this->groupes = $groupes;
         }
 
         if ($this->selectedAnnee !== null) {
-            $etudiants = [];
-            $groupes = $this->groupes;
-            foreach ($groupes as $groupe) {
-                $etudiantsGroupe = $groupe->getEtudiants();
-                foreach ($etudiantsGroupe as $etudiant) {
-                    $etudiants[] = $etudiant;
-                    //supprimer les doublons du tableau
-                    $etudiants = array_unique($etudiants, SORT_REGULAR);
+            if ($this->selectedGroupes == null) {
+                $etudiants = [];
+                $groupes = $this->groupes;
+                foreach ($groupes as $groupe) {
+                    $etudiantsGroupe = $groupe->getEtudiants();
+                    foreach ($etudiantsGroupe as $etudiant) {
+                        $etudiants[] = $etudiant;
+                        //supprimer les doublons du tableau
+                        $etudiants = array_unique($etudiants, SORT_REGULAR);
+                    }
                 }
+                $this->etudiants = $etudiants;
             }
-            $this->etudiants = $etudiants;
         } else {
-            $etudiants = [];
-            foreach ($this->annees as $annee) {
-                $etudiants = $this->etudiantRepository->findByAnnee($annee);
+            if ($this->selectedGroupes == null) {
+                $etudiants = [];
+                foreach ($this->annees as $annee) {
+                    $etudiants = $this->etudiantRepository->findByAnnee($annee);
+                }
+                $this->etudiants = $etudiants;
             }
-            $this->etudiants = $etudiants;
         }
 
 
         $this->allTraces = $this->getAllTrace();
     }
 
-    #[LiveAction]
-    public function changeCompetences()
-    {
-        $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
-    }
-
-    #[LiveAction]
-    public function changeGroupes()
-    {
-        $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
-    }
-
-    #[LiveAction]
-    public function changeEtudiants()
-    {
-        $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
-    }
-
-//    todo: une requete pour l'ensemble des filtres ?
     public function getAllTrace()
     {
 
-        $competence = [];
-        dump(count($this->selectedCompetences));
         $competence = count($this->selectedCompetences) > 0 ? $this->selectedCompetences : null;
 
         if ($competence !== null && $this->selectedGroupes == null && $this->selectedEtudiants == null) {
             $traces = $this->traceRepository->findByCompetence($competence);
-        }
-        else {
+        } else {
             $traces = $this->traceRepository->findAll();
         }
+
 
         return $traces;
     }

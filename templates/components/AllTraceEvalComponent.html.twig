@@ -97,7 +97,7 @@
                     <div class="accordion-body row">
                         <div>
                             <fieldset>
-                                {% for etudiant in etudiants %}
+                                {% for etudiant in this.etudiants %}
                                         <div style="display: flex" class="form-check">
                                             <input type="checkbox" id="{{ etudiant.id }}"
                                                    name="{{ etudiant.id }}"
@@ -107,7 +107,7 @@
                                                    value="{{ etudiant.id }}"
                                                    class="form-check-input">
                                             <label for="{{ etudiant.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">{{ etudiant.prenom }}</label><br>
+                                                   class="form-check-label">{{ etudiant.prenom }} {{ etudiant.nom }}</label><br>
                                         </div>
                                         <hr>
                                 {% endfor %}
@@ -120,8 +120,10 @@
     </div>
 
 
-    {% for trace in this.allTraces %}
-        <p>{{ trace.titre }}</p>
-    {% endfor %}
+    <div class="row">
+        {% for trace in this.allTraces|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+            {{ component('TraceEvalCardComponent', {'id': trace.id}) }}
+        {% endfor %}
+    </div>
 
 </div>
