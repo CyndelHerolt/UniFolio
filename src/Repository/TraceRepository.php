@@ -53,7 +53,37 @@ class TraceRepository extends ServiceEntityRepository
         return $qb;
     }
 
+    public function findByFilters(int $annee = null, array $competences = [], array $groupes = [], array $etudiants = []): array
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->innerJoin('t.validations', 'v')
+            ->innerJoin('v.apcNiveau', 'c')
+            ->join('t.bibliotheque', 'b')
+            ->join('b.etudiant', 'e')
+            ->join('e.groupe', 'g')
+            ->join('g.type_groupe', 'tg')
+            ->join('tg.semestre', 's')
+            ->join('s.annee', 'a');
+        if (!empty($annee)) {
+            $qb->andWhere('a.id = :annee')
+                ->setParameter('annee', $annee);
+        }
+        if (!empty($competences)) {
+            $qb->andWhere('c.id IN (:competences)')
+                ->setParameter('competences', $competences);
+        }
+        if (!empty($groupes)) {
+            $qb->andWhere('g.id IN (:groupes)')
+                ->setParameter('groupes', $groupes);
+        }
+        if (!empty($etudiants)) {
+            $qb->andWhere('e.id IN (:etudiants)')
+                ->setParameter('etudiants', $etudiants);
+        };
+        $qb->distinct('t.id');
 
+        return $qb->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Trace[] Returns an array of Trace objects

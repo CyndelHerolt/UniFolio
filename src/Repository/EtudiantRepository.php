@@ -44,6 +44,24 @@ class EtudiantRepository extends ServiceEntityRepository
         return $t;
     }
 
+    public function findByDepartement(Departement $departement) : array
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->innerJoin('e.groupe', 'g')
+            ->innerJoin('g.type_groupe', 'tg')
+            ->innerJoin('tg.semestre', 's')
+            ->innerJoin('s.annee', 'a')
+            ->innerJoin('a.diplome', 'd')
+            ->innerJoin('d.departement', 'dep')
+            ->where('dep.id = :departement')
+            ->setParameter('departement', $departement->getId())
+            ->orderBy('e.nom', Criteria::ASC)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
     public function getEtudiantGroupes(Semestre $semestre): array
     {
         $query = $this->createQueryBuilder('e')

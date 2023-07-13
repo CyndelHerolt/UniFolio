@@ -22,8 +22,7 @@
                      data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body row">
                         <div>
-                            <fieldset>
-
+                            <fieldset style="max-height: 200px; overflow-y: scroll;">
                                 {% for cpt in niveaux %}
                                     <div style="display: flex" class="form-check">
                                         <input type="checkbox" id="{{ cpt.id }}"
@@ -59,9 +58,14 @@
                      data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body row">
                         <div>
-                            <fieldset>
-                                {% for grp in groupes %}
+                            <fieldset style="max-height: 200px; overflow-y: scroll;">
+                                {% for grp in this.groupes %}
                                     {% if grp.typeGroupe.type == 'TP' %}
+                                        <small>{% if grp.apcParcours is not null %}
+                                                {{ grp.apcParcours.code }}
+                                                {% else %}
+                                                S1
+                                            {% endif %}</small>
                                         <div style="display: flex" class="form-check">
                                             <input type="checkbox" id="{{ grp.id }}"
                                                    name="{{ grp.id }}"
@@ -71,7 +75,9 @@
                                                    value="{{ grp.id }}"
                                                    class="form-check-input">
                                             <label for="{{ grp.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">{{ grp.libelle }}</label><br>
+                                                   class="form-check-label">
+                                                {{ grp.libelle }}
+                                            </label><br>
                                         </div>
                                         <hr>
                                     {% endif %}
@@ -96,20 +102,20 @@
                      data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body row">
                         <div>
-                            <fieldset>
+                            <fieldset style="max-height: 200px; overflow-y: scroll;">
                                 {% for etudiant in this.etudiants %}
-                                        <div style="display: flex" class="form-check">
-                                            <input type="checkbox" id="{{ etudiant.id }}"
-                                                   name="{{ etudiant.id }}"
-                                                   data-model="selectedEtudiants[]"
-                                                   data-action="live#action"
-                                                   data-action-name="changeEtudiants"
-                                                   value="{{ etudiant.id }}"
-                                                   class="form-check-input">
-                                            <label for="{{ etudiant.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">{{ etudiant.prenom }} {{ etudiant.nom }}</label><br>
-                                        </div>
-                                        <hr>
+                                    <div style="display: flex" class="form-check">
+                                        <input type="checkbox" id="{{ etudiant.id }}"
+                                               name="{{ etudiant.id }}"
+                                               data-model="selectedEtudiants[]"
+                                               data-action="live#action"
+                                               data-action-name="changeEtudiants"
+                                               value="{{ etudiant.id }}"
+                                               class="form-check-input">
+                                        <label for="{{ etudiant.id }}" style="margin-left: 10px"
+                                               class="form-check-label">{{ etudiant.prenom }} {{ etudiant.nom }}</label><br>
+                                    </div>
+                                    <hr>
                                 {% endfor %}
                             </fieldset>
                         </div>
