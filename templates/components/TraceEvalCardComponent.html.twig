@@ -1,12 +1,16 @@
 <div class="accordion accordion-flush" id="accordionFlushExample" style="margin: 25px 0 0 0;">
-    <div class="accordion-item" style="box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;">
+    <div class="accordion-item"
+         style="box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;">
         <h2 class="accordion-header" id="flush-heading{{ this.trace.id }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false" aria-controls="flush-collapse{{ this.trace.id }}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
+                    aria-controls="flush-collapse{{ this.trace.id }}">
 
                 <div class="col-11">
                     <h5>{{ this.trace.titre }}</h5>
                     <p>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }}</p>
-                    <small>Dernière modification le : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                    <small>Dernière modification le
+                        : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
                     </small>
                     <hr>
 
@@ -14,10 +18,13 @@
                         {% for validation in this.trace.validations %}
                             <li>
                                 {{ validation.apcNiveau.libelle }}
-                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
+                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                 style="color: #4c008b"></i>
                                 {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                     style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                     style="color: limegreen"></i>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -27,8 +34,91 @@
 
             </button>
         </h2>
-        <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ this.trace.id }}" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+        <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
+             aria-labelledby="flush-heading{{ this.trace.id }}" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                {% for contenu in this.trace.contenu %}
+                    {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                        <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                    {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                        <a href="{{ contenu }}">
+                            <button>{{ contenu }}</button>
+                        </a>
+                    {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                        <iframe src="{{ contenu }}" width="100%" height="300"
+                                frameborder="0">{{ contenu }}</iframe>
+                    {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                        <iframe width="100%" height="300" src="{{ contenu }}"
+                                title="Video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    {% endif %}
+                {% endfor %}
+
+                <p>
+                    {{ this.trace.description }}
+                </p>
+
+                <ul>
+                    {% for validation in this.trace.validations %}
+                        <li style="display: flex">
+                            {{ validation.apcNiveau.libelle }}
+                            <fieldset>
+                                {#                                todo: corriger checked #}
+                                <div style="display: flex; justify-content: space-between; width: 100%"
+                                     class="form-check">
+                                    <input type="radio" id="validation{{ validation.id }}1"
+                                           name="validation1{{ validation.id }}"
+                                           data-model="selectedValidation"
+                                           data-action="live#action"
+                                           data-action-name="changeValidation"
+                                           value="{{ validation.id }}-1"
+                                           class="form-check-input"
+                                            {% if validation.etat == 1 %} checked {% endif %}
+                                    >
+                                    <label for="validation1{{ validation.id }}1"
+                                           class="form-check-label">Non-acquis</label><br>
+                                    <input type="radio" id="validation{{ validation.id }}2"
+                                           name="validation2{{ validation.id }}"
+                                           data-model="selectedValidation"
+                                           data-action="live#action"
+                                           data-action-name="changeValidation"
+                                           value="{{ validation.id }}-2"
+                                           class="form-check-input"
+                                            {% if validation.etat == 2 %} checked {% endif %}
+                                    >
+                                    <label for="validation2{{ validation.id }}2"
+                                           class="form-check-label">En cours</label><br>
+                                    <input type="radio" id="validation{{ validation.id }}3"
+                                           name="validation3{{ validation.id }}"
+                                           data-model="selectedValidation"
+                                           data-action="live#action"
+                                           data-action-name="changeValidation"
+                                           value="{{ validation.id }}-3"
+                                           class="form-check-input"
+                                            {% if validation.etat == 3 %} checked {% endif %}
+                                    >
+                                    <label for="validation3{{ validation.id }}3"
+                                           class="form-check-label">Acquis</label><br>
+                                </div>
+                            </fieldset>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+                <h5 class="mt-4">Ajouter un commentaire</h5>
+                <form data-action="live#action" data-action-name="handleComment">
+                    <!-- Form fields here -->
+                    <label for="commentaire">Commentaire</label>
+                    <textarea name="commentaire" id="commentaire" cols="30" rows="3" class="form-control"></textarea>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Privé</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                    </div>
+                    <button  data-model="commentaire" data-action="live#action" data-action-name="handleComment" type="submit" class="btn btn-primary mt-2">Publier le commentaire</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

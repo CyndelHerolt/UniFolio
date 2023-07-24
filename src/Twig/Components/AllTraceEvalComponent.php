@@ -16,6 +16,7 @@ use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TraceRepository;
 use App\Repository\TypeGroupeRepository;
+use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -32,6 +33,7 @@ final class AllTraceEvalComponent extends BaseController
 
     public array $annee = [];
     public array $dept = [];
+    public int $validation = 0;
 
     #[LiveProp(writable: true)]
     /** @var Groupe[] */
@@ -54,6 +56,9 @@ final class AllTraceEvalComponent extends BaseController
     public array $selectedEtudiants = [];
 
     #[LiveProp(writable: true)]
+    public ?string $selectedValidation = '';
+
+    #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
     public array $niveaux = [];
 
@@ -71,6 +76,7 @@ final class AllTraceEvalComponent extends BaseController
         public SemestreRepository    $semestreRepository,
         public AnneeRepository       $anneeRepository,
         public TypeGroupeRepository  $typeGroupeRepository,
+        public ValidationRepository  $validationRepository,
         #[Required] public Security  $security,
         RequestStack                 $requestStack,
     )
@@ -92,6 +98,23 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeCompetences()
     {
+        $this->allTraces = $this->getAllTrace();
+        $this->changeAnnee($this->selectedAnnee);
+    }
+
+    #[LiveAction]
+    public function changeValidation()
+    {
+        $selectedValidation = $this->selectedValidation;
+        list($validationId, $state) = explode('-', $selectedValidation);
+        $validationId = intval($validationId);
+        $state = intval($state);
+
+        $validation = $this->validationRepository->find($validationId);
+
+        $validation->setEtat($state);
+        $this->validationRepository->save($validation, true);
+
         $this->allTraces = $this->getAllTrace();
         $this->changeAnnee($this->selectedAnnee);
     }

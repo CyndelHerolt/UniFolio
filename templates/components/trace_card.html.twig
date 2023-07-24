@@ -5,7 +5,7 @@
         {% for contenu in this.trace.contenu %}
             {% if 'TraceTypeImage' in this.trace.typeTrace %}
                 {% for image in contenu %}
-                <img src="/{{ image }}" alt="image" style="width: 100%">
+                    <img src="/{{ image }}" alt="image" style="width: 100%">
                 {% endfor %}
             {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
                 <a href="{{ contenu }}">
@@ -28,153 +28,158 @@
 
 {% else %}
 
-<div class="card" style="width: 20rem;">
-    <div class="card-body">
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
 
-        <div class="card-content">
-            <a class="btn-see">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#showStaticBackdrop{{ this.trace.id }}">
-                    <i class="fa fa-eye"></i>
-                </button>
-            </a>
-            <h5 class="card-title">{{ this.trace.titre }}</h5>
-            <hr>
-
-            <ul>
-                {% for validation in this.trace.validations %}
-                    <li>
-                        {{ validation.apcNiveau.libelle }}
-                        {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
-                        {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                        {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                        {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <hr>
-            <p class="card-text">Modifié le
-                : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
-            </p>
-
-            <div class="btn_grp">
-                <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
-                    <button class="btn btn-primary">Modifier</button>
-                </a>
-
-                <!-- Button trigger modal -->
-                <a>
+            <div class="card-content">
+                <a class="btn-see">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop{{ this.trace.id }}">
-                        Supprimer
+                            data-bs-target="#showStaticBackdrop{{ this.trace.id }}">
+                        <i class="fa fa-eye"></i>
                     </button>
                 </a>
+                <h5 class="card-title">{{ this.trace.titre }}</h5>
+                <hr>
+
+                <ul>
+                    {% for validation in this.trace.validations %}
+                        <li>
+                            {{ validation.apcNiveau.libelle }}
+                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                             style="color: #4c008b"></i>
+                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
+                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
+                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <hr>
+                <p class="card-text">Modifié le
+                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                </p>
+
+                <div class="btn_grp">
+                    <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
+
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                            Supprimer
+                        </button>
+                    </a>
+                </div>
             </div>
-        </div>
 
 
-        <!-- Modal Delete -->
-        <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
-             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace
-                            ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>La trace {{ this.trace.titre }} sera supprimée.</p>
-                        <p style="color: red">Attention, cette action est irréversible !</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
-                            <button class="btn btn-primary">Supprimer</button>
-                        </a>
+            <!-- Modal Delete -->
+            <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace
+                                ?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>La trace {{ this.trace.titre }} sera supprimée.</p>
+                            <p style="color: red">Attention, cette action est irréversible !</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
+                                <button class="btn btn-primary">Supprimer</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Modal Show -->
-        <div class="modal fade" id="showStaticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
-             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">{{ this.trace.titre }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="display: flex">
-                        <div class="trace_content col-7">
-                            {% for contenu in this.trace.contenu %}
-                                {% if 'TraceTypeImage' in this.trace.typeTrace %}
-                                    <img src="/{{ contenu }}" alt="image" style="width: 100%">
-                                {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-                                    <a href="{{ contenu }}">
-                                        <button>{{ contenu }}</button>
-                                    </a>
-                                {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-                                    <iframe src="{{ contenu }}" width="100%" height="300"
-                                            frameborder="0">{{ contenu }}</iframe>
-                                {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                                    <iframe width="100%" height="300" src="{{ contenu }}"
-                                            title="Video player" frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowfullscreen></iframe>
-                                {% endif %}
-                            {% endfor %}
-                            <p>
-                                {{ this.trace.description }}
-                            </p>
+            <!-- Modal Show -->
+            <div class="modal fade" id="showStaticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{ this.trace.titre }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="trace_competences col-5">
-                            <h3>Compétences</h3>
-                            <ul>
-                                {% for validation in this.trace.validations %}
-                                    <li>
-                                        {{ validation.apcNiveau.libelle }}
-                                        {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half" style="color: darkblue"></i>
-                                        {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                                        {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                                        {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
-                                        {% endif %}
-                                    </li>
+                        <div class="modal-body" style="display: flex">
+                            <div class="trace_content col-7">
+                                {% for contenu in this.trace.contenu %}
+                                    {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                                        <img src="/{{ contenu }}" alt="image" style="width: 100%">
+                                    {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                                        <a href="{{ contenu }}">
+                                            <button>{{ contenu }}</button>
+                                        </a>
+                                    {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                                        <iframe src="{{ contenu }}" width="100%" height="300"
+                                                frameborder="0">{{ contenu }}</iframe>
+                                    {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                                        <iframe width="100%" height="300" src="{{ contenu }}"
+                                                title="Video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen></iframe>
+                                    {% endif %}
                                 {% endfor %}
-                            </ul>
+                                <p>
+                                    {{ this.trace.description }}
+                                </p>
+                            </div>
+                            <div class="trace_competences col-5">
+                                <h3>Compétences</h3>
+                                <ul>
+                                    {% for validation in this.trace.validations %}
+                                        <li>
+                                            {{ validation.apcNiveau.libelle }}
+                                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                             style="color: darkblue"></i>
+                                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                                 style="color: red"></i>
+                                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                                 style="color: orange"></i>
+                                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                                 style="color: limegreen"></i>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
+                        <div class="modal-footer">
 
-                        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
-                            <button class="btn btn-primary">Modifier</button>
-                        </a>
+                            <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
+                                <button class="btn btn-primary">Modifier</button>
+                            </a>
 
-                        <!-- Button trigger modal -->
-                        <a>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop{{ this.trace.id }}">
-                                Supprimer
-                            </button>
-                        </a>
+                            <!-- Button trigger modal -->
+                            <a>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                                    Supprimer
+                                </button>
+                            </a>
 
-                        <ul>
-                            <li>Créée le : {{ this.trace.dateCreation|date('d/m/y H:i') }}</li>
-                            <li>Modifiée le : {{ this.trace.dateModification|date('d/m/y H:i') }}</li>
-                        </ul>
-                        {% for page in this.trace.pages %}
-                            {% for portfolio in page.portfolio %}
-                                {{ portfolio.intitule }} - {{ page.intitule }}
-                                <br>
+                            <ul>
+                                <li>Créée le : {{ this.trace.dateCreation|date('d/m/y H:i') }}</li>
+                                <li>Modifiée le : {{ this.trace.dateModification|date('d/m/y H:i') }}</li>
+                            </ul>
+                            {% for page in this.trace.pages %}
+                                {% for portfolio in page.portfolio %}
+                                    {{ portfolio.intitule }} - {{ page.intitule }}
+                                    <br>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endif %}
