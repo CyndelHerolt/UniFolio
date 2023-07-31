@@ -4,11 +4,14 @@ namespace App\Twig\Components;
 
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
+use App\Entity\Commentaire;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Trace;
+use App\Form\CommentaireType;
 use App\Repository\AnneeRepository;
 use App\Repository\ApcNiveauRepository;
+use App\Repository\CommentaireRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\EtudiantRepository;
@@ -18,7 +21,10 @@ use App\Repository\TraceRepository;
 use App\Repository\TypeGroupeRepository;
 use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -66,6 +72,9 @@ final class AllTraceEvalComponent extends BaseController
     /** @var Trace[] */
     public array $allTraces = [];
 
+    #[LiveProp(writable: true)]
+    public ?string $commentaire = '';
+
     public function __construct(
         public TraceRepository       $traceRepository,
         public DepartementRepository $departementRepository,
@@ -77,8 +86,10 @@ final class AllTraceEvalComponent extends BaseController
         public AnneeRepository       $anneeRepository,
         public TypeGroupeRepository  $typeGroupeRepository,
         public ValidationRepository  $validationRepository,
+        public CommentaireRepository $commentaireRepository,
         #[Required] public Security  $security,
         RequestStack                 $requestStack,
+        private FormFactoryInterface $formFactory,
     )
     {
         $this->requestStack = $requestStack;
@@ -92,6 +103,11 @@ final class AllTraceEvalComponent extends BaseController
             $this->dept[] = $departement;
         }
         $this->changeAnnee($this->selectedAnnee);
+
+        // Créez une instance de votre entité Commentaire
+        $commentaire = new Commentaire();
+        // Créez votre formulaire CommentaireType
+        $form = $this->formFactory->create(CommentaireType::class, $commentaire);
     }
 
 

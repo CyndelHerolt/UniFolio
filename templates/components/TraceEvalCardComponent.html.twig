@@ -59,65 +59,67 @@
                     {{ this.trace.description }}
                 </p>
 
-                <ul>
+                <ul style="padding-left: 0">
                     {% for validation in this.trace.validations %}
-                        <li style="display: flex">
-                            {{ validation.apcNiveau.libelle }}
+                        <li style="display: flex; justify-content: space-between">
+                            <div>
+                                {{ validation.apcNiveau.libelle }}
+                            </div>
                             <fieldset>
                                 {#                                todo: corriger checked #}
-                                <div style="display: flex; justify-content: space-between; width: 100%"
-                                     class="form-check">
-                                    <input type="radio" id="validation{{ validation.id }}1"
-                                           name="validation1{{ validation.id }}"
-                                           data-model="selectedValidation"
-                                           data-action="live#action"
-                                           data-action-name="changeValidation"
-                                           value="{{ validation.id }}-1"
-                                           class="form-check-input"
-                                            {% if validation.etat == 1 %} checked {% endif %}
-                                    >
-                                    <label for="validation1{{ validation.id }}1"
-                                           class="form-check-label">Non-acquis</label><br>
-                                    <input type="radio" id="validation{{ validation.id }}2"
-                                           name="validation2{{ validation.id }}"
-                                           data-model="selectedValidation"
-                                           data-action="live#action"
-                                           data-action-name="changeValidation"
-                                           value="{{ validation.id }}-2"
-                                           class="form-check-input"
-                                            {% if validation.etat == 2 %} checked {% endif %}
-                                    >
-                                    <label for="validation2{{ validation.id }}2"
-                                           class="form-check-label">En cours</label><br>
-                                    <input type="radio" id="validation{{ validation.id }}3"
-                                           name="validation3{{ validation.id }}"
-                                           data-model="selectedValidation"
-                                           data-action="live#action"
-                                           data-action-name="changeValidation"
-                                           value="{{ validation.id }}-3"
-                                           class="form-check-input"
-                                            {% if validation.etat == 3 %} checked {% endif %}
-                                    >
-                                    <label for="validation3{{ validation.id }}3"
-                                           class="form-check-label">Acquis</label><br>
+                                <div style="display: flex; justify-content: space-between">
+                                    <div class="form-check">
+                                        {% if validation.etat == 1 %}
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                        {% else %}
+                                            <input type="checkbox" id="validation{{ validation.id }}1"
+                                                   name="validation1{{ validation.id }}"
+                                                   data-model="selectedValidation"
+                                                   data-action="live#action"
+                                                   data-action-name="changeValidation"
+                                                   value="{{ validation.id }}-1"
+                                                   class="form-check-input">
+                                        {% endif %}
+
+                                        <label for="validation1{{ validation.id }}1"
+                                               class="form-check-label">Non-acquis</label><br>
+                                    </div>
+                                    <div class="form-check">
+                                        {% if validation.etat == 2 %}
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                        {% else %}
+                                            <input type="checkbox" id="validation{{ validation.id }}2"
+                                                   name="validation2{{ validation.id }}"
+                                                   data-model="selectedValidation"
+                                                   data-action="live#action"
+                                                   data-action-name="changeValidation"
+                                                   value="{{ validation.id }}-2"
+                                                   class="form-check-input">
+                                        {% endif %}
+                                        <label for="validation2{{ validation.id }}2"
+                                               class="form-check-label">En cours</label><br>
+                                    </div>
+                                    <div class="form-check">
+                                        {% if validation.etat == 3 %}
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                        {% else %}
+                                            <input type="checkbox" id="validation{{ validation.id }}3"
+                                                   name="validation3{{ validation.id }}"
+                                                   data-model="selectedValidation"
+                                                   data-action="live#action"
+                                                   data-action-name="changeValidation"
+                                                   value="{{ validation.id }}-3"
+                                                   class="form-check-input">
+                                        {% endif %}
+                                        <label for="validation3{{ validation.id }}3"
+                                               class="form-check-label">Acquis</label><br>
+                                    </div>
                                 </div>
                             </fieldset>
                         </li>
                     {% endfor %}
                 </ul>
 
-
-                <h5 class="mt-4">Ajouter un commentaire</h5>
-                <form data-action="live#action" data-action-name="handleComment">
-                    <!-- Form fields here -->
-                    <label for="commentaire">Commentaire</label>
-                    <textarea name="commentaire" id="commentaire" cols="30" rows="3" class="form-control"></textarea>
-                    <div class="form-check form-switch">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Privé</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                    </div>
-                    <button  data-model="commentaire" data-action="live#action" data-action-name="handleComment" type="submit" class="btn btn-primary mt-2">Publier le commentaire</button>
-                </form>
             </div>
         </div>
     </div>
