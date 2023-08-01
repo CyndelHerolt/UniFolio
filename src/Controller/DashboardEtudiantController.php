@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
+#[Route('/etudiant')]
 class DashboardEtudiantController extends BaseController
 {
     public function __construct(
@@ -33,7 +34,7 @@ class DashboardEtudiantController extends BaseController
     {
     }
 
-    #[Route('/dashboard/etudiant', name: 'etudiant_dashboard')]
+    #[Route('/dashboard', name: 'etudiant_dashboard')]
     public function index(
         UsersRepository $usersRepository,
         TraceRegistry   $traceRegistry,

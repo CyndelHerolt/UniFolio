@@ -25,6 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
+#[Route('etudiant/bibliotheque')]
 class TraceController extends BaseController
 {
 
