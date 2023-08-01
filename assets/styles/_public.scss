@@ -1,80 +1,77 @@
-.container {
+
+.public {
   max-width: 100vw;
   @include paragraphe;
+  padding: 0 100px;
   //todo: media query for mobile no padding
-  padding: 50px 100px;
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
 
   .zone1 {
+    height: 90vh;
 
     .row {
-      @include zone(50px 0, 40px, $color-primary, 10px);
+      @include zone(0, 0 5vw, $color-bg, 10px);
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      h1 {
-        @include titre($secondary-font, 36px, 1);
+    h1 {
+      @include titre($primary-font, 2rem, 1);
+      margin-bottom: 1rem;
+      font-weight: 800;
 
-        span {
-          font-size: 25px;
-        }
+      span {
+        color: $color-secondary;
       }
+    }
+
+    p {
+      opacity: .8;
+      line-height: 1.5;
+    }
+
+    img {
+      width: 90%;
     }
   }
 
   .zone2 {
 
     .row {
-      padding: 45px;
-    }
-  }
+      @include zone(10vh 0, 10vh 5vw, $color-bg, 10px);
+      color: $color-dark;
 
-  .zone3 {
-
-    .row {
-      @include zone(50px 0, 40px, $color-primary, 10px);
-
-      .col-lg-12 {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .card {
-
-        }
+      h2 {
+        @include titre($primary-font, 1.85rem, 1);
+        font-weight: 600;
       }
 
-      a {
-        width: fit-content;
-        margin: 25px auto;
+      em {
+        line-height: 1.5;
+        font-size: 1rem;
+        //font-style: italic;
+        opacity: .8;
+      }
 
-        button {
-          @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+      p {
+        line-height: 1.5;
+      }
 
-          &:hover {
-            @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
-          }
+      ol {
+        @include zone(2vh 0, 5vh 5vw, $color-bg, 10px);
+        color: $color-dark;
+
+        h4 {
+          color: $color-secondary;
         }
       }
     }
   }
-
-  .zone4 {
-    .row {
-
-      .col-lg-12 {
-
-      }
-        a {
-          width: fit-content;
-          margin: 25px auto;
-
-          button {
-            @include btn($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-
-            &:hover {
-              @include btn($color-light, $color-dark, 3px solid $color-primary-focus);
-            }
-          }
-        }
-    }
-  }
-
 }
+

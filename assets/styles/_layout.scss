@@ -5,23 +5,44 @@ body {
     margin-bottom: 50px;
 
     .navbar {
-      background-color: $color-secondary-focus !important;
+      padding: 0;
+      background-color: $color-bg !important;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 999;
+      box-shadow: rgba(100, 100, 100, 0.05) 0px 2px 8px 0px;
       @include menu-item;
 
       ul {
         align-items: center;
 
         a {
-          color: $color-light !important;
+          color: $color-dark !important;
+          padding: 12px 0;
+          font-size: .8rem;
+          font-weight: 400;
+        }
+
+        .inactive::after {
+          content: '';
+          display: block;
+          background-color: $color-bg;
+          height: 3px;
+          width: 100%;
+        }
+
+        .active::after {
+          content: '';
+          display: block;
+          background-color: $color-primary-focus;
+          height: 3px;
+          width: 100%;
         }
 
         .break {
-          color: $color-light;
-          opacity: .2;
+          color: $color-dark;
+          opacity: .8;
           font-weight: lighter;
           font-size: 1.25rem;
         }
@@ -32,31 +53,44 @@ body {
         li {
 
           a {
-            font-size: .9rem;
-            font-weight: 300;
+            font-size: .8rem;
+            font-weight: 400;
           }
         }
       }
 
       .dropdown-menu {
-        background-color: $color-secondary-focus;
+        background-color: $color-bg;
         border: none !important;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
         width: fit-content;
 
         .dropdown-item:hover {
           background-color: $color-primary-focus;
         }
+
+        li {
+
+          a {
+            color: $color-dark !important;
+            padding: 5px 10px;
+          }
+        }
       }
 
       .logo {
-        width: 25px;
-        height: 25px;
+        width: 45px;
+        margin: 0 10px 0 0;
       }
 
       .collapse {
         display: flex;
         justify-content: space-between;
       }
+    }
+
+    .dropdown-menu[data-bs-popper] {
+      top: 80%;
     }
 
     .dept_infos {
@@ -74,7 +108,7 @@ body {
         align-items: center;
 
         p {
-            margin: 0 15px 0 0;
+          margin: 0 15px 0 0;
         }
 
         .dropdown {
