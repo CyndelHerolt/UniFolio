@@ -136,23 +136,30 @@ body {
 
 
 footer {
-  background-color: $color-secondary-focus !important;
-  color: $color-light;
-  padding: 10px 40px;
   margin: 0;
   width: 100%;
+  padding: 50px 5vw 25px 5vw;
 
-  .container {
-    padding: 0;
+  .alert-info {
+    @include zone(2rem auto, 2rem 5vw, $color-primary-dark, 10px);
+    color: $color-light;
+    width: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .row {
-      display: flex;
-
-      .col-12 {
-        p {
-          margin: 0;
-        }
-      }
+    h5 {
+      margin-bottom: 0;
+      margin-left: 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 500;
     }
+
+  }
+
+  small {
+    opacity: .8;
   }
 }

@@ -47,9 +47,10 @@
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: ease-in-out 0.1s;
+  width: fit-content;
 }
 
 @mixin btn-icon($background-color, $color, $border) {

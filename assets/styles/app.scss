@@ -8,6 +8,10 @@
 @import "bootstrap";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
+* {
+  font-family: $primary-font;
+}
+
 body {
   background-color: $color-bg !important;
 
@@ -15,11 +19,63 @@ body {
     max-width: 100vw;
     min-height: 100vh;
     padding: 0 4vw !important;
+  }
 
     h1 {
-      @include titre($secondary-font, 36px, 1.5);
+      @include titre($primary-font, 2rem, 1);
+      margin-bottom: 1rem;
+      font-weight: 800;
+
+      span {
+        color: $color-secondary;
+      }
     }
 
+    h2 {
+      @include titre($primary-font, 1.85rem, 1);
+      font-weight: 600;
+
+      span {
+        color: $color-secondary;
+      }
+    }
+
+    h5 {
+      @include titre($primary-font, 1rem, 1.5);
+      font-weight: 500;
+
+      span {
+        color: $color-secondary;
+      }
+    }
+
+    p {
+      font-size: .9rem;
+    }
+
+    .btn-primary {
+      @include btn(transparent, $color-primary, 2px solid $color-primary);
+      transition: ease-in-out 0.3s;
+
+      &:hover {
+        @include btn($color-primary-focus, $color-primary, 2px solid $color-primary);
+        transition: ease-in-out 0.3s;
+      }
+    }
+
+    .btn-secondary {
+      @include btn(transparent, $color-secondary, 2px solid $color-secondary);
+      transition: ease-in-out 0.3s;
+
+      &:hover {
+        @include btn($color-secondary-focus, $color-secondary, 2px solid $color-secondary);
+        transition: ease-in-out 0.3s;
+      }
+    }
+
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     .modal-content {
 
       .modal-header {
@@ -62,6 +118,11 @@ body {
         }
       }
     }
+
+
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
 
     .profil {
 
@@ -137,7 +198,11 @@ body {
         }
       }
     }
-  }
+
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+
 }
 
 

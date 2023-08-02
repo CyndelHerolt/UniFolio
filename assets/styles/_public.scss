@@ -27,7 +27,7 @@
       font-weight: 800;
 
       span {
-        color: $color-secondary;
+        color: $color-primary;
       }
     }
 
@@ -41,11 +41,12 @@
     }
   }
 
-  .zone2, .zone3 {
+  .zone2, .zone3, .zone4 {
 
     .row {
       @include zone(2rem 0, 2rem 5vw, $color-bg, 10px);
       color: $color-dark;
+      justify-content: space-between;
 
       h2 {
         @include titre($primary-font, 1.85rem, 1);
@@ -55,7 +56,6 @@
       em {
         line-height: 1.5;
         font-size: 1rem;
-        //font-style: italic;
         opacity: .8;
       }
 
@@ -63,18 +63,57 @@
         line-height: 1.5;
       }
 
-      ul {
+      .descript {
         @include zone(0, 0 5vw, $color-bg, 10px);
         color: $color-dark;
 
-        h4 {
-          color: $color-secondary;
+        li {
+          margin-bottom: 50px;
         }
       }
 
-      h5 {
-        @include zone(3rem 0, 2rem 5vw, $color-secondary, 10px);
+      .alert-info {
+        @include zone(2rem 0, 2rem 5vw, $color-primary-dark, 10px);
         color: $color-light;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h5 {
+          margin-bottom: 0;
+          margin-left: 1rem;
+        }
+
+        i {
+          color: $color-secondary;
+        }
+
+      }
+
+      .btn {
+        padding: 0 5vw;
+
+        .btn-primary {
+          width: fit-content;
+          text-align: end;
+        }
+      }
+    }
+
+    .cards {
+
+      .card {
+        padding: 0 !important;
+        width: 30%;
+
+        h3 {
+          font-size: 1.25rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 0;
+        }
       }
     }
   }

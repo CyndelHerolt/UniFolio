@@ -15,7 +15,7 @@
 <header>
     {% block header %}
     {% endblock %}
-        {% include('_menu.html.twig') %}
+    {% include('_menu.html.twig') %}
     {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
         {% include('_departement.html.twig') %}
     {% endif %}
@@ -29,20 +29,29 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
+
 <footer>
+    <hr>
+    <div class="alert-info">
+        <h5>Vous voulez en savoir plus ?</h5>
+        <button class="btn btn-secondary">Demander une démo</button>
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+
+
 
     {% if admin is defined and admin == '/admin?_switch_user=_exit' %}
-
         <br>
-
         <a href="{{ admin }}">
-            <button>back to admin</button>
+            <button class="btn-primary">back to admin</button>
         </a>
-
         <br>
 
     {% endif %}
 
+<small>Copyright © 2023 @CyndelHerolt. All rights reserved. | Version 1.1</small>
 </footer>
 </body>
 </html>

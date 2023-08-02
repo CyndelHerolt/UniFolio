@@ -6,12 +6,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 // COLOR
 $color-bg: #F9F9F9;
-$color-primary: rgba(232, 226, 243, 0.68);
-$color-secondary: #6f18ad;
+//$color-primary: rgba(232, 226, 243, 0.68);
+$color-primary: #6f18ad;
+$color-primary-dark: #2a0d41;
+$color-primary-focus: rgba(111, 24, 173, 0.15);
+$color-secondary: rgb(242, 220, 93);
+$color-secondary-focus: rgba(242, 220, 93, 0.15);
 //$color-primary-focus: #ffae00;
 //$color-primary-focus: rgba(242, 220, 93, 0.35);
-$color-primary-focus: rgb(242, 220, 93);
-$color-secondary-focus: #403460;
 $color-dark: #000;
 $color-light: #fff;
 
