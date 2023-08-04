@@ -11,18 +11,17 @@
     </nav>
     <div class="container account">
         <div class="row">
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <i class="fa fa-info-circle fa-xl" style="margin-right: 15px"></i>
+                <div>
+                    <small style="font-size: .8rem">
+                        Une fois votre compte créé, on mail vous sera envoyé pour confirmer votre inscription. Vous ne pourrez accéder à votre compte qu'après avoir cliqué sur le lien de confirmation.
+                    </small>
+                </div>
+            </div>
             <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
                 <h1>Inscription</h1>
-
-                <div class="alert alert-primary d-flex align-items-center " role="alert">
-                    <i class="fa fa-info-circle fa-xl"></i>
-                    <div>
-                        Une fois votre compte créé, on mail vous sera envoyé pour confirmer votre inscription. Vous ne pourrez accéder à votre compte qu'après avoir cliqué sur le lien de confirmation.
-                    </div>
-                </div>
-
                 {{ include('users/_form.html.twig') }}
-
                 <p>Vous possédez déjà un compte ? <a href="{{ path('app_login') }}">Connexion</a></p>
             </div>
         </div>

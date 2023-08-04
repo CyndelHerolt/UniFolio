@@ -13,145 +13,160 @@
         </ol>
     </nav>
     <div class="container dashboard">
-        <p>Département {{ data_user.etudiant.semestre.annee.diplome.departement.libelle }}</p>
-        <h1>Tableau de bord</h1>
         <section class="dashboard_retours_pedagogiques">
-            <div class="row">
+            <article class="row g-4">
                 <h2>Derniers retours pédagogiques</h2>
-                <article class="col-lg-12 col-12">
-                    <!-- todo: boucle sur les infos -->
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Nom de la trace | portfolio</th>
-                            <th>Date de création</th>
-                            <th>Auteur</th>
-                            <th>Contenu du commentaire</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Portfolio 1</td>
-                            <td>21/02/2023</td>
-                            <td>Jane Doe</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</td>
-                            <td class="table-btn">
-                                <div class="btn-group">
-                                    <a href="">
-                                        <button><i class="fa-solid fa-comment-dots"></i></button>
-                                    </a>
-                                    <a href="">
-                                        <button><i class="fa-solid fa-eye"></i></button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Trace 1</td>
-                            <td>21/02/2023</td>
-                            <td>John Doe</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</td>
-                            <td class="table-btn">
-                                <div class="btn-group">
-                                    <a href="">
-                                        <button><i class="fa-solid fa-comment-dots"></i></button>
-                                    </a>
-                                    <a href="">
-                                        <button><i class="fa-solid fa-eye"></i></button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <div class="aperçu_evaluation">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nom de la trace</h5>
-                                <p class="card-text">Compétence A <span><i class="fa-solid fa-check"></i></span></p>
-                                <a href="#" class="card-link">
-                                    <button><i class="fa-solid fa-eye"></i></button>
-                                </a>
-                            </div>
+                <em>Les derniers commentaires et dernières évaluations de vos traces et portfolios par les enseignants.</em>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <div class="card-header">
+                            <h5>Portfolio : BUT 1 MMI</h5>
+                            <ul class="card-infos-min">
+                                <li><span>Publié le : </span>01/01/2023</li>
+                                <li>•</li>
+                                <li><span>Auteur : </span>John Doe</li>
+                            </ul>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nom de la trace</h5>
-                                <p class="card-text">Compétence A <span><i class="fa-solid fa-check"></i></span></p>
-                                <p class="card-text">Compétence B <span><i class="fa-solid fa-xmark"></i></span></p>
-                                <a href="#" class="card-link">
-                                    <button><i class="fa-solid fa-eye"></i></button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nom de la trace</h5>
-                                <p class="card-text">Compétence A <span><i class="fa-solid fa-check"></i></span></p>
-                                <a href="#" class="card-link">
-                                    <button><i class="fa-solid fa-eye"></i></button>
-                                </a>
-                            </div>
+                        <div class="card-body flex-grow-1 card-table-competences">
+                            {#                            <h5 class="card-title">Commentaire : </h5> #}
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
+                                magna
+                                nec, dignissim placerat odio. Nam eu lacus ultricies, laoreet urna a, faucibus enim.
+                                Proin
+                                laoreet metus vitae venenatis aliquet.</p>
+                            <a href="#" class="btn btn-secondary mt-auto">Accéder au portfolio</a>
                         </div>
                     </div>
-                </article>
-            </div>
-        </section>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <div class="card-header">
+                            <h5>Trace : Outils collaboratifs</h5>
+                            <ul class="card-infos-min">
+                                <li><span>Publié le : </span>01/01/2023</li>
+                                <li>•</li>
+                                <li><span>Auteur : </span>John Doe</li>
+                                <li>•</li>
+                                <li><span>Portfolio : </span>MMI BUT 1</li>
+                            </ul>
+                        </div>
+                        <div class="card-body flex-grow-1 card-table-competences">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
+                                magna
+                                nec.</p>
+                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <div class="card-header">
+                            <h5>Trace : Wireframe, un schéma de la structure et des fonctionnalités</h5>
+                            <ul class="card-infos-min">
+                                <li><span>Publié le : </span>01/01/2023</li>
+                                <li>•</li>
+                                <li><span>Auteur : </span>John Doe</li>
+                                <li>•</li>
+                                <li><span>Portfolio : </span>MMI BUT 1</li>
+                            </ul>
+                        </div>
+                        <div class="card-body flex-grow-1 card-table-competences">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
+                                magna
+                                nec.</p>
+                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <div class="card-header flex-grow-1">
+                            <h5>Trace : Modélisation de données</h5>
+                            <ul class="card-infos-min">
+                                <li><span>Publié le : </span>01/01/2023</li>
+                                <li>•</li>
+                                <li><span>Auteur : </span>John Doe</li>
+                                <li>•</li>
+                                <li><span>Portfolio : </span>MMI BUT 1</li>
+                            </ul>
+                        </div>
+                        <div class="card-body flex-grow-1 card-table-competences">
+                            <ul class="dashboard-competences">
+                                <li>Comprendre les éléments de communication et les attentes utilisateurs <i
+                                            class="fa-solid fa-xmark fa-xl" style="color: red"></i></li>
+                                <li>Concevoir une réponse stratégique <i class="fa-solid fa-check fa-xl"
+                                                                         style="color: limegreen"></i></li>
+                            </ul>
+                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
+        </section>
+    </div>
+
+    <div class="container dashboard">
         <section class="dashboard_traces">
-            <div class="row">
+            <article class="row g-4">
                 <h2>Dernières traces créées</h2>
-                <article class="col-lg-12 col-12">
-                    {{ component('all_trace') }}
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <em>Les dernières traces que vous avez créées et les compétences associées.</em>
+                {{ component('all_trace') }}
+                <!-- Button trigger modal -->
+                <div class="btn-group">
+                    <a href="{{ path('app_trace') }}">
+                        <button class="btn btn-primary">Bibliothèque de traces</button>
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
                         Créer une trace
                     </button>
-                    <a href="{{ path('app_trace') }}">
-                        <button>Bibliothèque de traces</button>
-                    </a>
-                </article>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <ul>
-                                    {% for trace in traces %}
-                                        <li>
-                                            <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
-                                                        class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                </div>
+            </article>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                {% for trace in traces %}
+                                    <li>
+                                        <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
+                                                    class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+    </div>
 
+    <div class="container dashboard">
         <section class="dashboard_portfolio ">
-            <div class="row">
+            <article class="row g-4">
                 <h2>Vos portfolios</h2>
-                <article class="col-lg-12 col-12">
-                    {{ component('all_portfolio') }}
-                    <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
-                        <button>Créer un portfolio</button>
-                    </a>
+                {{ component('all_portfolio') }}
+                <div class="btn-group">
                     <a href="{{ path('app_portfolio') }}">
-                        <button>Bibliothèque de portfolios</button>
+                        <button class="btn btn-primary">Bibliothèque de portfolios</button>
                     </a>
-                </article>
-            </div>
+                    <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+                        <button class="btn btn-secondary">Créer un portfolio</button>
+                    </a>
+                </div>
+            </article>
         </section>
     </div>
 {% endblock %}

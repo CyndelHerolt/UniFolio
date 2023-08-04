@@ -1,22 +1,11 @@
 {% if '/portfolio' in app.request.uri %}
-    <div class="row" >
-    {% for portfolio in this.allPortfolio %}
-        {{ component('portfolio_card', {'id': portfolio.id}) }}
-    {% endfor %}
-</div>
+    <div class="row">
+        {% for portfolio in this.allPortfolio %}
+            {{ component('portfolio_card', {'id': portfolio.id}) }}
+        {% endfor %}
+    </div>
 {% elseif '/dashboard' in app.request.uri %}
-    <table>
-        <thead>
-        <tr>
-            <th>Nom du portfolio</th>
-            <th>Date de modification</th>
-            <th>Visibilité</th>
-        </tr>
-        </thead>
-        <tbody>
         {% for portfolio in this.allPortfolio|slice(0,4) %}
             {{ component('portfolio_table', {'id': portfolio.id}) }}
         {% endfor %}
-        </tbody>
-    </table>
 {% endif %}

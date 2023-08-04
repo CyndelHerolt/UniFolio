@@ -33,10 +33,9 @@
 
                     {# Protection contre les attaques CSRF todo: c'est quoi une attaque CSRF ? #}
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
+                    <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
                     <button type="submit" class="btn btn-primary">Connexion</button>
 
-                    <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
                     <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
                 </form>
             </div>

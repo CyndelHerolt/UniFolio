@@ -107,9 +107,7 @@ class AllTraceComponent extends BaseController
                 }
             }
         }
-
-        dump($traces);
-
+//        dd($traces);
         return $traces;
     }
 }

@@ -1,276 +1,369 @@
 .dashboard {
   padding: 25px 75px !important;
 
-  .dashboard_retours_pedagogiques {
+  section {
+    @include zone(0, 40px, $color-bg, 0);
 
     .row {
-      @include zone(50px 0, 40px, $color-light, 0);
-      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+      justify-content: space-evenly;
 
-      h2 {
-        @include titre($primary-font, 20px, 1.5);
-        font-weight: 500;
+      em {
+        margin-top: 0;
       }
 
-      .col-lg-12 {
+      .card {
+        padding: 15px;
+        border: none;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 
-        table {
-          width: 98%;
-          border-collapse: separate;
-          border-spacing: 0 25px;
-          text-align: center;
-
-          thead {
-
-          }
-
-          tbody {
-            tr {
-              background-color: $color-primary;
-              //border-radius: 5px;
-
-              td:nth-child(1) {
-                @include menu-item;
-                margin: 0;
-                padding: 10px 20px;
-                width: 20%;
-                //border-radius: 5px;
-                background-color: $color-secondary-focus;
-                color: $color-light;
-                height: 100%;
-              }
-
-              .table-btn {
-                display: flex;
-                justify-content: flex-end;
-                margin: 10px 0;
-
-                .btn-group {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  width: fit-content;
-                  position: relative;
-                  left: 30px;
-
-                  button {
-                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                    margin: 0 10px;
-
-                    &:hover {
-                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-                    }
-                  }
-                }
-              }
-            }
-          }
+        .card-header {
+          padding: 10px 20px;
+          //background-color: rgba(111, 24, 173, 0.07);
+          background-color: $color-light;
+          //border-bottom: none;
         }
 
-        hr {
-          margin: 25px 0;
+        .portfolio-banniere {
+          height: auto;
+          background-color: $color-light;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 5px;
         }
 
-        //todo: media query for mobile display column
-        .aperçu_evaluation {
-          width: 100%;
+        h5 {
+          font-weight: 600;
+        }
+
+        .card-infos-min {
+          list-style: none;
           display: flex;
-          justify-content: space-between;
           flex-wrap: wrap;
+          font-size: .7rem;
+          padding: 0;
+          margin: 0;
 
-          .card {
-            width: 18rem;
+          li {
+            margin: 0 10px 0 0;
 
-            .card-body {
-              padding: 0;
-              text-align: center;
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
+            span {
+              font-weight: 600;
+            }
+          }
+        }
 
-              .card-title {
-                background-color: $color-secondary-focus;
-                color: $color-light;
-                padding: 10px;
-                //border-radius: 5px;
-              }
+        .card-table-competences {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: start !important;
+        }
 
-              .card-text {
-                margin: 15px 0;
-                background-color: $color-primary;
-                padding: 10px;
-              }
+        .portfolio-table {
+          padding: 0 15px;
+        }
 
-              a {
+        .card-body {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
 
-                button {
-                  @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                  position: relative;
-                  top: 15px;
+          .dashboard-competences {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
 
-                  &:hover {
-                    @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-                  }
-                }
-              }
+          ul {
+            padding: 0;
+            margin-bottom: 0;
+          }
+
+          li {
+            margin: 5px 0;
+          }
+
+          p, li {
+            font-size: .8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .btn-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            .btn {
+              margin: 10px 0;
+              width: fit-content;
             }
           }
         }
       }
+
+      //.col-lg-12 {
+      //
+      //  table {
+      //    width: 98%;
+      //    border-collapse: separate;
+      //    border-spacing: 0 25px;
+      //    text-align: center;
+      //
+      //    thead {
+      //      font-size: .8rem;
+      //    }
+      //
+      //    tbody {
+      //      tr {
+      //        background-color: $color-bg;
+      //        //border-radius: 5px;
+      //
+      //        td:nth-child(1) {
+      //          @include menu-item;
+      //          margin: 0;
+      //          padding: 10px 20px;
+      //          width: 20%;
+      //          //border-radius: 5px;
+      //          background-color: $color-primary;
+      //          color: $color-light;
+      //          height: 100%;
+      //        }
+      //
+      //        .table-btn {
+      //          display: flex;
+      //          justify-content: flex-end;
+      //          margin: 10px 0;
+      //
+      //          .btn-group {
+      //            display: flex;
+      //            justify-content: space-between;
+      //            align-items: center;
+      //            width: fit-content;
+      //            position: relative;
+      //            left: 30px;
+      //
+      //            button {
+      //              @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+      //              margin: 0 10px;
+      //
+      //              &:hover {
+      //                @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+      //              }
+      //            }
+      //          }
+      //        }
+      //      }
+      //    }
+      //  }
+      //
+      //  hr {
+      //    margin: 25px 0;
+      //  }
+      //
+      //  //todo: media query for mobile display column
+      //  .aperçu_evaluation {
+      //    width: 100%;
+      //    display: flex;
+      //    justify-content: space-between;
+      //    flex-wrap: wrap;
+      //
+      //    .card {
+      //      width: 18rem;
+      //
+      //      .card-body {
+      //        padding: 0;
+      //        text-align: center;
+      //        display: flex;
+      //        flex-direction: column;
+      //        justify-content: space-between;
+      //
+      //        .card-title {
+      //          background-color: $color-secondary-focus;
+      //          color: $color-light;
+      //          padding: 10px;
+      //          //border-radius: 5px;
+      //        }
+      //
+      //        .card-text {
+      //          margin: 15px 0;
+      //          background-color: $color-primary;
+      //          padding: 10px;
+      //        }
+      //
+      //        a {
+      //
+      //          button {
+      //            @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+      //            position: relative;
+      //            top: 15px;
+      //
+      //            &:hover {
+      //              @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+      //            }
+      //          }
+      //        }
+      //      }
+      //    }
+      //  }
+      //}
     }
   }
 
-  .dashboard_traces {
-
-    .row {
-      @include zone(50px 0, 40px, $color-light, 0);
-      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-
-      h2 {
-        @include titre($primary-font, 20px, 1.5);
-        font-weight: 500;
-      }
-
-      .col-lg-12 {
-
-        table {
-          width: 98%;
-          border-collapse: separate;
-          border-spacing: 0 25px;
-          text-align: center;
-
-          tbody {
-            tr {
-              background-color: $color-primary;
-              //border-radius: 5px;
-
-              td:nth-child(1) {
-                @include menu-item;
-                margin: 0;
-                padding: 10px 20px;
-                width: 20%;
-                //border-radius: 5px;
-                background-color: $color-secondary-focus;
-                color: $color-light;
-                height: 100%;
-              }
-
-              .table-btn {
-                display: flex;
-                justify-content: flex-end;
-                margin: 10px 0;
-
-                .btn-group {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  width: fit-content;
-                  position: relative;
-                  left: 30px;
-
-                  button {
-                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                    margin: 0 10px;
-
-                    &:hover {
-                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        button {
-          @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
-          margin: 0 25px 0 0;
-
-          &:hover {
-            @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-          }
-        }
-      }
-    }
-  }
-
-  //todo: mixin for table
-  .dashboard_portfolio {
-
-    .row {
-      @include zone(50px 0, 40px, $color-light, 0);
-      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-
-      h2 {
-        @include titre($primary-font, 20px, 1.5);
-        font-weight: 500;
-      }
-
-      .col-lg-12 {
-
-        table {
-          width: 98%;
-          border-collapse: separate;
-          border-spacing: 0 25px;
-          text-align: center;
-
-          tbody {
-            tr {
-              background-color: $color-primary;
-              //border-radius: 5px;
-
-              td:nth-child(1) {
-                @include menu-item;
-                margin: 0;
-                padding: 10px 20px;
-                width: 20%;
-                //border-radius: 5px;
-                background-color: $color-secondary-focus;
-                color: $color-light;
-                height: 100%;
-              }
-
-              .table-btn {
-                display: flex;
-                justify-content: flex-end;
-                margin: 10px 0;
-
-                .btn-group {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  width: fit-content;
-                  position: relative;
-                  left: 30px;
-
-                  button {
-                    @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                    margin: 0 10px;
-
-                    &:hover {
-                      @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        a {
-
-          button {
-            @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
-            margin: 0 25px 0 0;
-
-            &:hover {
-              @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-            }
-          }
-        }
-      }
-    }
-  }
+  //.dashboard_traces {
+  //
+  //  .row {
+  //    @include zone(50px 0, 40px, $color-light, 0);
+  //    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  //
+  //    h2 {
+  //      @include titre($primary-font, 20px, 1.5);
+  //      font-weight: 500;
+  //    }
+  //
+  //    .col-lg-12 {
+  //
+  //      table {
+  //        width: 98%;
+  //        border-collapse: separate;
+  //        border-spacing: 0 25px;
+  //        text-align: center;
+  //
+  //        tbody {
+  //          tr {
+  //            background-color: $color-primary;
+  //            //border-radius: 5px;
+  //
+  //            td:nth-child(1) {
+  //              @include menu-item;
+  //              margin: 0;
+  //              padding: 10px 20px;
+  //              width: 20%;
+  //              //border-radius: 5px;
+  //              background-color: $color-secondary-focus;
+  //              color: $color-light;
+  //              height: 100%;
+  //            }
+  //
+  //            .table-btn {
+  //              display: flex;
+  //              justify-content: flex-end;
+  //              margin: 10px 0;
+  //
+  //              .btn-group {
+  //                display: flex;
+  //                justify-content: space-between;
+  //                align-items: center;
+  //                width: fit-content;
+  //                position: relative;
+  //                left: 30px;
+  //
+  //                button {
+  //                  @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+  //                  margin: 0 10px;
+  //
+  //                  &:hover {
+  //                    @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+  //                  }
+  //                }
+  //              }
+  //            }
+  //          }
+  //        }
+  //      }
+  //
+  //      button {
+  //        @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+  //        margin: 0 25px 0 0;
+  //
+  //        &:hover {
+  //          @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
+  //
+  ////todo: mixin for table
+  //.dashboard_portfolio {
+  //
+  //  .row {
+  //    @include zone(50px 0, 40px, $color-light, 0);
+  //    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  //
+  //    h2 {
+  //      @include titre($primary-font, 20px, 1.5);
+  //      font-weight: 500;
+  //    }
+  //
+  //    .col-lg-12 {
+  //
+  //      table {
+  //        width: 98%;
+  //        border-collapse: separate;
+  //        border-spacing: 0 25px;
+  //        text-align: center;
+  //
+  //        tbody {
+  //          tr {
+  //            background-color: $color-primary;
+  //            //border-radius: 5px;
+  //
+  //            td:nth-child(1) {
+  //              @include menu-item;
+  //              margin: 0;
+  //              padding: 10px 20px;
+  //              width: 20%;
+  //              //border-radius: 5px;
+  //              background-color: $color-secondary-focus;
+  //              color: $color-light;
+  //              height: 100%;
+  //            }
+  //
+  //            .table-btn {
+  //              display: flex;
+  //              justify-content: flex-end;
+  //              margin: 10px 0;
+  //
+  //              .btn-group {
+  //                display: flex;
+  //                justify-content: space-between;
+  //                align-items: center;
+  //                width: fit-content;
+  //                position: relative;
+  //                left: 30px;
+  //
+  //                button {
+  //                  @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
+  //                  margin: 0 10px;
+  //
+  //                  &:hover {
+  //                    @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
+  //                  }
+  //                }
+  //              }
+  //            }
+  //          }
+  //        }
+  //      }
+  //
+  //      a {
+  //
+  //        button {
+  //          @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+  //          margin: 0 25px 0 0;
+  //
+  //          &:hover {
+  //            @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+  //          }
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 
   .dashboard_infos_groupe {
 
@@ -383,7 +476,7 @@
 
             .commentaire {
               width: 30%;
-                text-align: left;
+              text-align: left;
             }
 
             .table-btn {

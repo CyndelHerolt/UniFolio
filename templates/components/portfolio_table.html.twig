@@ -1,19 +1,74 @@
-<tr>
-    <td>{{ this.portfolio.intitule }}</td>
-    <td>{{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y H:i') : this.portfolio.datemodification|date('d-m-y H:i') }}</td>
-    {% if this.portfolio.visibilite %}
-    <td>Public</td>
-    {% else %}
-    <td>Privé</td>
-    {% endif %}
-    <td class="table-btn">
-        <div class="btn-group">
-            <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
-                <button><i class="fa-solid fa-edit"></i></button>
-            </a>
-            <a href="">
-                <button><i class="fa-solid fa-eye"></i></button>
-            </a>
+{# <tr> #}
+{#    <td>{{ this.portfolio.intitule }}</td> #}
+{#    <td>{{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y H:i') : this.portfolio.datemodification|date('d-m-y H:i') }}</td> #}
+{#    {% if this.portfolio.visibilite %} #}
+{#    <td>Public</td> #}
+{#    {% else %} #}
+{#    <td>Privé</td> #}
+{#    {% endif %} #}
+{#    <td class="table-btn"> #}
+{#        <div class="btn-group"> #}
+{#            <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}"> #}
+{#                <button><i class="fa-solid fa-edit"></i></button> #}
+{#            </a> #}
+{#            <a href=""> #}
+{#                <button><i class="fa-solid fa-eye"></i></button> #}
+{#            </a> #}
+{#        </div> #}
+{#    </td> #}
+{# </tr> #}
+
+<div class="col-12">
+    <div class="card d-flex flex-column">
+        <div class="row portfolio-table">
+            <div class=" col-2 portfolio-banniere" style="background-image: url({{ asset(this.portfolio.banniere) }})">
+            </div>
+            <div class=" col-7">
+                <div class="card-header">
+                    <h5>{{ this.portfolio.intitule }}</h5>
+                    <ul class="card-infos-min">
+                        <li><span>Publié le :&nbsp;</span> {{ this.portfolio.datecreation|date('d-m-y') }}</li>
+                        <li>•</li>
+                        <li>
+                            <span>Dernière modification le :&nbsp;</span> {{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y') : this.portfolio.datemodification|date('d-m-y') }}
+                        </li>
+                        <li>•</li>
+                        {% if this.portfolio.visibilite %}
+                            <li><span>Public</span></li>
+                        {% else %}
+                            <li><span>Privé</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <small>
+                        {% if this.portfolio.description|length>250 %}
+                            {{ this.portfolio.description|slice(0, 250) ~ '...' }}
+                        {% else %}
+                            {{ this.portfolio.description }}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+            <div class="card-body col-3">
+                <div class="btn-group">
+                    <a href="{{ path('app_portfolio_show',  {'id': this.portfolio.id}) }}">
+                        <button class="btn btn-primary">Accéder au portfolio</button>
+                    </a>
+                    <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
+                        <button class="btn btn-secondary">Modifier</button>
+                    </a>
+                </div>
+            </div>
         </div>
-    </td>
-</tr>
+    </div>
+</div>
+
+
+{# <section class="dashboard_retours_pedagogiques"> #}
+{#    <article class="row g-4"> #}
+{#        <h2>Derniers retours pédagogiques</h2> #}
+{#        <div class="col-lg-6 col-sm-12"> #}
+{#            <div class="card d-flex flex-column h-100"> #}
+{#                <div class="card-header"> #}
+{#                    <h5>Portfolio : BUT 1 MMI</h5> #}

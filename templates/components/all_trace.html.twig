@@ -3,22 +3,11 @@
 
     {% if '/dashboard' in app.request.uri %}
 
-        <table>
-            <thead>
-            <tr>
-                <th>Nom de la trace</th>
-                <th>Date de création</th>
-                <th>Date de modification</th>
-                <th>Portfolio</th>
-                <th>Validation</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="row g-4">
             {% for trace in this.allTrace|slice(0,4) %}
                 {{ component('trace_table', {'id': trace.id}) }}
             {% endfor %}
-            </tbody>
-        </table>
+    </div>
 
     {% else %}
 
