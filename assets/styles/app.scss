@@ -54,6 +54,10 @@ body {
     font-size: .9rem;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   .btn-primary {
     @include btn($color-primary-focus, #4b4b4b, 1px solid $color-primary);
     transition: ease-in-out 0.3s;

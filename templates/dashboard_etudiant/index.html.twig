@@ -13,6 +13,16 @@
         </ol>
     </nav>
     <div class="container dashboard">
+        <section>
+            <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+                <button class="btn btn-primary">Créer un portfolio</button>
+            </a>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                Créer une trace
+            </button>
+        </section>
+
         <section class="dashboard_retours_pedagogiques">
             <article class="row g-4">
                 <h2>Derniers retours pédagogiques</h2>
