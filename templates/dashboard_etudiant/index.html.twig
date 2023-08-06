@@ -13,20 +13,37 @@
         </ol>
     </nav>
     <div class="container dashboard">
-        <section>
-            <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
-                <button class="btn btn-primary">Créer un portfolio</button>
-            </a>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                Créer une trace
-            </button>
+        <section class="dashboard-controls">
+            <article class="row g-4">
+                <h2>Votre espace créatif</h2>
+                <em>Commencez à illustrer vos compétences universitaires</em>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <h3><i class="fa-regular fa-folder-open"></i> Portfolio</h3>
+                        <p>Créez votre portfolio en ajoutant différentes pages pour chacun de vos travaux et compétences universitaires.</p>
+                        <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+                            <button class="btn btn-primary">Créer un portfolio</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card d-flex flex-column h-100">
+                        <h3><i class="fa-solid fa-photo-film"></i> Trace</h3>
+                        <p>Rédigez de brèves Traces qui illustreront l'acquisition de vos compétences universitaires au sein de vos pages de portfolio.</p>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                            Créer une trace
+                        </button>
+                    </div>
+                </div>
+            </article>
         </section>
 
         <section class="dashboard_retours_pedagogiques">
             <article class="row g-4">
                 <h2>Derniers retours pédagogiques</h2>
-                <em>Les derniers commentaires et dernières évaluations de vos traces et portfolios par les enseignants.</em>
+                <em>Les derniers commentaires et dernières évaluations de vos traces et portfolios par les
+                    enseignants.</em>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card d-flex flex-column h-100">
                         <div class="card-header">
