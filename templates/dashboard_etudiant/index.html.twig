@@ -15,11 +15,11 @@
     <div class="container dashboard">
         <section class="dashboard-controls">
             <article class="row g-4">
-                <h2>Votre espace créatif</h2>
-                <em>Commencez à illustrer vos compétences universitaires</em>
+                <h2>Accès rapides</h2>
+                <em>Illustrez vos compétences universitaires</em>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card d-flex flex-column h-100">
-                        <h3><i class="fa-regular fa-folder-open"></i> Portfolio</h3>
+                        <h3><i class="fa-regular fa-folder-open fa-xs"></i> Portfolio</h3>
                         <p>Créez votre portfolio en ajoutant différentes pages pour chacun de vos travaux et compétences universitaires.</p>
                         <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
                             <button class="btn btn-primary">Créer un portfolio</button>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card d-flex flex-column h-100">
-                        <h3><i class="fa-solid fa-photo-film"></i> Trace</h3>
+                        <h3><i class="fa-solid fa-photo-film fa-xs"></i> Trace</h3>
                         <p>Rédigez de brèves Traces qui illustreront l'acquisition de vos compétences universitaires au sein de vos pages de portfolio.</p>
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
