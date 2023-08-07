@@ -28,50 +28,103 @@
 
 {% else %}
 
-    <div class="card" style="width: 20rem;">
-        <div class="card-body">
+    {% set totalValidations = this.trace.validations|length %}
+    {% set validated = 0 %}
 
+    {% for validation in this.trace.validations %}
+        {% if validation.etat == 3 %}
+            {% set validated = validated + 1 %}
+        {% endif %}
+    {% endfor %}
+
+    {% set percentage = (validated/totalValidations)*100 %}
+
+    <div class="col-lg-6 col-sm-12">
+        <div class="card">
             <div class="card-content">
-                <a class="btn-see">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#showStaticBackdrop{{ this.trace.id }}">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                </a>
-                <h5 class="card-title">{{ this.trace.titre }}</h5>
-                <hr>
+                <div class="card-header d-flex flex-column">
+                    <h5 class="card-title">{{ this.trace.titre }}</h5>
+                    <ul class="card-infos-min">
+                        <li><span>Créée le :&nbsp;</span> {{ this.trace.datecreation|date('d-m-y') }}</li>
+                        <li>•</li>
+                        <li><span>Modifiée le :&nbsp;</span> {{ this.trace.datemodification|date('d-m-y') }}</li>
+                    </ul>
+                </div>
+                <div class="card-body">
 
-                <ul>
-                    {% for validation in this.trace.validations %}
-                        <li>
-                            {{ validation.apcNiveau.libelle }}
-                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
-                                                             style="color: #4c008b"></i>
-                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
+                                        aria-controls="flush-collapse{{ this.trace.id }}">
+                                    <div class="col-lg-6 col-12">
+                                        <h6>Validation des compétences</h6>
+                                        <div class="progress">
+                                            {% if percentage == 0 %}
+                                                <div class="progress-bar" role="progressbar"
+                                                     style="width: 100%; background-color: #6F18AD26"
+                                                     aria-valuenow="0" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    0%
+                                                </div>
+                                            {% endif %}
+                                            <div class="progress-bar" role="progressbar"
+                                                 style="width: {{ percentage|round }}%"
+                                                 aria-valuenow="{{ percentage|round }}" aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                                {{ percentage|round }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-12" style="text-align: end">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                </button>
+                            </div>
+                            <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
+                                 aria-labelledby="flush-heading{{ this.trace.id }}"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body" style="padding: 0">
+                                    <div class="biblio-competences">
+                                        <ul>
+                                            {% for validation in this.trace.validations %}
+                                                <li>
+                                                    {{ validation.apcNiveau.libelle }}
+                                                    {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                                     style="color: #4c008b"></i>
+                                                    {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                                         style="color: red"></i>
+                                                    {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                                         style="color: orange"></i>
+                                                    {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                                         style="color: limegreen"></i>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <hr>
-                <p class="card-text">Modifié le
-                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
-                </p>
-
-                <div class="btn_grp">
-                    <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
-                        <button class="btn btn-primary">Modifier</button>
-                    </a>
-
-                    <!-- Button trigger modal -->
-                    <a>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop{{ this.trace.id }}">
-                            Supprimer
+                    <div class="btn_grp">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#showStaticBackdrop{{ this.trace.id }}">Voir plus
                         </button>
-                    </a>
+                        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
+                            <button class="btn btn-primary">Modifier</button>
+                        </a>
+
+                        <!-- Button trigger modal -->
+                        <a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                                Supprimer
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
 

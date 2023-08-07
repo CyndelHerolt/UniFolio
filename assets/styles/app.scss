@@ -43,6 +43,15 @@ body {
 
   h5 {
     @include titre($primary-font, 1rem, 1.5);
+    font-weight: 600;
+
+    span {
+      color: $color-secondary;
+    }
+  }
+
+  h6 {
+    @include titre($primary-font, .8rem, 1.5);
     font-weight: 500;
 
     span {

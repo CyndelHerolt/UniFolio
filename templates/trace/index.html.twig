@@ -13,39 +13,46 @@
     </nav>
 
     <div class="container traces">
-        <div class="row" style="display: flex">
-            <h1 style="width: fit-content;">Bibliothèque de traces</h1>
-            <a style="width: fit-content;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-circle-plus"></i>
-                </button>
-            </a>
-        </div>
+        <section>
+            <div class="row">
+                <h2 style="width: fit-content;">Bibliothèque de traces</h2>
+                <a style="width: fit-content">
+                    Créer une trace &nbsp;
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+{#                        Créer une nouvelle trace #}
+                        <i class="fa-solid fa-circle-plus"></i>
+                    </button>
+                </a>
+            </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul>
-                            {% for trace in typesTraces %}
-                                <li>
-                                    <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
-                                                class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                {% for trace in typesTraces %}
+                                    <li>
+                                        <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
+                                                    class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{ component('all_trace') }}
+            <article class="row g-4">
+            {{ component('all_trace') }}
+            </article>
 
+        </section>
     </div>
 
 {% endblock %}

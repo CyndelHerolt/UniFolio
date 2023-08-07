@@ -2,7 +2,7 @@
   padding: 25px 75px !important;
 
   .dashboard-controls {
-    @include zone(0, 0 40px, $color-bg, 0);
+    @include zone(0, 20px 40px, $color-bg, 0);
 
     .card {
       box-shadow: rgba(17, 17, 26, 0.05) 0 1px 0, rgba(17, 17, 26, 0.1) 0 0 8px;
@@ -39,10 +39,6 @@
           background-position: center;
           background-repeat: no-repeat;
           border-radius: 5px;
-        }
-
-        h5 {
-          font-weight: 600;
         }
 
         .card-infos-min {
