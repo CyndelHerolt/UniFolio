@@ -19,21 +19,30 @@
                 <em>Illustrez vos compétences universitaires</em>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card d-flex flex-column h-100">
-                        <h3><i class="fa-regular fa-folder-open fa-xs"></i> Portfolio</h3>
-                        <p>Créez votre portfolio en ajoutant différentes pages pour chacun de vos travaux et compétences universitaires.</p>
-                        <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
-                            <button class="btn btn-primary">Créer un portfolio</button>
-                        </a>
+                        <div class="card-body flex-grow-1 d-flex flex-column">
+                            <h3><i class=" fa-regular fa-folder-open fa-xs
+                        "></i> Portfolio</h3>
+                            <p>Créez votre portfolio en ajoutant différentes pages pour chacun de vos travaux et
+                                compétences
+                                universitaires.</p>
+                            <a href="{{ path('app_portfolio_new', {'id': app.user.etudiant.id}) }}">
+                                <button class="btn btn-primary">Créer un portfolio</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card d-flex flex-column h-100">
-                        <h3><i class="fa-solid fa-photo-film fa-xs"></i> Trace</h3>
-                        <p>Rédigez de brèves Traces qui illustreront l'acquisition de vos compétences universitaires au sein de vos pages de portfolio.</p>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                            Créer une trace
-                        </button>
+                        <div class="card-body flex-grow-1 d-flex flex-column">
+                            <h3><i class="fa-solid fa-photo-film fa-xs"></i> Trace</h3>
+                            <p>Rédigez de brèves Traces qui illustreront l'acquisition de vos compétences universitaires
+                                au sein de vos
+                                pages de portfolio.</p>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Créer une trace
+                            </button>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -123,8 +132,8 @@
                         <div class="card-body flex-grow-1 card-table-competences">
                             <ul class="dashboard-competences">
                                 <li>Comprendre les éléments de communication et les attentes utilisateurs <i
-                                            class="fa-solid fa-xmark fa-xl" style="color: red"></i></li>
-                                <li>Concevoir une réponse stratégique <i class="fa-solid fa-check fa-xl"
+                                            class="fa-solid fa-xmark" style="color: red"></i></li>
+                                <li>Concevoir une réponse stratégique <i class="fa-solid fa-check"
                                                                          style="color: limegreen"></i></li>
                             </ul>
                             <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>

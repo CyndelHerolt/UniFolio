@@ -39,7 +39,7 @@
                         <li><span>Page :&nbsp;</span> {{ this.trace.ordreTrace.page.intitule }}</li>
                     </ul>
                 </div>
-                <div class="card-body">
+                <div class="card-body dashboard-competences-container">
                     <ul class="dashboard-competences">
                         {% for index, validation in this.trace.validations %}
                             <li>
@@ -53,6 +53,9 @@
                                                                      style="color: limegreen"></i>
                                 {% endif %}
                             </li>
+{#                            {% if this.trace.validations|length > 1 %}#}
+{#                            <hr style="margin: .5rem 0; opacity: .15">#}
+{#                            {% endif %}#}
                         {% endfor %}
                     </ul>
                 </div>

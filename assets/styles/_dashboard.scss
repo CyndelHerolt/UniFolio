@@ -71,7 +71,7 @@
 
         .card-body {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: flex-end;
 
           .dashboard-competences {
@@ -82,12 +82,26 @@
           }
 
           ul {
+            list-style: none;
+            width: 100%;
             padding: 0;
-            margin-bottom: 0;
+            margin: 0;
           }
 
           li {
             margin: 5px 0;
+            background-color: $color-bg;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: start;
+            font-size: .8rem;
+
+            i {
+              margin-left: 10px;
+            }
+
           }
 
           p, li {
