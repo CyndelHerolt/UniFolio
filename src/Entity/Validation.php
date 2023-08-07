@@ -13,7 +13,7 @@ class Validation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'validations')]
+    #[ORM\ManyToOne(inversedBy: 'validations', cascade: ['persist', 'remove'])]
     private ?Trace $trace = null;
 
     #[ORM\ManyToOne(inversedBy: 'validations')]
