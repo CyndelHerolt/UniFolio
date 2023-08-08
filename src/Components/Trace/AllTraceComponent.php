@@ -110,82 +110,54 @@ class AllTraceComponent extends BaseController
 
         $ordreValidation = $this->selectedOrdreValidation != null ? $this->selectedOrdreValidation : null;
 
-
-        // Si un formulaire en méthode post est reçu
-        if ($competence !== null) {
-            if ($this->traceRepository->findByCompetence($competence) != null) {
-                dump('ok 2');
-                // On récupère les compétences sélectionnées
-                $traces = $this->traceRepository->findByCompetence($competence);
-            } else {
-                if ($ordreDate !== null) {
-//                dd($ordreDate);
-                    $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio], ['date_modification' => $ordreDate]);
-                } elseif ($ordreValidation !== null) {
-                    // on récupère les traces de la bibliothèque de l'utilisateur connecté
-                    $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
-                    // on récupère les validations des traces
-                    foreach ($traces as $key => $trace) {
-                        $validation[] = $trace->getValidations();
-                    }
-                    // Si $ordreValidation = "ASC", les traces dont les validations ont le plus de propriétés etat == 3 seront en premier
-                    if ($ordreValidation == "ASC") {
-                        // on trie les validations par ordre croissant
-                        sort($validation);
-                        // on récupère les traces dont les validations sont triées
-                        foreach ($validation as $key => $val) {
-                            $traces[] = $val[$key]->getTrace();
-                        }
-                    } else {
-                        // on trie les validations par ordre décroissant
-                        rsort($validation);
-                        // on récupère les traces dont les validations sont triées
-                        foreach ($validation as $key => $val) {
-                            $traces[] = $val[$key]->getTrace();
-                        }
-                    }
-
-                } else {
-                    $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio], ['date_modification' => 'DESC']);
-                }
-            }
+        // On récupère les traces par compétence ou toutes les traces de la bibliothèque
+        if (!empty($competence) && $this->traceRepository->findByCompetence($competence)) {
+            $traces = $this->traceRepository->findByCompetence($competence);
         } else {
-            if ($ordreDate !== null) {
-//                dd($ordreDate);
-                $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio], ['date_modification' => $ordreDate]);
-//                dd($traces);
-            } elseif ($ordreValidation !== null) {
-                // On récupère les traces de la bibliothèque de l'utilisateur connecté
-                $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+            $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
+        }
 
-                // On trie les traces en fonction du nombre de validations avec état égal à 3
-                usort($traces, function ($a, $b) use ($ordreValidation) {
-                    $validationsA = $a->getValidations()->filter(function ($validation) {
-                        return $validation->isEtat() == 3;
-                    })->count(); // Compter le nombre de validations avec état égal à 3
+        // Si on a des traces, on peut les trier
+        if (!empty($traces)) {
 
-                    $validationsB = $b->getValidations()->filter(function ($validation) {
-                        return $validation->isEtat() == 3;
-                    })->count(); // Compter le nombre de validations avec état égal à 3
-
-                    // Comparer le nombre de validations avec état égal à 3 en fonction de l'ordre
-                    if ($ordreValidation === "ASC") {
-                        return $validationsA - $validationsB; // Inverser l'ordre pour ASC
+            // Trier par date si ordreDate est défini
+            if (!empty($ordreDate)) {
+                usort($traces, function(Trace $a, Trace $b) use ($ordreDate) {
+                    if ($ordreDate === "ASC") {
+                        return $a->getDateModification() <=> $b->getDateModification();
                     } else {
-                        return $validationsB - $validationsA; // Garder l'ordre pour DESC
+                        return $b->getDateModification() <=> $a->getDateModification();
                     }
                 });
-            } else {
-                $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio], ['date_modification' => 'DESC']);
             }
-            // retirer les traces qui n'ont pas de type
-            foreach ($traces as $key => $trace) {
-                if ($trace->getTypeTrace() == null) {
-                    unset($traces[$key]);
-                }
+
+            // Trier par validation si ordreValidation est défini
+            if (!empty($ordreValidation)) {
+                usort($traces, function(Trace $a, Trace $b) use ($ordreValidation) {
+                    $validationsA = $a->getValidations()->filter(function($validation) {
+                        return $validation->isEtat() == 3;
+                    })->count();
+
+                    $validationsB = $b->getValidations()->filter(function($validation) {
+                        return $validation->isEtat() == 3;
+                    })->count();
+
+                    if ($ordreValidation === "ASC") {
+                        return $validationsA <=> $validationsB;
+                    } else {
+                        return $validationsB <=> $validationsA;
+                    }
+                });
             }
         }
-//        dd($traces);
+
+        // Retirer les traces qui n'ont pas de type
+        foreach ($traces as $key => $trace) {
+            if ($trace->getTypeTrace() == null) {
+                unset($traces[$key]);
+            }
+        }
+
         return $traces;
     }
 }
