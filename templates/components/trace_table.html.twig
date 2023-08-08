@@ -31,12 +31,14 @@
                     <h5>{{ this.trace.titre }}</h5>
                     <ul class="card-infos-min">
                         <li><span>Publié le :&nbsp;</span> {{ this.trace.datecreation|date('d-m-y') }}</li>
-                        {% for portfolio in this.trace.ordreTrace.page.portfolio %}
+                        {% if this.trace.ordreTrace != null %}
+                            {% for portfolio in this.trace.ordreTrace.page.portfolio %}
+                                <li>•</li>
+                                <li><span>Portfolio :&nbsp;</span> {{ portfolio.intitule }}</li>
+                            {% endfor %}
                             <li>•</li>
-                            <li><span>Portfolio :&nbsp;</span> {{ portfolio.intitule }}</li>
-                        {% endfor %}
-                        <li>•</li>
-                        <li><span>Page :&nbsp;</span> {{ this.trace.ordreTrace.page.intitule }}</li>
+                            <li><span>Page :&nbsp;</span> {{ this.trace.ordreTrace.page.intitule }}</li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="card-body dashboard-competences-container">
@@ -53,9 +55,9 @@
                                                                      style="color: limegreen"></i>
                                 {% endif %}
                             </li>
-{#                            {% if this.trace.validations|length > 1 %}#}
-{#                            <hr style="margin: .5rem 0; opacity: .15">#}
-{#                            {% endif %}#}
+                            {#                            {% if this.trace.validations|length > 1 %} #}
+                            {#                            <hr style="margin: .5rem 0; opacity: .15"> #}
+                            {#                            {% endif %} #}
                         {% endfor %}
                     </ul>
                 </div>

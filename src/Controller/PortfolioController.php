@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
-#[Route('/bibliotheque')]
+#[Route('etudiant/bibliotheque')]
 class PortfolioController extends AbstractController
 {
     public function __construct(

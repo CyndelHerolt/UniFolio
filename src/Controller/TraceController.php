@@ -39,8 +39,6 @@ class TraceController extends BaseController
     {
     }
 
-    //todo: spécifier l'année
-
     #[Route('/trace', name: 'app_trace')]
     public function index(
         TraceRegistry $traceRegistry,
@@ -446,19 +444,23 @@ class TraceController extends BaseController
         ]);
     }
 
-    #[Route('/trace/show/{id}', name: 'app_trace_show')]
-    public function show(
-        int $id,
+    #[Route('/trace/show', name: 'app_trace_index')]
+    public function indexShow(
+        Request $request,
+        TraceRepository $traceRepository,
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        $id = $request->query->get('id');
 
-        $trace = $this->traceRepository->find($id);
+        $etudiant = $this->security->getUser()->getEtudiant();
+        $trace = $traceRepository->findOneBy(['id' => $id]);
+
         return $this->render('trace/show.html.twig', [
+            'step' => 'trace',
+            'id' => $id,
             'trace' => $trace,
+            'etudiant' => $etudiant,
         ]);
     }
 }

@@ -1,32 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-    {% include '_menu.html.twig' %}
-{% endblock %}
+{% block title %}UniFolio - Portfolio{% endblock %}
+
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
 
 {% block body %}
-    <h1>{{ trace.titre }}</h1>
-    <ul>
-        <li>trace créée le : {{ trace.dateCreation|date('d/m/y H:i') }}</li>
-        <li>trace modifiée le : {{ trace.dateModification|date('d/m/y H:i') }}</li>
-    </ul>
-    {% if 'TraceTypeImage' in trace.typeTrace %}
-        {{ trace.typeTrace|split('TraceType')|last }}
-        <br>
-        <img src="/{{ trace.contenu }}" alt="image">
-    {% elseif 'TraceTypeLien' in trace.typeTrace %}
-        {{ trace.typeTrace|split('TraceType')|last }}
-    {% elseif 'TraceTypePdf' in trace.typeTrace %}
-        {{ trace.typeTrace|split('TraceType')|last }}
-    {% elseif 'TraceTypeVideo' in trace.typeTrace %}
-        {{ trace.typeTrace|split('TraceType')|last }}
-    {% endif %}
-    <p>
-        {{ trace.description }}
-    </p>
-{% endblock %}
 
-{% block title %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_trace') }}">Bibliothèque de
+                    traces</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ trace.titre }}</li>
+        </ol>
+    </nav>
 
+    <div class="container">
+
+        <h1>{{ trace.titre }}</h1>
+        <ul>
+            <li>Trace créée le : {{ trace.dateCreation|date('d/m/y H:i') }}</li>
+            <li>Trace modifiée le : {{ trace.dateModification|date('d/m/y H:i') }}</li>
+        </ul>
+        {% if 'TraceTypeImage' in trace.typeTrace %}
+            {{ trace.typeTrace|split('TraceType')|last }}
+            <br>
+            {% for img in trace.contenu %}
+                <img src="/{{ img }}" alt="image" style="width: 40%">
+            {% endfor %}
+        {% elseif 'TraceTypeLien' in trace.typeTrace %}
+            {{ trace.typeTrace|split('TraceType')|last }}
+            <br>
+            {% for lien in trace.contenu %}
+                <a href="{{ lien }}" target="_blank">{{ lien }}</a>
+            {% endfor %}
+        {% elseif 'TraceTypePdf' in trace.typeTrace %}
+            {{ trace.typeTrace|split('TraceType')|last }}
+            <br>
+            {% for pdf in trace.contenu %}
+                <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
+            {% endfor %}
+        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+            {{ trace.typeTrace|split('TraceType')|last }}
+            <br>
+            {% for video in trace.contenu %}
+                <iframe width="100%" height="300" src="{{ video }}"
+                        title="Video player" frameborder="0",
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            {% endfor %}
+        {% endif %}
+        <p>
+            {{ trace.description }}
+        </p>
+
+    </div>
 {% endblock %}
 
