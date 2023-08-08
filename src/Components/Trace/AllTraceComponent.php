@@ -83,14 +83,14 @@ class AllTraceComponent extends BaseController
     #[LiveAction]
     public function changeOrdreDate()
     {
-//        dd($this->selectedOrdreDate);
+        $this->selectedOrdreValidation = '';
         $this->allTraces = $this->getAllTrace();
     }
 
     #[LiveAction]
     public function changeOrdreValidation()
     {
-//        dd($this->selectedOrdreValidation);
+        $this->selectedOrdreDate = '';
         $this->allTraces = $this->getAllTrace();
     }
 
