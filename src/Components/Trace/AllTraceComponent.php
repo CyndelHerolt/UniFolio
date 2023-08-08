@@ -111,8 +111,10 @@ class AllTraceComponent extends BaseController
         $ordreValidation = $this->selectedOrdreValidation != null ? $this->selectedOrdreValidation : null;
 
         // On récupère les traces par compétence ou toutes les traces de la bibliothèque
-        if (!empty($competence) && $this->traceRepository->findByCompetence($competence)) {
+        if (!empty($competence)) {
             $traces = $this->traceRepository->findByCompetence($competence);
+        } elseif (!empty($competence) && !$this->traceRepository->findByCompetence($competence)) {
+            $traces = [];
         } else {
             $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
         }
@@ -122,7 +124,7 @@ class AllTraceComponent extends BaseController
 
             // Trier par date si ordreDate est défini
             if (!empty($ordreDate)) {
-                usort($traces, function(Trace $a, Trace $b) use ($ordreDate) {
+                usort($traces, function (Trace $a, Trace $b) use ($ordreDate) {
                     if ($ordreDate === "ASC") {
                         return $a->getDateModification() <=> $b->getDateModification();
                     } else {
@@ -133,12 +135,12 @@ class AllTraceComponent extends BaseController
 
             // Trier par validation si ordreValidation est défini
             if (!empty($ordreValidation)) {
-                usort($traces, function(Trace $a, Trace $b) use ($ordreValidation) {
-                    $validationsA = $a->getValidations()->filter(function($validation) {
+                usort($traces, function (Trace $a, Trace $b) use ($ordreValidation) {
+                    $validationsA = $a->getValidations()->filter(function ($validation) {
                         return $validation->isEtat() == 3;
                     })->count();
 
-                    $validationsB = $b->getValidations()->filter(function($validation) {
+                    $validationsB = $b->getValidations()->filter(function ($validation) {
                         return $validation->isEtat() == 3;
                     })->count();
 
