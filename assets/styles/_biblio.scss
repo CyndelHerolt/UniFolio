@@ -149,6 +149,31 @@
 
   }
 
+  .trace-visu {
+
+    ul {
+      list-style: none;
+      display: flex;
+    }
+
+    figure {
+      margin: 0 auto;
+
+      .trace-galerie {
+        display: flex;
+        flex-wrap: wrap;
+
+        div {
+          margin: 5px;
+          height: 300px;
+          width: 300px;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+    }
+  }
+
   .modal_cv {
     justify-content: center;
     padding: 25px 50px;
