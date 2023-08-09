@@ -97,6 +97,20 @@ class TraceTypeVideoType extends AbstractType
                 'mapped' => true,
             ])
             //----------------------------------------------------------------
+            ->add('legende', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'La légende ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
+                'label' => 'Légende',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                'help' => 'Description de votre média, 100 caractères maximum',
+                'required' => true,
+            ])
+            //----------------------------------------------------------------
             ->add('description', TextareaType::class, [
                 'constraints' => [
                     new NotBlank([

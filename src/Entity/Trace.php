@@ -52,6 +52,9 @@ class Trace
     #[ORM\OneToOne(mappedBy: 'trace', targetEntity: OrdreTrace::class, cascade: ['persist', 'remove'])]
     private ?OrdreTrace $ordreTrace = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $legende = null;
+
     /**
      * @return OrdreTrace|null
      */
@@ -267,6 +270,18 @@ class Trace
     public function setOrdre(?int $ordre): self
     {
         $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getLegende(): ?string
+    {
+        return $this->legende;
+    }
+
+    public function setLegende(string $legende): static
+    {
+        $this->legende = $legende;
 
         return $this;
     }
