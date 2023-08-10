@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ValidationRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ValidationRepository::class)]
@@ -24,6 +25,12 @@ class Validation
 
     #[ORM\ManyToOne(inversedBy: 'validation')]
     private ?ApcNiveau $apcNiveau = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateCreation = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateModification = null;
 
     public function getId(): ?int
     {
@@ -74,6 +81,30 @@ class Validation
     public function setApcNiveau(?ApcNiveau $apcNiveau): static
     {
         $this->apcNiveau = $apcNiveau;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): static
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $dateModification): static
+    {
+        $this->dateModification = $dateModification;
 
         return $this;
     }

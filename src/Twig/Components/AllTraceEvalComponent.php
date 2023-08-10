@@ -129,6 +129,11 @@ final class AllTraceEvalComponent extends BaseController
         $validation = $this->validationRepository->find($validationId);
 
         $validation->setEtat($state);
+        $validation->setEnseignant($this->security->getUser()->getEnseignant());
+        $validation->setDateCreation(new \DateTime());
+        if ($validation->getDateCreation() != null) {
+            $validation->setDateModification(new \DateTime());
+        }
         $this->validationRepository->save($validation, true);
 
         $this->allTraces = $this->getAllTrace();
