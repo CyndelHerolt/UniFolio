@@ -63,20 +63,32 @@
                     </div>
                 </figure>
             {% elseif 'TraceTypePdf' in trace.typeTrace %}
-                {{ trace.typeTrace|split('TraceType')|last }}
-                <br>
                 {% for pdf in trace.contenu %}
-                    <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
+                    <figure>
+                        <div class="row g-2 trace-galerie-img">
+                            {% for img in trace.contenu %}
+                                <div class="col-lg-6 col-12">
+                                    <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
+                                </div>
+                            {% endfor %}
+                            <figcaption>{{ trace.legende }}</figcaption>
+                        </div>
+                    </figure>
                 {% endfor %}
             {% elseif 'TraceTypeVideo' in trace.typeTrace %}
-                {{ trace.typeTrace|split('TraceType')|last }}
-                <br>
-                {% for video in trace.contenu %}
-                    <iframe width="100%" height="300" src="{{ video }}"
-                            title="Video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
-                {% endfor %}
+                <figure>
+                    <div class="row g-2 trace-galerie-img">
+                        {% for video in trace.contenu %}
+                            <div class="col-lg-6 col-12">
+                                <iframe width="100%" height="300" src="{{ video }}"
+                                        title="Video player"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                            </div>
+                        {% endfor %}
+                        <figcaption>{{ trace.legende }}</figcaption>
+                    </div>
+                </figure>
             {% endif %}
 
             <p>
