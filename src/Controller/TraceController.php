@@ -319,6 +319,7 @@ class TraceController extends BaseController
                 }
             } elseif ($trace->getTypetrace() == TraceTypeVideo::class
             ) {
+//                dd($request->request->All()['trace_type_video']['contenu']);
                 if (isset($request->request->All()['trace_type_video']['contenu'])) {
                     $existingContenu = $request->request->All()['trace_type_video']['contenu'];
                 } else {
@@ -379,69 +380,6 @@ class TraceController extends BaseController
         $traceRepository->remove($trace, true);
         $this->addFlash('success', 'La trace a été supprimée avec succès.');
         return $this->redirectToRoute('app_trace');
-    }
-
-    #[Route('/trace/page/{id}', name: 'app_add_trace_to_page')]
-    public function addToPage(
-        Request        $request,
-        PageRepository $pageRepository,
-        int            $id,
-    ): Response
-    {
-
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
-
-        //Récupérer la bibliothèque de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $etudiant]);
-
-        // Récupérer les traces de la bibliothèque
-        $traces = $biblio->getTraces();
-
-        // Récupérer les pages associées aux traces (donc les pages de l'étudiant connecté)
-        $pages = [];
-        foreach ($traces as $trace) {
-            $pages = array_merge($pages, $trace->getPages()->toArray());
-//            Si deux pages sont les mêmes, ne les afficher qu'une seule fois
-            $pages = array_unique($pages, SORT_REGULAR);
-        }
-
-        $form = $this->createFormBuilder()
-            ->add('pages', EntityType::class, [
-                'class' => Page::class,
-                'choices' => $pages,
-                'choice_label' => 'intitule',
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('Valider', SubmitType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        // Récupérer la trace dont l'id est celui passé en paramètre
-        $trace = $this->traceRepository->find($id);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-//            Récupérer les pages sélectionnées
-            $pages = $form->get('pages')->getData();
-//            Ajouter la trace aux pages sélectionnées
-            foreach ($pages as $page) {
-                $page->addTrace($trace);
-            }
-//            dump($trace);
-//            die();
-            $this->addFlash('success', 'La trace a été ajoutée à la page avec succès.');
-            $pageRepository->save($page, true);
-            return $this->redirectToRoute('app_trace');
-        }
-
-        return $this->render('add_to_page.html.twig', [
-            'form' => $form->createView(),
-            'trace' => $trace,
-        ]);
     }
 
     #[Route('/trace/show', name: 'app_trace_index')]

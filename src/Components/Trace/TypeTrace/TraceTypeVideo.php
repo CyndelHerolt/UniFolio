@@ -46,26 +46,30 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
         }
 
         if ($videos) {
+            foreach ($videos as $key => $video) {
+                $youtubeId = null;
+                if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video, $matches)
+                    || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $video, $matches)) {
 
-        $youtubeId = null;
-        foreach ($videos as $video) {
-            if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video, $matches) || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $video, $matches)) {
-//                dd($matches);
-                $youtubeId = $matches[3];
-            }
-            if ($youtubeId) {
-                // Construire le lien embed à partir de l'ID
-                $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
-                // Ajouter le lien embed au tableau des video
-                $videos[] = $Embedcontenu;
-                $videos = array_diff($videos, array($video));
-            }
-            if (!$youtubeId && !preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $video)) {
-                $error = 'Le lien n\'est pas un lien YouTube valide';
-                return array('success' => false, 'error' => $error);
+                    $youtubeId = $matches[3];
+                }
+
+                if ($youtubeId) {
+                    // Construire le lien embed à partir de l'ID
+                    $Embedcontenu = 'https://www.youtube.com/embed/' . $youtubeId;
+
+                    // Remplacer le lien original par le lien embed dans le tableau des video
+                    $contenu[$key] = $Embedcontenu;
+
+                }
+
+                // Vérification des liens non youtube
+                if (!$youtubeId && !preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $video)) {
+                    $error = 'Le lien n\'est pas un lien YouTube valide';
+                    return array('success' => false, 'error' => $error);
+                }
             }
         }
-    }
 
 //        dd($contenu);
         $trace->setContenu($contenu);
