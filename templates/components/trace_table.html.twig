@@ -45,7 +45,10 @@
                     <ul class="dashboard-competences">
                         {% for index, validation in this.trace.validations %}
                             <li>
+                                <div> <span class="{{ validation.apcNiveau.competences.couleur }}">{{ validation.apcNiveau.competences.nomCourt }} </span>
+                                    •
                                 {{ validation.apcNiveau.libelle }}
+                                </div>
                                 {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
                                                                  style="color: #4c008b"></i>
                                 {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
@@ -55,16 +58,13 @@
                                                                      style="color: limegreen"></i>
                                 {% endif %}
                             </li>
-                            {#                            {% if this.trace.validations|length > 1 %} #}
-                            {#                            <hr style="margin: .5rem 0; opacity: .15"> #}
-                            {#                            {% endif %} #}
                         {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="card-body col-3">
                 <div class="btn-group">
-                    <a href="">
+                    <a href="{{ path('app_trace_index', {'id': this.trace.id}) }}">
                         <button class="btn btn-primary">Accéder à la trace</button>
                     </a>
                     <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
