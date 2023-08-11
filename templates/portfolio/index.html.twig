@@ -15,15 +15,20 @@
     </nav>
 
     <div class="container portfolios">
-        <div class="row" style="display: flex">
-        <h1 style="width: fit-content;">Bibliothèque de Portfolios</h1>
-        <a href="{{ path('app_portfolio_new') }}" style="width: fit-content;">
-            <button class="btn btn-primary">
-                <i class="fa-solid fa-circle-plus"></i> <br>
-            </button>
-        </a>
-        </div>
-            {{ component('all_portfolio') }}
+        <section>
+            <div class="row">
+                <h2 class="col-10">Bibliothèque de Portfolios</h2>
+                <a class="col-2" href="{{ path('app_portfolio_new') }}" style="width: fit-content;">
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-circle-plus"></i> <br>
+                    </button>
+                </a>
+            </div>
+
+            <article class="row g-4">
+                {{ component('all_portfolio') }}
+            </article>
+        </section>
     </div>
 
 {% endblock %}

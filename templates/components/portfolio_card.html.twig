@@ -1,36 +1,40 @@
-<div class="card">
-    <div class="card-body">
-        <div class="card-header">
-            <img src="{{ asset(this.portfolio.banniere) }}" class="card-img-top" alt="...">
-        </div>
+<div class="col-lg-6 col-sm-12">
+    <div class="card">
         <div class="card-content">
-            <a class="btn-see" href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
-                <button>
-                    <i class="fa fa-eye"></i>
-                </button>
-            </a>
-            <h3 class="card-title">{{ this.portfolio.intitule }}</h3>
-            <hr>
-            <p>Modifié le : {{ this.portfolio.dateModification|date('d/m/Y') }}</p>
+            <div class="banner" style="background-image: url('{{ asset(this.portfolio.banniere) }}')"></div>
+            <div class="card-header d-flex flex-column">
+                <h5 class="card-title">{{ this.portfolio.intitule }}</h5>
+                <ul class="card-infos-min">
+                    <li><span>Créé le :&nbsp;</span> {{ this.portfolio.datecreation|date('d-m-y') }}</li>
+                    <li>•</li>
+                    <li><span>Modifié le :&nbsp;</span> {{ this.portfolio.datemodification|date('d-m-y') }}</li>
+                    <li>•</li>
+                    <li>{% if this.portfolio.visibilite %}
+                            <span>Public</span>
+                        {% else %}
+                            <span>Privé</span>
+                        {% endif %}</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="btn_grp">
+                    <a href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
+                        <button type="button" class="btn btn-secondary">
+                            Voir plus
+                        </button>
+                    </a>
+                    <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
 
-            {% if this.portfolio.visibilite %}
-                <p>Public</p>
-            {% else %}
-                <p>Privé</p>
-            {% endif %}
-
-            <div class="btn_grp">
-                <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
-                    <button class="btn btn-primary">Modifier</button>
-                </a>
-
-                <!-- Button trigger modal -->
-                <a>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop{{ this.portfolio.id }}">
-                        Supprimer
-                    </button>
-                </a>
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.portfolio.id }}">
+                            Supprimer
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -57,5 +61,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
