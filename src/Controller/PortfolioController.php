@@ -158,8 +158,6 @@ class PortfolioController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()
         ) {
-
-
             $portfolio->setEtudiant($user);
 
             $imageFile = $form['banniere']->getData();
@@ -183,6 +181,8 @@ class PortfolioController extends AbstractController
             } elseif ($form->get('visibilite')->getData() === 'prive') {
                 $portfolio->setVisibilite(false);
             }
+
+            $portfolio->setDateModification(new \DateTime('now'));
 
             $portfolioRepository->save($portfolio, true);
 
