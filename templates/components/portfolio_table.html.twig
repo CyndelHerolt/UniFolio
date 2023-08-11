@@ -52,8 +52,10 @@
             </div>
             <div class="card-body col-3">
                 <div class="btn-group">
-                    <a href="{{ path('app_portfolio_show',  {'id': this.portfolio.id}) }}">
-                        <button class="btn btn-primary">Accéder au portfolio</button>
+                    <a href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
+                        <button type="button" class="btn btn-primary">
+                            Accéder au portfolio
+                        </button>
                     </a>
                     <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
                         <button class="btn btn-secondary">Modifier</button>
