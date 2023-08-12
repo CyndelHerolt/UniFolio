@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Contracts\Service\Attribute\Required;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class TraceTypeImageType extends AbstractType
 {
@@ -114,15 +115,16 @@ class TraceTypeImageType extends AbstractType
                     'required' => true,
                 ])
             //----------------------------------------------------------------
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre commentaire',
                     ]),
                 ],
+                'config_name' => 'my_config',
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                'attr' => ['class' => "form-control", 'placeholder' => '...', 'rows' => 10],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
             //----------------------------------------------------------------

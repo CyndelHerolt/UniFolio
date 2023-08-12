@@ -29,3 +29,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar:
+                - ['Source']
+                - ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+                - ['Find','Replace','-','SelectAll']
+                - '/'
+                - ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
+                - ['NumberedList','BulletedList','-','Outdent','Indent']
+                - ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+                - ['Link','Unlink','Anchor']
+                - ['Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak']
+                - ['Styles','Format','Font','FontSize']
+                - ['TextColor','BGColor']
+            uiColor: '#000000'
+            # filebrowserUploadRoute: "my_route"
+            extraPlugins: 'wordcount'

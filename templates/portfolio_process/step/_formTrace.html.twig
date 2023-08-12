@@ -1,6 +1,6 @@
 <div class="row">
     {{ form_start(form, {'attr': {id:'formTrace'}}) }}
-    <article class="col-lg-7 col-12 trace-form">
+    <article class="col-lg-12 col-12 trace-form">
         <h4>Modifier {{ trace.titre }}</h4>
         <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
 
@@ -85,6 +85,9 @@
         {% endif %}
 
         <hr>
+
+        {{ form_row(form.legende) }}
+
         {{ form_row(form.description) }}
     </article>
     <aside class="col-lg-5 col-12 competences">
