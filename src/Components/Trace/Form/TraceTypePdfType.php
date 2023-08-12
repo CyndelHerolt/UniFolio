@@ -5,6 +5,7 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -107,15 +108,16 @@ class TraceTypePdfType extends AbstractType
                 'required' => true,
             ])
             //----------------------------------------------------------------
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre commentaire',
                     ]),
                 ],
+                'config_name' => 'my_config',
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control"],
+                'attr' => ['class' => "form-control", 'placeholder' => '...', 'rows' => 10],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
             ])
             //----------------------------------------------------------------

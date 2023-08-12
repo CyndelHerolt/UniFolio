@@ -40,10 +40,9 @@ fos_ck_editor:
                 - ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
                 - ['NumberedList','BulletedList','-','Outdent','Indent']
                 - ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
-                - ['Link','Unlink','Anchor']
-                - ['Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak']
+                - ['Table','HorizontalRule','Smiley','SpecialChar','PageBreak']
                 - ['Styles','Format','Font','FontSize']
-                - ['TextColor','BGColor']
-            uiColor: '#000000'
+#                - ['TextColor','BGColor']
+            uiColor: 'transparent'
             # filebrowserUploadRoute: "my_route"
             extraPlugins: 'wordcount'
