@@ -91,9 +91,7 @@
                 </figure>
             {% endif %}
 
-            <p>
-                {{ trace.description }}
-            </p>
+                {{ trace.description|raw }}
 
             <div class="trace-competences-block g-3">
                 {% for validation in trace.validations %}

@@ -18,6 +18,7 @@ label.required::after {
         .hidden {
           display: none;
         }
+
         //
         //.btn-primary {
         //  @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
@@ -118,7 +119,7 @@ label.required::after {
   }
 
   .nav-link {
-    color: $color-secondary-focus;
+    color: $color-dark;
   }
 
   .step-title {
@@ -205,7 +206,7 @@ label.required::after {
       }
 
       .step-trace-order button {
-        background-color: $color-secondary-focus;
+        background-color: $color-primary-focus;
         border: none;
 
         &:hover {
@@ -215,10 +216,9 @@ label.required::after {
     }
   }
 
-  .alert-info {
-    background-color: $color-primary;
-    border: solid 1px $color-secondary;
+  .alert {
     padding: 10px 15px;
+    font-size: .8rem !important;
   }
 
   .form-group {
@@ -226,21 +226,11 @@ label.required::after {
   }
 
   .step-trace-see-content {
-    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
     margin: 10px 0;
     width: fit-content;
-
-    &:hover {
-      background-color: #33294d;
-    }
   }
 
   .save {
-    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
     margin: 15px 0 0 auto;
-
-    &:hover {
-      @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-    }
   }
 }

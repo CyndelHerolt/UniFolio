@@ -31,7 +31,7 @@
                     {% endif %}
                 {% endfor %}
 
-                <p>{{ trace.description }}</p>
+                {{ trace.description|raw }}
 
                 <ul>
                     {% for validation in trace.validations %}
