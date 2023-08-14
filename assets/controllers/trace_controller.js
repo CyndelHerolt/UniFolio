@@ -228,6 +228,11 @@ export default class extends Controller {
     }
 
     async saveTrace(event) {
+
+        for (var instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+
         event.preventDefault()
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
