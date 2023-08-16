@@ -108,6 +108,8 @@ class PortfolioProcessController extends BaseController
                         } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                             $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                         }
+                    } elseif ($portfolio->getBanniere() != 'files_directory/banniere.jpg') {
+                        $portfolio->setBanniere($portfolio->getBanniere());
                     } else {
                         $portfolio->setBanniere('files_directory/banniere.jpg');
                     }
