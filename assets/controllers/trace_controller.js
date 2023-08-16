@@ -36,6 +36,40 @@ export default class extends Controller {
         this.stepZoneTarget.innerHTML = await response.text()
     }
 
+    initializeCKEditorForId(id) {
+        if (window.CKEDITOR) {
+            delete window.CKEDITOR;
+        }
+        var s = document.createElement('script');
+        s.src = '/build/ckeditor/ckeditor.js';
+        s.onload = function () {
+            if (CKEDITOR.instances[id]) {
+                CKEDITOR.instances[id].destroy(true);
+                delete CKEDITOR.instances[id];
+            }
+
+            CKEDITOR.replace(id,
+                {
+                    'toolbar': [
+                        ['Source'],
+                        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+                        ['Find', 'Replace', '-', 'SelectAll'],
+                        '\\/',
+                        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+                        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+                        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                        ['Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+                        ['Styles', 'Format', 'Font', 'FontSize']
+                    ],
+                    'uiColor': 'transparent',
+                    'extraPlugins': 'wordcount',
+                    'language': 'fr'
+                }
+            );
+        };
+        document.head.appendChild(s);
+    }
+
     async editTrace(event) {
         const _value = event.currentTarget.value
         const type = event.currentTarget.dataset.type
@@ -51,8 +85,19 @@ export default class extends Controller {
         //remplacer le contenu de la zone de trace défini dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
 
-        // Initialiser CKEditor après le chargement du contenu dynamique
-        this.initializeCKEditor();
+        // initialisez chaque type de CKEditor si l'élément existe dans le DOM.
+        if (document.getElementById('trace_type_image_description')) {
+            this.initializeCKEditorForId('trace_type_image_description');
+        }
+        if (document.getElementById('trace_type_lien_description')) {
+            this.initializeCKEditorForId('trace_type_lien_description');
+        }
+        if (document.getElementById('trace_type_pdf_description')) {
+            this.initializeCKEditorForId('trace_type_pdf_description');
+        }
+        if (document.getElementById('trace_type_video_description')) {
+            this.initializeCKEditorForId('trace_type_video_description');
+        }
 
         // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
         const addButtonImage = document.querySelector('.add-image');
@@ -135,39 +180,6 @@ export default class extends Controller {
         });
     }
 
-    initializeCKEditor() {
-        if(window.CKEDITOR) {
-            delete window.CKEDITOR;
-        }
-        var s = document.createElement("script");
-        s.src = "/build/ckeditor/ckeditor.js";
-        s.onload = function() {
-            if (CKEDITOR.instances["trace_type_image_description"]) {
-                CKEDITOR.instances["trace_type_image_description"].destroy(true);
-                delete CKEDITOR.instances["trace_type_image_description"];
-            }
-
-            CKEDITOR.replace("trace_type_image_description",
-                {
-                    "toolbar": [
-                        ["Source"],
-                        ["Cut","Copy","Paste","PasteText","PasteFromWord","-","Undo","Redo"],
-                        ["Find","Replace","-","SelectAll"],
-                        "\/",
-                        ["Bold","Italic","Underline","Strike","Subscript","Superscript","-","RemoveFormat"],
-                        ["NumberedList","BulletedList","-","Outdent","Indent"],
-                        ["JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock"],
-                        ["Table","HorizontalRule","Smiley","SpecialChar","PageBreak"],
-                        ["Styles","Format","Font","FontSize"]
-                    ],
-                    "uiColor":"transparent",
-                    "extraPlugins":"wordcount",
-                    "language":"fr"
-                }
-            );
-        };
-        document.head.appendChild(s);
-    }
 
     async formTrace(event) {
         const _value = event.currentTarget.value

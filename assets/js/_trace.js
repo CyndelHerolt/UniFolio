@@ -20,7 +20,7 @@ export function addImage() {
     const formGroup = document.createElement('div');
     formGroup.classList.add('input-group', 'mb-3', 'image_trace_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-image">' +

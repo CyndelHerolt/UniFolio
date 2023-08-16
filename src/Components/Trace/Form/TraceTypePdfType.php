@@ -119,6 +119,8 @@ class TraceTypePdfType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => '...', 'rows' => 10],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
+                'mapped' => true,
+                'required' => true,
             ])
             //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
