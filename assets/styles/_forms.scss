@@ -10,8 +10,8 @@ label.required::after {
   .row {
     justify-content: space-around;
 
-    article, aside {
-      padding: 50px 100px;
+    article {
+      padding: 50px 50px 0 100px;
 
       form {
 
@@ -19,14 +19,38 @@ label.required::after {
           display: none;
         }
 
-        //
-        //.btn-primary {
-        //  @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
-        //
-        //  &:hover {
-        //    @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-        //  }
-        //}
+        .galerie {
+          display: flex;
+          flex-wrap: wrap;
+
+          .image_trace_div {
+            margin: 15px;
+            display: flex;
+            flex-direction: column;
+
+            .trace-img {
+              background-position: center;
+              background-size: cover;
+              width: 100px;
+              height: 100px;
+            }
+
+            .custom-file {
+              display: initial;
+            }
+          }
+        }
+
+        .image_trace_div {
+
+          .form-group {
+            margin: 0 !important;
+          }
+        }
+
+        .custom-file {
+          display: initial;
+        }
       }
 
       ul {
@@ -40,6 +64,23 @@ label.required::after {
         }
       }
     }
+
+    aside {
+      padding: 50px 100px 0 50px;
+    }
+
+    .commentaire {
+      padding: 0 100px 25px 100px;
+    }
+
+    .form-group {
+      margin: 25px 0;
+    }
+
+    //.btn-danger {
+    //  margin: 25px 0;
+    //}
+
 
     .trace-form {
       padding: 25px 50px 25px 0;
