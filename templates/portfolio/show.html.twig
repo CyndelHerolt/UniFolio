@@ -17,23 +17,21 @@
         </ol>
     </nav>
 
-    <div class="container" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
+    <div class="container portfolios" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
 
-        <div class="portfolios">
+        <section class="portfolio-show card">
+            <div class="row">
 
-            <h1>Portfolio de {{ etudiant.prenom }} {{ etudiant.nom }}</h1>
+                <div class="banner" style="background-image: url({{ asset(portfolio.banniere) }});">
+                    <div class="title-container">
+                        <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
+                    </div>
+                </div>
 
+                <div {{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('portfolioPage', 'zone') }}>
 
-            <div class="banner" style="background-image: url({{ asset(portfolio.banniere) }});">
+                </div>
             </div>
-            <div class="title">
-                <h2 class="modal-title" id="staticBackdropLabel">{{ portfolio.intitule }}</h2>
-            </div>
-
-            <div {{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('portfolioPage', 'zone') }}>
-
-            </div>
-
-        </div>
+        </section>
     </div>
 {% endblock %}

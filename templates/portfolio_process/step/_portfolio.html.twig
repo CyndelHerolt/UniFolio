@@ -1,24 +1,25 @@
 <div class="step-title">
     <h4>Edition de {{ portfolio.intitule }}</h4>
 </div>
-    <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+<small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
 {{ form_start(form, {'attr': {id:'portfolio'}}) }}
 <div class="hidden">
     {{ form_row(form.date_creation) }}
     {{ form_row(form.date_modification) }}
 </div>
 {% if portfolio.banniere is not null %}
-    <div style="width: 100%; height: 150px; overflow: hidden; background-image: url({{ asset(portfolio.banniere) }}); background-position: center; background-size: cover; margin-top: 15px; display: flex; justify-content: flex-end;">
-    <button class="btn-danger btn" {{ stimulus_action('creation', 'deleteBanniere', 'click') }}>
-        <i class="fa-regular fa-square-minus"></i>
-    </button>
+    <div class="banniere" style="background-image: url({{ asset(portfolio.banniere) }})">
+        <button class="btn-danger btn" {{ stimulus_action('creation', 'deleteBanniere', 'click') }}>
+            <i class="fa-regular fa-square-minus"></i>
+        </button>
     </div>
 {% endif %}
 {{ form_row(form.intitule) }}
 
 {{ form_label(form.banniere) }}
 <div class="alert alert-warning mb-2">
-    Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter une nouvelle.
+    Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter
+    une nouvelle.
 </div>
 {{ form_widget(form.banniere) }}
 {{ form_help(form.banniere) }}

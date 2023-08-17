@@ -1,42 +1,84 @@
 <div class="pages">
 
-    <a href="{{ path('app_portfolio_index', {id: portfolio.id}) }}"><button class="btn btn-info" style="position:fixed; top: 4rem; right: 2rem; z-index: 9999999">Retour</button></a>
+    <a href="{{ path('app_portfolio_index', {id: portfolio.id}) }}">
+        <button class="btn btn-info"><i class="fa-solid fa-arrow-left"></i></button>
+    </a>
 
-    <div class="card">
-        <div class="card-body">
-            <h2 class="card-title">{{ page.intitule }}</h2>
-            <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
-            <hr>
+    <div class="card portfolio-pages">
+        <h2>{{ page.intitule }}</h2>
+        <em>{{ page.description }}</em>
+        <hr>
 
-            {% for trace in traces %}
+        {% for trace in traces %}
+            <div class="card-body portfolio-traces col-12">
                 <h3>{{ trace.titre }}</h3>
 
-                {% for contenu in trace.contenu %}
+                <div class="portfolio-trace-contenu">
                     {% if 'TraceTypeImage' in trace.typeTrace %}
-                        <div class="images" style="display: flex; justify-content: space-around; align-content: center">
-                            <img src="/{{ contenu }}" alt="image" style="max-height: 30rem; margin: 35px auto">
-                        </div>
+                        <figure>
+                            <div class="row g-2 trace-galerie-img">
+                                {% for img in trace.contenu %}
+                                    <div class="col-lg-6 col-12">
+                                        <img src="/{{ img }}" alt="image de la trace">
+                                    </div>
+                                {% endfor %}
+                                <figcaption>{{ trace.legende }}</figcaption>
+                            </div>
+                        </figure>
+
                     {% elseif 'TraceTypeLien' in trace.typeTrace %}
-                        <a href="{{ contenu }}">
-                            <button class="btn-primary">{{ contenu }}</button>
-                        </a>
+                        <figure>
+                            <div class="trace-galerie-lien">
+                                {% for lien in trace.contenu %}
+                                    <button class="btn btn-primary">
+                                        <a href="{{ lien }}" target="_blank">{{ lien }}</a>
+                                    </button>
+                                {% endfor %}
+                                <figcaption>{{ trace.legende }}</figcaption>
+                            </div>
+                        </figure>
                     {% elseif 'TraceTypePdf' in trace.typeTrace %}
-                        <iframe src="{{ contenu }}" width="100%" height="300"
-                                frameborder="0">{{ contenu }}</iframe>
+                        {% for pdf in trace.contenu %}
+                            <figure>
+                                <div class="row g-2 trace-galerie-img">
+                                    {% for img in trace.contenu %}
+                                        <div class="col-lg-6 col-12">
+                                            <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
+                                        </div>
+                                    {% endfor %}
+                                    <figcaption>{{ trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+                        {% endfor %}
                     {% elseif 'TraceTypeVideo' in trace.typeTrace %}
-                        <iframe width="100%" height="300" src="{{ contenu }}"
-                                title="Video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <figure>
+                            <div class="row g-2 trace-galerie-img">
+                                {% for video in trace.contenu %}
+                                    <div class="col-lg-6 col-12">
+                                        <iframe width="100%" height="300" src="{{ video }}"
+                                                title="Video player"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                {% endfor %}
+                                <figcaption>{{ trace.legende }}</figcaption>
+                            </div>
+                        </figure>
                     {% endif %}
-                {% endfor %}
+
+                </div>
 
                 {{ trace.description|raw }}
 
-                <ul>
+                <ul class="portfolio-competences">
                     {% for validation in trace.validations %}
                         <li>
-                            {{ validation.apcNiveau.libelle }}
+                            <div>
+                                                   <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                                    {{ validation.apcNiveau.competences.nomCourt }}
+                                                       </span> •
+                                {{ validation.apcNiveau.libelle }}
+                            </div>
                             {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
                                                              style="color: #4c008b"></i>
                             {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
@@ -44,12 +86,18 @@
                             {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
                             {% endif %}
                         </li>
+                        {% if validation.etat == 0 %}
+                            <p>En attente de validation</p>
+                        {% else %}
+                            <p>Evaluation saisie par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
+                                le {{ validation.dateModification|date('d-m-y') }}</p>
+                        {% endif %}
                     {% endfor %}
                 </ul>
+            </div>
                 <hr>
-            {% endfor %}
+        {% endfor %}
 
 
-        </div>
     </div>
 </div>
