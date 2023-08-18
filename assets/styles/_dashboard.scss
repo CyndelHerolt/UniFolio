@@ -1,7 +1,7 @@
 .dashboard {
   padding: 25px 75px !important;
 
-  .dashboard-controls {
+  section:nth-child(1) {
     @include zone(0, 20px 40px, $color-bg, 0);
 
     .card {
@@ -424,7 +424,6 @@
               margin: 0;
               padding: 10px 20px;
               width: 20%;
-              //border-radius: 5px;
               background-color: $color-secondary-focus;
               color: $color-light;
               height: 100%;
@@ -459,72 +458,112 @@
     }
   }
 
-  .dashboard_retours_pedagogiques_enseignant {
+  .dashboard-eval-traces {
 
-    .row {
-      @include zone(50px 0, 40px, $color-light, 0);
-      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    .filtre-btn {
 
-      h2 {
-        @include titre($primary-font, 20px, 1.5);
-        font-weight: 500;
+      button {
+        margin-right: 10px;
       }
+    }
 
-      table {
-        width: 98%;
-        border-collapse: separate;
-        border-spacing: 0 25px;
-        text-align: center;
+    .card-infos-min {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: .7rem;
+      padding: 0;
+      margin: 0;
 
-        tbody {
-          tr {
-            background-color: $color-primary;
-            //border-radius: 5px;
+      li {
+        margin: 0 10px 0 0;
 
-            td:nth-child(1) {
-              @include menu-item;
-              margin: 0;
-              padding: 10px 20px;
-              width: 20%;
-              //border-radius: 5px;
-              background-color: $color-secondary-focus;
-              color: $color-light;
-              height: 100%;
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .dashboard-competences {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 5px 0;
+        background-color: $color-bg;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+        font-size: .8rem;
+
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .dashboard-trace-contenu {
+
+      figure {
+        margin: 25px 0;
+
+        .trace-galerie-img {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          padding: 0;
+
+          img {
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          }
+        }
+
+        .trace-galerie-lien {
+          display: flex;
+          flex-direction: column;
+
+          button {
+            margin: 10px 0;
+
+            a {
+              color: #4b4b4b;
             }
+          }
+        }
 
-            .commentaire {
-              width: 30%;
-              text-align: left;
-            }
+        figcaption {
+          font-size: .8rem;
+        }
+      }
+    }
 
-            .table-btn {
-              display: flex;
-              justify-content: flex-end;
-              margin: 10px 0;
+    .dashboard-competences {
 
-              .btn-group {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: fit-content;
-                position: relative;
-                left: 30px;
+      li {
+        display: flex; justify-content: space-between;
 
-                button {
-                  @include btn-icon($color-primary-focus, $color-light, 3px solid $color-primary-focus);
-                  margin: 0 10px;
+        fieldset {
 
-                  &:hover {
-                    @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-                  }
-                }
-              }
+          div {
+            display: flex; justify-content: space-between;
+
+            .form-check {
+              margin: 0 10px;
             }
           }
         }
       }
     }
   }
+
 }
 
 .dept_list {

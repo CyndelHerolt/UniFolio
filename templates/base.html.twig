@@ -16,9 +16,6 @@
     {% block header %}
     {% endblock %}
     {% include('_menu.html.twig') %}
-    {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
-        {% include('_departement.html.twig') %}
-    {% endif %}
 </header>
 {% include "_toasts.html.twig" %}
 <div class="test" style="position: fixed; width: 100%; z-index: 9999">

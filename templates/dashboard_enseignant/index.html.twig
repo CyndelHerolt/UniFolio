@@ -13,10 +13,13 @@
             <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
         </ol>
     </nav>
+
     <div class="container dashboard">
-        <h1>Traces</h1>
-
-        {{ component('AllTraceEvalComponent') }}
-
+        <section class="dashboard-eval-traces">
+            <article class="row g-4">                <h1>Traces</h1>
+                <em>Toutes les traces des étudiants du département, développez pour évaluer</em>
+                {{ component('AllTraceEvalComponent') }}
+            </article>
+        </section>
     </div>
 {% endblock %}

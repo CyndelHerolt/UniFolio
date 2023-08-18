@@ -57,6 +57,9 @@
                 {% elseif is_granted('ROLE_ENSEIGNANT') %}
 
                     <ul class="navbar-nav">
+                        {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
+                            {% include('_departement.html.twig') %}
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">Tableau de bord</a>
                         </li>

@@ -94,14 +94,11 @@ body {
     }
 
     .dept_infos {
-      background-color: $color-light;
-      width: 90%;
-      margin: 0 5%;
-      padding: 10px 15px 12px 15px;
-      box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
-      border-radius: 5px;
-      position: fixed;
-      top: 54px;
+      padding-left: 15px;
+      //padding: 10px 50px;
+      //position: relative;
+      //top: 54px;
+      //left: 35px;
 
       .col-3 {
         display: flex;

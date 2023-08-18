@@ -24,7 +24,6 @@ body {
 
   h1 {
     @include titre($primary-font, 2rem, 1);
-    margin-bottom: 1rem;
     font-weight: 800;
 
     span {
@@ -103,10 +102,6 @@ body {
       @include btn(rgba(242, 220, 93, 0.3), #4b4b4b, 1px solid $color-secondary);
       transition: ease-in-out 0.3s;
     }
-  }
-
-  label {
-    font-weight: 600;
   }
 
   .c1 {
