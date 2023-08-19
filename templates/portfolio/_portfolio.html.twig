@@ -8,26 +8,33 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
             <hr>
             <ul class="portfolio-competences">
+                <h6>Validation des compétences dans cette page</h6>
                 {% set seen = [] %}
                 {% for ordre in page.ordreTraces %}
                     {% for validation in ordre.trace.validations %}
                         {% if validation.apcNiveau.libelle not in seen %}
+                            {% set totalApparitions = 0 %}
+                            {% set totalEtatTrois = 0 %}
+                            {% for ordre2 in page.ordreTraces %}
+                                {% for validation2 in ordre2.trace.validations %}
+                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                        {% set totalApparitions = totalApparitions + 1 %}
+                                        {% if validation2.etat == 3 %}
+                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
                             <li>
                                 <div>
-                    <span class="{{ validation.apcNiveau.competences.couleur }}">
-                        {{ validation.apcNiveau.competences.nomCourt }}
-                    </span> •
+                        <span class="{{ validation.apcNiveau.competences.couleur }}">
+                            {{ validation.apcNiveau.competences.nomCourt }}
+                        </span> •
                                     {{ validation.apcNiveau.libelle }}
                                 </div>
-                                {% if validation.etat == 0 %}
-                                    <i class="fa-solid fa-hourglass-half" style="color: #4c008b"></i>
-                                {% elseif validation.etat == 1 %}
-                                    <i class="fa-solid fa-xmark" style="color: red"></i>
-                                {% elseif validation.etat == 2 %}
-                                    <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                                {% elseif validation.etat == 3 %}
-                                    <i class="fa-solid fa-check" style="color: limegreen"></i>
-                                {% endif %}
+                                <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                {{ (totalEtatTrois / totalApparitions) * 100 }}%
+                                </span>
                                 {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
                             </li>
                         {% endif %}
@@ -37,4 +44,3 @@
         </div>
     </div>
 {% endfor %}
-</div>
