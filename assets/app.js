@@ -15,5 +15,10 @@ import './bootstrap';
 
 import './js/main.js';
 
+import hljs from 'highlight.js';// Initialize Highlight.js
+document.addEventListener('DOMContentLoaded', (event) => {
+    hljs.initHighlightingOnLoad();
+});
+import 'highlight.js/styles/atom-one-dark.css';
 // assets/app.js
 // import '@symfony/ux-live-component/dist/live.css';

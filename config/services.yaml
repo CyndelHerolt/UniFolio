@@ -34,15 +34,16 @@ fos_ck_editor:
         my_config:
             toolbar:
                 - ['Source']
-                - ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+                - ['Cut','Copy','Paste','PasteText','PasteFromWord','-']
                 - ['Find','Replace','-','SelectAll']
                 - '/'
-                - ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
-                - ['NumberedList','BulletedList','-','Outdent','Indent']
+                - ['Bold','Italic','Underline','TextColor','-','RemoveFormat']
+                - ['NumberedList','BulletedList']
                 - ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
-                - ['Table','HorizontalRule','Smiley','SpecialChar','PageBreak']
+                - ['Table','HorizontalRule','PageBreak']
                 - ['Styles','Format','Font','FontSize']
-#                - ['TextColor','BGColor']
+                - '/'
+                - ['Blockquote','CodeSnippet']
             uiColor: 'transparent'
             # filebrowserUploadRoute: "my_route"
-            extraPlugins: 'wordcount'
+            extraPlugins: 'colorbutton,codesnippet,wordcount'
