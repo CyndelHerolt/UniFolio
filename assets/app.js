@@ -17,7 +17,7 @@ import './js/main.js';
 
 import hljs from 'highlight.js';// Initialize Highlight.js
 document.addEventListener('DOMContentLoaded', (event) => {
-    hljs.initHighlightingOnLoad();
+    hljs.highlightAll();
 });
 import 'highlight.js/styles/atom-one-dark.css';
 // assets/app.js
