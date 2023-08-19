@@ -149,85 +149,6 @@
 
   }
 
-  .trace-visu {
-
-    .trace-competences-min {
-      list-style: none;
-      display: flex;
-      padding: 0;
-    }
-
-    .trace-infos-min {
-      font-size: .8rem;
-
-      ul {
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0;
-        margin: 0;
-
-        li {
-          margin: 0 10px 0 0;
-
-          span {
-            font-weight: 600;
-          }
-        }
-      }
-    }
-
-    figure {
-      margin: 25px auto;
-
-      .trace-galerie-img {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0;
-
-        img {
-          width: 100%;
-          box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-        }
-      }
-
-      .trace-galerie-lien {
-        display: flex;
-        flex-direction: column;
-
-        button {
-          margin: 10px 0;
-
-          a {
-            color: #4b4b4b;
-          }
-        }
-      }
-
-      figcaption {
-        font-size: .8rem;
-      }
-    }
-
-    .trace-competences-block {
-      margin: 25px 0;
-
-      .trace-competences {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        align-items: center;
-        padding: 15px 25px;
-        border: none;
-        //box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-      }
-
-      p {
-        text-align: end;
-      }
-    }
-  }
-
   .modal_cv {
     justify-content: center;
     padding: 25px 50px;
@@ -323,7 +244,7 @@
     background-position: center
   }
 
-  .portfolio-show {
+  .portfolio-show, .trace-show {
     border: none;
 
     .banner {
@@ -356,31 +277,42 @@
       border: solid 1px lightgrey;
     }
 
-    .btn-info {
-      position:fixed;
-      top: 5rem;
-      left: 2rem;
-      z-index: 9999999;
-      background-color: $color-primary;
-      border: none;
-
-       i {
-         color: white;
-       }
+    .btn-back {
+      margin: 0 0 25px 0;
     }
 
-    .portfolio-pages {
+    .portfolio-pages, .trace-content {
       margin: 25px auto;
       box-shadow: none;
       border: 1px solid lightgrey;
       padding: 50px;
+
+      .trace-infos-min {
+        font-size: .8rem;
+
+        ul {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0;
+          margin: 0;
+
+          li {
+            margin: 0 10px 0 0;
+
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+      }
     }
 
-      .portfolio-traces {
+      .portfolio-traces, .trace-content  {
         margin: 15px auto;
 
         figure {
-          margin: 25px auto;
+          margin: 25px 0;
 
           .trace-galerie-img {
             display: flex;
@@ -412,7 +344,7 @@
         }
       }
 
-    .portfolio-competences {
+    .portfolio-competences, .trace-competences {
       padding: 0;
       margin: 25px 0;
 
