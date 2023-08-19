@@ -18,9 +18,8 @@ export function addImage() {
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3', 'image_trace_div');
-    formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-start';
+    formGroup.classList.add('image_trace_div');
+    formGroup.classList.add('new_img');
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-image">' +
@@ -71,9 +70,8 @@ export function addPdf() {
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3', 'pdf_trace_div');
-    formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.classList.add('pdf_trace_div');
+    formGroup.classList.add('new_pdf');
     formGroup.innerHTML = newForm;
     const button = document.createElement('button');
     button.type = 'button';
@@ -124,9 +122,8 @@ export function addLien() {
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3', 'lien_trace_div');
-    formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.classList.add('lien_trace_div');
+    formGroup.classList.add('new_lien');
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-lien">' +
@@ -151,18 +148,28 @@ if (addButtonLien) {
 }
 
 document.querySelectorAll('.lien_trace').forEach(event => {
-    // console.log(event)
-    event.parentNode.classList.add('lien_trace_div')
-    // event.parentNode.classList.add('input-group', 'mb-3');
-    // event.style.display = 'flex';
-    // event.style.alignItems = 'flex-end';
-    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.parentNode.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-lien">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
-})
+// Ajouter les classes nécessaires
+    event.parentNode.classList.add('lien_trace_div');
+
+    // Créer une nouvelle div qui va englober l'élément .video_trace et le bouton
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.style.display = 'flex';
+    wrapperDiv.style.flexDirection = 'row';
+
+    // Insérer la nouvelle div juste avant 'video_trace'
+    event.parentNode.insertBefore(wrapperDiv, event);
+
+    // Déplacer l'élément .video_trace dans la nouvelle div
+    wrapperDiv.appendChild(event);
+
+    // Créer un bouton
+    const button = document.createElement('button');
+    button.className = 'btn btn-danger delete-lien';
+    button.innerHTML = '<i class="fa-solid fa-square-minus"></i>';
+
+    // Ajouter le bouton à la nouvelle div
+    wrapperDiv.appendChild(button);
+});
 
 document.querySelectorAll('.delete-lien').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -191,9 +198,8 @@ export function addVideo() {
     const newForm = prototype.replace(/__name__/g, index);
     // Ajout du nouveau champ contenu au formulaire
     const formGroup = document.createElement('div');
-    formGroup.classList.add('input-group', 'mb-3', 'video_trace_div');
-    formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.classList.add('video_trace_div');
+    formGroup.classList.add('new_video');
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-video">' +
@@ -218,18 +224,28 @@ if (addButtonVideo) {
 }
 
 document.querySelectorAll('.video_trace').forEach(event => {
-    // console.log(event)
-    event.parentNode.classList.add('video_trace_div')
-    // event.parentNode.classList.add('input-group', 'mb-3');
-    // event.style.display = 'flex';
-    // event.style.alignItems = 'flex-end';
-    // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-    event.parentNode.innerHTML += (
-        '<button type="button" class="btn btn-danger delete-video">' +
-        '<i class="fa-solid fa-square-minus"></i>' +
-        '</button>'
-    )
-})
+    // Ajouter les classes nécessaires
+    event.parentNode.classList.add('video_trace_div');
+
+    // Créer une nouvelle div qui va englober l'élément .video_trace et le bouton
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.style.display = 'flex';
+    wrapperDiv.style.flexDirection = 'row';
+
+    // Insérer la nouvelle div juste avant 'video_trace'
+    event.parentNode.insertBefore(wrapperDiv, event);
+
+    // Déplacer l'élément .video_trace dans la nouvelle div
+    wrapperDiv.appendChild(event);
+
+    // Créer un bouton
+    const button = document.createElement('button');
+    button.className = 'btn btn-danger delete-video';
+    button.innerHTML = '<i class="fa-solid fa-square-minus"></i>';
+
+    // Ajouter le bouton à la nouvelle div
+    wrapperDiv.appendChild(button);
+});
 
 document.querySelectorAll('.delete-video').forEach(function (button) {
     button.addEventListener('click', function () {

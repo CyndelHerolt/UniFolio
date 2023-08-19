@@ -10,7 +10,7 @@ label.required::after {
   }
 }
 
-.trace_form, .portfolio_form {
+.portfolio_form {
   @include zone(25px 0, 0, $color-light, 0);
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
@@ -297,5 +297,92 @@ label.required::after {
 
   .save {
     margin: 15px 0 0 auto;
+  }
+}
+
+.trace_form {
+
+  section {
+    margin: 0;
+    padding: 20px 40px;
+    background-color: #f8f8f8;
+    border-radius: 0;
+
+    .card {
+      margin: 15px auto;
+      box-shadow: none;
+      border: 1px solid lightgrey;
+      padding: 50px;
+
+      label {
+        font-weight: 600;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .new_video, .new_img, .new_lien, .new_pdf {
+        display: flex;
+        margin: 0 0 15px 0;
+
+        .form-group {
+          width: 100%;
+        }
+
+        .btn {
+          width: fit-content;
+          height: fit-content;
+          margin-left: 10px;
+        }
+      }
+
+      .lien_trace_div, .video_trace_div {
+        margin: 0 0 15px 0;
+
+        .btn {
+          width: fit-content;
+          height: fit-content;
+          margin-left: 10px;
+        }
+      }
+
+      .custom-file {
+        display: initial;
+      }
+
+      .galerie {
+        display: flex;
+        flex-wrap: wrap;
+
+        .image_trace_div {
+          display: flex;
+          flex-direction: column;
+          margin: 15px;
+
+          .trace-img {
+            background-position: center;
+            background-size: cover;
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+
+      .form_trace_competences {
+        padding: 25px;
+        border: solid 1px lightgrey;
+        border-radius: 5px;
+        margin: 25px 0;
+
+        label {
+          font-weight: 400;
+        }
+
+        .form-check {
+          margin: 0 0 14px 0;
+        }
+      }
+    }
   }
 }
