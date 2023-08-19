@@ -1,4 +1,6 @@
 import {Controller} from '@hotwired/stimulus';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css';
 
 export default class extends Controller {
     static targets = ['zone']
@@ -17,23 +19,28 @@ export default class extends Controller {
     }
 
     async _changeStep(step) {
-        // this.stepZoneTarget.innerHTML = window.da.loaderStimulus
         const params = new URLSearchParams({
             step,
         })
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.zoneTarget.innerHTML = await response.text()
+        this.highlightCode()
     }
 
     async showPage(event) {
-        // récupérer la valeur de l'attribut data-page
         const _value = event.currentTarget.dataset.page
-
         const params = new URLSearchParams({
             step: 'page',
             page: _value,
         })
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.zoneTarget.innerHTML = await response.text()
+        this.highlightCode()
+    }
+
+    highlightCode() {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+        });
     }
 }
