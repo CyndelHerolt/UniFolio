@@ -133,9 +133,11 @@ class AllTraceComponent extends BaseController
                 });
             }
 
-            // Trier par validation si ordreValidation est défini
             if (!empty($ordreValidation)) {
                 usort($traces, function (Trace $a, Trace $b) use ($ordreValidation) {
+                    $totalA = $a->getValidations()->count();
+                    $totalB = $b->getValidations()->count();
+
                     $validationsA = $a->getValidations()->filter(function ($validation) {
                         return $validation->isEtat() == 3;
                     })->count();
@@ -144,10 +146,14 @@ class AllTraceComponent extends BaseController
                         return $validation->isEtat() == 3;
                     })->count();
 
+                    // Ratio du nombre des validations avec un état de 3 sur le total des validations
+                    $ratiosA = ($totalA > 0) ? $validationsA / $totalA : 0;
+                    $ratiosB = ($totalB > 0) ? $validationsB / $totalB : 0;
+
                     if ($ordreValidation === "ASC") {
-                        return $validationsA <=> $validationsB;
+                        return $ratiosA <=> $ratiosB;
                     } else {
-                        return $validationsB <=> $validationsA;
+                        return $ratiosB <=> $ratiosA;
                     }
                 });
             }
