@@ -169,36 +169,40 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <hr>
                 <div>
                     <h5>Commentaires</h5>
-                    {% for commentaire in this.trace.commentaires %}
-                        <div class="card" style="margin-bottom: 10px;">
-                            <div class="card-header">
-                                <div style="display: flex; justify-content: space-between">
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                                    <small>
-                                        {% if commentaire.visibilite == 1 %}
-                                        Public
-                                        {% else %}
-                                        Privé
-                                        {% endif %}
-                                    </small>
+                    {% if this.trace.commentaires is empty %}
+                        <p>Aucun commentaire pour le moment</p>
+                    {% else %}
+                        {% for commentaire in this.trace.commentaires %}
+                            <div class="card"
+                                 style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                                <div class="card-header">
+                                    <div style="display: flex; justify-content: space-between; align-items: center">
+                                        <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                                        <small>
+                                            {% if commentaire.visibilite == 1 %}
+                                                Public
+                                            {% else %}
+                                                Privé
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                    {#                                <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small> #}
                                 </div>
-                                <small
-                                        class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                                <div class="card-body">
+                                    <p class="card-text">{{ commentaire.contenu }}</p>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text">{{ commentaire.contenu }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div>
-                    <h5>Publier un commentaire</h5>
                     {{ form_start(this.commentForm) }}
                     {{ form_row(this.commentForm.contenu) }}
                     {{ form_widget(this.commentForm.visibilite) }}
-                    <button type="submit" class="btn btn-primary" name="traceId" value="{{ this.trace.id }}">Envoyer
+                    <button type="submit" class="btn btn-primary" name="traceId" value="{{ this.trace.id }}">Publier
                     </button>
                     {{ form_end(this.commentForm) }}
                 </div>
