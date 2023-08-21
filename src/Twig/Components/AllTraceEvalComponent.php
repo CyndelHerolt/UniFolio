@@ -113,6 +113,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeCompetences()
     {
+        $this->currentPage = 1;
         $this->allTraces = $this->getAllTrace();
         $this->changeAnnee($this->selectedAnnee);
     }
@@ -120,6 +121,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeValidation()
     {
+        $this->currentPage = 1;
         $selectedValidation = $this->selectedValidation;
         list($validationId, $state) = explode('-', $selectedValidation);
         $validationId = intval($validationId);
@@ -142,7 +144,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeGroupes()
     {
-
+        $this->currentPage = 1;
         // récupérer les étudiants des groupes sélectionnés
         $groupes = $this->groupeRepository->findBy(['id' => $this->selectedGroupes]);
         $this->etudiants = [];
@@ -161,6 +163,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeEtudiants()
     {
+        $this->currentPage = 1;
         // récupérer les groupes des étudiants sélectionnés
         $etudiants = $this->etudiantRepository->findBy(['id' => $this->selectedEtudiants]);
         $this->groupes = [];
@@ -181,6 +184,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeAnnee(#[LiveArg] int $id = null)
     {
+        $this->currentPage = 1;
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
         $referentiel = null;
