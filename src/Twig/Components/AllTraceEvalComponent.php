@@ -317,6 +317,10 @@ final class AllTraceEvalComponent extends BaseController
 
         $traces = $this->traceRepository->findByFilters($this->selectedAnnee, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
 
+        if ($traces == null) {
+            $this->currentPage = 0;
+        }
+
         return $traces;
     }
 

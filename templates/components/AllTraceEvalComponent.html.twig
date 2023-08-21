@@ -141,7 +141,7 @@
         <button class="btn btn-primary"
                 data-action="live#action"
                 data-action-name="goToFirstPage"
-                {{ this.currentPage == 1 ? ' disabled' : '' }}
+                {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevrons-left"></i>
         </button>
@@ -149,7 +149,7 @@
         <button class="btn btn-primary"
                 data-action="live#action"
                 data-action-name="goPreviousPage"
-                {{ this.currentPage == 1 ? ' disabled' : '' }}
+                {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevron-left"></i>
         </button>
