@@ -1,5 +1,7 @@
 import {Controller} from '@hotwired/stimulus';
 import {createAndShow} from "../js/_toast";
+import hljs from "highlight.js";
+import 'highlight.js/styles/default.css';
 
 export default class extends Controller {
     static targets = ['navTabs', 'stepZone', 'page', 'zone', 'traceZone']
@@ -24,9 +26,15 @@ export default class extends Controller {
             step: 'addPage',
             page: _value,
         })
-        console.log(params.toString());
         const response = await fetch(`${this.urlValue}?${params.toString()}`)
         this.stepZoneTarget.innerHTML = await response.text()
+        this.highlightCode()
+    }
+
+    highlightCode() {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+        });
     }
 
     async _changeStep(step, page) {

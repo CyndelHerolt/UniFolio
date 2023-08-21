@@ -86,6 +86,72 @@ label.required::after {
           box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
         }
       }
+
+
+      .portfolio-competences {
+        padding: 0;
+        margin: 0;
+        display: block;
+
+        div {
+          padding: 0;
+          margin: 0;
+          background-color: transparent;
+          box-shadow: none;
+        }
+
+        li {
+          background-color: #f8f8f8;
+          padding: 10px 20px;
+          margin: 15px 0 0 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          text-align: start;
+          font-size: 0.8rem;
+        }
+
+        p {
+          text-align: end;
+        }
+      }
+
+      .modal-body {
+        display: flex;
+        padding: 0 50px 25px 50px;
+
+        figure {
+          margin: 25px 0;
+
+          .trace-galerie-img {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+
+            img {
+              width: 100%;
+              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            }
+          }
+
+          .trace-galerie-lien {
+            display: flex;
+            flex-direction: column;
+
+            button {
+              margin: 10px 0;
+
+              a {
+                color: #4b4b4b;
+              }
+            }
+          }
+
+          figcaption {
+            font-size: .8rem;
+          }
+        }
+      }
     }
 
     aside {
@@ -196,6 +262,7 @@ label.required::after {
 
   .step-page-actions {
     display: flex;
+    align-items: center;
 
     .step-page-crud, .step-page-order {
 
@@ -219,11 +286,11 @@ label.required::after {
     }
 
     .step-page-order button {
-      background-color: $color-secondary-focus;
+      background-color: $color-primary;
       border: none;
 
       &:hover {
-        background-color: #33294d;
+        background-color: #581588;
       }
     }
   }
@@ -246,6 +313,7 @@ label.required::after {
     .step-trace-actions {
       display: flex;
       flex-direction: column;
+      align-items: flex-end;
 
       .step-trace-crud, .step-trace-order {
         display: flex;
@@ -271,11 +339,11 @@ label.required::after {
       }
 
       .step-trace-order button {
-        background-color: $color-primary-focus;
+        background-color: $color-primary;
         border: none;
 
         &:hover {
-          background-color: #33294d;
+          background-color: #581588;
         }
       }
     }

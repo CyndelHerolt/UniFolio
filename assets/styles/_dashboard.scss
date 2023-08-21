@@ -1,6 +1,13 @@
 .dashboard {
   padding: 25px 75px !important;
 
+  .btn-group {
+
+    button {
+      margin-right: 15px;
+    }
+  }
+
   section:nth-child(1) {
     @include zone(0, 20px 40px, $color-bg, 0);
 
@@ -548,12 +555,14 @@
     .dashboard-competences {
 
       li {
-        display: flex; justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
 
         fieldset {
 
           div {
-            display: flex; justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
 
             .form-check {
               margin: 0 10px;
