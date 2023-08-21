@@ -42,7 +42,9 @@ final class AllTraceEvalComponent extends BaseController
     public array $dept = [];
     public int $validation = 0;
 
-    public int $itemsPerPage = 2; // nombre d'éléments par page
+    public int $itemsPerPage = 4; // nombre d'éléments par page
+
+    #[LiveProp(writable: true)]
     public int $currentPage = 1; // Page actuelle (on commence à 1)
 
     #[LiveProp(writable: true)]
@@ -289,13 +291,9 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function goPreviousPage()
     {
-        if ((int)$this->currentPage > 1) {
+        if ($this->currentPage > 1) {
             $this->currentPage--;
-//        dd("Page après décrément : " . $this->currentPage);
         }
-//    else {
-//        dd("Tentative de décrémenter la première page");
-//    }
     }
 
     #[LiveAction]
