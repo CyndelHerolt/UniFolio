@@ -136,40 +136,41 @@
         {% endfor %}
     </div>
 
-    {# Affiche le bouton pour aller à la première page #}
-    <button class="btn btn-primary"
-            data-action="live#action"
-            data-action-name="goToFirstPage"
-            {{ this.currentPage == 1 ? ' disabled' : '' }}
-    >
-        1
-    </button>
+    <div class="btn-pages">
+        {# Affiche le bouton pour aller à la première page #}
+        <button class="btn btn-primary"
+                data-action="live#action"
+                data-action-name="goToFirstPage"
+                {{ this.currentPage == 1 ? ' disabled' : '' }}
+        >
+            <i class="fa-solid fa-chevrons-left"></i>
+        </button>
 
-    <button class="btn btn-primary"
-            data-action="live#action"
-            data-action-name="goPreviousPage"
-            {{ this.currentPage == 1 ? ' disabled' : '' }}
-    >
-        Précédent
-    </button>
-    <small>
-        Page {{ this.currentPage }} / {{ this.getTotalPages }}
-    </small>
-    <button class="btn btn-primary"
-            data-action="live#action"
-            data-action-name="goNextPage"
-            {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
-    >
-        Suivant
-    </button>
+        <button class="btn btn-primary"
+                data-action="live#action"
+                data-action-name="goPreviousPage"
+                {{ this.currentPage == 1 ? ' disabled' : '' }}
+        >
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <small>
+            Page {{ this.currentPage }} / {{ this.getTotalPages }}
+        </small>
+        <button class="btn btn-primary"
+                data-action="live#action"
+                data-action-name="goNextPage"
+                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
+        >
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
 
-    {# Affiche le bouton pour aller à la dernière page #}
-    <button class="btn btn-primary"
-            data-action="live#action"
-            data-action-name="goToLastPage"
-            {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
-    >
-        {{ this.getTotalPages }}
-    </button>
-
+        {# Affiche le bouton pour aller à la dernière page #}
+        <button class="btn btn-primary"
+                data-action="live#action"
+                data-action-name="goToLastPage"
+                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
+        >
+            <i class="fa-solid fa-chevrons-right"></i>
+        </button>
+    </div>
 </div>
