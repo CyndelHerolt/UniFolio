@@ -131,9 +131,45 @@
 
 
     <div class="row">
-        {% for trace in this.allTraces|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+        {% for trace in this.getDisplayedTraces|sort((a,b)=> a.dateModification <=> b.dateModification) %}
             {{ component('TraceEvalCardComponent', {'id': trace.id}) }}
         {% endfor %}
     </div>
+
+    {# Affiche le bouton pour aller à la première page #}
+    <button class="btn btn-primary"
+            data-action="live#action"
+            data-action-name="goToFirstPage"
+            {{ this.currentPage == 1 ? ' disabled' : '' }}
+    >
+        1
+    </button>
+
+    <button class="btn btn-primary"
+            data-action="live#action"
+            data-action-name="goPreviousPage"
+            {{ this.currentPage == 1 ? ' disabled' : '' }}
+    >
+        Précédent
+    </button>
+    <small>
+        Page {{ this.currentPage }} / {{ this.getTotalPages }}
+    </small>
+    <button class="btn btn-primary"
+            data-action="live#action"
+            data-action-name="goNextPage"
+            {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
+    >
+        Suivant
+    </button>
+
+    {# Affiche le bouton pour aller à la dernière page #}
+    <button class="btn btn-primary"
+            data-action="live#action"
+            data-action-name="goToLastPage"
+            {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
+    >
+        {{ this.getTotalPages }}
+    </button>
 
 </div>

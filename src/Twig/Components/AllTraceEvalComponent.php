@@ -42,6 +42,9 @@ final class AllTraceEvalComponent extends BaseController
     public array $dept = [];
     public int $validation = 0;
 
+    public int $itemsPerPage = 2; // nombre d'éléments par page
+    public int $currentPage = 1; // Page actuelle (on commence à 1)
+
     #[LiveProp(writable: true)]
     /** @var Groupe[] */
     public array $groupes = [];
@@ -227,8 +230,8 @@ final class AllTraceEvalComponent extends BaseController
             }
         } else {
             if ($this->selectedEtudiants == null) {
-                    $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
-                    $groupes = $this->groupeRepository->findByDepartementSemestreActif($dept);
+                $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
+                $groupes = $this->groupeRepository->findByDepartementSemestreActif($dept);
                 $this->groupes = $groupes;
             }
         }
@@ -249,13 +252,62 @@ final class AllTraceEvalComponent extends BaseController
             }
         } else {
             if ($this->selectedGroupes == null) {
-                    $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
-                    $etudiants = $this->etudiantRepository->findByDepartement($dept);
+                $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
+                $etudiants = $this->etudiantRepository->findByDepartement($dept);
                 $this->etudiants = $etudiants;
             }
         }
 
         $this->allTraces = $this->getAllTrace();
+    }
+
+    // Méthode pour obtenir le nombre total de pages
+    public function getTotalPages()
+    {
+        $count = count($this->getAllTrace());
+        return intval(ceil($count / $this->itemsPerPage));
+    }
+
+    // Nouvelle méthode pour obtenir une partie des traces basée sur la page actuelle
+    public function getDisplayedTraces()
+    {
+        $offset = ($this->currentPage - 1) * $this->itemsPerPage;
+        $traces = $this->getAllTrace();
+        return array_slice($traces, $offset, $this->itemsPerPage);
+    }
+
+    // Méthodes d'action pour aller aux pages précédentes/suivantes
+    #[LiveAction]
+    public function goNextPage()
+    {
+        if ($this->currentPage < $this->getTotalPages()) {
+            $this->currentPage++;
+        }
+
+    }
+
+    #[LiveAction]
+    public function goPreviousPage()
+    {
+        if ((int)$this->currentPage > 1) {
+            $this->currentPage--;
+//        dd("Page après décrément : " . $this->currentPage);
+        }
+//    else {
+//        dd("Tentative de décrémenter la première page");
+//    }
+    }
+
+    #[LiveAction]
+    public function goToFirstPage()
+    {
+        $this->currentPage = 1;
+    }
+
+    #[LiveAction]
+    public function goToLastPage()
+    {
+        $this->currentPage = $this->getTotalPages();
     }
 
     public function getAllTrace()
