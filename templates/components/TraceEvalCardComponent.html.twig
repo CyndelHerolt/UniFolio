@@ -169,7 +169,39 @@
                         </li>
                     {% endfor %}
                 </ul>
-
+                <div>
+                    <h5>Commentaires</h5>
+                    {% for commentaire in this.trace.commentaires %}
+                        <div class="card" style="margin-bottom: 10px;">
+                            <div class="card-header">
+                                <div style="display: flex; justify-content: space-between">
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                                    <small>
+                                        {% if commentaire.visibilite == 1 %}
+                                        Public
+                                        {% else %}
+                                        Privé
+                                        {% endif %}
+                                    </small>
+                                </div>
+                                <small
+                                        class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{ commentaire.contenu }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <h5>Publier un commentaire</h5>
+                    {{ form_start(this.commentForm) }}
+                    {{ form_row(this.commentForm.contenu) }}
+                    {{ form_widget(this.commentForm.visibilite) }}
+                    <button type="submit" class="btn btn-primary" name="traceId" value="{{ this.trace.id }}">Envoyer
+                    </button>
+                    {{ form_end(this.commentForm) }}
+                </div>
             </div>
         </div>
     </div>

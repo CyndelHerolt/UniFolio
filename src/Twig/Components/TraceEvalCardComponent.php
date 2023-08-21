@@ -2,10 +2,12 @@
 
 namespace App\Twig\Components;
 
+use App\Controller\BaseController;
 use App\Entity\Commentaire;
 use App\Entity\Trace;
 use App\Form\CommentaireType;
 use App\Repository\TraceRepository;
+use Faker\Provider\Base;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,7 +19,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent('TraceEvalCardComponent')]
-class TraceEvalCardComponent
+class TraceEvalCardComponent extends BaseController
 {
     use DefaultActionTrait;
 
@@ -25,7 +27,7 @@ class TraceEvalCardComponent
     public int $id;
 
 //    #[LiveProp(writable: true)]
-//    public ?string $commentaire = '';
+//    public ?string $contenu = '';
 
     public function __construct(
         public TraceRepository       $traceRepository,
@@ -33,26 +35,25 @@ class TraceEvalCardComponent
         private RequestStack         $requestStack, // <-- Injection du RequestStack
     )
     {
+
         // Créez une instance de votre entité Commentaire
         $commentaire = new Commentaire();
 
         // Créez votre formulaire CommentaireType
-        $this->commentForm = $this->formFactory->create(CommentaireType::class, $commentaire);
+        $this->form = $this->formFactory->create(CommentaireType::class, $commentaire);
+        $this->commentForm = $this->form->createView();
     }
 
 //    #[LiveAction]
 //    public function handleComment(): Response
 //    {
-//        $commentaire = new Commentaire();
-//        dd($commentaire);
-//
-//        $form = $this->formFactory->create(CommentaireType::class, $commentaire);
-//
+//        dd('hello');
 //        $request = $this->requestStack->getCurrentRequest();
-//        $form->handleRequest($request);
+//        $this->form->handleRequest($request);
 //
-//        if ($form->isSubmitted() && $form->isValid()) {
+//        if ($this->form->isSubmitted() && $this->form->isValid()) {
 //            // Traiter le formulaire comme avant ici
+//            dd($this->form->getData());
 //
 //            // Puis rediriger ou faire autre chose selon votre flux de travail
 //            return new Response('Votre commentaire a été publié.');

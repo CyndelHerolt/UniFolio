@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
+use App\Repository\CommentaireRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\DiplomeRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\TraceRepository;
 use App\Repository\UsersRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\AnneeRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +28,8 @@ class DashboardEnseignantController extends BaseController
         UsersRepository       $usersRepository,
         EnseignantRepository  $enseignantRepository,
         DepartementRepository $departementRepository,
+        TraceRepository       $traceRepository,
+        CommentaireRepository $commentaireRepository,
     ): Response
     {
         $data_user = $this->dataUserSession;
@@ -44,6 +51,35 @@ class DashboardEnseignantController extends BaseController
                 ]);
             } else {
 
+                //si un form en post est envoyé
+                if ($_POST) {
+                    $data = $_POST;
+                    // vérifier que le form est un form de type CommentaireType
+                    if (isset($data['commentaire'])) {
+                        // vérifier qu'aucun champ n'est vide
+                        if (empty($data['commentaire']['contenu'])) {
+                            $this->addFlash('error', 'Le champ commentaire ne peut pas être vide');
+                            return $this->redirectToRoute('enseignant_dashboard');
+                        } else {
+//                            dd($_POST['traceId']);
+                            $commentaire = new Commentaire();
+                            $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
+                            $commentaire->setEnseignant($enseignant);
+                            $commentaire->setVisibilite($data['commentaire']['visibilite']);
+                            $commentaire->setDateCreation(new \DateTime());
+                            $commentaire->setDateModification(new \DateTime());
+                            if ($_POST['traceId']) {
+                                $trace = $traceRepository->find($_POST['traceId']);
+                                $commentaire->setTrace($trace);
+                            }
+                            $commentaireRepository->save($commentaire, true);
+
+                            return $this->redirectToRoute('enseignant_dashboard');
+                        }
+                    }
+
+                }
+
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'admin' => '',
                     'data_user' => $data_user,
@@ -54,4 +90,12 @@ class DashboardEnseignantController extends BaseController
             return $this->redirectToRoute('app_dashboard');
         }
     }
+
+//    #[Route('/dashboard/enseignant', name:'eval_comment')]
+//    public function handleComment(
+//        Request $request,
+//    ): Response
+//    {
+//        dd($request);
+//    }
 }

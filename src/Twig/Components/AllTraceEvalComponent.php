@@ -25,6 +25,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -72,9 +73,6 @@ final class AllTraceEvalComponent extends BaseController
     /** @var Trace[] */
     public array $allTraces = [];
 
-    #[LiveProp(writable: true)]
-    public ?string $commentaire = '';
-
     public function __construct(
         public TraceRepository       $traceRepository,
         public DepartementRepository $departementRepository,
@@ -104,10 +102,6 @@ final class AllTraceEvalComponent extends BaseController
         }
         $this->changeAnnee($this->selectedAnnee);
 
-        // Créez une instance de votre entité Commentaire
-        $commentaire = new Commentaire();
-        // Créez votre formulaire CommentaireType
-        $form = $this->formFactory->create(CommentaireType::class, $commentaire);
     }
 
 
