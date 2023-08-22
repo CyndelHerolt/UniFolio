@@ -121,7 +121,6 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function changeValidation()
     {
-        $this->currentPage = 1;
         $selectedValidation = $this->selectedValidation;
         list($validationId, $state) = explode('-', $selectedValidation);
         $validationId = intval($validationId);
@@ -129,6 +128,7 @@ final class AllTraceEvalComponent extends BaseController
 
         $validation = $this->validationRepository->find($validationId);
 
+        // Mettre à jour le validation dans la base de données
         $validation->setEtat($state);
         $validation->setEnseignant($this->security->getUser()->getEnseignant());
         $validation->setDateCreation(new \DateTime());
@@ -137,8 +137,15 @@ final class AllTraceEvalComponent extends BaseController
         }
         $this->validationRepository->save($validation, true);
 
-        $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
+        // Mettre à jour la validation dans la liste existante
+        foreach ($this->allTraces as $trace) {
+            foreach ($trace->getValidations() as $traceValidation) {
+                if ($traceValidation->getId() === $validationId) {
+                    $traceValidation->setEtat($state);
+                    break;
+                }
+            }
+        }
     }
 
     #[LiveAction]
