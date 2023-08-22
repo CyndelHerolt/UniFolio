@@ -22,7 +22,7 @@
                         </li>
                         <li>•</li>
                         <li>Dernière modification le
-                        : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                            : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
                         </li>
                     </ul>
                     <hr>
@@ -191,15 +191,20 @@
                                 <div class="card-header">
                                     <div style="display: flex; justify-content: space-between; align-items: center">
                                         <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                                        <small>
-                                            {% if commentaire.visibilite == 1 %}
-                                                Public
-                                            {% else %}
-                                                Privé
-                                            {% endif %}
-                                        </small>
+                                            <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
+                                                <button class="btn btn-delete"><i class="fa-solid fa-square-minus"></i>
+                                                </button>
+                                            </a>
                                     </div>
                                     <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                                    <small>·</small>
+                                    <small>
+                                        {% if commentaire.visibilite == 1 %}
+                                            Public
+                                        {% else %}
+                                            Privé
+                                        {% endif %}
+                                    </small>
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text">{{ commentaire.contenu }}</p>

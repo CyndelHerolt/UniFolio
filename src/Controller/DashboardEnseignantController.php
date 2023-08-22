@@ -74,6 +74,8 @@ class DashboardEnseignantController extends BaseController
                             }
                             $commentaireRepository->save($commentaire, true);
 
+                            $this->addFlash('success', 'Commentaire ajouté avec succès !');
+
                             return $this->redirectToRoute('enseignant_dashboard');
                         }
                     }
@@ -91,11 +93,18 @@ class DashboardEnseignantController extends BaseController
         }
     }
 
-//    #[Route('/dashboard/enseignant', name:'eval_comment')]
-//    public function handleComment(
-//        Request $request,
-//    ): Response
-//    {
-//        dd($request);
-//    }
+    #[Route('/dashboard/enseignant/{id}', name:'app_delete_commentaire')]
+    public function deleteComment(
+        Request $request,
+        CommentaireRepository $commentaireRepository
+    ): Response
+    {
+        $commentaireId = $request->get('id');
+        $commentaire = $commentaireRepository->find($commentaireId);
+        $commentaireRepository->remove($commentaire, true);
+
+        $this->addFlash('success', 'Commentaire supprimé avec succès !');
+
+        return $this->redirectToRoute('enseignant_dashboard');
+    }
 }

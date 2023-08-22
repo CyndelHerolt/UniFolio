@@ -104,6 +104,18 @@ body {
     }
   }
 
+  .btn-delete {
+    @include btn(#c51d1d, $color-light, none);
+    transition: ease-in-out 0.3s;
+    padding: 3px 9px;
+
+    &:hover {
+      @include btn(#9f1717, $color-light, none);
+      transition: ease-in-out 0.3s;
+      padding: 3px 9px;
+    }
+  }
+
   .c1 {
     color: $c1;
     font-weight: 600;
