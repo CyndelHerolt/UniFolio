@@ -43,11 +43,15 @@ class Annee
     #[ORM\OneToMany(mappedBy: 'années', targetEntity: ApcNiveau::class)]
     private Collection $apcNiveaux;
 
+    #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Portfolio::class)]
+    private Collection $portfolio;
+
     public function __construct()
     {
         $this->semestres = new ArrayCollection();
         $this->bibliotheques = new ArrayCollection();
         $this->apcNiveaux = new ArrayCollection();
+        $this->portfolio = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,4 +228,16 @@ class Annee
 
         return $this;
     }
+
+    public function getPortfolio(): Collection
+    {
+        return $this->portfolio;
+    }
+
+    public function setPortfolio(Collection $portfolio): void
+    {
+        $this->portfolio = $portfolio;
+    }
+
+
 }

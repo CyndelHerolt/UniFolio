@@ -46,6 +46,9 @@ class Portfolio
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'portfolio')]
+    private ?Annee $annee = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -231,4 +234,16 @@ class Portfolio
 
         return $this;
     }
+
+    public function getAnnee(): ?Annee
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?Annee $annee): void
+    {
+        $this->annee = $annee;
+    }
+
+
 }

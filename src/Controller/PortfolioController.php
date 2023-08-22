@@ -151,6 +151,7 @@ class PortfolioController extends AbstractController
         );
 
         $user = $security->getUser()->getEtudiant();
+        $annee = $user->getSemestre()->getAnnee();
         $portfolio = new Portfolio();
 
         $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
@@ -182,6 +183,7 @@ class PortfolioController extends AbstractController
                 $portfolio->setVisibilite(false);
             }
 
+            $portfolio->setAnnee($annee);
             $portfolio->setDateModification(new \DateTime('now'));
 
             $portfolioRepository->save($portfolio, true);
