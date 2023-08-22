@@ -8,6 +8,9 @@ parameters:
     files_directory: '%kernel.project_dir%/public/upload/files'
 
 services:
+    App\Twig\InstanceOfExtension:
+        tags:
+            - { name: 'twig.extension' }
 #    request_stack:
 #        class: Symfony\Component\HttpFoundation\RequestStack
 #    Symfony\Component\DependencyInjection\ContainerInterface:
