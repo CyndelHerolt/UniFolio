@@ -39,6 +39,31 @@ class PortfolioRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByFilters(int $annee = null, array $groupes = [], array $etudiants = []): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->innerJoin('p.etudiant', 'e')
+            ->innerJoin('e.groupe', 'g')
+            ->innerJoin('g.type_groupe','tg')
+            ->innerJoin('tg.semestre', 's')
+            ->innerJoin('s.annee', 'a');
+        if (!empty($annee)) {
+            $qb->andWhere('a.id = :annee')
+                ->setParameter('annee', $annee);
+        }
+        if (!empty($groupes)) {
+            $qb->andWhere('g.id IN (:groupes)')
+                ->setParameter('groupes', $groupes);
+        }
+        if (!empty($etudiants)) {
+            $qb->andWhere('e.id IN (:etudiants)')
+                ->setParameter('etudiants', $etudiants);
+        }
+        $qb->distinct('p.id');
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Portfolio[] Returns an array of Portfolio objects
 //     */
