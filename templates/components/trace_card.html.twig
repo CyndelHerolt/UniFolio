@@ -37,7 +37,10 @@
         {% endif %}
     {% endfor %}
 
-    {% set percentage = (validated/totalValidations)*100 %}
+    {% set percentage = 0 %}
+    {% if totalValidations != 0 %}
+        {% set percentage = (validated/totalValidations)*100 %}
+    {% endif %}
 
     <div class="col-lg-6 col-sm-12">
         <div class="card">
