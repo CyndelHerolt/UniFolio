@@ -1,0 +1,38 @@
+<div class="row g-3">
+    <div class="col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="banner" style="background-image: url('{{ asset(this.portfolio.banniere) }}')"></div>
+                <div class="card-header d-flex flex-column">
+                    <h5 class="card-title">{{ this.portfolio.intitule }}</h5>
+                    <ul class="card-infos-min">
+                        <li><span>{{ this.portfolio.etudiant.prenom }} {{ this.portfolio.etudiant.nom }} |
+                            {% for g in this.portfolio.etudiant.groupe %}
+                                {% if 'TP' in g.libelle %}
+                                    {% for s in g.typegroupe.semestre %}
+                                        {{ s.libelle }} |
+                                    {% endfor %}
+                                    {{ g.libelle }}
+                                {% endif %}
+                            {% endfor %}
+                            </span>
+                        </li>
+                        <li>•</li>
+                        <li>Dernière modification le
+                            : {{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-Y H:i') : this.portfolio.datemodification|date('d-m-Y H:i') }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="btn_grp">
+                        <a href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
+                            <button type="button" class="btn btn-secondary">
+                                Voir plus
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
