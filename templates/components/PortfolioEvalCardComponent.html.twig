@@ -24,6 +24,47 @@
                     </ul>
                 </div>
                 <div class="card-body">
+                    <ul class="portfolio-competences">
+                        {% set seen = [] %}
+                        {% for op in this.portfolio.ordrePages %}
+                            {% for ot in op.page.ordreTraces %}
+                                {% for validation in ot.trace.validations %}
+                                    {% if validation.apcNiveau.libelle not in seen %}
+                                        {% set totalValidations = 0 %}
+                                        {% set totalEtatTrois = 0 %}
+
+                                        {% for op2 in this.portfolio.ordrePages %}
+                                            {% for ot2 in op2.page.ordreTraces %}
+                                                {% for validation2 in ot2.trace.validations %}
+                                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                                        {% set totalValidations = totalValidations + 1 %}
+                                                        {% if validation2.etat == 3 %}
+                                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                        {% endfor %}
+
+                                        <li>
+                                            <div>
+                            <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                {{ validation.apcNiveau.competences.nomCourt }}
+                            </span> • {{ validation.apcNiveau.libelle }}
+                                            </div>
+                                            <span class="{{ validation.apcNiveau.competences.couleur }}">
+                            {{ (totalEtatTrois / totalValidations) * 100 }}%
+                        </span>
+                                        </li>
+
+                                        {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+
+
                     <div class="btn_grp">
                         <a href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
                             <button type="button" class="btn btn-secondary">

@@ -16,9 +16,15 @@
 
     <div class="container dashboard">
         <section class="dashboard-eval-traces">
-            <article class="row g-4">                <h1>Traces</h1>
+            <article class="row g-4"><h1>Traces</h1>
                 <em>Toutes les traces des étudiants du département, développez pour évaluer</em>
                 {{ component('AllTraceEvalComponent') }}
+            </article>
+        </section>
+        <section class="dashboard-eval-traces">
+            <article class="row g-4"><h1>Portfolios</h1>
+                <em>Tous les portfolios des étudiants du département, développez pour évaluer</em>
+                {{ component('AllPortfolioEvalComponent') }}
             </article>
         </section>
     </div>

@@ -35,7 +35,7 @@ final class AllPortfolioEvalComponent extends BaseController
 {
     use DefaultActionTrait;
 
-    public int $itemsPerPage = 5; // nombre d'éléments par page
+    public int $itemsPerPage = 4; // nombre d'éléments par page
 
     #[LiveProp(writable: true)]
     public int $currentPage = 1; // Page actuelle (on commence à 1)
@@ -50,6 +50,9 @@ final class AllPortfolioEvalComponent extends BaseController
 
     #[LiveProp(writable: true)]
     public ?int $selectedAnnee = null;
+
+    #[LiveProp(writable: true)]
+    public array $selectedCompetences = [];
 
     #[LiveProp(writable: true)]
     public array $selectedGroupes = [];
@@ -101,6 +104,7 @@ final class AllPortfolioEvalComponent extends BaseController
     #[LiveAction]
     public function changeAnnee(#[LiveArg] int $id = null): void
     {
+        $this->currentPage = 1;
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
 
@@ -120,6 +124,15 @@ final class AllPortfolioEvalComponent extends BaseController
             foreach ($competences as $competence) {
                 $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
                 $competencesNiveau = array_merge($competencesNiveau, $niveaux);
+            }
+        }  else {
+            foreach ($this->annees as $annee) {
+                foreach ($competences as $competence) {
+                    $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                    $competencesNiveau = array_merge($competencesNiveau, $niveaux);
+                    //supprimer les doublons du tableau
+                    $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                }
             }
         }
 
@@ -177,8 +190,17 @@ final class AllPortfolioEvalComponent extends BaseController
     }
 
     #[LiveAction]
+    public function changeCompetences()
+    {
+        $this->currentPage = 1;
+        $this->allPortfolios = $this->getAllPortfolio();
+        $this->changeAnnee($this->selectedAnnee);
+    }
+
+    #[LiveAction]
     public function changeEtudiants()
     {
+        $this->currentPage = 1;
         // récupérer les groupes des étudiants sélectionnés
         $etudiants = $this->etudiantRepository->findBy(['id' => $this->selectedEtudiants]);
         $this->groupes = [];
@@ -199,6 +221,7 @@ final class AllPortfolioEvalComponent extends BaseController
     #[LiveAction]
     public function changeGroupes()
     {
+        $this->currentPage = 1;
         // récupérer les étudiants des groupes sélectionnés
         $groupes = $this->groupeRepository->findBy(['id' => $this->selectedGroupes]);
         $this->etudiants = [];
@@ -262,7 +285,7 @@ final class AllPortfolioEvalComponent extends BaseController
 
     public function getAllPortfolio()
     {
-        $portfolios = $this->portfolioRepository->findByFilters($this->selectedAnnee, $this->selectedGroupes, $this->selectedEtudiants);
+        $portfolios = $this->portfolioRepository->findByFilters($this->selectedAnnee, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences);
 
         return $portfolios;
     }
