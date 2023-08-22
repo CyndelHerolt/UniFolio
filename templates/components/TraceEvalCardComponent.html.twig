@@ -9,10 +9,20 @@
                 <div class="col-11">
                     <h5>{{ this.trace.titre }}</h5>
                     <ul class="card-infos-min">
-                        <li>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }}</li>
+                        <li><span>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }} |
+                            {% for g in this.trace.bibliotheque.etudiant.groupe %}
+                                {% if 'TP' in g.libelle %}
+                                    {% for s in g.typegroupe.semestre %}
+                                        {{ s.libelle }} |
+                                    {% endfor %}
+                                    {{ g.libelle }}
+                                {% endif %}
+                            {% endfor %}
+                            </span>
+                        </li>
                         <li>•</li>
-                        <li><span>Dernière modification le
-                        : </span>{{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                        <li>Dernière modification le
+                        : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
                         </li>
                     </ul>
                     <hr>

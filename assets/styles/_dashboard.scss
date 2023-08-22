@@ -21,7 +21,7 @@
     @include zone(0, 40px, $color-bg, 0);
 
     .row {
-      justify-content: space-evenly;
+      justify-content: flex-start;
 
       em {
         margin-top: 0;
@@ -80,7 +80,7 @@
         }
 
         .card-body {
-          display: flex;
+          //display: flex;
           //align-items: center;
 
           .dashboard-competences {

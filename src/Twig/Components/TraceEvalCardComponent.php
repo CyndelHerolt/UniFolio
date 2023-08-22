@@ -26,13 +26,10 @@ class TraceEvalCardComponent extends BaseController
     #[LiveProp]
     public int $id;
 
-//    #[LiveProp(writable: true)]
-//    public ?string $contenu = '';
-
     public function __construct(
         public TraceRepository       $traceRepository,
         private FormFactoryInterface $formFactory,
-        private RequestStack         $requestStack, // <-- Injection du RequestStack
+        private RequestStack         $requestStack,
     )
     {
 

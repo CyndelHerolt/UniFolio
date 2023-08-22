@@ -42,7 +42,7 @@ final class AllTraceEvalComponent extends BaseController
     public array $dept = [];
     public int $validation = 0;
 
-    public int $itemsPerPage = 5; // nombre d'éléments par page
+    public int $itemsPerPage = 4; // nombre d'éléments par page
 
     #[LiveProp(writable: true)]
     public int $currentPage = 1; // Page actuelle (on commence à 1)

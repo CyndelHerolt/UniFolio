@@ -79,7 +79,7 @@ class TraceRepository extends ServiceEntityRepository
         if (!empty($etudiants)) {
             $qb->andWhere('e.id IN (:etudiants)')
                 ->setParameter('etudiants', $etudiants);
-        };
+        }
         $qb->distinct('t.id');
 
         return $qb->getQuery()->getResult();
