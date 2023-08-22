@@ -51,97 +51,9 @@
         <section class="dashboard_retours_pedagogiques">
             <article class="row g-4">
                 <h1>Derniers retours pédagogiques</h1>
-                <em>Les derniers commentaires et dernières évaluations de vos traces et portfolios par les
-                    enseignants.</em>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header">
-                            <h5>Portfolio : BUT 1 MMI</h5>
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>01/01/2023</li>
-                                <li>•</li>
-                                <li><span>Auteur : </span>John Doe</li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            {#                            <h5 class="card-title">Commentaire : </h5> #}
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
-                                magna
-                                nec, dignissim placerat odio. Nam eu lacus ultricies, laoreet urna a, faucibus enim.
-                                Proin
-                                laoreet metus vitae venenatis aliquet.</p>
-                            <a href="#" class="btn btn-secondary mt-auto">Accéder au portfolio</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header">
-                            <h5>Trace : Outils collaboratifs</h5>
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>01/01/2023</li>
-                                <li>•</li>
-                                <li><span>Auteur : </span>John Doe</li>
-                                <li>•</li>
-                                <li><span>Portfolio : </span>MMI BUT 1</li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
-                                magna
-                                nec.</p>
-                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header">
-                            <h5>Trace : Wireframe, un schéma de la structure et des fonctionnalités</h5>
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>01/01/2023</li>
-                                <li>•</li>
-                                <li><span>Auteur : </span>John Doe</li>
-                                <li>•</li>
-                                <li><span>Portfolio : </span>MMI BUT 1</li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                                vehicula felis nulla, sed varius ipsum auctor eget. Praesent erat magna, sodales sed
-                                magna
-                                nec.</p>
-                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header flex-grow-1">
-                            <h5>Trace : Modélisation de données</h5>
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>01/01/2023</li>
-                                <li>•</li>
-                                <li><span>Auteur : </span>John Doe</li>
-                                <li>•</li>
-                                <li><span>Portfolio : </span>MMI BUT 1</li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            <ul class="dashboard-competences">
-                                <li>Comprendre les éléments de communication et les attentes utilisateurs <i
-                                            class="fa-solid fa-xmark" style="color: red"></i></li>
-                                <li>Concevoir une réponse stratégique <i class="fa-solid fa-check"
-                                                                         style="color: limegreen"></i></li>
-                            </ul>
-                            <a href="#" class="btn btn-secondary mt-auto">Accéder à la trace</a>
-                        </div>
-                    </div>
-                </div>
+                <em>Les derniers commentaires et dernières validations de compétences.</em>
+                                {{ component('AllRetourPedagogiqueComponent') }}
             </article>
-
         </section>
     </div>
 
