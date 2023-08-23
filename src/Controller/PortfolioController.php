@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
+use App\Classes\DataUserSession;
 use App\Entity\Commentaire;
-use App\Entity\OrdrePage;
-use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
 use App\Repository\CommentaireRepository;
@@ -14,19 +13,17 @@ use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class PortfolioController extends AbstractController
+class PortfolioController extends BaseController
 {
     public function __construct(
-        #[Required] public Security $security
+        #[Required] public Security $security,
+        DataUserSession $dataUserSession
     )
     {
     }
@@ -58,6 +55,7 @@ class PortfolioController extends AbstractController
         TraceRepository $traceRepository,
     ): Response
     {
+        $data_user = $this->dataUserSession;
         $id = $request->query->get('id');
 
         $user = $this->security->getUser();
@@ -104,6 +102,8 @@ class PortfolioController extends AbstractController
             'id' => $id,
             'portfolio' => $portfolio,
             'user' => $user,
+            'data_user' => $data_user,
+
         ]);
     }
 
