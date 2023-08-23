@@ -37,7 +37,7 @@
                                     {% endif %}
                                 </li>
                             </ul>
-                            <div class="btn-group">
+                            <div class="btn-grp">
                                 <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
                                     <button class="btn btn-primary">Accéder à la trace</button>
                                 </a>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="card-body flex-grow-1 card-table-competences">
                             <p class="card-text">{{ retourPedagogique.contenu }}</p>
-                            <div class="btn-group">
+                            <div class="btn-grp">
                                 {% if retourPedagogique.trace is not null %}
                                     <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
                                         <button class="btn btn-primary">Accéder à la trace</button>
