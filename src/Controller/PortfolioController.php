@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\OrdrePage;
 use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
+use App\Repository\CommentaireRepository;
 use App\Repository\OrdrePageRepository;
 use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
@@ -21,7 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
-#[Route('etudiant/bibliotheque')]
 class PortfolioController extends AbstractController
 {
     public function __construct(
@@ -30,7 +31,7 @@ class PortfolioController extends AbstractController
     {
     }
 
-    #[Route('/portfolio', name: 'app_portfolio')]
+    #[Route('etudiant/portfolio', name: 'app_portfolio')]
     public function index(
         PortfolioRepository $portfolioRepository,
     ): Response
@@ -53,18 +54,56 @@ class PortfolioController extends AbstractController
     public function indexShow(
         Request             $request,
         PortfolioRepository $portfolioRepository,
+        CommentaireRepository $commentaireRepository,
+        TraceRepository $traceRepository,
     ): Response
     {
         $id = $request->query->get('id');
 
-        $etudiant = $this->security->getUser()->getEtudiant();
+        $user = $this->security->getUser();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+
+        if ($this->security->getUser()->getEnseignant()) {
+            $enseignant = $this->security->getUser()->getEnseignant();
+
+
+            //si un form en post est envoyé
+            if ($_POST) {
+            dump($_POST);
+                $data = $_POST;
+                // vérifier que le form est un form de type CommentaireType
+                if (isset($data['commentaire'])) {
+                    // vérifier qu'aucun champ n'est vide
+                    if (empty($data['commentaire']['contenu'])) {
+                        $this->addFlash('error', 'Le champ commentaire ne peut pas être vide');
+                        return $this->redirectToRoute('enseignant_dashboard');
+                    } else {
+//                            dd($_POST['traceId']);
+                        $commentaire = new Commentaire();
+                        $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
+                        $commentaire->setEnseignant($enseignant);
+                        $commentaire->setVisibilite($data['commentaire']['visibilite']);
+                        $commentaire->setDateCreation(new \DateTime());
+                        $commentaire->setDateModification(new \DateTime());
+                        if ($_POST['traceId']) {
+                            $trace = $traceRepository->find($_POST['traceId']);
+                            $commentaire->setTrace($trace);
+                        }
+                        $commentaireRepository->save($commentaire, true);
+
+                        $this->addFlash('success', 'Commentaire ajouté avec succès !');
+
+                    }
+                }
+            }
+        }
 
         return $this->render('portfolio/show.html.twig', [
             'step' => 'portfolio',
             'id' => $id,
             'portfolio' => $portfolio,
-            'etudiant' => $etudiant,
+            'user' => $user,
         ]);
     }
 
@@ -81,15 +120,11 @@ class PortfolioController extends AbstractController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
-
         $step = $request->query->get('step', 'portfolio');
 
         //Récupérer le portfolio de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $portfolio = $portfolioRepository->findOneBy(['etudiant' => $etudiant, 'id' => $id]);
+        $user = $this->security->getUser();
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
 
         switch ($step) {
@@ -122,13 +157,23 @@ class PortfolioController extends AbstractController
                     $traces[] = $ordreTrace->getTrace();
                 }
 
+            case 'evalPage' :
+
+                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                $traces = [];
+                foreach ($ordreTraces as $ordreTrace) {
+                    $traces[] = $ordreTrace->getTrace();
+                }
+
                 break;
 
         }
 
         return $this->render('portfolio/_step.html.twig', [
             'step' => $step ?? null,
-            'etudiant' => $etudiant ?? null,
+            'user' => $user ?? null,
             'portfolio' => $portfolio ?? null,
             'pages' => $pages ?? null,
             'traces' => $traces ?? null,
@@ -138,7 +183,7 @@ class PortfolioController extends AbstractController
         ]);
     }
 
-    #[Route('/portfolio/new', name: 'app_portfolio_new')]
+    #[Route('etudiant/portfolio/new', name: 'app_portfolio_new')]
     public function new(
         Request             $request,
         PortfolioRepository $portfolioRepository,
@@ -202,7 +247,7 @@ class PortfolioController extends AbstractController
         ]);
     }
 
-    #[Route('/portfolio/delete/{id}', name: 'app_portfolio_delete')]
+    #[Route('etudiant/portfolio/delete/{id}', name: 'app_portfolio_delete')]
     public function delete(
         PortfolioRepository $portfolioRepository,
         int                 $id
@@ -223,5 +268,27 @@ class PortfolioController extends AbstractController
         }
         $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
         return $this->redirectToRoute('app_portfolio');
+    }
+
+    #[Route('/portfolio/delete/{id}', name:'app_delete_commentaire')]
+    public function deleteComment(
+        Request $request,
+        CommentaireRepository $commentaireRepository
+    )
+    {
+        $commentaireId = $request->get('id');
+        $commentaire = $commentaireRepository->find($commentaireId);
+        $commentaireRepository->remove($commentaire, true);
+
+        $this->addFlash('success', 'Commentaire supprimé avec succès !');
+
+        // Si la requête venait d'une page de portfolio, on redirige vers cette page
+        if ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'portfolio/show')) {
+            return $this->redirect($request->headers->get('referer'));
+        } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'dashboard/enseignant')) {
+            return $this->redirect($request->headers->get('referer'));
+        } else {
+            return $this->redirectToRoute('app_portfolio');
+        }
     }
 }

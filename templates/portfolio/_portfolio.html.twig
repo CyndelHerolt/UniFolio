@@ -1,8 +1,14 @@
 <em class="portfolio-description">{{ portfolio.description }}</em>
 
 {% for page in pages %}
-
-    <div class="card portfolio-pages-min" data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }} style="padding: 0 25px">
+{% if user.etudiant is not null %}
+<div class="card portfolio-pages-min"
+     data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }} style="padding: 0 25px">
+    {% elseif user.enseignant is not null %}
+    <div class="card portfolio-pages-min"
+         data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showEvalPage', 'click') }}
+         style="padding: 0 25px">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ page.intitule }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
@@ -43,4 +49,5 @@
             </ul>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+</div>

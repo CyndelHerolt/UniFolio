@@ -1,0 +1,17 @@
+<div class="pages">
+
+    <div class="card portfolio-pages">
+        <a class=" btn-back" href="{{ path('app_portfolio_index', {id: portfolio.id}) }}">
+            <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button>
+        </a>
+        <h2>{{ page.intitule }}</h2>
+        <em>{{ page.description }}</em>
+        <hr>
+
+        <div class="portfolio-eval-traces">
+        {% for trace in traces %}
+            {{ component('TraceEvalCardComponent', {id: trace.id}) }}
+        {% endfor %}
+        </div>
+    </div>
+</div>

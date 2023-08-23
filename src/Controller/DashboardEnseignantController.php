@@ -92,19 +92,4 @@ class DashboardEnseignantController extends BaseController
             return $this->redirectToRoute('app_dashboard');
         }
     }
-
-    #[Route('/dashboard/enseignant/{id}', name:'app_delete_commentaire')]
-    public function deleteComment(
-        Request $request,
-        CommentaireRepository $commentaireRepository
-    ): Response
-    {
-        $commentaireId = $request->get('id');
-        $commentaire = $commentaireRepository->find($commentaireId);
-        $commentaireRepository->remove($commentaire, true);
-
-        $this->addFlash('success', 'Commentaire supprimé avec succès !');
-
-        return $this->redirectToRoute('enseignant_dashboard');
-    }
 }

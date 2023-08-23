@@ -68,9 +68,6 @@ final class AllTraceEvalComponent extends BaseController
     public array $selectedEtudiants = [];
 
     #[LiveProp(writable: true)]
-    public ?string $selectedValidation = '';
-
-    #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
     public array $niveaux = [];
 
@@ -116,36 +113,6 @@ final class AllTraceEvalComponent extends BaseController
         $this->currentPage = 1;
         $this->allTraces = $this->getAllTrace();
         $this->changeAnnee($this->selectedAnnee);
-    }
-
-    #[LiveAction]
-    public function changeValidation()
-    {
-        $selectedValidation = $this->selectedValidation;
-        list($validationId, $state) = explode('-', $selectedValidation);
-        $validationId = intval($validationId);
-        $state = intval($state);
-
-        $validation = $this->validationRepository->find($validationId);
-
-        // Mettre à jour le validation dans la base de données
-        $validation->setEtat($state);
-        $validation->setEnseignant($this->security->getUser()->getEnseignant());
-        $validation->setDateCreation(new \DateTime());
-        if ($validation->getDateCreation() != null) {
-            $validation->setDateModification(new \DateTime());
-        }
-        $this->validationRepository->save($validation, true);
-
-        // Mettre à jour la validation dans la liste existante
-        foreach ($this->allTraces as $trace) {
-            foreach ($trace->getValidations() as $traceValidation) {
-                if ($traceValidation->getId() === $validationId) {
-                    $traceValidation->setEtat($state);
-                    break;
-                }
-            }
-        }
     }
 
     #[LiveAction]

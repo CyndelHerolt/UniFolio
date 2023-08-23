@@ -38,6 +38,17 @@ export default class extends Controller {
         this.highlightCode()
     }
 
+    async showEvalPage(event) {
+        const _value = event.currentTarget.dataset.page
+        const params = new URLSearchParams({
+            step: 'evalPage',
+            page: _value,
+        })
+        const response = await fetch(`${this.urlValue}?${params.toString()}`)
+        this.zoneTarget.innerHTML = await response.text()
+        this.highlightCode()
+    }
+
     highlightCode() {
         document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightElement(block);
