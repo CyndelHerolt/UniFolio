@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Annee;
 use App\Entity\Departement;
 use App\Entity\Diplome;
+use App\Entity\Semestre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,6 +31,17 @@ class AnneeRepository extends ServiceEntityRepository
             ->where('d.departement = :departement')
             ->andWhere('a.actif = true')
             ->setParameter('departement', $departement->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findBySemestre(Semestre $semestre): array
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin(Semestre::class, 's', 'WITH', 's.annee = a.id')
+            ->where('s.id = :semestre')
+//            ->andWhere('a.actif = true')
+            ->setParameter('semestre', $semestre->getId())
             ->getQuery()
             ->getResult();
     }
