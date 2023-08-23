@@ -8,7 +8,7 @@ parameters:
     files_directory: '%kernel.project_dir%/public/upload/files'
 
 services:
-    App\Twig\InstanceOfExtension:
+    App\Twig\Extension\InstanceOfExtension:
         tags:
             - { name: 'twig.extension' }
 #    request_stack:
