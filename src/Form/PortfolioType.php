@@ -96,14 +96,17 @@ class PortfolioType extends AbstractType
             ])
             ->add('visibilite', ChoiceType::class, [
                 'choices' => [
-                    'Public' => 'public',
-                    'Privé' => 'prive',
+                    'Public' => true,
+                    'Privé' => false,
                 ],
                 'label' => 'Visibilité',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control"],
                 'help' => 'Choisissez la visibilité de votre portfolio',
                 'required' => true,
+                'mapped' => true,
+                'expanded' => true,
+                'multiple' => false,
             ])
         ;
     }

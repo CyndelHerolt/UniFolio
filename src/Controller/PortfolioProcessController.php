@@ -114,6 +114,17 @@ class PortfolioProcessController extends BaseController
                         $portfolio->setBanniere('files_directory/banniere.jpg');
                     }
 
+                    if ($form->get('visibilite')->getData() === true) {
+                        $portfolios = $portfolioRepository->findBy(['annee' => $portfolio->getAnnee()]);
+                        foreach ($portfolios as $otherportfolio) {
+                            $otherportfolio->setVisibilite(false);
+                            $portfolioRepository->save($otherportfolio, true);
+                        }
+                        $portfolio->setVisibilite(true);
+                    } elseif ($form->get('visibilite')->getData() === false) {
+                        $portfolio->setVisibilite(false);
+                    }
+
                     $portfolio->setDateModification(new \DateTime());
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [

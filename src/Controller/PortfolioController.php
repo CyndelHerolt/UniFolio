@@ -177,9 +177,14 @@ class PortfolioController extends AbstractController
                 $portfolio->setBanniere('files_directory/banniere.jpg');
             }
 
-            if ($form->get('visibilite')->getData() === 'public') {
+            if ($form->get('visibilite')->getData() === true) {
+                $portfolios = $portfolioRepository->findBy(['annee' => $portfolio->getAnnee()]);
+                foreach ($portfolios as $otherportfolio) {
+                    $otherportfolio->setVisibilite(false);
+                    $portfolioRepository->save($otherportfolio, true);
+                }
                 $portfolio->setVisibilite(true);
-            } elseif ($form->get('visibilite')->getData() === 'prive') {
+            } elseif ($form->get('visibilite')->getData() === false) {
                 $portfolio->setVisibilite(false);
             }
 

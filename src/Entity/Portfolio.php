@@ -181,6 +181,11 @@ class Portfolio
         return $this;
     }
 
+    public function getVisibilite(): ?bool
+    {
+        return $this->visibilite;
+    }
+
     public function getBanniere(): ?string
     {
         return $this->banniere;
