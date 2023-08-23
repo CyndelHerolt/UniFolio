@@ -178,7 +178,7 @@ class PortfolioController extends AbstractController
             }
 
             if ($form->get('visibilite')->getData() === true) {
-                $portfolios = $portfolioRepository->findBy(['annee' => $portfolio->getAnnee()]);
+                $portfolios = $portfolioRepository->findBy(['annee' => $annee]);
                 foreach ($portfolios as $otherportfolio) {
                     $otherportfolio->setVisibilite(false);
                     $portfolioRepository->save($otherportfolio, true);
