@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Classes\DataUserSession;
 use App\Entity\Commentaire;
 use App\Entity\Portfolio;
+use App\Form\CommentaireType;
 use App\Form\PortfolioType;
 use App\Repository\CommentaireRepository;
 use App\Repository\OrdrePageRepository;
@@ -13,6 +14,7 @@ use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +25,8 @@ class PortfolioController extends BaseController
 {
     public function __construct(
         #[Required] public Security $security,
-        DataUserSession $dataUserSession
+        DataUserSession $dataUserSession,
+        private FormFactoryInterface $formFactory,
     )
     {
     }
@@ -77,21 +80,24 @@ class PortfolioController extends BaseController
                         $this->addFlash('error', 'Le champ commentaire ne peut pas être vide');
                         return $this->redirectToRoute('enseignant_dashboard');
                     } else {
-//                            dd($_POST['traceId']);
                         $commentaire = new Commentaire();
                         $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
                         $commentaire->setEnseignant($enseignant);
                         $commentaire->setVisibilite($data['commentaire']['visibilite']);
                         $commentaire->setDateCreation(new \DateTime());
                         $commentaire->setDateModification(new \DateTime());
-                        if ($_POST['traceId']) {
+                        if (isset($_POST['traceId'])) {
                             $trace = $traceRepository->find($_POST['traceId']);
                             $commentaire->setTrace($trace);
+                        } elseif (isset($_POST['portfolioId'])) {
+                            $portfolio = $portfolioRepository->find($_POST['portfolioId']);
+                            $commentaire->setPortfolio($portfolio);
                         }
                         $commentaireRepository->save($commentaire, true);
 
                         $this->addFlash('success', 'Commentaire ajouté avec succès !');
 
+                        return $this->redirectToRoute('app_portfolio_index', ['id' => $id]);
                     }
                 }
             }
@@ -130,6 +136,12 @@ class PortfolioController extends BaseController
         switch ($step) {
 
             case 'portfolio' :
+                // Créez une instance de votre entité Commentaire
+                $commentaire = new Commentaire();
+
+                // Créez votre formulaire CommentaireType
+                $this->form = $this->formFactory->create(CommentaireType::class, $commentaire);
+                $this->commentForm = $this->form->createView();
                 //Récupérer les pages du portfolio
                 $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
                 $pages = [];
@@ -180,6 +192,7 @@ class PortfolioController extends BaseController
             'validations' => $validations ?? null,
             'competences' => $competences ?? null,
             'page' => $page ?? null,
+            'commentForm' => $this->commentForm ?? null,
         ]);
     }
 
