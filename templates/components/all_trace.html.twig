@@ -4,9 +4,15 @@
     {% if '/dashboard' in app.request.uri %}
 
     <div class="row g-4">
+    {% if this.allTraces is empty %}
+            <div class="alert alert-warning" role="alert">
+                Aucune trace n'a été trouvée.
+            </div>
+        {% else %}
         {% for trace in this.allTrace|slice(0,4) %}
             {{ component('trace_table', {'id': trace.id}) }}
         {% endfor %}
+        {% endif %}
     </div>
 
     {% else %}

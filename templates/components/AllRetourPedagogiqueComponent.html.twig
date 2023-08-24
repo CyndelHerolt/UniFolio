@@ -1,88 +1,94 @@
 <div{{ attributes }}>
 
     <div class="row g-4">
-        {% for retourPedagogique in this.AllRetourPedagogique %}
+        {% if this.allRetourPedagogique is empty %}
+            <div class="alert alert-warning" role="alert">
+                Aucun retour pour le moment.
+            </div>
 
-            {% if retourPedagogique is instanceof('App\\Entity\\Validation') %}
+        {% else %}
+            {% for retourPedagogique in this.AllRetourPedagogique %}
 
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header flex-grow-1">
-                            <h5>{{ retourPedagogique.trace.titre }}</h5>
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
-                                <li>•</li>
-                                <li>
-                                    <span>Evaluation saisie par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            <ul class="dashboard-competences">
-                                <li>
-                                    <div>
+                {% if retourPedagogique is instanceof('App\\Entity\\Validation') %}
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="card d-flex flex-column h-100 card-etudiant">
+                            <div class="card-header flex-grow-1">
+                                <h5>{{ retourPedagogique.trace.titre }}</h5>
+                                <ul class="card-infos-min">
+                                    <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
+                                    <li>•</li>
+                                    <li>
+                                        <span>Evaluation saisie par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body flex-grow-1 card-table-competences">
+                                <ul class="dashboard-competences">
+                                    <li>
+                                        <div>
                                                    <span class="{{ retourPedagogique.apcNiveau.competences.couleur }}">
                                                     {{ retourPedagogique.apcNiveau.competences.nomCourt }}
                                                        </span> •
-                                        {{ retourPedagogique.apcNiveau.libelle }}
-                                    </div>
-                                    {% if retourPedagogique.etat == 0 %} <i class="fa-solid fa-hourglass-half"
-                                                                            style="color: #4c008b"></i>
-                                    {% elseif retourPedagogique.etat == 1 %} <i class="fa-solid fa-xmark"
-                                                                                style="color: red"></i>
-                                    {% elseif retourPedagogique.etat == 2 %} <i class="fa-solid fa-arrow-up"
-                                                                                style="color: orange"></i>
-                                    {% elseif retourPedagogique.etat == 3 %} <i class="fa-solid fa-check"
-                                                                                style="color: limegreen"></i>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                            <div class="btn-grp">
-                                <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
-                                    <button class="btn btn-primary">Accéder à la trace</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            {% elseif retourPedagogique is instanceof('App\\Entity\\Commentaire') %}
-                <div class="col-lg-6 col-sm-12">
-                    <div class="card d-flex flex-column h-100 card-etudiant">
-                        <div class="card-header">
-                            {% if retourPedagogique.trace is not null %}
-                                <h5>{{ retourPedagogique.trace.titre }}</h5>
-                            {% elseif retourPedagogique.portfolio is not null %}
-                                <h5>{{ retourPedagogique.portfolio.intitule }}</h5>
-                            {% endif %}
-                            <ul class="card-infos-min">
-                                <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
-                                <li>•</li>
-                                <li>
-                                    <span>Publié par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body flex-grow-1 card-table-competences">
-                            <p class="card-text">{{ retourPedagogique.contenu }}</p>
-                            <div class="btn-grp">
-                                {% if retourPedagogique.trace is not null %}
+                                            {{ retourPedagogique.apcNiveau.libelle }}
+                                        </div>
+                                        {% if retourPedagogique.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                                style="color: #4c008b"></i>
+                                        {% elseif retourPedagogique.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                                    style="color: red"></i>
+                                        {% elseif retourPedagogique.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                                    style="color: orange"></i>
+                                        {% elseif retourPedagogique.etat == 3 %} <i class="fa-solid fa-check"
+                                                                                    style="color: limegreen"></i>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                                <div class="btn-grp">
                                     <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
                                         <button class="btn btn-primary">Accéder à la trace</button>
                                     </a>
-                                {% elseif retourPedagogique.portfolio is not null %}
-                                    <a href="{{ path('app_portfolio_index', {'id': retourPedagogique.portfolio.id}) }}">
-                                        <button class="btn btn-primary">Accéder au portfolio</button>
-                                    </a>
-                                {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
 
-        {% endfor %}
+                {% elseif retourPedagogique is instanceof('App\\Entity\\Commentaire') %}
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="card d-flex flex-column h-100 card-etudiant">
+                            <div class="card-header">
+                                {% if retourPedagogique.trace is not null %}
+                                    <h5>{{ retourPedagogique.trace.titre }}</h5>
+                                {% elseif retourPedagogique.portfolio is not null %}
+                                    <h5>{{ retourPedagogique.portfolio.intitule }}</h5>
+                                {% endif %}
+                                <ul class="card-infos-min">
+                                    <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
+                                    <li>•</li>
+                                    <li>
+                                        <span>Publié par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body flex-grow-1 card-table-competences">
+                                <p class="card-text">{{ retourPedagogique.contenu }}</p>
+                                <div class="btn-grp">
+                                    {% if retourPedagogique.trace is not null %}
+                                        <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
+                                            <button class="btn btn-primary">Accéder à la trace</button>
+                                        </a>
+                                    {% elseif retourPedagogique.portfolio is not null %}
+                                        <a href="{{ path('app_portfolio_index', {'id': retourPedagogique.portfolio.id}) }}">
+                                            <button class="btn btn-primary">Accéder au portfolio</button>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
 
+            {% endfor %}
+        {% endif %}
 
     </div>
 </div>

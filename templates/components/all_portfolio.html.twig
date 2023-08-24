@@ -1,82 +1,18 @@
 {# templates/components/all_portfolio.html.twig #}
 
     {% if '/dashboard' in app.request.uri %}
-        {% for portfolio in this.allPortfolio|slice(0,4) %}
-            {{ component('portfolio_table', {'id': portfolio.id}) }}
-        {% endfor %}
+        {% if this.allPortfolio is empty %}
+            <div class="alert alert-warning" role="alert">
+                Aucun portfolio n'a été trouvé.
+            </div>
 
+        {% else %}
+            {% for portfolio in this.allPortfolio|slice(0,4) %}
+                {{ component('portfolio_table', {'id': portfolio.id}) }}
+            {% endfor %}
+        {% endif %}
     {% else %}
         <div {{ attributes }}>
-{#            <div class="row">#}
-{#                <div class="accordion accordion-flush col-6" id="accordionFlushExample">#}
-{#                    <div class="accordion-item">#}
-{#                        <h2 class="accordion-header" id="flush-headingTwo">#}
-{#                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"#}
-{#                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"#}
-{#                                    aria-controls="flush-collapseTwo">#}
-{#                                Trier par#}
-{#                            </button>#}
-{#                        </h2>#}
-{#                        <div id="flush-collapseTwo" class="accordion-collapse collapse"#}
-{#                             aria-labelledby="flush-headingTwo"#}
-{#                             data-bs-parent="#accordionFlushExample">#}
-{#                            <div class="accordion-body row">#}
-{#                                <div>#}
-{#                                    <fieldset>#}
-{#                                        <h6>Date</h6>#}
-{#                                        <div style="display: flex" class="form-check">#}
-{#                                            <input type="checkbox" id="dateAsc"#}
-{#                                                   name="dateAsc"#}
-{#                                                   data-model="selectedOrdreDate"#}
-{#                                                   data-action="live#action"#}
-{#                                                   data-action-name="changePortfolioOrdreDate"#}
-{#                                                   value="ASC"#}
-{#                                                   class="form-check-input">#}
-{#                                            <label for="dateAsc" style="margin-left: 10px"#}
-{#                                                   class="form-check-label">Ordre croissant</label><br>#}
-{#                                        </div>#}
-{#                                        <div style="display: flex" class="form-check">#}
-{#                                            <input type="checkbox" id="dateDesc"#}
-{#                                                   name="dateDesc"#}
-{#                                                   data-model="selectedOrdreDate"#}
-{#                                                   data-action="live#action"#}
-{#                                                   data-action-name="changePortfolioOrdreDate"#}
-{#                                                   value="DESC"#}
-{#                                                   class="form-check-input">#}
-{#                                            <label for="dateDesc" style="margin-left: 10px"#}
-{#                                                   class="form-check-label">Ordre décroissant</label><br>#}
-{#                                        </div>#}
-{#                                        <h6>Validation</h6>#}
-{#                                        <div style="display: flex" class="form-check">#}
-{#                                            <input type="checkbox" id="validationAsc"#}
-{#                                                   name="validationAsc"#}
-{#                                                   data-model="selectedOrdreValidation"#}
-{#                                                   data-action="live#action"#}
-{#                                                   data-action-name="changePortfolioOrdreValidation"#}
-{#                                                   value="ASC"#}
-{#                                                   class="form-check-input">#}
-{#                                            <label for="validationAsc" style="margin-left: 10px"#}
-{#                                                   class="form-check-label">Ordre croissant</label><br>#}
-{#                                        </div>#}
-{#                                        <div style="display: flex" class="form-check">#}
-{#                                            <input type="checkbox" id="validationDesc"#}
-{#                                                   name="validationDesc"#}
-{#                                                   data-model="selectedOrdreValidation"#}
-{#                                                   data-action="live#action"#}
-{#                                                   data-action-name="changePortfolioOrdreValidation"#}
-{#                                                   value="DESC"#}
-{#                                                   class="form-check-input">#}
-{#                                            <label for="validationDesc" style="margin-left: 10px"#}
-{#                                                   class="form-check-label">Ordre décroissant</label><br>#}
-{#                                        </div>#}
-{#                                    </fieldset>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-
             <article class="row g-4">
                 {% if this.allPortfolio is empty %}
                     <div class="alert alert-warning" role="alert">

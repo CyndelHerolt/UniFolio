@@ -61,7 +61,11 @@ class UserSynchro extends AbstractController
                         $data['mail_univ'],
                         ['id' => $data['username']]
                     );
-                    $mailerService->sendMail($mailEtudiant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant : ' . $signatureComponents->getSignedUrl());
+                    $mailerService->sendMail(
+                        $mailEtudiant,
+                        'Vérification de compte UniFolio',
+                        'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
+                    );
                 }
                 return true;
             }

@@ -32,9 +32,13 @@ class UsersController extends AbstractController
     #[Route('/', name: 'app_users_index', methods: ['GET'])]
     public function index(UsersRepository $usersRepository): Response
     {
-        return $this->render('users/index.html.twig', [
-            'users' => $usersRepository->findAll(),
-        ]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('users/index.html.twig', [
+                'users' => $usersRepository->findAll(),
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 
     #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
@@ -92,7 +96,7 @@ class UsersController extends AbstractController
                 }
             }
 
-            return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
 
@@ -143,6 +147,27 @@ class UsersController extends AbstractController
 
     }
 
+    #[Route('/verify/resend', name: 'app_verify_resend_email')]
+    public function resendVerifyEmail(
+        Request                    $request,
+    )
+    {
+//        dd($_SERVER['REQUEST_METHOD']);
+
+//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//
+//        }
+
+        $login = $request->query->get('login');
+
+        return $this->render('users/resend_verify_email.html.twig', [
+            'login' => $login,
+        ]);
+
+    }
+
+    // TODO: faire une nouvelle méthode appelée par le bouton "Renvoyer le mail de vérification"
+
     #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
     public function show(Users $user): Response
     {
@@ -188,26 +213,5 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/verify/resend', name: 'app_verify_resend_email')]
-    public function resendVerifyEmail(
-        Request                    $request,
-    )
-    {
-//        dd($_SERVER['REQUEST_METHOD']);
-
-//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//        }
-
-        $login = $request->query->get('login');
-
-        return $this->render('users/resend_verify_email.html.twig', [
-            'login' => $login,
-        ]);
-
-    }
-
-    // TODO: faire une nouvelle méthode appelée par le bouton "Renvoyer le mail de vérification" qui va envoyer un nouveau mail de vérification
 
 }

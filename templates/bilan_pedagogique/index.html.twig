@@ -20,81 +20,87 @@
                 <h2>Bilan pédagogique</h2>
                 <div class="row g-4">
                     <div class="col-12">
+                        {% if portfolios is empty %}
+                        <div class="alert alert-warning" role="alert">
+                            Aucun bilan pour le moment, créer un portfolio pour alimenter cette section.
+                        </div>
+                        {% else %}
                         {% for portfolio in portfolios %}
                             {% if portfolio.visibilite == 1 %}
-                            <div class="card d-flex">
-                                <div class="card-content">
-                                    <div class="card-header">
-                                        <h3>{{ portfolio.annee.libelleLong }}</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        {% set seen = [] %}
-                                        <ul>
-                                            {% for op in portfolio.ordrePages %}
-                                                {% for ot in op.page.ordreTraces %}
-                                                    {% for validation in ot.trace.validations %}
-                                                        {% if validation.apcNiveau.ordre == portfolio.annee.ordre %}
-                                                            {% if validation.apcNiveau.libelle not in seen %}
-                                                                {% set totalApparitions = 0 %}
-                                                                {% set totalEtatTrois = 0 %}
+                                <div class="card d-flex">
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <h3>{{ portfolio.annee.libelleLong }}</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            {% set seen = [] %}
+                                            <ul>
+                                                {% for op in portfolio.ordrePages %}
+                                                    {% for ot in op.page.ordreTraces %}
+                                                        {% for validation in ot.trace.validations %}
+                                                            {% if validation.apcNiveau.ordre == portfolio.annee.ordre %}
+                                                                {% if validation.apcNiveau.libelle not in seen %}
+                                                                    {% set totalApparitions = 0 %}
+                                                                    {% set totalEtatTrois = 0 %}
 
-                                                                {% for validation2 in ot.trace.validations %}
-                                                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
-                                                                        {% set totalApparitions = totalApparitions + 1 %}
-                                                                        {% if validation2.etat == 3 %}
-                                                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                                                    {% for validation2 in ot.trace.validations %}
+                                                                        {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                                                            {% set totalApparitions = totalApparitions + 1 %}
+                                                                            {% if validation2.etat == 3 %}
+                                                                                {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                                                            {% endif %}
                                                                         {% endif %}
-                                                                    {% endif %}
-                                                                {% endfor %}
+                                                                    {% endfor %}
 
-                                                                <li>
-                                                                    <div>
+                                                                    <li>
+                                                                        <div>
                                                         <span class="{{ validation.apcNiveau.competences.couleur }}">
                                                             {{ validation.apcNiveau.competences.nomCourt }}
                                                         </span> •
-                                                                        {{ validation.apcNiveau.libelle }}
-                                                                    </div>
-                                                                    <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                                                            {{ validation.apcNiveau.libelle }}
+                                                                        </div>
+                                                                        <span class="{{ validation.apcNiveau.competences.couleur }}">
                                                     {{ (totalEtatTrois / totalApparitions) * 100 }}%
                                                     </span>
-                                                                    {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
-                                                                </li>
+                                                                        {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
+                                                                    </li>
+                                                                {% endif %}
                                                             {% endif %}
-                                                        {% endif %}
+                                                        {% endfor %}
                                                     {% endfor %}
                                                 {% endfor %}
-                                            {% endfor %}
-                                        </ul>
-                                        <h4>Commentaire</h4>
-                                        {% set visibleComments = portfolio.commentaires|filter(commentaire => commentaire.visibilite == 1) %}
-                                        {% if visibleComments is empty %}
-                                            <p>Aucun commentaire pour le moment</p>
-                                        {% else %}
-                                            {% for commentaire in portfolio.commentaires %}
-                                                {% if commentaire.visibilite == 1 %}
-                                                    <div class="card"
-                                                         style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
-                                                        <div class="card-header">
-                                                            <div style="display: flex; justify-content: space-between; align-items: center">
-                                                                <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                                                                <small>
-                                                                    {{ commentaire.datecreation|date('d-m-Y H:i') }}
-                                                                </small>
+                                            </ul>
+                                            <h4>Commentaire</h4>
+                                            {% set visibleComments = portfolio.commentaires|filter(commentaire => commentaire.visibilite == 1) %}
+                                            {% if visibleComments is empty %}
+                                                <p>Aucun commentaire pour le moment</p>
+                                            {% else %}
+                                                {% for commentaire in portfolio.commentaires %}
+                                                    {% if commentaire.visibilite == 1 %}
+                                                        <div class="card"
+                                                             style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                                                            <div class="card-header">
+                                                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                                                    <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                                                                    <small>
+                                                                        {{ commentaire.datecreation|date('d-m-Y H:i') }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <p class="card-text">{{ commentaire.contenu }}</p>
                                                             </div>
                                                         </div>
-                                                        <div class="card-body">
-                                                            <p class="card-text">{{ commentaire.contenu }}</p>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endif %}
                         {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
             </article>
         </section>
