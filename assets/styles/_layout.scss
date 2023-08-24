@@ -95,10 +95,6 @@ body {
 
     .dept_infos {
       padding-left: 15px;
-      //padding: 10px 50px;
-      //position: relative;
-      //top: 54px;
-      //left: 35px;
 
       .col-3 {
         display: flex;
@@ -135,28 +131,61 @@ body {
 footer {
   margin: 0;
   width: 100%;
-  padding: 50px 5vw 25px 5vw;
 
   .alert-info {
-    @include zone(2rem auto, 2rem 5vw, $color-primary-dark, 10px);
-    color: $color-light;
-    width: fit-content;
+    @include zone(2rem auto, 2rem 5vw, $color-light, 10px);
+    color: $color-dark;
+    width: 50%;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-
-    h5 {
-      margin-bottom: 0;
-      margin-left: 1rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
+    justify-content: center;
   }
 
   small {
     opacity: .8;
+    text-align: center;
+  }
+
+  .footer-infos {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 75px;
+
+    img {
+      width: 4rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 0 0 10px 0;
+        font-size: .8rem;
+        font-weight: 400;
+
+        a {
+          color: $color-primary !important;
+        }
+      }
+    }
+  }
+
+  .footer-infos-min {
+    background-color: $color-primary-dark;
+    color: $color-light;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 75px;
+
+    a {
+      color: $color-light !important;
+      text-decoration: underline !important;
+
+      &:hover {
+        color: $color-secondary !important;
+      }
+    }
   }
 }

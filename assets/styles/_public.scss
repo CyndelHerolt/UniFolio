@@ -3,7 +3,6 @@
   max-width: 100vw;
   @include paragraphe;
   padding: 0 100px;
-  //todo: media query for mobile no padding
 
   section {
     display: flex;
@@ -72,24 +71,10 @@
         }
       }
 
-      .alert-info {
-        @include zone(2rem 0, 2rem 5vw, $color-primary-dark, 10px);
-        color: $color-light;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
         h5 {
           margin-bottom: 0;
           margin-left: 1rem;
         }
-
-        i {
-          color: $color-secondary;
-        }
-
-      }
 
       .btn {
         padding: 0 5vw;
