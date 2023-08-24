@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 
+#[Route('/etudiant')]
 class CvController extends AbstractController
 {
     public function __construct(

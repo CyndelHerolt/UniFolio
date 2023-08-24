@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Profil{% endblock %}
+    {% block header %}
+        {% include "_menu.html.twig" %}
+    {% endblock %}
+
+{% block body %}
+
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Accès refusé</li>
+        </ol>
+    </nav>
+
+    <div class="container traces">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Accès refusé</h1>
+                <p>Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -5,18 +5,22 @@ namespace App\Controller;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Users;
+use App\Form\EnseignantType;
+use App\Form\EtudiantPartialType;
+use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
+#[Route('/profil')]
 class ProfilController extends BaseController
 
 {
-
-    #[Route('/profil', name: 'app_profil')]
+    #[Route('/', name: 'app_profil')]
     public function profil(UsersRepository $usersRepository): Response
     {
         $data_user = $this->dataUserSession;
@@ -50,6 +54,8 @@ class ProfilController extends BaseController
                 $groupes = $enseignant->getGroupes();
                 $bio = null;
             }
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
 
         return $this->render('profil/index.html.twig', [
@@ -62,6 +68,42 @@ class ProfilController extends BaseController
             'bio' => $bio,
             'groupes' => $groupes ?? null,
             'data_user' => $data_user,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_profil_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request              $request,
+        ?Etudiant            $etudiant,
+        ?Enseignant          $enseignant,
+        EtudiantRepository   $etudiantRepository,
+        EnseignantRepository $enseignantRepository,
+    ): Response
+    {
+        if ($this->isGranted('ROLE_ETUDIANT')) {
+            $form = $this->createForm(EtudiantPartialType::class, $etudiant);
+        } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
+            $form = $this->createForm(EnseignantType::class, $enseignant);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->isGranted('ROLE_ETUDIANT')) {
+                $etudiantRepository->save($etudiant, true);
+            } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
+                $enseignantRepository->save($enseignant, true);
+            }
+
+            return $this->redirectToRoute('app_profil', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('profil/edit.html.twig', [
+            'enseignant' => $enseignant,
+            'etudiant' => $etudiant,
+            'form' => $form->createView(),
         ]);
     }
 }

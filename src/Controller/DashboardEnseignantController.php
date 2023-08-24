@@ -20,10 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
+#[Route('/enseignant')]
 class DashboardEnseignantController extends BaseController
 {
 
-    #[Route('/dashboard/enseignant', name: 'enseignant_dashboard')]
+    #[Route('/dashboard', name: 'enseignant_dashboard')]
     public function index(
         UsersRepository       $usersRepository,
         EnseignantRepository  $enseignantRepository,
@@ -32,14 +33,14 @@ class DashboardEnseignantController extends BaseController
         CommentaireRepository $commentaireRepository,
     ): Response
     {
+        if ($this->isGranted('ROLE_ENSEIGNANT')) {
+
         $data_user = $this->dataUserSession;
 
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
         $enseignant = $enseignantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
         $departement = $departementRepository->findDepartementEnseignantDefaut($enseignant);
-
-        if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
             if ($userId === 'enseignant') {
                 foreach ($departement as $dept) {
@@ -88,8 +89,7 @@ class DashboardEnseignantController extends BaseController
                 ]);
             }
         } else {
-
-            return $this->redirectToRoute('app_dashboard');
+            return $this->render('security/accessDenied.html.twig');
         }
     }
 }

@@ -129,7 +129,6 @@
         </div>
     </div>
 
-
     <div class="row">
         {% for trace in this.getDisplayedTraces|sort((a,b)=> a.dateModification <=> b.dateModification) %}
             {{ component('TraceEvalCardComponent', {'id': trace.id}) }}

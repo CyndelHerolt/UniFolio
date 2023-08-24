@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello CompetenceController!{% endblock %}
-
-{% block body %}
-    {% for competence in competences %}
-        <p><span style="color: {{ competence.couleur }}">{{ competence.ue }} : {{ competence.code }}</span> | {{ competence.libelle }}</p>
-    {% endfor %}
-{% endblock %}

@@ -24,8 +24,8 @@ use Symfony\Contracts\Service\Attribute\Required;
 class PortfolioController extends BaseController
 {
     public function __construct(
-        #[Required] public Security $security,
-        DataUserSession $dataUserSession,
+        #[Required] public Security  $security,
+        DataUserSession              $dataUserSession,
         private FormFactoryInterface $formFactory,
     )
     {
@@ -37,25 +37,26 @@ class PortfolioController extends BaseController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        //Récupérer les portfolios de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
+            //Récupérer les portfolios de l'utilisateur connecté
+            $etudiant = $this->security->getUser()->getEtudiant();
+            $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
 
-        return $this->render('portfolio/index.html.twig', [
-            'portfolios' => $portfolios,
-        ]);
+            return $this->render('portfolio/index.html.twig', [
+                'portfolios' => $portfolios,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 
     #[Route('/portfolio/show', name: 'app_portfolio_index')]
     public function indexShow(
-        Request             $request,
-        PortfolioRepository $portfolioRepository,
+        Request               $request,
+        PortfolioRepository   $portfolioRepository,
         CommentaireRepository $commentaireRepository,
-        TraceRepository $traceRepository,
+        TraceRepository       $traceRepository,
     ): Response
     {
         $data_user = $this->dataUserSession;
@@ -71,7 +72,6 @@ class PortfolioController extends BaseController
 
             //si un form en post est envoyé
             if ($_POST) {
-            dump($_POST);
                 $data = $_POST;
                 // vérifier que le form est un form de type CommentaireType
                 if (isset($data['commentaire'])) {
@@ -81,7 +81,7 @@ class PortfolioController extends BaseController
                         return $this->redirectToRoute('enseignant_dashboard');
                     } else {
                         $commentaire = new Commentaire();
-                        $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
+                        $commentaire->setContenu(htmlspecialchars(htmlspecialchars($data['commentaire']['contenu'])));
                         $commentaire->setEnseignant($enseignant);
                         $commentaire->setVisibilite($data['commentaire']['visibilite']);
                         $commentaire->setDateCreation(new \DateTime());
@@ -136,12 +136,15 @@ class PortfolioController extends BaseController
         switch ($step) {
 
             case 'portfolio' :
-                // Créez une instance de votre entité Commentaire
-                $commentaire = new Commentaire();
 
-                // Créez votre formulaire CommentaireType
-                $this->form = $this->formFactory->create(CommentaireType::class, $commentaire);
-                $this->commentForm = $this->form->createView();
+                if ($this->isGranted('ROLE_ENSEIGNANT')) {
+                    // Créez une instance de votre entité Commentaire
+                    $commentaire = new Commentaire();
+
+                    // Créez votre formulaire CommentaireType
+                    $this->form = $this->formFactory->create(CommentaireType::class, $commentaire);
+                    $this->commentForm = $this->form->createView();
+                }
                 //Récupérer les pages du portfolio
                 $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
                 $pages = [];
@@ -161,22 +164,34 @@ class PortfolioController extends BaseController
 
             case 'page' :
 
-                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                if ($this->isGranted('ROLE_ETUDIANT')) {
 
-                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
-                $traces = [];
-                foreach ($ordreTraces as $ordreTrace) {
-                    $traces[] = $ordreTrace->getTrace();
+                    $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                    $traces = [];
+                    foreach ($ordreTraces as $ordreTrace) {
+                        $traces[] = $ordreTrace->getTrace();
+                    }
+                } else {
+                    return $this->render('security/accessDenied.html.twig');
                 }
+
+                break;
 
             case 'evalPage' :
 
-                $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+                if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
-                $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
-                $traces = [];
-                foreach ($ordreTraces as $ordreTrace) {
-                    $traces[] = $ordreTrace->getTrace();
+                    $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
+
+                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                    $traces = [];
+                    foreach ($ordreTraces as $ordreTrace) {
+                        $traces[] = $ordreTrace->getTrace();
+                    }
+                } else {
+                    return $this->render('security/accessDenied.html.twig');
                 }
 
                 break;
@@ -204,54 +219,55 @@ class PortfolioController extends BaseController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $user = $security->getUser()->getEtudiant();
-        $annee = $user->getSemestre()->getAnnee();
-        $portfolio = new Portfolio();
+            $user = $security->getUser()->getEtudiant();
+            $annee = $user->getSemestre()->getAnnee();
+            $portfolio = new Portfolio();
 
-        $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
+            $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()
-        ) {
-            $portfolio->setEtudiant($user);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()
+            ) {
+                $portfolio->setEtudiant($user);
 
-            $imageFile = $form['banniere']->getData();
-            if ($imageFile) {
-                $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
-                //Vérifier si le fichier est au bon format
-                if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                    $imageFile->move('files_directory', $imageFileName);
+                $imageFile = $form['banniere']->getData();
+                if ($imageFile) {
+                    $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
+                    //Vérifier si le fichier est au bon format
+                    if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                        //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
+                        $imageFile->move('files_directory', $imageFileName);
 //                //Sauvegarder le contenu dans la base de données
-                    $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
-                } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                    $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
+                        $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                    } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                        $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
+                    }
+                } else {
+                    $portfolio->setBanniere('files_directory/banniere.jpg');
                 }
-            } else {
-                $portfolio->setBanniere('files_directory/banniere.jpg');
-            }
 
-            if ($form->get('visibilite')->getData() === true) {
-                $portfolios = $portfolioRepository->findBy(['annee' => $annee]);
-                foreach ($portfolios as $otherportfolio) {
-                    $otherportfolio->setVisibilite(false);
-                    $portfolioRepository->save($otherportfolio, true);
+                if ($form->get('visibilite')->getData() === true) {
+                    $portfolios = $portfolioRepository->findBy(['annee' => $annee]);
+                    foreach ($portfolios as $otherportfolio) {
+                        $otherportfolio->setVisibilite(false);
+                        $portfolioRepository->save($otherportfolio, true);
+                    }
+                    $portfolio->setVisibilite(true);
+                } elseif ($form->get('visibilite')->getData() === false) {
+                    $portfolio->setVisibilite(false);
                 }
-                $portfolio->setVisibilite(true);
-            } elseif ($form->get('visibilite')->getData() === false) {
-                $portfolio->setVisibilite(false);
+
+                $portfolio->setAnnee($annee);
+                $portfolio->setDateModification(new \DateTime('now'));
+
+                $portfolioRepository->save($portfolio, true);
+
+                return $this->redirectToRoute('app_portfolio_process_index', ['id' => $portfolio->getId()]);
             }
-
-            $portfolio->setAnnee($annee);
-            $portfolio->setDateModification(new \DateTime('now'));
-
-            $portfolioRepository->save($portfolio, true);
-
-            return $this->redirectToRoute('app_portfolio_process_index', ['id' => $portfolio->getId()]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
 
         return $this->render('portfolio/formPortfolio.html.twig', [
@@ -266,42 +282,46 @@ class PortfolioController extends BaseController
         int                 $id
     ): Response
     {
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+            $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
-
-        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
-
-        $portfolioRepository->remove($portfolio, true);
-        $document = $portfolio->getBanniere();
-        if ($document !== 'files_directory/banniere.jpg') {
-            unlink($document);
+            $portfolioRepository->remove($portfolio, true);
+            $document = $portfolio->getBanniere();
+            if ($document !== 'files_directory/banniere.jpg') {
+                unlink($document);
+            }
+            $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
+            return $this->redirectToRoute('app_portfolio');
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
-        $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
-        return $this->redirectToRoute('app_portfolio');
     }
 
-    #[Route('/portfolio/delete/{id}', name:'app_delete_commentaire')]
+    #[Route('enseignant/portfolio/delete/{id}', name: 'app_delete_commentaire')]
     public function deleteComment(
-        Request $request,
+        Request               $request,
         CommentaireRepository $commentaireRepository
     )
     {
-        $commentaireId = $request->get('id');
-        $commentaire = $commentaireRepository->find($commentaireId);
-        $commentaireRepository->remove($commentaire, true);
+        if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
-        $this->addFlash('success', 'Commentaire supprimé avec succès !');
+            $commentaireId = $request->get('id');
+            $commentaire = $commentaireRepository->find($commentaireId);
+            $commentaireRepository->remove($commentaire, true);
 
-        // Si la requête venait d'une page de portfolio, on redirige vers cette page
-        if ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'portfolio/show')) {
-            return $this->redirect($request->headers->get('referer'));
-        } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'dashboard/enseignant')) {
-            return $this->redirect($request->headers->get('referer'));
+            $this->addFlash('success', 'Commentaire supprimé avec succès !');
+
+            // Si la requête venait d'une page de portfolio, on redirige vers cette page
+            if ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'portfolio/show')) {
+                return $this->redirect($request->headers->get('referer'));
+            } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'dashboard/enseignant')) {
+                return $this->redirect($request->headers->get('referer'));
+            } else {
+                return $this->redirectToRoute('app_portfolio');
+            }
         } else {
-            return $this->redirectToRoute('app_portfolio');
+            return $this->render('security/accessDenied.html.twig');
         }
     }
 }

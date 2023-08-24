@@ -19,6 +19,7 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      access_denied_handler: App\Security\AccessDeniedHandler
       lazy: true
       provider: app_user_provider
       logout:
@@ -43,9 +44,9 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-#    - todo: appliquer pour toutes les routes
     - { path: ^/admin, roles: ROLE_ADMIN }
-#   - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/etudiant, roles: ROLE_ETUDIANT }
+    - { path: ^/enseignant, roles: ROLE_ENSEIGNANT }
 
 when@test:
   security:

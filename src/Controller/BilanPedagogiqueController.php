@@ -36,28 +36,18 @@ class BilanPedagogiqueController extends AbstractController
     #[Route('/bilan-pedagogique', name: 'app_bilan_pedagogique')]
     public function index(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ETUDIANT');
 
-        //Récupérer les portfolios de l'utilisateur connecté
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant]);
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-//        $ordrePages = $this->ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
-//        $pages = [];
-//        foreach ($ordrePages as $ordrePage) {
-//            $pages[] = $ordrePage->getPage();
-//        }
-//
-//        $traces = [];
-//        foreach ($pages as $page) {
-//            $ordreTraces = $this->ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
-//            foreach ($ordreTraces as $ordreTrace) {
-//                $traces[] = $ordreTrace->getTrace();
-//            }
-//        }
+            //Récupérer les portfolios de l'utilisateur connecté
+            $etudiant = $this->security->getUser()->getEtudiant();
+            $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant]);
 
-        return $this->render('bilan_pedagogique/index.html.twig', [
-            'portfolios' => $portfolios,
-        ]);
+            return $this->render('bilan_pedagogique/index.html.twig', [
+                'portfolios' => $portfolios,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 }

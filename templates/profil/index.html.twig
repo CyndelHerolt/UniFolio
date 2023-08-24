@@ -22,7 +22,7 @@
                 <div class="row">
                     <article class="col-lg-7 col-12">
                         <div class="btn-profil">
-                            <a href="{{ path('app_profil_edit_edit', {'id': app.user.etudiant.id}) }}">
+                            <a href="{{ path('app_profil_edit', {'id': app.user.etudiant.id}) }}">
                                 <button>Editer le profil</button>
                             </a>
                         </div>
@@ -65,7 +65,7 @@
                 <div class="row">
                     <article class="col-lg-7 col-12">
                         <div class="btn-profil">
-                            <a href="{{ path('app_profil_edit_edit', {'id': app.user.enseignant.id}) }}">
+                            <a href="{{ path('app_profil_edit', {'id': app.user.enseignant.id}) }}">
                                 <button>Editer le profil</button>
                             </a>
                         </div>
@@ -92,19 +92,4 @@
 
         {% endif %}
     </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-6">
-                    <h2>UniFolio</h2>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <p>Institut Universitaire de technologie de Troyes</p>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <p>© Cyndel Herolt - IUT de Troyes. 2023</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 {% endblock %}

@@ -46,39 +46,40 @@ class TraceController extends BaseController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $user = $this->security->getUser()->getEtudiant();
+            $user = $this->security->getUser()->getEtudiant();
 
-        $semestre = $user->getSemestre();
-        $annee = $semestre->getAnnee();
+            $semestre = $user->getSemestre();
+            $annee = $semestre->getAnnee();
 
-        $dept = $this->dataUserSession->getDepartement();
+            $dept = $this->dataUserSession->getDepartement();
 
-        $referentiel = $dept->getApcReferentiels();
+            $referentiel = $dept->getApcReferentiels();
 
-        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+            $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
-        foreach ($competences as $competence) {
-            $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-        }
-
-        foreach ($niveaux as $niveau) {
-            foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv;
+            foreach ($competences as $competence) {
+                $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
             }
+
+            foreach ($niveaux as $niveau) {
+                foreach ($niveau as $niv) {
+                    $competencesNiveau[] = $niv;
+                }
+            }
+
+            $competenceId = $request ? $request->query->get('competence') : null;
+            $competence = $this->apcNiveauRepository->findOneBy(['id' => $competenceId]);
+
+            return $this->render('trace/index.html.twig', [
+                'typesTraces' => $traceRegistry->getTypeTraces(),
+                'competences' => $competencesNiveau,
+                'competence' => $competence,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
-
-        $competenceId = $request ? $request->query->get('competence') : null;
-        $competence = $this->apcNiveauRepository->findOneBy(['id' => $competenceId]);
-
-        return $this->render('trace/index.html.twig', [
-            'typesTraces' => $traceRegistry->getTypeTraces(),
-            'competences' => $competencesNiveau,
-            'competence'  => $competence,
-        ]);
     }
 
     #[Route('/trace/formulaire/{id}', name: 'app_trace_new')]
@@ -92,78 +93,76 @@ class TraceController extends BaseController
         string               $id,
     ): Response
     {
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
-        //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
-        $traceType = $traceRegistry->getTypeTrace($id);
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $user = $security->getUser()->getEtudiant();
+            //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
+            $traceType = $traceRegistry->getTypeTrace($id);
 
-        $semestre = $user->getSemestre();
-        $annee = $semestre->getAnnee();
+            $user = $security->getUser()->getEtudiant();
 
-        $dept = $this->dataUserSession->getDepartement();
+            $semestre = $user->getSemestre();
+            $annee = $semestre->getAnnee();
 
-        $referentiel = $dept->getApcReferentiels();
+            $dept = $this->dataUserSession->getDepartement();
 
-        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+            $referentiel = $dept->getApcReferentiels();
 
-//        dd($competences);
+            $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
-        foreach ($competences as $competence) {
-            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-        }
-
-        foreach ($niveaux as $niveau) {
-            foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv->getLibelle();
+            foreach ($competences as $competence) {
+                $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
             }
-        }
-
-//        dd($competencesNiveau);
-
-        $trace = new Trace();
-        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
-        $trace->setTypetrace($id);
-        $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $competencesForm = $form->get('competences')->getData();
-            $niveaux = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
 
             foreach ($niveaux as $niveau) {
-                $validation = new Validation();
-                $validation->setEtat(0);
-                $niveau->addValidation($validation);
-                $trace->addValidation($validation);
+                foreach ($niveau as $niv) {
+                    $competencesNiveau[] = $niv->getLibelle();
+                }
             }
 
-            $existingTrace = null;
+            $trace = new Trace();
+            $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+            $trace->setTypetrace($id);
+            $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
 
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['success']) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-                //Lier la trace à la Bibliotheque de l'utilisateur connecté
-                $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
-                $trace->setBibliotheque($biblio);
+                $competencesForm = $form->get('competences')->getData();
+                $niveaux = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
+
+                foreach ($niveaux as $niveau) {
+                    $validation = new Validation();
+                    $validation->setEtat(0);
+                    $niveau->addValidation($validation);
+                    $trace->addValidation($validation);
+                }
+
+                $existingTrace = null;
+
+                if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['success']) {
+
+                    //Lier la trace à la Bibliotheque de l'utilisateur connecté
+                    $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
+                    $trace->setBibliotheque($biblio);
 
 //                $trace->addValidation($validation);
 
-                $traceRepository->save($trace, true);
-                $this->addFlash('success', 'La trace a été enregistrée avec succès.');
-                return $this->redirectToRoute('app_trace');
-            } else {
-                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['error'];
-                $this->addFlash('error', $error);
+                    $traceRepository->save($trace, true);
+                    $this->addFlash('success', 'La trace a été enregistrée avec succès.');
+                    return $this->redirectToRoute('app_trace');
+                } else {
+                    $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['error'];
+                    $this->addFlash('error', $error);
+                }
             }
+            return $this->render('trace/formTrace.html.twig', [
+                'form' => $form->createView(),
+                'trace' => $traceRegistry->getTypeTrace($id),
+                'competences' => $competencesNiveau,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
-        return $this->render('trace/formTrace.html.twig', [
-            'form' => $form->createView(),
-            'trace' => $traceRegistry->getTypeTrace($id),
-            'competences' => $competencesNiveau,
-        ]);
     }
 
     #[Route('/trace/edit/{id}', name: 'app_trace_edit')]
@@ -179,173 +178,174 @@ class TraceController extends BaseController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $trace = $traceRepository->find($id);
-        $user = $security->getUser()->getEtudiant();
+            $trace = $traceRepository->find($id);
+            $user = $security->getUser()->getEtudiant();
 
 
-        $semestre = $user->getSemestre();
-        $annee = $semestre->getAnnee();
+            $semestre = $user->getSemestre();
+            $annee = $semestre->getAnnee();
 
-        $dept = $this->dataUserSession->getDepartement();
+            $dept = $this->dataUserSession->getDepartement();
 
-        $referentiel = $dept->getApcReferentiels();
+            $referentiel = $dept->getApcReferentiels();
 
-        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-        foreach ($competences as $competence) {
-            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-        }
-
-        foreach ($niveaux as $niveau) {
-            foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv->getLibelle();
-            }
-        }
-
-        if (!$trace) {
-            throw $this->createNotFoundException('Trace non trouvée.');
-        }
-
-        $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
-        $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
-
-        $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
-
-        $existingCompetences = [];
-        foreach ($trace->getValidations() as $validation) {
-            $existingCompetences[] = $validation->getApcNiveau()->getLibelle();
-        }
-
-        // Pré remplissage du formulaire
-        $form->get('competences')->setData($existingCompetences);
-
-        $ordreOrigine = $trace->getOrdre();
-
-        //Récupérer les images existantes dans la db
-        $FileOrigine = $trace->getContenu();
-
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $competencesForm = $form->get('competences')->getData();
-            $competences = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
-            $validations = $trace->getValidations();
+            $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
             foreach ($competences as $competence) {
-
-                // Si la compétence n'est pas déjà liée à la trace
-                if (!in_array($competence->getLibelle(), $existingCompetences)) {
-                    $validation = new Validation();
-                    $validation->setEtat(0);
-                    $competence->addValidation($validation);
-                    $trace->addValidation($validation);
-                }
-
-                // supprimer les validations des compétences non sélectionnées
-                foreach ($validations as $validation) {
-                    if (!in_array($validation->getApcNiveau()->getLibelle(), $competencesForm)) {
-                        $validation->getApcNiveau()->removeValidation($validation);
-                        $trace->removeValidation($validation);
-                        $validationRepository->remove($validation);
-                    }
-                }
-
+                $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
             }
 
+            foreach ($niveaux as $niveau) {
+                foreach ($niveau as $niv) {
+                    $competencesNiveau[] = $niv->getLibelle();
+                }
+            }
 
-            if ($trace->getTypetrace() == TraceTypeImage::class
-            ) {
-                if ($request->request->get('contenu') == null) {
-                    if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
-                        $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
-                        return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                    } elseif (isset($request->request->All()['img'])) {
+            if (!$trace) {
+                throw $this->createNotFoundException('Trace non trouvée.');
+            }
+
+            $traceType = $traceRegistry->getTypeTrace($trace->getTypetrace());
+            $traces = $traceRepository->findBy(['bibliotheque' => $this->bibliothequeRepository->findOneBy(['etudiant' => $user])]);
+
+            $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
+
+            $existingCompetences = [];
+            foreach ($trace->getValidations() as $validation) {
+                $existingCompetences[] = $validation->getApcNiveau()->getLibelle();
+            }
+
+            // Pré remplissage du formulaire
+            $form->get('competences')->setData($existingCompetences);
+
+            $ordreOrigine = $trace->getOrdre();
+
+            //Récupérer les images existantes dans la db
+            $FileOrigine = $trace->getContenu();
+
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $competencesForm = $form->get('competences')->getData();
+                $competences = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
+                $validations = $trace->getValidations();
+
+                foreach ($competences as $competence) {
+
+                    // Si la compétence n'est pas déjà liée à la trace
+                    if (!in_array($competence->getLibelle(), $existingCompetences)) {
+                        $validation = new Validation();
+                        $validation->setEtat(0);
+                        $competence->addValidation($validation);
+                        $trace->addValidation($validation);
+                    }
+
+                    // supprimer les validations des compétences non sélectionnées
+                    foreach ($validations as $validation) {
+                        if (!in_array($validation->getApcNiveau()->getLibelle(), $competencesForm)) {
+                            $validation->getApcNiveau()->removeValidation($validation);
+                            $trace->removeValidation($validation);
+                            $validationRepository->remove($validation);
+                        }
+                    }
+
+                }
+
+
+                if ($trace->getTypetrace() == TraceTypeImage::class
+                ) {
+                    if ($request->request->get('contenu') == null) {
+                        if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
+                            $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
+                            return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
+                        } elseif (isset($request->request->All()['img'])) {
 //                        $this->addFlash('success', 'HELLO');
+                            $existingImages = $request->request->All()['img'];
+                            $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                        } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['img'])) {
+//                        dd($form->get('contenu')->getData());
+                            $trace->setContenu($request->request->get('contenu'));
+                        }
+                    } else {
                         $existingImages = $request->request->All()['img'];
                         $trace->setContenu(array_intersect($existingImages, $FileOrigine));
-                    } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['img'])) {
-//                        dd($form->get('contenu')->getData());
-                        $trace->setContenu($request->request->get('contenu'));
                     }
-                } else {
-                    $existingImages = $request->request->All()['img'];
-                    $trace->setContenu(array_intersect($existingImages, $FileOrigine));
-                }
-            } elseif ($trace->getTypetrace() == TraceTypePdf::class
-            ) {
-                if ($request->request->get('contenu') == null) {
-                    if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
-                        $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
-                        return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
-                    } elseif (isset($request->request->All()['pdf'])) {
+                } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                ) {
+                    if ($request->request->get('contenu') == null) {
+                        if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
+                            $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
+                            return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
+                        } elseif (isset($request->request->All()['pdf'])) {
 //                        $this->addFlash('success', 'HELLO');
-                        $existingImages = $request->request->All()['pdf'];
-                        $trace->setContenu(array_intersect($existingImages, $FileOrigine));
-                    } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
+                            $existingImages = $request->request->All()['pdf'];
+                            $trace->setContenu(array_intersect($existingImages, $FileOrigine));
+                        } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
 //                        dd($form->get('contenu')->getData());
-                        $trace->setContenu($request->request->get('contenu'));
+                            $trace->setContenu($request->request->get('contenu'));
+                        }
+                    } else {
+                        $existingPdf = $request->request->All()['pdf'];
+                        $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
+                    }
+                }
+
+                if ($trace->getTypetrace() == TraceTypeImage::class
+                ) {
+                    if (isset($request->request->All()['img'])) {
+                        $existingContenu = $request->request->All()['img'];
+                    } else {
+                        $existingContenu = null;
+                    }
+                } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                ) {
+                    if (isset($request->request->All()['pdf'])) {
+                        $existingContenu = $request->request->All()['pdf'];
+                    } else {
+                        $existingContenu = null;
+                    }
+                } elseif ($trace->getTypetrace() == TraceTypeLien::class
+                ) {
+                    if (isset($request->request->All()['trace_type_lien']['contenu'])) {
+                        $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
+                    } else {
+                        $existingContenu = null;
+                    }
+                } elseif ($trace->getTypetrace() == TraceTypeVideo::class
+                ) {
+//                dd($request->request->All()['trace_type_video']['contenu']);
+                    if (isset($request->request->All()['trace_type_video']['contenu'])) {
+                        $existingContenu = $request->request->All()['trace_type_video']['contenu'];
+                    } else {
+                        $existingContenu = null;
                     }
                 } else {
-                    $existingPdf = $request->request->All()['pdf'];
-                    $trace->setContenu(array_intersect($existingPdf, $FileOrigine));
+                    $existingContenu = null;
+                }
+
+                if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
+
+                    $form->getData()->setDatemodification(new \DateTimeImmutable());
+                    $traceRepository->save($trace, true);
+                    $this->addFlash('success', 'La trace a été modifiée avec succès.');
+                    return $this->redirectToRoute('app_trace');
+                } else {
+                    $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['error'];
+                    $this->addFlash('error', $error);
                 }
             }
 
-            if ($trace->getTypetrace() == TraceTypeImage::class
-            ) {
-                if (isset($request->request->All()['img'])) {
-                    $existingContenu = $request->request->All()['img'];
-                } else {
-                    $existingContenu = null;
-                }
-            } elseif ($trace->getTypetrace() == TraceTypePdf::class
-            ) {
-                if (isset($request->request->All()['pdf'])) {
-                    $existingContenu = $request->request->All()['pdf'];
-                } else {
-                    $existingContenu = null;
-                }
-            } elseif ($trace->getTypetrace() == TraceTypeLien::class
-            ) {
-                if (isset($request->request->All()['trace_type_lien']['contenu'])) {
-                    $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
-                } else {
-                    $existingContenu = null;
-                }
-            } elseif ($trace->getTypetrace() == TraceTypeVideo::class
-            ) {
-//                dd($request->request->All()['trace_type_video']['contenu']);
-                if (isset($request->request->All()['trace_type_video']['contenu'])) {
-                    $existingContenu = $request->request->All()['trace_type_video']['contenu'];
-                } else {
-                    $existingContenu = null;
-                }
-            } else {
-                $existingContenu = null;
-            }
-
-            if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
-
-                $form->getData()->setDatemodification(new \DateTimeImmutable());
-                $traceRepository->save($trace, true);
-                $this->addFlash('success', 'La trace a été modifiée avec succès.');
-                return $this->redirectToRoute('app_trace');
-            } else {
-                $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['error'];
-                $this->addFlash('error', $error);
-            }
+            return $this->render('trace/formTrace.html.twig', [
+                'form' => $form->createView(),
+                'trace' => $trace,
+                'competences' => $competence,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
-
-        return $this->render('trace/formTrace.html.twig', [
-            'form' => $form->createView(),
-            'trace' => $trace,
-            'competences' => $competence,
-        ]);
     }
 
     #[
@@ -358,47 +358,52 @@ class TraceController extends BaseController
     ): Response
     {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $trace = $traceRepository->find($id);
-        $type = $trace->getTypetrace();
+            $trace = $traceRepository->find($id);
+            $type = $trace->getTypetrace();
 
-        //Si la trace est de type image ou pdf, il faut supprimer le fichier
-        if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
-            $document = $trace->getContenu();
-            foreach ($document as $doc) {
-                unlink($doc);
+            //Si la trace est de type image ou pdf, il faut supprimer le fichier
+            if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
+                $document = $trace->getContenu();
+                foreach ($document as $doc) {
+                    unlink($doc);
+                }
             }
-        }
 
-        if ($trace->getOrdreTrace()) {
-            $ordreTraceRepository->remove($trace->getOrdreTrace(), true);
-        }
+            if ($trace->getOrdreTrace()) {
+                $ordreTraceRepository->remove($trace->getOrdreTrace(), true);
+            }
 
-        $traceRepository->remove($trace, true);
-        $this->addFlash('success', 'La trace a été supprimée avec succès.');
-        return $this->redirectToRoute('app_trace');
+            $traceRepository->remove($trace, true);
+            $this->addFlash('success', 'La trace a été supprimée avec succès.');
+            return $this->redirectToRoute('app_trace');
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 
     #[Route('/trace/show', name: 'app_trace_index')]
     public function indexShow(
-        Request $request,
+        Request         $request,
         TraceRepository $traceRepository,
     ): Response
     {
+        if ($this->isGranted('ROLE_ETUDIANT')) {
 
-        $id = $request->query->get('id');
+            $id = $request->query->get('id');
 
-        $etudiant = $this->security->getUser()->getEtudiant();
-        $trace = $traceRepository->findOneBy(['id' => $id]);
+            $etudiant = $this->security->getUser()->getEtudiant();
+            $trace = $traceRepository->findOneBy(['id' => $id]);
 
-        return $this->render('trace/show.html.twig', [
-            'step' => 'trace',
-            'id' => $id,
-            'trace' => $trace,
-            'etudiant' => $etudiant,
-        ]);
+            return $this->render('trace/show.html.twig', [
+                'step' => 'trace',
+                'id' => $id,
+                'trace' => $trace,
+                'etudiant' => $etudiant,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 }

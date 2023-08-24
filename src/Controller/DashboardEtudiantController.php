@@ -61,9 +61,8 @@ class DashboardEtudiantController extends BaseController
                     'data_user' => $data_user,
                 ]);
             }
-        } else {
-
-            return $this->redirectToRoute('app_dashboard');
+        }  else {
+            return $this->render('security/accessDenied.html.twig');
         }
     }
 }
