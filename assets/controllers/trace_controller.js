@@ -194,6 +194,20 @@ export default class extends Controller {
         //remplacer le contenu de la zone de trace définie dans page_controller.js par le contenu de la réponse
         this.stepZoneTarget.innerHTML = await response.text()
 
+        // initialisez chaque type de CKEditor si l'élément existe dans le DOM.
+        if (document.getElementById('trace_type_image_description')) {
+            this.initializeCKEditorForId('trace_type_image_description');
+        }
+        if (document.getElementById('trace_type_lien_description')) {
+            this.initializeCKEditorForId('trace_type_lien_description');
+        }
+        if (document.getElementById('trace_type_pdf_description')) {
+            this.initializeCKEditorForId('trace_type_pdf_description');
+        }
+        if (document.getElementById('trace_type_video_description')) {
+            this.initializeCKEditorForId('trace_type_video_description');
+        }
+
         // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ contenu
         const addButtonImage = document.querySelector('.add-image');
         if (addButtonImage) {
