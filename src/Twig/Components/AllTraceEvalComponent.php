@@ -5,6 +5,7 @@ namespace App\Twig\Components;
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
 use App\Entity\Commentaire;
+use App\Entity\Departement;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Trace;
@@ -32,6 +33,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use App\Classes\DataUserSession;
+
 
 #[AsLiveComponent('AllTraceEvalComponent')]
 final class AllTraceEvalComponent extends BaseController
@@ -80,16 +83,17 @@ final class AllTraceEvalComponent extends BaseController
         public DepartementRepository $departementRepository,
         public CompetenceRepository  $competenceRepository,
         public ApcNiveauRepository   $apcNiveauRepository,
-        public EtudiantRepository    $etudiantRepository,
-        public GroupeRepository      $groupeRepository,
-        public SemestreRepository    $semestreRepository,
-        public AnneeRepository       $anneeRepository,
-        public TypeGroupeRepository  $typeGroupeRepository,
-        public ValidationRepository  $validationRepository,
-        public CommentaireRepository $commentaireRepository,
-        #[Required] public Security  $security,
-        RequestStack                 $requestStack,
-        private FormFactoryInterface $formFactory,
+        public EtudiantRepository              $etudiantRepository,
+        public GroupeRepository                $groupeRepository,
+        public SemestreRepository              $semestreRepository,
+        public AnneeRepository                 $anneeRepository,
+        public TypeGroupeRepository            $typeGroupeRepository,
+        public ValidationRepository            $validationRepository,
+        public CommentaireRepository           $commentaireRepository,
+        #[Required] public Security            $security,
+        RequestStack                           $requestStack,
+        private FormFactoryInterface           $formFactory,
+        protected DataUserSession $dataUserSession,
     )
     {
         $this->requestStack = $requestStack;
@@ -288,7 +292,9 @@ final class AllTraceEvalComponent extends BaseController
 
     public function getAllTrace()
     {
-        $traces = $this->traceRepository->findByFilters($this->selectedAnnee, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
+        $dept = $this->dataUserSession->getDepartement();
+
+        $traces = $this->traceRepository->findByFilters($dept, $this->selectedAnnee, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
 
         if ($traces == null) {
             $this->currentPage = 0;

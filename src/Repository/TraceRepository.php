@@ -53,7 +53,7 @@ class TraceRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function findByFilters(int $annee = null, array $competences = [], array $groupes = [], array $etudiants = []): array
+    public function findByFilters($dept, int $annee = null, array $competences = [], array $groupes = [], array $etudiants = []): array
     {
         $qb = $this->createQueryBuilder('t')
             ->innerJoin('t.validations', 'v')
@@ -63,7 +63,12 @@ class TraceRepository extends ServiceEntityRepository
             ->join('e.groupe', 'g')
             ->join('g.type_groupe', 'tg')
             ->join('tg.semestre', 's')
-            ->join('s.annee', 'a');
+            ->join('s.annee', 'a')
+            ->join('a.diplome', 'd')
+            ->join('d.departement', 'dep')
+            ->where('dep.id = :departement')
+            ->setParameter('departement', $dept)
+            ;
         if (!empty($annee)) {
             $qb->andWhere('a.id = :annee')
                 ->setParameter('annee', $annee);
