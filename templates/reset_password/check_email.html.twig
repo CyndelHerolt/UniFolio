@@ -3,9 +3,29 @@
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Réinitialisation du mot de passe</li>
+        </ol>
+    </nav>
+    <div class="container account">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+                <h1>Réinitialisation du mot de passe</h1>
+                <hr>
+                <p>
+                    Si un compte correspondant à votre adresse e-mail existe, un e-mail vient d'être envoyé contenant un
+                    lien que vous pouvez utiliser pour réinitialiser votre mot de passe. Ce lien expirera dans 1 heure.
+                </p>
+                <p>Si vous ne recevez pas cet email, vérifiez vos spams ou <a
+                            href="{{ path('app_forgot_password_request') }}">réessayez</a>. Si le problème persiste, contactez l'administrateur du site</p>
+                <div class="form-group">
+                    <p><a href="{{ path('app_login') }}">Retour au formulaire de Connexion</a></p>
+                    <p><a href="{{ path('app_users_new') }}">Retour au formulaire d'Inscription</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

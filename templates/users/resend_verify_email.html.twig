@@ -17,11 +17,15 @@
         <div class="row">
             <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
                 <h1>Vérification de votre compte</h1>
-                <p>Veuillez renseigner votre adresse mail universitaire.</p>
                 <form action="{{ path('app_verify_resend_email') }}" method="post">
                     <div class="form-group">
                         <label for="email-univ" class="form-label">adresse mail</label>
                         <input type="email" id="email-univ" name="mail-univ" class="form-control">
+                        <div>
+                            <small>
+                                Veuillez renseigner votre adresse mail universitaire.
+                            </small>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Envoyer</button>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

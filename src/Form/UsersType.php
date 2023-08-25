@@ -19,26 +19,26 @@ class UsersType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'Login URCA',
                 'help' => 'Le login que vous utilisez habituellement pour vous connecter aux services de l\'URCA',
-//                'constraints' => [
-//                    new NotBlank([
-//                        'message' => 'Veuillez saisir votre login URCA',
-//                    ]),
-//                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre login URCA',
+                    ]),
+                ],
 
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
-//                'constraints' => [
-//                    new NotBlank([
-//                        'message' => 'Veuillez saisir votre mot de passe',
-//                    ]),
-//                    new Length([
-//                        'min' => 6,
-//                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-//                        // max length allowed by Symfony for security reasons
-//                        'max' => 4096,
-//                    ]),
-//                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre mot de passe',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
                 'help' => 'Votre mot de passe doit contenir au moins 6 caractères',
             ]);
     }

@@ -135,8 +135,11 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
-//        dump($user);
-//        die();
+        if ($user->getEtudiant()) {
+            $userInfos = $user->getEtudiant();
+        } elseif ($user->getPersonnel()) {
+            $userInfos = $user->getEnseignant();
+        }
 
         // Do not reveal whether a user account was found or not.
         if (!$user) {
@@ -162,17 +165,15 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('cyndelherolt@gmail.com', 'UniFolio Mail Bot'))
+            ->from(new Address('ne-pas-repondre@univ-reims.fr', 'UniFolio Mail Bot'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('UniFolio - Demande de réinitialisation de mot de passe')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
+                'user' => $userInfos,
             ])
         ;
-
-//        dump($email);
-//        die();
 
         $mailer->send($email);
 

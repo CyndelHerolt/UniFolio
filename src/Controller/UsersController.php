@@ -187,8 +187,6 @@ class UsersController extends AbstractController
 
     }
 
-    // TODO: faire une nouvelle méthode appelée par le bouton "Renvoyer le mail de vérification"
-
     #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
     public function show(Users $user): Response
     {
