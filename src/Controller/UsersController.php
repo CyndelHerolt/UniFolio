@@ -150,18 +150,39 @@ class UsersController extends AbstractController
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
     public function resendVerifyEmail(
         Request                    $request,
+        MailerService              $mailerService,
+        VerifyEmailHelperInterface $verifyEmailHelper,
+        UsersRepository            $usersRepository,
     )
     {
-//        dd($_SERVER['REQUEST_METHOD']);
 
-//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // récupérer les données du formulaire
+            $mail = $request->request->get('mail-univ');
 
-        $login = $request->query->get('login');
+            $user = $usersRepository->findOneBy(['email' => $mail]);
+
+            if ($user && $user->getIsVerified() === false) {
+                $signatureComponents = $verifyEmailHelper->generateSignature(
+                    'app_verify_email',
+                    $user->getUsername(),
+                    $user->getEmail(),
+                    ['id' => $user->getUsername()]
+                );
+                $mailerService->sendMail(
+                    $mail,
+                    'Vérification de compte UniFolio',
+                    'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
+                );
+                $this->addFlash('success', 'Un nouveau mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
+            } elseif (!$user) {
+                $this->addFlash('danger', 'Aucun compte n\'est associé à cette adresse mail.');
+            } elseif ($user->getIsVerified() === true) {
+                $this->addFlash('danger', 'Votre compte est déjà vérifié. Si vous ne parvenez toujours pas à vous connecter, veuillez contacter l\'administrateur du site.');
+            }
+        }
 
         return $this->render('users/resend_verify_email.html.twig', [
-            'login' => $login,
         ]);
 
     }

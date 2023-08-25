@@ -53,7 +53,6 @@ class UserSynchro extends AbstractController
                     return $etudiant['username'] === $login;
                 });
                 foreach ($etudiant as $data) {
-                    // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
                     $mailEtudiant = $data['mail_univ'];
                     $signatureComponents = $verifyEmailHelper->generateSignature(
                         'app_verify_email',
@@ -69,7 +68,6 @@ class UserSynchro extends AbstractController
                 }
                 return true;
             }
-//            dd($response);
             return false;
     }
 
