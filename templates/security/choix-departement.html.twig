@@ -7,40 +7,44 @@
     {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Choix du département</h1>
-    <section>
-        <div class="row">
-            <p>Veuillez définir votre formation par défaut</p>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Choix du département</li>
+    </ol>
+</nav>
+<div class="container account">
+    <div class="row">
+        <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+            <h1>Veuillez définir votre formation par défaut</h1>
             <small>Vous pourrez modifier ce choix dans vos paramètres.</small>
+        <form class="form" method="post" action="{{ path('app_choix_departement') }}">
+            <div class="row choix-dept">
+                {% for departement in departements %}
+                    <div class="col-4 d-grid d-block mt-2">
+                        <input type="radio"
+                               class="btn-check"
+                               name="departement"
+                               value="{{ departement.departement.id }}"
+                               id="departement_{{ departement.id }}"
+                               autocomplete="off">
+                        <label class="btn btn-primary" for="departement_{{ departement.id }}">
+                            {{ departement.departement.libelle }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            <p>Si le département n'apparaît pas dans la liste, merci de contacter le responsable de ce département
+                .</p>
+            <div class="d-grid col-12 d-block mt-2">
+                <button class="btn btn-bold btn-primary" type="submit"><i class="fas fa-save me-2"></i>
+                    Enregistrer
+                </button>
+            </div>
+        </form>
         </div>
-    </section>
+    </div>
 </div>
-
-    <form class="form" method="post" action="{{ path('app_choix_departement') }}">
-        <div class="row">
-            {% for departement in departements %}
-                <div class="col-4 d-grid d-block mt-2">
-                    <input type="radio"
-                           class="btn-check"
-                           name="departement"
-                           value="{{ departement.departement.id }}"
-                           id="departement_{{ departement.id }}"
-                           autocomplete="off">
-                    <label class="btn btn-outline-primary" for="departement_{{ departement.id }}">
-                        {{ departement.departement.libelle }}
-                    </label>
-                </div>
-            {% endfor %}
-        </div>
-        <br>
-        <p>Si le département n'apparaît pas dans la liste, merci de contacter le responsable de ce département
-            .</p>
-        <div class="d-grid col-12 d-block mt-2">
-            <button class="btn btn-bold btn-primary" type="submit"><i class="fas fa-save me-2"></i>
-                Enregistrer
-            </button>
-        </div>
-    </form>
 
 {% endblock %}

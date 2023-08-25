@@ -188,6 +188,11 @@ label.required::after {
 .account {
   padding: 0 !important;
 
+  .choix-dept {
+    display: flex;
+    justify-content: space-evenly !important;
+  }
+
   .row {
     justify-content: space-between;
     margin: 0;

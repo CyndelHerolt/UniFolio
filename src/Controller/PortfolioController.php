@@ -315,7 +315,7 @@ class PortfolioController extends BaseController
             // Si la requête venait d'une page de portfolio, on redirige vers cette page
             if ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'portfolio/show')) {
                 return $this->redirect($request->headers->get('referer'));
-            } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'dashboard/enseignant')) {
+            } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'enseignant/dashboard')) {
                 return $this->redirect($request->headers->get('referer'));
             } else {
                 return $this->redirectToRoute('app_portfolio');

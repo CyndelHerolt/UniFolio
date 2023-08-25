@@ -15,9 +15,6 @@
                             <a class="nav-link" aria-current="page"
                                href="{{ path('app_dashboard') }}">Tableau de bord</a>
                         </li>
-                        <li class="nav-item inactive">
-                            <a class="nav-link" href="#">Documentation</a>
-                        </li>
                         <li class="nav-item dropdown {% if 'bibliotheque' in app.request.uri %}active {% else %} inactive{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bibliothèque
@@ -31,6 +28,9 @@
                         <li class="nav-item {% if 'bilan' in app.request.uri %}active {% else %} inactive{% endif %}">
                             <a class="nav-link" aria-current="page"
                                href="{{ path('app_bilan_pedagogique') }}">Bilan pédagogique</a>
+                        </li>
+                        <li class="nav-item inactive">
+                            <a class="nav-link" href="{{ path('app_documentation') }}">Documentation</a>
                         </li>
                         <li class="nav-item inactive">
                             <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/" target="_blank">Référentiel de compétences</a>
@@ -58,8 +58,12 @@
                             <a class="nav-link" aria-current="page"
                                href="{{ path('app_dashboard') }}">Tableau de bord</a>
                         </li>
+                        <li class="nav-item {% if 'bilan' in app.request.uri %}active {% else %} inactive{% endif %}">
+                            <a class="nav-link" aria-current="page"
+                               href="{{ path('app_bilan_eval') }}">Bilan pédagogique</a>
+                        </li>
                         <li class="nav-item inactive">
-                            <a class="nav-link" href="#">Documentation</a>
+                            <a class="nav-link" href="{{ path('app_documentation') }}">Documentation</a>
                         </li>
                         <li class="nav-item inactive">
                             <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/" target="_blank">Référentiel de compétences</a>
