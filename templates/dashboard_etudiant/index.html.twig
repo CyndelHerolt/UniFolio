@@ -52,7 +52,20 @@
             <article class="row g-4">
                 <h1>Derniers retours pédagogiques</h1>
                 <em>Les derniers commentaires et dernières validations de compétences.</em>
-                                {{ component('AllRetourPedagogiqueComponent') }}
+                <div>
+                    <i class="fa-solid fa-hourglass-half"
+                       style="color: #4c008b"></i> En attente de validation
+                    ·
+                    <i class="fa-solid fa-xmark"
+                       style="color: red"></i> Non acquis
+                    ·
+                    <i class="fa-solid fa-arrow-up"
+                       style="color: orange"></i> En cours d'acquisition
+                    ·
+                    <i class="fa-solid fa-check"
+                       style="color: limegreen"></i> Acquis
+                </div>
+                {{ component('AllRetourPedagogiqueComponent') }}
             </article>
         </section>
     </div>
@@ -62,6 +75,19 @@
             <article class="row g-4">
                 <h1>Dernières traces créées</h1>
                 <em>Les dernières traces que vous avez créées et les compétences associées.</em>
+                <div>
+                    <i class="fa-solid fa-hourglass-half"
+                        style="color: #4c008b"></i> En attente de validation
+                    ·
+                    <i class="fa-solid fa-xmark"
+                       style="color: red"></i> Non acquis
+                    ·
+                    <i class="fa-solid fa-arrow-up"
+                       style="color: orange"></i> En cours d'acquisition
+                    ·
+                    <i class="fa-solid fa-check"
+                       style="color: limegreen"></i> Acquis
+                </div>
                 {{ component('all_trace') }}
                 <!-- Button trigger modal -->
                 <div class="btn-group" style="margin-top: 1.5rem">
