@@ -292,6 +292,7 @@ final class AllTraceEvalComponent extends BaseController
 
     public function getAllTrace()
     {
+
         $dept = $this->dataUserSession->getDepartement();
 
         $traces = $this->traceRepository->findByFilters($dept, $this->selectedAnnee, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);

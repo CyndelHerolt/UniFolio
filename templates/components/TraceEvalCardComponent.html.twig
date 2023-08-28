@@ -178,6 +178,13 @@
                                     </div>
                                 </fieldset>
                             </li>
+                            {% if validation.etat == 0 %}
+                                <p>En attente de validation</p>
+                            {% else %}
+                                <p>Evaluation saisie
+                                    par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
+                                    le {{ validation.dateModification|date('d-m-y') }}</p>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                     <hr>
@@ -192,10 +199,15 @@
                                     <div class="card-header">
                                         <div style="display: flex; justify-content: space-between; align-items: center">
                                             <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                                            <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
-                                                <button class="btn btn-delete"><i class="fa-solid fa-square-minus"></i>
-                                                </button>
-                                            </a>
+
+                                            {% if commentaire.enseignant.id == this.dataUserSession.enseignant.id %}
+                                                <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
+                                                    <button class="btn btn-delete"><i
+                                                                class="fa-solid fa-square-minus"></i>
+                                                    </button>
+                                                </a>
+                                            {% endif %}
+
                                         </div>
                                         <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
                                         <small>·</small>
