@@ -60,9 +60,11 @@ class AllTraceComponent extends BaseController
 
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
 
+
         foreach ($competences as $competence) {
             $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
         }
+//        dd($niveaux);
 
         foreach ($niveaux as $niveau) {
             foreach ($niveau as $niv) {

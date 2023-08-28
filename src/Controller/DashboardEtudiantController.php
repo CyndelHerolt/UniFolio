@@ -27,7 +27,7 @@ class DashboardEtudiantController extends BaseController
         #[Required] public Security $security,
         RequestStack $requestStack,
         DepartementRepository $departementRepository,
-        SemestreRepository $semestreRepository,
+        protected SemestreRepository $semestreRepository,
         TokenStorageInterface $tokenStorage,
         EnseignantRepository $enseignantRepository,
     )
