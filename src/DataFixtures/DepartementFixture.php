@@ -3,8 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Departement;
-use App\Repository\DiplomeRepository;
-use App\Repository\EnseignantRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -12,21 +10,9 @@ use Doctrine\Persistence\ObjectManager;
 class DepartementFixture extends Fixture implements OrderedFixtureInterface
 {
 
-    private $enseignantRepository;
-    private $diplomeRepository;
-
-    public function __construct(
-        EnseignantRepository $enseignantRepository,
-        DiplomeRepository $diplomeRepository,
-    )
-    {
-        $this->enseignantRepository = $enseignantRepository;
-        $this->diplomeRepository = $diplomeRepository;
-    }
-
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 
     /**
@@ -34,26 +20,31 @@ class DepartementFixture extends Fixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $enseignant = $this->enseignantRepository->findOneBy(['username' => 'enseignant']);
-        $diplome1 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-Crea']);
-        $diplome2 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-DWeb-DI']);
-        $diplome3 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-DWeb-DI-FC']);
-        $diplome4 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-Strat-UX-FC']);
-        $diplome5 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI']);
-
         $departement1 = new Departement();
         $departement1->setLibelle('MMI')
             ->setId(1)
+            ->setTelContact('03 25 42 71 29')
             ->setCouleur('#0096ff')
-            ->setDescription('Le département  Métiers de l’Internet et du Multimédia  de l’IUT de Troyes (précédemment Services et Réseaux de Communication) forme les acteurs de l’Internet, des médias numériques, de la communication plurimédia, de la création.')
-            ->addDiplome($diplome1)
-            ->addDiplome($diplome2)
-            ->addDiplome($diplome3)
-            ->addDiplome($diplome4)
-            ->addDiplome($diplome5)
+            ->setDescription('Le département  Métiers de l’Internet et du Multimédia  de l’IUT de Troyes (précédemment Services et Réseaux de Communication) forme les acteurs de l’Internet, des médias numériques, de la communication plurimédia, de la création.');
             ;
-
         $manager->persist($departement1);
+
+        $departement2 = new Departement();
+        $departement2->setLibelle('CJ')
+            ->setId(2)
+            ->setTelContact('03 25 42 46 00')
+            ->setCouleur('#C40F48')
+            ->setDescription('Le DUT Carrières juridiques est une formation technologique, pluridisciplinaire à dominante juridique, destinée à former des techniciens du droit dans des domaines variés. Les emplois auxquels prépare le diplôme constituent en effet un éventail diversifié de métiers : l’étudiant ne saurait donc réduire sa réflexion au seul domaine du droit.');
+            ;
+        $manager->persist($departement2);
+
+        $departement3 = new Departement();
+        $departement3->setId(3)
+            ->setLibelle('Fixtures')
+            ->setTelContact('00 00 00 00 00')
+            ->setCouleur('#000000')
+            ->setDescription('Fixtures');
+        $manager->persist($departement3);
 
         $manager->flush();
     }

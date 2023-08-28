@@ -10,34 +10,44 @@ use Doctrine\Persistence\ObjectManager;
 
 class TypeGroupeFixture extends Fixture implements OrderedFixtureInterface
 {
+    private $semestreRepository;
+
+    public function __construct(SemestreRepository $semestreRepository)
+    {
+        $this->semestreRepository = $semestreRepository;
+    }
 
     public function getOrder()
     {
-        return 5;
+        return 9;
     }
     /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
+        $semestres = [];
+        for ($i = 1; $i <= 32; $i++) {
+            $semestre = $this->semestreRepository->find($i);
+            if ($semestre !== null) {
+                $semestres[] = $semestre;
+            }
+        }
 
-        $typeGroupe1 = new TypeGroupe();
-        $typeGroupe1->setId(1);
-        $typeGroupe1->setLibelle('CM');
-        $typeGroupe1->setOrdreSemestre(1);
-        $manager->persist($typeGroupe1);
+        $typeGroupes = ['CM', 'TD', 'TP'];
+        $idCounter = 1;
+        foreach ($semestres as $semestre) {
+            foreach ($typeGroupes as $typeGroupeLibelle) {
+                $typeGroupe = new TypeGroupe();
+                $typeGroupe->setId($idCounter);
+                $typeGroupe->addSemestre($semestre);
+                $typeGroupe->setLibelle($typeGroupeLibelle);
+                $typeGroupe->setType($typeGroupeLibelle);
 
-        $typeGroupe2 = new TypeGroupe();
-        $typeGroupe2->setId(2);
-        $typeGroupe2->setLibelle('TD');
-        $typeGroupe2->setOrdreSemestre(2);
-        $manager->persist($typeGroupe2);
-
-        $typeGroupe3 = new TypeGroupe();
-        $typeGroupe3->setId(3);
-        $typeGroupe3->setLibelle('TP');
-        $typeGroupe3->setOrdreSemestre(3);
-        $manager->persist($typeGroupe3);
+                $manager->persist($typeGroupe);
+                $idCounter++;
+            }
+        }
 
         $manager->flush();
     }

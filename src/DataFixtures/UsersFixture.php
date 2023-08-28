@@ -4,11 +4,14 @@ namespace App\DataFixtures;
 
 use App\Entity\Bibliotheque;
 use App\Entity\Enseignant;
+use App\Entity\EnseignantDepartement;
 use App\Entity\Etudiant;
 use App\Repository\BibliothequeRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
+use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,7 +24,7 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
     public function getOrder()
     {
         // Retourner un entier qui indique l'ordre de chargement des fixations
-        return 4;
+        return 12;
     }
 
     public function __construct(
@@ -30,6 +33,8 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
         protected BibliothequeRepository             $bibliothequeRepository,
         protected EnseignantRepository               $enseignantRepository,
         protected DepartementRepository              $departementRepository,
+        protected GroupeRepository                   $groupeRepository,
+        protected SemestreRepository                 $semestreRepository,
     )
     {
     }
@@ -53,6 +58,10 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
         //---------------------------------------------------------
         //---------------------------------------------------------
 
+        // récupérer les groupes dont le l'id du parcours est 5
+        $groupes = $this->groupeRepository->findBy(['apcParcours' => 5]);
+        $semestre = $this->semestreRepository->findOneBy(['id' => 7]);
+
         $user2 = new Users();
 
         $password = $this->encoder->hashPassword($user2, 'test');
@@ -74,6 +83,11 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
         $etudiant->setTelephone('0103456781');
         $etudiant->setBio('Vestibulum elementum odio lectus, vitae tempor ante viverra non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut scelerisque bibendum ipsum, non tincidunt risus ultrices vel.');
         $etudiant->setUsername('etudiant');
+        $etudiant->setSemestre($semestre);
+
+        foreach ($groupes as $groupe) {
+            $etudiant->addGroupe($groupe);
+        }
 
         $biblio->setEtudiant($etudiant);
 
@@ -102,7 +116,9 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
         $enseignant->setMailUniv('prof@univ-reims.fr');
         $enseignant->setTelephone('0123456782');
         $enseignant->setUsername('enseignant');
-        $enseignant->addDepartement($this->departementRepository->findOneBy(['libelle' => 'MMI']));
+        $departement = $this->departementRepository->findOneBy(['id' => 1]);
+        $newEnseignantDepartement = new EnseignantDepartement($enseignant, $departement);
+        $enseignant->AddEnseignantDepartement($newEnseignantDepartement);
 
         $manager->persist($enseignant);
         $manager->persist($user11);
