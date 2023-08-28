@@ -39,6 +39,14 @@ class EnseignantRepository extends ServiceEntityRepository
         }
     }
 
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('e')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 //    /**
 //     * @return Enseignant[] Returns an array of Enseignant objects
 //     */

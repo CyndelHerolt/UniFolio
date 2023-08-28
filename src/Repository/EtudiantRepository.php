@@ -138,6 +138,14 @@ class EtudiantRepository extends ServiceEntityRepository
         return $this->findOneBy(['mail_univ' => $mailUniv]);
     }
 
+    public function truncate(): void
+    {
+        $this->createQueryBuilder('e')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 //    /**
 //     * @return Etudiant[] Returns an array of Etudiant objects
 //     */

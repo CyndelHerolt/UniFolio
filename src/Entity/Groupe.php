@@ -27,7 +27,7 @@ class Groupe
     #[ORM\ManyToOne(inversedBy: 'groupes')]
     private ?TypeGroupe $type_groupe = null;
 
-    #[ORM\ManyToMany(targetEntity: Etudiant::class, mappedBy: 'groupe', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Etudiant::class, mappedBy: 'groupe')]
     private Collection $etudiants;
 
     #[ORM\ManyToOne(inversedBy: 'groupes')]

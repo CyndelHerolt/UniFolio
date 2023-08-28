@@ -26,6 +26,7 @@ class ApcReferentiel
     private ?int $annee_publication = null;
 
     #[ORM\ManyToOne(inversedBy: 'apcReferentiels')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Departement $departement = null;
 
     #[ORM\OneToMany(mappedBy: 'referentiel', targetEntity: Competence::class)]

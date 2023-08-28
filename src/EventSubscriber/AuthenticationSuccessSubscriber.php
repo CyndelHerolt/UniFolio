@@ -43,7 +43,7 @@ class AuthenticationSuccessSubscriber extends AbstractController implements Even
  //       $user = $event->getUser();
 
         $etudiant = $this->etudiantRepository->findOneBy(['username' => $user->getUsername()]);
-        $enseignant = $this->enseignantRepository->findOneBy(['username' => $user->getUsername()]);
+        $enseignant = $this->enseignantRepository->findOneBy(['id' => $user->getUsername()]);
 
         if ($etudiant) {
             $departement = $this->departementRepository->findDepartementEtudiant($etudiant);

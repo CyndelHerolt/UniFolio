@@ -8,12 +8,17 @@ use App\Entity\ApcParcours;
 use App\Entity\ApcReferentiel;
 use App\Entity\Competence;
 use App\Entity\Validation;
+use App\Repository\AnneeRepository;
 use App\Repository\ApcApprentissageCritiqueRepository;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\ApcParcoursRepository;
 use App\Repository\ApcReferentielRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
+use App\Repository\DiplomeRepository;
+use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
+use App\Repository\TypeGroupeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,16 +35,32 @@ class ReferentielSynchro extends AbstractController
         ApcNiveauRepository $niveauRepository,
         ApcApprentissageCritiqueRepository $apprentissageCritiqueRepository,
         ApcParcoursRepository $parcoursRepository,
-
+        ApcReferentielRepository $apcReferentielRepository,
+        ApcParcoursRepository $apcParcoursRepository,
+        GroupeRepository $groupeRepository,
+        TypeGroupeRepository $typeGroupeRepository,
+        SemestreRepository $semestreRepository,
+        AnneeRepository $anneeRepository,
+        DiplomeRepository $diplomeRepository,
     ): Response
     {
 
-        $referentielRepository->truncate();
-        $competenceRepository->truncate();
-        $niveauRepository->truncate();
-        $apprentissageCritiqueRepository->truncate();
-        $parcoursRepository->truncate();
+if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
+            // Vide les tables
+            $apcReferentielRepository->truncate();
+            $competenceRepository->truncate();
+            $niveauRepository->truncate();
+            $apprentissageCritiqueRepository->truncate();
+            $apcParcoursRepository->truncate();
+            $groupeRepository->truncate();
+            $typeGroupeRepository->truncate();
+            $semestreRepository->truncate();
+            $anneeRepository->truncate();
+            $diplomeRepository->truncate();
+            $departementRepository->truncate();
+
+        }
 
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------REFERENTIEL---------------------------------------------------
@@ -158,7 +179,6 @@ class ReferentielSynchro extends AbstractController
                 $existingCompetence->setCouleur($competence['couleur']);
                 $existingCompetence->setReferentiel($referentiel);
                 $competenceRepository->save($existingCompetence, true);
-//                dd($existingCompetence);
             } else {
                 //Sinon, on le crée
                 $newCompetence = new Competence();
@@ -190,8 +210,6 @@ class ReferentielSynchro extends AbstractController
         $niveaux = $niveaux->toArray();
         foreach ($niveaux as $niveau) {
             $competence = $competenceRepository->findOneBy(['id' => $niveau['competences']]);
-
-//            dd($competence);
 
             $existingNiveau = $niveauRepository->findOneBy(['libelle' => $niveau['libelle']]);
             //Vérifier si le libelle du département existe déjà en base de données

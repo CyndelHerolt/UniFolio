@@ -346,6 +346,11 @@ class Etudiant
         $this->semestre = $semestre;
     }
 
+    public function removeSemestre(): void
+    {
+        $this->semestre = null;
+    }
+
     public function getDepartement(): int
     {
         return $this->semestre?->getAnnee()?->getDiplome()?->getDepartement()?->getId();
