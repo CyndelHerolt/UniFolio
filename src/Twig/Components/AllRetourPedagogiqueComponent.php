@@ -35,7 +35,9 @@ final class AllRetourPedagogiqueComponent extends BaseController
         $retourPedagogiques = [];
         foreach ($traces as $trace) {
             foreach ($trace->getValidations() as $validation) {
+                if ($validation->isEtat() !== 0) {
                 $retourPedagogiques[] = $validation;
+                }
             }
             foreach ($trace->getCommentaires() as $commentaire) {
                 if ($commentaire->isVisibilite()) {
