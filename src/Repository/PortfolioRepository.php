@@ -64,7 +64,7 @@ class PortfolioRepository extends ServiceEntityRepository
 //        return $qb->getQuery()->getResult();
 //    }
 
-    public function findByFilters(int $annee = null, array $groupes = [], array $etudiants = [], array $competences = []): array
+    public function findByFilters($dept, int $annee = null, array $groupes = [], array $etudiants = [], array $competences = []): array
     {
         $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.ordrePages', 'op')
@@ -77,7 +77,11 @@ class PortfolioRepository extends ServiceEntityRepository
             ->innerJoin('e.groupe', 'g')
             ->innerJoin('g.type_groupe','tg')
             ->innerJoin('tg.semestre', 's')
-            ->innerJoin('s.annee', 'a');
+            ->innerJoin('s.annee', 'a')
+            ->innerJoin('a.diplome', 'd')
+            ->innerJoin('d.departement', 'dep')
+            ->where('dep.id = :departement')
+            ->setParameter('departement', $dept);
         if (!empty($annee)) {
             $qb->andWhere('a.id = :annee')
                 ->setParameter('annee', $annee);

@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components;
 
+use App\Classes\DataUserSession;
 use App\Controller\BaseController;
 
 use App\Entity\ApcNiveau;
@@ -86,6 +87,7 @@ final class AllPortfolioEvalComponent extends BaseController
         #[Required] public Security  $security,
         RequestStack                 $requestStack,
         private FormFactoryInterface $formFactory,
+        protected DataUserSession $dataUserSession,
     )
     {
         $this->requestStack = $requestStack;
@@ -285,7 +287,9 @@ final class AllPortfolioEvalComponent extends BaseController
 
     public function getAllPortfolio()
     {
-        $portfolios = $this->portfolioRepository->findByFilters($this->selectedAnnee, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences);
+        $dept = $this->dataUserSession->getDepartement();
+
+        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedAnnee, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences);
 
         return $portfolios;
     }
