@@ -87,6 +87,32 @@ body {
         display: flex;
         justify-content: space-between;
       }
+
+      .fa-bell-on {
+        position: relative;
+
+        &:after {
+          background-color: red;
+          border: 2px solid #fff;
+          border-radius: 100%;
+          content: "";
+          display: inline-block;
+          height: 10px;
+          position: absolute;
+          right: -3px;
+          top: -3px;
+          width: 10px
+        }
+      }
+
+      .notifications {
+
+        div {
+          max-height: 200px;
+          overflow-y: scroll;
+        }
+      }
+
     }
 
     .dropdown-menu[data-bs-popper] {

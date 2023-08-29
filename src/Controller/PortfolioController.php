@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Classes\DataUserSession;
 use App\Entity\Commentaire;
 use App\Entity\Portfolio;
+use App\Event\CommentaireEvent;
 use App\Form\CommentaireType;
 use App\Form\PortfolioType;
 use App\Repository\CommentaireRepository;
@@ -14,6 +15,7 @@ use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,6 +59,7 @@ class PortfolioController extends BaseController
         PortfolioRepository   $portfolioRepository,
         CommentaireRepository $commentaireRepository,
         TraceRepository       $traceRepository,
+        EventDispatcherInterface $eventDispatcher
     ): Response
     {
         $data_user = $this->dataUserSession;
@@ -93,7 +96,13 @@ class PortfolioController extends BaseController
                             $portfolio = $portfolioRepository->find($_POST['portfolioId']);
                             $commentaire->setPortfolio($portfolio);
                         }
+
                         $commentaireRepository->save($commentaire, true);
+
+                        if ($commentaire->isVisibilite() == 1) {
+                            $event = new CommentaireEvent($commentaire);
+                            $eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED);
+                        }
 
                         $this->addFlash('success', 'Commentaire ajouté avec succès !');
 

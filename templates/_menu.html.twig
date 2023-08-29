@@ -16,7 +16,8 @@
                                href="{{ path('app_dashboard') }}">Tableau de bord</a>
                         </li>
                         <li class="nav-item dropdown {% if 'bibliotheque' in app.request.uri %}active {% else %} inactive{% endif %}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 Bibliothèque
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,15 +31,55 @@
                                href="{{ path('app_bilan_pedagogique') }}">Bilan pédagogique</a>
                         </li>
                         <li class="nav-item inactive">
-                            <a class="nav-link" href="{{ path('app_documentation') }}">Documentation</a>
+                            <a class="nav-link" href="#">Documentation</a>
                         </li>
                         <li class="nav-item inactive">
-                            <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/" target="_blank">Référentiel de compétences</a>
+                            <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/"
+                               target="_blank">Référentiel
+                                de compétences</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-bell"></i></a>
+                        {% set hasUnreadNotifications = false %}
+                        {% for notification in data_user.notifications %}
+                            {% if notification.lu == false %}
+                                {% set hasUnreadNotifications = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <li class="nav-item dropstart inactive">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+
+                                {% if hasUnreadNotifications %}
+                                    <i class="fa-solid fa-bell-on"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-bell"></i>
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu notifications" aria-labelledby="navbarDropdown">
+                                <div>
+                                    {% if data_user.notifications is empty %}
+                                        <li><a class="dropdown-item" href="">Aucune notification</a></li>
+                                    {% else %}
+                                        {% for notification in data_user.notifications %}
+                                            {% if notification.lu == false %}
+                                                {% include('_notification.html.twig') %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_notification') }}">Toutes les notifications</a>
+                                </li>
+                                <li>
+                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Marquer tout comme lu"><i class="fa-solid fa-square-check"></i></a>
+                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer tout"><i class="fa-solid fa-square-minus"></i></a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
@@ -63,10 +104,11 @@
                                href="{{ path('app_bilan_eval') }}">Bilan pédagogique</a>
                         </li>
                         <li class="nav-item inactive">
-                            <a class="nav-link" href="{{ path('app_documentation') }}">Documentation</a>
+                            <a class="nav-link" href="#">Documentation</a>
                         </li>
                         <li class="nav-item inactive">
-                            <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/" target="_blank">Référentiel de compétences</a>
+                            <a class="nav-link" href="https://intranetv3.iut-troyes.univ-reims.fr/fr/but/"
+                               target="_blank">Référentiel de compétences</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -106,9 +148,9 @@
                     <li class="break">|</li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_users_new') }}">Inscription</a>
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="#">Demander une démo</a>#}
-{#                    </li>#}
+                        {#                    <li class="nav-item"> #}
+                        {#                        <a class="nav-link" href="#">Demander une démo</a> #}
+                        {#                    </li> #}
                 </ul>
             {% endif %}
         </div>

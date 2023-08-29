@@ -1,0 +1,13 @@
+<li>
+    <a class="dropdown-item" href="{{ notification.url }}">
+        {% if notification.type == 'commentaire.publie' %}
+            Nouveau commentaire
+            <br>
+            <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
+        {% elseif notification.type == 'evaluation.effectuee' %}
+            Nouvelle compétence évaluée
+            <br>
+            <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
+        {% endif %}
+    </a>
+</li>

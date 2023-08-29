@@ -16,6 +16,7 @@ use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TypeGroupeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,6 +53,7 @@ class DataUserSession
 
     private array $semestresActifs = [];
 
+    private $notifications;
 
     /**
      * DataUserSession constructor.
@@ -72,7 +74,8 @@ class DataUserSession
         protected Security                        $security,
         EntityManagerInterface                    $entityManager,
         EventDispatcherInterface                  $eventDispatcher,
-        RequestStack                              $session
+        RequestStack                              $session,
+        protected NotificationRepository          $notificationRepository,
     )
     {
         $this->requestStack = $session;
@@ -101,7 +104,7 @@ class DataUserSession
             }
         } elseif ($etudiant) {
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
-                // TODO: récupérer seulement les données propres à l'étudiant
+            // TODO: récupérer seulement les données propres à l'étudiant
             $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
             $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
         } else {
@@ -227,6 +230,24 @@ class DataUserSession
     public function DepartementDefaut()
     {
         return $this->departementRepository->findDepartementEnseignantDefaut($this->enseignant);
+    }
+
+    public function getNotifications()
+    {
+
+        if ($this->security->isGranted('ROLE_ENSEIGNANT')) {
+            $notifications = $this->notificationRepository->findBy(
+                ['enseignant' => $this->getUser()->getEnseignant()],
+                ['dateCreation' => 'DESC']
+            );
+        } elseif ($this->security->isGranted('ROLE_ETUDIANT')) {
+            $notifications = $this->notificationRepository->findBy(
+                ['etudiant' => $this->getUser()->getEtudiant()],
+                ['dateCreation' => 'DESC']
+            );
+        }
+
+        return $notifications;
     }
 
 }

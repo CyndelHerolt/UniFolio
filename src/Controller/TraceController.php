@@ -76,6 +76,7 @@ class TraceController extends BaseController
                 'typesTraces' => $traceRegistry->getTypeTraces(),
                 'competences' => $competencesNiveau,
                 'competence' => $competence,
+                'data_user' => $this->dataUserSession,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
@@ -342,6 +343,7 @@ class TraceController extends BaseController
                 'form' => $form->createView(),
                 'trace' => $trace,
                 'competences' => $competence,
+                'data_user' => $this->dataUserSession,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
@@ -401,6 +403,7 @@ class TraceController extends BaseController
                 'id' => $id,
                 'trace' => $trace,
                 'etudiant' => $etudiant,
+                'data_user' => $this->dataUserSession,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');

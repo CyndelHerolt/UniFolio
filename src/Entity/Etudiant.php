@@ -61,12 +61,16 @@ class Etudiant
     #[ORM\ManyToOne(targetEntity: Semestre::class, inversedBy: 'etudiants')]
     private ?Semestre $semestre = null;
 
+    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Notification::class)]
+    private Collection $notifications;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
         $this->cvs = new ArrayCollection();
         $this->bibliotheques = new ArrayCollection();
         $this->portfolios = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,6 +363,36 @@ class Etudiant
     public function setDepartement($departement)
     {
 
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getEtudiant() === $this) {
+                $notification->setEtudiant(null);
+            }
+        }
+
+        return $this;
     }
 
 

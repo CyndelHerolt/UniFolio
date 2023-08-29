@@ -51,12 +51,16 @@ class Enseignant
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $username = null;
 
+    #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Notification::class)]
+    private Collection $notifications;
+
     public function __construct()
     {
         $this->groupes = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->enseignantDepartements = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +288,36 @@ class Enseignant
     public function setUsername(?string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setEnseignant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getEnseignant() === $this) {
+                $notification->setEnseignant(null);
+            }
+        }
 
         return $this;
     }

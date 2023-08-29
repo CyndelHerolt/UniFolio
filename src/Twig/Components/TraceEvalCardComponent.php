@@ -5,11 +5,13 @@ namespace App\Twig\Components;
 use App\Controller\BaseController;
 use App\Entity\Commentaire;
 use App\Entity\Trace;
+use App\Event\EvaluationEvent;
 use App\Form\CommentaireType;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
 use Faker\Provider\Base;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -55,7 +57,7 @@ class TraceEvalCardComponent extends BaseController
     }
 
     #[LiveAction]
-    public function changeValidation()
+    public function changeValidation(EventDispatcherInterface $eventDispatcher)
     {
         $selectedValidation = $this->selectedValidation;
         list($validationId, $state) = explode('-', $selectedValidation);
@@ -72,6 +74,9 @@ class TraceEvalCardComponent extends BaseController
             $validation->setDateModification(new \DateTime());
         }
         $this->validationRepository->save($validation, true);
+
+        $event = new EvaluationEvent($validation);
+        $eventDispatcher->dispatch($event, EvaluationEvent::EVALUATED);
     }
 
     public function getTrace(): ?Trace

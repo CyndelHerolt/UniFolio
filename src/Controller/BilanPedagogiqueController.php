@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 
 #[Route('/etudiant')]
-class BilanPedagogiqueController extends AbstractController
+class BilanPedagogiqueController extends BaseController
 {
 
     public function __construct(
@@ -29,6 +29,7 @@ class BilanPedagogiqueController extends AbstractController
         public PortfolioRepository    $portfolioRepository,
         public OrdrePageRepository    $ordrePageRepository,
         public OrdreTraceRepository   $ordreTraceRepository,
+
     )
     {
     }
@@ -36,6 +37,7 @@ class BilanPedagogiqueController extends AbstractController
     #[Route('/bilan-pedagogique', name: 'app_bilan_pedagogique')]
     public function index(): Response
     {
+        $data_user = $this->dataUserSession;
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
 
@@ -45,6 +47,7 @@ class BilanPedagogiqueController extends AbstractController
 
             return $this->render('bilan_pedagogique/index.html.twig', [
                 'portfolios' => $portfolios,
+                'data_user' => $data_user,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');

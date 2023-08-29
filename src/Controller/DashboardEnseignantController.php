@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Event\CommentaireEvent;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\DepartementRepository;
@@ -13,6 +14,8 @@ use App\Repository\TraceRepository;
 use App\Repository\UsersRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\AnneeRepository;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +34,7 @@ class DashboardEnseignantController extends BaseController
         DepartementRepository $departementRepository,
         TraceRepository       $traceRepository,
         CommentaireRepository $commentaireRepository,
+        EventDispatcherInterface $eventDispatcher
     ): Response
     {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
@@ -62,7 +66,6 @@ class DashboardEnseignantController extends BaseController
                             $this->addFlash('error', 'Le champ commentaire ne peut pas être vide');
                             return $this->redirectToRoute('enseignant_dashboard');
                         } else {
-//                            dd($_POST['traceId']);
                             $commentaire = new Commentaire();
                             $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
                             $commentaire->setEnseignant($enseignant);
@@ -74,6 +77,11 @@ class DashboardEnseignantController extends BaseController
                                 $commentaire->setTrace($trace);
                             }
                             $commentaireRepository->save($commentaire, true);
+
+                            if ($commentaire->isVisibilite() == 1) {
+                                $event = new CommentaireEvent($commentaire);
+                                $eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED, $trace->getId());
+                            }
 
                             $this->addFlash('success', 'Commentaire ajouté avec succès !');
 

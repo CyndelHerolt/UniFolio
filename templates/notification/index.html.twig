@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NotificationController!{% endblock %}
+
+{% block body %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+        </ol>
+    </nav>
+<div class="container dashboard">
+    <section>
+        <article class="row g-4">
+            <h1>Notifications</h1>
+            {% for notification in notifications %}
+                {% if notification.type == 'commentaire.publie' %}
+                    <p>Nouveau commentaire</p>
+                    <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
+                {% elseif notification.type == 'evaluation.effectuee' %}
+                    <p>Nouvelle compétence évaluée</p>
+                    <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
+                {% endif %}
+                <hr>
+            {% endfor %}
+        </article>
+    </section>
+</div>
+
+{% endblock %}
