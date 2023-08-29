@@ -95,7 +95,7 @@ class TraceController extends BaseController
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
+            $data_user = $this->dataUserSession;
             //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
             $traceType = $traceRegistry->getTypeTrace($id);
 
@@ -160,6 +160,7 @@ class TraceController extends BaseController
                 'form' => $form->createView(),
                 'trace' => $traceRegistry->getTypeTrace($id),
                 'competences' => $competencesNiveau,
+                'data_user' => $data_user,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
@@ -180,7 +181,7 @@ class TraceController extends BaseController
     {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
+            $data_user = $this->dataUserSession;
             $trace = $traceRepository->find($id);
             $user = $security->getUser()->getEtudiant();
 
@@ -343,7 +344,7 @@ class TraceController extends BaseController
                 'form' => $form->createView(),
                 'trace' => $trace,
                 'competences' => $competence,
-                'data_user' => $this->dataUserSession,
+                'data_user' => $data_user,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');

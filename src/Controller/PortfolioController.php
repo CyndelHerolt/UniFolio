@@ -41,12 +41,15 @@ class PortfolioController extends BaseController
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
 
+            $data_user = $this->dataUserSession;
+
             //Récupérer les portfolios de l'utilisateur connecté
             $etudiant = $this->security->getUser()->getEtudiant();
             $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant]);
 
             return $this->render('portfolio/index.html.twig', [
                 'portfolios' => $portfolios,
+                'data_user' => $data_user,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
@@ -229,7 +232,7 @@ class PortfolioController extends BaseController
     {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
+            $data_user = $this->dataUserSession;
             $user = $security->getUser()->getEtudiant();
             $annee = $user->getSemestre()->getAnnee();
             $portfolio = new Portfolio();
@@ -282,6 +285,7 @@ class PortfolioController extends BaseController
         return $this->render('portfolio/formPortfolio.html.twig', [
             'form' => $form->createView(),
             'portfolio' => $portfolio,
+            'data_user' => $data_user,
         ]);
     }
 

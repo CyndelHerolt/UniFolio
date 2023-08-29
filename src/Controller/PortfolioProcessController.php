@@ -38,12 +38,14 @@ class PortfolioProcessController extends BaseController
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-        $id = $request->query->get('id');
+            $data_user = $this->dataUserSession;
+            $id = $request->query->get('id');
 
-        return $this->render('portfolio_process/index.html.twig', [
-            'step' => 'portfolio',
-            'id' => $id,
-        ]);
+            return $this->render('portfolio_process/index.html.twig', [
+                'step' => 'portfolio',
+                'id' => $id,
+                'data_user' => $data_user,
+            ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
         }
@@ -66,7 +68,7 @@ class PortfolioProcessController extends BaseController
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
+            $data_user = $this->dataUserSession;
             $step = $request->query->get('step', 'portfolio');
             $form = null;
 
@@ -95,7 +97,9 @@ class PortfolioProcessController extends BaseController
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $portfolio->getId(),
-                        'step' => 'portfolio']);
+                        'step' => 'portfolio',
+                        'data_user' => $data_user,
+                    ]);
 
                 case 'savePortfolio':
                     $form = $this->createForm(PortfolioType::class, $portfolio);
@@ -135,7 +139,9 @@ class PortfolioProcessController extends BaseController
                         $portfolioRepository->save($portfolio, true);
                         return $this->redirectToRoute('app_portfolio_process_step', [
                             'id' => $portfolio->getId(),
-                            'step' => 'portfolio']);
+                            'step' => 'portfolio',
+                            'data_user' => $data_user,
+                        ]);
                     }
 
                     $errors = $form->getErrors(true, true);
@@ -209,6 +215,7 @@ class PortfolioProcessController extends BaseController
                             'id' => $id,
                             'step' => 'addPage',
                             'page' => $page->getId(),
+                            'data_user' => $data_user,
                         ]);
                     }
 
@@ -235,6 +242,7 @@ class PortfolioProcessController extends BaseController
                         'id' => $id,
                         'step' => 'addPage',
                         'page' => $page->getId(),
+                        'data_user' => $data_user,
                     ]);
 
                 case 'right':
@@ -253,6 +261,7 @@ class PortfolioProcessController extends BaseController
                         'id' => $id,
                         'step' => 'addPage',
                         'page' => $page->getId(),
+                        'data_user' => $data_user,
                     ]);
 
                 case 'editPage':
@@ -285,6 +294,7 @@ class PortfolioProcessController extends BaseController
                             'id' => $id,
                             'step' => 'addPage',
                             'page' => $page->getId(),
+                            'data_user' => $data_user,
                         ]);
                     }
 
@@ -323,6 +333,7 @@ class PortfolioProcessController extends BaseController
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,
                         'step' => 'portfolio',
+                        'data_user' => $data_user,
                     ]);
 
                 case 'addTrace':
@@ -364,12 +375,14 @@ class PortfolioProcessController extends BaseController
                             'page' => $page->getId(),
                             'trace' => $trace->getId(),
                             'typesNewTrace' => $typesNewTrace,
+                            'data_user' => $data_user,
                         ]);
                     } else {
                         return $this->redirectToRoute('app_portfolio_process_step', [
                             'id' => $id,
                             'step' => 'addPage',
                             'page' => $page->getId(),
+                            'data_user' => $data_user,
                         ]);
                     }
 
@@ -396,6 +409,7 @@ class PortfolioProcessController extends BaseController
                         'id' => $id,
                         'step' => 'addPage',
                         'page' => $page->getId(),
+                        'data_user' => $data_user,
                     ]);
 
                 case 'down':
@@ -418,6 +432,7 @@ class PortfolioProcessController extends BaseController
                         'id' => $id,
                         'step' => 'addPage',
                         'page' => $page->getId(),
+                        'data_user' => $data_user,
                     ]);
 
                 case 'editTrace':
@@ -435,6 +450,7 @@ class PortfolioProcessController extends BaseController
                             'step' => 'formTrace',
                             'trace' => $trace->getId(),
                             'type' => $type,
+                            'data_user' => $data_user,
                         ]);
                     }
                     break;
@@ -508,6 +524,7 @@ class PortfolioProcessController extends BaseController
                         'id' => $id,
                         'step' => 'addPage',
                         'page' => $page->getId(),
+                        'data_user' => $data_user,
                     ]);
 
                 case 'saveTrace':
@@ -630,7 +647,8 @@ class PortfolioProcessController extends BaseController
                         return $this->redirectToRoute('app_portfolio_process_step', [
                             'id' => $id,
                             'step' => 'addPage',
-                            'page' => $page
+                            'page' => $page,
+                            'data_user' => $data_user,
                         ]);
                     }
 
@@ -674,6 +692,7 @@ class PortfolioProcessController extends BaseController
                 'ordreMaxTrace' => $ordreMaxTrace ?? null,
                 'ordreMinTrace' => $ordreMinTrace ?? null,
                 'error' => $error ?? null,
+                'data_user' => $data_user,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
