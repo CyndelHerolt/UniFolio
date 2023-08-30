@@ -1,0 +1,109 @@
+<tr>
+    <td>
+        {{ this.portfolio.etudiant.prenom }} {{ this.portfolio.etudiant.nom }}
+    </td>
+    <td>
+        {% for g in this.portfolio.etudiant.groupe %}
+            {% if 'TP' in g.libelle %}
+                {% for s in g.typegroupe.semestre %}
+                    {{ s.libelle }} |
+                {% endfor %}
+                {{ g.libelle }}
+            {% endif %}
+        {% endfor %}
+    </td>
+    <td>
+        {{ this.portfolio.intitule }}
+    </td>
+    <td>
+        {{ this.portfolio.ordrePages|length }}
+    </td>
+    <td>
+        {% for pages in this.portfolio.ordrePages %}
+            {{ pages.page.ordreTraces|length }}
+        {% endfor %}
+    </td>
+    <td>
+        {% set seen = [] %}
+        {% set totalGlobalValidations = 0 %}
+        {% set totalGlobalEtatNonZero = 0 %}
+
+        {% for op in this.portfolio.ordrePages %}
+            {% for ot in op.page.ordreTraces %}
+                {% for validation in ot.trace.validations %}
+                    {% if validation.apcNiveau.libelle not in seen %}
+                        {% set totalValidations = 0 %}
+                        {% set totalEtatTrois = 0 %}
+                        {% set totalEtatNonZero = 0 %}
+
+                        {% for op2 in this.portfolio.ordrePages %}
+                            {% for ot2 in op2.page.ordreTraces %}
+                                {% for validation2 in ot2.trace.validations %}
+                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                        {% set totalValidations = totalValidations + 1 %}
+                                        {% set totalGlobalValidations = totalGlobalValidations + 1 %}
+                                        {% if validation2.etat == 3 %}
+                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                        {% endif %}
+                                        {% if validation2.etat != 0 %}
+                                            {% set totalEtatNonZero = totalEtatNonZero + 1 %}
+                                            {% set totalGlobalEtatNonZero = totalGlobalEtatNonZero + 1 %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        {% if totalGlobalValidations != 0 %}
+            {{ (totalGlobalEtatNonZero / totalGlobalValidations) * 100 }}%
+        {% else %}
+            0 %
+        {% endif %}
+    </td>
+    <td>
+        {% set seen = [] %}
+        {% set totalGlobalValidations = 0 %}
+        {% set totalGlobalEtatTrois = 0 %}
+
+        {% for op in this.portfolio.ordrePages %}
+            {% for ot in op.page.ordreTraces %}
+                {% for validation in ot.trace.validations %}
+                    {% set totalValidations = 0 %}
+                    {% set totalEtatTrois = 0 %}
+
+                    {% for op2 in this.portfolio.ordrePages %}
+                        {% for ot2 in op2.page.ordreTraces %}
+                            {% for validation2 in ot2.trace.validations %}
+                                {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                    {% set totalValidations = totalValidations + 1 %}
+                                    {% set totalGlobalValidations = totalGlobalValidations + 1 %}
+                                    {% if validation2.etat == 3 %}
+                                        {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                        {% set totalGlobalEtatTrois = totalGlobalEtatTrois + 1 %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+
+        {% if totalGlobalValidations != 0 %}
+            {{ ((totalGlobalEtatTrois / totalGlobalValidations) * 100)|round }}%
+        {% else %}
+            0 %
+        {% endif %}
+    </td>
+    <td>
+        <a href="{{ path('app_portfolio_index', {id: this.portfolio.id}) }}">
+            <button class="btn btn-primary"><i class="fa-solid fa-eye"></i></button>
+        </a>
+    </td>
+</tr>

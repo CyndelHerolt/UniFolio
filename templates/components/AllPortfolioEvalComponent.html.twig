@@ -1,5 +1,7 @@
 <div{{ attributes }}>
 
+    {% if 'dashboard' in app.request.uri %}
+
     <div class="row">
         <div class="filtre-btn col-12">
             {% for annee in annees %}
@@ -136,7 +138,7 @@
     </div>
 
     <div class="btn-pages">
-        {# Affiche le bouton pour aller à la première page #}
+         Affiche le bouton pour aller à la première page
         <button class="btn btn-primary"
                 data-action="live#action"
                 data-action-name="goToFirstPage"
@@ -163,13 +165,37 @@
             <i class="fa-solid fa-chevron-right"></i>
         </button>
 
-        {# Affiche le bouton pour aller à la dernière page #}
+         Affiche le bouton pour aller à la dernière page
         <button class="btn btn-primary"
                 data-action="live#action"
                 data-action-name="goToLastPage"
-                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
-        >
+                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}>
             <i class="fa-solid fa-chevrons-right"></i>
         </button>
     </div>
+
+    {% elseif 'bilan' in app.request.uri %}
+
+    <table id="evalBilan">
+        <thead>
+        <tr>
+            <th>Etudiant</th>
+            <th>Groupe</th>
+            <th>Portfolio</th>
+            <th>Nb pages</th>
+            <th>Nb traces</th>
+            <th>% évaluées</th>
+            <th>% validées</th>
+            <th>Accéder au portfolio</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for portfolio in this.allPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+            {{ component('PortfolioEvalTableComponent', {'id': portfolio.id}) }}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+
 </div>

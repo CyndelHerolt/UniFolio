@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BilanEvalController!{% endblock %}
+
+{% block body %}
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bilan pédagogique</li>
+        </ol>
+    </nav>
+
+    <div class="container bilan">
+        <section>
+            <article class="row">
+                <h2>Bilan pédagogique</h2>
+                <div class="row g-4">
+                    {{ component('AllPortfolioEvalComponent') }}
+                </div>
+            </article>
+        </section>
+    </div>
+{% endblock %}

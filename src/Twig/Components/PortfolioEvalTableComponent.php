@@ -3,18 +3,14 @@
 namespace App\Twig\Components;
 
 use App\Controller\BaseController;
-use App\Entity\Commentaire;
 use App\Entity\Portfolio;
-use App\Form\CommentaireType;
 use App\Repository\PortfolioRepository;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('PortfolioEvalCardComponent')]
-final class PortfolioEvalCardComponent extends BaseController
+#[AsLiveComponent('PortfolioEvalTableComponent')]
+final class PortfolioEvalTableComponent extends BaseController
 {
     use DefaultActionTrait;
 

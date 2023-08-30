@@ -29,22 +29,22 @@ class DashboardEnseignantController extends BaseController
 
     #[Route('/dashboard', name: 'enseignant_dashboard')]
     public function index(
-        UsersRepository       $usersRepository,
-        EnseignantRepository  $enseignantRepository,
-        DepartementRepository $departementRepository,
-        TraceRepository       $traceRepository,
-        CommentaireRepository $commentaireRepository,
+        UsersRepository          $usersRepository,
+        EnseignantRepository     $enseignantRepository,
+        DepartementRepository    $departementRepository,
+        TraceRepository          $traceRepository,
+        CommentaireRepository    $commentaireRepository,
         EventDispatcherInterface $eventDispatcher
     ): Response
     {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
 
-        $data_user = $this->dataUserSession;
+            $data_user = $this->dataUserSession;
 
-        $usersRepository->findAll();
-        $userId = $this->getUser()->getUserIdentifier();
-        $enseignant = $enseignantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
-        $departement = $departementRepository->findDepartementEnseignantDefaut($enseignant);
+            $usersRepository->findAll();
+            $userId = $this->getUser()->getUserIdentifier();
+            $enseignant = $enseignantRepository->findOneBy(['username' => $this->getUser()->getUsername()]);
+            $departement = $departementRepository->findDepartementEnseignantDefaut($enseignant);
 
             if ($userId === 'enseignant') {
                 foreach ($departement as $dept) {
@@ -56,7 +56,7 @@ class DashboardEnseignantController extends BaseController
                 ]);
             } else {
 
-                //si un form en post est envoyé
+//                si un form en post est envoyé
                 if ($_POST) {
                     $data = $_POST;
                     // vérifier que le form est un form de type CommentaireType
