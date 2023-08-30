@@ -22,3 +22,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 import 'highlight.js/styles/atom-one-dark.css';
 // assets/app.js
 // import '@symfony/ux-live-component/dist/live.css';
+
+import './js/dataTables.init';
