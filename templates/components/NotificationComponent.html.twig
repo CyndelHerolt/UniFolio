@@ -1,0 +1,47 @@
+<div{{ attributes }}>
+    <li class="nav-item dropstart inactive">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            {% set unreadNotifications = this.allNotifications|filter(notification => not notification.lu) %}
+            {% if unreadNotifications is not empty %}
+                <i class="fa-solid fa-bell-on"></i>
+            {% else %}
+                <i class="fa-solid fa-bell"></i>
+            {% endif %}
+        </a>
+        <ul class="dropdown-menu notifications" aria-labelledby="navbarDropdown">
+            <div>
+                {% if unreadNotifications is empty %}
+                    <li><a href="">Aucune notification</a></li>
+                {% else %}
+                    {% for notification in unreadNotifications %}
+                        {% include('_notification.html.twig') %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ path('app_notification') }}">Toutes les
+                    notifications</a>
+            </li>
+            {% if unreadNotifications is not empty %}
+                <li>
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                       title="Marquer tout comme lu" data-model="notifications"
+                       data-action="live#action"
+                       data-action-name="markAllAsRead">
+                        <i class="fa-solid fa-square-check"></i>
+                    </a>
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                       title="Supprimer tout" data-model="notifications"
+                       data-action="live#action"
+                       data-action-name="deleteAll">
+                        <i class="fa-solid fa-square-minus"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+</div>

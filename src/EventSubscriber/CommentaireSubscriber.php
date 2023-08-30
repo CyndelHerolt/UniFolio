@@ -16,8 +16,8 @@ class CommentaireSubscriber implements EventSubscriberInterface
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly RouterInterface $router,
-        private readonly EtudiantRepository $etudiantRepository
+        private readonly RouterInterface        $router,
+        private readonly EtudiantRepository     $etudiantRepository
     )
     {
     }
@@ -32,21 +32,24 @@ class CommentaireSubscriber implements EventSubscriberInterface
     public function onCommentaireEvent($event): void
     {
         $commentaire = $event->getCommentaire();
-        if ($commentaire->getTrace() != null) {
-            $etudiantSearch = $commentaire->getTrace()->getBibliotheque()->getEtudiant();
-        } elseif ($commentaire->getPortfolio() != null) {
-            $etudiantSearch = $commentaire->getPortfolio()->getEtudiant();
+        $origine = $commentaire;
+        if ($commentaire->isVisibilite()) {
+            if ($commentaire->getTrace() != null) {
+                $etudiantSearch = $commentaire->getTrace()->getBibliotheque()->getEtudiant();
+            } elseif ($commentaire->getPortfolio() != null) {
+                $etudiantSearch = $commentaire->getPortfolio()->getEtudiant();
+            }
+            $etudiant = $this->etudiantRepository->find($etudiantSearch->getId());
+            if ($commentaire->getTrace() != null) {
+                $destination = $commentaire->getTrace();
+            } else {
+                $destination = $commentaire->getPortfolio();
+            }
+            $this->addNotification($etudiant, CommentaireEvent::COMMENTED, $destination, $origine);
         }
-        $etudiant = $this->etudiantRepository->find($etudiantSearch->getId());
-        if ($commentaire->getTrace() != null) {
-            $destination = $commentaire->getTrace();
-        } else {
-            $destination = $commentaire->getPortfolio();
-        }
-        $this->addNotification($etudiant, CommentaireEvent::COMMENTED, $destination);
     }
 
-    private function addNotification($etudiant, string $codeEvent, $destination): void
+    private function addNotification($etudiant, string $codeEvent, $destination, $origine): void
     {
         $notif = new Notification();
         $notif->setEtudiant($etudiant);
@@ -54,6 +57,7 @@ class CommentaireSubscriber implements EventSubscriberInterface
         $notif->setTypeUser(Notification::ETUDIANT);
         $notif->setType($codeEvent);
         $notif->setLu(false);
+        $notif->setCommentaire($origine);
         if ($destination instanceof Trace) {
             $notif->setUrl($this->router->generate(
                 'app_trace_index', ['id' => $destination->getId()]

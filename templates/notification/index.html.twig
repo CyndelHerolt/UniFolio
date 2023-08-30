@@ -9,22 +9,119 @@
             <li class="breadcrumb-item active" aria-current="page">Notifications</li>
         </ol>
     </nav>
-<div class="container dashboard">
-    <section>
-        <article class="row g-4">
-            <h1>Notifications</h1>
-            {% for notification in notifications %}
-                {% if notification.type == 'commentaire.publie' %}
-                    <p>Nouveau commentaire</p>
-                    <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
-                {% elseif notification.type == 'evaluation.effectuee' %}
-                    <p>Nouvelle compétence évaluée</p>
-                    <small>{{ notification.dateCreation|date('d-m-Y') }}</small>
+    <div class="container notificationsAll">
+        <section>
+            <article class="row g-4">
+                <h1>Notifications</h1>
+                {% if notifications is empty %}
+                    <div class="alert alert-warning" role="alert">
+                        Aucune notification n'a été trouvée.
+                    </div>
                 {% endif %}
-                <hr>
-            {% endfor %}
-        </article>
-    </section>
-</div>
+                {% for notification in notifications|sort %}
+                    <div class="card card-notifs col-12">
+                        <div class="card-header">
+                            <div>
+                                {% if notification.type == 'commentaire.publie' %}
+                                    <h5>Nouveau commentaire
+                                        {% if notification.portfolio is defined %}
+                                            sur le portfolio : {{ notification.portfolio.intitule }}
+                                        {% endif %}
+                                        {% if notification.trace is defined %}
+                                            sur la trace : {{ notification.trace.titre }}
+                                        {% endif %}
+                                    </h5>
+                                    <ul class="card-infos-min">
+                                        <li><span>Publié le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
+                                        </li>
+                                    </ul>
+                                {% elseif notification.type == 'evaluation.effectuee' %}
+                                    <h5>Nouvelle compétence évaluée
+                                        {% if notification.trace is defined %}
+                                            sur la trace : {{ notification.trace.titre }}
+                                        {% endif %}
+                                    </h5>
+                                    <ul class="card-infos-min">
+                                        <li>
+                                            <span>Publiée le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <a href="{{ path('app_delete_notification', {'id': notification.id}) }}">
+                                <button class="btn btn-delete"><i
+                                            class="fa-solid fa-square-minus"></i>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            {% if notification.type == 'commentaire.publie' %}
+                                <div class="card card-comment">
+                                    <div class="card-header">
+                                        <div>
+                                            <h6 class="card-subtitle">{{ notification.commentaire.enseignant.prenom }} {{ notification.commentaire.enseignant.nom }}</h6>
+                                            <small>
+                                                {{ notification.commentaire.datecreation|date('d-m-Y H:i') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ notification.commentaire.contenu }}</p>
+                                    </div>
+                                </div>
+                            {% elseif notification.type == 'evaluation.effectuee' %}
+                                <li>
+                                    <div>
+                                                   <span class="{{ notification.validation.apcNiveau.competences.couleur }}">
+                                                    {{ notification.validation.apcNiveau.competences.nomCourt }}
+                                                       </span> •
+                                        {{ notification.validation.apcNiveau.libelle }}
+                                    </div>
+                                    {% if notification.validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                                  style="color: #4c008b"></i>
+                                    {% elseif notification.validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                                      style="color: red"></i>
+                                    {% elseif notification.validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                                      style="color: orange"></i>
+                                    {% elseif notification.validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                                      style="color: limegreen"></i>
+                                    {% endif %}
+                                </li>
+                                {% if notification.validation.etat == 0 %}
+                                    <p>En attente de notification.validation</p>
+                                {% else %}
+                                    <p>Evaluation saisie
+                                        par {{ notification.validation.enseignant.prenom }} {{ notification.validation.enseignant.nom }}
+                                        le {{ notification.validation.dateModification|date('d-m-y') }}</p>
+                                {% endif %}
+                            {% endif %}
+                            <div class="btn-group">
+                                {% if notification.portfolio is defined %}
+                                    <a href="{{ path('app_portfolio_index', {id: notification.portfolio.id}) }}">
+                                        <button class="btn btn-primary">Accéder au portfolio</button>
+                                    </a>
+                                {% endif %}
+                                {% if notification.trace is defined %}
+                                    <a href="{{ path('app_trace_index', {id: notification.trace.id}) }}">
+                                        <button class="btn btn-primary">Accéder à la trace</button>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if notifications is not empty %}
+                    <div class="btn-group">
+                        <a href="{{ path('app_delete_notification_all') }}">
+                            <button class="btn btn-primary">Supprimer toutes les notifications</button>
+                        </a>
+                        <a href="{{ path('app_notification_lue_all') }}">
+                            <button class="btn btn-primary">Marquer toutes les notifications comme lues</button>
+                        </a>
+                    </div>
+                {% endif %}
+            </article>
+        </section>
+    </div>
 
 {% endblock %}

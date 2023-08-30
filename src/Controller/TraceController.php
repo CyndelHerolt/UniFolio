@@ -13,6 +13,7 @@ use App\Entity\Validation;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
 use App\Repository\TraceRepository;
@@ -390,11 +391,21 @@ class TraceController extends BaseController
     public function indexShow(
         Request         $request,
         TraceRepository $traceRepository,
+        NotificationRepository $notificationRepository,
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
 
             $id = $request->query->get('id');
+            $notificationId = $request->query->get('notification_id');
+
+            if ($notificationId) {
+                $notification = $notificationRepository->find($notificationId);
+                if ($notification && !$notification->isLu()) {
+                    $notification->setLu(true);
+                    $notificationRepository->save($notification, true);
+                }
+            }
 
             $etudiant = $this->security->getUser()->getEtudiant();
             $trace = $traceRepository->findOneBy(['id' => $id]);

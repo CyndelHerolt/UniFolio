@@ -38,6 +38,12 @@ class Notification
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?Enseignant $enseignant = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notifications')]
+    private ?Validation $validation = null;
+
+    #[ORM\OneToOne(inversedBy: 'notification', cascade: ['persist', 'remove'])]
+    private ?Commentaire $commentaire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +129,30 @@ class Notification
     public function setEnseignant(?Enseignant $enseignant): static
     {
         $this->enseignant = $enseignant;
+
+        return $this;
+    }
+
+    public function getValidation(): ?Validation
+    {
+        return $this->validation;
+    }
+
+    public function setValidation(?Validation $validation): static
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?Commentaire
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?Commentaire $commentaire): static
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

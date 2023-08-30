@@ -237,13 +237,11 @@ class DataUserSession
 
         if ($this->security->isGranted('ROLE_ENSEIGNANT')) {
             $notifications = $this->notificationRepository->findBy(
-                ['enseignant' => $this->getUser()->getEnseignant()],
-                ['dateCreation' => 'DESC']
+                ['enseignant' => $this->getUser()->getEnseignant()], ['dateCreation' => 'DESC']
             );
         } elseif ($this->security->isGranted('ROLE_ETUDIANT')) {
             $notifications = $this->notificationRepository->findBy(
-                ['etudiant' => $this->getUser()->getEtudiant()],
-                ['dateCreation' => 'DESC']
+                ['etudiant' => $this->getUser()->getEtudiant()], ['dateCreation' => 'DESC']
             );
         }
 

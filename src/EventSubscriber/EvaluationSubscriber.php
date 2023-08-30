@@ -31,21 +31,24 @@ class EvaluationSubscriber implements EventSubscriberInterface
     public function onEvaluationEvent($event): void
     {
         $eval = $event->getEvaluation();
+        $origine = $eval;
 
         $etudiantSearch = $eval->getTrace()->getBibliotheque()->getEtudiant();
         $etudiant = $this->etudiantRepository->find($etudiantSearch->getId());
         $trace = $eval->getTrace();
 
-        $this->addNotification($etudiant, EvaluationEvent::EVALUATED, $trace);
+        $this->addNotification($etudiant, EvaluationEvent::EVALUATED, $trace, $origine);
     }
 
-    private function addNotification($etudiant, string $codeEvent, $trace): void
+    private function addNotification($etudiant, string $codeEvent, $trace, $origine): void
     {
         $notif = new Notification();
         $notif->setEtudiant($etudiant);
         $notif->setTypeUser(Notification::ETUDIANT);
+        $notif->setDateCreation(new \DateTime());
         $notif->setType($codeEvent);
         $notif->setLu(false);
+        $notif->setValidation($origine);
         $notif->setUrl($this->router->generate(
             'app_trace_index', ['id' => $trace->getId()]
         ));

@@ -9,6 +9,8 @@ use App\Event\CommentaireEvent;
 use App\Form\CommentaireType;
 use App\Form\PortfolioType;
 use App\Repository\CommentaireRepository;
+use App\Repository\EnseignantRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\OrdrePageRepository;
 use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
@@ -58,10 +60,11 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show', name: 'app_portfolio_index')]
     public function indexShow(
-        Request               $request,
-        PortfolioRepository   $portfolioRepository,
-        CommentaireRepository $commentaireRepository,
-        TraceRepository       $traceRepository,
+        Request                  $request,
+        PortfolioRepository      $portfolioRepository,
+        CommentaireRepository    $commentaireRepository,
+        TraceRepository          $traceRepository,
+        NotificationRepository   $notificationRepository,
         EventDispatcherInterface $eventDispatcher
     ): Response
     {
@@ -71,10 +74,19 @@ class PortfolioController extends BaseController
         $user = $this->security->getUser();
         $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
+        $notificationId = $request->query->get('notification_id');
+
+        if ($notificationId) {
+            $notification = $notificationRepository->find($notificationId);
+            if ($notification && !$notification->isLu()) {
+                $notification->setLu(true);
+                $notificationRepository->save($notification, true);
+            }
+        }
+
 
         if ($this->security->getUser()->getEnseignant()) {
             $enseignant = $this->security->getUser()->getEnseignant();
-
 
             //si un form en post est envoyé
             if ($_POST) {
@@ -127,17 +139,15 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show/{id}', name: 'app_portfolio_show')]
     public function show(
-        PortfolioRepository  $portfolioRepository,
-        OrdrePageRepository  $ordrePageRepository,
-        PageRepository       $pageRepository,
-        OrdreTraceRepository $ordreTraceRepository,
-        TraceRepository      $traceRepository,
-        ValidationRepository $validationRepository,
-        Request              $request,
-                             $id
+        PortfolioRepository      $portfolioRepository,
+        OrdrePageRepository      $ordrePageRepository,
+        PageRepository           $pageRepository,
+        OrdreTraceRepository     $ordreTraceRepository,
+        Request                  $request,
+                                 $id
     ): Response
     {
-
+        $data_user = $this->dataUserSession;
         $step = $request->query->get('step', 'portfolio');
 
         //Récupérer le portfolio de l'utilisateur connecté
@@ -220,6 +230,7 @@ class PortfolioController extends BaseController
             'competences' => $competences ?? null,
             'page' => $page ?? null,
             'commentForm' => $this->commentForm ?? null,
+            'data_user' => $data_user ?? null,
         ]);
     }
 

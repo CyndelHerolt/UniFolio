@@ -1,4 +1,4 @@
-.dashboard {
+.dashboard, .notificationsAll {
   padding: 25px 75px !important;
 
   .btn-group {
@@ -37,6 +37,20 @@
           //background-color: rgba(111, 24, 173, 0.07);
           background-color: $color-light;
           //border-bottom: none;
+        }
+      }
+
+      .card-notifs {
+        padding: 0;
+
+        .card-header {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .card-comment {
+          padding: 0;
+          box-shadow: none !important;
         }
       }
 

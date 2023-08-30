@@ -35,6 +35,9 @@ class Commentaire
     #[ORM\Column]
     private ?bool $visibilite = null;
 
+    #[ORM\OneToOne(mappedBy: 'commentaire', cascade: ['persist', 'remove'])]
+    private ?Notification $notification = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,28 @@ class Commentaire
     public function setVisibilite(bool $visibilite): static
     {
         $this->visibilite = $visibilite;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?Notification $notification): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($notification === null && $this->notification !== null) {
+            $this->notification->setCommentaire(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($notification !== null && $notification->getCommentaire() !== $this) {
+            $notification->setCommentaire($this);
+        }
+
+        $this->notification = $notification;
 
         return $this;
     }

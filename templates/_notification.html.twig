@@ -1,5 +1,5 @@
 <li>
-    <a class="dropdown-item" href="{{ notification.url }}">
+    <a class="dropdown-item" href="{{ notification.url ~ '&notification_id=' ~ notification.id }}">
         {% if notification.type == 'commentaire.publie' %}
             Nouveau commentaire
             <br>

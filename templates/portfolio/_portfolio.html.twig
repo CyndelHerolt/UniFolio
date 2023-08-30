@@ -62,10 +62,13 @@
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center">
                             <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                            <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
-                                <button class="btn btn-delete"><i class="fa-solid fa-square-minus"></i>
-                                </button>
-                            </a>
+                            {% if commentaire.enseignant.id == data_user.enseignant.id %}
+                                <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
+                                    <button class="btn btn-delete"><i
+                                                class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </a>
+                            {% endif %}
                         </div>
                         <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
                         <small>·</small>
@@ -93,26 +96,26 @@
         {{ form_end(commentForm) }}
     </div>
 </div>
-    {% elseif user.etudiant is not null %}
-        <div>
-            <h5>Commentaires</h5>
-            {% if portfolio.commentaires is empty %}
-                <p>Aucun commentaire pour le moment</p>
-            {% else %}
-                {% for commentaire in portfolio.commentaires %}
-                    <div class="card"
-                         style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
-                        <div class="card-header">
-                            <div style="display: flex; justify-content: space-between; align-items: center">
-                                <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
-                            </div>
-                            <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+{% elseif user.etudiant is not null %}
+    <div>
+        <h5>Commentaires</h5>
+        {% if portfolio.commentaires is empty %}
+            <p>Aucun commentaire pour le moment</p>
+        {% else %}
+            {% for commentaire in portfolio.commentaires %}
+                <div class="card"
+                     style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                            <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">{{ commentaire.contenu }}</p>
-                        </div>
+                        <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ commentaire.contenu }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endif %}
