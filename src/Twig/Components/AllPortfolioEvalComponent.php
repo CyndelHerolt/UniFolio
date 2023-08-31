@@ -16,8 +16,11 @@ use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\OrdrePageRepository;
+use App\Repository\OrdreTraceRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\SemestreRepository;
+use App\Repository\TraceRepository;
 use App\Repository\TypeGroupeRepository;
 use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -29,7 +32,6 @@ use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
-use function PHPUnit\Framework\isEmpty;
 
 #[AsLiveComponent('AllPortfolioEvalComponent')]
 final class AllPortfolioEvalComponent extends BaseController
@@ -73,21 +75,24 @@ final class AllPortfolioEvalComponent extends BaseController
     public array $allPortfolios = [];
 
     public function __construct(
-        public PortfolioRepository $portfolioRepository,
-        public DepartementRepository $departementRepository,
-        public ApcNiveauRepository   $apcNiveauRepository,
-        public EtudiantRepository    $etudiantRepository,
-        public GroupeRepository      $groupeRepository,
-        public SemestreRepository    $semestreRepository,
-        public AnneeRepository       $anneeRepository,
-        public TypeGroupeRepository  $typeGroupeRepository,
-        public ValidationRepository  $validationRepository,
-        public CommentaireRepository $commentaireRepository,
-        public CompetenceRepository  $competenceRepository,
-        #[Required] public Security  $security,
-        RequestStack                 $requestStack,
-        private FormFactoryInterface $formFactory,
-        protected DataUserSession $dataUserSession,
+        protected PortfolioRepository   $portfolioRepository,
+        protected DepartementRepository $departementRepository,
+        protected ApcNiveauRepository   $apcNiveauRepository,
+        protected EtudiantRepository    $etudiantRepository,
+        protected GroupeRepository      $groupeRepository,
+        protected SemestreRepository    $semestreRepository,
+        protected AnneeRepository       $anneeRepository,
+        protected TypeGroupeRepository  $typeGroupeRepository,
+        protected ValidationRepository  $validationRepository,
+        protected CommentaireRepository $commentaireRepository,
+        protected CompetenceRepository  $competenceRepository,
+        protected OrdreTraceRepository  $ordreTraceRepository,
+        protected OrdrePageRepository   $ordrePageRepository,
+        protected TraceRepository       $traceRepository,
+        #[Required] public Security     $security,
+        RequestStack                    $requestStack,
+        private FormFactoryInterface    $formFactory,
+        protected DataUserSession       $dataUserSession,
     )
     {
         $this->requestStack = $requestStack;
@@ -127,7 +132,7 @@ final class AllPortfolioEvalComponent extends BaseController
                 $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
                 $competencesNiveau = array_merge($competencesNiveau, $niveaux);
             }
-        }  else {
+        } else {
             foreach ($this->annees as $annee) {
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());

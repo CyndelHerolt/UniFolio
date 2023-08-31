@@ -504,6 +504,24 @@
     }
 
   }
+
+  .bilan-eval-competences {
+
+    ul {
+      flex-direction: column;
+
+      li {
+        background-color: #f8f8f8;
+        padding: 10px 20px;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+        font-size: 0.8rem;
+      }
+    }
+  }
 }
 
 .bilan-competences {

@@ -24,82 +24,14 @@
         {% endfor %}
     </td>
     <td>
-        {% set seen = [] %}
-        {% set totalGlobalValidations = 0 %}
-        {% set totalGlobalEtatNonZero = 0 %}
-
-        {% for op in this.portfolio.ordrePages %}
-            {% for ot in op.page.ordreTraces %}
-                {% for validation in ot.trace.validations %}
-                    {% if validation.apcNiveau.libelle not in seen %}
-                        {% set totalValidations = 0 %}
-                        {% set totalEtatTrois = 0 %}
-                        {% set totalEtatNonZero = 0 %}
-
-                        {% for op2 in this.portfolio.ordrePages %}
-                            {% for ot2 in op2.page.ordreTraces %}
-                                {% for validation2 in ot2.trace.validations %}
-                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
-                                        {% set totalValidations = totalValidations + 1 %}
-                                        {% set totalGlobalValidations = totalGlobalValidations + 1 %}
-                                        {% if validation2.etat == 3 %}
-                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
-                                        {% endif %}
-                                        {% if validation2.etat != 0 %}
-                                            {% set totalEtatNonZero = totalEtatNonZero + 1 %}
-                                            {% set totalGlobalEtatNonZero = totalGlobalEtatNonZero + 1 %}
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            {% endfor %}
-                        {% endfor %}
-                        {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-        {% if totalGlobalValidations != 0 %}
-            {{ (totalGlobalEtatNonZero / totalGlobalValidations) * 100 }}%
-        {% else %}
-            0 %
-        {% endif %}
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#evalModal">
+            {{ this.evaluatedTraces }} %
+        </button>
     </td>
     <td>
-        {% set seen = [] %}
-        {% set totalGlobalValidations = 0 %}
-        {% set totalGlobalEtatTrois = 0 %}
-
-        {% for op in this.portfolio.ordrePages %}
-            {% for ot in op.page.ordreTraces %}
-                {% for validation in ot.trace.validations %}
-                    {% set totalValidations = 0 %}
-                    {% set totalEtatTrois = 0 %}
-
-                    {% for op2 in this.portfolio.ordrePages %}
-                        {% for ot2 in op2.page.ordreTraces %}
-                            {% for validation2 in ot2.trace.validations %}
-                                {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
-                                    {% set totalValidations = totalValidations + 1 %}
-                                    {% set totalGlobalValidations = totalGlobalValidations + 1 %}
-                                    {% if validation2.etat == 3 %}
-                                        {% set totalEtatTrois = totalEtatTrois + 1 %}
-                                        {% set totalGlobalEtatTrois = totalGlobalEtatTrois + 1 %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
-                    {% endfor %}
-
-                    {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-
-        {% if totalGlobalValidations != 0 %}
-            {{ ((totalGlobalEtatTrois / totalGlobalValidations) * 100)|round }}%
-        {% else %}
-            0 %
-        {% endif %}
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#validModal">
+            {{ this.validatedTraces }} %
+        </button>
     </td>
     <td>
         <a href="{{ path('app_portfolio_index', {id: this.portfolio.id}) }}">
@@ -107,3 +39,191 @@
         </a>
     </td>
 </tr>
+
+
+<div class="modal modal-lg fade" id="evalModal" tabindex="-1" aria-labelledby="evalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title" id="evalModalLabel">Bilan évaluation des compétences</h4>
+                    <em>Faites le tri entre les compétences déjà évaluées et celles non évaluées.</em>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bilan-eval-competences">
+                {% set seen = [] %}
+                <ul>
+                    {% for op in this.portfolio.ordrePages %}
+                        {% for ot in op.page.ordreTraces %}
+                            {% for validation in ot.trace.validations %}
+                                {% if validation.apcNiveau.ordre == this.portfolio.annee.ordre %}
+                                    {% if validation.apcNiveau.libelle not in seen %}
+                                        {% set label = validation.apcNiveau.libelle %}
+                                        {% set color = validation.apcNiveau.competences.couleur %}
+                                        {% set percentage = this.evaluatedCompetences[label]['percentage'] ?? 0 %}
+                                        <div class="accordion accordion-flush bilan-competences"
+                                             id="accordionFlushExample">
+                                            <div class="accordion-item">
+                                                <div class="accordion-header" id="flush-heading{{ validation.id }}">
+                                                    <button class="accordion-button collapsed"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-collapse{{ validation.id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="flush-collapse{{ validation.id }}">
+                                                        <li class="col-12">
+                                                            <div>
+                                                                <span class="{{ color }}">{{ validation.apcNiveau.competences.nomCourt }}</span>
+                                                                • {{ label }}
+                                                            </div>
+                                                            <div>
+                                                                <span class="{{ color }}">{{ percentage }}%</span>
+                                                                {% set seen = seen|merge([label]) %}
+                                                            </div>
+                                                        </li>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="flush-collapse{{ validation.id }}"
+                                             class="accordion-collapse collapse"
+                                             aria-labelledby="flush-heading{{ validation.id }}"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                {% for opAll in this.portfolio.ordrePages %}
+                                                    {% for otAll in opAll.page.ordreTraces %}
+                                                        {% for validationAll in otAll.trace.validations %}
+                                                            {% if validationAll.apcNiveau.libelle == label %}
+                                                                <li>
+                                                                    <div>{{ otAll.trace.titre }}
+                                                                        {% if validationAll.etat == 0 %}
+                                                                            <i class="fa-solid fa-hourglass-half"
+                                                                               style="color: #4c008b"></i>
+                                                                        {% elseif validationAll.etat == 1 %}
+                                                                            <i class="fa-solid fa-xmark"
+                                                                               style="color: red"></i>
+                                                                        {% elseif validationAll.etat == 2 %}
+                                                                            <i class="fa-solid fa-arrow-up"
+                                                                               style="color: orange"></i>
+                                                                        {% elseif validationAll.etat == 3 %}
+                                                                            <i class="fa-solid fa-check"
+                                                                               style="color: limegreen"></i>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
+                                                                        <button type="button" class="btn btn-secondary">
+                                                                            Accéder à la trace
+                                                                        </button>
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-lg fade" id="validModal" tabindex="-1" aria-labelledby="validModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title" id="validModalLabel">Bilan validation des compétences</h4>
+                    <em>Détail des compétences considérées comme acquises.</em>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bilan-eval-competences">
+                {% set seen = [] %}
+                <ul>
+                    {% for op in this.portfolio.ordrePages %}
+                        {% for ot in op.page.ordreTraces %}
+                            {% for validation in ot.trace.validations %}
+                                {% if validation.apcNiveau.ordre == this.portfolio.annee.ordre %}
+                                    {% if validation.apcNiveau.libelle not in seen %}
+                                        {% set label = validation.apcNiveau.libelle %}
+                                        {% set color = validation.apcNiveau.competences.couleur %}
+                                        {% set percentage = this.validatedCompetences[label]['percentage'] ?? 0 %}
+                                        <div class="accordion accordion-flush bilan-competences"
+                                             id="accordionFlushExample">
+                                            <div class="accordion-item">
+                                                <div class="accordion-header" id="flush-heading{{ validation.id }}">
+                                                    <button class="accordion-button collapsed"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-collapse{{ validation.id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="flush-collapse{{ validation.id }}">
+                                                        <li class="col-12">
+                                                            <div>
+                                                                <span class="{{ color }}">{{ validation.apcNiveau.competences.nomCourt }}</span>
+                                                                • {{ label }}
+                                                            </div>
+                                                            <div>
+                                                                <span class="{{ color }}">{{ percentage }}%</span>
+                                                                {% set seen = seen|merge([label]) %}
+                                                            </div>
+                                                        </li>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="flush-collapse{{ validation.id }}"
+                                             class="accordion-collapse collapse"
+                                             aria-labelledby="flush-heading{{ validation.id }}"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                {% for opAll in this.portfolio.ordrePages %}
+                                                    {% for otAll in opAll.page.ordreTraces %}
+                                                        {% for validationAll in otAll.trace.validations %}
+                                                            {% if validationAll.apcNiveau.libelle == label %}
+                                                                <li>
+                                                                    <div>{{ otAll.trace.titre }}
+                                                                        {% if validationAll.etat == 0 %}
+                                                                            <i class="fa-solid fa-hourglass-half"
+                                                                               style="color: #4c008b"></i>
+                                                                        {% elseif validationAll.etat == 1 %}
+                                                                            <i class="fa-solid fa-xmark"
+                                                                               style="color: red"></i>
+                                                                        {% elseif validationAll.etat == 2 %}
+                                                                            <i class="fa-solid fa-arrow-up"
+                                                                               style="color: orange"></i>
+                                                                        {% elseif validationAll.etat == 3 %}
+                                                                            <i class="fa-solid fa-check"
+                                                                               style="color: limegreen"></i>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
+                                                                        <button type="button" class="btn btn-secondary">
+                                                                            Accéder à la trace
+                                                                        </button>
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
