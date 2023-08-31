@@ -41,40 +41,27 @@
                                                         {% for validation in ot.trace.validations %}
                                                             {% if validation.apcNiveau.ordre == portfolio.annee.ordre %}
                                                                 {% if validation.apcNiveau.libelle not in seen %}
-                                                                    {% set totalApparitions = 0 %}
-                                                                    {% set totalEtatTrois = 0 %}
-
-                                                                    {% for validation2 in ot.trace.validations %}
-                                                                        {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
-                                                                            {% set totalApparitions = totalApparitions + 1 %}
-                                                                            {% if validation2.etat == 3 %}
-                                                                                {% set totalEtatTrois = totalEtatTrois + 1 %}
-                                                                            {% endif %}
-                                                                        {% endif %}
-                                                                    {% endfor %}
-
+                                                                    {% set label = validation.apcNiveau.libelle %}
+                                                                    {% set color = validation.apcNiveau.competences.couleur %}
+                                                                    {% set percentage = validatedCompetences[label]['percentage'] ?? 0 %}
                                                                     <div class="accordion accordion-flush bilan-competences"
                                                                          id="accordionFlushExample">
                                                                         <div class="accordion-item">
-                                                                            <div class="accordion-header"
-                                                                                 id="flush-heading{{ validation.id }}">
+                                                                            <div class="accordion-header" id="flush-heading{{ validation.id }}">
                                                                                 <button class="accordion-button collapsed"
                                                                                         type="button"
                                                                                         data-bs-toggle="collapse"
                                                                                         data-bs-target="#flush-collapse{{ validation.id }}"
                                                                                         aria-expanded="false"
-                                                                                        aria-controls="flush-collapse{{ validation.id }}"
-                                                                                        style="padding: 0">
+                                                                                        aria-controls="flush-collapse{{ validation.id }}">
                                                                                     <li class="col-12">
                                                                                         <div>
-                                                                                            <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                                                                            {{ validation.apcNiveau.competences.nomCourt }}</span>
-                                                                                            • {{ validation.apcNiveau.libelle }}
+                                                                                            <span class="{{ color }}">{{ validation.apcNiveau.competences.nomCourt }}</span>
+                                                                                            • {{ label }}
                                                                                         </div>
                                                                                         <div>
-                                                                                            <span class="{{ validation.apcNiveau.competences.couleur }}">{{ (totalEtatTrois / totalApparitions) * 100 }}%</span>
-                                                                                            {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
-                                                                                            <i class="fa-solid fa-chevron-down"></i>
+                                                                                            <span class="{{ color }}">{{ percentage }}%</span>
+                                                                                            {% set seen = seen|merge([label]) %}
                                                                                         </div>
                                                                                     </li>
                                                                                 </button>
@@ -89,28 +76,26 @@
                                                                             {% for opAll in portfolio.ordrePages %}
                                                                                 {% for otAll in opAll.page.ordreTraces %}
                                                                                     {% for validationAll in otAll.trace.validations %}
-                                                                                        {% if validationAll.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                                                                        {% if validationAll.apcNiveau.libelle == label %}
                                                                                             <li>
                                                                                                 <div>{{ otAll.trace.titre }}
-                                                                                                    {% if validation.etat == 0 %}
+                                                                                                    {% if validationAll.etat == 0 %}
                                                                                                         <i class="fa-solid fa-hourglass-half"
                                                                                                            style="color: #4c008b"></i>
-                                                                                                    {% elseif validation.etat == 1 %}
+                                                                                                    {% elseif validationAll.etat == 1 %}
                                                                                                         <i class="fa-solid fa-xmark"
                                                                                                            style="color: red"></i>
-                                                                                                    {% elseif validation.etat == 2 %}
+                                                                                                    {% elseif validationAll.etat == 2 %}
                                                                                                         <i class="fa-solid fa-arrow-up"
                                                                                                            style="color: orange"></i>
-                                                                                                    {% elseif validation.etat == 3 %}
+                                                                                                    {% elseif validationAll.etat == 3 %}
                                                                                                         <i class="fa-solid fa-check"
                                                                                                            style="color: limegreen"></i>
                                                                                                     {% endif %}
                                                                                                 </div>
                                                                                                 <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
-                                                                                                    <button type="button"
-                                                                                                            class="btn btn-secondary">
-                                                                                                        Accéder à la
-                                                                                                        trace
+                                                                                                    <button type="button" class="btn btn-secondary">
+                                                                                                        Accéder à la trace
                                                                                                     </button>
                                                                                                 </a>
                                                                                             </li>
@@ -120,7 +105,7 @@
                                                                             {% endfor %}
                                                                         </div>
                                                                     </div>
-                                                                                            <hr>
+                                                                    <hr>
                                                                 {% endif %}
                                                             {% endif %}
                                                         {% endfor %}
