@@ -203,6 +203,19 @@ final class AllTraceEvalComponent extends BaseController
                 }
                 $this->groupes = $groupes;
             }
+            if ($this->selectedGroupes == null) {
+                $etudiants = [];
+                $groupes = $this->groupes;
+                foreach ($groupes as $groupe) {
+                    $etudiantsGroupe = $groupe->getEtudiants();
+                    foreach ($etudiantsGroupe as $etudiant) {
+                        $etudiants[] = $etudiant;
+                        //supprimer les doublons du tableau
+                        $etudiants = array_unique($etudiants, SORT_REGULAR);
+                    }
+                }
+                $this->etudiants = $etudiants;
+            }
 
 
         } else {
@@ -218,6 +231,11 @@ final class AllTraceEvalComponent extends BaseController
                 $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
                 $groupes = $this->groupeRepository->findByDepartementSemestreActif($dept);
                 $this->groupes = $groupes;
+            }
+            if ($this->selectedGroupes == null) {
+                $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
+                $etudiants = $this->etudiantRepository->findByDepartement($dept);
+                $this->etudiants = $etudiants;
             }
         }
 
