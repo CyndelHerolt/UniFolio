@@ -11,6 +11,18 @@
             {% endfor %}
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="filtre-btn col-12">
+            {% for semestre in semestres %}
+                <button class="btn btn-primary"
+                        data-model="selectedSemestre[]"
+                        data-action="live#action"
+                        data-action-name="changeSemestre(id={{ semestre.id }})"
+                >{{ semestre.libelle }}</button>
+            {% endfor %}
+        </div>
+    </div>
 
     <div class="row">
         <div class="accordion accordion-flush col-4 g-4" id="accordionFlushExample">

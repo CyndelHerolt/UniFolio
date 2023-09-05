@@ -41,6 +41,7 @@ final class AllTraceEvalComponent extends BaseController
 {
     use DefaultActionTrait;
 
+    public array $semestre = [];
     public array $annee = [];
     public array $dept = [];
     public int $validation = 0;
@@ -60,6 +61,9 @@ final class AllTraceEvalComponent extends BaseController
 
     #[LiveProp(writable: true)]
     public ?int $selectedAnnee = null;
+
+    #[LiveProp(writable: true)]
+    public ?int $selectedSemestre = null;
 
     #[LiveProp(writable: true)]
     public array $selectedCompetences = [];
@@ -83,17 +87,17 @@ final class AllTraceEvalComponent extends BaseController
         public DepartementRepository $departementRepository,
         public CompetenceRepository  $competenceRepository,
         public ApcNiveauRepository   $apcNiveauRepository,
-        public EtudiantRepository              $etudiantRepository,
-        public GroupeRepository                $groupeRepository,
-        public SemestreRepository              $semestreRepository,
-        public AnneeRepository                 $anneeRepository,
-        public TypeGroupeRepository            $typeGroupeRepository,
-        public ValidationRepository            $validationRepository,
-        public CommentaireRepository           $commentaireRepository,
-        #[Required] public Security            $security,
-        RequestStack                           $requestStack,
-        private FormFactoryInterface           $formFactory,
-        protected DataUserSession $dataUserSession,
+        public EtudiantRepository    $etudiantRepository,
+        public GroupeRepository      $groupeRepository,
+        public SemestreRepository    $semestreRepository,
+        public AnneeRepository       $anneeRepository,
+        public TypeGroupeRepository  $typeGroupeRepository,
+        public ValidationRepository  $validationRepository,
+        public CommentaireRepository $commentaireRepository,
+        #[Required] public Security  $security,
+        RequestStack                 $requestStack,
+        private FormFactoryInterface $formFactory,
+        protected DataUserSession    $dataUserSession,
     )
     {
         $this->requestStack = $requestStack;
@@ -103,10 +107,11 @@ final class AllTraceEvalComponent extends BaseController
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
         foreach ($dept as $departement) {
             $this->annees = $this->anneeRepository->findByDepartement($departement);
+            $this->semestres = $this->semestreRepository->findByDepartementActif($departement);
             $this->groupes = $this->groupeRepository->findByDepartementSemestreActif($departement);
             $this->dept[] = $departement;
         }
-        $this->changeAnnee($this->selectedAnnee);
+        $this->changeSemestre($this->selectedSemestre);
 
     }
 
@@ -116,7 +121,7 @@ final class AllTraceEvalComponent extends BaseController
     {
         $this->currentPage = 1;
         $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
+        $this->changeSemestre($this->selectedSemestre);
     }
 
     #[LiveAction]
@@ -135,7 +140,7 @@ final class AllTraceEvalComponent extends BaseController
         }
 
         $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
+        $this->changeSemestre($this->selectedSemestre);
     }
 
     #[LiveAction]
@@ -156,7 +161,67 @@ final class AllTraceEvalComponent extends BaseController
         }
 
         $this->allTraces = $this->getAllTrace();
-        $this->changeAnnee($this->selectedAnnee);
+        $this->changeSemestre($this->selectedSemestre);
+    }
+
+    #[LiveAction]
+    public function changeSemestre(#[LiveArg] int $id = null)
+    {
+        $this->currentPage = 1;
+        $user = $this->security->getUser()->getEnseignant();
+        $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
+        $referentiel = null;
+        foreach ($dept as $departement) {
+            $referentiel = $departement->getApcReferentiels()->first();
+        }
+
+        $this->selectedSemestre = $id;
+
+        $competencesNiveau = []; // Reset Competences Niveau array
+
+        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel]);
+
+        if ($this->selectedSemestre !== null) {
+            $semestre = $this->semestreRepository->findOneBy(['id' => $this->selectedSemestre]);
+            foreach ($competences as $competence) {
+                $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
+                $competencesNiveau = array_merge($competencesNiveau, $niveaux);
+            }
+
+            if ($this->selectedEtudiants == null) {
+                $groupes = [];
+                $semestre = $this->semestreRepository->findOneBy(['id' => $this->selectedSemestre]);
+
+                if ($this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]) !== null) {
+                    $semestreActif = $this->semestreRepository->findOneBy(['id' => $semestre->getId(), 'actif' => true]);
+                    $parcours = $semestreActif->getAnnee()->getDiplome()->getApcParcours();
+                    if ($parcours !== null) {
+                        $groupes = $this->groupeRepository->findBy(['apcParcours' => $parcours]);
+                    } else {
+                        $groupes = $this->groupeRepository->findBySemestre($semestreActif);
+                    }
+                }
+                $this->groupes = $groupes;
+            }
+
+
+        } else {
+            foreach ($this->semestre as $semestre) {
+                foreach ($competences as $competence) {
+                    $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
+                    $competencesNiveau = array_merge($competencesNiveau, $niveaux);
+                    //supprimer les doublons du tableau
+                    $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                }
+            }
+            if ($this->selectedEtudiants == null) {
+                $dept = $this->departementRepository->findOneBy(['id' => $this->dept]);
+                $groupes = $this->groupeRepository->findByDepartementSemestreActif($dept);
+                $this->groupes = $groupes;
+            }
+        }
+
+        $this->allTraces = $this->getAllTrace();
     }
 
     #[LiveAction]
@@ -295,7 +360,7 @@ final class AllTraceEvalComponent extends BaseController
 
         $dept = $this->dataUserSession->getDepartement();
 
-        $traces = $this->traceRepository->findByFilters($dept, $this->selectedAnnee, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
+        $traces = $this->traceRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
 
         if ($traces == null) {
             $this->currentPage = 0;
