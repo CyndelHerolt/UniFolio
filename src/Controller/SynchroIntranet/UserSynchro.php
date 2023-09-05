@@ -42,6 +42,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                    'query' => [
+                        'username' => $login
+                    ]
             ]
         );
 
@@ -87,6 +90,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 
@@ -127,6 +133,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 
@@ -183,6 +192,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 
@@ -224,6 +236,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 
@@ -263,6 +278,9 @@ class UserSynchro extends AbstractController
                     'Content-Type' => 'application/json',
                     'X_API_KEY' => $this->getParameter('api_key')
                 ],
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 

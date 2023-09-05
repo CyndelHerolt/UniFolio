@@ -64,6 +64,7 @@ class UsersController extends AbstractController
             $plaintextPassword = $user->getPassword();
             $login = $user->getUsername();
 
+
 //             hash the password (based on the security.yaml config for the $user class)
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,
