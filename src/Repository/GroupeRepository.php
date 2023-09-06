@@ -77,7 +77,6 @@ class GroupeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    //todo: a corriger
     public function findByDepartementSemestreActifBuilder(Departement $departement): QueryBuilder
     {
         return $this->createQueryBuilder('g')

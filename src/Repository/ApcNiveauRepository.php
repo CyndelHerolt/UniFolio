@@ -50,6 +50,17 @@ class ApcNiveauRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByGroupe($competence, $groupe) {
+        return $this->createQueryBuilder('n')
+            ->where('n.competences = :competence')
+            ->andWhere('n.ordre = :ordre')
+            ->setParameter('competence', $competence)
+            ->setParameter('ordre', $groupe)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function truncate(): void
     {
         $this->getEntityManager()->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=0');

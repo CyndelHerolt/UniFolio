@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Semestre;
 use App\Entity\Trace;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -53,7 +54,7 @@ class TraceRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function findByFilters($dept, int $semestre = null, array $competences = [], array $groupes = [], array $etudiants = []): array
+    public function findByFilters($dept, Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = []): array
     {
         $qb = $this->createQueryBuilder('t')
             ->innerJoin('t.validations', 'v')
@@ -71,7 +72,7 @@ class TraceRepository extends ServiceEntityRepository
             ;
         if (!empty($semestre)) {
             $qb->andWhere('s.id = :semestre')
-                ->setParameter('semestre', $semestre);
+                ->setParameter('semestre', $semestre->getId());
         }
         if (!empty($competences)) {
             $qb->andWhere('c.id IN (:competences)')
