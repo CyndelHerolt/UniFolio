@@ -81,12 +81,12 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/departement',
+            'http://10.57.8.53/intranet/fr/api/unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -126,12 +126,12 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/diplome',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -178,12 +178,12 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/annee',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -226,12 +226,12 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/semestre',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ],
         );
@@ -280,12 +280,12 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/type_groupe',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -335,12 +335,12 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/groupe',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );

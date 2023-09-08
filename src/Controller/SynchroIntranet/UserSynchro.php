@@ -35,12 +35,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/etudiant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                     'query' => [
                         'username' => $login
@@ -83,12 +83,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/etudiant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -126,12 +126,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/etudiant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -185,12 +185,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/enseignant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -229,12 +229,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/enseignant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -271,12 +271,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/enseignant',
+            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login

@@ -28,31 +28,32 @@ class ReferentielSynchro extends AbstractController
 {
     #[Route('/api/intranet/referentiel', name: 'app_synchro_intranet_referentiel')]
     public function synchroReferentiel(
-        HttpClientInterface   $client,
-        ApcReferentielRepository $referentielRepository,
-        DepartementRepository $departementRepository,
-        CompetenceRepository $competenceRepository,
-        ApcNiveauRepository $niveauRepository,
+        HttpClientInterface                $client,
+        ApcReferentielRepository           $referentielRepository,
+        DepartementRepository              $departementRepository,
+        CompetenceRepository               $competenceRepository,
+        ApcNiveauRepository                $niveauRepository,
         ApcApprentissageCritiqueRepository $apprentissageCritiqueRepository,
-        ApcParcoursRepository $parcoursRepository,
-        ApcReferentielRepository $apcReferentielRepository,
-        ApcParcoursRepository $apcParcoursRepository,
-        GroupeRepository $groupeRepository,
-        TypeGroupeRepository $typeGroupeRepository,
-        SemestreRepository $semestreRepository,
-        AnneeRepository $anneeRepository,
-        DiplomeRepository $diplomeRepository,
+        ApcParcoursRepository              $parcoursRepository,
+        ApcReferentielRepository           $apcReferentielRepository,
+        ApcParcoursRepository              $apcParcoursRepository,
+        GroupeRepository                   $groupeRepository,
+        TypeGroupeRepository               $typeGroupeRepository,
+        SemestreRepository                 $semestreRepository,
+        AnneeRepository                    $anneeRepository,
+        DiplomeRepository                  $diplomeRepository,
     ): Response
     {
 
-if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
+
+        if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
             // Vide les tables
-            $apcReferentielRepository->truncate();
             $competenceRepository->truncate();
-            $niveauRepository->truncate();
-            $apprentissageCritiqueRepository->truncate();
             $apcParcoursRepository->truncate();
+            $niveauRepository->truncate();
+            $apcReferentielRepository->truncate();
+            $apprentissageCritiqueRepository->truncate();
             $groupeRepository->truncate();
             $typeGroupeRepository->truncate();
             $semestreRepository->truncate();
@@ -62,18 +63,19 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
         }
 
+
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------REFERENTIEL---------------------------------------------------
         //-------------------------------------------------------------------------------------------------------
 
         $referentiels = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/referentiel',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/referentiel',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -81,7 +83,7 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
         $referentiels = $referentiels->toArray();
         foreach ($referentiels as $referentiel) {
             $dept = $departementRepository->findOneBy(['libelle' => $referentiel['departement']]);
-            $existingReferentiel = $referentielRepository->findOneBy(['libelle' => $referentiel['libelle']]);
+            $existingReferentiel = $referentielRepository->findOneBy(['id' => $referentiel['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingReferentiel) {
                 $existingReferentiel->setId($referentiel['id']);
@@ -109,12 +111,12 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
         $parcours = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/parcours',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/parcours',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -133,6 +135,12 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
                     $existingParcours->setCode($apcParcours['code']);
                     $existingParcours->setActif($apcParcours['actif']);
                     $existingParcours->setApcReferentiel($referentiel);
+//                    foreach ($apcParcours['niveaux'] as $niveau) {
+//                        $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
+//                        if ($existingNiveau) {
+//                            $existingParcours->addApcNiveau($existingNiveau);
+//                        }
+//                    }
                     $parcoursRepository->save($existingParcours, true);
                 } else {
                     //Sinon, on le crée
@@ -142,10 +150,16 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
                     $newParcours->setCode($apcParcours['code']);
                     $newParcours->setActif($apcParcours['actif']);
                     $newParcours->setApcReferentiel($referentiel);
+//                    foreach($apcParcours['niveaux'] as $niveau) {
+//                        $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
+//                        if ($existingNiveau) {
+//                            $newParcours->addApcNiveau($existingNiveau);
+//                        }
+//                    }
                     $parcoursRepository->save($newParcours, true);
                 }
             } else {
-                $this->addFlash('error', 'Le référentiel ' . $apcParcours['referentiel'] . ' n\'existe pas en base de données. Essayez de synchroniser le référentiel depuis l\'administration.');
+                $this->addFlash('error', 'Le référentiel ' . $apcParcours['referentiel'] . ' n\'existe pas en base de données.');
             }
         }
 
@@ -155,24 +169,24 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
         $competences = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/competences',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/competences',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
 
         $competences = $competences->toArray();
 
-// todo: corriger foreign key competences/niveau
         foreach ($competences as $competence) {
             $referentiel = $referentielRepository->findOneBy(['libelle' => $competence['referentiel']]);
-            $existingCompetence = $competenceRepository->findOneBy(['libelle' => $competence['libelle']]);
+            $existingCompetence = $competenceRepository->findOneBy(['id' => $competence['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingCompetence) {
+
                 $existingCompetence->setId($competence['id']);
                 $existingCompetence->setLibelle($competence['libelle']);
                 $existingCompetence->setNomCourt($competence['nom_court']);
@@ -197,27 +211,35 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
         $niveaux = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/niveau',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/niveau',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
 
         $niveaux = $niveaux->toArray();
         foreach ($niveaux as $niveau) {
-            $competence = $competenceRepository->findOneBy(['id' => $niveau['competences']]);
+            $competence = $competenceRepository->findOneBy(['libelle' => $niveau['competences']]);
 
-            $existingNiveau = $niveauRepository->findOneBy(['libelle' => $niveau['libelle']]);
+            $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingNiveau) {
                 $existingNiveau->setId($niveau['id']);
                 $existingNiveau->setLibelle($niveau['libelle']);
                 $existingNiveau->setOrdre($niveau['ordre']);
                 $existingNiveau->setCompetences($competence);
+                foreach ($niveau['parcours'] as $parcours) {
+                    $existingParcours = $parcoursRepository->findOneBy(['id' => $parcours['id']]);
+                    if ($existingParcours && $existingNiveau) {
+                        if (!$existingNiveau->getApcParcours()->contains($existingParcours)) {
+                            $existingNiveau->addApcParcour($existingParcours);
+                        }
+                    }
+                }
                 $niveauRepository->save($existingNiveau, true);
             } else {
                 //Sinon, on le crée
@@ -226,9 +248,19 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
                 $newNiveau->setLibelle($niveau['libelle']);
                 $newNiveau->setOrdre($niveau['ordre']);
                 $newNiveau->setCompetences($competence);
+                foreach ($niveau['parcours'] as $parcours) {
+                    $existingParcours = $parcoursRepository->findOneBy(['id' => $parcours['id']]);
+                    if ($existingParcours && $newNiveau) {
+                        if (!$newNiveau->getApcParcours()->contains($existingParcours)) {
+                            $newNiveau->addApcParcour($existingParcours);
+                        }
+                    }
+                }
                 $niveauRepository->save($newNiveau, true);
             }
         }
+
+
 
         //-------------------------------------------------------------------------------------------------------
         //-----------------------------------------APPRENTISSAGES CRITIQUES--------------------------------------
@@ -236,12 +268,12 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
 
         $apprentissagesCritiques = $client->request(
             'GET',
-            'http://127.0.0.1:8001/fr/api/unifolio/apprentissage_critique',
+            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/apprentissage_critique',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'X_API_KEY' => $this->getParameter('api_key')
+                    'x-api-key' => $this->getParameter('api_key')
                 ]
             ]
         );
@@ -249,7 +281,7 @@ if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
         $apprentissagesCritiques = $apprentissagesCritiques->toArray();
         foreach ($apprentissagesCritiques as $apprentissageCritique) {
             $niveau = $niveauRepository->findOneBy(['libelle' => $apprentissageCritique['niveau']]);
-            $existingApprentissageCritique = $apprentissageCritiqueRepository->findOneBy(['libelle' => $apprentissageCritique['libelle']]);
+            $existingApprentissageCritique = $apprentissageCritiqueRepository->findOneBy(['id' => $apprentissageCritique['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingApprentissageCritique) {
                 $existingApprentissageCritique->setId($apprentissageCritique['id']);
