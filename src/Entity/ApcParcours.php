@@ -34,10 +34,14 @@ class ApcParcours
     #[ORM\OneToMany(mappedBy: 'apcParcours', targetEntity: Groupe::class)]
     private Collection $groupes;
 
+    #[ORM\ManyToMany(targetEntity: ApcNiveau::class, mappedBy: 'apcParcours')]
+    private Collection $apcNiveaux;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
         $this->groupes = new ArrayCollection();
+        $this->apcNiveaux = new ArrayCollection();
     }
 
     public function setId(?int $id): self
@@ -155,6 +159,33 @@ class ApcParcours
             if ($groupe->getApcParcours() === $this) {
                 $groupe->setApcParcours(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcNiveau>
+     */
+    public function getApcNiveaux(): Collection
+    {
+        return $this->apcNiveaux;
+    }
+
+    public function addApcNiveau(ApcNiveau $apcNiveau): static
+    {
+        if (!$this->apcNiveaux->contains($apcNiveau)) {
+            $this->apcNiveaux->add($apcNiveau);
+            $apcNiveau->addApcParcour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApcNiveau(ApcNiveau $apcNiveau): static
+    {
+        if ($this->apcNiveaux->removeElement($apcNiveau)) {
+            $apcNiveau->removeApcParcour($this);
         }
 
         return $this;

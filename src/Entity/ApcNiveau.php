@@ -33,10 +33,14 @@ class ApcNiveau
     #[ORM\OneToMany(mappedBy: 'apcNiveau', targetEntity: Validation::class, cascade: ['persist'])]
     private Collection $validation;
 
+    #[ORM\ManyToMany(targetEntity: ApcParcours::class, inversedBy: 'apcNiveaux')]
+    private Collection $apcParcours;
+
     public function __construct()
     {
         $this->apcApprentissageCritiques = new ArrayCollection();
         $this->validation = new ArrayCollection();
+        $this->apcParcours = new ArrayCollection();
     }
 
     public function setId(int $id): self
@@ -154,6 +158,30 @@ class ApcNiveau
                 $validation->setApcNiveau(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApcParcours>
+     */
+    public function getApcParcours(): Collection
+    {
+        return $this->apcParcours;
+    }
+
+    public function addApcParcour(ApcParcours $apcParcour): static
+    {
+        if (!$this->apcParcours->contains($apcParcour)) {
+            $this->apcParcours->add($apcParcour);
+        }
+
+        return $this;
+    }
+
+    public function removeApcParcour(ApcParcours $apcParcour): static
+    {
+        $this->apcParcours->removeElement($apcParcour);
 
         return $this;
     }
