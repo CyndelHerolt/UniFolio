@@ -123,7 +123,7 @@ class TraceTypeImageType extends AbstractType
                 ],
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => 'tinymce' ,'placeholder' => '...', 'rows' => 10, "toolbar" => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code", "menubar" => "edit view format table tools", "plugins" => "lists, table, code, textcolor"],
+                'attr' => ['class' => 'tinymce' ,'placeholder' => '...', 'rows' => 10, "toolbar" => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code", "menubar" => "edit view format table tools", "plugins" => "lists, table, code", "language" => "fr_FR"],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
                 'mapped' => true,
                 'required' => true,
