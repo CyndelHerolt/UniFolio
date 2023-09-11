@@ -5,6 +5,7 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
+use Eckinox\TinymceBundle\Form\Type\TinymceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -24,7 +25,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Contracts\Service\Attribute\Required;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class TraceTypeImageType extends AbstractType
 {
@@ -101,30 +101,29 @@ class TraceTypeImageType extends AbstractType
                 'data' => [],
             ])
             //----------------------------------------------------------------
-                ->add('legende', TextType::class, [
-                    'constraints' => [
-                        new Length([
-                            'max' => 100,
-                            'maxMessage' => 'La légende ne peut pas dépasser {{ limit }} caractères',
-                        ]),
-                    ],
-                    'label' => 'Légende',
-                    'label_attr' => ['class' => 'form-label'],
-                    'attr' => ['class' => "form-control", 'placeholder' => '...'],
-                    'help' => 'Description de votre média, 100 caractères maximum',
-                    'required' => true,
-                ])
+            ->add('legende', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'La légende ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
+                'label' => 'Légende',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                'help' => 'Description de votre média, 100 caractères maximum',
+                'required' => true,
+            ])
             //----------------------------------------------------------------
-            ->add('description', CKEditorType::class, [
+            ->add('description', TinymceType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre commentaire',
                     ]),
                 ],
-                'config_name' => 'my_config',
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '...', 'rows' => 10],
+                'attr' => ['class' => 'tinymce' ,'placeholder' => '...', 'rows' => 10, "toolbar" => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code", "menubar" => "edit view format table tools", "plugins" => "lists, table, code, textcolor"],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
                 'mapped' => true,
                 'required' => true,
@@ -146,8 +145,7 @@ class TraceTypeImageType extends AbstractType
                 'attr' => [
                     'class' => "form-check"
                 ],
-            ])
-            ;
+            ]);
     }
 
 

@@ -6,7 +6,7 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Eckinox\TinymceBundle\Form\Type\TinymceType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -114,16 +114,15 @@ public function __construct(
                 'required' => true,
             ])
             //----------------------------------------------------------------
-            ->add('description', CKEditorType::class, [
+            ->add('description', TinymceType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre commentaire',
                     ]),
                 ],
-                'config_name' => 'my_config',
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '...', 'rows' => 10],
+                'attr' => ['class' => 'tinymce' ,'placeholder' => '...', 'rows' => 10, "toolbar" => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code", "menubar" => "edit view format table tools", "plugins" => "lists, table, code, textcolor"],
                 'help' => 'Commentez votre trace pour justifier sa pertinence',
                 'mapped' => true,
                 'required' => true,
