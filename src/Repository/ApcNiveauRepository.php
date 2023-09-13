@@ -41,10 +41,23 @@ class ApcNiveauRepository extends ServiceEntityRepository
 
     public function findByAnnee($competence, $annee) {
         return $this->createQueryBuilder('n')
-            ->where('n.competences = :competence')
+            ->join('n.competences', 'c')
+            ->where('c.id = :competence')
             ->andWhere('n.ordre = :ordre')
             ->setParameter('competence', $competence)
             ->setParameter('ordre', $annee)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findByAnneeParcours($annee, $parcours) {
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.apcParcours', 'p')
+            ->andWhere('n.ordre = :ordre')
+            ->andWhere('p.id = :parcours')
+            ->setParameter('ordre', $annee->getOrdre())
+            ->setParameter('parcours', $parcours)
             ->getQuery()
             ->getResult()
             ;
