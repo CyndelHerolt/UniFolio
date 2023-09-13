@@ -38,6 +38,8 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
 
     public function save($form, $trace, $traceRepository, $traceRegistry, $existingContenu): array
     {
+        // 8Mo en octets
+        $max_size = 8 * 1024 * 1024;
         $pdfFiles = $form['contenu']->getData();
 
         $contenu = [];
@@ -52,6 +54,10 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
             foreach ($pdfFiles as $pdfFile) {
                 $pdfFileName = uniqid() . '.' . $pdfFile->guessExtension();
                 //Vérifier si le fichier est au bon format
+                if ($pdfFile->getSize() > $max_size) {
+                    $error = 'Le fichier doit faire 8mo maximum';
+                    return array('success' => false, 'error' => $error);
+                }
                 if ($pdfFile->guessExtension() === 'pdf') {
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
                     $pdfFile->move('files_directory', $pdfFileName);
