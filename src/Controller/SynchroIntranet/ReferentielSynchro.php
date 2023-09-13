@@ -82,7 +82,7 @@ class ReferentielSynchro extends AbstractController
 
         $referentiels = $referentiels->toArray();
         foreach ($referentiels as $referentiel) {
-            $dept = $departementRepository->findOneBy(['libelle' => $referentiel['departement']]);
+            $dept = $departementRepository->findOneBy(['id' => $referentiel['departement']]);
             $existingReferentiel = $referentielRepository->findOneBy(['id' => $referentiel['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingReferentiel) {
@@ -123,7 +123,7 @@ class ReferentielSynchro extends AbstractController
 
         $parcours = $parcours->toArray();
         foreach ($parcours as $apcParcours) {
-            $referentiel = $referentielRepository->findOneBy(['libelle' => $apcParcours['referentiel']]);
+            $referentiel = $referentielRepository->findOneBy(['id' => $apcParcours['referentiel']]);
 
             if ($referentiel) {
 
@@ -167,6 +167,7 @@ class ReferentielSynchro extends AbstractController
         //-----------------------------------------COMPETENCES---------------------------------------------------
         //-------------------------------------------------------------------------------------------------------
 
+        //todo: passer l'année du referentiel en paramètre de la route pour récup. -> intranet pour findBy
         $competences = $client->request(
             'GET',
             'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/competences',
@@ -182,7 +183,7 @@ class ReferentielSynchro extends AbstractController
         $competences = $competences->toArray();
 
         foreach ($competences as $competence) {
-            $referentiel = $referentielRepository->findOneBy(['libelle' => $competence['referentiel']]);
+            $referentiel = $referentielRepository->findOneBy(['id' => $competence['referentiel']]);
             $existingCompetence = $competenceRepository->findOneBy(['id' => $competence['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingCompetence) {
@@ -223,7 +224,7 @@ class ReferentielSynchro extends AbstractController
 
         $niveaux = $niveaux->toArray();
         foreach ($niveaux as $niveau) {
-            $competence = $competenceRepository->findOneBy(['libelle' => $niveau['competences']]);
+            $competence = $competenceRepository->findOneBy(['id' => $niveau['competences']]);
 
             $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
@@ -280,7 +281,7 @@ class ReferentielSynchro extends AbstractController
 
         $apprentissagesCritiques = $apprentissagesCritiques->toArray();
         foreach ($apprentissagesCritiques as $apprentissageCritique) {
-            $niveau = $niveauRepository->findOneBy(['libelle' => $apprentissageCritique['niveau']]);
+            $niveau = $niveauRepository->findOneBy(['id' => $apprentissageCritique['niveau']]);
             $existingApprentissageCritique = $apprentissageCritiqueRepository->findOneBy(['id' => $apprentissageCritique['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingApprentissageCritique) {
