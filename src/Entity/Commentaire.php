@@ -38,6 +38,12 @@ class Commentaire
     #[ORM\OneToOne(mappedBy: 'commentaire', cascade: ['persist', 'remove'])]
     private ?Notification $notification = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $commentaire_parent = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $commentaire_enfant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +151,30 @@ class Commentaire
         }
 
         $this->notification = $notification;
+
+        return $this;
+    }
+
+    public function getCommentaireParent(): ?int
+    {
+        return $this->commentaire_parent;
+    }
+
+    public function setCommentaireParent(?int $commentaire_parent): static
+    {
+        $this->commentaire_parent = $commentaire_parent;
+
+        return $this;
+    }
+
+    public function getCommentaireEnfant(): ?int
+    {
+        return $this->commentaire_enfant;
+    }
+
+    public function setCommentaireEnfant(?int $commentaire_enfant): static
+    {
+        $this->commentaire_enfant = $commentaire_enfant;
 
         return $this;
     }

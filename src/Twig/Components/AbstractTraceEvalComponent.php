@@ -36,7 +36,13 @@ class AbstractTraceEvalComponent extends BaseController
     public ?string $commentContent = '';
 
     #[LiveProp(writable: true)]
+    public ?string $commentResponseContent = '';
+
+    #[LiveProp(writable: true)]
     public ?string $commentVisibility = 'true';
+
+    #[LiveProp(writable: true)]
+    public ?bool $commentaireReponse = false;
 
 
     public function __construct(
@@ -105,10 +111,49 @@ class AbstractTraceEvalComponent extends BaseController
     }
 
     #[LiveAction]
+    public function handleResponseForm() {
+        if ($this->commentaireReponse == false) {
+            $this->commentaireReponse = true;
+        } else {
+            $this->commentaireReponse = false;
+        }
+    }
+
+    #[LiveAction]
+    public function handleCommentResponse(#[LiveArg] int $commentParent) {
+
+        $commentParent = $this->commentaireRepository->find($commentParent);
+
+        $this->commentaire->setContenu($this->commentResponseContent);
+        $this->commentaire->setVisibilite(false);
+        $this->commentaire->setEnseignant($this->security->getUser()->getEnseignant());
+        $this->commentaire->setTrace($this->getTrace());
+        $this->commentaire->setDatecreation(new \DateTime());
+        $this->commentaire->setCommentaireParent($commentParent->getId());
+
+        $this->commentaireRepository->save($this->commentaire, true);
+
+//        $commentParent->setCommentaireEnfant($this->commentaire->getId());
+//
+//        $this->commentaireRepository->save($commentParent, true);
+
+        $this->commentResponseContent = '';
+        $this->commentVisibility = false;
+        // Ajoutez cette ligne pour préparer une nouvelle entité Commentaire pour la prochaine utilisation
+        $this->commentaire = new Commentaire();
+    }
+
+    #[LiveAction]
     public function removeComment(#[LiveArg] int $commentId)
     {
         $comment = $this->commentaireRepository->find($commentId);
         $this->commentaireRepository->remove($comment, true);
+        $commentairesEnfants = $this->commentaireRepository->findBy(['commentaire_parent' => $commentId]);
+        if ($commentairesEnfants) {
+            foreach ($commentairesEnfants as $commentaireEnfant) {
+                $this->commentaireRepository->remove($commentaireEnfant, true);
+            }
+        }
     }
     public function getTrace(): ?Trace
     {
