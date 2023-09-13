@@ -21,7 +21,7 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 class AbstractTraceEvalComponent extends BaseController
 {
-
+//todo: corriger le bug de form reponse (un pour chaque commentaire)
     use DefaultActionTrait;
 
     #[LiveProp]
@@ -124,8 +124,14 @@ class AbstractTraceEvalComponent extends BaseController
 
         $commentParent = $this->commentaireRepository->find($commentParent);
 
+        if ($this->commentVisibility == 'true') {
+            $this->commentVisibility = true;
+        } else {
+            $this->commentVisibility = false;
+        }
+
         $this->commentaire->setContenu($this->commentResponseContent);
-        $this->commentaire->setVisibilite(false);
+        $this->commentaire->setVisibilite((bool) $this->commentVisibility);
         $this->commentaire->setEnseignant($this->security->getUser()->getEnseignant());
         $this->commentaire->setTrace($this->getTrace());
         $this->commentaire->setDatecreation(new \DateTime());
