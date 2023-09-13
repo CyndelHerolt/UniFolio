@@ -179,47 +179,37 @@
                         </div>
 
                         <!-- Modal delete -->
-                        <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
-                             data-bs-backdrop="static"
-                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
-                                            vraiment supprimer ce commentaire
-                                            ?</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p style="color: red">Attention, cette action est irréversible !</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Annuler
-                                        </button>
-                                        <button class="btn btn-primary"
-                                                data-action="live#action"
-                                                data-action-name="removeComment(commentId={{ commentaire.id }})"
-                                                type="button"
-                                        >Supprimer
-                                        </button>
+                            <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
+                                 data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
+                                                vraiment supprimer ce commentaire
+                                                ?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="color: red">Attention, cette action est irréversible !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Annuler
+                                            </button>
+                                            <button data-bs-dismiss="modal"
+                                                    class="btn btn-primary btn-delete-comment"
+                                                    data-action="live#action"
+                                                    data-action-name="removeComment(commentId={{ commentaire.id }})"
+                                                    type="button"
+                                            >Supprimer
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <script>
-                            var yourModal = document.getElementById('staticBackdrop{{ commentaire.id }}');
-
-                            yourModal.addEventListener('hidden.bs.modal', function () {
-                                document.querySelector('body').classList.remove('modal-open');
-                                var backdrop = document.querySelector('.modal-backdrop');
-                                if (backdrop) {
-                                    backdrop.remove();
-                                }
-                            });
-                        </script>
                         {% endfor %}
                     {% endif %}
                 </div>

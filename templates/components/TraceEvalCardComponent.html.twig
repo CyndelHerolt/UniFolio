@@ -247,7 +247,7 @@
                                                     data-bs-dismiss="modal">Annuler
                                             </button>
                                             <button data-bs-dismiss="modal"
-                                                    class="btn btn-primary"
+                                                    class="btn btn-primary btn-delete-comment"
                                                     data-action="live#action"
                                                     data-action-name="removeComment(commentId={{ commentaire.id }})"
                                                     type="button"
@@ -257,17 +257,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                var yourModal = document.getElementById('staticBackdrop{{ commentaire.id }}');
-
-                                yourModal.addEventListener('hidden.bs.modal', function () {
-                                    document.querySelector('body').classList.remove('modal-open');
-                                    var backdrop = document.querySelector('.modal-backdrop');
-                                    if (backdrop) {
-                                        backdrop.remove();
-                                    }
-                                });
-                            </script>
                             {% endfor %}
                         {% endif %}
                     </div>

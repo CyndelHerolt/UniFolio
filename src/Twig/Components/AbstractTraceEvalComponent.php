@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -37,13 +38,6 @@ class AbstractTraceEvalComponent extends BaseController
     #[LiveProp(writable: true)]
     public ?string $commentVisibility = 'true';
 
-//    #[LiveProp(writable: true)]
-//    public ?int $commentId = null;
-
-
-//    #[LiveProp(writable: true)]
-//    /** @var Trace[] */
-//    public array $Trace = [];
 
     public function __construct(
         protected TraceRepository       $traceRepository,
@@ -110,18 +104,12 @@ class AbstractTraceEvalComponent extends BaseController
         $this->commentaire = new Commentaire();
     }
 
-//    #[LiveAction]
-//    public function deleteComment()
-//    {
-//        $com = $this->commentId;
-////        dd($com);
-//        $commentaire = $this->commentaireRepository->find($this->commentId);
-//
-//        if ($commentaire) {
-//            $this->commentaireRepository->remove($commentaire, true);
-//        }
-//    }
-
+    #[LiveAction]
+    public function removeComment(#[LiveArg] int $commentId)
+    {
+        $comment = $this->commentaireRepository->find($commentId);
+        $this->commentaireRepository->remove($comment, true);
+    }
     public function getTrace(): ?Trace
     {
         return $this->traceRepository->find($this->id);
