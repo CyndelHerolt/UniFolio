@@ -1,16 +1,16 @@
- <div{{ attributes }}>
-        <div class="accordion accordion-flush" id="accordionFlushExample" style="margin: 25px 0 0 0;">
-            <div class="accordion-item"
-                 style="box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;">
-                <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
-                            aria-controls="flush-collapse{{ this.trace.id }}">
+<div{{ attributes }}>
+    <div class="accordion accordion-flush" id="accordionFlushExample" style="margin: 25px 0 0 0;">
+        <div class="accordion-item"
+             style="box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;">
+            <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
+                        aria-controls="flush-collapse{{ this.trace.id }}">
 
-                        <div class="col-11">
-                            <h5>{{ this.trace.titre }}</h5>
-                            <ul class="card-infos-min">
-                                <li><span>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }} |
+                    <div class="col-11">
+                        <h5>{{ this.trace.titre }}</h5>
+                        <ul class="card-infos-min">
+                            <li><span>{{ this.trace.bibliotheque.etudiant.prenom }} {{ this.trace.bibliotheque.etudiant.nom }} |
                             {% for g in this.trace.bibliotheque.etudiant.groupe %}
                                 {% if 'TP' in g.libelle %}
                                     {% for s in g.typegroupe.semestre %}
@@ -20,282 +20,293 @@
                                 {% endif %}
                             {% endfor %}
                             </span>
-                                </li>
-                                <li>•</li>
-                                <li>Dernière modification le
-                                    : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
-                                </li>
-                            </ul>
-                            <hr>
-
-                            <ul class="dashboard-competences">
-                                {% for validation in this.trace.validations %}
-                                    <li>
-                                        <div>
-                                                   <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                                    {{ validation.apcNiveau.competences.nomCourt }}
-                                                       </span> •
-                                            {{ validation.apcNiveau.libelle }}
-                                        </div>
-                                        {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
-                                                                         style="color: #4c008b"></i>
-                                        {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
-                                                                             style="color: red"></i>
-                                        {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
-                                                                             style="color: orange"></i>
-                                        {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
-                                                                             style="color: limegreen"></i>
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-
-                        </div>
-
-                    </button>
-                </div>
-                <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
-                     aria-labelledby="flush-heading{{ this.trace.id }}" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div class="dashboard-trace-contenu">
-                            {% if 'TraceTypeImage' in this.trace.typeTrace %}
-                                <figure>
-                                    <div class="row g-2 trace-galerie-img">
-                                        {% for img in this.trace.contenu %}
-                                            <div class="col-lg-6 col-12">
-                                                <img src="/{{ img }}" alt="image de la trace">
-                                            </div>
-                                        {% endfor %}
-                                        <figcaption>{{ this.trace.legende }}</figcaption>
-                                    </div>
-                                </figure>
-
-                            {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
-                                <figure>
-                                    <div class="trace-galerie-lien">
-                                        {% for lien in this.trace.contenu %}
-                                            <button class="btn btn-primary">
-                                                <a href="{{ lien }}" target="_blank">{{ lien }}</a>
-                                            </button>
-                                        {% endfor %}
-                                        <figcaption>{{ this.trace.legende }}</figcaption>
-                                    </div>
-                                </figure>
-                            {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-                                {% for pdf in this.trace.contenu %}
-                                    <figure>
-                                        <div class="row g-2 trace-galerie-img">
-                                            {% for img in this.trace.contenu %}
-                                                <div class="col-lg-6 col-12">
-                                                    <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
-                                                </div>
-                                            {% endfor %}
-                                            <figcaption>{{ this.trace.legende }}</figcaption>
-                                        </div>
-                                    </figure>
-                                {% endfor %}
-                            {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
-                                <figure>
-                                    <div class="row g-2 trace-galerie-img">
-                                        {% for video in this.trace.contenu %}
-                                            <div class="col-lg-6 col-12">
-                                                <iframe width="100%" height="300" src="{{ video }}"
-                                                        title="Video player"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        allowfullscreen></iframe>
-                                            </div>
-                                        {% endfor %}
-                                        <figcaption>{{ this.trace.legende }}</figcaption>
-                                    </div>
-                                </figure>
-                            {% endif %}
-                        </div>
-
-                        <p>
-                            {{ this.trace.description|raw }}
-                        </p>
+                            </li>
+                            <li>•</li>
+                            <li>Dernière modification le
+                                : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                            </li>
+                        </ul>
+                        <hr>
 
                         <ul class="dashboard-competences">
                             {% for validation in this.trace.validations %}
                                 <li>
                                     <div>
-                                <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                                   <span class="{{ validation.apcNiveau.competences.couleur }}">
                                                     {{ validation.apcNiveau.competences.nomCourt }}
                                                        </span> •
                                         {{ validation.apcNiveau.libelle }}
                                     </div>
-                                    <fieldset>
-                                        <div>
-                                            <div class="form-check">
-                                                {% if validation.etat == 1 %}
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                           id="flexCheckChecked" checked>
-                                                {% else %}
-                                                    <input type="checkbox" id="validation{{ validation.id }}1"
-                                                           name="validation1{{ validation.id }}"
-                                                           data-model="selectedValidation"
-                                                           data-action="live#action"
-                                                           data-action-name="changeValidation"
-                                                           value="{{ validation.id }}-1"
-                                                           class="form-check-input">
-                                                {% endif %}
-
-                                                <label for="validation1{{ validation.id }}1"
-                                                       class="form-check-label">Non-acquis</label><br>
-                                            </div>
-                                            <div class="form-check">
-                                                {% if validation.etat == 2 %}
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                           id="flexCheckChecked" checked>
-                                                {% else %}
-                                                    <input type="checkbox" id="validation{{ validation.id }}2"
-                                                           name="validation2{{ validation.id }}"
-                                                           data-model="selectedValidation"
-                                                           data-action="live#action"
-                                                           data-action-name="changeValidation"
-                                                           value="{{ validation.id }}-2"
-                                                           class="form-check-input">
-                                                {% endif %}
-                                                <label for="validation2{{ validation.id }}2"
-                                                       class="form-check-label">En cours</label><br>
-                                            </div>
-                                            <div class="form-check">
-                                                {% if validation.etat == 3 %}
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                           id="flexCheckChecked" checked>
-                                                {% else %}
-                                                    <input type="checkbox" id="validation{{ validation.id }}3"
-                                                           name="validation3{{ validation.id }}"
-                                                           data-model="selectedValidation"
-                                                           data-action="live#action"
-                                                           data-action-name="changeValidation"
-                                                           value="{{ validation.id }}-3"
-                                                           class="form-check-input">
-                                                {% endif %}
-                                                <label for="validation3{{ validation.id }}3"
-                                                       class="form-check-label">Acquis</label><br>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                                    {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                     style="color: #4c008b"></i>
+                                    {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                         style="color: red"></i>
+                                    {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                         style="color: orange"></i>
+                                    {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                         style="color: limegreen"></i>
+                                    {% endif %}
                                 </li>
-                                {% if validation.etat == 0 %}
-                                    <p>En attente de validation</p>
-                                {% else %}
-                                    <p>Evaluation saisie
-                                        par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
-                                        le {{ validation.dateModification|date('d-m-Y') }}</p>
-                                {% endif %}
                             {% endfor %}
                         </ul>
-                        <hr>
-                        <div>
-                            <h5>Commentaires</h5>
-                            {% if this.trace.commentaires is empty %}
-                                <p>Aucun commentaire pour le moment</p>
-                            {% else %}
-                                {% for commentaire in this.trace.commentaires %}
-                                    <div class="card"
-                                         style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
-                                        <div class="card-header">
-                                            <div style="display: flex; justify-content: space-between; align-items: center">
-                                                <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                    </div>
 
-                                                {% if commentaire.enseignant.id == this.dataUserSession.enseignant.id %}
-                                                    <a>
-                                                        <button
-                                                                class="btn btn-delete" data-bs-toggle="modal"
-                                                                data-bs-target="#staticBackdrop{{ commentaire.id }}"><i
-                                                                    class="fa-solid fa-square-minus"></i>
-                                                        </button>
-                                                    </a>
-                                                {% endif %}
-
-                                            </div>
-                                            <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
-                                            <small>·</small>
-                                            <small>
-                                                {% if commentaire.visibilite == 1 %}
-                                                    Public
-                                                {% else %}
-                                                    Privé
-                                                {% endif %}
-                                            </small>
+                </button>
+            </div>
+            <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
+                 aria-labelledby="flush-heading{{ this.trace.id }}" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body" style="padding: 50px">
+                    <div class="dashboard-trace-contenu">
+                        {% if 'TraceTypeImage' in this.trace.typeTrace %}
+                            <figure>
+                                <div class="row g-2 trace-galerie-img">
+                                    {% for img in this.trace.contenu %}
+                                        <div class="col-lg-6 col-12">
+                                            <img src="/{{ img }}" alt="image de la trace">
                                         </div>
-                                        <div class="card-body">
-                                            <p class="card-text">{{ commentaire.contenu }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal delete -->
-                                    <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
-                                         data-bs-backdrop="static"
-                                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
-                                                        vraiment supprimer ce commentaire
-                                                        ?</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p style="color: red">Attention, cette action est irréversible !</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Annuler
-                                                    </button>
-                                                    <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
-                                                        <button class="btn btn-primary">Supprimer</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="mb-3">
-                            <form>
-                                <label class="form-label" for="commentContent">Ajouter un commentaire</label>
-                                <textarea class="form-control"
-                                          id="commentContent"
-                                          data-model="commentContent"
-                                          data-action="input->live#update">
-                            </textarea>
-                                {#                            <div class="form-check">#}
-                                <label>
-                                    <input class="form-check-input"
-                                           type="radio"
-                                           value="true"
-                                           data-model="commentVisibility"
-                                           data-action="change->live#update"
-                                           {% if this.commentVisibility == true %}checked{% endif %}>
-                                    Public
-                                </label>
-
-                                <label>
-                                    <input class="form-check-input"
-                                           type="radio"
-                                           value="false"
-                                           data-model="commentVisibility"
-                                           data-action="change->live#update"
-                                           {% if this.commentVisibility == false %}checked{% endif %}>
-                                    Privé
-                                </label>
-                                {#                            </div>#}
-                                <div>
-                                    <button type="button"
-                                            class="btn btn-primary"
-                                            data-action="live#action"
-                                            data-action-name="handleComment">
-                                        Publier
-                                    </button>
+                                    {% endfor %}
+                                    <figcaption>{{ this.trace.legende }}</figcaption>
                                 </div>
-                            </form>
+                            </figure>
+
+                        {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
+                            <figure>
+                                <div class="trace-galerie-lien">
+                                    {% for lien in this.trace.contenu %}
+                                        <button class="btn btn-primary">
+                                            <a href="{{ lien }}" target="_blank">{{ lien }}</a>
+                                        </button>
+                                    {% endfor %}
+                                    <figcaption>{{ this.trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+                        {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
+                            {% for pdf in this.trace.contenu %}
+                                <figure>
+                                    <div class="row g-2 trace-galerie-img">
+                                        {% for img in this.trace.contenu %}
+                                            <div class="col-lg-6 col-12">
+                                                <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
+                                            </div>
+                                        {% endfor %}
+                                        <figcaption>{{ this.trace.legende }}</figcaption>
+                                    </div>
+                                </figure>
+                            {% endfor %}
+                        {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
+                            <figure>
+                                <div class="row g-2 trace-galerie-img">
+                                    {% for video in this.trace.contenu %}
+                                        <div class="col-lg-6 col-12">
+                                            <iframe width="100%" height="300" src="{{ video }}"
+                                                    title="Video player"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
+                                        </div>
+                                    {% endfor %}
+                                    <figcaption>{{ this.trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+                        {% endif %}
+                    </div>
+
+                    <p>
+                        {{ this.trace.description|raw }}
+                    </p>
+
+                    <ul class="dashboard-competences">
+                        {% for validation in this.trace.validations %}
+                            <li>
+                                <div>
+                                <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                                    {{ validation.apcNiveau.competences.nomCourt }}
+                                                       </span> •
+                                    {{ validation.apcNiveau.libelle }}
+                                </div>
+                                <fieldset>
+                                    <div>
+                                        <div class="form-check">
+                                            {% if validation.etat == 1 %}
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckChecked" checked>
+                                            {% else %}
+                                                <input type="checkbox" id="validation{{ validation.id }}1"
+                                                       name="validation1{{ validation.id }}"
+                                                       data-model="selectedValidation"
+                                                       data-action="live#action"
+                                                       data-action-name="changeValidation"
+                                                       value="{{ validation.id }}-1"
+                                                       class="form-check-input">
+                                            {% endif %}
+
+                                            <label for="validation1{{ validation.id }}1"
+                                                   class="form-check-label">Non-acquis</label><br>
+                                        </div>
+                                        <div class="form-check">
+                                            {% if validation.etat == 2 %}
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckChecked" checked>
+                                            {% else %}
+                                                <input type="checkbox" id="validation{{ validation.id }}2"
+                                                       name="validation2{{ validation.id }}"
+                                                       data-model="selectedValidation"
+                                                       data-action="live#action"
+                                                       data-action-name="changeValidation"
+                                                       value="{{ validation.id }}-2"
+                                                       class="form-check-input">
+                                            {% endif %}
+                                            <label for="validation2{{ validation.id }}2"
+                                                   class="form-check-label">En cours</label><br>
+                                        </div>
+                                        <div class="form-check">
+                                            {% if validation.etat == 3 %}
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckChecked" checked>
+                                            {% else %}
+                                                <input type="checkbox" id="validation{{ validation.id }}3"
+                                                       name="validation3{{ validation.id }}"
+                                                       data-model="selectedValidation"
+                                                       data-action="live#action"
+                                                       data-action-name="changeValidation"
+                                                       value="{{ validation.id }}-3"
+                                                       class="form-check-input">
+                                            {% endif %}
+                                            <label for="validation3{{ validation.id }}3"
+                                                   class="form-check-label">Acquis</label><br>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </li>
+                            {% if validation.etat == 0 %}
+                                <p>En attente de validation</p>
+                            {% else %}
+                                <p>Evaluation saisie
+                                    par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
+                                    le {{ validation.dateModification|date('d-m-Y') }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                    <div>
+                        <h5>Commentaires</h5>
+                        {% if this.trace.commentaires is empty %}
+                            <p>Aucun commentaire pour le moment</p>
+                        {% else %}
+                            {% for commentaire in this.trace.commentaires %}
+                            <div class="card"
+                                 style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                                <div class="card-header">
+                                    <div style="display: flex; justify-content: space-between; align-items: center">
+                                        <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+
+                                        {% if commentaire.enseignant.id == this.dataUserSession.enseignant.id %}
+                                            <a>
+                                                <button
+                                                        class="btn btn-delete" data-bs-toggle="modal"
+                                                        data-bs-target="#staticBackdrop{{ commentaire.id }}"><i
+                                                            class="fa-solid fa-square-minus"></i>
+                                                </button>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+                                    <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                                    <small>·</small>
+                                    <small>
+                                        {% if commentaire.visibilite == 1 %}
+                                            Public
+                                        {% else %}
+                                            Privé
+                                        {% endif %}
+                                    </small>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{ commentaire.contenu }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Modal delete -->
+                            <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
+                                 data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
+                                                vraiment supprimer ce commentaire
+                                                ?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="color: red">Attention, cette action est irréversible !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Annuler
+                                            </button>
+                                            <button data-bs-dismiss="modal"
+                                                    class="btn btn-primary"
+                                                    data-action="live#action"
+                                                    data-action-name="removeComment(commentId={{ commentaire.id }})"
+                                                    type="button"
+                                            >Supprimer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var yourModal = document.getElementById('staticBackdrop{{ commentaire.id }}');
+
+                                yourModal.addEventListener('hidden.bs.modal', function () {
+                                    document.querySelector('body').classList.remove('modal-open');
+                                    var backdrop = document.querySelector('.modal-backdrop');
+                                    if (backdrop) {
+                                        backdrop.remove();
+                                    }
+                                });
+                            </script>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <form>
+                            <label class="form-label" for="commentContent">Ajouter un commentaire</label>
+                            <textarea class="form-control"
+                                      id="commentContent"
+                                      data-model="commentContent"
+                                      data-action="input">
+                            </textarea>
+                            <label>
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="true"
+                                       data-model="commentVisibility"
+                                       data-action="change"
+                                       {% if this.commentVisibility == true %}checked{% endif %}>
+                                Public
+                            </label>
+
+                            <label>
+                                <input class="form-check-input"
+                                       type="radio"
+                                       value="false"
+                                       data-model="commentVisibility"
+                                       data-action="change"
+                                       {% if this.commentVisibility == false %}checked{% endif %}>
+                                Privé
+                            </label>
+                            <div>
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        data-action="live#action"
+                                        data-action-name="handleComment">
+                                    Publier
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -303,3 +314,5 @@
 
     </div>
 </div>
+
+
