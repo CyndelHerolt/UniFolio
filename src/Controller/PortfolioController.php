@@ -342,7 +342,7 @@ class PortfolioController extends BaseController
             } elseif ($request->headers->get('referer') && strpos($request->headers->get('referer'), 'enseignant/dashboard')) {
                 return $this->redirect($request->headers->get('referer'));
             } else {
-                return $this->redirectToRoute('app_portfolio');
+                return $this->redirectToRoute('enseignant_dashboard');
             }
         } else {
             return $this->render('security/accessDenied.html.twig');

@@ -19,9 +19,13 @@
         {{ this.portfolio.ordrePages|length }}
     </td>
     <td>
+        {% set totalLength = 0 %}
+
         {% for pages in this.portfolio.ordrePages %}
-            {{ pages.page.ordreTraces|length }}
+            {% set totalLength = totalLength + pages.page.ordreTraces|length %}
         {% endfor %}
+
+        {{ totalLength }}
     </td>
     <td>
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#evalModal">
@@ -111,7 +115,7 @@
                                                                                style="color: limegreen"></i>
                                                                         {% endif %}
                                                                     </div>
-                                                                    <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
+                                                                    <a href="{{ path('app_bilan_eval_trace', {'id': otAll.trace.id}) }}">
                                                                         <button type="button" class="btn btn-secondary">
                                                                             Accéder à la trace
                                                                         </button>
@@ -204,7 +208,7 @@
                                                                                style="color: limegreen"></i>
                                                                         {% endif %}
                                                                     </div>
-                                                                    <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
+                                                                    <a href="{{ path('app_bilan_eval_trace', {'id': otAll.trace.id}) }}">
                                                                         <button type="button" class="btn btn-secondary">
                                                                             Accéder à la trace
                                                                         </button>
