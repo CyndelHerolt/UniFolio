@@ -42,7 +42,7 @@ class AbstractTraceEvalComponent extends BaseController
     public ?string $commentVisibility = 'true';
 
     #[LiveProp(writable: true)]
-    public ?bool $commentaireReponse = false;
+    public ?int $commentaireReponseId = null;
 
 
     public function __construct(
@@ -111,12 +111,8 @@ class AbstractTraceEvalComponent extends BaseController
     }
 
     #[LiveAction]
-    public function handleResponseForm() {
-        if ($this->commentaireReponse == false) {
-            $this->commentaireReponse = true;
-        } else {
-            $this->commentaireReponse = false;
-        }
+    public function handleResponseForm(#[LiveArg] int $commentaireId) {
+        $this->commentaireReponseId = $commentaireId;
     }
 
     #[LiveAction]

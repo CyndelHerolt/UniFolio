@@ -164,7 +164,7 @@
                                     {% elseif commentaire.enseignant.id != this.dataUserSession.enseignant.id %}
                                         <a>
                                             <button data-action="live#action"
-                                                    data-action-name="handleResponseForm"
+                                                    data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
                                                     class="btn btn-primary">Répondre
                                             </button>
                                         </a>
@@ -205,7 +205,7 @@
                                                 {% elseif response.enseignant.id != this.dataUserSession.enseignant.id %}
                                                     <a>
                                                         <button data-action="live#action"
-                                                                data-action-name="handleResponseForm"
+                                                                data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
                                                                 class="btn btn-primary">Répondre
                                                         </button>
                                                     </a>
@@ -264,7 +264,7 @@
                                 {% endif %}
                             {% endfor %}
 
-                            {% if this.commentaireReponse == true %}
+                            {% if this.commentaireReponseId == commentaire.id %}
                                 <hr>
                                 <div class="col-11" style="margin: 0 auto">
                                     <form>
