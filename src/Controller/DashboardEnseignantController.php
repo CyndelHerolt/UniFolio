@@ -55,42 +55,6 @@ class DashboardEnseignantController extends BaseController
                     'data_user' => $data_user,
                 ]);
             } else {
-
-//                si un form en post est envoyé
-                if ($_POST) {
-                    $data = $_POST;
-                    // vérifier que le form est un form de type CommentaireType
-                    if (isset($data['commentaire'])) {
-                        // vérifier qu'aucun champ n'est vide
-                        if (empty($data['commentaire']['contenu'])) {
-                            $this->addFlash('error', 'Le champ commentaire ne peut pas être vide');
-                            return $this->redirectToRoute('enseignant_dashboard');
-                        } else {
-                            $commentaire = new Commentaire();
-                            $commentaire->setContenu(htmlspecialchars($data['commentaire']['contenu']));
-                            $commentaire->setEnseignant($enseignant);
-                            $commentaire->setVisibilite($data['commentaire']['visibilite']);
-                            $commentaire->setDateCreation(new \DateTime());
-                            $commentaire->setDateModification(new \DateTime());
-                            if ($_POST['traceId']) {
-                                $trace = $traceRepository->find($_POST['traceId']);
-                                $commentaire->setTrace($trace);
-                            }
-                            $commentaireRepository->save($commentaire, true);
-
-                            if ($commentaire->isVisibilite() == 1) {
-                                $event = new CommentaireEvent($commentaire);
-                                $eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED, $trace->getId());
-                            }
-
-                            $this->addFlash('success', 'Commentaire ajouté avec succès !');
-
-                            return $this->redirectToRoute('enseignant_dashboard');
-                        }
-                    }
-
-                }
-
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'admin' => '',
                     'data_user' => $data_user,

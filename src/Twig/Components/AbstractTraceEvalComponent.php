@@ -5,6 +5,7 @@ namespace App\Twig\Components;
 use App\Controller\BaseController;
 use App\Entity\Commentaire;
 use App\Entity\Trace;
+use App\Event\CommentaireEvent;
 use App\Event\EvaluationEvent;
 use App\Repository\CommentaireRepository;
 use App\Repository\TraceRepository;
@@ -52,13 +53,14 @@ class AbstractTraceEvalComponent extends BaseController
         protected ValidationRepository  $validationRepository,
         protected CommentaireRepository $commentaireRepository,
         #[Required] public Security  $security,
+        EventDispatcherInterface $eventDispatcher
     )
     {
 //        $this->Trace = $this->getTrace();
 
         // Créez une instance de votre entité Commentaire
         $this->commentaire = new Commentaire();
-
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     #[LiveAction]
@@ -104,6 +106,11 @@ class AbstractTraceEvalComponent extends BaseController
 
         $this->commentaireRepository->save($this->commentaire, true);
 
+        if ($this->commentaire->isVisibilite() == 1) {
+            $event = new CommentaireEvent($this->commentaire);
+            $this->eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED);
+        }
+
         $this->commentContent = '';
         $this->commentVisibility = false;
         // Ajoutez cette ligne pour préparer une nouvelle entité Commentaire pour la prochaine utilisation
@@ -135,9 +142,10 @@ class AbstractTraceEvalComponent extends BaseController
 
         $this->commentaireRepository->save($this->commentaire, true);
 
-//        $commentParent->setCommentaireEnfant($this->commentaire->getId());
-//
-//        $this->commentaireRepository->save($commentParent, true);
+        if ($this->commentaire->isVisibilite() == 1) {
+            $event = new CommentaireEvent($this->commentaire);
+            $this->eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED);
+        }
 
         $this->commentResponseContent = '';
         $this->commentVisibility = false;

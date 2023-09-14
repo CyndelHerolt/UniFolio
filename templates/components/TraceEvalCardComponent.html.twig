@@ -193,70 +193,198 @@
                             <p>Aucun commentaire pour le moment</p>
                         {% else %}
                             {% for commentaire in this.trace.commentaires %}
-                            <div class="card"
-                                 style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
-                                <div class="card-header">
-                                    <div style="display: flex; justify-content: space-between; align-items: center">
-                                        <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                                {% if commentaire.commentaireParent is null %}
+                                    <div class="card"
+                                         style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                                        <div class="card-header">
+                                            <div style="display: flex; justify-content: space-between; align-items: center">
+                                                <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
 
-                                        {% if commentaire.enseignant.id == this.dataUserSession.enseignant.id %}
-                                            <a>
-                                                <button
-                                                        class="btn btn-delete" data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop{{ commentaire.id }}"><i
-                                                            class="fa-solid fa-square-minus"></i>
-                                                </button>
-                                            </a>
+                                                {% if commentaire.enseignant.id == this.dataUserSession.enseignant.id %}
+                                                    <a>
+                                                        <button class="btn btn-delete" data-bs-toggle="modal"
+                                                                data-bs-target="#staticBackdrop{{ commentaire.id }}"><i
+                                                                    class="fa-solid fa-square-minus"></i>
+                                                        </button>
+                                                    </a>
+                                                {% elseif commentaire.enseignant.id != this.dataUserSession.enseignant.id %}
+                                                    <a>
+                                                        <button data-action="live#action"
+                                                                data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
+                                                                class="btn btn-primary">Répondre
+                                                        </button>
+                                                    </a>
+                                                {% endif %}
+
+                                            </div>
+                                            <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                                            <small>·</small>
+                                            <small>
+                                                {% if commentaire.visibilite == 1 %}
+                                                    Public
+                                                {% else %}
+                                                    Privé
+                                                {% endif %}
+                                            </small>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ commentaire.contenu }}</p>
+                                        </div>
+
+
+                                        <!-- Affichage des réponses du commentaire -->
+                                        {% for response in this.trace.commentaires %}
+                                            {% if response.commentaireParent == commentaire.id %}
+                                                <div style="padding: 10px 25px; border-top: solid 1px lightgrey; background-color: #21252908">
+                                                    <div>
+                                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                            <h6 class="card-subtitle">{{ response.enseignant.prenom }} {{ response.enseignant.nom }}</h6>
+
+                                                            {% if response.enseignant.id == this.dataUserSession.enseignant.id %}
+                                                                <a>
+                                                                    <button class="btn btn-delete" data-bs-toggle="modal"
+                                                                            data-bs-target="#staticBackdrop{{ response.id }}">
+                                                                        <i
+                                                                                class="fa-solid fa-square-minus"></i>
+                                                                    </button>
+                                                                </a>
+                                                            {% elseif response.enseignant.id != this.dataUserSession.enseignant.id %}
+                                                                <a>
+                                                                    <button data-action="live#action"
+                                                                            data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
+                                                                            class="btn btn-primary">Répondre
+                                                                    </button>
+                                                                </a>
+                                                            {% endif %}
+
+                                                        </div>
+                                                        <small class="text-muted">{{ response.datecreation|date('d-m-Y H:i') }}</small>
+                                                        <small>·</small>
+                                                        <small>
+                                                            {% if response.visibilite == 1 %}
+                                                                Public
+                                                            {% else %}
+                                                                Privé
+                                                            {% endif %}
+                                                        </small>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text">{{ response.contenu }}</p>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Modal delete -->
+                                                <div class="modal fade" id="staticBackdrop{{ response.id }}"
+                                                     data-bs-backdrop="static"
+                                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
+                                                                    vraiment supprimer ce commentaire
+                                                                    ?</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p style="color: red">Attention, cette action est irréversible !</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Annuler
+                                                                </button>
+                                                                <button data-bs-dismiss="modal"
+                                                                        class="btn btn-primary btn-delete-comment"
+                                                                        data-action="live#action"
+                                                                        data-action-name="removeComment(commentId={{ response.id }})"
+                                                                        type="button"
+                                                                >Supprimer
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if this.commentaireReponseId == commentaire.id %}
+                                            <hr>
+                                            <div class="col-11" style="margin: 0 auto">
+                                                <form>
+                                                    <label class="form-label" for="commentResponseContent">Répondre</label>
+                                                    <textarea class="form-control"
+                                                              id="commentResponseContent"
+                                                              data-model="commentResponseContent"
+                                                              data-action="input">
+                                            </textarea>
+                                                    <label>
+                                                        <input class="form-check-input"
+                                                               type="radio"
+                                                               value="true"
+                                                               data-model="commentVisibility"
+                                                               data-action="change"
+                                                               {% if this.commentVisibility == true %}checked{% endif %}>
+                                                        Public
+                                                    </label>
+
+                                                    <label>
+                                                        <input class="form-check-input"
+                                                               type="radio"
+                                                               value="false"
+                                                               data-model="commentVisibility"
+                                                               data-action="change"
+                                                               {% if this.commentVisibility == false %}checked{% endif %}>
+                                                        Privé
+                                                    </label>
+                                                    <div>
+                                                        <button type="button"
+                                                                class="btn btn-primary"
+                                                                data-action="live#action"
+                                                                data-action-name="handleCommentResponse(commentParent={{ commentaire.id }})">
+                                                            Publier
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         {% endif %}
-
                                     </div>
-                                    <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
-                                    <small>·</small>
-                                    <small>
-                                        {% if commentaire.visibilite == 1 %}
-                                            Public
-                                        {% else %}
-                                            Privé
-                                        {% endif %}
-                                    </small>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">{{ commentaire.contenu }}</p>
-                                </div>
-                            </div>
 
-                            <!-- Modal delete -->
-                            <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
-                                 data-bs-backdrop="static"
-                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
-                                                vraiment supprimer ce commentaire
-                                                ?</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p style="color: red">Attention, cette action est irréversible !</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Annuler
-                                            </button>
-                                            <button data-bs-dismiss="modal"
-                                                    class="btn btn-primary btn-delete-comment"
-                                                    data-action="live#action"
-                                                    data-action-name="removeComment(commentId={{ commentaire.id }})"
-                                                    type="button"
-                                            >Supprimer
-                                            </button>
+                                    <!-- Modal delete -->
+                                    <div class="modal fade" id="staticBackdrop{{ commentaire.id }}"
+                                         data-bs-backdrop="static"
+                                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous
+                                                        vraiment supprimer ce commentaire
+                                                        ?</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color: red">Attention, cette action est irréversible !</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Annuler
+                                                    </button>
+                                                    <button data-bs-dismiss="modal"
+                                                            class="btn btn-primary btn-delete-comment"
+                                                            data-action="live#action"
+                                                            data-action-name="removeComment(commentId={{ commentaire.id }})"
+                                                            type="button"
+                                                    >Supprimer
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </div>
