@@ -35,7 +35,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -83,7 +83,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -126,7 +126,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/etudiant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -185,7 +185,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -229,7 +229,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -271,7 +271,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/enseignant',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',

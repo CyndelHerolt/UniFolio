@@ -70,7 +70,7 @@ class ReferentielSynchro extends AbstractController
 
         $referentiels = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/referentiel',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/referentiel',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -111,7 +111,7 @@ class ReferentielSynchro extends AbstractController
 
         $parcours = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/parcours',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/parcours',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -170,7 +170,7 @@ class ReferentielSynchro extends AbstractController
         //todo: passer l'année du referentiel en paramètre de la route pour récup. -> intranet pour findBy
         $competences = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/competences',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/competences',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -212,7 +212,7 @@ class ReferentielSynchro extends AbstractController
 
         $niveaux = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/niveau',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/niveau',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -269,7 +269,7 @@ class ReferentielSynchro extends AbstractController
 
         $apprentissagesCritiques = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/apprentissage_critique',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/apprentissage_critique',
             [
                 'headers' => [
                     'Accept' => 'application/json',

@@ -50,7 +50,7 @@ class StructureSynchro extends AbstractController
         UsersRepository                    $usersRepository
     ): Response
     {
-        //https://symfony.com/doc/current/http_client.html
+        //http://symfony.com/doc/current/http_client.html
 
 
 
@@ -81,7 +81,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            'http://10.57.8.53/intranet/fr/api/unifolio/departement',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -126,7 +126,7 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/diplome',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -137,11 +137,12 @@ class StructureSynchro extends AbstractController
         );
 
         $diplomes = $diplomes->toArray();
+
         foreach ($diplomes as $diplome) {
             //Récupérer le libellé du département du diplôme
-            $dept = $departementRepository->findOneBy(['libelle' => $diplome['departement']]);
+            $dept = $departementRepository->find($diplome['departement']);
 
-            $existingDiplome = $diplomeRepository->findOneBy(['libelle' => $diplome['libelle']]);
+            $existingDiplome = $diplomeRepository->findOneBy(['id' => $diplome['id']]);
             if ($diplome['type'] === 4) {
 //                dd($parcours);
                 //Vérifier si le libelle du département existe déjà en base de données
@@ -178,7 +179,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/annee',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -226,7 +227,7 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/semestre',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -280,7 +281,7 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/type_groupe',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -304,9 +305,10 @@ class StructureSynchro extends AbstractController
                         $semestre = $semestreRepository->findOneBy(['id' => $semestre['id']]);
                         if ($semestre) {
                             $existingTypeGroupe->addSemestre($semestre);
-                        } else {
-                            $typeGroupeRepository->remove($existingTypeGroupe, true);
-                        };
+                        }
+//                        else {
+//                            $typeGroupeRepository->remove($existingTypeGroupe, true);
+//                        };
                     }
                 }
                 $typeGroupeRepository->save($existingTypeGroupe, true);
@@ -335,7 +337,7 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            'http://intradev.local.iut-troyes.univ-reims.fr/intranet/fr/api/unifolio/groupe',
+            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -349,9 +351,17 @@ class StructureSynchro extends AbstractController
 
         foreach ($groupes as $groupe) {
 
-            $semestre = $semestreRepository->findOneBy(['code_element' => $groupe['semestre']]);
+//            $semestre = $semestreRepository->findOneBy(['code_element' => $groupe['semestre']]);
+            $semestres = [];
+            foreach ($groupe['semestres'] as $semestre) {
+                $semestre = $semestreRepository->findOneBy(['code_element' => $semestre['code']]);
+                if ($semestre) {
+                    $semestres[] = $semestre;
+                }
+            }
 
-            if ($semestre) {
+//            if ($semestre) {
+            if ($semestres != null) {
 
                 $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
                 //Vérifier si l'id du département existe déjà en base de données
