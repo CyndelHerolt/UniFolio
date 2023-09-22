@@ -142,10 +142,10 @@ class AbstractTraceEvalComponent extends BaseController
 
         $this->commentaireRepository->save($this->commentaire, true);
 
-        if ($this->commentaire->isVisibilite() == 1) {
+//        if ($this->commentaire->isVisibilite() == 1) {
             $event = new CommentaireEvent($this->commentaire);
             $this->eventDispatcher->dispatch($event, CommentaireEvent::COMMENTED);
-        }
+//        }
 
         $this->commentResponseContent = '';
         $this->commentVisibility = false;

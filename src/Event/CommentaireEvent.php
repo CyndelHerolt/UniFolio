@@ -7,6 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class CommentaireEvent extends Event
 {
     final public const COMMENTED = 'commentaire.publie';
+    final public const RESPONDED = 'commentaire.reponse';
 
     public function __construct(protected $commentaire)
     {

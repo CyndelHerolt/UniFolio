@@ -36,7 +36,7 @@ class BaseController extends AbstractController
         return $this->dataUserSession->getDepartement();
     }
 
-    public function getNotifications(): ?Notification
+    public function getNotifications(): ?array
     {
         return $this->dataUserSession->getNotifications();
     }

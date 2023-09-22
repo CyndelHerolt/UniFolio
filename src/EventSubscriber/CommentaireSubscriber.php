@@ -2,10 +2,13 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\Enseignant;
+use App\Entity\Etudiant;
 use App\Entity\Notification;
 use App\Entity\Portfolio;
 use App\Entity\Trace;
 use App\Event\CommentaireEvent;
+use App\Repository\CommentaireRepository;
 use App\Repository\EtudiantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,7 +20,8 @@ class CommentaireSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly RouterInterface        $router,
-        private readonly EtudiantRepository     $etudiantRepository
+        private readonly EtudiantRepository     $etudiantRepository,
+        private readonly CommentaireRepository  $commentaireRepository,
     )
     {
     }
@@ -39,36 +43,68 @@ class CommentaireSubscriber implements EventSubscriberInterface
             } elseif ($commentaire->getPortfolio() != null) {
                 $etudiantSearch = $commentaire->getPortfolio()->getEtudiant();
             }
-            $etudiant = $this->etudiantRepository->find($etudiantSearch->getId());
+            $user = $this->etudiantRepository->find($etudiantSearch->getId());
             if ($commentaire->getTrace() != null) {
                 $destination = $commentaire->getTrace();
             } else {
                 $destination = $commentaire->getPortfolio();
             }
-            $this->addNotification($etudiant, CommentaireEvent::COMMENTED, $destination, $origine);
+            $this->addNotification($user, CommentaireEvent::COMMENTED, $destination, $origine);
+        }
+
+        if ($commentaire->getCommentaireParent()) {
+            $commentaireParent = $this->commentaireRepository->find($commentaire->getCommentaireParent());
+            $user = $commentaireParent->getEnseignant();
+
+            if ($commentaire->getTrace() != null) {
+                $destination = $commentaire->getTrace();
+            } else {
+                $destination = $commentaire->getPortfolio();
+            }
+            $this->addNotification($user, CommentaireEvent::RESPONDED, $destination, $origine);
         }
     }
 
-    private function addNotification($etudiant, string $codeEvent, $destination, $origine): void
+    private function addNotification($user, string $codeEvent, $destination, $origine): void
     {
-        $notif = new Notification();
-        $notif->setEtudiant($etudiant);
-        $notif->setDateCreation(new \DateTime());
-        $notif->setTypeUser(Notification::ETUDIANT);
-        $notif->setType($codeEvent);
-        $notif->setLu(false);
-        $notif->setCommentaire($origine);
-        if ($destination instanceof Trace) {
-            $notif->setUrl($this->router->generate(
-                'app_trace_index', ['id' => $destination->getId()]
-            ));
-        } elseif ($destination instanceof Portfolio) {
-            $notif->setUrl($this->router->generate(
-                'app_portfolio_index', ['id' => $destination->getId(), 'step' => 'portfolio']
-            ));
-        }
+        if ($user instanceof Etudiant) {
+            $notif = new Notification();
+            $notif->setEtudiant($user);
+            $notif->setDateCreation(new \DateTime());
+            $notif->setTypeUser(Notification::ETUDIANT);
+            $notif->setType($codeEvent);
+            $notif->setLu(false);
+            $notif->setCommentaire($origine);
+            if ($destination instanceof Trace) {
+                $notif->setUrl($this->router->generate(
+                    'app_trace_index', ['id' => $destination->getId()]
+                ));
+            } elseif ($destination instanceof Portfolio) {
+                $notif->setUrl($this->router->generate(
+                    'app_portfolio_index', ['id' => $destination->getId(), 'step' => 'portfolio']
+                ));
+            }
         $this->entityManager->persist($notif);
-
         $this->entityManager->flush();
+        } elseif ($user instanceof Enseignant) {
+            $notif = new Notification();
+            $notif->setEnseignant($user);
+            $notif->setDateCreation(new \DateTime());
+            $notif->setTypeUser(Notification::PERSONNEL);
+            $notif->setType($codeEvent);
+            $notif->setLu(false);
+            $notif->setCommentaire($origine);
+            if ($destination instanceof Trace) {
+                $notif->setUrl($this->router->generate(
+                    'app_bilan_eval_trace', ['id' => $destination->getId()]
+                ));
+            } elseif ($destination instanceof Portfolio) {
+                $notif->setUrl($this->router->generate(
+                    'app_portfolio_index', ['id' => $destination->getId(), 'step' => 'portfolio']
+                ));
+            }
+            $this->entityManager->persist($notif);
+            $this->entityManager->flush();
+        }
     }
 }

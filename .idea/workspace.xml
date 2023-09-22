@@ -9,19 +9,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [Traces] Help message TraceTypeLien">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant">
+      <change beforePath="$PROJECT_DIR$/.idea/UniFolio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UniFolio.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/63fe097688f50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/640c666e893d2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/640c667419045.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/image.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files_directory/pdf.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_toasts.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_toasts.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/monolog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/public/bundles/tinymce/ext/tinymce/composer.json" />
+    </option>
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
@@ -53,20 +65,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Controller/AbstractCrudController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/vendor/easycorp/easyadmin-bundle/src/Resources/views/page/content.html.twig" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="FORCE_HIGHLIGHTING" root1="ESSENTIAL" />
-    <setting file="mock:///AIAssistantSnippet" root0="ESSENTIAL" />
+    <setting file="file://$PROJECT_DIR$/.env.local" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -215,8 +214,12 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
       <path value="$PROJECT_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/vendor/eckinox/tinymce-bundle" />
     </include_path>
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2L8eyfhYJSCBWAS0nweNGAJVL7Q" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -233,7 +236,7 @@
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hero0005/Desktop/trek&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/cyndel/Web/S5&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -242,7 +245,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -550,6 +553,40 @@
       <workItem from="1688709832519" duration="14672000" />
       <workItem from="1688728885293" duration="6656000" />
       <workItem from="1688735674792" duration="393000" />
+      <workItem from="1693908706830" duration="3100000" />
+      <workItem from="1693921378982" duration="28000" />
+      <workItem from="1693921416821" duration="1390000" />
+      <workItem from="1693979953818" duration="41000" />
+      <workItem from="1693980006115" duration="172000" />
+      <workItem from="1693980186616" duration="27000" />
+      <workItem from="1693980222643" duration="2175000" />
+      <workItem from="1693982426005" duration="7905000" />
+      <workItem from="1693990722226" duration="22000" />
+      <workItem from="1693990752728" duration="47000" />
+      <workItem from="1693990809345" duration="14440000" />
+      <workItem from="1694016962773" duration="2109000" />
+      <workItem from="1694067379461" duration="16612000" />
+      <workItem from="1694089396544" duration="6792000" />
+      <workItem from="1694153425946" duration="14670000" />
+      <workItem from="1694350977997" duration="573000" />
+      <workItem from="1694412288442" duration="8635000" />
+      <workItem from="1694425320587" duration="13648000" />
+      <workItem from="1694498742135" duration="5882000" />
+      <workItem from="1694519855450" duration="610000" />
+      <workItem from="1694537537765" duration="31000" />
+      <workItem from="1694584897925" duration="15952000" />
+      <workItem from="1694605345395" duration="11567000" />
+      <workItem from="1694670751760" duration="10359000" />
+      <workItem from="1694684148798" duration="599000" />
+      <workItem from="1694698038155" duration="2116000" />
+      <workItem from="1694707231261" duration="599000" />
+      <workItem from="1694709677978" duration="23000" />
+      <workItem from="1694757085975" duration="10063000" />
+      <workItem from="1694783470303" duration="154000" />
+      <workItem from="1695047496206" duration="287000" />
+      <workItem from="1695051979345" duration="8000" />
+      <workItem from="1695307032379" duration="607000" />
+      <workItem from="1695369908470" duration="692000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -894,7 +931,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="356" />
+    <option name="localTasksCounter" value="373" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -958,19 +995,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] tests errors" />
-    <MESSAGE value="fix: [Portfolio] assignation trace-&gt;bibliotheque user" />
-    <MESSAGE value="fix: [Portfolio] redirect vers process après new" />
-    <MESSAGE value="fix: [Portfolio] crud trace/page" />
-    <MESSAGE value="fix: [Portfolio] crud trace" />
-    <MESSAGE value="fix: [Portfolio] avertissement conservation des traces on delete" />
-    <MESSAGE value="fix: [Portfolio] Ajout test extension fichier form portfolio" />
-    <MESSAGE value="fix: [Portfolio] Modifs btn save general" />
-    <MESSAGE value="fix: [Portfolio] crud traces" />
-    <MESSAGE value="fix: [Portfolio] guide process" />
-    <MESSAGE value="fix: [Portfolio] gestion affichage erreurs forms" />
-    <MESSAGE value="fix: [Portfolio] gestion affichage errors/success forms" />
-    <MESSAGE value="fix: [Portfolio] suppression des traces déjà dans la page dans select ajout" />
     <MESSAGE value="fix: [Portfolio] suppression de l'étape du choix de la page à créer" />
     <MESSAGE value="fix: [Portfolio] ajout d'une propriété Description" />
     <MESSAGE value="fix: [Portfolio] Amélioration CSS" />
@@ -983,6 +1007,23 @@
     <MESSAGE value="fix: [Portfolio] lien image bannière" />
     <MESSAGE value="fix: [Traces] Filtres/compétences" />
     <MESSAGE value="fix: [Traces] Help message TraceTypeLien" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: [Traces] Help message TraceTypeLien" />
+    <MESSAGE value="fix: [API] Requête vers version locale de l'intranet en HTTP et non HTTPS car le serveur symfony ne supporte pas SSL/TLS" />
+    <MESSAGE value="fix: [Enseignant] Tri / semestre != annee" />
+    <MESSAGE value="feat: [Entities] Lien NtoN niveaux-&gt;parcours" />
+    <MESSAGE value="fix: [Intranet] synchro err clé étrangère" />
+    <MESSAGE value="fix: [Text editor] REmplacement CKEditor par Tinymce" />
+    <MESSAGE value="fix: [Trace] Test poids max pdf" />
+    <MESSAGE value="fix: [Dashboard Enseignant] Filtre par semestre (en cours)" />
+    <MESSAGE value="fix: [Intranet] Recherche par id et plus par libelle" />
+    <MESSAGE value="feat: [EvalTrace] Page d'eval depuis bilan et publication dynamique de commentaires" />
+    <MESSAGE value="fix: [EvalTrace] Conflit javascript bootstrap modal vs liveComponent method" />
+    <MESSAGE value="feat: [Commentaires] système de reponse (en cours)" />
+    <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le bilan pédagogique" />
+    <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
