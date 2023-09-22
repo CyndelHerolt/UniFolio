@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Notification] enseignant réponse à un commentaire">
       <change beforePath="$PROJECT_DIR$/.idea/UniFolio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UniFolio.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -586,7 +586,7 @@
       <workItem from="1695047496206" duration="287000" />
       <workItem from="1695051979345" duration="8000" />
       <workItem from="1695307032379" duration="607000" />
-      <workItem from="1695369908470" duration="692000" />
+      <workItem from="1695369908470" duration="878000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -931,7 +931,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="373" />
+    <option name="localTasksCounter" value="374" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -995,7 +995,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] suppression de l'étape du choix de la page à créer" />
     <MESSAGE value="fix: [Portfolio] ajout d'une propriété Description" />
     <MESSAGE value="fix: [Portfolio] Amélioration CSS" />
     <MESSAGE value="fix: [Portfolio] Modal visualisation de trace" />
@@ -1020,7 +1019,8 @@
     <MESSAGE value="feat: [Commentaires] système de reponse (en cours)" />
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le bilan pédagogique" />
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
+    <MESSAGE value="feat: [Notification] enseignant réponse à un commentaire" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [Notification] enseignant réponse à un commentaire" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
