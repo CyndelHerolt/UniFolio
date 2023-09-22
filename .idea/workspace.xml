@@ -9,21 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Notification] enseignant réponse à un commentaire">
-      <change beforePath="$PROJECT_DIR$/.idea/UniFolio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UniFolio.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: [API intranet] requête vers intranet prod">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_9_5_23__1_44_PM.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -586,7 +576,7 @@
       <workItem from="1695047496206" duration="287000" />
       <workItem from="1695051979345" duration="8000" />
       <workItem from="1695307032379" duration="607000" />
-      <workItem from="1695369908470" duration="878000" />
+      <workItem from="1695369908470" duration="1448000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -931,7 +921,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="374" />
+    <option name="localTasksCounter" value="377" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -995,7 +985,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] ajout d'une propriété Description" />
     <MESSAGE value="fix: [Portfolio] Amélioration CSS" />
     <MESSAGE value="fix: [Portfolio] Modal visualisation de trace" />
     <MESSAGE value="fix: [Portfolio] Création nouvelle trace -&gt; redirect forms" />
@@ -1020,7 +1009,8 @@
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le bilan pédagogique" />
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
     <MESSAGE value="feat: [Notification] enseignant réponse à un commentaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Notification] enseignant réponse à un commentaire" />
+    <MESSAGE value="fix: [API intranet] requête vers intranet prod" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: [API intranet] requête vers intranet prod" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
