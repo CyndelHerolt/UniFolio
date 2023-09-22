@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="21f880e5-396c-4221-99be-7a2377241b1a" name="intradev (project level)" url="http://intradev.iut-troyes.univ-reims.fr">
+        <fileTransfer rootFolder="/var/www/html/" accessType="SFTP" host="10.57.8.53" port="22" sshConfigId="f71dd24f-8649-4fec-b9a6-fe3dcac095e0" sshConfig="root@10.57.8.53:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
