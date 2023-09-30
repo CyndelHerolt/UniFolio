@@ -9,12 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Git] launch gitflow">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip: [form] fix input items align">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/trace_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/trace_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_formTrace.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +222,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/css/#17-input-content-align&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;last_opened_file_path&quot;: &quot;/var/www/html/obscureWave&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -236,7 +232,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -581,6 +577,7 @@
       <workItem from="1695379147993" duration="913000" />
       <workItem from="1695734055137" duration="81000" />
       <workItem from="1696065097456" duration="2718000" />
+      <workItem from="1696068287298" duration="556000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
