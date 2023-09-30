@@ -17,6 +17,10 @@
         <a class="nav-link {% if step == 'page' %} active {% endif %}" href="#">Ajouter une page</a>
     </li>
 
+    <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'addCv'}) }}>
+        <a class="nav-link {% if step == 'addCv' %} active {% endif %}" href="#">Ajouter un cv</a>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_portfolio') }}">Enregistrer et quitter</a>
     </li>

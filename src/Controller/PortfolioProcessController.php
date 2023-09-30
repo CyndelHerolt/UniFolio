@@ -17,6 +17,7 @@ use App\Form\PortfolioType;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\CvRepository;
 use App\Repository\OrdrePageRepository;
 use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
@@ -65,6 +66,7 @@ class PortfolioProcessController extends BaseController
         ValidationRepository   $validationRepository,
         OrdrePageRepository    $ordrePageRepository,
         OrdreTraceRepository   $ordreTraceRepository,
+        CvRepository           $cvRepository,
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
@@ -80,6 +82,9 @@ class PortfolioProcessController extends BaseController
             foreach ($ordrePages as $ordrePage) {
                 $pages[] = $ordrePage->getPage();
             }
+
+            $etudiant = $this->getUser()->getEtudiant();
+            $cvs = $cvRepository->findBy(['etudiant' => $etudiant]);
 
             switch ($step) {
 
@@ -668,7 +673,21 @@ class PortfolioProcessController extends BaseController
 
                     return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
+                case 'addCv':
 
+
+                    break;
+
+                case 'selectedCv':
+                    dd($request->query->get('cv'));
+                    $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addCv',
+                        'cv' => $cv->getId(),
+                        'data_user' => $data_user,
+                    ]);
             }
 
             return $this->render('portfolio_process/step/_step.html.twig', [
@@ -693,6 +712,8 @@ class PortfolioProcessController extends BaseController
                 'ordreMinTrace' => $ordreMinTrace ?? null,
                 'error' => $error ?? null,
                 'data_user' => $data_user,
+                'cvs' => $cvs ?? null,
+                'cv' => $cv ?? null,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
