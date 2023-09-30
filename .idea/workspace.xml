@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Profil] Structure + css">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,31 +44,6 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GitToolBoxStore">
-    <option name="recentBranches">
-      <RecentBranches>
-        <option name="branchesForRepo">
-          <list>
-            <RecentBranchesForRepo>
-              <option name="branches">
-                <list>
-                  <RecentBranch>
-                    <option name="branchName" value="features/profil-page" />
-                    <option name="lastUsedInstant" value="1696069161" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="develop" />
-                    <option name="lastUsedInstant" value="1696069111" />
-                  </RecentBranch>
-                </list>
-              </option>
-              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
-            </RecentBranchesForRepo>
-          </list>
-        </option>
-      </RecentBranches>
-    </option>
-  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -230,9 +205,6 @@
       <path value="$PROJECT_DIR$/vendor/eckinox/tinymce-bundle" />
     </include_path>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -244,32 +216,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;features/profil-page&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/html/obscureWave&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TODO_SCOPE": "All Places",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging features/profil-page",
+    "last_opened_file_path": "/var/www/html/obscureWave",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="QodanaReportsService">
-    <option name="descriptions">
-      <ReportDescription localRun="true" path="/tmp/qodana_output/qodana.sarif.json" reportGuid="c0508d39-08b6-421f-a1ec-d533fa5276a3" reportId="UniFolio/qodana/2023-09-30" />
-    </option>
-  </component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Repository" />
@@ -611,7 +578,7 @@
       <workItem from="1695379147993" duration="913000" />
       <workItem from="1695734055137" duration="81000" />
       <workItem from="1696065097456" duration="2718000" />
-      <workItem from="1696073108034" duration="1367000" />
+      <workItem from="1696068287298" duration="556000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -956,7 +923,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="379" />
+    <option name="localTasksCounter" value="378" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1020,6 +987,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: [Portfolio] Création nouvelle trace -&gt; redirect forms" />
     <MESSAGE value="#14 fix: [Portfolio] Gestion des traces vides" />
     <MESSAGE value="#14 fix: [Portfolio] redirect ajout trace vide" />
     <MESSAGE value="fix: [Portfolio] delete trace vide" />
@@ -1043,7 +1011,6 @@
     <MESSAGE value="feat: [Notification] enseignant réponse à un commentaire" />
     <MESSAGE value="fix: [API intranet] requête vers intranet prod" />
     <MESSAGE value="feat: [Git] launch gitflow" />
-    <MESSAGE value="feat: [chore] install Qodana" />
     <MESSAGE value="feat: [Profil] Structure + css" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: [Profil] Structure + css" />
   </component>
