@@ -1,113 +1,108 @@
-<div class="row">
-    {{ form_start(form, {'attr': {id:'formTrace'}}) }}
-    <article class="col-lg-7 col-12 trace-form">
-        <h4>Modifier {{ trace.titre }}</h4>
-        <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+<div class="trace_form">
+    <article>
 
+        {{ form_start(form) }}
         <div class="hidden">
             {{ form_row(form.date_creation) }}
             {{ form_row(form.date_modification) }}
         </div>
-        {{ form_row(form.titre) }}
-        <hr>
 
-        <!-- Images -->
-
-        {% if 'TraceTypeImage' in trace.typeTrace %}
-            <label class="form-label required">Image.s</label> <br>
-            {% for data in trace.contenu %}
-                <div class="image_trace_div">
-                    <p>Image.s déjà dans la DB</p><input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
-                    <img src="{{ asset(data) }}" class="image_registered" data-file="registered"
-                         style="width: 100px" alt="image déjà enregistrée"/>
-                    <button type="button" class="btn btn-danger delete-image">
-                        <i class="fa-solid fa-square-minus"></i>
-                    </button>
-                    <hr>
-                </div>
-            {% endfor %}
-            <button type="button" class="btn btn-primary add-image">
-                Ajouter une image <i class="fa fa-square-plus"></i>
-            </button>
-                <div class="contenu-error">
-
-                </div>
-
-            <!-- Pdf -->
-
-        {% elseif 'TraceTypePdf' in trace.typeTrace %}
-            <label class="form-label required">Pdf</label> <br>
-            {% for data in trace.contenu %}
-                <div class="pdf_trace_div">
-                    <p>Pdf déjà dans la DB</p>
-                    <input type="hidden" name="pdf[{{ loop.index }}]" value="{{ data }}">
-                    <iframe src="{{ asset(data) }}" style="width: 50%"></iframe>
-                    <button type="button" class="btn btn-danger delete-pdf">
-                        <i class="fa-solid fa-square-minus"></i>
-                    </button>
-                    <hr>
-                </div>
-            {% endfor %}
-            <button type="button" class="btn btn-primary add-pdf">
-                Ajouter un PDF <i class="fa fa-square-plus"></i>
-            </button>
-            <div class="contenu-error">
-
+        <div class="row">
+            <div class="col-12 g-4">
+                {{ form_row(form.titre) }}
             </div>
-
-            <!-- Liens -->
-
-        {% elseif 'TraceTypeLien' in trace.typeTrace %}
-            <div class="input-group mb-3">
-                <label class="form-label required">Lien.s</label>
-                {{ form_widget(form.contenu) }}
-            </div>
-            <button type="button" class="btn btn-primary add-lien">
-                Ajouter un lien <i class="fa fa-square-plus"></i>
-            </button>
-            <div class="contenu-error">
-
-            </div>
-
-            <!-- Videos -->
-
-        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
-            <div class="input-group mb-3">
-                <label class="form-label required">Vidéo.s</label>
-                {{ form_widget(form.contenu) }}
-            </div>
-            <button type="button" class="btn btn-primary add-video">
-                Ajouter une vidéo <i class="fa fa-square-plus"></i>
-            </button>
-            <div class="contenu-error">
-
-            </div>
-        {% endif %}
-        <hr>
-
-        {{ form_row(form.legende) }}
-
-        {{ form_row(form.description) }}
-    </article>
-    <aside class="col-lg-5 col-12 competences">
-        <h4>Compétences relatives à cette trace <span style="color: red">*</span></h4>
-
-        <div class="secondary_form">
-
-            {{ form_row(form.competences, {'attr': {id:'competences'}}) }}
-
-            <div id="zone-error">
-
-            </div>
-
-
         </div>
 
-    </aside>
-    {{ form_end(form) }}
-    <button class="btn btn-primary save" {{ stimulus_action('trace', 'saveTrace', 'click') }}
-            value="{{ trace.id }}"
-            data-type="{{ constant('class', traceType) }}">
-        Enregistrer les modifications
-    </button>
+        <!-- Images -->
+        <div class="row">
+            <div class="col-lg-6 col-12 g-4">
+                {% if 'TraceTypeImage' in trace.typeTrace %}
+                    <label class="form-label required">Image.s</label>
+                    {% if '/edit' in app.request.uri %}
+                        <div class="galerie">
+                            {% for data in trace.contenu %}
+                                <div class="image_trace_div">
+                                    <input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
+                                    <div class="trace-img" style="background-image: url('{{ asset(data) }}')">
+
+                                    </div>
+                                    <button type="button" class="btn btn-danger delete-image">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <br>
+                    <button type="button" class="btn btn-primary add-image">
+                        Ajouter une image <i class="fa fa-square-plus"></i>
+                    </button>
+
+
+                    <!-- Pdf -->
+
+                {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                    <label class="form-label required">Pdf</label> <br>
+                    {% if '/edit' in app.request.uri %}
+                        {% for data in trace.contenu %}
+                            <div class="pdf_trace_div">
+                                <p>Pdf déjà dans la DB</p>
+                                <input type="hidden" name="pdf[{{ loop.index }}]" value="{{ data }}">
+                                <iframe src="{{ asset(data) }}" style="width: 50%"></iframe>
+                                <button type="button" class="btn btn-danger delete-pdf">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </button>
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <button type="button" class="btn btn-primary add-pdf">
+                        Ajouter un PDF <i class="fa fa-square-plus"></i>
+                    </button>
+
+                    <!-- Liens -->
+
+                {% elseif 'TraceTypeLien' in trace.typeTrace %}
+                    <div>
+                        <label class="form-label required">Lien.s</label>
+                        {{ form_widget(form.contenu) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-lien">
+                        Ajouter un lien <i class="fa fa-square-plus"></i>
+                    </button>
+
+                    <!-- Videos -->
+
+                {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+                    <div>
+                        <label class="form-label required">Vidéo.s</label>
+                        {{ form_widget(form.contenu) }}
+                    </div>
+                    <button type="button" class="btn btn-primary add-video">
+                        Ajouter une vidéo <i class="fa fa-square-plus"></i>
+                    </button>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 col-12 g-4">
+                {{ form_row(form.legende) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 g-4">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+        <div>
+            <div class="form_trace_competences">
+                <h5>Compétences relatives à cette trace <span style="color: red">*</span></h5>
+                {{ form_row(form.competences) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <button class="btn btn-primary save" {{ stimulus_action('trace', 'saveTrace', 'click') }}
+                value="{{ trace.id }}"
+                data-type="{{ constant('class', traceType) }}">
+            Enregistrer les modifications
+        </button>
+    </article>
 </div>

@@ -375,17 +375,19 @@ label.required::after {
 
 .trace_form {
 
-  section {
+  .only-trace {
     margin: 0;
     padding: 20px 40px;
     background-color: #f8f8f8;
     border-radius: 0;
+  }
 
     .card {
       margin: 15px auto;
       box-shadow: none;
       border: 1px solid lightgrey;
       padding: 50px;
+    }
 
       label {
         font-weight: 600;
@@ -456,6 +458,4 @@ label.required::after {
           margin: 0 0 14px 0;
         }
       }
-    }
-  }
 }

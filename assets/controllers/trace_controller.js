@@ -117,17 +117,28 @@ export default class extends Controller {
         });
 
         document.querySelectorAll('.lien_trace').forEach(event => {
-            event.parentNode.classList.add('lien_trace_div')
-            // event.parentNode.classList.add('input-group', 'mb-3');
-            // event.style.display = 'flex';
-            // event.style.alignItems = 'flex-end';
-            // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
-            event.parentNode.innerHTML += (
-                '<button type="button" class="btn btn-danger delete-lien">' +
-                '<i class="fa-solid fa-square-minus"></i>' +
-                '</button>'
-            )
-        })
+        // Ajouter les classes nécessaires
+            event.parentNode.classList.add('lien_trace_div');
+
+            // Créer une nouvelle div qui va englober l'élément .video_trace et le bouton
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.style.display = 'flex';
+            wrapperDiv.style.flexDirection = 'row';
+
+            // Insérer la nouvelle div juste avant 'video_trace'
+            event.parentNode.insertBefore(wrapperDiv, event);
+
+            // Déplacer l'élément .video_trace dans la nouvelle div
+            wrapperDiv.appendChild(event);
+
+            // Créer un bouton
+            const button = document.createElement('button');
+            button.className = 'btn btn-danger delete-lien';
+            button.innerHTML = '<i class="fa-solid fa-square-minus"></i>';
+
+            // Ajouter le bouton à la nouvelle div
+            wrapperDiv.appendChild(button);
+        });
 
         document.querySelectorAll('.delete-lien').forEach(function (button) {
             button.addEventListener('click', function () {
