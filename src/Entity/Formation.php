@@ -21,11 +21,11 @@ class Formation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $etablissement = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $date_debut = null;
+    #[ORM\Column(type: 'datetime',nullable: true)]
+    private ?\DateTimeInterface $date_debut = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $date_fin = null;
+    #[ORM\Column(type: 'datetime',nullable: true)]
+    private ?\DateTimeInterface $date_fin = null;
 
     #[ORM\Column(nullable: true)]
     private array $activite = [];
@@ -67,24 +67,24 @@ class Formation
         return $this;
     }
 
-    public function getDateDebut(): ?string
+    public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->date_debut;
     }
 
-    public function setDateDebut(?string $date_debut): self
+    public function setDateDebut(?\DateTimeInterface $date_debut): self
     {
         $this->date_debut = $date_debut;
 
         return $this;
     }
 
-    public function getDateFin(): ?string
+    public function getDateFin(): ?\DateTimeInterface
     {
         return $this->date_fin;
     }
 
-    public function setDateFin(?string $date_fin): self
+    public function setDateFin(?\DateTimeInterface $date_fin): self
     {
         $this->date_fin = $date_fin;
 

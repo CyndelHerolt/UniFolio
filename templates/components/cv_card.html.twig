@@ -151,8 +151,8 @@
                                             <h4>Expériences</h4>
                                             <ul>
                                                 {% for experience in this.cv.experience %}
-                                                    <li>{{ experience.dateDebut|date('M. Y') }}
-                                                        - {{ experience.dateFin|date('M. Y') }}</li>
+                                                    <li>{{ experience.dateDebut|date('d/m/Y') }}
+                                                        - {{ experience.dateFin|date('d/m/Y') }}</li>
                                                     <li><strong>{{ experience.poste }}</strong></li>
                                                     <li>{{ experience.entreprise }}</li>
                                                     <ul class="activites">
@@ -166,8 +166,8 @@
                                             <h4>Formations</h4>
                                             <ul>
                                                 {% for formation in this.cv.formation %}
-                                                    <li>{{ formation.dateDebut|date('M. Y') }}
-                                                        - {{ formation.dateFin|date('M. Y') }}</li>
+                                                    <li>{{ formation.dateDebut|date('d/m/Y') }}
+                                                        - {{ formation.dateFin|date('d/m/Y') }}</li>
                                                     <li><strong>{{ formation.diplome }}</strong></li>
                                                     <li>{{ formation.etablissement }}</li>
                                                     <ul class="activites">

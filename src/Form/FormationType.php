@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,15 +25,21 @@ class FormationType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Etablissement de ma formation',],
             ])
-            ->add('date_debut', TextType::class, [
+            ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Date de début de ma formation',],
+                'help' => 'Format attendu : 01/01/2001',
+                'widget' => 'single_text',
+                'input_format' => 'd/m/Y',
             ])
-            ->add('date_fin', TextType::class, [
+            ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Date de fin de ma formation',],
+                'help' => 'Format attendu : 01/01/2001',
+                'widget' => 'single_text',
+                'input_format' => 'd/m/Y',
             ])
             ->add('activite', CollectionType::class, [
                 'entry_type' => TextType::class,
