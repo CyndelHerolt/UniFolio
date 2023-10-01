@@ -675,10 +675,10 @@ class PortfolioProcessController extends BaseController
 
                 case 'addCv':
 
-
                     break;
 
                 case 'selectedCv':
+
                     dd($request->query->get('cv'));
                     $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
 

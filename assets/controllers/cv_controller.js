@@ -1,6 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
 import {createAndShow} from "../js/_toast";
-import hljs from "highlight.js";
 import 'highlight.js/styles/default.css';
 
 export default class extends Controller {
@@ -12,32 +11,7 @@ export default class extends Controller {
     }
 
     connect() {
-        this._changeStep('portfolio')
-    }
-
-    changeStep(event) {
-        this._changeStep(event.params.step, event.params.section)
-    }
-
-    async _changeStep(step, cv) {
-        // this.stepZoneTarget.innerHTML = window.da.loaderStimulus
-        const params = new URLSearchParams({
-            step,
-            cv,
-        })
-        const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        this.stepZoneTarget.innerHTML = await response.text()
-    }
-
-    async addCv(event) {
-        const _value = event.currentTarget.value
-
-        const params = new URLSearchParams({
-            step: 'addCv',
-            cv: _value,
-        })
-        const response = await fetch(`${this.urlValue}?${params.toString()}`)
-        this.stepZoneTarget.innerHTML = await response.text()
+        console.log('hello');
     }
 
     async selectedCv(event) {

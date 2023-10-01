@@ -1,3 +1,4 @@
+<div  {{ stimulus_controller('cv', { url: path('app_portfolio_process_step', {id:id}) }) }}>
 <div class="step-title">
     <h4>Ajouter un cv</h4>
 </div>
@@ -6,24 +7,24 @@
         Choisissez un CV à lier à ce portfolio.
     </div>
 
-    <label for="selectCv" class="sr-only">Choisir un cv</label>
+    <label for="selectedCv" class="sr-only">Choisir un cv</label>
     <select class="form-select"
-            id="selectCv"
+            id="selectedCv"
             is="select-complete" {{ stimulus_action('cv', 'selectedCv', 'change') }}>
         <option value="">Choisir...</option>
-            <option data-portfolio-id="{{ portfolio.id }}" value="new">Ajouter un nouveau cv</option>
+{#            <option data-portfolio-id="{{ portfolio.id }}" value="new">Ajouter un nouveau cv</option>#}
         {% for cv in cvs %}
-            <option data-portfolio-id="{{ portfolio.id }}" value="{{ cv.id }}">{{ cv.intitule }}</option>
+            <option data-cv-id="{{ cv.id }}" value="{{ cv.id }}">{{ cv.intitule }}</option>
         {% endfor %}
     </select>
 
     <hr>
 
-    <div {{ stimulus_target('cv', 'cvZone') }}{{ stimulus_target('cv', 'cvZone') }}>
-    </div>
+    <div {{ stimulus_target('cv', 'cvZone') }}></div>
 
  {% if cv is not null %}
 
         {% include 'portfolio_process/step/_selectedCv.html.twig' %}
 
  {% endif %}
+</div>

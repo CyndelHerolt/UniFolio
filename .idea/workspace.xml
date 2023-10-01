@@ -9,14 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip [CV]: refactor datetime Experience.php Formation.php">
-      <change afterPath="$PROJECT_DIR$/assets/controllers/cv_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addCv.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_selectedCv.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip [CV]: add cv during portfolio process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/creation_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/creation_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/cv_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/cv_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_addCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_addCv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -589,7 +588,9 @@
       <workItem from="1695734055137" duration="81000" />
       <workItem from="1696065097456" duration="2718000" />
       <workItem from="1696068287298" duration="556000" />
-      <workItem from="1696092645769" duration="2663000" />
+      <workItem from="1696092645769" duration="3530000" />
+      <workItem from="1696101940141" duration="3939000" />
+      <workItem from="1696171246117" duration="4838000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -934,7 +935,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="380" />
+    <option name="localTasksCounter" value="381" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -998,7 +999,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="#14 fix: [Portfolio] Gestion des traces vides" />
     <MESSAGE value="#14 fix: [Portfolio] redirect ajout trace vide" />
     <MESSAGE value="fix: [Portfolio] delete trace vide" />
     <MESSAGE value="test: [Traces] test filtres Stimulus" />
@@ -1023,7 +1023,8 @@
     <MESSAGE value="feat: [Git] launch gitflow" />
     <MESSAGE value="feat: [Profil] Structure + css" />
     <MESSAGE value="wip [CV]: refactor datetime Experience.php Formation.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip [CV]: refactor datetime Experience.php Formation.php" />
+    <MESSAGE value="wip [CV]: add cv during portfolio process" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip [CV]: add cv during portfolio process" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
