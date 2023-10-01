@@ -673,13 +673,7 @@ class PortfolioProcessController extends BaseController
 
                     return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
-                case 'addCv':
-
-                    break;
-
                 case 'selectedCv':
-
-                    dd($request->query->get('cv'));
                     $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
 
                     return $this->redirectToRoute('app_portfolio_process_step', [

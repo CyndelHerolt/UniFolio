@@ -19,12 +19,10 @@ export default class extends Controller {
         const _value = event.currentTarget.value
         // récupérer data-page-id="{{ page.id }}" dans l'option
         const cvId = event.target.options[event.target.selectedIndex].dataset.cvId;
-        console.log(cvId);
 
         const params = new URLSearchParams({
             step: 'selectedCv',
-            trace: _value,
-            cv: cvId,
+            cv: _value,
         })
 
         const response = await fetch(`${this.urlValue}?${params.toString()}`)

@@ -14,7 +14,7 @@
         <option value="">Choisir...</option>
 {#            <option data-portfolio-id="{{ portfolio.id }}" value="new">Ajouter un nouveau cv</option>#}
         {% for cv in cvs %}
-            <option data-cv-id="{{ cv.id }}" value="{{ cv.id }}">{{ cv.intitule }}</option>
+            <option value="{{ cv.id }}">{{ cv.intitule }}</option>
         {% endfor %}
     </select>
 
