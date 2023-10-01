@@ -85,6 +85,7 @@ class PortfolioProcessController extends BaseController
 
             $etudiant = $this->getUser()->getEtudiant();
             $cvs = $cvRepository->findBy(['etudiant' => $etudiant]);
+            $cv = $portfolio->getCv();
 
             switch ($step) {
 
@@ -675,6 +676,8 @@ class PortfolioProcessController extends BaseController
 
                 case 'selectedCv':
                     $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+                    $portfolio->setCv($cv);
+                    $portfolioRepository->save($portfolio, true);
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,

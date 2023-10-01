@@ -49,6 +49,9 @@ class Portfolio
     #[ORM\ManyToOne(inversedBy: 'portfolio')]
     private ?Annee $annee = null;
 
+    #[ORM\ManyToOne(inversedBy: 'portfolio')]
+    private ?Cv $cv = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -248,6 +251,18 @@ class Portfolio
     public function setAnnee(?Annee $annee): void
     {
         $this->annee = $annee;
+    }
+
+    public function getCv(): ?Cv
+    {
+        return $this->cv;
+    }
+
+    public function setCv(?Cv $cv): static
+    {
+        $this->cv = $cv;
+
+        return $this;
     }
 
 
