@@ -1,10 +1,10 @@
 <div>
-<div class="step-title">
-    <h4>Ajouter un cv</h4>
-</div>
+    <div class="step-title">
+        <h4>Ajouter un cv</h4>
+    </div>
 
     <div class="alert alert-info mb-2 col-12">
-        Choisissez un CV à lier à ce portfolio.
+        Choisissez un CV à lier à ce portfolio ou créez en un nouveau (l'ajout d'un cv est optionnel et est limité à un par portfolio).
     </div>
 
     <label for="selectedCv" class="sr-only">Choisir un cv</label>
@@ -12,7 +12,7 @@
             id="selectedCv"
             is="select-complete" {{ stimulus_action('cv', 'selectedCv', 'change') }}>
         <option value="">Choisir...</option>
-{#            <option data-portfolio-id="{{ portfolio.id }}" value="new">Ajouter un nouveau cv</option>#}
+        <option data-portfolio-id="{{ portfolio.id }}" value="new">Ajouter un nouveau cv</option>
         {% for cv in cvs %}
             <option value="{{ cv.id }}">{{ cv.intitule }}</option>
         {% endfor %}
@@ -22,9 +22,9 @@
 
     <div {{ stimulus_target('cv', 'cvZone') }}></div>
 
- {% if cv is not null %}
+    {% if cv is not null %}
 
         {% include 'portfolio_process/step/_selectedCv.html.twig' %}
 
- {% endif %}
+    {% endif %}
 </div>

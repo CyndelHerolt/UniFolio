@@ -30,4 +30,17 @@ export default class extends Controller {
         // Remettre la sélection sur l'option "Choisir..."
         event.target.selectedIndex = 0;
     }
+
+    async deleteCv(event) {
+        const _value = event.currentTarget.value
+
+        const params = new URLSearchParams({
+            step: 'deleteCv',
+            cv: _value,
+        })
+        if (confirm('Voulez-vous vraiment retirer ce cv ?')) {
+            const response = await fetch(`${this.urlValue}?${params.toString()}`)
+            this.stepZoneTarget.innerHTML = await response.text()
+        }
+    }
 }

@@ -1,7 +1,25 @@
 <div class="card step-card">
     <div class="row" style="display: flex; justify-content: space-between">
-        <div class="trace col-10" style="display: flex; flex-direction: column">
+        <div class="cv col-10" style="display: flex; flex-direction: column">
             <h4>{{ cv.intitule }}</h4>
+            <ul class="card-infos-min">
+                <li><span>Dernière modification le :&nbsp;</span> {{ cv.dateModification|date('d-m-y') }}</li>
+{#                <li>•</li>#}
+            </ul>
+            <hr>
+            <h5>{{ cv.poste }}</h5>
+        </div>
+        <div class="step-trace-actions col-2">
+            <div class="step-trace-crud">
+                <button class="btn-danger btn" {{ stimulus_action('cv', 'deleteCv', 'click') }}
+                        value="{{ cv.id }}">
+                    <i class="fa-regular fa-square-minus"></i>
+                </button>
+                <button class="btn-warning btn" {{ stimulus_action('cv', 'editCv', 'click') }}
+                        value="{{ cv.id }}">
+                    <i class="fa-solid fa-edit"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

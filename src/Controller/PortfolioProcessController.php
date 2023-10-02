@@ -86,6 +86,10 @@ class PortfolioProcessController extends BaseController
             $etudiant = $this->getUser()->getEtudiant();
             $cvs = $cvRepository->findBy(['etudiant' => $etudiant]);
             $cv = $portfolio->getCv();
+            if ($cv != null) {
+                $key = array_search($cv, $cvs);
+                unset($cvs[$key]);
+            }
 
             switch ($step) {
 
@@ -676,13 +680,30 @@ class PortfolioProcessController extends BaseController
 
                 case 'selectedCv':
                     $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+                    $portfolioCv = $portfolioRepository->findOneBy(['cv' => $cv]);
+                    if ($portfolioCv) {
+                        $portfolioCv->setCv(null);
+                        $portfolioRepository->save($portfolioCv, true);
+                    }
                     $portfolio->setCv($cv);
+                    // retirer le cv de $cvs
+
                     $portfolioRepository->save($portfolio, true);
 
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $id,
                         'step' => 'addCv',
                         'cv' => $cv->getId(),
+                        'data_user' => $data_user,
+                    ]);
+
+                case 'deleteCv' :
+                    $portfolio->setCv(null);
+                    $portfolioRepository->save($portfolio, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addCv',
                         'data_user' => $data_user,
                     ]);
             }
