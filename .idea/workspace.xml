@@ -9,14 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip [CV]: add/delete existing cv during portfolio process">
-      <change afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editCv.html.twig" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip [CV]: edit existing/new cv during portfolio process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/cv_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/cv_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PortfolioProcessController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/nav_creation.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/step/_editPage.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -592,7 +587,7 @@
       <workItem from="1696092645769" duration="3530000" />
       <workItem from="1696101940141" duration="3939000" />
       <workItem from="1696171246117" duration="7305000" />
-      <workItem from="1696226204450" duration="15329000" />
+      <workItem from="1696226204450" duration="15422000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -937,7 +932,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="385" />
+    <option name="localTasksCounter" value="386" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1001,7 +996,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test: [Traces] test filtres Stimulus" />
     <MESSAGE value="fix: [Portfolio] lien image bannière" />
     <MESSAGE value="fix: [Traces] Filtres/compétences" />
     <MESSAGE value="fix: [Traces] Help message TraceTypeLien" />
@@ -1026,7 +1020,8 @@
     <MESSAGE value="wip [CV]: add cv during portfolio process" />
     <MESSAGE value="wip [CV]: add existing cv during portfolio process" />
     <MESSAGE value="wip [CV]: add/delete existing cv during portfolio process" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip [CV]: add/delete existing cv during portfolio process" />
+    <MESSAGE value="wip [CV]: edit existing/new cv during portfolio process" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip [CV]: edit existing/new cv during portfolio process" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

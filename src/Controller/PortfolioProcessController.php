@@ -796,12 +796,6 @@ class PortfolioProcessController extends BaseController
                         $cv->setHardSkills($cvData->getHardSkills());
                         $cv->setPoste($cvData->getPoste());
                         $cv->setReseaux($cvData->getReseaux());
-//                        foreach ($experiences as $experience) {
-//                            $cv->addExperience($experience);
-//                        }
-//                        foreach ($formations as $formation) {
-//                            $cv->addFormation($formation);
-//                        }
 
                         $cvRepository->save($cv, true);
 
