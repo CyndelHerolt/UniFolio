@@ -18,7 +18,7 @@
     </li>
 
     <li class="nav-item" {{ stimulus_action('creation', 'changeStep', 'click', {step: 'addCv'}) }}>
-        <a class="nav-link {% if step == 'addCv' %} active {% endif %}" href="#">Ajouter un cv</a>
+        <a class="nav-link {% if step == 'addCv' or step == 'editCv' %} active {% endif %}" href="#">Cv</a>
     </li>
 
     <li class="nav-item">

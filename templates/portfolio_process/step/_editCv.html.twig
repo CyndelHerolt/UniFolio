@@ -1,0 +1,91 @@
+<div class="step-title">
+    <h4>Edition du cv {{ cv.intitule }}</h4>
+</div>
+<small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+
+{{ form_start(form, {'attr': {id:'formCv'}}) }}
+<div class="hidden">
+    {{ form_row(form.date_creation) }}
+    {{ form_row(form.date_modification) }}
+</div>
+{{ form_row(form.intitule) }}
+            {{ form_row(form.poste) }}
+            {{ form_row(form.description) }}
+<hr>
+
+<!-- Expériences -->
+<div class="row">
+    <div class="col-6">
+        <div class=" mb-3 bloc_experience">
+            {{ form_row(form.experience) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-experience">
+            Ajouter une experience <i class="fa fa-square-plus"></i>
+        </button>
+        <!-- Fin expériences -->
+    </div>
+    <div class="col-6">
+        <!-- Formations -->
+        <div class="mb-3">
+            {{ form_row(form.formation) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-formation">
+            Ajouter une formation <i class="fa fa-square-plus"></i>
+        </button>
+    </div>
+</div>
+<!-- Fin formations -->
+<hr>
+<!-- SoftSkills -->
+<div class="row">
+    <div class="col-6">
+        <div class="input-group mb-3">
+            {{ form_widget(form.soft_skills) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-soft-skill">
+            Ajouter un soft skill <i class="fa fa-square-plus"></i>
+        </button>
+        <!-- Fin SofSkills -->
+    </div>
+    <div class="col-6">
+        <!-- HardSkills -->
+        <div class="input-group mb-3">
+            {{ form_widget(form.hard_skills) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-hard-skill">
+            Ajouter un hard skill <i class="fa fa-square-plus"></i>
+        </button>
+    </div>
+</div>
+<!-- Fin HardSkills -->
+<hr>
+<!-- Langues -->
+<div class="row">
+    <div class="col-6">
+        <div class="input-group mb-3">
+            {{ form_widget(form.langues) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-langue">
+            Ajouter une langue <i class="fa fa-square-plus"></i>
+        </button>
+        <!-- Fin Langues -->
+    </div>
+    <div class="col-6">
+        <!-- Reseaux -->
+        <div class="input-group mb-3">
+            {{ form_widget(form.reseaux) }}
+        </div>
+        <button type="button" class="btn btn-secondary add-reseau">
+            Ajouter un reseau <i class="fa fa-square-plus"></i>
+        </button>
+    </div>
+</div>
+<!-- Fin reseaux -->
+<hr>
+
+{{ form_end(form) }}
+
+<button class="btn btn-primary save" {{ stimulus_action('cv', 'saveCv', 'click') }}
+        value="{{ cv.id }}">
+    Enregistrer les modifications
+</button>
