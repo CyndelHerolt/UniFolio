@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Cv;
-use App\Entity\Experience;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

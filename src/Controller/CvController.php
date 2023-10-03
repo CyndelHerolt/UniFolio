@@ -73,7 +73,7 @@ class CvController extends AbstractController
             }
             //-------------------------------------------------------------------------------
 
-            dd($request);
+//            dd($request);
 
 
             $cv->setEtudiant($user);
@@ -94,11 +94,11 @@ class CvController extends AbstractController
 
     #[Route('/cv/edit/{id}', name: 'app_cv_edit')]
     public function edit(
-        Request              $request,
-        CvRepository         $cvRepository,
-        ExperienceRepository $experienceRepository,
-        Cv                   $cv,
-        int                  $id,
+        Request                $request,
+        CvRepository           $cvRepository,
+        ExperienceRepository   $experienceRepository,
+        Cv                     $cv,
+        int                    $id,
         EntityManagerInterface $entityManager
     ): Response
     {

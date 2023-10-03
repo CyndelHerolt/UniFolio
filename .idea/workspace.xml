@@ -9,9 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Profil] Structure + css">
-      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat [CV]: edit existing/new cv during portfolio process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_table.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +41,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="features/profil-page" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -216,27 +225,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging features/profil-page",
-    "last_opened_file_path": "/var/www/html/obscureWave",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;features/cv-editor&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/var/www/html/obscureWave&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu\var\www\html\UniFolio\src\Repository" />
@@ -579,6 +588,13 @@
       <workItem from="1695734055137" duration="81000" />
       <workItem from="1696065097456" duration="2718000" />
       <workItem from="1696068287298" duration="556000" />
+      <workItem from="1696092645769" duration="3530000" />
+      <workItem from="1696101940141" duration="3939000" />
+      <workItem from="1696171246117" duration="7305000" />
+      <workItem from="1696226204450" duration="16096000" />
+      <workItem from="1696254078350" duration="941000" />
+      <workItem from="1696261900132" duration="1000" />
+      <workItem from="1696312864396" duration="3260000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -923,7 +939,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="378" />
+    <option name="localTasksCounter" value="387" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -987,12 +1003,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] Création nouvelle trace -&gt; redirect forms" />
-    <MESSAGE value="#14 fix: [Portfolio] Gestion des traces vides" />
-    <MESSAGE value="#14 fix: [Portfolio] redirect ajout trace vide" />
-    <MESSAGE value="fix: [Portfolio] delete trace vide" />
-    <MESSAGE value="test: [Traces] test filtres Stimulus" />
-    <MESSAGE value="fix: [Portfolio] lien image bannière" />
     <MESSAGE value="fix: [Traces] Filtres/compétences" />
     <MESSAGE value="fix: [Traces] Help message TraceTypeLien" />
     <MESSAGE value="fix: [API] Requête vers version locale de l'intranet en HTTP et non HTTPS car le serveur symfony ne supporte pas SSL/TLS" />
@@ -1012,7 +1022,13 @@
     <MESSAGE value="fix: [API intranet] requête vers intranet prod" />
     <MESSAGE value="feat: [Git] launch gitflow" />
     <MESSAGE value="feat: [Profil] Structure + css" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Profil] Structure + css" />
+    <MESSAGE value="wip [CV]: refactor datetime Experience.php Formation.php" />
+    <MESSAGE value="wip [CV]: add cv during portfolio process" />
+    <MESSAGE value="wip [CV]: add existing cv during portfolio process" />
+    <MESSAGE value="wip [CV]: add/delete existing cv during portfolio process" />
+    <MESSAGE value="wip [CV]: edit existing/new cv during portfolio process" />
+    <MESSAGE value="feat [CV]: edit existing/new cv during portfolio process" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat [CV]: edit existing/new cv during portfolio process" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

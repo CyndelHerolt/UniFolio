@@ -7,16 +7,21 @@ use App\Components\Trace\TypeTrace\TraceTypeImage;
 use App\Components\Trace\TypeTrace\TraceTypeLien;
 use App\Components\Trace\TypeTrace\TraceTypePdf;
 use App\Components\Trace\TypeTrace\TraceTypeVideo;
+use App\Entity\Cv;
 use App\Entity\OrdrePage;
 use App\Entity\OrdreTrace;
 use App\Entity\Page;
 use App\Entity\Trace;
 use App\Entity\Validation;
+use App\Form\CvType;
 use App\Form\PageType;
 use App\Form\PortfolioType;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\BibliothequeRepository;
 use App\Repository\CompetenceRepository;
+use App\Repository\CvRepository;
+use App\Repository\ExperienceRepository;
+use App\Repository\FormationRepository;
 use App\Repository\OrdrePageRepository;
 use App\Repository\OrdreTraceRepository;
 use App\Repository\PageRepository;
@@ -65,6 +70,9 @@ class PortfolioProcessController extends BaseController
         ValidationRepository   $validationRepository,
         OrdrePageRepository    $ordrePageRepository,
         OrdreTraceRepository   $ordreTraceRepository,
+        CvRepository           $cvRepository,
+        ExperienceRepository   $experienceRepository,
+        FormationRepository    $formationRepository,
     ): Response
     {
         if ($this->isGranted('ROLE_ETUDIANT')) {
@@ -79,6 +87,14 @@ class PortfolioProcessController extends BaseController
             $pages = [];
             foreach ($ordrePages as $ordrePage) {
                 $pages[] = $ordrePage->getPage();
+            }
+
+            $etudiant = $this->getUser()->getEtudiant();
+            $cvs = $cvRepository->findBy(['etudiant' => $etudiant]);
+            $cv = $portfolio->getCv();
+            if ($cv != null) {
+                $key = array_search($cv, $cvs);
+                unset($cvs[$key]);
             }
 
             switch ($step) {
@@ -668,6 +684,144 @@ class PortfolioProcessController extends BaseController
 
                     return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
+                case 'selectedCv':
+                    $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+                    if ($cv == null) {
+                        $cv = new Cv();
+                        $cv->setIntitule('Nouveau CV');
+                        $cv->setDateCreation(new \DateTimeImmutable());
+                        $cv->setDescription('Description de mon CV');
+                        $cv->setSoftSkills([]);
+                        $cv->setHardSkills([]);
+                        $cv->setLangues([]);
+                        $cv->setReseaux([]);
+                        $cv->setEtudiant($etudiant);
+                        $portfolio->setCv($cv);
+                    } else {
+                        $portfolioCv = $portfolioRepository->findOneBy(['cv' => $cv]);
+                        if ($portfolioCv) {
+                            $portfolioCv->setCv(null);
+                            $portfolioRepository->save($portfolioCv, true);
+                        }
+                        $portfolio->setCv($cv);
+                    }
+
+                    $cvRepository->save($cv, true);
+                    $portfolioRepository->save($portfolio, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addCv',
+                        'cv' => $cv->getId(),
+                        'data_user' => $data_user,
+                    ]);
+
+                case 'deleteCv' :
+                    $portfolio->setCv(null);
+                    $portfolioRepository->save($portfolio, true);
+
+                    return $this->redirectToRoute('app_portfolio_process_step', [
+                        'id' => $id,
+                        'step' => 'addCv',
+                        'data_user' => $data_user,
+                    ]);
+
+                case 'editCv':
+                    $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+
+                    $form = $this->createForm(CvType::class, $cv);
+
+                    break;
+
+                case 'saveCv':
+                    $cv = $pageRepository->findOneBy(['id' => $request->query->get('cv')]);
+
+                    $form = $this->createForm(CvType::class, $cv);
+
+                    $form->handleRequest($request);
+
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
+
+                        // récupérer les données du formulaire
+                        $cvData = $form->getData();
+                        $experiences = $cvData->getExperience();
+                        $formations = $cvData->getFormation();
+
+                        $experienceIds = [];
+                        $formationIds = [];
+
+                        foreach ($experiences as $experience) {
+                            // Ajouter l'expérience dans le CV que si elle n'est pas déjà liée.
+                            if (!$cv->getExperience()->contains($experience)) {
+                                $cv->addExperience($experience);
+                            }
+                            // Ajouter l'ID de l'expérience dans le tableau.
+                            $experienceIds[] = $experience->getId();
+                        }
+
+                        foreach ($formations as $formation) {
+                            // Ajouter la formation dans le CV que si elle n'est pas déjà liée.
+                            if (!$cv->getFormation()->contains($formation)) {
+                                $cv->addFormation($formation);
+                            }
+                            // Ajouter l'ID de la formation dans le tableau.
+                            $formationIds[] = $formation->getId();
+                        }
+
+// Trouver les expériences et formations dans le CV qui ne sont pas incluses dans le formulaire.
+
+                        foreach ($cv->getExperience() as $experience) {
+                            if (!in_array($experience->getId(), $experienceIds)) {
+                                // Supprimer l'expérience du CV et de la base de données.
+                                $cv->removeExperience($experience);
+                                $experienceRepository->remove($experience);
+                            }
+                        }
+
+                        foreach ($cv->getFormation() as $formation) {
+                            if (!in_array($formation->getId(), $formationIds)) {
+                                // Supprimez la formation du CV et de la base de données.
+                                $cv->removeFormation($formation);
+                                $formationRepository->remove($formation);
+                            }
+                        }
+
+
+                        $cv->setIntitule($cvData->getIntitule());
+                        $cv->setDateModification(new \DateTimeImmutable());
+                        $cv->setDescription($cvData->getDescription());
+                        $cv->setLangues($cvData->getLangues());
+                        $cv->setSoftSkills($cvData->getSoftSkills());
+                        $cv->setHardSkills($cvData->getHardSkills());
+                        $cv->setPoste($cvData->getPoste());
+                        $cv->setReseaux($cvData->getReseaux());
+
+                        $cvRepository->save($cv, true);
+
+                        return $this->redirectToRoute('app_portfolio_process_step', [
+                            'id' => $id,
+                            'step' => 'addCv',
+                            'cv' => $cv->getId(),
+                            'data_user' => $data_user,
+                        ]);
+                    }
+
+                    $errors = $form->getErrors(true, true);
+                    $errorsOutput = [];
+                    foreach ($errors as $error) {
+                        if ($error->getOrigin()) {
+                            $errorsOutput[] = [
+                                'field' => $error->getOrigin()->getName(), 'message' => $error->getMessage()
+                            ];
+                        } else {
+                            $errorsOutput[] = [
+                                'message' => $error->getMessage()
+                            ];
+                        }
+                    }
+
+                    return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
 
             }
 
@@ -693,6 +847,8 @@ class PortfolioProcessController extends BaseController
                 'ordreMinTrace' => $ordreMinTrace ?? null,
                 'error' => $error ?? null,
                 'data_user' => $data_user,
+                'cvs' => $cvs ?? null,
+                'cv' => $cv ?? null,
             ]);
         } else {
             return $this->render('security/accessDenied.html.twig');

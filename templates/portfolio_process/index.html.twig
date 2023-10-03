@@ -19,9 +19,9 @@
         <section class="portfolio_form">
             <div class="row">
                 <article class="col-lg-12 col-12">
-                    <div {{ stimulus_controller('creation', { url: path('app_portfolio_process_step', {id:id})}) | stimulus_controller('page', { url: path('app_portfolio_process_step', {id:id}) }) | stimulus_controller('trace', { url: path('app_portfolio_process_step', {id:id}) }) }}>
+                    <div {{ stimulus_controller('creation', { url: path('app_portfolio_process_step', {id:id})}) | stimulus_controller('page', { url: path('app_portfolio_process_step', {id:id}) }) | stimulus_controller('trace', { url: path('app_portfolio_process_step', {id:id}) }) | stimulus_controller('cv', { url: path('app_portfolio_process_step', {id:id}) })}}>
 
-                        <div {{ stimulus_target('creation', 'stepZone') }}{{ stimulus_target('page', 'stepZone') }}{{ stimulus_target('trace', 'stepZone') }}>
+                        <div {{ stimulus_target('creation', 'stepZone') }}{{ stimulus_target('page', 'stepZone') }}{{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('cv', 'stepZone') }}>
 
                         </div>
                     </div>
