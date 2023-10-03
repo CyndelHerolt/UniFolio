@@ -202,6 +202,49 @@ body {
       }
     }
   }
+
+  .card {
+    padding: 0;
+
+    .card-header {
+      padding: 20px;
+    }
+
+    .card-infos-min {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: .7rem;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 0 10px 0 0;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .card-body {
+        padding: 20px;
+
+      .card-table-competences {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start !important;
+      }
+    }
+
+    .card-footer {
+      padding: 20px;
+      background-color: transparent;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
 }
 
 

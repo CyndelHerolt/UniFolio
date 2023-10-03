@@ -185,6 +185,41 @@ label.required::after {
   }
 }
 
+.steps {
+  display: flex;
+  flex: 1;
+
+  .steps-bloc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e5daef;
+    width: 32%;
+    padding: 10px 25px;
+    margin: 0 10px;
+
+    div {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      p {
+        margin: 0;
+        font-size: 1.75rem;
+      }
+
+      span {
+
+        p {
+          margin: 0;
+            font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
 .account {
   padding: 0 !important;
 
