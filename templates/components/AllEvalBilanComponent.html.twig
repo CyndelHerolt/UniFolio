@@ -1,0 +1,21 @@
+<div{{ attributes }}>
+    <table id="evalBilan">
+        <thead>
+        <tr>
+            <th>Etudiant</th>
+            <th>Groupe</th>
+            <th>Portfolio</th>
+            <th>Nb pages</th>
+            <th>Nb traces</th>
+            <th>% évaluées</th>
+            <th>% validées</th>
+            <th>Accéder au portfolio</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for portfolio in this.allPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+            {{ component('PortfolioEvalTableComponent', {'id': portfolio.id}) }}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
