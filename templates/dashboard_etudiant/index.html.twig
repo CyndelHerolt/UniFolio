@@ -3,16 +3,16 @@
 {% block title %}UniFolio - Tableau de bord{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-        </ol>
-    </nav>
-    <div class="container dashboard">
+    <div class="content-container dashboard">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+            </nav>
         <section class="dashboard-controls">
             <article class="row g-4">
                 <h1>Accès rapides</h1>
@@ -68,16 +68,14 @@
                 {{ component('AllRetourPedagogiqueComponent') }}
             </article>
         </section>
-    </div>
 
-    <div class="container dashboard">
         <section class="dashboard_traces">
             <article class="row g-4">
                 <h1>Dernières traces créées</h1>
                 <em>Les dernières traces que vous avez créées et les compétences associées.</em>
                 <div>
                     <i class="fa-solid fa-hourglass-half"
-                        style="color: #4c008b"></i> En attente de validation
+                       style="color: #4c008b"></i> En attente de validation
                     ·
                     <i class="fa-solid fa-xmark"
                        style="color: red"></i> Non acquis
@@ -125,12 +123,11 @@
                 </div>
             </div>
         </section>
-    </div>
 
-    <div class="container dashboard">
         <section class="dashboard_portfolio ">
             <article class="row g-4">
                 <h1>Vos portfolios</h1>
+                <em>Vos derniers porfolios créés, publics et privés.</em>
                 {{ component('all_portfolio') }}
                 <div class="btn-group">
                     <a href="{{ path('app_portfolio') }}">

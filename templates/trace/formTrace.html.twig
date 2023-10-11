@@ -3,22 +3,22 @@
     {% block title %}UniFolio - Edition de trace{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 {% block body %}
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            <li class="breadcrumb-item"><a href="{{ path('app_trace') }}">Bibliothèque de traces</a></li>
-            {% if '/edit' in app.request.uri %}
-                <li class="breadcrumb-item active" aria-current="page">Edition de trace</li>
-            {% else %}
-                <li class="breadcrumb-item active" aria-current="page">Nouvelle trace</li>
-            {% endif %}
-        </ol>
-    </nav>
-    <div class="container trace_form">
-        <section class="only-trace">
+    <div class="content-container trace_form">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_trace') }}">Bibliothèque de traces</a></li>
+                {% if '/edit' in app.request.uri %}
+                    <li class="breadcrumb-item active" aria-current="page">Edition de trace</li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">Nouvelle trace</li>
+                {% endif %}
+            </ol>
+        </nav>
+        <section>
             <div class="card">
                 <article>
                     {% if '/edit' in app.request.uri %}
@@ -48,18 +48,19 @@
                             {% if 'TraceTypeImage' in trace.typeTrace %}
                                 <label class="form-label required">Image.s</label>
                                 {% if '/edit' in app.request.uri %}
-                                <div class="galerie">
-                                    {% for data in trace.contenu %}
-                                        <div class="image_trace_div">
-                                            <input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
-                                            <div class="trace-img" style="background-image: url('{{ asset(data) }}')">
+                                    <div class="galerie">
+                                        {% for data in trace.contenu %}
+                                            <div class="image_trace_div">
+                                                <input type="hidden" name="img[{{ loop.index }}]" value="{{ data }}">
+                                                <div class="trace-img"
+                                                     style="background-image: url('{{ asset(data) }}')">
 
+                                                </div>
+                                                <button type="button" class="btn btn-danger delete-image">
+                                                    <i class="fa-solid fa-square-minus"></i>
+                                                </button>
                                             </div>
-                                            <button type="button" class="btn btn-danger delete-image">
-                                                <i class="fa-solid fa-square-minus"></i>
-                                            </button>
-                                        </div>
-                                    {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
                                 <br>
@@ -128,9 +129,9 @@
                         </div>
                     </div>
                 </article>
-{#                <article class="col-lg-12 col-12 commentaire">#}
-                    <button type="submit" class="btn btn-secondary">Enregistrer</button>
-{#                </article>#}
+                {#                <article class="col-lg-12 col-12 commentaire"> #}
+                <button type="submit" class="btn btn-secondary">Enregistrer</button>
+                {#                </article> #}
             </div>
             {{ form_end(form) }}
         </section>

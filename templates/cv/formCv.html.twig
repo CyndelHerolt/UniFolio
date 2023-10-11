@@ -2,93 +2,122 @@
 
 {% block title %}UniFolio - Nouveau CV{% endblock %}
     {% block header %}
-        {% include "_menu.html.twig" %}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 {% block body %}
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            <li class="breadcrumb-item"><a href="{{ path('app_cv') }}">Bibliothèque de cv</a></li>
-            {% if '/edit' in app.request.uri %}
-                <li class="breadcrumb-item active" aria-current="page">Edition cv</li>
-            {% elseif '/new' in app.request.uri %}
-                <li class="breadcrumb-item active" aria-current="page">Nouveau cv</li>
-            {% endif %}
-        </ol>
-    </nav>
-    <div class="container">
-        {% if '/edit' in app.request.uri %}
-            <h1>Modifier {{ cv.intitule }}</h1>
-        {% elseif '/new' in app.request.uri %}
-            <h1>Nouveau cv</h1>
-        {% endif %}
-        <section class="cv_form">
-            <div class="row">
-                <article class="col-lg-5 col-12">
+    <div class="content-container cv_form">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_cv') }}">Bibliothèque de cv</a></li>
+                {% if '/edit' in app.request.uri %}
+                    <li class="breadcrumb-item active" aria-current="page">Edition cv</li>
+                {% elseif '/new' in app.request.uri %}
+                    <li class="breadcrumb-item active" aria-current="page">Nouveau cv</li>
+                {% endif %}
+            </ol>
+        </nav>
+        <section>
+            <div class="card">
+                <article>
+                    {% if '/edit' in app.request.uri %}
+                        <h1>Modifier {{ cv.intitule }}</h1>
+                    {% elseif '/new' in app.request.uri %}
+                        <h1>Nouveau cv</h1>
+                    {% endif %}
+                    <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+                    <hr>
+
                     {{ form_start(form) }}
 
-                    {{ form_row(form.date_creation) }}
-                    {{ form_row(form.date_modification) }}
+                    <div class="hidden">
+                        {{ form_row(form.date_creation) }}
+                        {{ form_row(form.date_modification) }}
+                    </div>
                     {{ form_row(form.intitule) }}
                     {{ form_row(form.poste) }}
                     {{ form_row(form.description) }}
                     <hr>
 
                     <!-- Expériences -->
-                    <div class=" mb-3 bloc_experience">
-                        {{ form_row(form.experience) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" mb-3 bloc_experience">
+                                {{ form_row(form.experience) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-experience">
+                                Ajouter une experience <i class="fa fa-square-plus"></i>
+                            </button>
+                            <br>
+                            <small class="text-muted">Expériences professionnelles (elles seront automatiquement triées par date
+                                décroissante)</small>
+                            <!-- Fin expériences -->
+                        </div>
+                        <div class="col-6">
+                            <!-- Formations -->
+                            <div class="mb-3">
+                                {{ form_row(form.formation) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-formation">
+                                Ajouter une formation <i class="fa fa-square-plus"></i>
+                            </button>
+                            <br>
+                            <small class="text-muted">Formations (elles seront automatiquement triées par date
+                                décroissante)</small>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary add-experience">
-                        Ajouter une experience <i class="fa fa-square-plus"></i>
-                    </button>
-                    <!-- Fin expériences -->
-                    <hr>
-                    <!-- Formations -->
-                    <div class="mb-3">
-                        {{ form_row(form.formation) }}
-                    </div>
-                    <button type="button" class="btn btn-primary add-formation">
-                        Ajouter une formation <i class="fa fa-square-plus"></i>
-                    </button>
                     <!-- Fin formations -->
                     <hr>
                     <!-- SoftSkills -->
-                    <div class="input-group mb-3">
-                        {{ form_widget(form.soft_skills) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label required">Soft skills</label>
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.soft_skills) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-soft-skill">
+                                Ajouter un soft skill <i class="fa fa-square-plus"></i>
+                            </button>
+                            <!-- Fin SofSkills -->
+                        </div>
+                        <div class="col-6">
+                            <!-- HardSkills -->
+                            <label class="form-label required">Hard skills</label>
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.hard_skills) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-hard-skill">
+                                Ajouter un hard skill <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary add-soft-skill">
-                        Ajouter un soft skill <i class="fa fa-square-plus"></i>
-                    </button>
-                    <!-- Fin SofSkills -->
-                    <hr>
-                    <!-- HardSkills -->
-                    <div class="input-group mb-3">
-                        {{ form_widget(form.hard_skills) }}
-                    </div>
-                    <button type="button" class="btn btn-primary add-hard-skill">
-                        Ajouter un hard skill <i class="fa fa-square-plus"></i>
-                    </button>
                     <!-- Fin HardSkills -->
                     <hr>
                     <!-- Langues -->
-                    <div class="input-group mb-3">
-                        {{ form_widget(form.langues) }}
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label required">Langues</label>
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.langues) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-langue">
+                                Ajouter une langue <i class="fa fa-square-plus"></i>
+                            </button>
+                            <!-- Fin Langues -->
+                        </div>
+                        <div class="col-6">
+                            <!-- Reseaux -->
+                            <label class="form-label required">Réseaux sociaux</label>
+                            <div class="input-group mb-3">
+                                {{ form_widget(form.reseaux) }}
+                            </div>
+                            <button type="button" class="btn btn-secondary add-reseau">
+                                Ajouter un reseau <i class="fa fa-square-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary add-langue">
-                        Ajouter une langue <i class="fa fa-square-plus"></i>
-                    </button>
-                    <!-- Fin Langues -->
-                    <hr>
-                    <!-- Reseaux -->
-                    <div class="input-group mb-3">
-                        {{ form_widget(form.reseaux) }}
-                    </div>
-                    <button type="button" class="btn btn-primary add-reseau">
-                        Ajouter un reseau <i class="fa fa-square-plus"></i>
-                    </button>
                     <!-- Fin reseaux -->
                     <hr>
-
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     {{ form_end(form) }}
 

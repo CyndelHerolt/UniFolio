@@ -9,7 +9,7 @@ document.querySelectorAll('.soft_skills').forEach((event) => {
     event.parentNode.classList.add('soft_skills_div')
     event.parentNode.classList.add('input-group', 'mb-3', 'soft_skills_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
@@ -37,7 +37,7 @@ export function addSoftSkill(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'soft_skills_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
@@ -80,7 +80,7 @@ document.querySelectorAll('.hard_skills').forEach((event) => {
     // ajouter la classe 'hard_skills' à chaque élément parent de .hard_skills
     event.parentNode.classList.add('input-group', 'mb-3', 'hard_skills_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-hard-skill">' +
@@ -108,7 +108,7 @@ export function addHardSkill(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'hard_skills_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-hard-skill">' +
@@ -153,7 +153,7 @@ document.querySelectorAll('.langues').forEach((event) => {
     // ajouter la classe 'langues' à chaque élément parent de .langues
     event.parentNode.classList.add('input-group', 'mb-3', 'langues_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-langue">' +
@@ -181,7 +181,7 @@ export function addLangue(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'langues_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-langue">' +
@@ -225,7 +225,7 @@ document.querySelectorAll('.reseaux').forEach((event) => {
     // ajouter la classe 'reseaux' à chaque élément parent de .reseaux
     event.parentNode.classList.add('input-group', 'mb-3', 'reseaux_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-reseau">' +
@@ -253,7 +253,7 @@ export function addReseau(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'reseaux_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-reseau">' +
@@ -385,7 +385,7 @@ export function addExperienceActivite(event) {
     const formGroup = document.createElement('div');
     formGroup.classList.add('experience-activite');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     let index = document.querySelectorAll('.experience-activite').length;
     const experienceElement = event.closest('.experience');
@@ -528,7 +528,7 @@ export function addFormationActivite(event) {
     const formGroup = document.createElement('div');
     formGroup.classList.add('formation-activite');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
     const button = document.createElement('button');

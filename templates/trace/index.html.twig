@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
+{% block title %}UniFolio - Bibliothèque de traces{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
+    <div class="content-container traces">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
@@ -12,7 +14,6 @@
         </ol>
     </nav>
 
-    <div class="container traces">
         <section>
             <div class="row">
                 <h2 class="col-10">Bibliothèque de traces</h2>

@@ -1,11 +1,5 @@
 .portfolios, .pages, .traces, .cvs, .bilan {
 
-  section {
-    margin: 0;
-    padding: 20px 40px;
-    background-color: #f8f8f8;
-    border-radius: 0;
-  }
 
   fieldset {
     font-size: .8rem;
@@ -16,44 +10,22 @@
     margin: 0;
     width: 100%;
 
-    .card {
-      border: none;
-      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-    }
+    //.card {
+    //  border: none;
+    //  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    //}
 
 
     .card-content {
-      width: 100%;
-      height: 100%;
-      //text-align: center;
-      padding: 0 0 15px 0;
-      background-color: $color-light;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
 
-      .btn-see {
-
-        button {
-          @include btn-icon(#ffae00, $color-light, 3px solid #ffae00);
-          margin: 0 10px;
-          position: relative;
-          bottom: 15px;
-
-          &:hover {
-            @include btn-icon($color-light, $color-dark, 3px solid $color-primary-focus);
-          }
-        }
-      }
-
-      h3 {
-        @include titre($primary-font, 22px, 1.5);
-        margin: 0;
-      }
-
-      h6 {
-        text-align: center;
-      }
+      //h3 {
+      //  @include titre($primary-font, 22px, 1.5);
+      //  margin: 0;
+      //}
+      //
+      //h6 {
+      //  text-align: center;
+      //}
 
       .accordion-button::after {
         display: none;
@@ -99,10 +71,6 @@
       }
 
       .card-body {
-        //padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
 
         ul {
           list-style: none;
@@ -125,12 +93,6 @@
             }
           }
         }
-      }
-
-      .card-text {
-        margin: 0;
-        padding: 5px 25px;
-        text-align: justify;
       }
 
       hr {
@@ -529,4 +491,9 @@
   li {
     margin: 5px 0 !important;
   }
+}
+
+.norif-header {
+  display: flex;
+  justify-content: space-between;
 }

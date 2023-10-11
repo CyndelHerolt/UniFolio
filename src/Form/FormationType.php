@@ -19,11 +19,13 @@ class FormationType extends AbstractType
                 'label' => 'Diplôme',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Diplôme de ma formation',],
+                'required' => true,
             ])
             ->add('etablissement', TextType::class, [
                 'label' => 'Etablissement',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Etablissement de ma formation',],
+                'required' => true,
             ])
             ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
@@ -32,6 +34,7 @@ class FormationType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
+                'required' => true,
             ])
             ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
@@ -40,6 +43,7 @@ class FormationType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
+                'required' => true,
             ])
             ->add('activite', CollectionType::class, [
                 'entry_type' => TextType::class,
@@ -56,7 +60,7 @@ class FormationType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'prototype' => true,
                 'label' => false,
             ])

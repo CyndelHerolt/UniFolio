@@ -7,27 +7,27 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Réinitialisation du mot de passe</li>
-        </ol>
-    </nav>
-    <div class="container account">
+    <div class="content-container account">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Réinitialisation du mot de passe</li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
                 <h1>Réinitialisation du mot de passe</h1>
                 <div class="form-group">
-                {{ form_start(requestForm) }}
-                {{ form_row(requestForm.email) }}
+                    {{ form_start(requestForm) }}
+                    {{ form_row(requestForm.email) }}
                 </div>
                 <button class="btn btn-primary">Envoyer</button>
                 {{ form_end(requestForm) }}
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="form-group">
-                        <p><a href="{{ path('app_login') }}">Retour au formulaire de Connexion</a></p>
-                        <p><a href="{{ path('app_users_new') }}">Retour au formulaire d'Inscription</a></p>
-                    </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="form-group">
+                    <p><a href="{{ path('app_login') }}">Retour au formulaire de Connexion</a></p>
+                    <p><a href="{{ path('app_users_new') }}">Retour au formulaire d'Inscription</a></p>
+                </div>
             </div>
         </div>
     </div>
