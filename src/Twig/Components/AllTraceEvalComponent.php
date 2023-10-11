@@ -130,7 +130,6 @@ final class AllTraceEvalComponent extends BaseController
                     $this->etudiants[] = $etudiant;
                 }
             }
-
             $this->dept[] = $departement;
         }
         $this->changeSemestre($this->selectedSemestre);

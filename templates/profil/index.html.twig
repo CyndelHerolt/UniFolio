@@ -2,18 +2,18 @@
 
 {% block title %}UniFolio - Profil{% endblock %}
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
 
+    <div class="content-container">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item active" aria-current="page">Profil</li>
         </ol>
     </nav>
-    <div class="container">
         <section class="profil">
             <div class="container my-4">
                 <div class="row g-4">

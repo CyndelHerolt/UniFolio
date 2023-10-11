@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Portfolio;
+use App\Entity\Semestre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -64,7 +65,7 @@ class PortfolioRepository extends ServiceEntityRepository
 //        return $qb->getQuery()->getResult();
 //    }
 
-    public function findByFilters($dept, int $annee = null, array $groupes = [], array $etudiants = [], array $competences = []): array
+    public function findByFilters($dept, Semestre $semestre = null, array $groupes = [], array $etudiants = [], array $competences = []): array
     {
         $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.ordrePages', 'op')
@@ -82,9 +83,9 @@ class PortfolioRepository extends ServiceEntityRepository
             ->innerJoin('d.departement', 'dep')
             ->where('dep.id = :departement')
             ->setParameter('departement', $dept);
-        if (!empty($annee)) {
-            $qb->andWhere('a.id = :annee')
-                ->setParameter('annee', $annee);
+        if (!empty($semestre)) {
+            $qb->andWhere('s.id = :semestre')
+                ->setParameter('semestre', $semestre->getId());
         }
         if (!empty($groupes)) {
             $qb->andWhere('g.id IN (:groupes)')

@@ -1,35 +1,29 @@
-<div class="row dept_infos">
-    <div class="col-3 btn btn-secondary">
-        {% if data_user.allDepartementsEnseignant|length == 1 %}
-            <p>Département {{ data_user.departement.libelle }}</p>
+{% if data_user.allDepartementsEnseignant|length == 1 %}
+    <p>{{ data_user.departement.libelle }}</p>
 
-        {% elseif data_user.allDepartementsEnseignant|length > 1 %}
+{% elseif data_user.allDepartementsEnseignant|length > 1 %}
 
-            <form action="{{ path('app_choix_departement') }}" method="post" class="dept_list">
-                <div class="dropdown">
-                    <button type="submit" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Département {{ data_user.departement.libelle }} <i class="fa-solid fa-shuffle"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        {% for departement in data_user.allDepartementsEnseignant %}
-                            <li>
-                                <input type="submit"
-                                       class="btn-check dropdown-item"
-                                       name="departement"
-                                       value="{{ departement.id }}"
-                                       id="departement_{{ departement.id }}"
-                                       autocomplete="off">
-                                <label for="departement_{{ departement.id }}">
-                                    {{ departement.libelle }}
-                                </label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </form>
+    <form action="{{ path('app_choix_departement') }}" method="post" class="dept_list">
+        <div class="dropdown">
+            <button type="submit" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ data_user.departement.libelle }} <i class="fa-solid fa-shuffle"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for departement in data_user.allDepartementsEnseignant %}
+                    <li>
+                        <input type="submit"
+                               class="btn-check dropdown-item"
+                               name="departement"
+                               value="{{ departement.id }}"
+                               id="departement_{{ departement.id }}"
+                               autocomplete="off">
+                        <label for="departement_{{ departement.id }}">
+                            {{ departement.libelle }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </form>
 
-        {% endif %}
-    </div>
-    <div class="col-2">
-    </div>
-</div>
+{% endif %}

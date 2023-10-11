@@ -3,10 +3,11 @@
 {% block title %}UniFolio - Bibliothèque de portfolio{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
+    <div class="content-container">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
@@ -18,7 +19,6 @@
             {% endif %}
         </ol>
     </nav>
-    <div class="container">
 
         <div class="steps">
             <div class="steps-bloc">
@@ -61,8 +61,8 @@
 
 
         <section class="portfolio_form">
-            <div class="row">
-                <article class="col-lg-10 col-12">
+            <div class="card">
+                <article>
                     <h2>Nouveau portfolio</h2>
                     {{ form_start(form) }}
                     <div class="hidden">

@@ -3,43 +3,44 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Connexion</li>
-        </ol>
-    </nav>
-    <div class="container account">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
-                <h1>Connexion</h1>
-                <form action="{{ path('app_login') }}" method="post">
-                    <div class="form-group">
-                        <label for="username">Login URCA</label>
-                        <input type="text" id="username" name="_username" class="form-control" required
-                               value="{{ last_username }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="_password" class="form-control" required>
-                    </div>
-                    {# If you want to control the URL the user is redirected to on success
+    <div class="content-container account">
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Connexion</li>
+            </ol>
+        </nav>
+        <section>
+            <div class="row">
+                <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+                    <h1>Connexion</h1>
+                    <form action="{{ path('app_login') }}" method="post">
+                        <div class="form-group">
+                            <label for="username">Login URCA</label>
+                            <input type="text" id="username" name="_username" class="form-control" required
+                                   value="{{ last_username }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" id="password" name="_password" class="form-control" required>
+                        </div>
+                        {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
 
-                    {# Protection contre les attaques CSRF #}
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
-                    <p><a href="{{ path('app_verify_resend_email') }}">Renvoyer le mail de vérification</a></p>
-                    <button type="submit" class="btn btn-primary">Connexion</button>
+                        {# Protection contre les attaques CSRF #}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
+                        <p><a href="{{ path('app_verify_resend_email') }}">Renvoyer le mail de vérification</a></p>
+                        <button type="submit" class="btn btn-primary">Connexion</button>
 
-                    <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
-                </form>
+                        <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
+                    </form>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 {% endblock %}

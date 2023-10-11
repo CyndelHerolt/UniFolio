@@ -20,12 +20,14 @@ class ExperienceType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Poste occupé',],
                 'help' => 'Poste occupé dans l\'entreprise',
+                'required' => true,
             ])
             ->add('entreprise', TextType::class, [
                 'label' => 'Entreprise',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Entreprise d\'accueil',],
                 'help' => 'Nom de l\'entreprise',
+                'required' => true,
             ])
             ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
@@ -34,6 +36,7 @@ class ExperienceType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
+                'required' => true,
             ])
             ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
@@ -42,6 +45,7 @@ class ExperienceType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
+                'required' => true,
             ])
             //----------------------------------------------------------------
             ->add('activite', CollectionType::class, [
@@ -61,7 +65,7 @@ class ExperienceType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ])

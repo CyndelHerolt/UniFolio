@@ -23,11 +23,11 @@
 
 </div>
 <main>
-{% block body %}
-{% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
+    {% block body %}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </main>
 <footer>
     <hr>
@@ -79,4 +79,31 @@
     </div>
 </footer>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var toggler = document.querySelector('.toggler');
+        var menu = document.querySelector('.navbar');
+
+        // Gestionnaire pour le bouton de basculement du menu
+        document.getElementById('menu-toggle').addEventListener('click', function(ev) {
+            ev.stopPropagation(); // Cela empêche l'événement de se propager au document
+
+            if (!menu.classList.contains('navbar-show')) {
+                menu.classList.remove('navbar-hidden');
+                menu.classList.add('navbar-show');
+            } else {
+                menu.classList.remove('navbar-show');
+                menu.classList.add('navbar-hidden');
+            }
+        });
+
+        // Gestionnaire pour le document
+        document.addEventListener('click', function(ev) {
+            if (!menu.contains(ev.target)) { // Vérifier si l'élément cliqué est dans le menu
+                menu.classList.remove('navbar-show');
+                menu.classList.add('navbar-hidden');
+            }
+        });
+    });
+</script>
 </html>

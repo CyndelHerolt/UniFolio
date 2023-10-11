@@ -11,26 +11,27 @@
 
                 {% if retourPedagogique is instanceof('App\\Entity\\Validation') %}
 
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="card d-flex flex-column h-100 card-etudiant">
                             <div class="card-header flex-grow-1">
                                 <h5>{{ retourPedagogique.trace.titre }}</h5>
                                 <ul class="card-infos-min">
                                     <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
-                                    <li>•</li>
+{#                                    <li>•</li>#}
                                     <li>
-                                        <span>Evaluation saisie par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
+                                        <span>par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-body flex-grow-1 card-table-competences">
-                                <ul class="dashboard-competences">
+                                <ul class="competences">
                                     <li>
                                         <div>
                                                    <span class="{{ retourPedagogique.apcNiveau.competences.couleur }}">
                                                     {{ retourPedagogique.apcNiveau.competences.nomCourt }}
-                                                       </span> •
-                                            {{ retourPedagogique.apcNiveau.libelle }}
+                                                       </span>
+{#                                            •#}
+{#                                            {{ retourPedagogique.apcNiveau.libelle }}#}
                                         </div>
                                         {% if retourPedagogique.etat == 0 %} <i class="fa-solid fa-hourglass-half"
                                                                                 style="color: #4c008b"></i>
@@ -43,6 +44,7 @@
                                         {% endif %}
                                     </li>
                                 </ul>
+                                <br>
                                 <div class="btn-grp">
                                     <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">
                                         <button class="btn btn-primary">Accéder à la trace</button>
@@ -53,7 +55,7 @@
                     </div>
 
                 {% elseif retourPedagogique is instanceof('App\\Entity\\Commentaire') %}
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="card d-flex flex-column h-100 card-etudiant">
                             <div class="card-header">
                                 {% if retourPedagogique.trace is not null %}
@@ -63,14 +65,20 @@
                                 {% endif %}
                                 <ul class="card-infos-min">
                                     <li><span>Publié le : </span>{{ retourPedagogique.dateCreation|date('d-m-Y') }}</li>
-                                    <li>•</li>
+{#                                    <li>•</li>#}
                                     <li>
-                                        <span>Publié par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
+                                        <span>par : </span>{{ retourPedagogique.enseignant.prenom }} {{ retourPedagogique.enseignant.nom }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-body flex-grow-1 card-table-competences">
-                                <p class="card-text">{{ retourPedagogique.contenu }}</p>
+                                <p class="card-text">
+                                    {% if retourPedagogique.contenu|length>50 %}
+                                        {{ retourPedagogique.contenu|slice(0, 50) ~ '...' }}
+                                    {% else %}
+                                        {{ retourPedagogique.contenu }}
+                                    {% endif %}
+                                </p>
                                 <div class="btn-grp">
                                     {% if retourPedagogique.trace is not null %}
                                         <a href="{{ path('app_trace_index', {'id': retourPedagogique.trace.id}) }}">

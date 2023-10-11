@@ -3,18 +3,18 @@
 {% block title %}UniFolio - Bilan pédagogique{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 
 {% block body %}
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Bilan pédagogique</li>
-        </ol>
-    </nav>
+    <div class="content-container bilan">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bilan pédagogique</li>
+            </ol>
+        </nav>
 
-    <div class="container bilan">
         <section>
             <article class="row">
                 <h2>Bilan pédagogique</h2>
@@ -35,7 +35,7 @@
                                         <div class="card-body">
                                             <h4>Validation des compétences</h4>
                                             {% set seen = [] %}
-                                            <ul>
+                                            <ul class="competences">
                                                 {% for op in portfolio.ordrePages %}
                                                     {% for ot in op.page.ordreTraces %}
                                                         {% for validation in ot.trace.validations %}
@@ -45,9 +45,10 @@
                                                                     {% set color = validation.apcNiveau.competences.couleur %}
                                                                     {% set percentage = validatedCompetences[label]['percentage'] ?? 0 %}
                                                                     <div class="accordion accordion-flush bilan-competences"
-                                                                         id="accordionFlushExample">
+                                                                         id="accordionFlushExample"  style="margin-bottom: 25px">
                                                                         <div class="accordion-item">
-                                                                            <div class="accordion-header" id="flush-heading{{ validation.id }}">
+                                                                            <div class="accordion-header"
+                                                                                 id="flush-heading{{ validation.id }}">
                                                                                 <button class="accordion-button collapsed"
                                                                                         type="button"
                                                                                         data-bs-toggle="collapse"
@@ -61,6 +62,7 @@
                                                                                         </div>
                                                                                         <div>
                                                                                             <span class="{{ color }}">{{ percentage }}%</span>
+                                                                                            <span><i class="fa-solid fa-chevron-down"></i></span>
                                                                                             {% set seen = seen|merge([label]) %}
                                                                                         </div>
                                                                                     </li>
@@ -94,8 +96,10 @@
                                                                                                     {% endif %}
                                                                                                 </div>
                                                                                                 <a href="{{ path('app_trace_index', {'id': otAll.trace.id}) }}">
-                                                                                                    <button type="button" class="btn btn-secondary">
-                                                                                                        Accéder à la trace
+                                                                                                    <button type="button"
+                                                                                                            class="btn btn-secondary">
+                                                                                                        Accéder à la
+                                                                                                        trace
                                                                                                     </button>
                                                                                                 </a>
                                                                                             </li>
@@ -105,13 +109,12 @@
                                                                             {% endfor %}
                                                                         </div>
                                                                     </div>
-                                                                    <hr>
                                                                 {% endif %}
                                                             {% endif %}
                                                         {% endfor %}
                                                     {% endfor %}
                                                 {% endfor %}
-                                            </ul>
+                                            </ul class=competences>
                                             <h4>Commentaire</h4>
                                             {% set visibleComments = portfolio.commentaires|filter(commentaire => commentaire.visibilite == 1) %}
                                             {% if visibleComments is empty %}

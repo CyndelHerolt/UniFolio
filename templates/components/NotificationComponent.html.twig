@@ -4,15 +4,15 @@
            data-bs-toggle="dropdown" aria-expanded="false">
             {% set unreadNotifications = this.allNotifications|filter(notification => not notification.lu) %}
             {% if unreadNotifications is not empty %}
-                <i class="fa-solid fa-bell-on"></i>
+                <i class="fa-duotone fa-bell-on fa-xl" style="--fa-primary-color: #ffa600; --fa-secondary-color: #ffa600;"></i>
             {% else %}
-                <i class="fa-solid fa-bell"></i>
+                <i class="fa-duotone fa-bell fa-xl" style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
             {% endif %}
         </a>
         <ul class="dropdown-menu notifications" aria-labelledby="navbarDropdown">
             <div>
                 {% if unreadNotifications is empty %}
-                    <li><a href="">Aucune notification</a></li>
+                    <li>Aucune notification</li>
                 {% else %}
                     {% for notification in unreadNotifications %}
                         {% include('_notification.html.twig') %}

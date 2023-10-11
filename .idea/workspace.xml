@@ -9,13 +9,64 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat [CV]: edit existing/new cv during portfolio process">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="wip: css fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/_cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/_cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_dashboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_dashboard.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_public.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_public.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cv.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CvType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CvType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ExperienceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ExperienceType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FormationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/FormationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PortfolioRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PortfolioRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/AllPortfolioEvalComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/AllPortfolioEvalComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/AllTraceEvalComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/AllTraceEvalComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_departement.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_departement.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accueil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accueil/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bilan_eval/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bilan_eval/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bilan_pedagogique/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bilan_pedagogique/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/AllPortfolioEvalComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/AllPortfolioEvalComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/AllRetourPedagogiqueComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/AllRetourPedagogiqueComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/AllTraceEvalComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/AllTraceEvalComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/NotificationComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/NotificationComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/PortfolioEvalCardComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/PortfolioEvalCardComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/PortfolioEvalTableComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/PortfolioEvalTableComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/all_cv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/all_cv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/all_trace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/all_trace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/portfolio_table.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/trace_table.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/trace_table.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cv/formCv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/formCv.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cv/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cv/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_enseignant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard_etudiant/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/notification/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/notification/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/formPortfolio.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio_process/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reset_password/check_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reset_password/check_email.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reset_password/request.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reset_password/request.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reset_password/reset.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reset_password/reset.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rgpd/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rgpd/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/accessDenied.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/accessDenied.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/choix-departement.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/choix-departement.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/formTrace.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trace/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trace/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/resend_verify_email.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +283,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;features/cv-editor&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;style/global-revision&quot;,
     &quot;last_opened_file_path&quot;: &quot;/var/www/html/obscureWave&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -595,6 +646,18 @@
       <workItem from="1696254078350" duration="941000" />
       <workItem from="1696261900132" duration="1000" />
       <workItem from="1696312864396" duration="3260000" />
+      <workItem from="1696332714940" duration="3047000" />
+      <workItem from="1696351085901" duration="3874000" />
+      <workItem from="1696399410892" duration="4907000" />
+      <workItem from="1696413541883" duration="2178000" />
+      <workItem from="1696419705097" duration="7546000" />
+      <workItem from="1696485555719" duration="61000" />
+      <workItem from="1696671561043" duration="6389000" />
+      <workItem from="1696694138715" duration="791000" />
+      <workItem from="1696831154049" duration="50000" />
+      <workItem from="1697006011192" duration="3723000" />
+      <workItem from="1697010209262" duration="525000" />
+      <workItem from="1697010815284" duration="6339000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>

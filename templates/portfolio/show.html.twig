@@ -3,15 +3,16 @@
 {% block title %}UniFolio - Portfolio{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
 
+    <div class="content-container portfolios" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            {% if user is instanceof('App\\Entity\\Etudiant') %}
+            {% if is_granted('ROLE_ETUDIANT') %}
                 <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_portfolio') }}">Bibliothèque de
                         portfolios</a></li>
             {% endif %}
@@ -19,7 +20,6 @@
         </ol>
     </nav>
 
-    <div class="container portfolios" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
 
         <section class="portfolio-show card">
             <div class="row">

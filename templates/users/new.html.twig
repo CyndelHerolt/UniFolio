@@ -3,27 +3,30 @@
 {% block title %}UniFolio - créer un compte{% endblock %}
 
 {% block body %}
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Inscription</li>
-        </ol>
-    </nav>
-    <div class="container account">
-        <div class="row">
-            <div class="alert alert-primary d-flex align-items-center" role="alert">
-                <i class="fa fa-info-circle fa-xl" style="margin-right: 15px"></i>
-                <div>
-                    <small style="font-size: .8rem">
-                        Une fois votre compte créé, on mail vous sera envoyé pour confirmer votre inscription. Vous ne pourrez accéder à votre compte qu'après avoir cliqué sur le lien de confirmation.
-                    </small>
+    <div class="content-container account">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Inscription</li>
+            </ol>
+        </nav>
+        <section>
+            <div class="row">
+                <div class="alert alert-primary d-flex align-items-center" role="alert">
+                    <i class="fa fa-info-circle fa-xl" style="margin-right: 15px"></i>
+                    <div>
+                        <small style="font-size: .8rem">
+                            Une fois votre compte créé, on mail vous sera envoyé pour confirmer votre inscription. Vous
+                            ne pourrez accéder à votre compte qu'après avoir cliqué sur le lien de confirmation.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+                    <h1>Inscription</h1>
+                    {{ include('users/_form.html.twig') }}
+                    <p>Vous possédez déjà un compte ? <a href="{{ path('app_login') }}">Connexion</a></p>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
-                <h1>Inscription</h1>
-                {{ include('users/_form.html.twig') }}
-                <p>Vous possédez déjà un compte ? <a href="{{ path('app_login') }}">Connexion</a></p>
-            </div>
-        </div>
+        </section>
     </div>
 {% endblock %}
