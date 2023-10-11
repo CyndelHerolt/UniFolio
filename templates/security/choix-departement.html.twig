@@ -3,17 +3,17 @@
 {% block title %}Choix du département{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
+<div class="content-container account">
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
         <li class="breadcrumb-item active" aria-current="page">Choix du département</li>
     </ol>
 </nav>
-<div class="container account">
     <div class="row">
         <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
             <h1>Veuillez définir votre formation par défaut</h1>

@@ -1,199 +1,172 @@
 <div{{ attributes }}>
-
-    {% if 'dashboard' in app.request.uri %}
-
-    <div class="row">
-        <div class="filtre-btn col-12">
-            {% for annee in annees %}
-                <button class="btn btn-primary"
-                        data-model="selectedAnnee[]"
-                        data-action="live#action"
-                        data-action-name="changeAnnee(id={{ annee.id }})"
-                >{{ annee.libelle }}</button>
-            {% endfor %}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="accordion accordion-flush col-4 g-4" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingSix">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseSix" aria-expanded="false"
-                            aria-controls="flush-collapseSix">
-                        Filtrer par compétences
-                    </button>
-                </h2>
-                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
-                     data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body row">
-                        <div>
-                            <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                {% for cpt in niveaux %}
-                                    <div style="display: flex" class="form-check">
-                                        <input type="checkbox" id="{{ cpt.id }}"
-                                               name="{{ cpt.id }}"
-                                               data-model="selectedCompetences[]"
-                                               data-action="live#action"
-                                               data-action-name="changeCompetences"
-                                               value="{{ cpt.id }}"
-                                               class="form-check-input">
-                                        <label for="{{ cpt.id }}" style="margin-left: 10px"
-                                               class="form-check-label">{{ cpt.libelle }}</label><br>
-                                    </div>
-                                    <hr>
-                                {% endfor %}
-
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="filtre-btn col-12">
+                {% for semestre in semestres %}
+                    <button class="btn btn-primary"
+                            data-model="selectedSemestre[]"
+                            data-action="live#action"
+                            data-action-name="changeSemestre(id={{ semestre.id }})"
+                    >{{ semestre.libelle }}</button>
+                {% endfor %}
             </div>
         </div>
 
-        <div class="accordion accordion-flush col-4 g-4" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingFive">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseFive" aria-expanded="false"
-                            aria-controls="flush-collapseFive">
-                        Filtrer par groupes
-                    </button>
-                </h2>
-                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
-                     data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body row">
-                        <div>
-                            <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                {% for grp in this.groupes %}
-                                    {% if grp.typeGroupe.type == 'TP' %}
-                                        <small>{% if grp.apcParcours is not null %}
-                                                {{ grp.apcParcours.code }}
-                                            {% else %}
-                                                S1
-                                            {% endif %}</small>
+        <div class="row">
+            <div class="accordion accordion-flush col-4 g-4 filter-drop" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseSix" aria-expanded="false"
+                                aria-controls="flush-collapseSix">
+                            Filtrer par compétences
+                        </button>
+                    </h2>
+                    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body row">
+                            <div>
+                                <fieldset style="max-height: 200px; overflow-y: scroll;">
+                                    {% for cpt in niveaux %}
                                         <div style="display: flex" class="form-check">
-                                            <input type="checkbox" id="{{ grp.id }}"
-                                                   name="{{ grp.id }}"
-                                                   data-model="selectedGroupes[]"
+                                            <input type="checkbox" id="{{ cpt.id }}"
+                                                   name="{{ cpt.id }}"
+                                                   data-model="selectedCompetences[]"
                                                    data-action="live#action"
-                                                   data-action-name="changeGroupes"
-                                                   value="{{ grp.id }}"
+                                                   data-action-name="changeCompetences"
+                                                   value="{{ cpt.id }}"
                                                    class="form-check-input">
-                                            <label for="{{ grp.id }}" style="margin-left: 10px"
-                                                   class="form-check-label">
-                                                {{ grp.libelle }}
-                                            </label><br>
+                                            <label for="{{ cpt.id }}" style="margin-left: 10px"
+                                                   class="form-check-label">{{ cpt.libelle }}</label><br>
                                         </div>
                                         <hr>
-                                    {% endif %}
-                                {% endfor %}
-                            </fieldset>
+                                    {% endfor %}
+
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion accordion-flush col-4 g-4 filter-drop" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFive" aria-expanded="false"
+                                aria-controls="flush-collapseFive">
+                            Filtrer par groupes
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body row">
+                            <div>
+                                <fieldset style="max-height: 200px; overflow-y: scroll;">
+                                    {% for grp in this.groupes %}
+                                        {% if grp.typeGroupe.type == 'TP' %}
+                                            <small>{% if grp.apcParcours is not null %}
+                                                    {{ grp.apcParcours.code }}
+                                                {% else %}
+                                                    S1
+                                                {% endif %}</small>
+                                            <div style="display: flex" class="form-check">
+                                                <input type="checkbox" id="{{ grp.id }}"
+                                                       name="{{ grp.id }}"
+                                                       data-model="selectedGroupes[]"
+                                                       data-action="live#action"
+                                                       data-action-name="changeGroupes"
+                                                       value="{{ grp.id }}"
+                                                       class="form-check-input">
+                                                <label for="{{ grp.id }}" style="margin-left: 10px"
+                                                       class="form-check-label">
+                                                    {{ grp.libelle }}
+                                                </label><br>
+                                            </div>
+                                            <hr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion accordion-flush col-4 g-4 filter-drop" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                aria-controls="flush-collapseFour">
+                            Filtrer par étudiants
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body row">
+                            <div>
+                                <fieldset style="max-height: 200px; overflow-y: scroll;">
+                                    {% for etudiant in this.etudiants %}
+                                        <div style="display: flex" class="form-check">
+                                            <input type="checkbox" id="{{ etudiant.id }}"
+                                                   name="{{ etudiant.id }}"
+                                                   data-model="selectedEtudiants[]"
+                                                   data-action="live#action"
+                                                   data-action-name="changeEtudiants"
+                                                   value="{{ etudiant.id }}"
+                                                   class="form-check-input">
+                                            <label for="{{ etudiant.id }}" style="margin-left: 10px"
+                                                   class="form-check-label">{{ etudiant.prenom }} {{ etudiant.nom }}</label><br>
+                                        </div>
+                                        <hr>
+                                    {% endfor %}
+                                </fieldset>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="accordion accordion-flush col-4 g-4" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingFour">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseFour" aria-expanded="false"
-                            aria-controls="flush-collapseFour">
-                        Filtrer par étudiants
-                    </button>
-                </h2>
-                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
-                     data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body row">
-                        <div>
-                            <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                {% for etudiant in this.etudiants %}
-                                    <div style="display: flex" class="form-check">
-                                        <input type="checkbox" id="{{ etudiant.id }}"
-                                               name="{{ etudiant.id }}"
-                                               data-model="selectedEtudiants[]"
-                                               data-action="live#action"
-                                               data-action-name="changeEtudiants"
-                                               value="{{ etudiant.id }}"
-                                               class="form-check-input">
-                                        <label for="{{ etudiant.id }}" style="margin-left: 10px"
-                                               class="form-check-label">{{ etudiant.prenom }} {{ etudiant.nom }}</label><br>
-                                    </div>
-                                    <hr>
-                                {% endfor %}
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+            {% for portfolio in this.getDisplayedPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+                {{ component('PortfolioEvalCardComponent', {'id': portfolio.id}) }}
+            {% endfor %}
         </div>
-    </div>
 
-    <div class="row">
-        {% for portfolio in this.getDisplayedPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
-            {{ component('PortfolioEvalCardComponent', {'id': portfolio.id}) }}
-        {% endfor %}
-    </div>
+        <div class="btn-pages">
+            <button class="btn btn-primary"
+                    data-action="live#action"
+                    data-action-name="goToFirstPage"
+                    {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
+            >
+                <i class="fa-solid fa-chevrons-left"></i>
+            </button>
 
-    <div class="btn-pages">
-        <button class="btn btn-primary"
-                data-action="live#action"
-                data-action-name="goToFirstPage"
-                {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
-        >
-            <i class="fa-solid fa-chevrons-left"></i>
-        </button>
+            <button class="btn btn-primary"
+                    data-action="live#action"
+                    data-action-name="goPreviousPage"
+                    {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
+            >
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <small>
+                Page {{ this.currentPage }} / {{ this.getTotalPages }}
+            </small>
+            <button class="btn btn-primary"
+                    data-action="live#action"
+                    data-action-name="goNextPage"
+                    {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
+            >
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
-        <button class="btn btn-primary"
-                data-action="live#action"
-                data-action-name="goPreviousPage"
-                {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
-        >
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <small>
-            Page {{ this.currentPage }} / {{ this.getTotalPages }}
-        </small>
-        <button class="btn btn-primary"
-                data-action="live#action"
-                data-action-name="goNextPage"
-                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
-        >
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
-        <button class="btn btn-primary"
-                data-action="live#action"
-                data-action-name="goToLastPage"
-                {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}>
-            <i class="fa-solid fa-chevrons-right"></i>
-        </button>
-    </div>
-
-    {% elseif 'bilan' in app.request.uri %}
-
-    <table id="evalBilan">
-        <thead>
-        <tr>
-            <th>Etudiant</th>
-            <th>Groupe</th>
-            <th>Portfolio</th>
-            <th>Nb pages</th>
-            <th>Nb traces</th>
-            <th>% évaluées</th>
-            <th>% validées</th>
-            <th>Accéder au portfolio</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for portfolio in this.allPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
-            {{ component('PortfolioEvalTableComponent', {'id': portfolio.id}) }}
-        {% endfor %}
-        </tbody>
-    </table>
-
-    {% endif %}
+            <button class="btn btn-primary"
+                    data-action="live#action"
+                    data-action-name="goToLastPage"
+                    {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}>
+                <i class="fa-solid fa-chevrons-right"></i>
+            </button>
+        </div>
 
 </div>

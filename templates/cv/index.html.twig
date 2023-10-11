@@ -2,23 +2,28 @@
 
 {% block title %}UniFolio - Bibliothèque de CV{% endblock %}
     {% block header %}
-        {% include "_menu.html.twig" %}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 {% block body %}
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Bibliothèque de CV</li>
-    </ol>
-</nav>
-<div class="container cvs">
-    <h1>Biblitohèque de CV</h1>
-    <a href="{{ path('app_cv_new', {'id': app.user.etudiant.id}) }}">
-        <button class="btn btn-primary">
-            <i class="fa-solid fa-circle-plus"></i> <br>
-            Créer un cv
-        </button>
-    </a>
-    {{ component('all_cv') }}
-</div>
+    <div class="content-container cvs">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bibliothèque de CV</li>
+            </ol>
+        </nav>
+        <section>
+            <div class="row">
+                <h2 class="col-10">Bibliothèque de CV</h2>
+                <a class="col-2" href="{{ path('app_cv_new', {'id': app.user.etudiant.id}) }}">
+                    <button type="button" class="btn btn-primary">
+                        Créer un cv
+                    </button>
+                </a>
+            </div>
+            <article class="row g-4">
+                {{ component('all_cv') }}
+            </article>
+        </section>
+    </div>
 {% endblock %}

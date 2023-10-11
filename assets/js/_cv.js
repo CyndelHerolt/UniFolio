@@ -9,7 +9,7 @@ document.querySelectorAll('.soft_skills').forEach((event) => {
     event.parentNode.classList.add('soft_skills_div')
     event.parentNode.classList.add('input-group', 'mb-3', 'soft_skills_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
@@ -19,12 +19,12 @@ document.querySelectorAll('.soft_skills').forEach((event) => {
 })
 
 // Fonction pour supprimer un champ soft_skill
-function removeSoftSkill(button) {
+export function removeSoftSkill(button) {
     button.closest('.soft_skills_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ soft_skill
-function addSoftSkill(event) {
+export function addSoftSkill(event) {
     // Récupération du prototype
     const prototype = document.querySelector('#cv_soft_skills').dataset.prototype;
     // Récupération du nombre de champs soft_skill
@@ -37,7 +37,7 @@ function addSoftSkill(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'soft_skills_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-soft-skill">' +
@@ -80,7 +80,7 @@ document.querySelectorAll('.hard_skills').forEach((event) => {
     // ajouter la classe 'hard_skills' à chaque élément parent de .hard_skills
     event.parentNode.classList.add('input-group', 'mb-3', 'hard_skills_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-hard-skill">' +
@@ -90,12 +90,12 @@ document.querySelectorAll('.hard_skills').forEach((event) => {
 })
 
 // Fonction pour supprimer un champ hard_skill
-function removeHardSkill(button) {
+export function removeHardSkill(button) {
     button.closest('.hard_skills_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ hard_skill
-function addHardSkill(event) {
+export function addHardSkill(event) {
     // Récupération du prototype
     const prototype = document.querySelector('#cv_hard_skills').dataset.prototype;
     // Récupération du nombre de champs hard_skill
@@ -108,7 +108,7 @@ function addHardSkill(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'hard_skills_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-hard-skill">' +
@@ -153,7 +153,7 @@ document.querySelectorAll('.langues').forEach((event) => {
     // ajouter la classe 'langues' à chaque élément parent de .langues
     event.parentNode.classList.add('input-group', 'mb-3', 'langues_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-langue">' +
@@ -163,12 +163,12 @@ document.querySelectorAll('.langues').forEach((event) => {
 })
 
 // Fonction pour supprimer un champ soft_skill
-function removeLangue(button) {
+export function removeLangue(button) {
     button.closest('.langues_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ soft_skill
-function addLangue(event) {
+export function addLangue(event) {
     // Récupération du prototype
     const prototype = document.querySelector('#cv_langues').dataset.prototype;
     // Récupération du nombre de champs soft_skill
@@ -181,7 +181,7 @@ function addLangue(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'langues_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-langue">' +
@@ -225,7 +225,7 @@ document.querySelectorAll('.reseaux').forEach((event) => {
     // ajouter la classe 'reseaux' à chaque élément parent de .reseaux
     event.parentNode.classList.add('input-group', 'mb-3', 'reseaux_div')
     event.style.display = 'flex';
-    event.style.alignItems = 'flex-end';
+    event.style.alignItems = 'flex-start';
     // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
     event.parentNode.innerHTML += (
         '<button type="button" class="btn btn-danger delete-reseau">' +
@@ -235,12 +235,12 @@ document.querySelectorAll('.reseaux').forEach((event) => {
 })
 
 // Fonction pour supprimer un champ soft_skill
-function removeReseau(button) {
+export function removeReseau(button) {
     button.closest('.reseaux_div').remove();
 }
 
 // Fonction pour ajouter un nouveau champ soft_skill
-function addReseau(event) {
+export function addReseau(event) {
     // Récupération du prototype
     const prototype = document.querySelector('#cv_reseaux').dataset.prototype;
     // Récupération du nombre de champs soft_skill
@@ -253,7 +253,7 @@ function addReseau(event) {
     // Injection du prototype et des btns ds le nouveau bloc
     formGroup.classList.add('input-group', 'mb-3', 'reseaux_div');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML = newForm;
     formGroup.innerHTML += (
         '<button type="button" class="btn btn-danger delete-reseau">' +
@@ -320,8 +320,8 @@ document.querySelectorAll('.experience').forEach((event) => {
 })
 
 // Fonction pour ajouter un nouveau champ experience
-function addExperience(event) {
-    // console.log(event);
+export function addExperience(event) {
+    console.log(event);
     // Récupération du prototype
     const prototype = document.querySelector('#cv_experience').dataset.prototype;
     // Récupération du nombre d'expériences existantes
@@ -366,7 +366,7 @@ if (addButtonExperience) {
 }
 
 // Fonction pour supprimer un champ experience
-function removeExperience(event) {
+export function removeExperience(event) {
     event.closest('.experience').remove();
     console.log(event);
 }
@@ -380,15 +380,21 @@ document.querySelectorAll('.delete-experience').forEach(function (event) {
 });
 
 // Fonction pour ajouter un nouveau champ experience activite
-function addExperienceActivite(event) {
+export function addExperienceActivite(event) {
     console.log(event);
     const formGroup = document.createElement('div');
     formGroup.classList.add('experience-activite');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     let index = document.querySelectorAll('.experience-activite').length;
-    let indexExp = event.closest('.experience').id.split('_')[2];
+    const experienceElement = event.closest('.experience');
+    if(experienceElement === null) {
+        // handle error, for example:
+        console.error('Could not find parent element with class "experience"');
+        return;
+    }
+    let indexExp = experienceElement.id.split('_')[2];
     // let indexExp = document.querySelectorAll('.experience').length;
     // console.log(indexExp);
     formGroup.innerHTML += '<input type="text" name="cv[experience]['+indexExp+'][activite]['+index+']" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
@@ -421,7 +427,7 @@ document.querySelectorAll('.delete-experience-activite').forEach(function (butto
 });
 
 // Fonction pour supprimer un champ formation
-function removeExperienceActivite(button) {
+export function removeExperienceActivite(button) {
     button.closest('div').remove();
 }
 
@@ -457,7 +463,7 @@ document.querySelectorAll('.formation').forEach((event) => {
 })
 
 // Fonction pour ajouter un nouveau champ formation
-function addFormation(event) {
+export function addFormation(event) {
     // console.log(event);
     // Récupération du prototype
     const prototype = document.querySelector('#cv_formation').dataset.prototype;
@@ -503,7 +509,7 @@ if (addButtonFormation) {
 }
 
 // Fonction pour supprimer un champ formation
-function removeFormation(event) {
+export function removeFormation(event) {
     event.closest('.formation').remove();
     console.log(event);
 }
@@ -517,12 +523,12 @@ document.querySelectorAll('.delete-formation').forEach(function (event) {
 });
 
 // Fonction pour ajouter un nouveau champ formation activite
-function addFormationActivite(event) {
+export function addFormationActivite(event) {
     console.log(event);
     const formGroup = document.createElement('div');
     formGroup.classList.add('formation-activite');
     formGroup.style.display = 'flex';
-    formGroup.style.alignItems = 'flex-end';
+    formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
     formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
     const button = document.createElement('button');
@@ -554,6 +560,6 @@ document.querySelectorAll('.delete-formation-activite').forEach(function (button
 });
 
 // Fonction pour supprimer un champ formation
-function removeFormationActivite(button) {
+export function removeFormationActivite(button) {
     button.closest('.formation-activite').remove();
 }

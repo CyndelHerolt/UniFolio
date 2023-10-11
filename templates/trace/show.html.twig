@@ -3,11 +3,12 @@
 {% block title %}UniFolio - Portfolio{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
 
+    <div class="content-container traces">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
@@ -17,7 +18,6 @@
         </ol>
     </nav>
 
-    <div class="container traces">
         <section class="trace-show">
             <div class=" trace-content card">
                 <h2>{{ trace.titre }}</h2>

@@ -3,10 +3,11 @@
 {% block title %}UniFolio - Bibliothèque de portfolio{% endblock %}
 
     {% block header %}
-        {% include "_menu.html.twig" %}
+{#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
+    <div class="content-container">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
@@ -18,42 +19,50 @@
             {% endif %}
         </ol>
     </nav>
-    <div class="container">
 
-        <div style="display: flex; justify-content: space-between">
-            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
-                <div style="display: flex; align-items: center; justify-content: space-around">
-                    <p style="margin: 0; font-size: 1.75rem">1</p>
-                    <div>
-                        <p style="margin: 0">Initialisation d'un portfolio</p>
+        <div class="steps">
+            <div class="steps-bloc">
+                <div>
+                    <p>1</p>
+                    <span>
+                        <p>Initialisation d'un portfolio</p>
                         <small>Completion après enregistrement</small>
-                    </div>
+                    </span>
                 </div>
             </div>
-            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
-                <div style="display: flex; align-items: center; justify-content: space-around">
-                    <p style="margin: 0; font-size: 1.75rem">2</p>
-                    <div>
-                        <p style="margin: 0">Création d'une ou plusieurs pages</p>
-                        <small>Qui regroupera un ensemble de traces</small>
-                    </div>
+            <div class="steps-bloc">
+                <div>
+                    <p>2</p>
+                    <span>
+                        <p>Création de pages</p>
+                        <small>Contient un ensemble de traces</small>
+                    </span>
                 </div>
             </div>
-            <div style="background-color: #e5daef; width: 32%; padding: 10px 25px">
-                <div style="display: flex; align-items: center; justify-content: space-around">
-                    <p style="margin: 0; font-size: 1.75rem">3</p>
-                    <div>
-                        <p style="margin: 0">Création ou ajout de traces</p>
+            <div class="steps-bloc">
+                <div>
+                    <p>3</p>
+                    <span>
+                        <p>Création ou ajout de traces</p>
                         <small>Depuis une page</small>
-                    </div>
+                    </span>
+                </div>
+            </div>
+            <div class="steps-bloc">
+                <div>
+                    <p>4</p>
+                    <span>
+                        <p>Création ou ajout d'un cv</p>
+                        <small>lié au portfolio</small>
+                    </span>
                 </div>
             </div>
         </div>
 
 
         <section class="portfolio_form">
-            <div class="row">
-                <article class="col-lg-10 col-12">
+            <div class="card">
+                <article>
                     <h2>Nouveau portfolio</h2>
                     {{ form_start(form) }}
                     <div class="hidden">

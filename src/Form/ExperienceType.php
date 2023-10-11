@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Experience;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,26 +18,34 @@ class ExperienceType extends AbstractType
             ->add('poste', TextType::class, [
                 'label' => 'Poste',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '',],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Poste occupé',],
                 'help' => 'Poste occupé dans l\'entreprise',
+                'required' => true,
             ])
             ->add('entreprise', TextType::class, [
                 'label' => 'Entreprise',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '',],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Entreprise d\'accueil',],
                 'help' => 'Nom de l\'entreprise',
+                'required' => true,
             ])
-            ->add('date_debut', TextType::class, [
+            ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '',],
-                'help' => 'Date de début de l\'expérience',
+                'attr' => ['class' => "form-control", 'placeholder' => 'Date de prise de poste',],
+                'help' => 'Format attendu : 01/01/2001',
+                'widget' => 'single_text',
+                'input_format' => 'd/m/Y',
+                'required' => true,
             ])
-            ->add('date_fin', TextType::class, [
+            ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => '',],
-                'help' => 'Date de fin de l\'expérience',
+                'attr' => ['class' => "form-control", 'placeholder' => 'Date de départ de l\'entreprise',],
+                'help' => 'Format attendu : 01/01/2001',
+                'widget' => 'single_text',
+                'input_format' => 'd/m/Y',
+                'required' => true,
             ])
             //----------------------------------------------------------------
             ->add('activite', CollectionType::class, [
@@ -56,7 +65,7 @@ class ExperienceType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ])

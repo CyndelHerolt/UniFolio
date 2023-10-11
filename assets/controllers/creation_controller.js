@@ -4,7 +4,7 @@ import hljs from "highlight.js";
 import 'highlight.js/styles/default.css';
 
 export default class extends Controller {
-    static targets = ['navTabs', 'stepZone', 'page', 'zone', 'traceZone']
+    static targets = ['navTabs', 'stepZone', 'page', 'zone', 'traceZone', 'cv']
 
     static values = {
         url: String,

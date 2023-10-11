@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Cv;
-use App\Entity\Experience;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -11,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CvType extends AbstractType
 {
@@ -31,19 +32,50 @@ class CvType extends AbstractType
                 'label' => ' ',
             ])
             ->add('intitule', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un intitulé',
+                    ]),
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
                 'label' => 'Intitulé',
-                'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Intitulé de mon CV',],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
+                'attr' => [
+                    'class' => "form-control",
+                    'placeholder' => 'Intitulé de mon cv',
+                    'maxlength' => 100,
+                ],
+                'help' => '100 caractères maximum',
+                'required' => true,
             ])
             ->add('poste', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un poste',
+                    ]),
+                ],
                 'label' => 'Poste',
                 'label_attr' => ['class' => 'form-label'],
-                'attr' => ['class' => "form-control", 'placeholder' => 'Poste de mon CV',],
+                'attr' => ['class' => "form-control", 'placeholder' => 'Poste recherché'],
+                'help' => 'Saisissez le poste recherché',
+                'required' => true,
             ])
             ->add('description', TextAreaType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une description',
+                    ]),
+                ],
                 'label' => 'Description',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Description de mon CV',],
+                'help' => 'Saisissez une courte accroche',
+                'required' => true,
             ])
             //----------------------------------------------------------------
             ->add('soft_skills', CollectionType::class, [
@@ -56,13 +88,14 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'Compétences comportementales',
                 ],
                 'prototype' => true,
                 'label' => 'Soft skills',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ])
@@ -77,15 +110,17 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label_attr' => ['class' => 'form-label'],
                     'label' => false,
+                    'help' => 'Compétences techniques',
                 ],
                 'prototype' => true,
                 'label' => 'Hard skills',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
+                'help' => 'compétences techniques'
             ])
             //----------------------------------------------------------------
             ->add('langues', CollectionType::class, [
@@ -98,15 +133,17 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
+                    'help' => 'Langues parlées',
                 ],
                 'prototype' => true,
                 'label' => 'Langues',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
+                'help' => 'Langues parlées'
             ])
             //----------------------------------------------------------------
             ->add('reseaux', CollectionType::class, [
@@ -126,7 +163,7 @@ class CvType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ])
@@ -147,11 +184,11 @@ class CvType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ])
-        //----------------------------------------------------------------
+            //----------------------------------------------------------------
             ->add('formation', CollectionType::class, [
                 'entry_type' => FormationType::class,
                 'entry_options' => [
@@ -168,7 +205,7 @@ class CvType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => false,
+                'required' => true,
                 'by_reference' => false,
                 'empty_data' => [],
             ]);

@@ -28,7 +28,7 @@ class Cv
     #[ORM\ManyToOne(inversedBy: 'cvs')]
     private ?Etudiant $etudiant = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
@@ -52,10 +52,14 @@ class Cv
     #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'cvs', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $formation;
 
+    #[ORM\OneToMany(mappedBy: 'cv', targetEntity: Portfolio::class)]
+    private Collection $portfolio;
+
     public function __construct()
     {
         $this->experience = new ArrayCollection();
         $this->formation = new ArrayCollection();
+        $this->portfolio = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,6 +231,36 @@ class Cv
     public function removeFormation(Formation $formation): self
     {
         $this->formation->removeElement($formation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Portfolio>
+     */
+    public function getPortfolio(): Collection
+    {
+        return $this->portfolio;
+    }
+
+    public function addPortfolio(Portfolio $portfolio): static
+    {
+        if (!$this->portfolio->contains($portfolio)) {
+            $this->portfolio->add($portfolio);
+            $portfolio->setCv($this);
+        }
+
+        return $this;
+    }
+
+    public function removePortfolio(Portfolio $portfolio): static
+    {
+        if ($this->portfolio->removeElement($portfolio)) {
+            // set the owning side to null (unless already changed)
+            if ($portfolio->getCv() === $this) {
+                $portfolio->setCv(null);
+            }
+        }
 
         return $this;
     }

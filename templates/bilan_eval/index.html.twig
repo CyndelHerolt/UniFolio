@@ -3,6 +3,7 @@
 {% block title %}UniFolio - Bilan pédagogique{% endblock %}
 
 {% block body %}
+    <div class="content-container bilan">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
@@ -10,12 +11,11 @@
         </ol>
     </nav>
 
-    <div class="container bilan">
         <section>
             <article class="row">
                 <h2>Bilan pédagogique</h2>
                 <div class="row g-4">
-                    {{ component('AllPortfolioEvalComponent') }}
+                    {{ component('AllEvalBilanComponent') }}
                 </div>
             </article>
         </section>

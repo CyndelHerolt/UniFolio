@@ -15,7 +15,7 @@
     height: 90vh;
 
     .row {
-      @include zone(0, 0 5vw, $color-bg, 10px);
+      @include zone(0, 0 0, $color-light, 10px);
       justify-content: space-between;
       align-items: center;
     }
@@ -43,7 +43,7 @@
   .zone2, .zone3, .zone4 {
 
     .row {
-      @include zone(2rem 0, 2rem 5vw, $color-bg, 10px);
+      @include zone(2rem 0, 2rem 0, $color-light, 10px);
       color: $color-dark;
       justify-content: space-between;
 
@@ -63,7 +63,7 @@
       }
 
       .descript {
-        @include zone(0, 0 5vw, $color-bg, 10px);
+        @include zone(0, 0 0, $color-light, 10px);
         color: $color-dark;
 
         li {
@@ -77,7 +77,7 @@
         }
 
       .btn {
-        padding: 0 5vw;
+        padding: 0 0;
 
         .btn-primary {
           width: fit-content;

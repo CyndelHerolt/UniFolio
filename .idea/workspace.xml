@@ -9,21 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="feat: [Notification] enseignant réponse à un commentaire">
-      <change beforePath="$PROJECT_DIR$/.idea/UniFolio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UniFolio.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: Division composant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/CommentaireEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/CommentaireSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/AbstractTraceEvalComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/Components/TraceEvalCardComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_menu.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +37,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="style/global-revision" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -235,8 +228,8 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/cyndel/Web/S5&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/var/www/html/obscureWave&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -245,7 +238,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -586,7 +579,31 @@
       <workItem from="1695047496206" duration="287000" />
       <workItem from="1695051979345" duration="8000" />
       <workItem from="1695307032379" duration="607000" />
-      <workItem from="1695369908470" duration="878000" />
+      <workItem from="1695369908470" duration="7291000" />
+      <workItem from="1695379147993" duration="913000" />
+      <workItem from="1695734055137" duration="81000" />
+      <workItem from="1696065097456" duration="2718000" />
+      <workItem from="1696068287298" duration="556000" />
+      <workItem from="1696092645769" duration="3530000" />
+      <workItem from="1696101940141" duration="3939000" />
+      <workItem from="1696171246117" duration="7305000" />
+      <workItem from="1696226204450" duration="16096000" />
+      <workItem from="1696254078350" duration="941000" />
+      <workItem from="1696261900132" duration="1000" />
+      <workItem from="1696312864396" duration="3260000" />
+      <workItem from="1696332714940" duration="3047000" />
+      <workItem from="1696351085901" duration="3874000" />
+      <workItem from="1696399410892" duration="4907000" />
+      <workItem from="1696413541883" duration="2178000" />
+      <workItem from="1696419705097" duration="7546000" />
+      <workItem from="1696485555719" duration="61000" />
+      <workItem from="1696671561043" duration="6389000" />
+      <workItem from="1696694138715" duration="791000" />
+      <workItem from="1696831154049" duration="50000" />
+      <workItem from="1697006011192" duration="3723000" />
+      <workItem from="1697010209262" duration="525000" />
+      <workItem from="1697010815284" duration="6339000" />
+      <workItem from="1697023832253" duration="921000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -931,7 +948,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="374" />
+    <option name="localTasksCounter" value="387" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -995,15 +1012,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Portfolio] ajout d'une propriété Description" />
-    <MESSAGE value="fix: [Portfolio] Amélioration CSS" />
-    <MESSAGE value="fix: [Portfolio] Modal visualisation de trace" />
-    <MESSAGE value="fix: [Portfolio] Création nouvelle trace -&gt; redirect forms" />
-    <MESSAGE value="#14 fix: [Portfolio] Gestion des traces vides" />
-    <MESSAGE value="#14 fix: [Portfolio] redirect ajout trace vide" />
-    <MESSAGE value="fix: [Portfolio] delete trace vide" />
-    <MESSAGE value="test: [Traces] test filtres Stimulus" />
-    <MESSAGE value="fix: [Portfolio] lien image bannière" />
     <MESSAGE value="fix: [Traces] Filtres/compétences" />
     <MESSAGE value="fix: [Traces] Help message TraceTypeLien" />
     <MESSAGE value="fix: [API] Requête vers version locale de l'intranet en HTTP et non HTTPS car le serveur symfony ne supporte pas SSL/TLS" />
@@ -1020,7 +1028,16 @@
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le bilan pédagogique" />
     <MESSAGE value="feat: [Commentaires] système de reponse sur les Traces depuis le dashboard enseignant" />
     <MESSAGE value="feat: [Notification] enseignant réponse à un commentaire" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [Notification] enseignant réponse à un commentaire" />
+    <MESSAGE value="fix: [API intranet] requête vers intranet prod" />
+    <MESSAGE value="feat: [Git] launch gitflow" />
+    <MESSAGE value="feat: [Profil] Structure + css" />
+    <MESSAGE value="wip [CV]: refactor datetime Experience.php Formation.php" />
+    <MESSAGE value="wip [CV]: add cv during portfolio process" />
+    <MESSAGE value="wip [CV]: add existing cv during portfolio process" />
+    <MESSAGE value="wip [CV]: add/delete existing cv during portfolio process" />
+    <MESSAGE value="wip [CV]: edit existing/new cv during portfolio process" />
+    <MESSAGE value="feat [CV]: edit existing/new cv during portfolio process" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat [CV]: edit existing/new cv during portfolio process" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
