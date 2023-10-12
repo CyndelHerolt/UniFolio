@@ -40,7 +40,6 @@ class PortfolioController extends BaseController
         PortfolioRepository $portfolioRepository,
     ): Response
     {
-
         if ($this->isGranted('ROLE_ETUDIANT')) {
 
             $data_user = $this->dataUserSession;
@@ -260,15 +259,15 @@ class PortfolioController extends BaseController
                     $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
                     //Vérifier si le fichier est au bon format
                     if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
-                        //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                        $imageFile->move('files_directory', $imageFileName);
+                        //Déplacer le fichier dans le dossier déclaré sous le nom$this->>$this->getParameter('PATH_FILES' . dans services.yaml
+                        $imageFile->move($this->getParameter('PATH_FILES').'', $imageFileName);
 //                //Sauvegarder le contenu dans la base de données
-                        $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                        $portfolio->setBanniere($this->getParameter('PATH_FILES').'/'.$imageFileName);
                     } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                         $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                     }
                 } else {
-                    $portfolio->setBanniere('files_directory/banniere.jpg');
+                    $portfolio->setBanniere($this->getParameter('PATH_FILES').'/banniere.jpg');
                 }
 
                 if ($form->get('visibilite')->getData() === true) {
@@ -312,7 +311,7 @@ class PortfolioController extends BaseController
 
             $portfolioRepository->remove($portfolio, true);
             $document = $portfolio->getBanniere();
-            if ($document !== 'files_directory/banniere.jpg') {
+            if ($document !== $this->getParameter('PATH_FILES').'/banniere.jpg') {
                 unlink($document);
             }
             $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');

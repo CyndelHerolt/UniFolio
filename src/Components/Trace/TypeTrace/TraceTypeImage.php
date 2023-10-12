@@ -5,6 +5,7 @@ namespace App\Components\Trace\TypeTrace;
 use App\Components\Trace\Form\TraceTypeImageType;
 use App\Entity\Trace;
 use App\Repository\TraceRepository;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class TraceTypeImage extends AbstractTrace implements TraceInterface
@@ -15,10 +16,12 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
     final public const ICON = 'fa-solid fa-3x fa-image';
     final public const TEMPLATE = 'Components/Trace/type/image.html.twig';
     final public const ID = '1';
+    private $params;
 
-    public function __construct(protected TraceRepository $traceRepository)
+    public function __construct(protected TraceRepository $traceRepository, ParameterBagInterface $params)
     {
         $this->type_trace = 'TraceTypeImage';
+        $this->params = $params;
     }
 
     public function display(): string
@@ -60,8 +63,8 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 //Vérifier si le fichier est au bon format
                 if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                    $imageFile->move('files_directory', $imageFileName);
-                    $contenu[] = 'files_directory' . '/' . $imageFileName;
+                    $imageFile->move($this->params->get('PATH_FILES'), $imageFileName);
+                    $contenu[] = $this->params->get('PATH_FILES').'/'.$imageFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);

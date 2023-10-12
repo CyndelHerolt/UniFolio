@@ -70,7 +70,7 @@ class ReferentielSynchro extends AbstractController
 
         $referentiels = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/referentiel',
+            $this->getParameter('api_url').'unifolio/referentiel',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -111,7 +111,7 @@ class ReferentielSynchro extends AbstractController
 
         $parcours = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/parcours',
+            $this->getParameter('api_url').'unifolio/parcours',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -170,7 +170,7 @@ class ReferentielSynchro extends AbstractController
         //todo: passer l'année du referentiel en paramètre de la route pour récup. -> intranet pour findBy
         $competences = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/competences',
+            $this->getParameter('api_url').'unifolio/competences',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -212,7 +212,7 @@ class ReferentielSynchro extends AbstractController
 
         $niveaux = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/niveau',
+            $this->getParameter('api_url').'unifolio/niveau',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -269,7 +269,7 @@ class ReferentielSynchro extends AbstractController
 
         $apprentissagesCritiques = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/apprentissage_critique',
+            $this->getParameter('api_url').'unifolio/apprentissage_critique',
             [
                 'headers' => [
                     'Accept' => 'application/json',
