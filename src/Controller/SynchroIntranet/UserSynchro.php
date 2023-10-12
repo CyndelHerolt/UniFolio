@@ -25,15 +25,6 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 class UserSynchro extends AbstractController
 {
 
-    private $params;
-
-    public function __construct(
-        ParameterBagInterface $params,
-    )
-    {
-        $this->params = $params;
-    }
-
     #[Route('/api/intranet/etudiant', name: 'app_email_intranet_etudiant')]
     public function CheckEmailEtudiant(
         $login,
@@ -45,12 +36,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/etudiant',
+            $_ENV['API_URL'].'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                     'query' => [
                         'username' => $login
@@ -93,13 +84,13 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/etudiant',
+            $_ENV['API_URL'].'unifolio/etudiant',
 //            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -137,12 +128,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/etudiant',
+            $_ENV['API_URL'].'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -196,12 +187,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/enseignant',
+            $_ENV['API_URL'].'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -240,12 +231,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/enseignant',
+            $_ENV['API_URL'].'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
@@ -282,12 +273,12 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->params->get('API_URL').'unifolio/enseignant',
+            $_ENV['API_URL'].'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->params->get('API_KEY')
+                    'x-api-key' => $this->getParameter('api_key')
                 ],
                 'query' => [
                     'username' => $login
