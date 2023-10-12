@@ -63,8 +63,8 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 //Vérifier si le fichier est au bon format
                 if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                    $imageFile->move($this->params->get('PATH_FILES'), $imageFileName);
-                    $contenu[] = $this->params->get('PATH_FILES').'/'.$imageFileName;
+                    $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
+                    $contenu[] = $_ENV['PATH_FILES'].'/'.$imageFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);

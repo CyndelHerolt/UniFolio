@@ -63,8 +63,8 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
                 }
                 if ($pdfFile->guessExtension() === 'pdf') {
                     //Déplacer le fichier dans le dossier déclaré sous le nom ../www-datas dans services.yaml
-                    $pdfFile->move($this->params->get('PATH_FILES'), $pdfFileName);
-                    $contenu[] = $this->params->get('PATH_FILES').'/'. $pdfFileName;
+                    $pdfFile->move($_ENV['PATH_FILES'], $pdfFileName);
+                    $contenu[] = $_ENV['PATH_FILES'].'/'. $pdfFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);
