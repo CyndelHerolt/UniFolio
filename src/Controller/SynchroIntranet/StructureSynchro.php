@@ -25,12 +25,22 @@ use App\Repository\SemestreRepository;
 use App\Repository\TypeGroupeRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class StructureSynchro extends AbstractController
 {
+    private $params;
+
+    public function __construct(
+        ParameterBagInterface $params,
+    )
+    {
+        $this->params = $params;
+    }
+
     #[Route('/api/intranet/structure', name: 'app_synchro_intranet_structure')]
     public function index(
         HttpClientInterface                $client,
@@ -81,7 +91,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/departement',
+            $this->params->get('api_url').'unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -126,7 +136,7 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/diplome',
+            $this->params->get('api_url').'unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -179,7 +189,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/annee',
+            $this->params->get('api_url').'unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -227,7 +237,7 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/semestre',
+            $this->params->get('api_url').'unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -281,7 +291,7 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/type_groupe',
+            $this->params->get('api_url').'unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -337,7 +347,7 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/groupe',
+            $this->params->get('api_url').'unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',

@@ -20,12 +20,22 @@ use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\TypeGroupeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ReferentielSynchro extends AbstractController
 {
+    private $params;
+
+    public function __construct(
+        ParameterBagInterface $params,
+    )
+    {
+        $this->params = $params;
+    }
+
     #[Route('/api/intranet/referentiel', name: 'app_synchro_intranet_referentiel')]
     public function synchroReferentiel(
         HttpClientInterface                $client,
@@ -70,7 +80,7 @@ class ReferentielSynchro extends AbstractController
 
         $referentiels = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/referentiel',
+            $this->params->get('api_url').'unifolio/referentiel',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -111,7 +121,7 @@ class ReferentielSynchro extends AbstractController
 
         $parcours = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/parcours',
+            $this->params->get('api_url').'unifolio/parcours',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -170,7 +180,7 @@ class ReferentielSynchro extends AbstractController
         //todo: passer l'année du referentiel en paramètre de la route pour récup. -> intranet pour findBy
         $competences = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/competences',
+            $this->params->get('api_url').'unifolio/competences',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -212,7 +222,7 @@ class ReferentielSynchro extends AbstractController
 
         $niveaux = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/niveau',
+            $this->params->get('api_url').'unifolio/niveau',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -269,7 +279,7 @@ class ReferentielSynchro extends AbstractController
 
         $apprentissagesCritiques = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/apprentissage_critique',
+            $this->params->get('api_url').'unifolio/apprentissage_critique',
             [
                 'headers' => [
                     'Accept' => 'application/json',
