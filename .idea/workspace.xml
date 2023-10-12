@@ -9,9 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: Division composant">
+    <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: call param url intranet api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_layout.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/ReferentielSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/StructureSynchro.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SynchroIntranet/UserSynchro.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -604,6 +606,10 @@
       <workItem from="1697010209262" duration="525000" />
       <workItem from="1697010815284" duration="6339000" />
       <workItem from="1697023832253" duration="921000" />
+      <workItem from="1697039572110" duration="1330000" />
+      <workItem from="1697042230897" duration="2823000" />
+      <workItem from="1697090283872" duration="723000" />
+      <workItem from="1697091015499" duration="6667000" />
     </task>
     <task id="LOCAL-00266" summary="fix: [Fixtures] Adaptation des Fixtures à la nouvelle structure">
       <created>1684834757552</created>
@@ -948,7 +954,7 @@
       <option name="project" value="LOCAL" />
       <updated>1688392264696</updated>
     </task>
-    <option name="localTasksCounter" value="387" />
+    <option name="localTasksCounter" value="392" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1012,11 +1018,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: [Traces] Filtres/compétences" />
-    <MESSAGE value="fix: [Traces] Help message TraceTypeLien" />
-    <MESSAGE value="fix: [API] Requête vers version locale de l'intranet en HTTP et non HTTPS car le serveur symfony ne supporte pas SSL/TLS" />
-    <MESSAGE value="fix: [Enseignant] Tri / semestre != annee" />
-    <MESSAGE value="feat: [Entities] Lien NtoN niveaux-&gt;parcours" />
     <MESSAGE value="fix: [Intranet] synchro err clé étrangère" />
     <MESSAGE value="fix: [Text editor] REmplacement CKEditor par Tinymce" />
     <MESSAGE value="fix: [Trace] Test poids max pdf" />
@@ -1037,7 +1038,12 @@
     <MESSAGE value="wip [CV]: add/delete existing cv during portfolio process" />
     <MESSAGE value="wip [CV]: edit existing/new cv during portfolio process" />
     <MESSAGE value="feat [CV]: edit existing/new cv during portfolio process" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat [CV]: edit existing/new cv during portfolio process" />
+    <MESSAGE value="fix: contenu footer" />
+    <MESSAGE value="feat: ajout mentions légales" />
+    <MESSAGE value="fix: révision accueil" />
+    <MESSAGE value="fix: review general" />
+    <MESSAGE value="fix: call param url intranet api" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: call param url intranet api" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

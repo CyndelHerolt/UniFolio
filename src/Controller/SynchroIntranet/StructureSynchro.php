@@ -91,7 +91,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/departement',
+            $this->params->get('API_URL').'unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -136,7 +136,7 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/diplome',
+            $this->params->get('API_URL').'unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -189,7 +189,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/annee',
+            $this->params->get('API_URL').'unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -237,7 +237,7 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/semestre',
+            $this->params->get('API_URL').'unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -291,7 +291,7 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/type_groupe',
+            $this->params->get('API_URL').'unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -347,7 +347,7 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            $this->params->get('api_url').'unifolio/groupe',
+            $this->params->get('API_URL').'unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
