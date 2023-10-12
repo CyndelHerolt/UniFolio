@@ -18,14 +18,6 @@
 
     .card-content {
 
-      //h3 {
-      //  @include titre($primary-font, 22px, 1.5);
-      //  margin: 0;
-      //}
-      //
-      //h6 {
-      //  text-align: center;
-      //}
 
       .accordion-button::after {
         display: none;
@@ -333,6 +325,19 @@
       }
 
     }
+
+    .cv-portfolio {
+      padding: 50px;
+      margin: 25px auto;
+
+      .cv-header {
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 
   .portfolio-eval-traces {
@@ -493,7 +498,48 @@
   }
 }
 
-.norif-header {
+.notif-header {
   display: flex;
   justify-content: space-between;
+}
+
+.cv-show {
+
+  .card {
+    margin: 15px auto;
+    padding: 50px;
+  }
+
+  .cv_reseaux {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    a {
+      margin: 0 10px 10px 0;
+    }
+  }
+
+  .cv-header {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cv-content {
+    display: flex;
+    justify-content: space-between;
+
+    h4 {
+      margin-bottom: 15px;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
 }
