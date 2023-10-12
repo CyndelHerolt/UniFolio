@@ -5,6 +5,7 @@ namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypePdfType;
 use App\Repository\TraceRepository;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class TraceTypePdf extends AbstractTrace implements TraceInterface
 {
@@ -14,11 +15,13 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
     final public const ICON = 'fa-solid fa-3x fa-file-pdf';
     final public const TEMPLATE = 'Components/Trace/type/pdf.html.twig';
     final public const ID = '3';
+    private $params;
 
 
-    public function __construct(protected TraceRepository $traceRepository)
+    public function __construct(protected TraceRepository $traceRepository, ParameterBagInterface $params)
     {
         $this->type_trace = 'TraceTypePdf';
+        $this->params = $params;
     }
 
     public function display(): string
@@ -59,9 +62,9 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
                     return array('success' => false, 'error' => $error);
                 }
                 if ($pdfFile->guessExtension() === 'pdf') {
-                    //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                    $pdfFile->move('files_directory', $pdfFileName);
-                    $contenu[] = 'files_directory' . '/' . $pdfFileName;
+                    //Déplacer le fichier dans le dossier déclaré sous le nom ../www-datas dans services.yaml
+                    $pdfFile->move($this->params->get('PATH_FILES'), $pdfFileName);
+                    $contenu[] = $this->params->get('PATH_FILES').'/'. $pdfFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);

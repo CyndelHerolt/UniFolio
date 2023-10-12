@@ -35,7 +35,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
+            $this->getParameter('api_url').'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -83,7 +83,8 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
+            $this->getParameter('api_url').'unifolio/etudiant',
+//            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -126,7 +127,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
+            $this->getParameter('api_url').'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -185,7 +186,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
+            $this->getParameter('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -229,7 +230,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
+            $this->getParameter('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -271,7 +272,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/enseignant',
+            $this->getParameter('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',

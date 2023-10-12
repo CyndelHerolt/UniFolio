@@ -81,7 +81,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/departement',
+            $this->getParameter('api_url').'unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -126,7 +126,7 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/diplome',
+            $this->getParameter('api_url').'unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -179,7 +179,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/annee',
+            $this->getParameter('api_url').'unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -227,7 +227,7 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/semestre',
+            $this->getParameter('api_url').'unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -281,7 +281,7 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/type_groupe',
+            $this->getParameter('api_url').'unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -337,7 +337,7 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/groupe',
+            $this->getParameter('api_url').'unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',

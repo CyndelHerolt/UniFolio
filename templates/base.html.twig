@@ -30,12 +30,8 @@
     {% endblock %}
 </main>
 <footer>
-    <hr>
-
     {% block footer %}
     {% endblock %}
-
-
 
     {% if admin is defined and admin == '/admin?_switch_user=_exit' %}
         <br>
@@ -51,14 +47,17 @@
         </div>
         <div>
             <ul>
-                <li><a href="">Documentation</a></li>
-                <li><a href="">Galerie des étudiants</a></li>
-                <li><a href="">Code source</a></li>
+                <li><a href="{{ path('app_login') }}" target="_blank">Connexion</a></li>
+                <li><a href="{{ path('app_users_new') }}" target="_blank">Inscription</a></li>                <li><a href="https://portfolio-doc.iut-troyes.univ-reims.fr" target="_blank">Documentation</a></li>
+                <li><a href="https://github.com/CyndelHerolt/UniFolio" target="_blank">Code source</a></li>
             </ul>
         </div>
         <div>
             <h6>Contact</h6>
-            <p>Pour plus d'informations</p>
+            <p>IUT de Troyes <br>
+                9, Rue de Québec, CS90396 <br>
+                10026 Troyes Cedex <br>
+                <small>cyndel.herolt@univ-reims.fr</small></p>
         </div>
         <div>
             <ul>
@@ -69,12 +68,12 @@
     </div>
     <div class="footer-infos-min">
         <div>
-            <small>Copyright © 2023 @CyndelHerolt. All rights reserved. | Version 1.1</small>
+            <small>Copyright © 2023 @CyndelHerolt. All rights reserved. | Version 1.0</small>
         </div>
         <div>
             <a href="{{ path('app_rgpd') }}">Données personnelles</a>
             <span>·</span>
-            <a href="{{ path('app_rgpd') }}">Mentions légales</a>
+            <a href="{{ path('app_mentions_legales') }}">Mentions légales</a>
         </div>
     </div>
 </footer>
