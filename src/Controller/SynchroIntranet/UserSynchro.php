@@ -50,7 +50,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                     'query' => [
                         'username' => $login
@@ -99,7 +99,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                 'query' => [
                     'username' => $login
@@ -142,7 +142,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                 'query' => [
                     'username' => $login
@@ -201,7 +201,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                 'query' => [
                     'username' => $login
@@ -245,7 +245,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                 'query' => [
                     'username' => $login
@@ -287,7 +287,7 @@ class UserSynchro extends AbstractController
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
-                    'x-api-key' => $this->getParameter('api_key')
+                    'x-api-key' => $this->params->get('API_KEY')
                 ],
                 'query' => [
                     'username' => $login
