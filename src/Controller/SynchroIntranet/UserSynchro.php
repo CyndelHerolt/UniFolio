@@ -16,6 +16,7 @@ use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -23,6 +24,15 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class UserSynchro extends AbstractController
 {
+
+    private $params;
+
+    public function __construct(
+        ParameterBagInterface $params,
+    )
+    {
+        $this->params = $params;
+    }
 
     #[Route('/api/intranet/etudiant', name: 'app_email_intranet_etudiant')]
     public function CheckEmailEtudiant(
@@ -35,7 +45,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/etudiant',
+            $this->params->get('api_url').'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -83,7 +93,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/etudiant',
+            $this->params->get('api_url').'unifolio/etudiant',
 //            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
@@ -127,7 +137,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/etudiant',
+            $this->params->get('api_url').'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -186,7 +196,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/enseignant',
+            $this->params->get('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -230,7 +240,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/enseignant',
+            $this->params->get('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -272,7 +282,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $this->getParameter('api_url').'unifolio/enseignant',
+            $this->params->get('api_url').'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
