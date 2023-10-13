@@ -154,4 +154,22 @@ class CvController extends AbstractController
             'cv' => $cv,
         ]);
     }
+
+    #[Route('/cv/show/{id}', name: 'app_cv_show')]
+    public function show(
+        CvRepository $cvRepository,
+        int          $id,
+    ): Response
+    {
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+        );
+
+        $cv = $cvRepository->findOneBy(['id' => $id]);
+
+        return $this->render('cv/show.html.twig', [
+            'cv' => $cv,
+        ]);
+    }
 }

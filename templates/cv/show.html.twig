@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - CV{% endblock %}
+
+{% block body %}
+    <div class="content-container cv-show">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_cv') }}">Bibliothèque de CV</a></li>
+                <li class="breadcrumb-item active" aria-current="page">CV {{ cv.intitule }}</li>
+            </ol>
+        </nav>
+        <section>
+            <div class="card">
+                <div class="cv-header">
+                    <h2>{{ cv.etudiant.prenom }} {{ cv.etudiant.nom }}</h2>
+                    <h3>{{ cv.poste }}</h3>
+                </div>
+                <div class="row cv-content">
+                    <aside class="col-lg-4">
+                        <div>
+                            <h4>Contact</h4>
+                            <p>{{ cv.etudiant.mailUniv }}</p>
+                            <div class="cv_reseaux">
+                                {% for reseau in cv.reseaux %}
+                                    {% if reseau matches '/.*twitter.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-twitter fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*linkedin.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-linkedin fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*github.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-github fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*dribbble.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-dribbble fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*pinterest.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-pinterest fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*instagram.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-instagram fa-lg"></i></a>
+                                    {% elseif reseau matches '/.*facebook.*/' %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa-brands fa-facebook fa-lg"></i></a>
+                                    {% else %}
+                                        <a href="{{ reseau }}" target="_blank"><i
+                                                    class="fa fa-globe fa-lg"></i></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h4>A propos</h4>
+                            <p>{{ cv.description }}</p>
+                        </div>
+                        <hr>
+                        <div>
+                            <h4>Compétences</h4>
+                            <h5>Compétences comportementales</h5>
+                            <ul>
+                                {% for softSkill in cv.softSkills %}
+                                    <li>{{ softSkill }}</li>
+                                {% endfor %}
+                            </ul>
+                            <h5>Compétences techniques</h5>
+                            <ul>
+                                {% for hardSkill in cv.hardSkills %}
+                                    <li>{{ hardSkill }}</li>
+                                {% endfor %}
+                            </ul>
+                            <h5>Langues</h5>
+                            <ul>
+                                {% for langue in cv.langues %}
+                                    <li>{{ langue }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </aside>
+                    <article class="col-lg-7">
+                        <div>
+                            <h4>Expériences</h4>
+                            {% for experience in cv.experience %}
+                                <div class="cv_experience">
+                                    <small>{{ experience.dateDebut|date('m/Y') }}
+                                        - {% if experience.dateFin %}{{ experience.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                    <h5>{{ experience.poste }}</h5>
+                                    <p>{{ experience.entreprise }}</p>
+                                    <ul>
+                                        {% for activite in experience.activite %}
+                                            <li>{{ activite }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <div>
+                            <h4>Formations</h4>
+                            {% for formation in cv.formation %}
+                                <div class="cv_formation">
+                                    <small>{{ formation.dateDebut|date('m/Y') }}
+                                        - {% if formation.dateFin %}{{ formation.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                    <h5>{{ formation.diplome }}</h5>
+                                    <p>{{ formation.etablissement }}</p>
+                                    <ul>
+                                        {% for activite in formation.activite %}
+                                            <li>{{ activite }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
