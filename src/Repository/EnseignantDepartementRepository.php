@@ -1,12 +1,9 @@
 <?php
 /*
- * Copyright (c) 2022. | David Annebicque | IUT de Troyes  - All Rights Reserved
- * @file /Users/davidannebicque/Sites/intranetV3/src/Repository/EnseignantDepartementRepository.php
- * @author davidannebicque
- * @project intranetV3
- * @lastUpdate 14/05/2022 11:14
+ * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
+ * @author cyndelherolt
+ * @project UniFolio
  */
-
 namespace App\Repository;
 
 use App\Entity\Departement;

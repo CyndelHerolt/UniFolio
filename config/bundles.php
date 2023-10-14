@@ -1,5 +1,9 @@
 <?php
-
+/*
+ * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
+ * @author cyndelherolt
+ * @project UniFolio
+ */
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
