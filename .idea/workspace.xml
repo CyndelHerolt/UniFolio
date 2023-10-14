@@ -10,12 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29f54cf9-f7ea-4201-a447-a6bb3c7dc2a5" name="Changes" comment="fix: call param url intranet api">
-      <change afterPath="$PROJECT_DIR$/templates/cv/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/_biblio.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/_biblio.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/cv_card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/cv_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/portfolio/_portfolio.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/portfolio/_portfolio.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +228,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TODO_SCOPE": "All Places",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "fix/cv-view",
+    "git-widget-placeholder": "develop",
     "last_opened_file_path": "/var/www/html/obscureWave",
     "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",

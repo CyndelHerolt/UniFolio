@@ -27,3 +27,5 @@ yarn-error.log
 ###> idea ###
 .idea
 ###< idea ###
+###> Tout ce qui se trouve dans le dossier .idea ###
+/.idea/*
