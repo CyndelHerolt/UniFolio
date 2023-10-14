@@ -29,3 +29,4 @@ yarn-error.log
 /.idea/*
 workspace.xml
 ###< idea ###
+.php-cs-fixer.cache

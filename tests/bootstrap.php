@@ -1,5 +1,9 @@
 <?php
-
+/*
+ * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
+ * @author cyndelherolt
+ * @project UniFolio
+ */
 use Symfony\Component\Dotenv\Dotenv;
 
 require dirname(__DIR__).'/vendor/autoload.php';
