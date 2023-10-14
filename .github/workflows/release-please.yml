@@ -1,0 +1,15 @@
+# .github/workflows/release-please.yml
+name: release-please
+on:
+  push:
+    branches:
+      - main # or master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          release-type: php-yoshi
