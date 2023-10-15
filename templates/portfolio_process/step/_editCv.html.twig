@@ -9,8 +9,8 @@
     {{ form_row(form.date_modification) }}
 </div>
 {{ form_row(form.intitule) }}
-            {{ form_row(form.poste) }}
-            {{ form_row(form.description) }}
+                    {{ form_row(form.poste) }}
+                    {{ form_row(form.description) }}
 <hr>
 
 <!-- Expériences -->
@@ -22,16 +22,22 @@
         <button type="button" class="btn btn-secondary add-experience">
             Ajouter une experience <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Expériences professionnelles (elles seront automatiquement triées par date
+            décroissante)</small>
         <!-- Fin expériences -->
     </div>
     <div class="col-6">
         <!-- Formations -->
-        <div class="mb-3">
+        <div class="mb-3 bloc_formation">
             {{ form_row(form.formation) }}
         </div>
         <button type="button" class="btn btn-secondary add-formation">
             Ajouter une formation <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Formations (elles seront automatiquement triées par date
+            décroissante)</small>
     </div>
 </div>
 <!-- Fin formations -->
@@ -39,22 +45,28 @@
 <!-- SoftSkills -->
 <div class="row">
     <div class="col-6">
+        <label class="form-label required">Soft skills</label>
         <div class="input-group mb-3">
             {{ form_widget(form.soft_skills) }}
         </div>
         <button type="button" class="btn btn-secondary add-soft-skill">
             Ajouter un soft skill <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Compétences comportementales</small>
         <!-- Fin SofSkills -->
     </div>
     <div class="col-6">
         <!-- HardSkills -->
+        <label class="form-label required">Hard skills</label>
         <div class="input-group mb-3">
             {{ form_widget(form.hard_skills) }}
         </div>
         <button type="button" class="btn btn-secondary add-hard-skill">
             Ajouter un hard skill <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Compétences techniques</small>
     </div>
 </div>
 <!-- Fin HardSkills -->
@@ -62,27 +74,32 @@
 <!-- Langues -->
 <div class="row">
     <div class="col-6">
+        <label class="form-label required">Langues</label>
         <div class="input-group mb-3">
             {{ form_widget(form.langues) }}
         </div>
         <button type="button" class="btn btn-secondary add-langue">
             Ajouter une langue <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Langues parlées et niveau</small>
         <!-- Fin Langues -->
     </div>
     <div class="col-6">
         <!-- Reseaux -->
+        <label class="form-label required">Réseaux sociaux</label>
         <div class="input-group mb-3">
             {{ form_widget(form.reseaux) }}
         </div>
         <button type="button" class="btn btn-secondary add-reseau">
             Ajouter un reseau <i class="fa fa-square-plus"></i>
         </button>
+        <br>
+        <small class="text-muted">Sasissez le lien de votre profil sur le réseau social</small>
     </div>
 </div>
 <!-- Fin reseaux -->
 <hr>
-
 {{ form_end(form) }}
 
 <button class="btn btn-primary save" {{ stimulus_action('cv', 'saveCv', 'click') }}

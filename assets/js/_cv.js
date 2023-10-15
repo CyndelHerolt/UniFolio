@@ -296,6 +296,9 @@ document.querySelectorAll('.experience').forEach((event) => {
         const existingActivitesDiv = existingActivite.closest('.form-group');
         // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
         existingActivitesDiv.classList.add('experience-activite')
+        existingActivitesDiv.style.display = 'flex';
+        existingActivitesDiv.style.alignItems = 'flex-start';
+        existingActivitesDiv.style.margin = '15px 0';
         existingActivitesDiv.innerHTML += (
             '<button type="button" class="btn btn-danger delete-experience-activite">' +
             '<i class="fa-solid fa-square-minus"></i>' + '</button>'
@@ -374,7 +377,8 @@ export function addExperienceActivite(event) {
     formGroup.classList.add('experience-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
-    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+    formGroup.style.margin = '15px 0';
+
 
     let index = document.querySelectorAll('.experience-activite').length;
     const experienceElement = event.closest('.experience');
@@ -433,6 +437,9 @@ document.querySelectorAll('.formation').forEach((event) => {
         const existingActivitesDiv = existingActivite.closest('.form-group');
         // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
         existingActivitesDiv.classList.add('formation-activite')
+        existingActivitesDiv.style.display = 'flex';
+        existingActivitesDiv.style.alignItems = 'flex-start';
+        existingActivitesDiv.style.margin = '15px 0';
         existingActivitesDiv.innerHTML += (
             '<button type="button" class="btn btn-danger delete-formation-activite">' +
             '<i class="fa-solid fa-square-minus"></i>' + '</button>'
@@ -511,7 +518,7 @@ export function addFormationActivite(event) {
     formGroup.classList.add('form-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
-    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+    formGroup.style.margin = '15px 0';
 
     let index = document.querySelectorAll('.formation-activite').length;
     const formationElement = event.closest('.formation');
