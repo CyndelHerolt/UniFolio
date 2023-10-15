@@ -11,6 +11,7 @@ use App\Form\CvType;
 use App\Form\ExperienceType;
 use App\Repository\CvRepository;
 use App\Repository\ExperienceRepository;
+use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -60,7 +61,6 @@ class CvController extends AbstractController
         $cv = new Cv();
 
         $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
-        $experienceForm = $this->createForm(ExperienceType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,9 +77,6 @@ class CvController extends AbstractController
             }
             //-------------------------------------------------------------------------------
 
-//            dd($request);
-
-
             $cv->setEtudiant($user);
             $cv->setDateCreation(new \DateTimeImmutable());
             $cv->setDateModification(new \DateTimeImmutable());
@@ -92,7 +89,6 @@ class CvController extends AbstractController
 
         return $this->render('cv/formCv.html.twig', [
             'form' => $form->createView(),
-            'experience' => $experienceForm->createView(),
         ]);
     }
 
@@ -120,12 +116,16 @@ class CvController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData(); // Récupère l'objet CV mis à jour par le formulaire
             $cv->setDateModification(new \DateTimeImmutable());
-            // On set les activités des expériences du CV avec les nouvelles données saisies dans le formulaire
-            foreach ($cv->getExperience() as $experience) {
-                $experience->setActivite($experience->getActivite());
-            }
+//            // On set les activités des expériences du CV avec les nouvelles données saisies dans le formulaire
+//            foreach ($cv->getExperience() as $experience) {
+//                $experience->setActivite($experience->getActivite());
+//            }
+//            // On set les activités des formations du CV avec les nouvelles données saisies dans le formulaire
+//            foreach ($cv->getFormation() as $formation) {
+//                $formation->setActivite($formation->getActivite());
+//            }
 
-//            dd($request);
+//            dd($cv);
 
             $cvRepository->save($cv, true);
 
@@ -141,6 +141,8 @@ class CvController extends AbstractController
     #[Route('/cv/delete/{id}', name: 'app_cv_delete')]
     public function delete(
         CvRepository $cvRepository,
+        ExperienceRepository $experienceRepository,
+        FormationRepository $formationRepository,
         int          $id,
     ): Response
     {
@@ -150,7 +152,19 @@ class CvController extends AbstractController
         );
 
         $cv = $cvRepository->findOneBy(['id' => $id]);
+        $experience = $cv->getExperience();
+        $formation = $cv->getFormation();
+        $portfolio = $cv->getPortfolio();
 
+        foreach ($portfolio as $port) {
+            $cv->removePortfolio($port);
+        }
+        foreach ($experience as $exp) {
+            $experienceRepository->remove($exp, true);
+        }
+        foreach ($formation as $form) {
+            $formationRepository->remove($form, true);
+        }
         $cvRepository->remove($cv, true);
         $this->addFlash('success', 'Le CV a été supprimé avec succès.');
 

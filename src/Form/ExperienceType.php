@@ -24,14 +24,14 @@ class ExperienceType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Poste occupé',],
                 'help' => 'Poste occupé dans l\'entreprise',
-                'required' => true,
+                'required' => false,
             ])
             ->add('entreprise', TextType::class, [
                 'label' => 'Entreprise',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Entreprise d\'accueil',],
                 'help' => 'Nom de l\'entreprise',
-                'required' => true,
+                'required' => false,
             ])
             ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
@@ -40,7 +40,7 @@ class ExperienceType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
-                'required' => true,
+                'required' => false,
             ])
             ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
@@ -49,27 +49,27 @@ class ExperienceType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
-                'required' => true,
+                'required' => false,
             ])
             //----------------------------------------------------------------
             ->add('activite', CollectionType::class, [
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control activite",
-                        'placeholder' => 'activités',
+                        'class' => "form-control experience-activite",
+                        'placeholder' => 'Activités de mon expérience',
                     ],
                     'by_reference' => false,
-                    'label' => 'activités',
+                    'label' => false,
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'attr' => ['class' => 'exp-activite'],
                 'prototype' => true,
-                'label' => false,
+                'label' => 'Activités',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => true,
+                'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
             ])

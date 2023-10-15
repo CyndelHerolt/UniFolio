@@ -159,6 +159,14 @@ body {
     }
   }
 
+  .button-delete {
+    background-color: transparent;
+    border: none;
+    color: #c51d1d;
+    padding: 0;
+    margin: 0;
+  }
+
   .c1 {
     color: $c1;
     font-weight: 600;
