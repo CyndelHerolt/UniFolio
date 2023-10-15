@@ -69,7 +69,7 @@ class ExperienceType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => true,
+                'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
             ])

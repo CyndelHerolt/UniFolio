@@ -222,6 +222,7 @@ class CvType extends AbstractType
             'data_class' => Cv::class,
             'user' => null,
             'experience' => null,
+            'formation' => null,
             'empty_data' => new Cv(),
         ]);
     }

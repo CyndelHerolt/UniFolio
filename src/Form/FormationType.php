@@ -53,11 +53,11 @@ class FormationType extends AbstractType
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
-                        'placeholder' => 'Activité de ma formation',
+                        'class' => "form-control formation-activite",
+                        'placeholder' => 'Activités de ma formation',
                     ],
                     'by_reference' => false,
-                    'label' => 'Activité',
+                    'label' => 'activités',
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'attr' => ['class' => 'form-activite'],
@@ -66,7 +66,7 @@ class FormationType extends AbstractType
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => true,
+                'required' => false,
                 'by_reference' => false,
                 'empty_data' => [],
             ])

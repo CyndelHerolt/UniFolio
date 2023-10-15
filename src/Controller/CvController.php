@@ -116,15 +116,16 @@ class CvController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData(); // Récupère l'objet CV mis à jour par le formulaire
             $cv->setDateModification(new \DateTimeImmutable());
-            // On set les activités des expériences du CV avec les nouvelles données saisies dans le formulaire
-            foreach ($cv->getExperience() as $experience) {
-                $experience->setActivite($experience->getActivite());
-            }
-            // On set les activités des formations du CV avec les nouvelles données saisies dans le formulaire
-            foreach ($cv->getFormation() as $formation) {
-                $formation->setActivite($formation->getActivite());
-            }
+//            // On set les activités des expériences du CV avec les nouvelles données saisies dans le formulaire
+//            foreach ($cv->getExperience() as $experience) {
+//                $experience->setActivite($experience->getActivite());
+//            }
+//            // On set les activités des formations du CV avec les nouvelles données saisies dans le formulaire
+//            foreach ($cv->getFormation() as $formation) {
+//                $formation->setActivite($formation->getActivite());
+//            }
 
+//            dd($cv);
 
             $cvRepository->save($cv, true);
 
