@@ -61,12 +61,14 @@ class FormationType extends AbstractType
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'attr' => ['class' => 'form-activite'],
+                'prototype' => true,
+                'label' => false,
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required' => true,
-                'prototype' => true,
-                'label' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ])
 //            ->add('cvs')
         ;

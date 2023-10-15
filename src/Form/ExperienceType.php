@@ -56,8 +56,8 @@ class ExperienceType extends AbstractType
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control activite",
-                        'placeholder' => 'activités',
+                        'class' => "form-control experience-activite",
+                        'placeholder' => 'Activités de mon expérience',
                     ],
                     'by_reference' => false,
                     'label' => 'activités',

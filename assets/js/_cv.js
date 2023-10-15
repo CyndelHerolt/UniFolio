@@ -316,7 +316,6 @@ document.querySelectorAll('.experience').forEach((event) => {
         'Supprimer l\'expérience <i class="fa-solid fa-square-minus"></i>' +
         '</button>'
     )
-
 })
 
 // Fonction pour ajouter un nouveau champ experience
@@ -387,6 +386,7 @@ export function addExperienceActivite(event) {
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+
     let index = document.querySelectorAll('.experience-activite').length;
     const experienceElement = event.closest('.experience');
     if(experienceElement === null) {
@@ -395,9 +395,9 @@ export function addExperienceActivite(event) {
         return;
     }
     let indexExp = experienceElement.id.split('_')[2];
-    // let indexExp = document.querySelectorAll('.experience').length;
-    // console.log(indexExp);
+
     formGroup.innerHTML += '<input type="text" name="cv[experience]['+indexExp+'][activite]['+index+']" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
+
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
@@ -408,7 +408,6 @@ export function addExperienceActivite(event) {
         removeExperienceActivite(button);
     });
     formGroup.appendChild(button);
-    // const addButtonExperienceActivite = document.querySelector('.add-experience-activite');
     event.parentNode.insertBefore(formGroup, event);
 }
 
@@ -445,7 +444,7 @@ document.querySelectorAll('.formation').forEach((event) => {
     if (existingActivitesDiv.lastChild) {
         existingActivites.classList.add('experience-activite')
         existingActivitesDiv.innerHTML += (
-            '<button type="button" class="btn btn-danger delete-experience-activite">' +
+            '<button type="button" class="btn btn-danger delete-formation-activite">' +
             '<i class="fa-solid fa-square-minus"></i>' +
             '</button>'
         )
@@ -526,11 +525,22 @@ document.querySelectorAll('.delete-formation').forEach(function (event) {
 export function addFormationActivite(event) {
     console.log(event);
     const formGroup = document.createElement('div');
-    formGroup.classList.add('formation-activite');
+    formGroup.classList.add('form-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
     formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
-    formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
+
+    let index = document.querySelectorAll('.formation-activite').length;
+    const formationElement = event.closest('.formation');
+    if(formationElement === null) {
+        // handle error, for example:
+        console.error('Could not find parent element with class "formation"');
+        return;
+    }
+    let indexF = formationElement.id.split('_')[2];
+
+    formGroup.innerHTML += '<input type="text" name="cv[formation]['+indexF+'][activite]['+index+']" id="'+indexF+'_activite_'+index+'" class="form-control activite">'
+
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-formation-activite');
@@ -541,7 +551,6 @@ export function addFormationActivite(event) {
         removeFormationActivite(button);
     });
     formGroup.appendChild(button);
-    // const addButtonFormationActivite = document.querySelector('.add-formation-activite');
     event.parentNode.insertBefore(formGroup, event);
 }
 
@@ -561,5 +570,5 @@ document.querySelectorAll('.delete-formation-activite').forEach(function (button
 
 // Fonction pour supprimer un champ formation
 export function removeFormationActivite(button) {
-    button.closest('.formation-activite').remove();
+    button.closest('.form-activite').remove();
 }
