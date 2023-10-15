@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Form;
 
 use App\Entity\Cv;
@@ -92,7 +93,6 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
-                    'help' => 'Compétences comportementales',
                 ],
                 'prototype' => true,
                 'label' => 'Soft skills',
@@ -114,7 +114,6 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label_attr' => ['class' => 'form-label'],
                     'label' => false,
-                    'help' => 'Compétences techniques',
                 ],
                 'prototype' => true,
                 'label' => 'Hard skills',
@@ -137,7 +136,6 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
-                    'help' => 'Langues parlées',
                 ],
                 'prototype' => true,
                 'label' => 'Langues',
@@ -160,7 +158,6 @@ class CvType extends AbstractType
                     'by_reference' => false,
                     'label' => false,
                     'label_attr' => ['class' => 'form-label'],
-                    'help' => 'Sasissez le lien de votre profil sur le réseau social',
                 ],
                 'prototype' => true,
                 'label' => false,
@@ -222,6 +219,7 @@ class CvType extends AbstractType
             'data_class' => Cv::class,
             'user' => null,
             'experience' => null,
+            'formation' => null,
             'empty_data' => new Cv(),
         ]);
     }

@@ -142,11 +142,10 @@ export default class extends Controller {
 
         document.querySelectorAll('.reseaux').forEach((event) => {
             // event = .reseaux (chaque bloc reseaux)
-            // console.log(event)
             // ajouter la classe 'reseaux' à chaque élément parent de .reseaux
             event.parentNode.classList.add('input-group', 'mb-3', 'reseaux_div')
             event.style.display = 'flex';
-            event.style.alignItems = 'flex-end';
+            event.style.alignItems = 'flex-start';
             // pour chaque bloc existant, on ajoute les boutons pour manipuler le form
             event.parentNode.innerHTML += (
                 '<button type="button" class="btn btn-danger delete-reseau">' +
@@ -164,24 +163,24 @@ export default class extends Controller {
 
         document.querySelectorAll('.experience').forEach((event) => {
             // event = .experience (chaque bloc experience)
-
-            // console.log('hello')
-            // console.log(event)
-
-            const existingActivites = event.lastChild
-            // // console.log(existingActivites)
-            const existingActivitesDiv = existingActivites.firstChild
-            if (existingActivitesDiv.lastChild) {
-                existingActivites.classList.add('experience-activite')
+            const existingActivites = document.querySelectorAll('.experience-activite');
+            // pour chaque existingActivites
+            existingActivites.forEach((existingActivite) => {
+                // récupérer la div .form-group la plus proche
+                const existingActivitesDiv = existingActivite.closest('.form-group');
+                // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
+                existingActivitesDiv.classList.add('experience-activite')
+                existingActivitesDiv.style.display = 'flex';
+                existingActivitesDiv.style.alignItems = 'flex-start';
+                existingActivitesDiv.style.margin = '15px 0';
                 existingActivitesDiv.innerHTML += (
                     '<button type="button" class="btn btn-danger delete-experience-activite">' +
-                    '<i class="fa-solid fa-square-minus"></i>' +
-                    '</button>'
+                    '<i class="fa-solid fa-square-minus"></i>' + '</button>'
                 )
-            }
+            })
             // pour chaque bloc experience existant, on ajoute les boutons pour manipuler le form
             event.innerHTML += (
-                '<div><button type="button" class="btn btn-secondary add-experience-activite">' +
+                '<div><button type="button" class="btn btn-primary add-experience-activite">' +
                 'Ajouter une activité <i class="fa fa-square-plus"></i>' +
                 '</button></div>' +
                 '<br>' +
@@ -189,7 +188,6 @@ export default class extends Controller {
                 'Supprimer l\'expérience <i class="fa-solid fa-square-minus"></i>' +
                 '</button>'
             )
-
         })
 
         const addExperienceButton = document.querySelector('.add-experience');
@@ -208,22 +206,25 @@ export default class extends Controller {
         }
 
         document.querySelectorAll('.formation').forEach((event) => {
-            // event = .formation (chaque bloc formation)
-            // console.log(event);
-
-            const existingActivites = event.lastChild
-            const existingActivitesDiv = existingActivites.firstChild
-            if (existingActivitesDiv.lastChild) {
-                existingActivites.classList.add('experience-activite')
+            // event = .experience (chaque bloc experience)
+            const existingActivites = document.querySelectorAll('.formation-activite');
+            // pour chaque existingActivites
+            existingActivites.forEach((existingActivite) => {
+                // récupérer la div .form-group la plus proche
+                const existingActivitesDiv = existingActivite.closest('.form-group');
+                // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
+                existingActivitesDiv.classList.add('formation-activite')
+                existingActivitesDiv.style.display = 'flex';
+                existingActivitesDiv.style.alignItems = 'flex-start';
+                existingActivitesDiv.style.margin = '15px 0';
                 existingActivitesDiv.innerHTML += (
-                    '<button type="button" class="btn btn-danger delete-experience-activite">' +
-                    '<i class="fa-solid fa-square-minus"></i>' +
-                    '</button>'
+                    '<button type="button" class="btn btn-danger delete-formation-activite">' +
+                    '<i class="fa-solid fa-square-minus"></i>' + '</button>'
                 )
-            }
+            })
             // pour chaque bloc formation existant, on ajoute les boutons pour manipuler le form
             event.innerHTML += (
-                '<div><button type="button" class="btn btn-secondary add-formation-activite">' +
+                '<div><button type="button" class="btn btn-primary add-formation-activite">' +
                 'Ajouter une activité <i class="fa fa-square-plus"></i>' +
                 '</button></div>' +
                 '<br>' +

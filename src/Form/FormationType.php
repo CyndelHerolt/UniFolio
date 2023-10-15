@@ -23,13 +23,13 @@ class FormationType extends AbstractType
                 'label' => 'Diplôme',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Diplôme de ma formation',],
-                'required' => true,
+                'required' => false,
             ])
             ->add('etablissement', TextType::class, [
                 'label' => 'Etablissement',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => 'Etablissement de ma formation',],
-                'required' => true,
+                'required' => false,
             ])
             ->add('date_debut', DateType::class, [
                 'label' => 'Date de début',
@@ -38,7 +38,7 @@ class FormationType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
-                'required' => true,
+                'required' => false,
             ])
             ->add('date_fin', DateType::class, [
                 'label' => 'Date de fin',
@@ -47,26 +47,28 @@ class FormationType extends AbstractType
                 'help' => 'Format attendu : 01/01/2001',
                 'widget' => 'single_text',
                 'input_format' => 'd/m/Y',
-                'required' => true,
+                'required' => false,
             ])
             ->add('activite', CollectionType::class, [
                 'entry_type' => TextType::class,
                 'entry_options' => [
                     'attr' => [
-                        'class' => "form-control",
-                        'placeholder' => 'Activité de ma formation',
+                        'class' => "form-control formation-activite",
+                        'placeholder' => 'Activités de ma formation',
                     ],
                     'by_reference' => false,
-                    'label' => 'Activité',
+                    'label' => false,
                     'label_attr' => ['class' => 'form-label'],
                 ],
                 'attr' => ['class' => 'form-activite'],
+                'prototype' => true,
+                'label' => 'Activités',
                 'allow_extra_fields' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => true,
-                'prototype' => true,
-                'label' => false,
+                'required' => false,
+                'by_reference' => false,
+                'empty_data' => [],
             ])
 //            ->add('cvs')
         ;

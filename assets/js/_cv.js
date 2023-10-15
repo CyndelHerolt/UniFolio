@@ -4,7 +4,6 @@
 
 document.querySelectorAll('.soft_skills').forEach((event) => {
     // event = .soft_skills (chaque bloc soft_skills)
-    console.log(event)
     // ajouter la classe 'soft_skills' à chaque élément parent de .soft_skills
     event.parentNode.classList.add('soft_skills_div')
     event.parentNode.classList.add('input-group', 'mb-3', 'soft_skills_div')
@@ -76,7 +75,6 @@ if (addButtonSoft) {
 
 document.querySelectorAll('.hard_skills').forEach((event) => {
     // event = .hard_skills (chaque bloc hard_skills)
-    console.log(event)
     // ajouter la classe 'hard_skills' à chaque élément parent de .hard_skills
     event.parentNode.classList.add('input-group', 'mb-3', 'hard_skills_div')
     event.style.display = 'flex';
@@ -149,7 +147,6 @@ if (addButtonHard) {
 
 document.querySelectorAll('.langues').forEach((event) => {
     // event = .langues (chaque bloc langues)
-    console.log(event)
     // ajouter la classe 'langues' à chaque élément parent de .langues
     event.parentNode.classList.add('input-group', 'mb-3', 'langues_div')
     event.style.display = 'flex';
@@ -221,7 +218,6 @@ if (addButtonLangue) {
 
 document.querySelectorAll('.reseaux').forEach((event) => {
     // event = .reseaux (chaque bloc reseaux)
-    console.log(event)
     // ajouter la classe 'reseaux' à chaque élément parent de .reseaux
     event.parentNode.classList.add('input-group', 'mb-3', 'reseaux_div')
     event.style.display = 'flex';
@@ -293,19 +289,21 @@ if (addButtonReseau) {
 
 document.querySelectorAll('.experience').forEach((event) => {
     // event = .experience (chaque bloc experience)
-    console.log(event)
-
-    const existingActivites = event.lastChild
-    // console.log(existingActivites)
-    const existingActivitesDiv = existingActivites.firstChild
-    if (existingActivitesDiv.lastChild) {
-        existingActivites.classList.add('experience-activite')
+    const existingActivites = document.querySelectorAll('.experience-activite');
+    // pour chaque existingActivites
+    existingActivites.forEach((existingActivite) => {
+        // récupérer la div .form-group la plus proche
+        const existingActivitesDiv = existingActivite.closest('.form-group');
+        // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
+        existingActivitesDiv.classList.add('experience-activite')
+        existingActivitesDiv.style.display = 'flex';
+        existingActivitesDiv.style.alignItems = 'flex-start';
+        existingActivitesDiv.style.margin = '15px 0';
         existingActivitesDiv.innerHTML += (
             '<button type="button" class="btn btn-danger delete-experience-activite">' +
-            '<i class="fa-solid fa-square-minus"></i>' +
-            '</button>'
+            '<i class="fa-solid fa-square-minus"></i>' + '</button>'
         )
-    }
+    })
     // pour chaque bloc experience existant, on ajoute les boutons pour manipuler le form
     event.innerHTML += (
         '<div><button type="button" class="btn btn-primary add-experience-activite">' +
@@ -316,12 +314,10 @@ document.querySelectorAll('.experience').forEach((event) => {
         'Supprimer l\'expérience <i class="fa-solid fa-square-minus"></i>' +
         '</button>'
     )
-
 })
 
 // Fonction pour ajouter un nouveau champ experience
 export function addExperience(event) {
-    console.log(event);
     // Récupération du prototype
     const prototype = document.querySelector('#cv_experience').dataset.prototype;
     // Récupération du nombre d'expériences existantes
@@ -345,8 +341,6 @@ export function addExperience(event) {
 
     // Injection du nouveau bloc experience
     event.parentNode.insertBefore(formGroup, event);
-    console.log(document.querySelectorAll('.experience'));
-
     // Attacher un gestionnaire d'événements au nouveau bouton "delete-experience"
     formGroup.querySelector('.delete-experience').addEventListener('click', function () {
         removeExperience(this);
@@ -368,36 +362,35 @@ if (addButtonExperience) {
 // Fonction pour supprimer un champ experience
 export function removeExperience(event) {
     event.closest('.experience').remove();
-    console.log(event);
 }
 
 // Gestionnaire d'événement pour le bouton de suppression d'un champ experience
 document.querySelectorAll('.delete-experience').forEach(function (event) {
     event.addEventListener('click', function () {
-        console.log(event);
         removeExperience(event);
     });
 });
 
 // Fonction pour ajouter un nouveau champ experience activite
 export function addExperienceActivite(event) {
-    console.log(event);
     const formGroup = document.createElement('div');
     formGroup.classList.add('experience-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
-    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
+    formGroup.style.margin = '15px 0';
+
+
     let index = document.querySelectorAll('.experience-activite').length;
     const experienceElement = event.closest('.experience');
-    if(experienceElement === null) {
+    if (experienceElement === null) {
         // handle error, for example:
         console.error('Could not find parent element with class "experience"');
         return;
     }
     let indexExp = experienceElement.id.split('_')[2];
-    // let indexExp = document.querySelectorAll('.experience').length;
-    // console.log(indexExp);
-    formGroup.innerHTML += '<input type="text" name="cv[experience]['+indexExp+'][activite]['+index+']" id="'+indexExp+'_activite_'+index+'" class="form-control activite">';
+
+    formGroup.innerHTML += '<input type="text" name="cv[experience][' + indexExp + '][activite][' + index + ']" id="' + indexExp + '_activite_' + index + '" class="form-control activite">';
+
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-experience-activite');
@@ -408,7 +401,6 @@ export function addExperienceActivite(event) {
         removeExperienceActivite(button);
     });
     formGroup.appendChild(button);
-    // const addButtonExperienceActivite = document.querySelector('.add-experience-activite');
     event.parentNode.insertBefore(formGroup, event);
 }
 
@@ -437,19 +429,22 @@ export function removeExperienceActivite(button) {
 //-----------------------------------------------------------------------------
 
 document.querySelectorAll('.formation').forEach((event) => {
-    // event = .formation (chaque bloc formation)
-    console.log(event);
-
-    const existingActivites = event.lastChild
-    const existingActivitesDiv = existingActivites.firstChild
-    if (existingActivitesDiv.lastChild) {
-        existingActivites.classList.add('experience-activite')
+    // event = .experience (chaque bloc experience)
+    const existingActivites = document.querySelectorAll('.formation-activite');
+    // pour chaque existingActivites
+    existingActivites.forEach((existingActivite) => {
+        // récupérer la div .form-group la plus proche
+        const existingActivitesDiv = existingActivite.closest('.form-group');
+        // ajouter la classe 'experience-activite' à chaque existingActivitesDiv
+        existingActivitesDiv.classList.add('formation-activite')
+        existingActivitesDiv.style.display = 'flex';
+        existingActivitesDiv.style.alignItems = 'flex-start';
+        existingActivitesDiv.style.margin = '15px 0';
         existingActivitesDiv.innerHTML += (
-            '<button type="button" class="btn btn-danger delete-experience-activite">' +
-            '<i class="fa-solid fa-square-minus"></i>' +
-            '</button>'
+            '<button type="button" class="btn btn-danger delete-formation-activite">' +
+            '<i class="fa-solid fa-square-minus"></i>' + '</button>'
         )
-    }
+    })
     // pour chaque bloc formation existant, on ajoute les boutons pour manipuler le form
     event.innerHTML += (
         '<div><button type="button" class="btn btn-primary add-formation-activite">' +
@@ -464,7 +459,6 @@ document.querySelectorAll('.formation').forEach((event) => {
 
 // Fonction pour ajouter un nouveau champ formation
 export function addFormation(event) {
-    // console.log(event);
     // Récupération du prototype
     const prototype = document.querySelector('#cv_formation').dataset.prototype;
     // Récupération du nombre d'expériences existantes
@@ -488,8 +482,6 @@ export function addFormation(event) {
 
     // Injection du nouveau bloc formation
     event.parentNode.insertBefore(formGroup, event);
-    console.log(document.querySelectorAll('.formation'));
-
     // Attacher un gestionnaire d'événements au nouveau bouton "delete-formation"
     formGroup.querySelector('.delete-formation').addEventListener('click', function () {
         removeFormation(this);
@@ -511,26 +503,34 @@ if (addButtonFormation) {
 // Fonction pour supprimer un champ formation
 export function removeFormation(event) {
     event.closest('.formation').remove();
-    console.log(event);
 }
 
 // Gestionnaire d'événement pour le bouton de suppression d'un champ formation
 document.querySelectorAll('.delete-formation').forEach(function (event) {
     event.addEventListener('click', function () {
-        console.log(event);
         removeFormation(event);
     });
 });
 
 // Fonction pour ajouter un nouveau champ formation activite
 export function addFormationActivite(event) {
-    console.log(event);
     const formGroup = document.createElement('div');
-    formGroup.classList.add('formation-activite');
+    formGroup.classList.add('form-activite');
     formGroup.style.display = 'flex';
     formGroup.style.alignItems = 'flex-start';
-    formGroup.innerHTML += '<label for="activite" class="form-label">Activité</label>';
-    formGroup.innerHTML += '<input type="text" name="activite" id="a" class="form-control">';
+    formGroup.style.margin = '15px 0';
+
+    let index = document.querySelectorAll('.formation-activite').length;
+    const formationElement = event.closest('.formation');
+    if (formationElement === null) {
+        // handle error, for example:
+        console.error('Could not find parent element with class "formation"');
+        return;
+    }
+    let indexF = formationElement.id.split('_')[2];
+
+    formGroup.innerHTML += '<input type="text" name="cv[formation][' + indexF + '][activite][' + index + ']" id="' + indexF + '_activite_' + index + '" class="form-control activite">'
+
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('btn', 'btn-danger', 'delete-formation-activite');
@@ -541,7 +541,6 @@ export function addFormationActivite(event) {
         removeFormationActivite(button);
     });
     formGroup.appendChild(button);
-    // const addButtonFormationActivite = document.querySelector('.add-formation-activite');
     event.parentNode.insertBefore(formGroup, event);
 }
 
@@ -561,5 +560,5 @@ document.querySelectorAll('.delete-formation-activite').forEach(function (button
 
 // Fonction pour supprimer un champ formation
 export function removeFormationActivite(button) {
-    button.closest('.formation-activite').remove();
+    button.closest('div').remove();
 }
