@@ -1,7 +1,7 @@
 <div class="trace_form">
     <article>
 
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {id:'formTrace'}}) }}
         <div class="hidden">
             {{ form_row(form.date_creation) }}
             {{ form_row(form.date_modification) }}
@@ -37,7 +37,8 @@
                     <button type="button" class="btn btn-primary add-image">
                         Ajouter une image <i class="fa fa-square-plus"></i>
                     </button>
-
+                    <div class="contenu-error">
+                    </div>
 
                     <!-- Pdf -->
 
@@ -59,6 +60,8 @@
                     <button type="button" class="btn btn-primary add-pdf">
                         Ajouter un PDF <i class="fa fa-square-plus"></i>
                     </button>
+                    <div class="contenu-error">
+                    </div>
 
                     <!-- Liens -->
 
@@ -70,6 +73,8 @@
                     <button type="button" class="btn btn-primary add-lien">
                         Ajouter un lien <i class="fa fa-square-plus"></i>
                     </button>
+                    <div class="contenu-error">
+                    </div>
 
                     <!-- Videos -->
 
@@ -81,6 +86,9 @@
                     <button type="button" class="btn btn-primary add-video">
                         Ajouter une vidéo <i class="fa fa-square-plus"></i>
                     </button>
+                    <div class="contenu-error">
+                    </div>
+
                 {% endif %}
             </div>
             <div class="col-lg-6 col-12 g-4">
@@ -93,9 +101,11 @@
             </div>
         </div>
         <div>
-            <div class="form_trace_competences">
+            <div class="form_trace_competences competences">
                 <h5>Compétences relatives à cette trace <span style="color: red">*</span></h5>
-                {{ form_row(form.competences) }}
+                {{ form_row(form.competences, {'attr': {id:'competences'}}) }}
+                <div id="zone-error">
+                </div>
             </div>
         </div>
         {{ form_end(form) }}
