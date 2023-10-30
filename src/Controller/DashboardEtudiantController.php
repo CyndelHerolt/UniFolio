@@ -50,7 +50,7 @@ class DashboardEtudiantController extends BaseController
         $usersRepository->findAll();
         $userId = $this->getUser()->getUserIdentifier();
 
-        if ($this->isGranted('ROLE_ETUDIANT')) {
+        if ($this->isGranted('ROLE_ETUDIANT') || $this->isGranted('ROLE_ADMIN')) {
 
             if ($userId === 'etudiant') {
                 return $this->render('dashboard_etudiant/index.html.twig', [
