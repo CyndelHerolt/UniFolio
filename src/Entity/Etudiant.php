@@ -68,6 +68,12 @@ class Etudiant
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Notification::class)]
     private Collection $notifications;
 
+    #[ORM\Column]
+    private ?bool $opt_alternance = null;
+
+    #[ORM\Column]
+    private ?bool $opt_stage = null;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -395,6 +401,30 @@ class Etudiant
                 $notification->setEtudiant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isOptAlternance(): ?bool
+    {
+        return $this->opt_alternance;
+    }
+
+    public function setOptAlternance(bool $opt_alternance): static
+    {
+        $this->opt_alternance = $opt_alternance;
+
+        return $this;
+    }
+
+    public function isOptStage(): ?bool
+    {
+        return $this->opt_stage;
+    }
+
+    public function setOptStage(bool $opt_stage): static
+    {
+        $this->opt_stage = $opt_stage;
 
         return $this;
     }
