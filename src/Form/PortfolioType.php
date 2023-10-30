@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -109,6 +110,19 @@ class PortfolioType extends AbstractType
                 'help' => 'Choisissez la visibilité de votre portfolio',
                 'required' => true,
                 'mapped' => true,
+                'expanded' => true,
+                'multiple' => false,
+            ])
+            ->add('optSearch', ChoiceType::class, [
+                'choices' => [
+                    'Afficher ma recherche d\'alternance ou de stage sur mon portfolio' => true,
+                    'Ne pas afficher ma recherche d\'alternance ou de stage' => false,
+                ],
+                'label' => 'Option alternance ou stage',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
+                'mapped' => true,
+                'help' => 'Un petit badge signalera que vous êtes à la recherche d\'une alternance ou d\'un stage',
                 'expanded' => true,
                 'multiple' => false,
             ])

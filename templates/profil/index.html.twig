@@ -2,18 +2,18 @@
 
 {% block title %}UniFolio - Profil{% endblock %}
     {% block header %}
-{#        {% include "_menu.html.twig" %}#}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 
 {% block body %}
 
     <div class="content-container">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Profil</li>
-        </ol>
-    </nav>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profil</li>
+            </ol>
+        </nav>
         <section class="profil">
             <div class="container my-4">
                 <div class="row g-4">
@@ -23,11 +23,28 @@
                     </div>
                     <div class="col-lg-4 mb-3">
                         <div class="card" style="padding: 1.5rem">
-                            <img src="{{ asset('logo.png') }}" class="card-img-top" alt="{{ prenom }} {{ nom }}" style="max-width: 200px; margin: 0 auto; border-radius: 50%; border: solid 1px #c7c7c7">
+                            {#                            <img src="{{ asset('logo.png') }}" class="card-img-top" alt="{{ prenom }} {{ nom }}" style="max-width: 200px; margin: 0 auto; border-radius: 50%; border: solid 1px #c7c7c7"> #}
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{ prenom }} {{ nom }}</h5>
                                 <p class="text-center">
                                     {{ is_granted('ROLE_ETUDIANT') ? 'Étudiant·e' : 'Enseignant·e' }}</p>
+
+                                {% if is_granted('ROLE_ETUDIANT') %}
+                                    {% if optAlternance == true %}
+                                        <hr>
+                                        <div class="text-center alert alert-info" style="margin: 25px 0">
+                                            <i class="fa-regular fa-eye"></i>
+                                            <span>Recherche une alternance</span>
+                                        </div>
+                                    {% elseif optStage == true %}
+                                        <hr>
+                                        <div class="text-center alert alert-info" style="margin: 25px 0">
+                                            <i class="fa-regular fa-eye"></i>
+                                            <span>Recherche un stage</span>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+
                                 <a href="{{ path('app_profil_edit', {'id': is_granted('ROLE_ETUDIANT') ? app.user.etudiant.id : app.user.enseignant.id}) }}"
                                    class="btn btn-primary w-100">Editer le profil</a>
                             </div>
@@ -42,7 +59,7 @@
                                 <p><i class="fa fa-envelope-open"></i> Mail personnel : {{ email_perso }}</p>
                                 <p><i class="fa fa-phone"></i> Téléphone : {{ tel }}</p>
                                 {% if is_granted('ROLE_ETUDIANT') %}
-                                <p><i class="fa fa-info-circle"></i> Bio : {{ bio }}</p>
+                                    <p><i class="fa fa-info-circle"></i> Bio : {{ bio }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -51,31 +68,31 @@
                                 <h5 class="card-title">Informations Universitaires
                                 </h5>
                                 {% if is_granted('ROLE_ETUDIANT') %}
-                                    <p><i class="fa fa-book"></i> Diplôme
-                                        : {{ data_user.etudiant.semestre.annee.diplome.libelle }}
-                                    </p>
-                                    <p><i class="fa fa-graduation-cap"></i> Semestre
-                                        : {{ data_user.etudiant.semestre.libelle }}</p>
-                                    <p><i class="fa fa-users"></i> Groupes TP :
-                                        {% for tg in data_user.etudiant.semestre.typeGroupes %}
-                                            {% for groupe in tg.groupes %}
+                                <p><i class="fa fa-book"></i> Diplôme
+                                    : {{ data_user.etudiant.semestre.annee.diplome.libelle }}
+                                </p>
+                                <p><i class="fa fa-graduation-cap"></i> Semestre
+                                    : {{ data_user.etudiant.semestre.libelle }}</p>
+                                <p><i class="fa fa-users"></i> Groupes TP :
+                                    {% for tg in data_user.etudiant.semestre.typeGroupes %}
+                                        {% for groupe in tg.groupes %}
                                             {% if "TP" in groupe.typeGroupe.type %}
                                                 {{ groupe.libelle }}
                                             {% endif %}
                                         {% endfor %}
-                                        {% endfor %}
-                                    </p>
+                                    {% endfor %}
+                                </p>
                                 {% else %}
-                                    <p><i class="fa fa-building"></i> Département par défaut :
-                                        {% for dept in data_user.departementDefaut %}
-                                            {{ dept.libelle }}
-                                        {% endfor %}
-                                    </p>
-                                    <p><i class="fa fa-buildings"></i> Départements :
-                                        {% for dept in data_user.allDepartementsEnseignant %}
-                                            {{ dept.libelle }} |
-                                        {% endfor %}
-                                {% endif %}
+                                <p><i class="fa fa-building"></i> Département par défaut :
+                                    {% for dept in data_user.departementDefaut %}
+                                        {{ dept.libelle }}
+                                    {% endfor %}
+                                </p>
+                                <p><i class="fa fa-buildings"></i> Départements :
+                                    {% for dept in data_user.allDepartementsEnseignant %}
+                                        {{ dept.libelle }} |
+                                    {% endfor %}
+                                    {% endif %}
                             </div>
                         </div>
                     </div>

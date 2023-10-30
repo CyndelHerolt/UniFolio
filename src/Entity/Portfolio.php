@@ -56,6 +56,9 @@ class Portfolio
     #[ORM\ManyToOne(inversedBy: 'portfolio')]
     private ?Cv $cv = null;
 
+    #[ORM\Column]
+    private ?bool $opt_search = null;
+
     public function __construct()
     {
         $this->date_creation = new \DateTimeImmutable();
@@ -265,6 +268,18 @@ class Portfolio
     public function setCv(?Cv $cv): static
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function isOptSearch(): ?bool
+    {
+        return $this->opt_search;
+    }
+
+    public function setOptSearch(bool $opt_search): static
+    {
+        $this->opt_search = $opt_search;
 
         return $this;
     }

@@ -43,6 +43,8 @@ class ProfilController extends BaseController
                 $email_univ = $etudiant->getMailUniv();
                 $tel = $etudiant->getTelephone();
                 $bio = $etudiant->getBio();
+                $optAlt = $etudiant->isOptAlternance();
+                $optStage = $etudiant->isOptStage();
             }
         }
         elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
@@ -70,6 +72,8 @@ class ProfilController extends BaseController
             'email_univ' => $email_univ,
             'tel' => $tel,
             'bio' => $bio,
+            'optAlternance' => $optAlt ?? null,
+            'optStage' => $optStage ?? null,
             'groupes' => $groupes ?? null,
             'data_user' => $data_user,
         ]);
@@ -96,6 +100,12 @@ class ProfilController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->isGranted('ROLE_ETUDIANT')) {
+                if ($form->get('optAlternance')->getData() == true && $form->get('optStage')->getData() == true) {
+                    // Si l'étudiant est à la recherche d'une alternance et d'un stage, on ne peut pas valider le formulaire
+                    $this->addFlash('danger', 'Vous ne pouvez pas être à la recherche d\'une alternance et d\'un stage en même temps');
+                    // redirection vers la page d'édition du profil
+                    return $this->redirectToRoute('app_profil_edit', ['id' => $etudiant->getId()], Response::HTTP_SEE_OTHER);
+                }
                 $etudiantRepository->save($etudiant, true);
             } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
                 $enseignantRepository->save($enseignant, true);
