@@ -38,7 +38,7 @@ class Validation
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateModification = null;
 
-    #[ORM\OneToMany(mappedBy: 'validation', targetEntity: Notification::class)]
+    #[ORM\OneToMany(mappedBy: 'validation', targetEntity: Notification::class, cascade: ['persist', 'remove'])]
     private Collection $notifications;
 
     public function __construct()

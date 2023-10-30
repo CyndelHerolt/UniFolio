@@ -35,7 +35,7 @@ class Trace
     #[ORM\ManyToMany(targetEntity: Page::class, mappedBy: 'trace')]
     private Collection $pages;
 
-    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class,cascade: ['persist', 'remove'])]
     private Collection $commentaires;
 
     #[ORM\Column(length: 255, nullable: true)]
