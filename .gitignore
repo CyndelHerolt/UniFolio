@@ -5,6 +5,7 @@
 /public/bundles/
 /var/
 /vendor/
+public/files-directory/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
