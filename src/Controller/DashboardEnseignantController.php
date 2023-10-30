@@ -51,9 +51,9 @@ class DashboardEnseignantController extends BaseController
             $departement = $departementRepository->findDepartementEnseignantDefaut($enseignant);
 
             if ($userId === 'enseignant') {
-                foreach ($departement as $dept) {
-                    $data_user->setDepartement($dept);
-                }
+//                foreach ($departement as $dept) {
+//                    $data_user->setDepartement($dept);
+//                }
                 return $this->render('dashboard_enseignant/index.html.twig', [
                     'admin' => '/admin?_switch_user=_exit',
                     'data_user' => $data_user,
