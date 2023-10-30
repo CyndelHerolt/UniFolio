@@ -72,19 +72,23 @@
                     {{ form_row(form.intitule) }}
 
                     {{ form_label(form.banniere) }}
-                    <div class="alert alert-warning mb-2">
-                        Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter une nouvelle.
+                    <div class="alert alert-warning">
+                        <i class="fa-regular fa-exclamation-triangle"></i>
+                        <span>Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter
+        une nouvelle.</span>
                     </div>
                     {{ form_widget(form.banniere) }}
                     {{ form_help(form.banniere) }}
 
                     {{ form_row(form.description) }}
                     {{ form_label(form.visibilite) }}
-                    <div class="alert alert-warning mb-2">
-                        Il ne peut y avoir qu'un seul portfolio public par année universitaire. Si vous en créez un nouveau, l'ancien sera automatiquement rendu privé
+                    <div class="alert alert-warning">
+                        <i class="fa-regular fa-exclamation-triangle"></i>
+                        <span>Il ne peut y avoir qu'un seul portfolio public par année universitaire. Si vous en créez un nouveau, l'ancien sera automatiquement rendu privé</span>
                     </div>
                     {{ form_widget(form.visibilite) }}
                     {{ form_help(form.visibilite) }}
+                    {{ form_row(form.optSearch) }}
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     {{ form_end(form) }}
 

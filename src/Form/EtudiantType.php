@@ -23,6 +23,8 @@ class EtudiantType extends AbstractType
             ->add('mail_univ')
             ->add('telephone')
             ->add('bio')
+            ->add('optAlternance')
+            ->add('optStage')
 //            ->add('groupe')
 //            ->add('annee_universitaire')
         ;

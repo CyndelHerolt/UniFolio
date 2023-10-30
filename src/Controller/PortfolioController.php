@@ -274,6 +274,12 @@ class PortfolioController extends BaseController
                     $portfolio->setBanniere($_ENV['PATH_FILES'].'/banniere.jpg');
                 }
 
+                if ($form->get('optSearch')->getData() === true) {
+                    $portfolio->setOptSearch(true);
+                } elseif ($form->get('optSearch')->getData() === false) {
+                    $portfolio->setOptSearch(false);
+                }
+
                 if ($form->get('visibilite')->getData() === true) {
                     $portfolios = $portfolioRepository->findBy(['annee' => $annee]);
                     foreach ($portfolios as $otherportfolio) {

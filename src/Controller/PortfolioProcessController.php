@@ -125,7 +125,6 @@ class PortfolioProcessController extends BaseController
                     $form = $this->createForm(PortfolioType::class, $portfolio);
                     $form->handleRequest($request);
                     if ($form->isSubmitted() && $form->isValid()) {
-
                         $imageFile = $form['banniere']->getData();
                         if ($imageFile) {
                             $imageFileName = uniqid() . '.' . $imageFile->guessExtension();
@@ -142,6 +141,12 @@ class PortfolioProcessController extends BaseController
                             $portfolio->setBanniere($portfolio->getBanniere());
                         } else {
                             $portfolio->setBanniere('files_directory/banniere.jpg');
+                        }
+
+                        if ($form->get('optSearch')->getData() === true) {
+                            $portfolio->setOptSearch(true);
+                        } elseif ($form->get('optSearch')->getData() === false) {
+                            $portfolio->setOptSearch(false);
                         }
 
                         if ($form->get('visibilite')->getData() === true) {
