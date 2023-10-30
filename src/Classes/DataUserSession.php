@@ -92,9 +92,6 @@ class DataUserSession
         $this->etudiant = $etudiant;
 
         if ($enseignant) {
-            if ($enseignant->getUsername() === 'enseignant') {
-                $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
-            }
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
             $this->allDepartements = $this->departementRepository->findDepartementEnseignant($enseignant);
             if (null !== $this->departement) {
@@ -110,19 +107,6 @@ class DataUserSession
                 $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
             }
         } elseif ($etudiant) {
-            if ($etudiant->getUsername() === 'etudiant') {
-                $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
-                $this->semestres = $this->semestreRepository->findByDepartement($this->departement);
-                $this->semestresActifs = [];
-                foreach ($this->semestres as $semestre) {
-                    if ($semestre->isActif()) {
-                        $this->semestresActifs[] = $semestre;
-                    }
-                }
-                $this->diplomes = $this->diplomeRepository->findByDepartement($this->departement);
-                $this->annees = $this->anneeRepository->findByDepartement($this->departement);
-                $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
-            }
             $this->departement = $this->departementRepository->findOneBy(['id' => $session->get('departement')]);
             // TODO: récupérer seulement les données propres à l'étudiant
             $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
@@ -130,6 +114,24 @@ class DataUserSession
 
         } else {
             throw new AccessDeniedException('Vous n\'avez pas accès à cette page');
+        }
+
+        //Si l'utilisateur connecté a les roles admin et enseignant, on set son département defaut à true dans la table enseignant_departement
+        if ($enseignant && $enseignant->getUsername() === 'enseignant') {
+            $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
+
+        } elseif ($etudiant && $etudiant->getUsername() === 'etudiant') {
+            $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
+            $this->semestres = $this->semestreRepository->findByDepartement($this->departement);
+            $this->semestresActifs = [];
+            foreach ($this->semestres as $semestre) {
+                if ($semestre->isActif()) {
+                    $this->semestresActifs[] = $semestre;
+                }
+            }
+            $this->diplomes = $this->diplomeRepository->findByDepartement($this->departement);
+            $this->annees = $this->anneeRepository->findByDepartement($this->departement);
+            $this->typesGroupes = $this->typeGroupeRepository->findByDepartementSemestresActifs($this->departement);
         }
     }
 
