@@ -48,7 +48,7 @@ class BilanPedagogiqueController extends BaseController
 
             //Récupérer les portfolios de l'utilisateur connecté
             $etudiant = $this->security->getUser()->getEtudiant();
-            $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant]);
+            $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant, 'visibilite' => true]);
 
             $evaluatedTraces = 0;
 
