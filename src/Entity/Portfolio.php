@@ -35,7 +35,7 @@ class Portfolio
     #[ORM\ManyToOne(inversedBy: 'portfolios')]
     private ?Etudiant $etudiant = null;
 
-    #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: Commentaire::class, cascade: ['persist', 'remove'])]
     private Collection $commentaires;
 
     #[ORM\Column]
