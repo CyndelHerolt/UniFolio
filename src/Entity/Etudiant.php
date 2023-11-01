@@ -69,10 +69,10 @@ class Etudiant
     private Collection $notifications;
 
     #[ORM\Column]
-    private ?bool $opt_alternance = null;
+    private ?bool $opt_alternance = false;
 
     #[ORM\Column]
-    private ?bool $opt_stage = null;
+    private ?bool $opt_stage = false;
 
     public function __construct()
     {
