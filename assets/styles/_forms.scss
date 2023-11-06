@@ -278,6 +278,7 @@ label.required::after {
 
 #formTrace {
   display: flex;
+    flex-direction: column;
 }
 
 .portfolio_form {

@@ -95,9 +95,13 @@ footer {
 
 @media screen and (min-width: 992px) {
 
-  .alert {
+  .alert-popup {
     z-index: 1001;
-    //margin-left: 110px;
+    margin-left: 110px;
+  }
+  .alert-success {
+    z-index: 1001;
+    margin-left: 110px;
   }
 
   .toggler {
