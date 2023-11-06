@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('enseignant')]
 class BilanEvalController extends BaseController
 {
-    #[Route('/bilan/eval', name: 'app_bilan_eval')]
+    #[Route('/bilan-pedagogique/eval', name: 'app_bilan_eval')]
     public function index(): Response
     {
         $data_user = $this->dataUserSession;
