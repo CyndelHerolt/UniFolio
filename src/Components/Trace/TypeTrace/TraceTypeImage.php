@@ -8,6 +8,7 @@ namespace App\Components\Trace\TypeTrace;
 
 use App\Components\Trace\Form\TraceTypeImageType;
 use App\Repository\TraceRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class TraceTypeImage extends AbstractTrace implements TraceInterface
@@ -20,10 +21,11 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
     final public const ID = '1';
     private $params;
 
-    public function __construct(protected TraceRepository $traceRepository, ParameterBagInterface $params)
+    public function __construct(protected TraceRepository $traceRepository, ParameterBagInterface $params, LoggerInterface $logger)
     {
         $this->type_trace = 'TraceTypeImage';
         $this->params = $params;
+        $this->logger = $logger;
     }
 
     public function display(): string
@@ -66,6 +68,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
                     $contenu[] = $_ENV['SRC_FILES'].'/'.$imageFileName;
+
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);
