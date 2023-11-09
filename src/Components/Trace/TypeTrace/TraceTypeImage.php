@@ -73,6 +73,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                     $this->logger->error($imageFileName);
                     $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
 
+
                     $contenu[] = $_ENV['PATH_FILES'].'/'.$imageFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
