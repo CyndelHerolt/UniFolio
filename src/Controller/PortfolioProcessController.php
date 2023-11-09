@@ -109,11 +109,11 @@ class PortfolioProcessController extends BaseController
 
                 case 'deleteBanniere':
                     $banniere = $portfolio->getBanniere();
-                    if ($banniere != 'files_directory/banniere.jpg') {
+                    if ($banniere != $_ENV['SRC_FILES'] . '/banniere.jpg') {
                         unlink($banniere);
                     }
                     // bannière par défaut
-                    $portfolio->setBanniere('files_directory/banniere.jpg');
+                    $portfolio->setBanniere($_ENV['SRC_FILES'] . '/banniere.jpg');
                     $portfolioRepository->save($portfolio, true);
                     return $this->redirectToRoute('app_portfolio_process_step', [
                         'id' => $portfolio->getId(),
@@ -131,16 +131,16 @@ class PortfolioProcessController extends BaseController
                             //Vérifier si le fichier est au bon format
                             if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                                 //Déplacer le fichier dans le dossier déclaré sous le nom files_directory dans services.yaml
-                                $imageFile->move('files_directory', $imageFileName);
+                                $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
                                 //Sauvegarder le contenu dans la base de données
-                                $portfolio->setBanniere('files_directory' . '/' . $imageFileName);
+                                $portfolio->setBanniere($_ENV['SRC_FILES'] . '/' . $imageFileName);
                             } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                                 $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                             }
-                        } elseif ($portfolio->getBanniere() != 'files_directory/banniere.jpg') {
+                        } elseif ($portfolio->getBanniere() != $_ENV['SRC_FILES'] . '/banniere.jpg') {
                             $portfolio->setBanniere($portfolio->getBanniere());
                         } else {
-                            $portfolio->setBanniere('files_directory/banniere.jpg');
+                            $portfolio->setBanniere($_ENV['SRC_FILES'] . '/banniere.jpg');
                         }
 
                         if ($form->get('optSearch')->getData() === true) {

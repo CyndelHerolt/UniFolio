@@ -266,12 +266,12 @@ class PortfolioController extends BaseController
                         //Déplacer le fichier dans le dossier déclaré sous le nom$this->>$this->getParameter('PATH_FILES' . dans services.yaml
                         $imageFile->move($_ENV['PATH_FILES'].'', $imageFileName);
 //                //Sauvegarder le contenu dans la base de données
-                        $portfolio->setBanniere($_ENV['PATH_FILES'].'/'.$imageFileName);
+                        $portfolio->setBanniere($_ENV['SRC_FILES'].'/'.$imageFileName);
                     } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                         $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                     }
                 } else {
-                    $portfolio->setBanniere($_ENV['PATH_FILES'].'/banniere.jpg');
+                    $portfolio->setBanniere($_ENV['SRC_FILES'].'/banniere.jpg');
                 }
 
                 if ($form->get('optSearch')->getData() === true) {
@@ -321,7 +321,7 @@ class PortfolioController extends BaseController
 
             $portfolioRepository->remove($portfolio, true);
             $document = $portfolio->getBanniere();
-            if ($document !== $_ENV['PATH_FILES'].'/banniere.jpg') {
+            if ($document !== $_ENV['SRC_FILES'].'/banniere.jpg') {
                 unlink($document);
             }
             $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
