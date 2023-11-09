@@ -322,6 +322,9 @@ class PortfolioController extends BaseController
             $portfolioRepository->remove($portfolio, true);
             $document = $portfolio->getBanniere();
             if ($document !== $_ENV['SRC_FILES'].'/banniere.jpg') {
+                $document = substr($document, strrpos($document, '/') + 1);
+                $document = $_ENV['PATH_FILES'] . '/' . $document;
+
                 unlink($document);
             }
             $this->addFlash('success', 'Le Portfolio a été supprimé avec succès');
