@@ -13,33 +13,33 @@
                 </div>
             {% endif %}
             <h5>Compétences</h5>
-                <ul class="portfolio-competences">
-                    {% for validation in trace.validations %}
-                        <li>
-                            <div>
-                                                   <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                                    {{ validation.apcNiveau.competences.nomCourt }}
-                                                       </span> •
-                                {{ validation.apcNiveau.libelle }}
-                            </div>
-                            {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
-                                                             style="color: #4c008b"></i>
-                            {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
-                                                                 style="color: red"></i>
-                            {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
-                                                                 style="color: orange"></i>
-                            {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
-                                                                 style="color: limegreen"></i>
-                            {% endif %}
-                        </li>
-                        {% if validation.etat == 0 %}
-                            <p>En attente de validation</p>
-                        {% else %}
-                            <p>Evaluation saisie par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
-                                le {{ validation.dateModification|date('d-m-y') }}</p>
+            <ul class="portfolio-competences">
+                {% for validation in trace.validations %}
+                    <li>
+                        <div>
+                            <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                {{ validation.apcNiveau.competences.nomCourt }}
+                            </span> •
+                            {{ validation.apcNiveau.libelle }}
+                        </div>
+                        {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                         style="color: #4c008b"></i>
+                        {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                             style="color: red"></i>
+                        {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                             style="color: orange"></i>
+                        {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                             style="color: limegreen"></i>
                         {% endif %}
-                    {% endfor %}
-                </ul>
+                    </li>
+                    {% if validation.etat == 0 %}
+                        <p>En attente de validation</p>
+                    {% else %}
+                        <p>Evaluation saisie par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
+                            le {{ validation.dateModification|date('d-m-y') }}</p>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </div>
 
         <div class="step-trace-actions col-2">
@@ -86,7 +86,7 @@
                             <div class="row g-2 trace-galerie-img">
                                 {% for img in trace.contenu %}
                                     <div class="col-lg-6 col-12">
-                                        <img src="/{{ img }}" alt="image de la trace">
+                                        <img src="{{ img }}" alt="image de la trace">
                                     </div>
                                 {% endfor %}
                                 <figcaption>{{ trace.legende }}</figcaption>
@@ -105,18 +105,16 @@
                             </div>
                         </figure>
                     {% elseif 'TraceTypePdf' in trace.typeTrace %}
-                        {% for pdf in trace.contenu %}
-                            <figure>
-                                <div class="row g-2 trace-galerie-img">
-                                    {% for img in trace.contenu %}
-                                        <div class="col-lg-6 col-12">
-                                            <iframe src="/{{ pdf }}" width="100%" height="500px"></iframe>
-                                        </div>
-                                    {% endfor %}
-                                    <figcaption>{{ trace.legende }}</figcaption>
-                                </div>
-                            </figure>
-                        {% endfor %}
+                        <figure>
+                            <div class="row g-2 trace-galerie-img">
+                                {% for pdf in trace.contenu %}
+                                    <div class="col-lg-6 col-12">
+                                        <iframe src="{{ pdf }}" width="100%" height="500px"></iframe>
+                                    </div>
+                                {% endfor %}
+                                <figcaption>{{ trace.legende }}</figcaption>
+                            </div>
+                        </figure>
                     {% elseif 'TraceTypeVideo' in trace.typeTrace %}
                         <figure>
                             <div class="row g-2 trace-galerie-img">
@@ -139,22 +137,25 @@
                         {% for validation in trace.validations %}
                             <li>
                                 <div>
-                                                   <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                                    {{ validation.apcNiveau.competences.nomCourt }}
-                                                       </span> •
+                                    <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                        {{ validation.apcNiveau.competences.nomCourt }}
+                                    </span> •
                                     {{ validation.apcNiveau.libelle }}
                                 </div>
                                 {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
                                                                  style="color: #4c008b"></i>
                                 {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark" style="color: red"></i>
-                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up" style="color: orange"></i>
-                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check" style="color: limegreen"></i>
+                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                     style="color: orange"></i>
+                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                     style="color: limegreen"></i>
                                 {% endif %}
                             </li>
                             {% if validation.etat == 0 %}
                                 <p>En attente de validation</p>
                             {% else %}
-                                <p>Evaluation saisie par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
+                                <p>Evaluation saisie
+                                    par {{ validation.enseignant.prenom }} {{ validation.enseignant.nom }}
                                     le {{ validation.dateModification|date('d-m-y') }}</p>
                             {% endif %}
                         {% endfor %}
