@@ -145,7 +145,7 @@
         {% for contenu in this.trace.contenu %}
             {% if 'TraceTypeImage' in this.trace.typeTrace %}
                 {% for image in contenu %}
-                    <img src="/{{ image }}" alt="image" style="width: 100%">
+                    <img src="{{ image }}" alt="image" style="width: 100%">
                 {% endfor %}
             {% elseif 'TraceTypeLien' in this.trace.typeTrace %}
                 <a href="{{ contenu }}">
