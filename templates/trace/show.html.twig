@@ -3,20 +3,20 @@
 {% block title %}UniFolio - Portfolio{% endblock %}
 
     {% block header %}
-{#        {% include "_menu.html.twig" %}#}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 
 {% block body %}
 
     <div class="content-container traces">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
-            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_trace') }}">Bibliothèque de
-                    traces</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ trace.titre }}</li>
-        </ol>
-    </nav>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_trace') }}">Bibliothèque de
+                        traces</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ trace.titre }}</li>
+            </ol>
+        </nav>
 
         <section class="trace-show">
             <div class=" trace-content card">
@@ -54,18 +54,16 @@
                         </div>
                     </figure>
                 {% elseif 'TraceTypePdf' in trace.typeTrace %}
-                    {% for pdf in trace.contenu %}
-                        <figure>
-                            <div class="row g-2 trace-galerie-img">
-                                {% for pdf in trace.contenu %}
-                                    <div class="col-lg-6 col-12">
-                                        <iframe src="{{ pdf }}" width="100%" height="500px"></iframe>
-                                    </div>
-                                {% endfor %}
-                                <figcaption>{{ trace.legende }}</figcaption>
-                            </div>
-                        </figure>
-                    {% endfor %}
+                    <figure>
+                        <div class="row g-2 trace-galerie-img">
+                            {% for pdf in trace.contenu %}
+                                <div class="col-lg-6 col-12">
+                                    <iframe src="{{ pdf }}" width="100%" height="500px"></iframe>
+                                </div>
+                            {% endfor %}
+                            <figcaption>{{ trace.legende }}</figcaption>
+                        </div>
+                    </figure>
                 {% elseif 'TraceTypeVideo' in trace.typeTrace %}
                     <figure>
                         <div class="row g-2 trace-galerie-img">

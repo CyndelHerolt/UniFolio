@@ -81,7 +81,6 @@
                                 </div>
                             </figure>
                         {% elseif 'TraceTypePdf' in this.trace.typeTrace %}
-                            {% for pdf in this.trace.contenu %}
                                 <figure>
                                     <div class="row g-2 trace-galerie-img">
                                         {% for pdf in this.trace.contenu %}
@@ -92,7 +91,6 @@
                                         <figcaption>{{ this.trace.legende }}</figcaption>
                                     </div>
                                 </figure>
-                            {% endfor %}
                         {% elseif 'TraceTypeVideo' in this.trace.typeTrace %}
                             <figure>
                                 <div class="row g-2 trace-galerie-img">
