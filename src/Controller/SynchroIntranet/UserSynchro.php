@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller\SynchroIntranet;
 
 use App\Entity\Bibliotheque;
@@ -40,43 +41,43 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/etudiant',
+            $_ENV['API_URL'] . 'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                     'x-api-key' => $this->getParameter('api_key')
                 ],
-                    'query' => [
-                        'username' => $login
-                    ]
+                'query' => [
+                    'username' => $login
+                ]
             ]
         );
 
         $response = $response->toArray();
 
-            if (in_array($login, array_column($response, 'username'))) {
-                //Sélectionner l'etudiant dans le tableau
-                $etudiant = array_filter($response, function ($etudiant) use ($login) {
-                    return $etudiant['username'] === $login;
-                });
-                foreach ($etudiant as $data) {
-                    $mailEtudiant = $data['mail_univ'];
-                    $signatureComponents = $verifyEmailHelper->generateSignature(
-                        'app_verify_email',
-                        $data['username'],
-                        $data['mail_univ'],
-                        ['id' => $data['username']]
-                    );
-                    $mailerService->sendMail(
-                        $mailEtudiant,
-                        'Vérification de compte UniFolio',
-                        'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
-                    );
-                }
-                return true;
+        if (in_array($login, array_column($response, 'username'))) {
+            //Sélectionner l'etudiant dans le tableau
+            $etudiant = array_filter($response, function ($etudiant) use ($login) {
+                return $etudiant['username'] === $login;
+            });
+            foreach ($etudiant as $data) {
+                $mailEtudiant = $data['mail_univ'];
+                $signatureComponents = $verifyEmailHelper->generateSignature(
+                    'app_verify_email',
+                    $data['username'],
+                    $data['mail_univ'],
+                    ['id' => $data['username']]
+                );
+                $mailerService->sendMail(
+                    $mailEtudiant,
+                    'Vérification de compte UniFolio',
+                    'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
+                );
             }
-            return false;
+            return true;
+        }
+        return false;
     }
 
     #[Route('/api/intranet/etudiant', name: 'app_get_email_intranet_etudiant')]
@@ -88,7 +89,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/etudiant',
+            $_ENV['API_URL'] . 'unifolio/etudiant',
 //            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
@@ -104,18 +105,18 @@ class UserSynchro extends AbstractController
 
         $response = $response->toArray();
 
-            if (in_array($login, array_column($response, 'username'))) {
-                //Sélectionner l'etudiant dans le tableau
-                $etudiant = array_filter($response, function ($etudiant) use ($login) {
-                    return $etudiant['username'] === $login;
-                });
-                foreach ($etudiant as $data) {
-                    // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
-                    $mailEtudiant = $data['mail_univ'];
-                    }
-                return $mailEtudiant;
+        if (in_array($login, array_column($response, 'username'))) {
+            //Sélectionner l'etudiant dans le tableau
+            $etudiant = array_filter($response, function ($etudiant) use ($login) {
+                return $etudiant['username'] === $login;
+            });
+            foreach ($etudiant as $data) {
+                // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
+                $mailEtudiant = $data['mail_univ'];
             }
-            return false;
+            return $mailEtudiant;
+        }
+        return false;
     }
 
     #[Route('/api/intranet/etudiant', name: 'app_synchro_intranet_etudiant')]
@@ -132,7 +133,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/etudiant',
+            $_ENV['API_URL'] . 'unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -147,38 +148,38 @@ class UserSynchro extends AbstractController
 
         $response = $response->toArray();
 
-            if (in_array($login, array_column($response, 'username'))) {
-                //Sélectionner l'etudiant dans le tableau
-                $etudiant = array_filter($response, function ($etudiant) use ($login) {
-                    return $etudiant['username'] === $login;
-                });
-                foreach ($etudiant as $data) {
-                    $semestre = $semestreRepository->findOneBy(['libelle' => $data['semestre']]);
-                    // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
-                    $newEtudiant = new Etudiant();
-                    $newEtudiant->setUsers($user);
-                    $biblio = new Bibliotheque();
-                    $biblio->setEtudiant($newEtudiant);
-                    $newEtudiant->setNom($data['nom']);
-                    $newEtudiant->setPrenom($data['prenom']);
-                    $newEtudiant->setUsername($data['username']);
-                    $newEtudiant->setMailUniv($data['mail_univ']);
-                    $newEtudiant->setMailPerso($data['mail_perso']);
-                    $newEtudiant->setTelephone($data['telephone']);
-                    $newEtudiant->setSemestre($semestre);
+        if (in_array($login, array_column($response, 'username'))) {
+            //Sélectionner l'etudiant dans le tableau
+            $etudiant = array_filter($response, function ($etudiant) use ($login) {
+                return $etudiant['username'] === $login;
+            });
+            foreach ($etudiant as $data) {
+                $semestre = $semestreRepository->findOneBy(['libelle' => $data['semestre']]);
+                // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
+                $newEtudiant = new Etudiant();
+                $newEtudiant->setUsers($user);
+                $biblio = new Bibliotheque();
+                $biblio->setEtudiant($newEtudiant);
+                $newEtudiant->setNom($data['nom']);
+                $newEtudiant->setPrenom($data['prenom']);
+                $newEtudiant->setUsername($data['username']);
+                $newEtudiant->setMailUniv($data['mail_univ']);
+                $newEtudiant->setMailPerso($data['mail_perso']);
+                $newEtudiant->setTelephone($data['telephone']);
+                $newEtudiant->setSemestre($semestre);
 //                    dd($data['groupes']);
-                    foreach ($data['groupes'] as $groupe) {
-                        $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
-                        $newEtudiant->addGroupe($groupe);
-                    }
-                    $etudiantRepository->save($newEtudiant, true);
-                    $bibliothequeRepository->save($biblio, true);
+                foreach ($data['groupes'] as $groupe) {
+                    $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
+                    $newEtudiant->addGroupe($groupe);
                 }
-                return true;
-            } else {
-                return false;
+                $etudiantRepository->save($newEtudiant, true);
+                $bibliothequeRepository->save($biblio, true);
             }
+            return true;
+        } else {
+            return false;
         }
+    }
 
     #[Route('/api/intranet/enseignant', name: 'app_email_intranet_enseignant')]
     public function checkEmailEnseignant(
@@ -191,7 +192,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/enseignant',
+            $_ENV['API_URL'] . 'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -235,7 +236,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/enseignant',
+            $_ENV['API_URL'] . 'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -277,7 +278,7 @@ class UserSynchro extends AbstractController
 
         $response = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/enseignant',
+            $_ENV['API_URL'] . 'unifolio/enseignant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -322,4 +323,134 @@ class UserSynchro extends AbstractController
         }
 
     }
+
+    #[Route('/api/intranet/etudiant/update', name: 'app_update_intranet_etudiant')]
+    public function updateEtudiant(
+        HttpClientInterface $client,
+        EtudiantRepository  $etudiantRepository,
+        GroupeRepository    $groupeRepository,
+        SemestreRepository  $semestreRepository,
+    )
+    {
+        $etudiants = $etudiantRepository->findAll();
+
+        foreach ($etudiants as $etudiant) {
+
+            $login = $etudiant->getUsername();
+
+            if ($login !== 'etudiant') {
+
+                $response = $client->request(
+                    'GET',
+                    $_ENV['API_URL'] . 'unifolio/etudiant',
+                    [
+                        'headers' => [
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json',
+                            'x-api-key' => $this->getParameter('api_key')
+                        ],
+                        'query' => [
+                            'username' => $login
+                        ]
+                    ]
+                );
+
+                $response = $response->toArray();
+
+                if (in_array($login, array_column($response, 'username'))) {
+                    //Sélectionner l'etudiant dans le tableau
+                    $etudiantSelected = array_filter($response, function ($etudiantSelected) use ($login) {
+                        return $etudiantSelected['username'] === $login;
+                    });
+                    foreach ($etudiantSelected as $data) {
+                        $semestre = $semestreRepository->findOneBy(['libelle' => $data['semestre']]);
+                        // update etudiant dans la base de données avec les données de $etudiantSelected
+                        $etudiant->setNom($data['nom']);
+                        $etudiant->setPrenom($data['prenom']);
+                        $etudiant->setUsername($data['username']);
+                        $etudiant->setMailUniv($data['mail_univ']);
+                        $etudiant->setMailPerso($data['mail_perso']);
+                        $etudiant->setTelephone($data['telephone']);
+                        $etudiant->setSemestre($semestre);
+                        // retirer les groupes de l'étudiant
+                        foreach ($etudiant->getGroupe() as $grp) {
+                            $etudiant->removeGroupe($grp);
+                        }
+                        foreach ($data['groupes'] as $groupe) {
+                            $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
+                            $etudiant->addGroupe($groupe);
+                        }
+                        $etudiantRepository->save($etudiant, true);
+                    }
+                }
+            }
+        }
+        $this->addFlash('success', 'Les données ont bien été mises à jour.');
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    #[Route('/api/intranet/enseignant/update', name: 'app_update_intranet_enseignant')]
+    public function updateEnseignant(
+        HttpClientInterface   $client,
+        EnseignantRepository  $enseignantRepository,
+        DepartementRepository $departementRepository,
+    )
+    {
+        $enseignants = $enseignantRepository->findAll();
+
+        foreach ($enseignants as $enseignant) {
+            $login = $enseignant->getUsername();
+
+            if ($login !== 'enseignant') {
+
+                $response = $client->request(
+                    'GET',
+                    $_ENV['API_URL'] . 'unifolio/enseignant',
+                    [
+                        'headers' => [
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json',
+                            'x-api-key' => $this->getParameter('api_key')
+                        ],
+                        'query' => [
+                            'username' => $login
+                        ]
+                    ]
+                );
+
+                $response = $response->toArray();
+
+                if (in_array($login, array_column($response, 'username'))) {
+                    //Sélectionner l'enseignant dans le tableau
+                    $enseignantSelected = array_filter($response, function ($enseignantSelected) use ($login) {
+                        return $enseignantSelected['username'] === $login;
+                    });
+                    foreach ($enseignantSelected as $data) {
+                        $enseignant->setNom($data['nom']);
+                        $enseignant->setPrenom($data['prenom']);
+                        $enseignant->setUsername($data['username']);
+                        $enseignant->setMailUniv($data['mail_univ']);
+                        $enseignant->setMailPerso($data['mail_perso']);
+                        $enseignant->setTelephone($data['telephone']);
+                        foreach ($data['departements'] as $departement) {
+                            $departement = $departementRepository->findOneBy(['libelle' => $departement]);
+                            if ($departement) {
+                                // retirer les departements de l'enseignant
+                                // todo: à revoir
+//                                foreach ($enseignant->getEnseignantDepartements() as $dept) {
+//                                    $enseignant->removeEnseignantDepartement($dept);
+//                                }
+                                $enseignantDepartement = new EnseignantDepartement($enseignant, $departement);
+                                $enseignant->AddEnseignantDepartement($enseignantDepartement);
+                            }
+                        }
+                        $enseignantRepository->save($enseignant, true);
+                    }
+                }
+            }
+        }
+        $this->addFlash('success', 'Les données ont bien été mises à jour.');
+        return $this->redirectToRoute('app_dashboard');
+    }
+
 }
