@@ -14,16 +14,16 @@
 
                 <div class="portfolio-trace-contenu">
                     {% if 'TraceTypeImage' in trace.typeTrace %}
-                        <figure>
-                            <div class="row g-2 trace-galerie-img">
-                                {% for img in trace.contenu %}
+                        {% for img in trace.contenu %}
+                            <figure>
+                                <div class="row g-2 trace-galerie-img">
                                     <div class="col-lg-6 col-12">
                                         <img src="{{ img }}" alt="image de la trace">
                                     </div>
-                                {% endfor %}
-                                <figcaption>{{ trace.legende }}</figcaption>
-                            </div>
-                        </figure>
+                                    <figcaption>{{ trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+                        {% endfor %}
 
                     {% elseif 'TraceTypeLien' in trace.typeTrace %}
                         <figure>
