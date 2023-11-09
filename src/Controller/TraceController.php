@@ -375,6 +375,10 @@ class TraceController extends BaseController
             if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {
                 $document = $trace->getContenu();
                 foreach ($document as $doc) {
+                    // $doc a cette forme : "/www-datas/654cde5bdd981.png" mais le "www-datas" et le nom du fichier peuvent changer, je ne veux récupérer que le nom du fichier
+                    $doc = substr($doc, strrpos($doc, '/') + 1);
+                    // construire le chemin du fichier à supprimer avec $_ENV['PATH_FILES'] et le nom du fichier
+                    $doc = $_ENV['PATH_FILES'] . '/' . $doc;
                     unlink($doc);
                 }
             }
