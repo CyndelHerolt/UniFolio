@@ -24,3 +24,5 @@ import 'highlight.js/styles/atom-one-dark.css';
 // import '@symfony/ux-live-component/dist/live.css';
 
 import './js/dataTables.init';
+
+import './prism.js';

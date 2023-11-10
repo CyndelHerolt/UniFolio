@@ -41,7 +41,7 @@ export default class extends Controller {
             skin: "oxide",
             content_css: "default",
             plugins: 'link image code',
-            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | code',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             menubar: 'edit view format table tools help'
         });
     }

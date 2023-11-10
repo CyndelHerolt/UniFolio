@@ -71,9 +71,9 @@
 </div>
 
 
-<div class="modal fade" id="showStaticBackdrop{{ trace.id }}" data-bs-backdrop="static"
+<div class="modal" id="showStaticBackdrop{{ trace.id }}" data-bs-backdrop="static"
      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">{{ trace.titre }}</h5>
@@ -131,7 +131,9 @@
                         </figure>
                     {% endif %}
 
+                    <div>
                     {{ trace.description|raw }}
+                    </div>
 
                     <ul class="portfolio-competences">
                         {% for validation in trace.validations %}
