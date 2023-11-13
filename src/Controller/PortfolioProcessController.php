@@ -493,21 +493,18 @@ class PortfolioProcessController extends BaseController
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
 
-                    $dept = $this->dataUserSession->getDepartement();
-
-                    $referentiel = $dept->getApcReferentiels();
-
-                    $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-                    foreach ($competences as $competence) {
-                        $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-                    }
-
-                    foreach ($niveaux as $niveau) {
-                        foreach ($niveau as $niv) {
-                            $competencesNiveau[] = $niv->getLibelle();
+                    $groupe = $user->getGroupe();
+                    foreach ($groupe as $g) {
+                        if ($g->getTypeGroupe()->getType() === 'TD') {
+                            $parcours = $g->getApcParcours();
                         }
                     }
+
+                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                    foreach ($niveaux as $niveau) {
+                        $competencesNiveau[] = $niveau->getLibelle();
+                    }
+
 
                     $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
 
@@ -565,21 +562,18 @@ class PortfolioProcessController extends BaseController
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
 
-                    $dept = $this->dataUserSession->getDepartement();
-
-                    $referentiel = $dept->getApcReferentiels();
-
-                    $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-                    foreach ($competences as $competence) {
-                        $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-                    }
-
-                    foreach ($niveaux as $niveau) {
-                        foreach ($niveau as $niv) {
-                            $competencesNiveau[] = $niv->getLibelle();
+                    $groupe = $user->getGroupe();
+                    foreach ($groupe as $g) {
+                        if ($g->getTypeGroupe()->getType() === 'TD') {
+                            $parcours = $g->getApcParcours();
                         }
                     }
+
+                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                    foreach ($niveaux as $niveau) {
+                        $competencesNiveau[] = $niveau->getLibelle();
+                    }
+
 
                     $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
                     $form->handleRequest($request);
