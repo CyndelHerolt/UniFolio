@@ -376,12 +376,10 @@ class PortfolioProcessController extends BaseController
                         $trace->setBibliotheque($biblio);
                     }
 
-                    $ordre = 1;
-                    // ajouter 1 à l'ordre de toutes les traces de la page
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page]);
-                    foreach ($ordreTraces as $ordreTrace) {
-                        $ordreTrace->setOrdre($ordreTrace->getOrdre() + 1);
-                    }
+                    $ordre = count($ordreTraces) + 1;
+
+
                     $newOrdreTrace = new OrdreTrace();
                     $newOrdreTrace->setOrdre($ordre);
                     $newOrdreTrace->setTrace($trace);
