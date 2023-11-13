@@ -41,6 +41,9 @@ class ApcParcours
     #[ORM\ManyToMany(targetEntity: ApcNiveau::class, mappedBy: 'apcParcours')]
     private Collection $apcNiveaux;
 
+    #[ORM\Column]
+    private ?bool $formationContinue = null;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
@@ -191,6 +194,18 @@ class ApcParcours
         if ($this->apcNiveaux->removeElement($apcNiveau)) {
             $apcNiveau->removeApcParcour($this);
         }
+
+        return $this;
+    }
+
+    public function isFormationContinue(): ?bool
+    {
+        return $this->formationContinue;
+    }
+
+    public function setFormationContinue(bool $formationContinue): static
+    {
+        $this->formationContinue = $formationContinue;
 
         return $this;
     }

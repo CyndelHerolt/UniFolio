@@ -500,6 +500,7 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
+                    $competencesNiveau = [];
                     $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
                     foreach ($niveaux as $niveau) {
                         $competencesNiveau[] = $niveau->getLibelle();
