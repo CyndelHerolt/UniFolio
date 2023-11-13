@@ -451,8 +451,8 @@ final class AllTraceEvalComponent extends BaseController
     {
 
         $dept = $this->dataUserSession->getDepartement();
-        $offset = ($this->currentPage - 1) * $this->itemsPerPage;
-        $traces = $this->traceRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants, $offset, $this->itemsPerPage);
+
+        $traces = $this->traceRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants);
 
         if ($traces == null) {
             $this->currentPage = 0;

@@ -59,7 +59,7 @@ class TraceRepository extends ServiceEntityRepository
     }
 
     // todo: pblm avec le paramètre $semestre -> ne pas passer par le typeGroupe ?
-    public function findByFilters($dept, Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], $offset = null, $limit = null): array
+    public function findByFilters($dept, Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = []): array
     {
         $qb = $this->createQueryBuilder('t')
             ->innerJoin('t.validations', 'v')
@@ -90,10 +90,6 @@ class TraceRepository extends ServiceEntityRepository
         if (!empty($etudiants)) {
             $qb->andWhere('e.id IN (:etudiants)')
                 ->setParameter('etudiants', $etudiants);
-        }
-        if($offset !== null && $limit !== null){
-            $qb->setFirstResult($offset)
-                ->setMaxResults($limit);
         }
         $qb->distinct('t.id');
 
