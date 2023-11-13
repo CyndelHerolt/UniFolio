@@ -18,7 +18,6 @@
             <div class="col-lg-6 col-12 g-4">
                 {% if 'TraceTypeImage' in trace.typeTrace %}
                     <label class="form-label required">Image.s</label>
-                    {% if '/edit' in app.request.uri %}
                         <div class="galerie">
                             {% for data in trace.contenu %}
                                 <div class="image_trace_div">
@@ -32,7 +31,6 @@
                                 </div>
                             {% endfor %}
                         </div>
-                    {% endif %}
                     <br>
                     <button type="button" class="btn btn-primary add-image">
                         Ajouter une image <i class="fa fa-square-plus"></i>
@@ -44,7 +42,6 @@
 
                 {% elseif 'TraceTypePdf' in trace.typeTrace %}
                     <label class="form-label required">Pdf</label> <br>
-                    {% if '/edit' in app.request.uri %}
                         {% for data in trace.contenu %}
                             <div class="pdf_trace_div">
                                 <p>Pdf déjà dans la DB</p>
@@ -56,7 +53,6 @@
                                 <hr>
                             </div>
                         {% endfor %}
-                    {% endif %}
                     <button type="button" class="btn btn-primary add-pdf">
                         Ajouter un PDF <i class="fa fa-square-plus"></i>
                     </button>
