@@ -149,6 +149,7 @@ class ReferentielSynchro extends AbstractController
                     $existingParcours->setCode($apcParcours['code']);
                     $existingParcours->setActif($apcParcours['actif']);
                     $existingParcours->setApcReferentiel($referentiel);
+//                    $existingParcours->setFormationContinue($apcParcours['formation_continue']);
 //                    foreach ($apcParcours['niveaux'] as $niveau) {
 //                        $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
 //                        if ($existingNiveau) {
@@ -164,6 +165,7 @@ class ReferentielSynchro extends AbstractController
                     $newParcours->setCode($apcParcours['code']);
                     $newParcours->setActif($apcParcours['actif']);
                     $newParcours->setApcReferentiel($referentiel);
+//                    $newParcours->setFormationContinue($apcParcours['formation_continue']);
 //                    foreach($apcParcours['niveaux'] as $niveau) {
 //                        $existingNiveau = $niveauRepository->findOneBy(['id' => $niveau['id']]);
 //                        if ($existingNiveau) {
