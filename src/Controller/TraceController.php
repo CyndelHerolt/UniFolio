@@ -111,18 +111,16 @@ class TraceController extends BaseController
 
             $dept = $this->dataUserSession->getDepartement();
 
-            $referentiel = $dept->getApcReferentiels();
-
-            $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-            foreach ($competences as $competence) {
-                $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+            $groupe = $user->getGroupe();
+            foreach ($groupe as $g) {
+                if ($g->getTypeGroupe()->getType() === 'TD') {
+                    $parcours = $g->getApcParcours();
+                }
             }
 
+            $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
             foreach ($niveaux as $niveau) {
-                foreach ($niveau as $niv) {
-                    $competencesNiveau[] = $niv->getLibelle();
-                }
+                $competencesNiveau[] = $niveau->getLibelle();
             }
 
             $trace = new Trace();
@@ -194,21 +192,18 @@ class TraceController extends BaseController
             $semestre = $user->getSemestre();
             $annee = $semestre->getAnnee();
 
-            $dept = $this->dataUserSession->getDepartement();
-
-            $referentiel = $dept->getApcReferentiels();
-
-            $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-            foreach ($competences as $competence) {
-                $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-            }
-
-            foreach ($niveaux as $niveau) {
-                foreach ($niveau as $niv) {
-                    $competencesNiveau[] = $niv->getLibelle();
+            $groupe = $user->getGroupe();
+            foreach ($groupe as $g) {
+                if ($g->getTypeGroupe()->getType() === 'TD') {
+                    $parcours = $g->getApcParcours();
                 }
             }
+
+            $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+            foreach ($niveaux as $niveau) {
+                $competencesNiveau[] = $niveau->getLibelle();
+            }
+
 
             if (!$trace) {
                 throw $this->createNotFoundException('Trace non trouvée.');
@@ -348,7 +343,7 @@ class TraceController extends BaseController
             return $this->render('trace/formTrace.html.twig', [
                 'form' => $form->createView(),
                 'trace' => $trace,
-                'competences' => $competence,
+//                'competences' => $competence,
                 'data_user' => $data_user,
             ]);
         } else {
@@ -395,8 +390,8 @@ class TraceController extends BaseController
 
     #[Route('/trace/show', name: 'app_trace_index')]
     public function indexShow(
-        Request         $request,
-        TraceRepository $traceRepository,
+        Request                $request,
+        TraceRepository        $traceRepository,
         NotificationRepository $notificationRepository,
     ): Response
     {
