@@ -8,7 +8,7 @@
         <em>{{ page.description }}</em>
         <hr>
 
-        {% for trace in traces|sort((a, b) => b.ordreTrace.ordre <=> a.ordreTrace.ordre) %}
+        {% for trace in traces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
             <div class="card-body portfolio-traces col-12">
                 <h3>{{ trace.titre }}</h3>
 
