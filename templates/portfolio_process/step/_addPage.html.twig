@@ -48,7 +48,7 @@
 
 {% if existingTraces is not null %}
     {% set tracesCount = existingTraces|length %}
-    {% for trace in existingTraces|sort((a, b) => b.ordreTrace.ordre <=> a.ordreTrace.ordre) %}
+    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
         {% include 'portfolio_process/step/_addTrace.html.twig' with {tracesCount: tracesCount} %}
     {% endfor %}
 {% endif %}
