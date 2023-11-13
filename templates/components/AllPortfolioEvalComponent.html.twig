@@ -62,29 +62,71 @@
                         <div class="accordion-body row">
                             <div>
                                 <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                    {% for grp in this.groupes %}
-                                        {% if grp.typeGroupe.type == 'TP' %}
-                                            <small>{% if grp.apcParcours is not null %}
-                                                    {{ grp.apcParcours.code }}
-                                                {% else %}
-                                                    S1
-                                                {% endif %}</small>
-                                            <div style="display: flex" class="form-check">
-                                                <input type="checkbox" id="{{ grp.id }}"
-                                                       name="{{ grp.id }}"
-                                                       data-model="selectedGroupes[]"
-                                                       data-action="live#action"
-                                                       data-action-name="changeGroupes"
-                                                       value="{{ grp.id }}"
-                                                       class="form-check-input">
-                                                <label for="{{ grp.id }}" style="margin-left: 10px"
-                                                       class="form-check-label">
-                                                    {{ grp.libelle }}
-                                                </label><br>
-                                            </div>
-                                            <hr>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% if this.selectedSemestre == null %}
+
+                                        {% for grp in this.groupes %}
+                                            {% if grp.typeGroupe.type == 'TP' %}
+                                                <small>
+                                                    {% if grp.apcParcours is not null %}
+                                                        {{ grp.apcParcours.libelle }}
+                                                        |
+                                                        {% for semestre in grp.typeGroupe.semestre|filter(semestre => (semestre.annee.diplome.apcParcours == grp.apcParcours)) %}
+                                                            {{ semestre.libelle }}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        S1
+                                                    {% endif %}
+                                                </small>
+                                                <div style="display: flex" class="form-check">
+                                                    <input type="checkbox" id="{{ grp.id }}"
+                                                           name="{{ grp.id }}"
+                                                           data-model="selectedGroupes[]"
+                                                           data-action="live#action"
+                                                           data-action-name="changeGroupes"
+                                                           value="{{ grp.id }}"
+                                                           class="form-check-input">
+                                                    <label for="{{ grp.id }}" style="margin-left: 10px"
+                                                           class="form-check-label">
+                                                        {{ grp.libelle }}
+                                                    </label><br>
+                                                </div>
+                                                <hr>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    {% else %}
+
+                                        {% for grp in this.groupes|filter(grp => this.selectedSemestre != null and (grp.apcParcours == this.selectedSemestre.annee.diplome.apcParcours )) %}
+                                            {% if grp.typeGroupe.type == 'TP' %}
+                                                <small>
+                                                    {% if grp.apcParcours is not null %}
+                                                        {{ grp.apcParcours.code }}
+                                                        |
+                                                        {% for semestre in grp.typeGroupe.semestre|filter(semestre => (semestre.annee.diplome.apcParcours == grp.apcParcours)) %}
+                                                            {{ semestre.libelle }}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        S1
+                                                    {% endif %}
+                                                </small>
+                                                <div style="display: flex" class="form-check">
+                                                    <input type="checkbox" id="{{ grp.id }}"
+                                                           name="{{ grp.id }}"
+                                                           data-model="selectedGroupes[]"
+                                                           data-action="live#action"
+                                                           data-action-name="changeGroupes"
+                                                           value="{{ grp.id }}"
+                                                           class="form-check-input">
+                                                    <label for="{{ grp.id }}" style="margin-left: 10px"
+                                                           class="form-check-label">
+                                                        {{ grp.libelle }}
+                                                    </label><br>
+                                                </div>
+                                                <hr>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    {% endif %}
                                 </fieldset>
                             </div>
                         </div>

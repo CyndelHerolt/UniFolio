@@ -126,7 +126,6 @@ final class AllTraceEvalComponent extends BaseController
                 $this->groupes = array_unique($this->groupes, SORT_REGULAR);
 
             }
-//            dd($this->groupes);
             // pour chaque semestre on récupère les étudiants
             foreach ($this->semestres as $semestre) {
                 $etudiants = $this->etudiantRepository->findBySemestre($semestre);
@@ -141,7 +140,6 @@ final class AllTraceEvalComponent extends BaseController
     }
 
 
-    //todo: modifier les autres filtres en fonction du niveau selected
     #[LiveAction]
     public function changeCompetences()
     {
@@ -327,9 +325,7 @@ final class AllTraceEvalComponent extends BaseController
             $this->selectedSemestre = $this->semestreRepository->find($id);
         }
 
-
         $competencesNiveau = []; // Reset Competences Niveau array
-
 
         // si il y a un semestre sélectionné
         if ($this->selectedSemestre !== null) {
