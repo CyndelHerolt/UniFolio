@@ -9,13 +9,10 @@ namespace App\Twig\Components;
 
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
-use App\Entity\Commentaire;
-use App\Entity\Departement;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\Trace;
-use App\Form\CommentaireType;
 use App\Repository\AnneeRepository;
 use App\Repository\ApcNiveauRepository;
 use App\Repository\CommentaireRepository;
@@ -29,10 +26,7 @@ use App\Repository\TypeGroupeRepository;
 use App\Repository\ValidationRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -41,8 +35,6 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use App\Classes\DataUserSession;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
-use Symfony\UX\TwigComponent\Attribute\PreMount;
-
 
 #[AsLiveComponent('AllTraceEvalComponent')]
 final class AllTraceEvalComponent extends BaseController
@@ -66,10 +58,6 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveProp(writable: true)]
     /** @var Etudiant[] */
     public array $etudiants = [];
-
-//    #[LiveProp(writable: true)]
-//    public ?int $selectedAnnee = null;
-
     #[LiveProp(writable: true)]
     public ?Semestre $selectedSemestre = null;
 
@@ -143,8 +131,6 @@ final class AllTraceEvalComponent extends BaseController
     public function init()
     {
         $this->changeSemestre($this->selectedSemestre);
-//        $this->getDisplayedTraces();
-
     }
 
     #[LiveAction]
@@ -347,8 +333,7 @@ final class AllTraceEvalComponent extends BaseController
                         $parcours = $groupe->getApcParcours();
                         $annee = $semestre->getAnnee();
                         $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                        $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                        $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                        $competencesNiveau = $niveaux;
                     }
                 } else {
                     foreach ($competences as $competence) {
