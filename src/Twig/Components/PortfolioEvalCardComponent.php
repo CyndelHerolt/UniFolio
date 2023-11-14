@@ -23,7 +23,7 @@ final class PortfolioEvalCardComponent extends BaseController
     use DefaultActionTrait;
 
     #[LiveProp]
-    public int $id;
+    public ?int $id;
 
     public function __construct(
         public PortfolioRepository       $portfolioRepository,
