@@ -131,8 +131,6 @@ final class AllTraceEvalComponent extends BaseController
     public function init()
     {
         $this->changeSemestre($this->selectedSemestre);
-//        $this->getDisplayedTraces();
-
     }
 
     #[LiveAction]
@@ -335,8 +333,7 @@ final class AllTraceEvalComponent extends BaseController
                         $parcours = $groupe->getApcParcours();
                         $annee = $semestre->getAnnee();
                         $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                        $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                        $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                        $competencesNiveau = $niveaux;
                     }
                 } else {
                     foreach ($competences as $competence) {

@@ -487,7 +487,7 @@ class PortfolioProcessController extends BaseController
                     $traceType = $traceRegistry->getTypeTrace($type);
 
                     $user = $security->getUser()->getEtudiant();
-
+                    $dept = $this->dataUserSession->getDepartement();
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
 
@@ -498,12 +498,25 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
-                    $competencesNiveau = [];
-                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                    foreach ($niveaux as $niveau) {
-                        $competencesNiveau[] = $niveau->getLibelle();
-                    }
+                    if ($parcours === null) {
+                        $referentiel = $dept->getApcReferentiels();
 
+                        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                        foreach ($competences as $competence) {
+                            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                            foreach ($niveaux as $niveau) {
+                                foreach ($niveau as $niv) {
+                                    $competencesNiveau[] = $niv->getLibelle();
+                                }
+                            }
+                        }
+                    } else {
+                        $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                        foreach ($niveaux as $niveau) {
+                            $competencesNiveau[] = $niveau->getLibelle();
+                        }
+                    }
 
                     $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
 
@@ -557,7 +570,7 @@ class PortfolioProcessController extends BaseController
                     $page = $ordreTraceRepository->findOneBy(['trace' => $trace])->getPage()->getId();
 
                     $user = $security->getUser()->getEtudiant();
-
+                    $dept = $this->dataUserSession->getDepartement();
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
 
@@ -568,9 +581,24 @@ class PortfolioProcessController extends BaseController
                         }
                     }
 
-                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                    foreach ($niveaux as $niveau) {
-                        $competencesNiveau[] = $niveau->getLibelle();
+                    if ($parcours === null) {
+                        $referentiel = $dept->getApcReferentiels();
+
+                        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                        foreach ($competences as $competence) {
+                            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                            foreach ($niveaux as $niveau) {
+                                foreach ($niveau as $niv) {
+                                    $competencesNiveau[] = $niv->getLibelle();
+                                }
+                            }
+                        }
+                    } else {
+                        $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                        foreach ($niveaux as $niveau) {
+                            $competencesNiveau[] = $niveau->getLibelle();
+                        }
                     }
 
 
