@@ -43,31 +43,6 @@ class PortfolioRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-//
-//    public function findByFilters(int $annee = null, array $groupes = [], array $etudiants = []): array
-//    {
-//        $qb = $this->createQueryBuilder('p')
-//            ->innerJoin('p.etudiant', 'e')
-//            ->innerJoin('e.groupe', 'g')
-//            ->innerJoin('g.type_groupe','tg')
-//            ->innerJoin('tg.semestre', 's')
-//            ->innerJoin('s.annee', 'a');
-//        if (!empty($annee)) {
-//            $qb->andWhere('a.id = :annee')
-//                ->setParameter('annee', $annee);
-//        }
-//        if (!empty($groupes)) {
-//            $qb->andWhere('g.id IN (:groupes)')
-//                ->setParameter('groupes', $groupes);
-//        }
-//        if (!empty($etudiants)) {
-//            $qb->andWhere('e.id IN (:etudiants)')
-//                ->setParameter('etudiants', $etudiants);
-//        }
-//        $qb->distinct('p.id');
-//
-//        return $qb->getQuery()->getResult();
-//    }
 
     public function findByFilters($dept, Semestre $semestre = null, array $groupes = [], array $etudiants = [], array $competences = []): array
     {
@@ -80,8 +55,7 @@ class PortfolioRepository extends ServiceEntityRepository
             ->innerJoin('v.apcNiveau', 'c')
             ->innerJoin('p.etudiant', 'e')
             ->innerJoin('e.groupe', 'g')
-            ->innerJoin('g.type_groupe','tg')
-            ->innerJoin('tg.semestre', 's')
+            ->innerJoin('e.semestre', 's')
             ->innerJoin('s.annee', 'a')
             ->innerJoin('a.diplome', 'd')
             ->innerJoin('d.departement', 'dep')
