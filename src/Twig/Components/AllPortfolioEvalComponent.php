@@ -37,6 +37,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\PostMount;
 
 #[AsLiveComponent('AllPortfolioEvalComponent')]
 class AllPortfolioEvalComponent extends BaseController
@@ -60,9 +61,6 @@ class AllPortfolioEvalComponent extends BaseController
     #[LiveProp(writable: true)]
     /** @var Etudiant[] */
     public array $etudiants = [];
-
-//    #[LiveProp(writable: true)]
-//    public ?int $selectedAnnee = null;
 
     #[LiveProp(writable: true)]
     public ?Semestre $selectedSemestre = null;
@@ -106,7 +104,6 @@ class AllPortfolioEvalComponent extends BaseController
     )
     {
         $this->requestStack = $requestStack;
-        $this->allPortfolios = $this->getAllPortfolio();
 
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
@@ -132,6 +129,11 @@ class AllPortfolioEvalComponent extends BaseController
             }
             $this->dept[] = $departement;
         }
+    }
+
+    #[PostMount]
+    public function init()
+    {
         $this->changeSemestre($this->selectedSemestre);
     }
 
@@ -189,7 +191,6 @@ class AllPortfolioEvalComponent extends BaseController
             foreach ($this->semestres as $semestre) {
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
-//                    dd($competence);
 
                     $competencesNiveau = array_merge($competencesNiveau, $niveaux);
                     //supprimer les doublons du tableau
@@ -227,7 +228,7 @@ class AllPortfolioEvalComponent extends BaseController
             }
         }
 
-        $this->allPortfolios = $this->getAllPortfolio();
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
@@ -293,7 +294,7 @@ class AllPortfolioEvalComponent extends BaseController
         }
 
 
-        $this->allPortfolios = $this->getAllPortfolio();
+        $this->getDisplayedPortfolios();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -324,7 +325,7 @@ class AllPortfolioEvalComponent extends BaseController
             }
         }
 
-        $this->allPortfolios = $this->getAllPortfolio();
+        $this->getDisplayedPortfolios();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -392,7 +393,7 @@ class AllPortfolioEvalComponent extends BaseController
             }
         }
 
-        $this->allPortfolios = $this->getAllPortfolio();
+        $this->getDisplayedPortfolios();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -411,7 +412,7 @@ class AllPortfolioEvalComponent extends BaseController
     {
         $offset = ($this->currentPage - 1) * $this->itemsPerPage;
         $portfolios = $this->getAllPortfolio();
-        return array_slice($portfolios, $offset, $this->itemsPerPage);
+        $this->allPortfolios = array_slice($portfolios, $offset, $this->itemsPerPage);
     }
 
     // Méthodes d'action pour aller aux pages précédentes/suivantes
@@ -421,7 +422,7 @@ class AllPortfolioEvalComponent extends BaseController
         if ($this->currentPage < $this->getTotalPages()) {
             $this->currentPage++;
         }
-
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
@@ -430,18 +431,21 @@ class AllPortfolioEvalComponent extends BaseController
         if ($this->currentPage > 1) {
             $this->currentPage--;
         }
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
     public function goToFirstPage()
     {
         $this->currentPage = 1;
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
     public function goToLastPage()
     {
         $this->currentPage = $this->getTotalPages();
+        $this->getDisplayedPortfolios();
     }
 
 

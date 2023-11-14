@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Twig\Components;
 
 use App\Controller\BaseController;
@@ -39,6 +40,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use App\Classes\DataUserSession;
+use Symfony\UX\TwigComponent\Attribute\PostMount;
+use Symfony\UX\TwigComponent\Attribute\PreMount;
 
 
 #[AsLiveComponent('AllTraceEvalComponent')]
@@ -106,7 +109,6 @@ final class AllTraceEvalComponent extends BaseController
     )
     {
         $this->requestStack = $requestStack;
-        $this->allTraces = $this->getAllTrace();
 
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
@@ -135,10 +137,15 @@ final class AllTraceEvalComponent extends BaseController
             }
             $this->dept[] = $departement;
         }
-        $this->changeSemestre($this->selectedSemestre);
-
     }
 
+    #[PostMount]
+    public function init()
+    {
+        $this->changeSemestre($this->selectedSemestre);
+//        $this->getDisplayedTraces();
+
+    }
 
     #[LiveAction]
     public function changeCompetences()
@@ -203,7 +210,7 @@ final class AllTraceEvalComponent extends BaseController
         }
 
 
-        $this->allTraces = $this->getAllTrace();
+        $this->getDisplayedTraces();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -271,7 +278,7 @@ final class AllTraceEvalComponent extends BaseController
             }
         }
 
-        $this->allTraces = $this->getAllTrace();
+        $this->getDisplayedTraces();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -302,7 +309,7 @@ final class AllTraceEvalComponent extends BaseController
             }
         }
 
-        $this->allTraces = $this->getAllTrace();
+        $this->getDisplayedTraces();
         if ($this->selectedSemestre !== null) {
             $this->changeSemestre($this->selectedSemestre->getId());
         }
@@ -398,7 +405,7 @@ final class AllTraceEvalComponent extends BaseController
             }
         }
 
-        $this->allTraces = $this->getAllTrace();
+        $this->getDisplayedTraces();
     }
 
 
@@ -414,7 +421,7 @@ final class AllTraceEvalComponent extends BaseController
     {
         $offset = ($this->currentPage - 1) * $this->itemsPerPage;
         $traces = $this->getAllTrace();
-        return array_slice($traces, $offset, $this->itemsPerPage);
+        $this->allTraces = array_slice($traces, $offset, $this->itemsPerPage);
     }
 
     // Méthodes d'action pour aller aux pages précédentes/suivantes
@@ -424,7 +431,7 @@ final class AllTraceEvalComponent extends BaseController
         if ($this->currentPage < $this->getTotalPages()) {
             $this->currentPage++;
         }
-
+        $this->getDisplayedTraces();
     }
 
     #[LiveAction]
@@ -433,18 +440,21 @@ final class AllTraceEvalComponent extends BaseController
         if ($this->currentPage > 1) {
             $this->currentPage--;
         }
+        $this->getDisplayedTraces();
     }
 
     #[LiveAction]
     public function goToFirstPage()
     {
         $this->currentPage = 1;
+        $this->getDisplayedTraces();
     }
 
     #[LiveAction]
     public function goToLastPage()
     {
         $this->currentPage = $this->getTotalPages();
+        $this->getDisplayedTraces();
     }
 
     public function getAllTrace()
