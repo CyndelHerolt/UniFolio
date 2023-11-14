@@ -22,7 +22,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
         $this->anneeRepository = $anneeRepository;
     }
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 8;
     }

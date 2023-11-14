@@ -25,7 +25,7 @@ class ApcNiveauFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function getOrder()
+    public function getOrder():int
     {
         return 4;
     }

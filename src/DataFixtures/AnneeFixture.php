@@ -22,7 +22,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
         $this->diplomeRepository = $diplomeRepository;
     }
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 7;
     }

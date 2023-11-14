@@ -14,7 +14,7 @@ use Doctrine\Persistence\ObjectManager;
 class DepartementFixture extends Fixture implements OrderedFixtureInterface
 {
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 1;
     }

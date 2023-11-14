@@ -162,7 +162,7 @@ class EtudiantCrudController extends AbstractCrudController
     }
 
     public
-    function new(AdminContext $context)
+    function new(AdminContext $context):Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -265,7 +265,7 @@ class EtudiantCrudController extends AbstractCrudController
         return $responseParameters;
     }
 
-    public function edit(AdminContext $context)
+    public function edit(AdminContext $context):Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);

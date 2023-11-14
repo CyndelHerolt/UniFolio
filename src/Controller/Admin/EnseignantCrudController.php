@@ -103,7 +103,7 @@ class EnseignantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e enseignant.e');
     }
 
-    public function new(AdminContext $context)
+    public function new(AdminContext $context):Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -193,7 +193,7 @@ class EnseignantCrudController extends AbstractCrudController
         return $responseParameters;
     }
 
-    public function edit(AdminContext $context)
+    public function edit(AdminContext $context):Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
