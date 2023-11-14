@@ -30,7 +30,7 @@ class AbstractTraceEvalComponent extends BaseController
     use DefaultActionTrait;
 
     #[LiveProp]
-    public int $id;
+    public ?int $id;
 
     #[LiveProp(writable: true)]
     public ?string $selectedValidation = '';

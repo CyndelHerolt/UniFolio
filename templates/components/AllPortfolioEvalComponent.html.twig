@@ -171,8 +171,8 @@
         </div>
 
         <div class="row">
-            {% for portfolio in this.getDisplayedPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
-                {{ component('PortfolioEvalCardComponent', {'id': portfolio.id}) }}
+            {% for portfolio in this.allPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
+                {{ component('PortfolioEvalCardComponent', {'id': portfolio.id, 'key': portfolio.id}) }}
             {% endfor %}
         </div>
 
