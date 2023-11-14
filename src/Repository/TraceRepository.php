@@ -58,7 +58,6 @@ class TraceRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    // todo: pblm avec le paramètre $semestre -> ne pas passer par le typeGroupe ?
     public function findByFilters($dept, Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = []): array
     {
         $qb = $this->createQueryBuilder('t')
@@ -67,8 +66,7 @@ class TraceRepository extends ServiceEntityRepository
             ->join('t.bibliotheque', 'b')
             ->join('b.etudiant', 'e')
             ->join('e.groupe', 'g')
-            ->join('g.type_groupe', 'tg')
-            ->join('tg.semestre', 's')
+            ->join('e.semestre', 's')
             ->join('s.annee', 'a')
             ->join('a.diplome', 'd')
             ->join('d.departement', 'dep')
