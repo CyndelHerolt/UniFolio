@@ -10,18 +10,11 @@ echo "Git Pull"
 git pull origin main
 echo "end git pull"
 
-if test "$1" = "--assets"
-then
-  echo "generation des assets"
-  npm run build
-  echo "fin génératation des assets"
-fi
+echo "generation des assets"
+npm run build
+echo "fin génératation des assets"
 
 echo "Nettoyage cache"
-#rm -R var/cache/prod
-#mkdir var/cache/prod
-#chown intradev:www-data -R var/cache/prod
-#chmod -R 777 var/cache/prod
 bin/console cache:clear
 echo "end Nettoyage cache"
 echo "Mise à jour les liens js"
