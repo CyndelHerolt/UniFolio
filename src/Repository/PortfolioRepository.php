@@ -60,6 +60,7 @@ class PortfolioRepository extends ServiceEntityRepository
             ->innerJoin('a.diplome', 'd')
             ->innerJoin('d.departement', 'dep')
             ->where('dep.id = :departement')
+            ->andWhere('p.visibilite = true')
             ->setParameter('departement', $dept);
         if (!empty($semestre)) {
             $qb->andWhere('s.id = :semestre')
