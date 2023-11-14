@@ -171,8 +171,7 @@ class AllPortfolioEvalComponent extends BaseController
                         $parcours = $groupe->getApcParcours();
                         $annee = $semestre->getAnnee();
                         $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                        $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                        $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                        $competencesNiveau = $niveaux;
                     }
                 } else {
                     foreach ($competences as $competence) {

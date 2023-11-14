@@ -60,17 +60,30 @@ class TraceController extends BaseController
 
             $dept = $this->dataUserSession->getDepartement();
 
-            $referentiel = $dept->getApcReferentiels();
-
-            $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-            foreach ($competences as $competence) {
-                $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+            $groupe = $user->getGroupe();
+            foreach ($groupe as $g) {
+                if ($g->getTypeGroupe()->getType() === 'TD') {
+                    $parcours = $g->getApcParcours();
+                }
             }
 
-            foreach ($niveaux as $niveau) {
-                foreach ($niveau as $niv) {
-                    $competencesNiveau[] = $niv;
+            if ($parcours === null) {
+                $referentiel = $dept->getApcReferentiels();
+
+                $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                foreach ($competences as $competence) {
+                    $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                    foreach ($niveaux as $niveau) {
+                        foreach ($niveau as $niv) {
+                            $competencesNiveau[] = $niv->getLibelle();
+                        }
+                    }
+                }
+            } else {
+                $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                foreach ($niveaux as $niveau) {
+                    $competencesNiveau[] = $niveau->getLibelle();
                 }
             }
 
@@ -93,8 +106,6 @@ class TraceController extends BaseController
         Request              $request,
         TraceRepository      $traceRepository,
         TraceRegistry        $traceRegistry,
-        CompetenceRepository $competenceRepository,
-        ApcNiveauRepository  $apcNiveauRepository,
         Security             $security,
         string               $id,
     ): Response
@@ -118,9 +129,24 @@ class TraceController extends BaseController
                 }
             }
 
-            $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-            foreach ($niveaux as $niveau) {
-                $competencesNiveau[] = $niveau->getLibelle();
+            if ($parcours === null) {
+                $referentiel = $dept->getApcReferentiels();
+
+                $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                foreach ($competences as $competence) {
+                    $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                    foreach ($niveaux as $niveau) {
+                        foreach ($niveau as $niv) {
+                            $competencesNiveau[] = $niv->getLibelle();
+                        }
+                    }
+                }
+            } else {
+                $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                foreach ($niveaux as $niveau) {
+                    $competencesNiveau[] = $niveau->getLibelle();
+                }
             }
 
             $trace = new Trace();
@@ -132,7 +158,7 @@ class TraceController extends BaseController
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $competencesForm = $form->get('competences')->getData();
-                $niveaux = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
+                $niveaux = $this->apcNiveauRepository->findBy(['libelle' => $competencesForm]);
 
                 foreach ($niveaux as $niveau) {
                     $validation = new Validation();
@@ -188,7 +214,7 @@ class TraceController extends BaseController
             $trace = $traceRepository->find($id);
             $user = $security->getUser()->getEtudiant();
 
-
+            $dept = $this->dataUserSession->getDepartement();
             $semestre = $user->getSemestre();
             $annee = $semestre->getAnnee();
 
@@ -199,9 +225,24 @@ class TraceController extends BaseController
                 }
             }
 
-            $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-            foreach ($niveaux as $niveau) {
-                $competencesNiveau[] = $niveau->getLibelle();
+            if ($parcours === null) {
+                $referentiel = $dept->getApcReferentiels();
+
+                $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+                foreach ($competences as $competence) {
+                    $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                    foreach ($niveaux as $niveau) {
+                        foreach ($niveau as $niv) {
+                            $competencesNiveau[] = $niv->getLibelle();
+                        }
+                    }
+                }
+            } else {
+                $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                foreach ($niveaux as $niveau) {
+                    $competencesNiveau[] = $niveau->getLibelle();
+                }
             }
 
 

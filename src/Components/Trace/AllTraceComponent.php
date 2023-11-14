@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Components\Trace;
 
 use App\Controller\BaseController;
@@ -60,19 +61,35 @@ class AllTraceComponent extends BaseController
         $diplome = $annee->getDiplome();
         $dept = $diplome->getDepartement();
 
-        $referentiel = $dept->getApcReferentiels();
-
-        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
-
-        foreach ($competences as $competence) {
-            $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+        $groupe = $user->getGroupe();
+        foreach ($groupe as $g) {
+            if ($g->getTypeGroupe()->getType() === 'TD') {
+                $parcours = $g->getApcParcours();
+            }
         }
-//        dd($niveaux);
 
-        foreach ($niveaux as $niveau) {
-            foreach ($niveau as $niv) {
-                $competencesNiveau[] = $niv;
+        if ($parcours === null) {
+            $referentiel = $dept->getApcReferentiels();
+
+            $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+
+            foreach ($competences as $competence) {
+                $niveaux[] = $this->apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                foreach ($niveaux as $niveau) {
+                    foreach ($niveau as $niv) {
+                        $competencesNiveaux[] = $niv;
+                    }
+                }
+            }
+            $competencesNiveauUnique = [];
+            foreach ($competencesNiveaux as $niveau) {
+                $competencesNiveauUnique[$niveau->getId()] = $niveau;
+            }
+            $competencesNiveau = $competencesNiveauUnique;
+        } else {
+            $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+            foreach ($niveaux as $niveau) {
+                $competencesNiveau[] = $niveau;
             }
         }
 
@@ -82,7 +99,6 @@ class AllTraceComponent extends BaseController
     #[LiveAction]
     public function changeCompetences()
     {
-//        dump($this->selectedCompetences);
         $this->allTraces = $this->getAllTrace();
     }
 
@@ -109,7 +125,6 @@ class AllTraceComponent extends BaseController
 
         // Vérifier si la requête n'est pas null (ce sera le cas si le composant est appelé hors d'une requête),
         // puis récupérer le paramètre 'competence' de la requête
-        $competence = [];
         $competence = count($this->selectedCompetences) > 0 ? $this->selectedCompetences : null;
 
         $ordreDate = $this->selectedOrdreDate != null ? $this->selectedOrdreDate : null;
