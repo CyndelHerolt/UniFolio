@@ -25,7 +25,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 class UsersFixture extends Fixture implements OrderedFixtureInterface
 {
 
-    public function getOrder()
+    public function getOrder():int
     {
         // Retourner un entier qui indique l'ordre de chargement des fixations
         return 12;

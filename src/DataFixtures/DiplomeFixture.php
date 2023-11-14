@@ -28,7 +28,7 @@ class DiplomeFixture extends Fixture implements OrderedFixtureInterface
         $this->apcParcoursRepository = $apcParcoursRepository;
     }
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 6;
     }

@@ -21,7 +21,7 @@ class TypeGroupeFixture extends Fixture implements OrderedFixtureInterface
         $this->semestreRepository = $semestreRepository;
     }
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 9;
     }

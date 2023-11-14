@@ -21,7 +21,7 @@ class ApcReferentielFixture extends Fixture implements OrderedFixtureInterface
         $this->departementRepository = $departementRepository;
     }
 
-    public function getOrder()
+    public function getOrder():int
     {
         return 2;
     }

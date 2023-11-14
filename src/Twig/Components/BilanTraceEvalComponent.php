@@ -12,7 +12,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent()]
+#[AsLiveComponent('BilanTraceEvalComponent')]
 final class BilanTraceEvalComponent extends AbstractTraceEvalComponent
 {
 
