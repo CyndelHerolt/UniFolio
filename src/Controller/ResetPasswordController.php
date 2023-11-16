@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller;
 
 use App\Entity\Users;
@@ -31,8 +32,9 @@ class ResetPasswordController extends AbstractController
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface $entityManager
-    ) {
+        private EntityManagerInterface       $entityManager
+    )
+    {
     }
 
     /**
@@ -141,7 +143,7 @@ class ResetPasswordController extends AbstractController
 
         if ($user->getEtudiant()) {
             $userInfos = $user->getEtudiant();
-        } elseif ($user->getPersonnel()) {
+        } elseif ($user->getEnseignant()) {
             $userInfos = $user->getEnseignant();
         }
 
@@ -158,26 +160,28 @@ class ResetPasswordController extends AbstractController
             // Caution: This may reveal if a user is registered or not.
             //
 
-            // todo: commenter cette partie une fois fonctionnelle
-             $this->addFlash('reset_password_error', sprintf(
-                 '%s - %s',
-                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
-                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-             ));
+//             $this->addFlash('reset_password_error', sprintf(
+//                 '%s - %s',
+//                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
+//                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
+//             ));
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('ne-pas-repondre@univ-reims.fr', 'UniFolio Mail Bot'))
+            ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
             ->to($user->getEmail())
             ->subject('UniFolio - Demande de réinitialisation de mot de passe')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->htmlTemplate('email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
                 'user' => $userInfos,
-            ])
-        ;
+                'email_subject' => 'Réinitialisation de votre mot de passe',
+                'email_message' => '<p>Pour réinitialiser votre mot de passe, cliquez sur le bouton ci-dessous</p>
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                'email_button' => 'reset_password'
+            ]);
 
         $mailer->send($email);
 

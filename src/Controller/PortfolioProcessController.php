@@ -764,7 +764,7 @@ class PortfolioProcessController extends BaseController
                     break;
 
                 case 'saveCv':
-                    $cv = $pageRepository->findOneBy(['id' => $request->query->get('cv')]);
+                    $cv = $cvRepository->findOneBy(['id' => $request->query->get('cv')]);
 
                     $form = $this->createForm(CvType::class, $cv);
 
