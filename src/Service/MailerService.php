@@ -20,7 +20,7 @@ class MailerService
     public function sendMail(string $to, string $subject, string $body)
     {
         $email = (new Email())
-            ->from('UniFolio@univ-reims.fr')
+            ->from('portfolio.iut-troyes@univ-reims.fr')
             ->to($to)
             ->subject($subject)
             ->html($body);

@@ -21,9 +21,12 @@ use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
 use App\Service\MailerService;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -54,7 +57,7 @@ class UsersController extends AbstractController
         EnseignantRepository        $enseignantRepository,
         UserSynchro                 $userSynchro,
         HttpClientInterface         $client,
-        MailerService               $mailerService,
+        MailerInterface               $mailer,
         VerifyEmailHelperInterface  $verifyEmailHelper,
     ): Response
     {
@@ -81,8 +84,8 @@ class UsersController extends AbstractController
             } elseif ($enseignantRepository->findOneBy(['username' => $login])) {
                 $this->addFlash('danger', 'Vous avez déjà un compte.');
             } else {
-                $checkEmailEtudiant = $userSynchro->CheckEmailEtudiant($login, $client, $mailerService, $verifyEmailHelper);
-                $checkEmailEnseignant = $userSynchro->checkEmailEnseignant($login, $client, $mailerService, $verifyEmailHelper);
+                $checkEmailEtudiant = $userSynchro->CheckEmailEtudiant($login, $client, $mailer, $verifyEmailHelper);
+                $checkEmailEnseignant = $userSynchro->checkEmailEnseignant($login, $client, $mailer, $verifyEmailHelper);
                 if ($checkEmailEtudiant) {
                     $user->setRoles(['ROLE_ETUDIANT']);
                     $mailEtudiant = $userSynchro->getEmailEtudiant($login, $client);
@@ -155,9 +158,9 @@ class UsersController extends AbstractController
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
     public function resendVerifyEmail(
         Request                    $request,
-        MailerService              $mailerService,
         VerifyEmailHelperInterface $verifyEmailHelper,
         UsersRepository            $usersRepository,
+        MailerInterface $mailer
     )
     {
 
@@ -167,6 +170,12 @@ class UsersController extends AbstractController
 
             $user = $usersRepository->findOneBy(['email' => $mail]);
 
+            if ($user->getEtudiant()) {
+                $userInfos = $user->getEtudiant();
+            } elseif ($user->getEnseignant()) {
+                $userInfos = $user->getEnseignant();
+            }
+
             if ($user && $user->getIsVerified() === false) {
                 $signatureComponents = $verifyEmailHelper->generateSignature(
                     'app_verify_email',
@@ -174,11 +183,22 @@ class UsersController extends AbstractController
                     $user->getEmail(),
                     ['id' => $user->getUsername()]
                 );
-                $mailerService->sendMail(
-                    $mail,
-                    'Vérification de compte UniFolio',
-                    'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
-                );
+
+                $email = (new TemplatedEmail())
+                    ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
+                    ->to($user->getEmail())
+                    ->subject('UniFolio - Confirmation de votre compte')
+                    ->htmlTemplate('email.html.twig')
+                    ->context([
+                        'confirm_link' => $signatureComponents->getSignedUrl(),
+                        'user' => $userInfos,
+                        'email_subject' => 'Confirmation de votre compte',
+                        'email_message' => '<p>Afin de vérifier votre compte, , cliquez sur le bouton ci-dessous.</p>
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                        'email_button' => 'confirm_email'
+                    ]);
+                $mailer->send($email);
+
                 $this->addFlash('success', 'Un nouveau mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
             } elseif (!$user) {
                 $this->addFlash('danger', 'Aucun compte n\'est associé à cette adresse mail.');

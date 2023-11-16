@@ -19,10 +19,10 @@ use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
-use App\Service\MailerService;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -30,11 +30,17 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 class UserSynchro extends AbstractController
 {
 
+    public function __construct(
+        private UsersRepository $usersRepository,
+    )
+    {
+    }
+
     #[Route('/api/intranet/etudiant', name: 'app_email_intranet_etudiant')]
     public function CheckEmailEtudiant(
         $login,
         HttpClientInterface $client,
-        MailerService $mailerService,
+        MailerInterface $mailer,
         VerifyEmailHelperInterface $verifyEmailHelper,
     )
     {
@@ -63,17 +69,28 @@ class UserSynchro extends AbstractController
             });
             foreach ($etudiant as $data) {
                 $mailEtudiant = $data['mail_univ'];
+
                 $signatureComponents = $verifyEmailHelper->generateSignature(
                     'app_verify_email',
                     $data['username'],
                     $data['mail_univ'],
                     ['id' => $data['username']]
                 );
-                $mailerService->sendMail(
-                    $mailEtudiant,
-                    'Vérification de compte UniFolio',
-                    'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> '
-                );
+                $email = (new TemplatedEmail())
+                    ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
+                    ->to($mailEtudiant)
+                    ->subject('UniFolio - Confirmation de votre compte')
+                    ->htmlTemplate('email.html.twig')
+                    ->context([
+                        'confirm_link' => $signatureComponents->getSignedUrl(),
+                        'user' => null,
+                        'email_subject' => 'Confirmation de votre compte',
+                        'email_message' => '<p>Afin de vérifier votre compte, , cliquez sur le bouton ci-dessous.</p>
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                        'email_button' => 'confirm_email'
+                    ]);
+                $mailer->send($email);
+
             }
             return true;
         }
@@ -185,7 +202,7 @@ class UserSynchro extends AbstractController
     public function checkEmailEnseignant(
         $login,
         HttpClientInterface $client,
-        MailerService $mailerService,
+        MailerInterface $mailer,
         VerifyEmailHelperInterface $verifyEmailHelper
     )
     {
@@ -214,13 +231,28 @@ class UserSynchro extends AbstractController
             });
             foreach ($enseignant as $data) {
                 $mailEnseignant = $data['mail_univ'];
+
                 $signatureComponents = $verifyEmailHelper->generateSignature(
                     'app_verify_email',
                     $data['username'],
                     $data['mail_univ'],
                     ['id' => $data['username']]
                 );
-                $mailerService->sendMail($mailEnseignant, 'Vérification de compte UniFolio', 'Afin de vérifier votre compte, merci de cliquer sur le lien suivant. Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l\'administrateur du site. <br> <a href="' . $signatureComponents->getSignedUrl() . '">Activation du compte UniFolio</a> <br> ');
+                $email = (new TemplatedEmail())
+                    ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
+                    ->to($mailEnseignant)
+                    ->subject('UniFolio - Confirmation de votre compte')
+                    ->htmlTemplate('email.html.twig')
+                    ->context([
+                        'confirm_link' => $signatureComponents->getSignedUrl(),
+                        'user' => null,
+                        'email_subject' => 'Confirmation de votre compte',
+                        'email_message' => '<p>Afin de vérifier votre compte, , cliquez sur le bouton ci-dessous.</p>
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                        'email_button' => 'confirm_email'
+                    ]);
+                $mailer->send($email);
+
             }
             return true;
         }
