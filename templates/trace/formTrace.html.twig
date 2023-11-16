@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
 
-    {% block title %}UniFolio - Edition de trace{% endblock %}
+    {% block title %}UniFolio - {{ trace.titre }} edition{% endblock %}
 
-    {% block header %}
-        {#        {% include "_menu.html.twig" %} #}
-    {% endblock %}
 {% block body %}
     <div class="content-container trace_form">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
