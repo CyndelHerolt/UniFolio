@@ -1,9 +1,0 @@
-<h1>Bonjour {{ user.prenom }}</h1>
-
-<h2>Pour réinitialiser votre mot de passe, suivez le lien ci-dessous.</h2>
-
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">Réinitialiser mon mot de passe</a>
-
-<p>Si vous n'êtes pas à l'origine de cette demande, merci de ne pas cliquer sur le lien et de contacter l'administrateur du site.</p>
-
-<small>Ce lien expirera 1 heure après réception.</small>
