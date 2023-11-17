@@ -104,6 +104,8 @@ class LoginAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
+        $request->getSession()->getFlashBag()->add('form_error', 'Le nom d\'utilisateur ou le mot de passe est incorrect.');
+
         return new RedirectResponse(
             $this->router->generate('app_login')
         );

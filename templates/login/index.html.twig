@@ -5,9 +5,6 @@
 {% block body %}
 
     <div class="content-container account">
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
@@ -28,8 +25,6 @@
                             <label for="password">Mot de passe</label>
                             <input type="password" id="password" name="_password" class="form-control" required>
                         </div>
-                        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"> #}
 
                         {# Protection contre les attaques CSRF #}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -39,6 +34,11 @@
 
                         <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
                     </form>
+                    {% for flash_message in app.flashes('error') %}
+                        <div>
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
