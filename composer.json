@@ -3,6 +3,8 @@
         "name": "Cyndel Herolt",
         "homepage": "https://github.com/CyndelHerolt"
     },
+    "name": "cyndelherolt/unifolio",
+    "version": "1.0.26",
     "description": "Un outil de création de portfolio à destination de l'IUT de Troyes",
     "type": "project",
     "license": "MPL-2.0",
