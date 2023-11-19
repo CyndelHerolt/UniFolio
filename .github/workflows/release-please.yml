@@ -12,4 +12,4 @@ jobs:
       - uses: GoogleCloudPlatform/release-please-action@v3
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
-          release-type: php-monorepo
+          release-type: php-yoshi
