@@ -4,11 +4,15 @@
 
 {% block body %}
 
-    <div class="content-container traces">
+    <div class="content-container error_page">
         <div class="row">
-            <div class="col-md-12">
-                <h1>Accès refusé</h1>
-                <p>Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+            <div class="col-md-12 error_page_msg">
+                <h1 class="error_code">403</h1>
+                <h2>Vous n'avez pas les droits nécessaires pour accéder à cette page.</h2>
+                <small>Si vous êtes certain que cette page devrait être accessible et que le problème persiste, veuillez contacter l'administrateur du site.</small>
+                <a href="{{ path('app_accueil') }}">
+                    <button class="btn btn-primary">Retourner à l'accueil</button>
+                </a>
             </div>
         </div>
     </div>
