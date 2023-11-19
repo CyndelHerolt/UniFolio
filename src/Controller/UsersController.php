@@ -48,7 +48,7 @@ class UsersController extends AbstractController
         }
     }
 
-    #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
+    #[Route('/inscription', name: 'app_users_new', methods: ['GET', 'POST'])]
     public function new(
         Request                     $request,
         UsersRepository             $usersRepository,
@@ -99,8 +99,9 @@ class UsersController extends AbstractController
                     $usersRepository->save($user, true);
                     $this->addFlash('success', 'Un mail de vérification vous a été envoyé. Veuillez cliquer sur le lien pour valider votre compte.');
                 } else {
-                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
-                    return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+//                    $this->addFlash('danger', 'Une erreur s\'est produite, si le problème persiste, veuillez contacter l\'administrateur du site.');
+                    $this->addFlash('danger', 'Une erreur s\'est produite, veuillez vérifier que votre login URCA est correct. Si le problème persiste, veuillez contacter l\'administrateur du site.');
+                    return $this->redirectToRoute('app_users_new', [], Response::HTTP_SEE_OTHER);
                 }
             }
 
@@ -170,6 +171,11 @@ class UsersController extends AbstractController
 
             $user = $usersRepository->findOneBy(['email' => $mail]);
 
+            if ($user === null) {
+                $this->addFlash('danger', 'Aucun compte n\'est associé à cette adresse mail. Si le problème persiste, veuillez contacter l\'administrateur du site.');
+                return $this->redirectToRoute('app_verify_resend_email');
+            }
+
             if ($user->getEtudiant()) {
                 $userInfos = $user->getEtudiant();
             } elseif ($user->getEnseignant()) {
@@ -212,50 +218,50 @@ class UsersController extends AbstractController
 
     }
 
-    #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
-    public function show(Users $user): Response
-    {
-        return $this->render('users/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
-    {
-        $form = $this->createForm(UsersType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $plaintextPassword = $user->getPassword();
-
-//             hash the password (based on the security.yaml config for the $user class)
-            $hashedPassword = $passwordHasher->hashPassword(
-                $user,
-                $plaintextPassword
-            );
-            $user->setPassword($hashedPassword);
-
-            $usersRepository->save($user, true);
-
-            return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('users/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_users_delete', methods: ['POST'])]
-    public function delete(Request $request, Users $user, UsersRepository $usersRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $usersRepository->remove($user, true);
-        }
-
-        return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
-    }
+//    #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
+//    public function show(Users $user): Response
+//    {
+//        return $this->render('users/show.html.twig', [
+//            'user' => $user,
+//        ]);
+//    }
+//
+//    #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
+//    public function edit(Request $request, Users $user, UsersRepository $usersRepository, UserPasswordHasherInterface $passwordHasher): Response
+//    {
+//        $form = $this->createForm(UsersType::class, $user);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//            $plaintextPassword = $user->getPassword();
+//
+////             hash the password (based on the security.yaml config for the $user class)
+//            $hashedPassword = $passwordHasher->hashPassword(
+//                $user,
+//                $plaintextPassword
+//            );
+//            $user->setPassword($hashedPassword);
+//
+//            $usersRepository->save($user, true);
+//
+//            return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->render('users/edit.html.twig', [
+//            'user' => $user,
+//            'form' => $form->createView(),
+//        ]);
+//    }
+//
+//    #[Route('/{id}', name: 'app_users_delete', methods: ['POST'])]
+//    public function delete(Request $request, Users $user, UsersRepository $usersRepository): Response
+//    {
+//        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+//            $usersRepository->remove($user, true);
+//        }
+//
+//        return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+//    }
 
 }
