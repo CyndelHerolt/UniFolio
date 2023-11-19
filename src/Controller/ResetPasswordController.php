@@ -141,6 +141,11 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
+        if ($user === null) {
+            $this->addFlash('form_error', 'Vous n\'avez pas de compte avec cette adresse email');
+            return $this->redirectToRoute('app_forgot_password_request');
+        }
+
         if ($user->getEtudiant()) {
             $userInfos = $user->getEtudiant();
         } elseif ($user->getEnseignant()) {

@@ -13,7 +13,7 @@ body {
 
 footer {
   margin-left: 110px;
-    background-color: $color-bg;
+  background-color: $color-bg;
   //width: 100%;
 
   .alert-info {
@@ -268,10 +268,10 @@ footer {
     }
 
     button {
-        background-color: transparent;
-        border: none;
-        color: $color-dark;
-        cursor: pointer;
+      background-color: transparent;
+      border: none;
+      color: $color-dark;
+      cursor: pointer;
     }
   }
 }
@@ -463,6 +463,39 @@ footer {
   }
 }
 
-  .trace-content {
-    width: 100%;
+.trace-content {
+  width: 100%;
+}
+
+.error_page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .error_code {
+    font-size: 15rem;
+    font-weight: 900;
+    color: rgba(242, 222, 93, 0.44);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
+
+  .error_page_msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+
+    small {
+      margin: 25px;
+    }
+
+    a {
+      color: $color-dark;
+      text-decoration: none;
+    }
+  }
+}
