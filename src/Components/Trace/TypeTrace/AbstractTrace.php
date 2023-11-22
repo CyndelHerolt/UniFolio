@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -8,5 +9,4 @@ namespace App\Components\Trace\TypeTrace;
 
 class AbstractTrace
 {
-
 }

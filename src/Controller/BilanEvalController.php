@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -28,11 +29,9 @@ class BilanEvalController extends BaseController
     #[Route('/bilan/eval/trace/{id}', name: 'app_bilan_eval_trace')]
     public function traceShow(
         TraceRepository $traceRepository,
-        int             $id
-    ): Response
-    {
+        int $id
+    ): Response {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
-
             $data_user = $this->dataUserSession;
 
             $trace = $traceRepository->find($id);

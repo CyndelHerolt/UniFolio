@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -14,7 +15,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class AnneeFixture extends Fixture implements OrderedFixtureInterface
 {
-
     private $diplomeRepository;
 
     public function __construct(DiplomeRepository $diplomeRepository)
@@ -22,7 +22,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
         $this->diplomeRepository = $diplomeRepository;
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 7;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -24,8 +25,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 class UsersFixture extends Fixture implements OrderedFixtureInterface
 {
-
-    public function getOrder():int
+    public function getOrder(): int
     {
         // Retourner un entier qui indique l'ordre de chargement des fixations
         return 12;
@@ -33,18 +33,16 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
 
     public function __construct(
         private readonly UserPasswordHasherInterface $encoder,
-        protected EtudiantRepository                 $etudiantRepository,
-        protected BibliothequeRepository             $bibliothequeRepository,
-        protected EnseignantRepository               $enseignantRepository,
-        protected DepartementRepository              $departementRepository,
-        protected GroupeRepository                   $groupeRepository,
-        protected SemestreRepository                 $semestreRepository,
-    )
-    {
+        protected EtudiantRepository $etudiantRepository,
+        protected BibliothequeRepository $bibliothequeRepository,
+        protected EnseignantRepository $enseignantRepository,
+        protected DepartementRepository $departementRepository,
+        protected GroupeRepository $groupeRepository,
+        protected SemestreRepository $semestreRepository,
+    ) {
     }
 
-    public function load(ObjectManager $manager
-    ): void
+    public function load(ObjectManager $manager): void
     {
         $user1 = new Users();
 
@@ -127,6 +125,5 @@ class UsersFixture extends Fixture implements OrderedFixtureInterface
         $manager->persist($enseignant);
         $manager->persist($user11);
         $manager->flush();
-
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -31,12 +32,12 @@ class LoginAuthenticator extends AbstractAuthenticator
 
     public function __construct(
         private readonly DepartementRepository $departementRepository,
-        private readonly RequestStack          $session,
+        private readonly RequestStack $session,
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly EtudiantRepository    $etudiantRepository,
-        private readonly EnseignantRepository  $enseignantRepository,
-        private readonly RouterInterface $router)
-    {
+        private readonly EtudiantRepository $etudiantRepository,
+        private readonly EnseignantRepository $enseignantRepository,
+        private readonly RouterInterface $router
+    ) {
     }
 
     public function supports(Request $request): ?bool
@@ -76,7 +77,6 @@ class LoginAuthenticator extends AbstractAuthenticator
         }
 
         if ($enseignant) {
-
             $departements = $this->departementRepository->findDepartementEnseignant($enseignant);
 
             if (0 === count($departements)) {
@@ -98,8 +98,10 @@ class LoginAuthenticator extends AbstractAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('app_login', ['message' => 'pas_departement']));
         }
 
-        return new RedirectResponse($this->getTargetPath($request->getSession(),
-            $firewallName) ?? $this->router->generate('app_accueil', ['message' => 'erreur_role']));
+        return new RedirectResponse($this->getTargetPath(
+            $request->getSession(),
+            $firewallName
+        ) ?? $this->router->generate('app_accueil', ['message' => 'erreur_role']));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

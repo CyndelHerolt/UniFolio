@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -15,12 +16,12 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent('all_page')]
 class AllPageComponent
 {
-    public function __construct(
-//        protected PageRepository $pageRepository,
-        protected BibliothequeRepository $bibliothequeRepository,
-        #[Required] public Security $security
-    )
-    {}
+public function __construct(
+    //        protected PageRepository $pageRepository,
+    protected BibliothequeRepository $bibliothequeRepository,
+    #[Required] public Security $security
+) {}
+
 
     //cette solution suppose que chaque page est associée à au moins une trace. Si ce n'est pas le cas, il faudra adapter la méthode en conséquence
     public function getAllPage(): array
@@ -42,5 +43,4 @@ class AllPageComponent
 
         return $pages;
     }
-
 }

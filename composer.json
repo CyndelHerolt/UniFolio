@@ -24,6 +24,7 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.16",
         "sensio/framework-extra-bundle": "^6.2",
+        "squizlabs/php_codesniffer": "^3.7",
         "symfony/asset": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/dependency-injection": "6.3.*",

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -56,7 +57,6 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
         }
 
         if ($pdfFiles) {
-
             foreach ($pdfFiles as $pdfFile) {
                 $pdfFileName = uniqid() . '.' . $pdfFile->guessExtension();
                 //Vérifier si le fichier est au bon format
@@ -67,7 +67,7 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
                 if ($pdfFile->guessExtension() === 'pdf') {
                     //Déplacer le fichier dans le dossier déclaré sous le nom ../www-datas dans services.yaml
                     $pdfFile->move($_ENV['PATH_FILES'], $pdfFileName);
-                    $contenu[] = $_ENV['SRC_FILES'].'/'. $pdfFileName;
+                    $contenu[] = $_ENV['SRC_FILES'] . '/' . $pdfFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);

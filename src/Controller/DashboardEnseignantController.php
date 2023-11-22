@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -30,19 +31,16 @@ use Symfony\Contracts\Service\Attribute\Required;
 #[Route('/enseignant')]
 class DashboardEnseignantController extends BaseController
 {
-
     #[Route('/dashboard', name: 'enseignant_dashboard')]
     public function index(
-        UsersRepository          $usersRepository,
-        EnseignantRepository     $enseignantRepository,
-        DepartementRepository    $departementRepository,
-        TraceRepository          $traceRepository,
-        CommentaireRepository    $commentaireRepository,
+        UsersRepository $usersRepository,
+        EnseignantRepository $enseignantRepository,
+        DepartementRepository $departementRepository,
+        TraceRepository $traceRepository,
+        CommentaireRepository $commentaireRepository,
         EventDispatcherInterface $eventDispatcher
-    ): Response
-    {
+    ): Response {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
-
             $data_user = $this->dataUserSession;
 
             $usersRepository->findAll();

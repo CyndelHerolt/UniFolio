@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -20,8 +21,8 @@ class EnseignantDepartement extends BaseEntity
         #[ORM\ManyToOne(targetEntity: Enseignant::class, inversedBy: 'enseignantDepartements')]
         private Enseignant $enseignant,
         #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'enseignantDepartements')]
-        private Departement $departement)
-    {
+        private Departement $departement
+    ) {
 //        $this->addRole('ROLE_PERMANENT');
 //        $this->annee = (int) date('Y');
     }

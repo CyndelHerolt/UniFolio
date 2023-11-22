@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -13,15 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\RouterInterface;
 
-
 class LoginController extends AbstractController
 {
-
     #[Route('/login', name: 'app_login', methods: ['POST', 'GET'])]
     public function index(
         AuthenticationUtils $authenticationUtils,
-    ): Response
-    {
+    ): Response {
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

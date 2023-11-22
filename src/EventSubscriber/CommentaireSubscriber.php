@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -20,14 +21,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class CommentaireSubscriber implements EventSubscriberInterface
 {
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly RouterInterface        $router,
-        private readonly EtudiantRepository     $etudiantRepository,
-        private readonly CommentaireRepository  $commentaireRepository,
-    )
-    {
+        private readonly RouterInterface $router,
+        private readonly EtudiantRepository $etudiantRepository,
+        private readonly CommentaireRepository $commentaireRepository,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -81,15 +80,17 @@ class CommentaireSubscriber implements EventSubscriberInterface
             $notif->setCommentaire($origine);
             if ($destination instanceof Trace) {
                 $notif->setUrl($this->router->generate(
-                    'app_trace_index', ['id' => $destination->getId()]
+                    'app_trace_index',
+                    ['id' => $destination->getId()]
                 ));
             } elseif ($destination instanceof Portfolio) {
                 $notif->setUrl($this->router->generate(
-                    'app_portfolio_index', ['id' => $destination->getId(), 'step' => 'portfolio']
+                    'app_portfolio_index',
+                    ['id' => $destination->getId(), 'step' => 'portfolio']
                 ));
             }
-        $this->entityManager->persist($notif);
-        $this->entityManager->flush();
+            $this->entityManager->persist($notif);
+            $this->entityManager->flush();
         } elseif ($user instanceof Enseignant) {
             $notif = new Notification();
             $notif->setEnseignant($user);
@@ -100,11 +101,13 @@ class CommentaireSubscriber implements EventSubscriberInterface
             $notif->setCommentaire($origine);
             if ($destination instanceof Trace) {
                 $notif->setUrl($this->router->generate(
-                    'app_bilan_eval_trace', ['id' => $destination->getId()]
+                    'app_bilan_eval_trace',
+                    ['id' => $destination->getId()]
                 ));
             } elseif ($destination instanceof Portfolio) {
                 $notif->setUrl($this->router->generate(
-                    'app_portfolio_index', ['id' => $destination->getId(), 'step' => 'portfolio']
+                    'app_portfolio_index',
+                    ['id' => $destination->getId(), 'step' => 'portfolio']
                 ));
             }
             $this->entityManager->persist($notif);

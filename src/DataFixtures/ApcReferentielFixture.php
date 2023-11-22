@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -21,7 +22,7 @@ class ApcReferentielFixture extends Fixture implements OrderedFixtureInterface
         $this->departementRepository = $departementRepository;
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 2;
     }

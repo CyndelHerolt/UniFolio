@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -14,12 +15,11 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent('all_cv')]
 class AllCvComponent
 {
+public function __construct(
+    protected CvRepository $cvRepository,
+    #[Required] public Security $security,
+) {}
 
-    public function __construct(
-        protected CvRepository $cvRepository,
-        #[Required] public Security $security,
-    )
-    {}
 
     public function getAllCv(): array
     {

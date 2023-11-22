@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -38,14 +39,12 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 class EnseignantCrudController extends AbstractCrudController
 {
-
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface      $entityManager,
+        EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
     }
@@ -103,7 +102,7 @@ class EnseignantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e enseignant.e');
     }
 
-    public function new(AdminContext $context):Response|KeyValueStore
+    public function new(AdminContext $context): Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -131,7 +130,6 @@ class EnseignantCrudController extends AbstractCrudController
         $context->getEntity()->setInstance($entityInstance);
 
         if ($newForm->isSubmitted() && $newForm->isValid()) {
-
             $this->processUploadedFiles($newForm);
 
             $event = new BeforeEntityPersistedEvent($entityInstance);
@@ -193,7 +191,7 @@ class EnseignantCrudController extends AbstractCrudController
         return $responseParameters;
     }
 
-    public function edit(AdminContext $context):Response|KeyValueStore
+    public function edit(AdminContext $context): Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -247,7 +245,6 @@ class EnseignantCrudController extends AbstractCrudController
         $editForm = $this->createEditForm($context->getEntity(), $context->getCrud()->getEditFormOptions(), $context);
         $editForm->handleRequest($context->getRequest());
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
 //            dd($context->getRequest()->request->all('Enseignant')['roles']);
 
             $this->processUploadedFiles($editForm);
@@ -290,7 +287,5 @@ class EnseignantCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-
-
     }
 }

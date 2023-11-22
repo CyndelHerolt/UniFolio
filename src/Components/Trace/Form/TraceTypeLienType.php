@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -25,16 +26,14 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Contracts\Service\Attribute\Required;
 
-
 class TraceTypeLienType extends AbstractType
 {
-public function __construct(
-    protected TraceRepository     $traceRepository,
-    public BibliothequeRepository $bibliothequeRepository,
-    #[Required] public Security   $security
-)
-{
-}
+    public function __construct(
+        protected TraceRepository $traceRepository,
+        public BibliothequeRepository $bibliothequeRepository,
+        #[Required] public Security $security
+    ) {
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -105,9 +104,12 @@ public function __construct(
             //----------------------------------------------------------------
             ->add('legende', TextType::class, [
                 'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une légende',
+                    ]),
                     new Length([
                         'max' => 100,
-                        'maxMessage' => 'La légende ne peut pas dépasser {{ limit }} caractères',
+                        'maxMessage' => 'La légende ne peut pas dépasser 100 caractères',
                     ]),
                 ],
                 'label' => 'Légende',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -19,16 +20,12 @@ class DashboardController extends AbstractController
         $user = $this->getUser();
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             return $this->redirectToRoute('etudiant_dashboard');
-        }
-        elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
+        } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
             return $this->redirectToRoute('enseignant_dashboard');
-        }
-        elseif ($this->isGranted('ROLE_ADMIN')) {
+        } elseif ($this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('admin');
-        }
-        else {
+        } else {
             return $this->redirectToRoute('app_login');
         }
     }
