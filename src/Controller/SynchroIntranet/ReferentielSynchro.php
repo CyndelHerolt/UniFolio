@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -35,33 +36,30 @@ class ReferentielSynchro extends AbstractController
 
     public function __construct(
         ParameterBagInterface $params,
-    )
-    {
+    ) {
         $this->params = $params;
     }
 
     #[Route('/api/intranet/referentiel', name: 'app_synchro_intranet_referentiel')]
     public function synchroReferentiel(
-        HttpClientInterface                $client,
-        ApcReferentielRepository           $referentielRepository,
-        DepartementRepository              $departementRepository,
-        CompetenceRepository               $competenceRepository,
-        ApcNiveauRepository                $niveauRepository,
+        HttpClientInterface $client,
+        ApcReferentielRepository $referentielRepository,
+        DepartementRepository $departementRepository,
+        CompetenceRepository $competenceRepository,
+        ApcNiveauRepository $niveauRepository,
         ApcApprentissageCritiqueRepository $apprentissageCritiqueRepository,
-        ApcParcoursRepository              $parcoursRepository,
-        ApcReferentielRepository           $apcReferentielRepository,
-        ApcParcoursRepository              $apcParcoursRepository,
-        GroupeRepository                   $groupeRepository,
-        TypeGroupeRepository               $typeGroupeRepository,
-        SemestreRepository                 $semestreRepository,
-        AnneeRepository                    $anneeRepository,
-        DiplomeRepository                  $diplomeRepository,
-    ): Response
-    {
+        ApcParcoursRepository $parcoursRepository,
+        ApcReferentielRepository $apcReferentielRepository,
+        ApcParcoursRepository $apcParcoursRepository,
+        GroupeRepository $groupeRepository,
+        TypeGroupeRepository $typeGroupeRepository,
+        SemestreRepository $semestreRepository,
+        AnneeRepository $anneeRepository,
+        DiplomeRepository $diplomeRepository,
+    ): Response {
 
 
         if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
-
             // Vide les tables
             $competenceRepository->truncate();
             $apcParcoursRepository->truncate();
@@ -74,7 +72,6 @@ class ReferentielSynchro extends AbstractController
             $anneeRepository->truncate();
             $diplomeRepository->truncate();
             $departementRepository->truncate();
-
         }
 
 
@@ -84,7 +81,7 @@ class ReferentielSynchro extends AbstractController
 
         $referentiels = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/referentiel',
+            $_ENV['API_URL'] . 'unifolio/referentiel',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -125,7 +122,7 @@ class ReferentielSynchro extends AbstractController
 
         $parcours = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/parcours',
+            $_ENV['API_URL'] . 'unifolio/parcours',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -140,7 +137,6 @@ class ReferentielSynchro extends AbstractController
             $referentiel = $referentielRepository->findOneBy(['id' => $apcParcours['referentiel']]);
 
             if ($referentiel) {
-
                 $existingParcours = $parcoursRepository->findOneBy(['id' => $apcParcours['id']]);
                 //Vérifier si le libelle du département existe déjà en base de données
                 if ($existingParcours) {
@@ -186,7 +182,7 @@ class ReferentielSynchro extends AbstractController
         //todo: passer l'année du referentiel en paramètre de la route pour récup. -> intranet pour findBy
         $competences = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/competences',
+            $_ENV['API_URL'] . 'unifolio/competences',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -203,7 +199,6 @@ class ReferentielSynchro extends AbstractController
             $existingCompetence = $competenceRepository->findOneBy(['id' => $competence['id']]);
             //Vérifier si le libelle du département existe déjà en base de données
             if ($existingCompetence) {
-
                 $existingCompetence->setId($competence['id']);
                 $existingCompetence->setLibelle($competence['libelle']);
                 $existingCompetence->setNomCourt($competence['nom_court']);
@@ -228,7 +223,7 @@ class ReferentielSynchro extends AbstractController
 
         $niveaux = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/niveau',
+            $_ENV['API_URL'] . 'unifolio/niveau',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -285,7 +280,7 @@ class ReferentielSynchro extends AbstractController
 
         $apprentissagesCritiques = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/apprentissage_critique',
+            $_ENV['API_URL'] . 'unifolio/apprentissage_critique',
             [
                 'headers' => [
                     'Accept' => 'application/json',

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -210,7 +211,6 @@ class CvType extends AbstractType
                 'by_reference' => false,
                 'empty_data' => [],
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

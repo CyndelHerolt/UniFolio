@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -28,14 +29,13 @@ use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use \Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 // Récupère les données d'un session utilisateur
 class DataUserSession
 {
-
     /**
      * @var Semestre[]
      */
@@ -65,23 +65,22 @@ class DataUserSession
      * @throws NonUniqueResultException
      */
     public function __construct(
-        protected SemestreRepository              $semestreRepository,
-        protected AnneeRepository                 $anneeRepository,
-        protected DiplomeRepository               $diplomeRepository,
-        protected EnseignantRepository            $enseignantRepository,
-        protected EtudiantRepository              $etudiantRepository,
-        protected DepartementRepository           $departementRepository,
+        protected SemestreRepository $semestreRepository,
+        protected AnneeRepository $anneeRepository,
+        protected DiplomeRepository $diplomeRepository,
+        protected EnseignantRepository $enseignantRepository,
+        protected EtudiantRepository $etudiantRepository,
+        protected DepartementRepository $departementRepository,
         protected EnseignantDepartementRepository $enseignantDepartementRepository,
-        protected GroupeRepository                $groupeRepository,
-        protected TypeGroupeRepository            $typeGroupeRepository,
-        protected TokenStorageInterface           $user,
-        protected Security                        $security,
-        EntityManagerInterface                    $entityManager,
-        EventDispatcherInterface                  $eventDispatcher,
-        RequestStack                              $session,
-        protected NotificationRepository          $notificationRepository,
-    )
-    {
+        protected GroupeRepository $groupeRepository,
+        protected TypeGroupeRepository $typeGroupeRepository,
+        protected TokenStorageInterface $user,
+        protected Security $security,
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        RequestStack $session,
+        protected NotificationRepository $notificationRepository,
+    ) {
         $this->requestStack = $session;
         $session = $this->requestStack->getSession();
 
@@ -111,7 +110,6 @@ class DataUserSession
             // TODO: récupérer seulement les données propres à l'étudiant
             $this->groupes = $this->groupeRepository->findGroupesEtudiant($etudiant);
             $this->typesGroupes = $this->typeGroupeRepository->findTypesGroupesEtudiant($etudiant);
-
         } else {
             throw new AccessDeniedException('Vous n\'avez pas accès à cette page');
         }
@@ -119,7 +117,6 @@ class DataUserSession
         //Si l'utilisateur connecté a les roles admin et enseignant, on set son département defaut à true dans la table enseignant_departement
         if ($enseignant && $enseignant->getUsername() === 'enseignant') {
             $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
-
         } elseif ($etudiant && $etudiant->getUsername() === 'etudiant') {
             $this->departement = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
             $this->semestres = $this->semestreRepository->findByDepartement($this->departement);
@@ -236,15 +233,16 @@ class DataUserSession
 
         if ($this->security->isGranted('ROLE_ENSEIGNANT')) {
             $notifications = $this->notificationRepository->findBy(
-                ['enseignant' => $this->getUser()->getEnseignant()], ['dateCreation' => 'DESC']
+                ['enseignant' => $this->getUser()->getEnseignant()],
+                ['dateCreation' => 'DESC']
             );
         } elseif ($this->security->isGranted('ROLE_ETUDIANT')) {
             $notifications = $this->notificationRepository->findBy(
-                ['etudiant' => $this->getUser()->getEtudiant()], ['dateCreation' => 'DESC']
+                ['etudiant' => $this->getUser()->getEtudiant()],
+                ['dateCreation' => 'DESC']
             );
         }
 
         return $notifications;
     }
-
 }

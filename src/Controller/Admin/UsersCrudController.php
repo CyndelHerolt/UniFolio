@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -32,8 +33,7 @@ class UsersCrudController extends AbstractCrudController
 {
     public function __construct(
         public UserPasswordHasherInterface $userPasswordHasher,
-    )
-    {
+    ) {
     }
 
     public static function getEntityFqcn(): string
@@ -115,15 +115,17 @@ class UsersCrudController extends AbstractCrudController
     //-----------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------
 
-    private function newEtudiant(EtudiantRepository $etudiantRepository, Users $user){
-        if (in_array('ROLE_ETUDIANT', $user->getRoles())){
+    private function newEtudiant(EtudiantRepository $etudiantRepository, Users $user)
+    {
+        if (in_array('ROLE_ETUDIANT', $user->getRoles())) {
             $etudiant = new Etudiant();
             $etudiant->setUsers($user);
 //            $etudiantRepository->save($etudiant, true);
         }
     }
- private function newEnseignant(EnseignantRepository $enseignantRepository, Users $user){
-        if (in_array('ROLE_ENSEIGNANT', $user->getRoles())){
+    private function newEnseignant(EnseignantRepository $enseignantRepository, Users $user)
+    {
+        if (in_array('ROLE_ENSEIGNANT', $user->getRoles())) {
             $enseignant = new Enseignant();
             $enseignant->setUsers($user);
 //            $enseignantRepository->save($enseignant, true);
@@ -143,7 +145,7 @@ class UsersCrudController extends AbstractCrudController
             // Récupérer les données saisies dans le formulaire et les affecter à l'objet Etudiant
             $form = $this->createForm(EtudiantType::class, $etudiant);
             if ($form->isSubmitted() && $form->isValid()) {
-            $form->handleRequest(Request::createFromGlobals());
+                $form->handleRequest(Request::createFromGlobals());
                 $entityManager->persist($etudiant);
                 $entityManager->flush(true);
             }
@@ -204,6 +206,5 @@ class UsersCrudController extends AbstractCrudController
 
     private function getDoctrine()
     {
-
     }
 }

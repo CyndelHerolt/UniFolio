@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -32,20 +33,17 @@ use Symfony\Contracts\Service\Attribute\Required;
 class PortfolioController extends BaseController
 {
     public function __construct(
-        #[Required] public Security  $security,
-        DataUserSession              $dataUserSession,
+        #[Required] public Security $security,
+        DataUserSession $dataUserSession,
         private FormFactoryInterface $formFactory,
-    )
-    {
+    ) {
     }
 
     #[Route('etudiant/portfolio', name: 'app_portfolio')]
     public function index(
         PortfolioRepository $portfolioRepository,
-    ): Response
-    {
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             $data_user = $this->dataUserSession;
 
             //Récupérer les portfolios de l'utilisateur connecté
@@ -63,14 +61,13 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show', name: 'app_portfolio_index')]
     public function indexShow(
-        Request                  $request,
-        PortfolioRepository      $portfolioRepository,
-        CommentaireRepository    $commentaireRepository,
-        TraceRepository          $traceRepository,
-        NotificationRepository   $notificationRepository,
+        Request $request,
+        PortfolioRepository $portfolioRepository,
+        CommentaireRepository $commentaireRepository,
+        TraceRepository $traceRepository,
+        NotificationRepository $notificationRepository,
         EventDispatcherInterface $eventDispatcher
-    ): Response
-    {
+    ): Response {
         $data_user = $this->dataUserSession;
         $id = $request->query->get('id');
 
@@ -142,14 +139,13 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show/{id}', name: 'app_portfolio_show')]
     public function show(
-        PortfolioRepository      $portfolioRepository,
-        OrdrePageRepository      $ordrePageRepository,
-        PageRepository           $pageRepository,
-        OrdreTraceRepository     $ordreTraceRepository,
-        Request                  $request,
-                                 $id
-    ): Response
-    {
+        PortfolioRepository $portfolioRepository,
+        OrdrePageRepository $ordrePageRepository,
+        PageRepository $pageRepository,
+        OrdreTraceRepository $ordreTraceRepository,
+        Request $request,
+        $id
+    ): Response {
         $data_user = $this->dataUserSession;
         $step = $request->query->get('step', 'portfolio');
 
@@ -159,9 +155,7 @@ class PortfolioController extends BaseController
 
 
         switch ($step) {
-
-            case 'portfolio' :
-
+            case 'portfolio':
                 if ($this->isGranted('ROLE_ENSEIGNANT')) {
                     // Créez une instance de votre entité Commentaire
                     $commentaire = new Commentaire();
@@ -187,10 +181,8 @@ class PortfolioController extends BaseController
 
                 break;
 
-            case 'page' :
-
+            case 'page':
                 if ($this->isGranted('ROLE_ETUDIANT')) {
-
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
@@ -204,10 +196,8 @@ class PortfolioController extends BaseController
 
                 break;
 
-            case 'evalPage' :
-
+            case 'evalPage':
                 if ($this->isGranted('ROLE_ENSEIGNANT')) {
-
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
@@ -220,7 +210,6 @@ class PortfolioController extends BaseController
                 }
 
                 break;
-
         }
 
         return $this->render('portfolio/_step.html.twig', [
@@ -239,11 +228,10 @@ class PortfolioController extends BaseController
 
     #[Route('etudiant/portfolio/new', name: 'app_portfolio_new')]
     public function new(
-        Request             $request,
+        Request $request,
         PortfolioRepository $portfolioRepository,
-        Security            $security
-    ): Response
-    {
+        Security $security
+    ): Response {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
@@ -254,7 +242,8 @@ class PortfolioController extends BaseController
             $form = $this->createForm(PortfolioType::class, $portfolio, ['user' => $user]);
 
             $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()
+            if (
+                $form->isSubmitted() && $form->isValid()
             ) {
                 $portfolio->setEtudiant($user);
 
@@ -264,14 +253,14 @@ class PortfolioController extends BaseController
                     //Vérifier si le fichier est au bon format
                     if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                         //Déplacer le fichier dans le dossier déclaré sous le nom$this->>$this->getParameter('PATH_FILES' . dans services.yaml
-                        $imageFile->move($_ENV['PATH_FILES'].'', $imageFileName);
+                        $imageFile->move($_ENV['PATH_FILES'] . '', $imageFileName);
 //                //Sauvegarder le contenu dans la base de données
-                        $portfolio->setBanniere($_ENV['SRC_FILES'].'/'.$imageFileName);
+                        $portfolio->setBanniere($_ENV['SRC_FILES'] . '/' . $imageFileName);
                     } elseif (!in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                         $this->addFlash('danger', 'L\'image doit être au format jpg, jpeg, png, gif, svg ou webp');
                     }
                 } else {
-                    $portfolio->setBanniere($_ENV['SRC_FILES'].'/banniere.jpg');
+                    $portfolio->setBanniere($_ENV['SRC_FILES'] . '/banniere.jpg');
                 }
 
                 if ($form->get('optSearch')->getData() === true) {
@@ -312,16 +301,14 @@ class PortfolioController extends BaseController
     #[Route('etudiant/portfolio/delete/{id}', name: 'app_portfolio_delete')]
     public function delete(
         PortfolioRepository $portfolioRepository,
-        int                 $id
-    ): Response
-    {
+        int $id
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
 
             $portfolioRepository->remove($portfolio, true);
             $document = $portfolio->getBanniere();
-            if ($document !== $_ENV['SRC_FILES'].'/banniere.jpg') {
+            if ($document !== $_ENV['SRC_FILES'] . '/banniere.jpg') {
                 $document = substr($document, strrpos($document, '/') + 1);
                 $document = $_ENV['PATH_FILES'] . '/' . $document;
 
@@ -336,12 +323,10 @@ class PortfolioController extends BaseController
 
     #[Route('enseignant/portfolio/delete/{id}', name: 'app_delete_commentaire')]
     public function deleteComment(
-        Request               $request,
+        Request $request,
         CommentaireRepository $commentaireRepository
-    )
-    {
+    ) {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
-
             $commentaireId = $request->get('id');
             $commentaire = $commentaireRepository->find($commentaireId);
             $commentaireRepository->remove($commentaire, true);

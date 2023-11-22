@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -101,7 +102,7 @@ class EnseignantDepartementRepository extends ServiceEntityRepository
             ->orWhere('p.username LIKE :needle')
             ->orWhere('p.mailUniv LIKE :needle')
             ->andWhere('d.departement = :departement')
-            ->setParameter('needle', '%'.$needle.'%')
+            ->setParameter('needle', '%' . $needle . '%')
             ->setParameter('departement', $departement->getId())
             ->orderBy('p.nom', Criteria::ASC)
             ->addOrderBy('p.prenom', Criteria::ASC)

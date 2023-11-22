@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -48,7 +49,7 @@ class EtudiantRepository extends ServiceEntityRepository
         return $t;
     }
 
-    public function findByDepartement(Departement $departement) : array
+    public function findByDepartement(Departement $departement): array
     {
         $qb = $this->createQueryBuilder('e')
             ->innerJoin('e.groupe', 'g')
@@ -92,7 +93,7 @@ class EtudiantRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('e');
         $i = 1;
         foreach ($annee->getSemestres() as $semestre) {
-            $query->orWhere('e.semestre = ?'.$i)
+            $query->orWhere('e.semestre = ?' . $i)
                 ->setParameter($i, $semestre->getId());
             ++$i;
         }

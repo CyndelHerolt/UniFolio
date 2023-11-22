@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -15,20 +16,18 @@ use Doctrine\Persistence\ObjectManager;
 
 class DiplomeFixture extends Fixture implements OrderedFixtureInterface
 {
-
     private $departementRepository;
     private $apcParcoursRepository;
 
     public function __construct(
         DepartementRepository $departementRepository,
         ApcParcoursRepository $apcParcoursRepository,
-    )
-    {
+    ) {
         $this->departementRepository = $departementRepository;
         $this->apcParcoursRepository = $apcParcoursRepository;
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 6;
     }

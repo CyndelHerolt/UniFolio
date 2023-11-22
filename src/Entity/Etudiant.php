@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -15,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -155,7 +155,6 @@ class Etudiant
 
     public function setGroupeId($groupes)
     {
-
     }
 
     public function addGroupe(Groupe $groupe): self
@@ -349,7 +348,6 @@ class Etudiant
 
     public function setSemestreId($semestre)
     {
-
     }
 
     /**
@@ -372,7 +370,6 @@ class Etudiant
 
     public function setDepartement($departement)
     {
-
     }
 
     /**
@@ -428,6 +425,4 @@ class Etudiant
 
         return $this;
     }
-
-
 }

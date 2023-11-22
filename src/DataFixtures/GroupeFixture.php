@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -14,19 +15,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-
 class GroupeFixture extends Fixture implements OrderedFixtureInterface
 {
     private $typeGroupeRepository;
 
     public function __construct(
         TypeGroupeRepository $typeGroupeRepository
-    )
-    {
+    ) {
         $this->typeGroupeRepository = $typeGroupeRepository;
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 10;
     }
@@ -45,7 +44,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
             'TD' => ['TD AB', 'TD CD', 'TD EF', 'TD GH'],
             'TP' => ['TP A', 'TP B', 'TP C', 'TP D', 'TP E', 'TP F', 'TP G', 'TP H']
         ];
-        $idCounter= 1;
+        $idCounter = 1;
         foreach ($typeGroupes as $typeGroupe) {
             $libelle = $typeGroupe->getLibelle();
             if (array_key_exists($libelle, $groupesForType)) {

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -43,7 +44,8 @@ class ApcNiveauRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByAnnee($competence, $annee) {
+    public function findByAnnee($competence, $annee)
+    {
         return $this->createQueryBuilder('n')
             ->join('n.competences', 'c')
             ->where('c.id = :competence')
@@ -55,7 +57,8 @@ class ApcNiveauRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findByAnneeParcours($annee, $parcours) {
+    public function findByAnneeParcours($annee, $parcours)
+    {
         return $this->createQueryBuilder('n')
             ->innerJoin('n.apcParcours', 'p')
             ->where('n.ordre = :ordre')
@@ -66,7 +69,8 @@ class ApcNiveauRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByGroupe($competence, $groupe) {
+    public function findByGroupe($competence, $groupe)
+    {
         return $this->createQueryBuilder('n')
             ->where('n.competences = :competence')
             ->andWhere('n.ordre = :ordre')

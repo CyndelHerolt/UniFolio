@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -29,19 +30,17 @@ use Symfony\Contracts\Service\Attribute\Required;
 class PortfolioType extends AbstractType
 {
     public function __construct(
-        protected PageRepository      $pageRepository,
-        protected TraceRepository     $traceRepository,
+        protected PageRepository $pageRepository,
+        protected TraceRepository $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        #[Required] public Security   $security
-    )
-    {
+        #[Required] public Security $security
+    ) {
     }
 
     public function buildForm(
         FormBuilderInterface $builder,
-        array                $options,
-    ): void
-    {
+        array $options,
+    ): void {
         $builder
             ->add('date_creation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),

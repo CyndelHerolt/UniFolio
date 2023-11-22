@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -28,20 +29,17 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class PageController extends BaseController
 {
-
     public function __construct(
-        protected TraceRepository     $traceRepository,
+        protected TraceRepository $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public CompetenceRepository   $competenceRepository,
-    )
-    {
+        public CompetenceRepository $competenceRepository,
+    ) {
     }
 
     #[Route('/page', name: 'app_page')]
     public function index(
         PageRepository $pageRepository,
-    ): Response
-    {
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -81,11 +79,10 @@ class PageController extends BaseController
 
     #[Route('/page/new/{id}', name: 'app_page_new')]
     public function new(
-        Request        $request,
+        Request $request,
         PageRepository $pageRepository,
-        Security       $security,
-    ): Response
-    {
+        Security $security,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -103,11 +100,9 @@ class PageController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
             } else {
-
                 //Récupérer l'ordre saisi dans le form
                 $ordreSaisi = $form->get('ordre')->getData();
 //                dd($ordreSaisi);
@@ -153,12 +148,11 @@ class PageController extends BaseController
 
     #[Route('/page/edit/{id}', name: 'app_page_edit')]
     public function edit(
-        Request        $request,
+        Request $request,
         PageRepository $pageRepository,
-        Security       $security,
-        int            $id,
-    ): Response
-    {
+        Security $security,
+        int $id,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -182,7 +176,6 @@ class PageController extends BaseController
             if ($trace->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une trace.');
             } else {
-
                 //Récupérer l'ordre saisi dans le form
                 $ordreSaisi = $form->get('ordre')->getData();
 //                dd($ordreSaisi);
@@ -227,11 +220,10 @@ class PageController extends BaseController
 
     #[Route('/page/delete/{id}', name: 'app_page_delete')]
     public function delete(
-        Request        $request,
+        Request $request,
         PageRepository $pageRepository,
-        Page           $page,
-    ): Response
-    {
+        Page $page,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -246,13 +238,12 @@ class PageController extends BaseController
 
     #[Route('/page/trace/{id}', name: 'app_add_to_page')]
     public function addTrace(
-        Request         $request,
-        PageRepository  $pageRepository,
+        Request $request,
+        PageRepository $pageRepository,
         TraceRepository $traceRepository,
-        Security        $security,
-        int             $id,
-    ): Response
-    {
+        Security $security,
+        int $id,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'

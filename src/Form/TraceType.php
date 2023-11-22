@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -31,11 +32,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TraceType extends AbstractType
 {
-
     public function __construct(
         private TraceRegistry $traceRegistry
-    )
-    {
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -75,14 +74,13 @@ class TraceType extends AbstractType
             $form = $event->getForm();
             $data = $event->getData();
 
-            if (isset($data['type_trace']) && $data['type_trace'] === TraceTypeLien::TYPE_TRACE) {
+            if (isset($data['type_trace']) && $data['type_trace'] === TraceTypeLien::TAG_TYPE_TRACE) {
                 $form->remove('contenu');
                 $form->add('contenu', TextareaType::class, [
                     'required' => true,
                 ]);
             }
         });
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

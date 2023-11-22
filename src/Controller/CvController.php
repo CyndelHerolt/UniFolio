@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -25,8 +26,7 @@ class CvController extends AbstractController
 {
     public function __construct(
         #[Required] public Security $security,
-    )
-    {
+    ) {
     }
 
     #[Route('/cv', name: 'app_cv')]
@@ -48,10 +48,9 @@ class CvController extends AbstractController
 
     #[Route('/cv/new/{id}', name: 'app_cv_new')]
     public function new(
-        Request      $request,
+        Request $request,
         CvRepository $cvRepository,
-    ): Response
-    {
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -94,14 +93,13 @@ class CvController extends AbstractController
 
     #[Route('/cv/edit/{id}', name: 'app_cv_edit')]
     public function edit(
-        Request                $request,
-        CvRepository           $cvRepository,
-        ExperienceRepository   $experienceRepository,
-        Cv                     $cv,
-        int                    $id,
+        Request $request,
+        CvRepository $cvRepository,
+        ExperienceRepository $experienceRepository,
+        Cv $cv,
+        int $id,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -143,9 +141,8 @@ class CvController extends AbstractController
         CvRepository $cvRepository,
         ExperienceRepository $experienceRepository,
         FormationRepository $formationRepository,
-        int          $id,
-    ): Response
-    {
+        int $id,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -176,9 +173,8 @@ class CvController extends AbstractController
     #[Route('/cv/show/{id}', name: 'app_cv_show')]
     public function show(
         CvRepository $cvRepository,
-        int          $id,
-    ): Response
-    {
+        int $id,
+    ): Response {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'

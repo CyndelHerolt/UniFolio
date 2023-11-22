@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -19,13 +20,12 @@ use Symfony\Contracts\Service\Attribute\Required;
 class NotificationController extends AbstractController
 {
     public function __construct(
-        NotificationRepository      $notificationRepository,
-        PortfolioRepository         $portfolioRepository,
-        TraceRepository             $traceRepository,
+        NotificationRepository $notificationRepository,
+        PortfolioRepository $portfolioRepository,
+        TraceRepository $traceRepository,
         #[Required] public Security $security,
-        DataUserSession             $dataUserSession,
-    )
-    {
+        DataUserSession $dataUserSession,
+    ) {
         $this->notificationRepository = $notificationRepository;
         $this->portfolioRepository = $portfolioRepository;
         $this->traceRepository = $traceRepository;
@@ -102,5 +102,4 @@ class NotificationController extends AbstractController
 
         return $this->redirectToRoute('app_notification');
     }
-
 }

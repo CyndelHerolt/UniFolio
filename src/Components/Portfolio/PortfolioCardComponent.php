@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -16,8 +17,9 @@ class PortfolioCardComponent
     public int $id;
 
     public function __construct(
-        private PortfolioRepository $portfolioRepository)
-    {}
+        private PortfolioRepository $portfolioRepository
+    ) {
+    }
 
     public function getPortfolio(): Portfolio
     {

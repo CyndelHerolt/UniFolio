@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -24,7 +25,7 @@ class ApcParcoursFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 5;
     }

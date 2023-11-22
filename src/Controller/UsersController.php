@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -50,24 +51,22 @@ class UsersController extends AbstractController
 
     #[Route('/inscription', name: 'app_users_new', methods: ['GET', 'POST'])]
     public function new(
-        Request                     $request,
-        UsersRepository             $usersRepository,
+        Request $request,
+        UsersRepository $usersRepository,
         UserPasswordHasherInterface $passwordHasher,
-        EtudiantRepository          $etudiantRepository,
-        EnseignantRepository        $enseignantRepository,
-        UserSynchro                 $userSynchro,
-        HttpClientInterface         $client,
-        MailerInterface               $mailer,
-        VerifyEmailHelperInterface  $verifyEmailHelper,
-    ): Response
-    {
+        EtudiantRepository $etudiantRepository,
+        EnseignantRepository $enseignantRepository,
+        UserSynchro $userSynchro,
+        HttpClientInterface $client,
+        MailerInterface $mailer,
+        VerifyEmailHelperInterface $verifyEmailHelper,
+    ): Response {
 
         $user = new Users();
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $plaintextPassword = $user->getPassword();
             $login = $user->getUsername();
 
@@ -117,19 +116,18 @@ class UsersController extends AbstractController
 
     #[Route('/verify', name: 'app_verify_email')]
     public function verifyUserEmail(
-        Request                    $request,
+        Request $request,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        UsersRepository            $usersRepository,
-        UserSynchro                $userSynchro,
-        HttpClientInterface        $client,
-        EtudiantRepository         $etudiantRepository,
-        BibliothequeRepository     $bibliothequeRepository,
-        EnseignantRepository       $enseignantRepository,
-        GroupeRepository           $groupeRepository,
-        DepartementRepository      $departementRepository,
-        SemestreRepository         $semestreRepository,
-    ): Response
-    {
+        UsersRepository $usersRepository,
+        UserSynchro $userSynchro,
+        HttpClientInterface $client,
+        EtudiantRepository $etudiantRepository,
+        BibliothequeRepository $bibliothequeRepository,
+        EnseignantRepository $enseignantRepository,
+        GroupeRepository $groupeRepository,
+        DepartementRepository $departementRepository,
+        SemestreRepository $semestreRepository,
+    ): Response {
         $user = $usersRepository->findOneBy(['username' => $request->query->get('id')]);
         $login = $user->getUsername();
         try {
@@ -153,17 +151,15 @@ class UsersController extends AbstractController
         }
         $usersRepository->save($user, true);
         return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
-
     }
 
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
     public function resendVerifyEmail(
-        Request                    $request,
+        Request $request,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        UsersRepository            $usersRepository,
+        UsersRepository $usersRepository,
         MailerInterface $mailer
-    )
-    {
+    ) {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // récupérer les données du formulaire
@@ -215,7 +211,6 @@ class UsersController extends AbstractController
 
         return $this->render('users/resend_verify_email.html.twig', [
         ]);
-
     }
 
 //    #[Route('/{id}', name: 'app_users_show', methods: ['GET'])]
@@ -263,5 +258,4 @@ class UsersController extends AbstractController
 //
 //        return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
 //    }
-
 }

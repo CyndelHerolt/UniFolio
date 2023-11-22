@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -22,8 +23,7 @@ class TraceCardComponent
 
     public function __construct(
         public TraceRepository $traceRepository,
-    )
-    {
+    ) {
     }
 
     public function getTrace(): ?Trace
