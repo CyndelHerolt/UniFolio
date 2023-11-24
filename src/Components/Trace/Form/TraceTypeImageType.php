@@ -26,6 +26,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -61,7 +62,7 @@ class TraceTypeImageType extends AbstractType
             ->add('titre', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
+                        'message' => 'Le titre ne peut pas être vide',
                     ]),
                     new Length([
                         'max' => 100,
@@ -121,6 +122,36 @@ class TraceTypeImageType extends AbstractType
                 'help' => 'Description de votre média, 100 caractères maximum',
                 'required' => true,
             ])
+            //----------------------------------------------------------------
+            ->add('dateRealisation', DateTimeType::class, [
+                'data' => new \DateTimeImmutable(),
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une date',
+                    ])
+                ],
+                'format' => 'MM-yyyy',
+                'widget' => 'single_text',
+                'label' => 'Date de réalisation',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
+                'help' => 'Date à laquelle vous avez réalisé cette trace. A saisir au format mm-YYYY',
+                'required' => true,
+                'html5' => false,
+            ])
+            //----------------------------------------------------------------
+                ->add('contexte', TextType::class, [
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez saisir un contexte',
+                        ]),
+                    ],
+                    'label' => 'Contexte',
+                    'label_attr' => ['class' => 'form-label'],
+                    'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                    'help' => 'Le contexte dans lequel vous avez réalisé cette trace (SAE, projet personnel, en groupe, en solo ...)',
+                    'required' => true,
+                ])
             //----------------------------------------------------------------
             ->add('description', TinymceType::class, [
                 'constraints' => [

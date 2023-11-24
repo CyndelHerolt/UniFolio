@@ -119,6 +119,36 @@ class TraceTypeLienType extends AbstractType
                 'required' => true,
             ])
             //----------------------------------------------------------------
+            ->add('dateRealisation', DateTimeType::class, [
+                'data' => new \DateTimeImmutable(),
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une date',
+                    ])
+                ],
+                'format' => 'MM-yyyy',
+                'widget' => 'single_text',
+                'label' => 'Date de réalisation',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control"],
+                'help' => 'Date à laquelle vous avez réalisé cette trace. A saisir au format mm-YYYY',
+                'required' => true,
+                'html5' => false,
+            ])
+            //----------------------------------------------------------------
+            ->add('contexte', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir un contexte',
+                    ]),
+                ],
+                'label' => 'Contexte',
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => "form-control", 'placeholder' => '...'],
+                'help' => 'Le contexte dans lequel vous avez réalisé cette trace (SAE, projet personnel, en groupe, en solo ...)',
+                'required' => true,
+            ])
+            //----------------------------------------------------------------
             ->add('description', TinymceType::class, [
                 'constraints' => [
                     new NotBlank([
