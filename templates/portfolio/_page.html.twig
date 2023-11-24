@@ -11,7 +11,13 @@
         {% for trace in traces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
             <div class="card-body portfolio-traces col-12">
                 <h3>{{ trace.titre }}</h3>
-
+                <div class="trace-infos-min">
+                    <ul>
+                        <li><span>Réalisé le :&nbsp;</span> {{ trace.dateRealisation|date('d-m-y') }}</li>
+                        <li>•</li>
+                        <li><span>Contexte :&nbsp;</span> {{ trace.contexte }}</li>
+                    </ul>
+                </div>
                 <div class="portfolio-trace-contenu">
                     {% if 'TraceTypeImage' in trace.typeTrace %}
                         <figure>
