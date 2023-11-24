@@ -81,6 +81,10 @@
             </div>
             <div class="modal-body">
                 <div class=" trace-content">
+                    <div class="trace-infos-min">
+                        <p><span>Réalisé le :&nbsp;</span> {{ trace.dateRealisation|date('d-m-y') }}</p>
+                        <p><span>Contexte :&nbsp;</span> {{ trace.contexte }}</p>
+                    </div>
                     {% if 'TraceTypeImage' in trace.typeTrace %}
                         <figure>
                             <div class="row g-2 trace-galerie-img">
@@ -132,7 +136,7 @@
                     {% endif %}
 
                     <div>
-                    {{ trace.description|raw }}
+                        {{ trace.description|raw }}
                     </div>
 
                     <ul class="portfolio-competences">
