@@ -71,12 +71,10 @@
                                 <p><i class="fa fa-graduation-cap"></i> Semestre
                                     : {{ data_user.etudiant.semestre.libelle }}</p>
                                 <p><i class="fa fa-users"></i> Groupes TP :
-                                    {% for tg in data_user.etudiant.semestre.typeGroupes %}
-                                        {% for groupe in tg.groupes %}
-                                            {% if "TP" in groupe.typeGroupe.type %}
-                                                {{ groupe.libelle }}
-                                            {% endif %}
-                                        {% endfor %}
+                                    {% for groupe in data_user.etudiant.groupe %}
+                                        {% if groupe.typeGroupe.libelle == "TP" %}
+                                        TP {{ groupe.libelle }}
+                                        {% endif %}
                                     {% endfor %}
                                 </p>
                                 {% else %}
