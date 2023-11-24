@@ -7,14 +7,13 @@
                     <h5 class="card-title">{{ this.portfolio.intitule }}</h5>
                     <ul class="card-infos-min">
                         <li><span>{{ this.portfolio.etudiant.prenom }} {{ this.portfolio.etudiant.nom }} |
-                            {% for g in this.portfolio.etudiant.groupe %}
-                                {% if 'TP' in g.libelle %}
-                                    {% for s in g.typegroupe.semestre %}
-                                        {{ s.libelle }} |
-                                    {% endfor %}
-                                    {{ g.libelle }}
-                                {% endif %}
-                            {% endfor %}
+                                {% for g in this.portfolio.etudiant.groupe %}
+                                    {% if 'TP' in g.typeGroupe.libelle %}
+                                        TP {{ g.libelle }}
+                                        |
+                                        {{ this.portfolio.etudiant.semestre.libelle }}
+                                    {% endif %}
+                                {% endfor %}
                             </span>
                         </li>
                         <li>•</li>
