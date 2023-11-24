@@ -17,15 +17,15 @@
         <section class="trace-show">
             <div class=" trace-content card">
                 <h2>{{ trace.titre }}</h2>
+                <hr>
                 <div class="trace-infos-min">
                     <ul>
-                        <li><span>Créée le :&nbsp;</span> {{ trace.datecreation|date('d-m-y') }}</li>
+                        <li><span>Réalisé le :&nbsp;</span> {{ trace.dateRealisation|date('d-m-y') }}</li>
                         <li>•</li>
-                        <li><span>Modifiée le :&nbsp;</span> {{ trace.datemodification|date('d-m-y') }}</li>
+                        <li><span>Contexte :&nbsp;</span> {{ trace.contexte }}</li>
                     </ul>
-                </div>
-                <hr>
 
+                </div>
                 {% if 'TraceTypeImage' in trace.typeTrace %}
                     <figure>
                         <div class="row g-2 trace-galerie-img">
