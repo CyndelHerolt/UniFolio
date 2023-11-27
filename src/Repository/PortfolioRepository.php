@@ -45,7 +45,7 @@ class PortfolioRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByFilters($dept, Semestre $semestre = null, array $groupes = [], array $etudiants = [], array $competences = []): array
+    public function findByFilters($dept, Semestre $semestre = null, array $groupes = [], array $etudiants = [], array $competences = [], int $etat = null): array
     {
         $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.ordrePages', 'op')
@@ -63,6 +63,40 @@ class PortfolioRepository extends ServiceEntityRepository
             ->where('dep.id = :departement')
             ->andWhere('p.visibilite = true')
             ->setParameter('departement', $dept);
+        if ($etat !== null) {
+            switch($etat) {
+                case 0: // Tous les portfolios
+                    break;
+                case 1: // Portfolios évalués
+                    $portfolios = $qb->getQuery()->getResult();  //Obtenir tous les portfolios
+                    $evaluatedPortfolios = [];
+
+                    foreach($portfolios as $portfolio){
+                        $totalValidations = 0;
+                        $totalEval = 0;
+
+                        foreach($portfolio->getOrdrePages() as $op){
+                            foreach($op->getPage()->getOrdreTraces() as $ot){
+                                foreach($ot->getTrace()->getValidations() as $validation){
+                                    $totalValidations++;
+                                    if($validation->isEtat() != 0){
+                                        $totalEval++;
+                                    }
+                                }
+                            }
+                        }
+
+                        //Si toutes les validations sont évaluées, ajouter le portfolio à la liste
+                        if($totalValidations == $totalEval){
+                            $evaluatedPortfolios[] = $portfolio;
+                        }
+                    }
+                    return $evaluatedPortfolios;
+                case 2: // Portfolios non évalués
+                    $qb->andWhere('v.etat = 0');
+                    break;
+            }
+        }
         if (!empty($semestre)) {
             $qb->andWhere('s.id = :semestre')
                 ->setParameter('semestre', $semestre->getId());

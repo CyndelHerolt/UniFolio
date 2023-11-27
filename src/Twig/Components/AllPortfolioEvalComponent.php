@@ -75,6 +75,9 @@ class AllPortfolioEvalComponent extends BaseController
     public array $selectedEtudiants = [];
 
     #[LiveProp(writable: true)]
+    public ?int $selectedEtat = null;
+
+    #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
     public array $niveaux = [];
 
@@ -133,6 +136,27 @@ class AllPortfolioEvalComponent extends BaseController
     public function init()
     {
         $this->changeSemestre($this->selectedSemestre);
+    }
+
+    #[LiveAction]
+    public function changeEtat(#[LiveArg] int $id = 0)
+    {
+        $this->currentPage = 1;
+        $this->allPortfolios = [];
+
+        switch($id) {
+            case 0: // Toutes les traces
+                $this->selectedEtat = 0;
+                break;
+            case 1: // Traces évaluées
+                $this->selectedEtat = 1;
+                break;
+            case 2: // Traces non évaluées
+                $this->selectedEtat = 2;
+                break;
+        }
+
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
@@ -448,7 +472,7 @@ class AllPortfolioEvalComponent extends BaseController
     {
         $dept = $this->dataUserSession->getDepartement();
 
-        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences);
+        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
 
         if ($portfolios == null) {
             $this->currentPage = 0;

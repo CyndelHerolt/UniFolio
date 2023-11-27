@@ -1,4 +1,12 @@
 <div{{ attributes }}>
+    <div class="alert alert-info">
+        Si un portfolio est marqué d'un badge check, cela signifie que toutes les compétences de l'ensemble des traces qu'il contient ont été évaluées.
+    </div>
+    <div class="col-12">
+        <p class="text-muted">
+            Filtres
+        </p>
+    </div>
         <div class="row">
             <div class="filtre-btn col-12">
                 {% for semestre in semestres %}
@@ -169,6 +177,32 @@
                 </div>
             </div>
         </div>
+
+    <div class="row">
+        <div class="filtre-btn col-12">
+            {#        pouvoir filtrer par traces dont this.trace.validations|length == this.trace.validations|filter(v => v.etat != 0)|length #}
+            <div class="filtre-btn col-12">
+                <button class="btn btn-primary"
+                        data-model="selectedEtat"
+                        data-action="live#action"
+                        data-action-name="changeEtat(id=0)"
+                >Tous les portfolios
+                </button>
+                <button class="btn btn-primary"
+                        data-model="selectedEtat"
+                        data-action="live#action"
+                        data-action-name="changeEtat(id=1)"
+                >Portfolios évalués
+                </button>
+                <button class="btn btn-primary"
+                        data-model="selectedEtat"
+                        data-action="live#action"
+                        data-action-name="changeEtat(id=2)"
+                >Portfolios non évalués
+                </button>
+            </div>
+        </div>
+    </div>
 
         <div class="row">
             {% for portfolio in this.allPortfolios|sort((a,b)=> a.dateModification <=> b.dateModification) %}
