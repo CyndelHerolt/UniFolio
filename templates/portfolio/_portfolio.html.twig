@@ -20,13 +20,13 @@
                     {% for validation in ordre.trace.validations %}
                         {% if validation.apcNiveau.libelle not in seen %}
                             {% set totalApparitions = 0 %}
-                            {% set totalEtatTrois = 0 %}
+                            {% set totalEval = 0 %}
                             {% for ordre2 in page.ordreTraces %}
                                 {% for validation2 in ordre2.trace.validations %}
                                     {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
                                         {% set totalApparitions = totalApparitions + 1 %}
-                                        {% if validation2.etat == 3 %}
-                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                        {% if validation2.etat != 0 %}
+                                            {% set totalEval = totalEval + 1 %}
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
@@ -39,7 +39,7 @@
                                     {{ validation.apcNiveau.libelle }}
                                 </div>
                                 <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                {{ (totalEtatTrois / totalApparitions) * 100 }}%
+                                {{ (totalEval / totalApparitions) * 100 }}%
                                 </span>
                                 {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
                             </li>

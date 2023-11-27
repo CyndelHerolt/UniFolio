@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Twig\Components;
 
 use App\Classes\DataUserSession;
@@ -75,6 +76,9 @@ class AllPortfolioEvalComponent extends BaseController
     public array $selectedEtudiants = [];
 
     #[LiveProp(writable: true)]
+    public ?int $selectedEtat = null;
+
+    #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
     public array $niveaux = [];
 
@@ -83,25 +87,26 @@ class AllPortfolioEvalComponent extends BaseController
     public array $allPortfolios = [];
 
     public function __construct(
-        protected PortfolioRepository $portfolioRepository,
+        protected PortfolioRepository   $portfolioRepository,
         protected DepartementRepository $departementRepository,
-        protected ApcNiveauRepository $apcNiveauRepository,
-        protected EtudiantRepository $etudiantRepository,
-        protected GroupeRepository $groupeRepository,
-        protected SemestreRepository $semestreRepository,
-        protected AnneeRepository $anneeRepository,
-        protected TypeGroupeRepository $typeGroupeRepository,
-        protected ValidationRepository $validationRepository,
+        protected ApcNiveauRepository   $apcNiveauRepository,
+        protected EtudiantRepository    $etudiantRepository,
+        protected GroupeRepository      $groupeRepository,
+        protected SemestreRepository    $semestreRepository,
+        protected AnneeRepository       $anneeRepository,
+        protected TypeGroupeRepository  $typeGroupeRepository,
+        protected ValidationRepository  $validationRepository,
         protected CommentaireRepository $commentaireRepository,
-        protected CompetenceRepository $competenceRepository,
-        protected OrdreTraceRepository $ordreTraceRepository,
-        protected OrdrePageRepository $ordrePageRepository,
-        protected TraceRepository $traceRepository,
-        #[Required] public Security $security,
-        RequestStack $requestStack,
-        private FormFactoryInterface $formFactory,
-        protected DataUserSession $dataUserSession,
-    ) {
+        protected CompetenceRepository  $competenceRepository,
+        protected OrdreTraceRepository  $ordreTraceRepository,
+        protected OrdrePageRepository   $ordrePageRepository,
+        protected TraceRepository       $traceRepository,
+        #[Required] public Security     $security,
+        RequestStack                    $requestStack,
+        private FormFactoryInterface    $formFactory,
+        protected DataUserSession       $dataUserSession,
+    )
+    {
         $this->requestStack = $requestStack;
 
         $user = $this->security->getUser()->getEnseignant();
@@ -133,6 +138,27 @@ class AllPortfolioEvalComponent extends BaseController
     public function init()
     {
         $this->changeSemestre($this->selectedSemestre);
+    }
+
+    #[LiveAction]
+    public function changeEtat(#[LiveArg] int $id = 0)
+    {
+        $this->currentPage = 1;
+        $this->allPortfolios = [];
+
+        switch ($id) {
+            case 0: // Toutes les traces
+                $this->selectedEtat = 0;
+                break;
+            case 1: // Traces évaluées
+                $this->selectedEtat = 1;
+                break;
+            case 2: // Traces non évaluées
+                $this->selectedEtat = 2;
+                break;
+        }
+
+        $this->getDisplayedPortfolios();
     }
 
     #[LiveAction]
@@ -448,7 +474,20 @@ class AllPortfolioEvalComponent extends BaseController
     {
         $dept = $this->dataUserSession->getDepartement();
 
-        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences);
+        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
+
+        $this->etat = 0;
+        foreach ($portfolios as $portfolio) {
+            foreach ($portfolio->getOrdrePages() as $ordrePage) {
+                foreach ($ordrePage->getPage()->getOrdreTraces() as $ordreTrace) {
+                    foreach ($ordreTrace->getTrace()->getValidations() as $validation) {
+                        if ($validation->isEtat() != 0) {
+                            $this->etat++;
+                        }
+                    }
+                }
+            }
+        }
 
         if ($portfolios == null) {
             $this->currentPage = 0;
