@@ -157,15 +157,17 @@
                                         <button class="btn btn-primary">Accéder à la trace</button>
                                     </a>
                                 {% endif %}
-                                {% if notification.commentaire.trace != null %}
-                                    <a href="{{ path('app_bilan_eval_trace', {id: notification.commentaire.trace.id}) }}">
-                                        <button class="btn btn-primary">Accéder à la trace</button>
-                                    </a>
-                                {% endif %}
-                                {% if notification.commentaire.portfolio != null %}
-                                    <a href="{{ path('app_portfolio_index', {id: notification.commentaire.portfolio.id}) }}">
-                                        <button class="btn btn-primary">Accéder au portfolio</button>
-                                    </a>
+                                {% if notification.commentaire != null %}
+                                    {% if notification.commentaire.trace != null %}
+                                        <a href="{{ path('app_bilan_eval_trace', {id: notification.commentaire.trace.id}) }}">
+                                            <button class="btn btn-primary">Accéder à la trace</button>
+                                        </a>
+                                    {% endif %}
+                                    {% if notification.commentaire.portfolio != null %}
+                                        <a href="{{ path('app_portfolio_index', {id: notification.commentaire.portfolio.id}) }}">
+                                            <button class="btn btn-primary">Accéder au portfolio</button>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
