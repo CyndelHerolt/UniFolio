@@ -3,12 +3,11 @@
         {{ this.portfolio.etudiant.prenom }} {{ this.portfolio.etudiant.nom }}
     </td>
     <td>
+        {{ this.portfolio.etudiant.semestre.libelle }}
         {% for g in this.portfolio.etudiant.groupe %}
-            {% if 'TP' in g.libelle %}
-                {% for s in g.typegroupe.semestre %}
-                    {{ s.libelle }} |
-                {% endfor %}
-                {{ g.libelle }}
+            {% if 'TP' in g.typeGroupe.libelle %}
+                |
+                TP {{ g.libelle }}
             {% endif %}
         {% endfor %}
     </td>
