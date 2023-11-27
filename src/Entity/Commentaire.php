@@ -8,6 +8,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,14 +42,19 @@ class Commentaire
     #[ORM\Column]
     private ?bool $visibilite = null;
 
-    #[ORM\OneToOne(mappedBy: 'commentaire', cascade: ['persist', 'remove'])]
-    private ?Notification $notification = null;
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'commentaire', cascade: ['persist', 'remove'])]
+    private ?Collection $notification = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $commentaire_parent = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $commentaire_enfant = null;
+
+    public function __construct()
+    {
+        $this->notifications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,24 +145,32 @@ class Commentaire
         return $this;
     }
 
-    public function getNotification(): ?Notification
+    /**
+     * @return Collection|Notification[]
+     */
+    public function getNotifications(): Collection
     {
-        return $this->notification;
+        return $this->notifications;
     }
 
-    public function setNotification(?Notification $notification): static
+    public function addNotification(Notification $notification): self
     {
-        // unset the owning side of the relation if necessary
-        if ($notification === null && $this->notification !== null) {
-            $this->notification->setCommentaire(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($notification !== null && $notification->getCommentaire() !== $this) {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
             $notification->setCommentaire($this);
         }
 
-        $this->notification = $notification;
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getCommentaire() === $this) {
+                $notification->setCommentaire(null);
+            }
+        }
 
         return $this;
     }
