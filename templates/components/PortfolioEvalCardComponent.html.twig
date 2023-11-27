@@ -1,6 +1,19 @@
 <div class="row g-3">
     <div class="col-lg-12 col-sm-12">
         <div class="card">
+            {% set totalValidations = 0 %}
+            {% set totalEval = 0 %}
+
+            {% for op in this.portfolio.ordrePages %}
+                {% for ot in op.page.ordreTraces %}
+                    {% for validation in ot.trace.validations %}
+                        {% set totalValidations = totalValidations + 1 %}
+                        {% if validation.etat != 0 %}
+                            {% set totalEval = totalEval + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
             <div class="card-content">
                 <div class="banner" style="background-image: url('{{ asset(this.portfolio.banniere) }}')"></div>
                 <div class="card-header d-flex flex-column">
@@ -30,15 +43,15 @@
                                 {% for validation in ot.trace.validations %}
                                     {% if validation.apcNiveau.libelle not in seen %}
                                         {% set totalValidations = 0 %}
-                                        {% set totalEtatTrois = 0 %}
+                                        {% set totalEval = 0 %}
 
                                         {% for op2 in this.portfolio.ordrePages %}
                                             {% for ot2 in op2.page.ordreTraces %}
                                                 {% for validation2 in ot2.trace.validations %}
                                                     {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
                                                         {% set totalValidations = totalValidations + 1 %}
-                                                        {% if validation2.etat == 3 %}
-                                                            {% set totalEtatTrois = totalEtatTrois + 1 %}
+                                                        {% if validation2.etat != 0 %}
+                                                            {% set totalEval = totalEval + 1 %}
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endfor %}
@@ -52,7 +65,7 @@
                             </span> • {{ validation.apcNiveau.libelle }}
                                             </div>
                                             <span class="{{ validation.apcNiveau.competences.couleur }}">
-                            {{ (totalEtatTrois / totalValidations) * 100 }}%
+                            {{ (totalEval / totalValidations) * 100 }}%
                         </span>
                                         </li>
 
