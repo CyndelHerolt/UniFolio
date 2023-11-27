@@ -148,7 +148,7 @@ class PortfolioProcessController extends BaseController
                         }
 
                         if ($form->get('visibilite')->getData() === true) {
-                            $portfolios = $portfolioRepository->findBy(['annee' => $portfolio->getAnnee()]);
+                            $portfolios = $portfolioRepository->findBy(['annee' => $portfolio->getAnnee(), 'etudiant' => $data_user->getUser()->getEtudiant()]);
                             foreach ($portfolios as $otherportfolio) {
                                 $otherportfolio->setVisibilite(false);
                                 $portfolioRepository->save($otherportfolio, true);
