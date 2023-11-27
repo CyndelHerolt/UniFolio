@@ -72,7 +72,7 @@ final class AllTraceEvalComponent extends BaseController
     public array $selectedEtudiants = [];
 
     #[LiveProp(writable: true)]
-    public ?int $selectedEtat = null;
+    public ?int $selectedEtat = 2;
 
     #[LiveProp(writable: true)]
     /** @var ApcNiveau[] */
