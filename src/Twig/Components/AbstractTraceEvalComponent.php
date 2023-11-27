@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -51,15 +52,14 @@ class AbstractTraceEvalComponent extends BaseController
 
 
     public function __construct(
-        protected TraceRepository       $traceRepository,
+        protected TraceRepository $traceRepository,
         private FormFactoryInterface $formFactory,
-        private RequestStack         $requestStack,
-        protected ValidationRepository  $validationRepository,
+        private RequestStack $requestStack,
+        protected ValidationRepository $validationRepository,
         protected CommentaireRepository $commentaireRepository,
-        #[Required] public Security  $security,
+        #[Required] public Security $security,
         EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
 //        $this->Trace = $this->getTrace();
 
         // Créez une instance de votre entité Commentaire
@@ -91,7 +91,8 @@ class AbstractTraceEvalComponent extends BaseController
     }
 
     #[LiveAction]
-    public function handleComment() {
+    public function handleComment()
+    {
         if (!$this->commentContent) {
             return;
         }
@@ -122,12 +123,14 @@ class AbstractTraceEvalComponent extends BaseController
     }
 
     #[LiveAction]
-    public function handleResponseForm(#[LiveArg] int $commentaireId) {
+    public function handleResponseForm(#[LiveArg] int $commentaireId)
+    {
         $this->commentaireReponseId = $commentaireId;
     }
 
     #[LiveAction]
-    public function handleCommentResponse(#[LiveArg] int $commentParent) {
+    public function handleCommentResponse(#[LiveArg] int $commentParent)
+    {
 
         $commentParent = $this->commentaireRepository->find($commentParent);
 
@@ -173,5 +176,4 @@ class AbstractTraceEvalComponent extends BaseController
     {
         return $this->traceRepository->find($this->id);
     }
-
 }

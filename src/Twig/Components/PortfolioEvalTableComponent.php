@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -31,9 +32,7 @@ final class PortfolioEvalTableComponent extends BaseController
 
     public function __construct(
         public PortfolioRepository $portfolioRepository,
-    )
-    {
-
+    ) {
     }
 
 

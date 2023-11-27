@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -25,20 +26,17 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class PageType extends AbstractType
 {
-
     public function __construct(
-        protected TraceRepository     $traceRepository,
+        protected TraceRepository $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        #[Required] public Security   $security
-    )
-    {
+        #[Required] public Security $security
+    ) {
     }
 
     public function buildForm(
         FormBuilderInterface $builder,
-        array                $options,
-    ): void
-    {
+        array $options,
+    ): void {
 
         $builder
             ->add('intitule', TextType::class, [
@@ -73,7 +71,6 @@ class PageType extends AbstractType
                 ],
                 'help' => 'Une phrase pour résumer le contenu de la page',
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -14,124 +14,134 @@
         {% set percentage = (validated/totalValidations)*100 %}
     {% endif %}
 
-    <div class="col-lg-6 col-sm-12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-header d-flex flex-column">
-                    <h5 class="card-title">{{ this.trace.titre }}</h5>
-                    <ul class="card-infos-min">
-                        <li><span>Créée le :&nbsp;</span> {{ this.trace.datecreation|date('d-m-y') }}</li>
-                        <li>•</li>
-                        <li><span>Modifiée le :&nbsp;</span> {{ this.trace.datemodification|date('d-m-y') }}</li>
-                    </ul>
-                </div>
-                <div class="card-body">
-
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
-                                        aria-controls="flush-collapse{{ this.trace.id }}">
-                                    <div class="col-lg-6 col-6">
-                                        <h6>Validation des compétences</h6>
-                                        <div class="progress">
-                                            {% if percentage == 0 %}
-                                                <div class="progress-bar" role="progressbar"
-                                                     style="width: 100%; background-color: #6F18AD26"
-                                                     aria-valuenow="0" aria-valuemin="0"
-                                                     aria-valuemax="100">
-                                                    0%
-                                                </div>
-                                            {% endif %}
+<div class="col-lg-6 col-sm-12">
+    <div class="card">
+        {% if this.trace.validations is not null %}
+            {% for validation in this.trace.validations %}
+                {% for notif in validation.notifications %}
+                    {% if notif.lu == 0 %}
+                        <div class="badge-notif">
+                            <i class="fa-solid fa-circle-exclamation fa-lg" style="position: absolute; right: 10px"></i>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <div class="card-content">
+            <div class="card-header d-flex flex-column">
+                <h5 class="card-title">{{ this.trace.titre }}</h5>
+                <ul class="card-infos-min">
+                    <li><span>Créée le :&nbsp;</span> {{ this.trace.datecreation|date('d-m-y') }}</li>
+                    <li>•</li>
+                    <li><span>Modifiée le :&nbsp;</span> {{ this.trace.datemodification|date('d-m-y') }}</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapse{{ this.trace.id }}" aria-expanded="false"
+                                    aria-controls="flush-collapse{{ this.trace.id }}">
+                                <div class="col-lg-6 col-6">
+                                    <h6>Validation des compétences</h6>
+                                    <div class="progress">
+                                        {% if percentage == 0 %}
                                             <div class="progress-bar" role="progressbar"
-                                                 style="width: {{ percentage|round }}%"
-                                                 aria-valuenow="{{ percentage|round }}" aria-valuemin="0"
+                                                 style="width: 100%; background-color: #6F18AD26"
+                                                 aria-valuenow="0" aria-valuemin="0"
                                                  aria-valuemax="100">
-                                                {{ percentage|round }}%
+                                                0%
                                             </div>
+                                        {% endif %}
+                                        <div class="progress-bar" role="progressbar"
+                                             style="width: {{ percentage|round }}%"
+                                             aria-valuenow="{{ percentage|round }}" aria-valuemin="0"
+                                             aria-valuemax="100">
+                                            {{ percentage|round }}%
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-3" style="text-align: end">
-                                        <i class="fa-solid fa-chevron-down"></i>
-                                    </div>
-                                </button>
-                            </div>
-                            <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
-                                 aria-labelledby="flush-heading{{ this.trace.id }}"
-                                 data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body" style="padding: 0">
-                                    <div class="biblio-competences">
-                                        <ul>
-                                            {% for validation in this.trace.validations %}
-                                                <li>
-                                                    <div>
+                                </div>
+                                <div class="col-lg-3 col-3" style="text-align: end">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="flush-collapse{{ this.trace.id }}" class="accordion-collapse collapse"
+                             aria-labelledby="flush-heading{{ this.trace.id }}"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body" style="padding: 0">
+                                <div class="biblio-competences">
+                                    <ul>
+                                        {% for validation in this.trace.validations %}
+                                            <li>
+                                                <div>
                                                    <span class="{{ validation.apcNiveau.competences.couleur }}">
                                                     {{ validation.apcNiveau.competences.nomCourt }}
                                                        </span> •
-                                                        {{ validation.apcNiveau.libelle }}
-                                                    </div>
-                                                    {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
-                                                                                     style="color: #4c008b"></i>
-                                                    {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
-                                                                                         style="color: red"></i>
-                                                    {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
-                                                                                         style="color: orange"></i>
-                                                    {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
-                                                                                         style="color: limegreen"></i>
-                                                    {% endif %}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
+                                                    {{ validation.apcNiveau.libelle }}
+                                                </div>
+                                                {% if validation.etat == 0 %} <i class="fa-solid fa-hourglass-half"
+                                                                                 style="color: #4c008b"></i>
+                                                {% elseif validation.etat == 1 %} <i class="fa-solid fa-xmark"
+                                                                                     style="color: red"></i>
+                                                {% elseif validation.etat == 2 %} <i class="fa-solid fa-arrow-up"
+                                                                                     style="color: orange"></i>
+                                                {% elseif validation.etat == 3 %} <i class="fa-solid fa-check"
+                                                                                     style="color: limegreen"></i>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="btn_grp">
-                        <a href="{{ path('app_trace_index', {'id': this.trace.id}) }}">
-                            <button type="button" class="btn btn-secondary">
-                                Voir plus
-                            </button>
-                        </a>
-                        <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
-                            <button class="btn btn-primary">Modifier</button>
-                        </a>
+                </div>
+                <div class="btn_grp">
+                    <a href="{{ path('app_trace_index', {'id': this.trace.id}) }}">
+                        <button type="button" class="btn btn-secondary">
+                            Voir plus
+                        </button>
+                    </a>
+                    <a href="{{ path('app_trace_edit', {'id': this.trace.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
 
-                        <!-- Button trigger modal -->
-                        <a>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop{{ this.trace.id }}">
-                                Supprimer
-                            </button>
-                        </a>
-                    </div>
+                    <!-- Button trigger modal -->
+                    <a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop{{ this.trace.id }}">
+                            Supprimer
+                        </button>
+                    </a>
                 </div>
             </div>
+        </div>
 
 
-            <!-- Modal Delete -->
-            <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
-                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace
-                                ?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>La trace {{ this.trace.titre }} sera supprimée.</p>
-                            <p style="color: red">Attention, cette action est irréversible !</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
-                                <button class="btn btn-primary">Supprimer</button>
-                            </a>
-                        </div>
+        <!-- Modal Delete -->
+        <div class="modal fade" id="staticBackdrop{{ this.trace.id }}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Voulez-vous vraiment supprimer cette trace
+                            ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>La trace {{ this.trace.titre }} sera supprimée.</p>
+                        <p style="color: red">Attention, cette action est irréversible !</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a href="{{ path('app_trace_delete', {'id': this.trace.id}) }}">
+                            <button class="btn btn-primary">Supprimer</button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

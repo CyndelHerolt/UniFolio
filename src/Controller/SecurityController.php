@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -29,15 +30,13 @@ class SecurityController extends AbstractController
 
     #[Route(path: '/choix-departement', name: 'app_choix_departement')]
     public function choixDepartement(
-        Request                         $request,
+        Request $request,
         EnseignantDepartementRepository $enseignantDepartementRepository,
-        EnseignantRepository            $enseignantRepository,
-        RequestStack                    $session,
-        EntityManagerInterface          $entityManager,
-    )
-    {
+        EnseignantRepository $enseignantRepository,
+        RequestStack $session,
+        EntityManagerInterface $entityManager,
+    ) {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
-
             $user = $this->getUser();
             $enseignant = $enseignantRepository->findOneBy(['username' => $user->getUsername()]);
             if (!$enseignant) {
@@ -72,10 +71,11 @@ class SecurityController extends AbstractController
 
                     return $this->redirectToRoute('app_accueil');
                 }
-
             }
-            return $this->render('security/choix-departement.html.twig',
-                ['departements' => $departements, 'user' => $user]);
+            return $this->render(
+                'security/choix-departement.html.twig',
+                ['departements' => $departements, 'user' => $user]
+            );
         } else {
             return $this->render('security/accessDenied.html.twig');
         }

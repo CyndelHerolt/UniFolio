@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -74,7 +75,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des pages', 'fas fa-list', Page::class);
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
-
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
@@ -84,5 +84,4 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::LinkToRoute('Mon profil', 'fas fa-user', 'app_profil'),
             ]);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -32,10 +33,9 @@ class AllPortfolioComponent extends BaseController
     public array $allPortfolios = [];
 
     public function __construct(
-        public PortfolioRepository  $portfolioRepository,
+        public PortfolioRepository $portfolioRepository,
         #[Required] public Security $security
-    )
-    {
+    ) {
     }
 
     #[LiveAction]

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -8,7 +9,6 @@ namespace App\Twig\Components;
 
 use App\Classes\DataUserSession;
 use App\Controller\BaseController;
-
 use App\Entity\ApcNiveau;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
@@ -83,26 +83,25 @@ class AllPortfolioEvalComponent extends BaseController
     public array $allPortfolios = [];
 
     public function __construct(
-        protected PortfolioRepository   $portfolioRepository,
+        protected PortfolioRepository $portfolioRepository,
         protected DepartementRepository $departementRepository,
-        protected ApcNiveauRepository   $apcNiveauRepository,
-        protected EtudiantRepository    $etudiantRepository,
-        protected GroupeRepository      $groupeRepository,
-        protected SemestreRepository    $semestreRepository,
-        protected AnneeRepository       $anneeRepository,
-        protected TypeGroupeRepository  $typeGroupeRepository,
-        protected ValidationRepository  $validationRepository,
+        protected ApcNiveauRepository $apcNiveauRepository,
+        protected EtudiantRepository $etudiantRepository,
+        protected GroupeRepository $groupeRepository,
+        protected SemestreRepository $semestreRepository,
+        protected AnneeRepository $anneeRepository,
+        protected TypeGroupeRepository $typeGroupeRepository,
+        protected ValidationRepository $validationRepository,
         protected CommentaireRepository $commentaireRepository,
-        protected CompetenceRepository  $competenceRepository,
-        protected OrdreTraceRepository  $ordreTraceRepository,
-        protected OrdrePageRepository   $ordrePageRepository,
-        protected TraceRepository       $traceRepository,
-        #[Required] public Security     $security,
-        RequestStack                    $requestStack,
-        private FormFactoryInterface    $formFactory,
-        protected DataUserSession       $dataUserSession,
-    )
-    {
+        protected CompetenceRepository $competenceRepository,
+        protected OrdreTraceRepository $ordreTraceRepository,
+        protected OrdrePageRepository $ordrePageRepository,
+        protected TraceRepository $traceRepository,
+        #[Required] public Security $security,
+        RequestStack $requestStack,
+        private FormFactoryInterface $formFactory,
+        protected DataUserSession $dataUserSession,
+    ) {
         $this->requestStack = $requestStack;
 
         $user = $this->security->getUser()->getEnseignant();
@@ -117,7 +116,6 @@ class AllPortfolioEvalComponent extends BaseController
                     $this->groupes[] = $groupe;
                 }
                 $this->groupes = array_unique($this->groupes, SORT_REGULAR);
-
             }
 //            dd($this->groupes);
             // pour chaque semestre on récupère les étudiants
@@ -185,7 +183,6 @@ class AllPortfolioEvalComponent extends BaseController
             }
 
             $this->etudiants = $this->etudiantRepository->findBySemestre($semestre);
-
         } else {
             foreach ($this->semestres as $semestre) {
                 foreach ($competences as $competence) {
@@ -250,7 +247,6 @@ class AllPortfolioEvalComponent extends BaseController
 
             $annees = [];
             foreach ($semestres as $semestre) {
-
                 $annees[] = $semestre->getAnnee();
 
                 foreach ($annees as $annee) {

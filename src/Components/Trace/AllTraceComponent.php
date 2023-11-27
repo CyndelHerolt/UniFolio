@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -42,14 +43,13 @@ class AllTraceComponent extends BaseController
     public array $allTraces = [];
 
     public function __construct(
-        public TraceRepository        $traceRepository,
+        public TraceRepository $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public CompetenceRepository   $competenceRepository,
-        public ApcNiveauRepository    $apcNiveauRepository,
-        #[Required] public Security   $security,
-        RequestStack                  $requestStack,
-    )
-    {
+        public CompetenceRepository $competenceRepository,
+        public ApcNiveauRepository $apcNiveauRepository,
+        #[Required] public Security $security,
+        RequestStack $requestStack,
+    ) {
         $this->requestStack = $requestStack;
         $this->allTraces = $this->getAllTrace();
 
@@ -142,7 +142,6 @@ class AllTraceComponent extends BaseController
 
         // Si on a des traces, on peut les trier
         if (!empty($traces)) {
-
             // Trier par date si ordreDate est défini
             if (!empty($ordreDate)) {
                 usort($traces, function (Trace $a, Trace $b) use ($ordreDate) {

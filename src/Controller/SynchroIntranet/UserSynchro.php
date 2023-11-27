@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -29,11 +30,9 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class UserSynchro extends AbstractController
 {
-
     public function __construct(
         private UsersRepository $usersRepository,
-    )
-    {
+    ) {
     }
 
     #[Route('/api/intranet/etudiant', name: 'app_email_intranet_etudiant')]
@@ -42,8 +41,7 @@ class UserSynchro extends AbstractController
         HttpClientInterface $client,
         MailerInterface $mailer,
         VerifyEmailHelperInterface $verifyEmailHelper,
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
@@ -90,7 +88,6 @@ class UserSynchro extends AbstractController
                         'email_button' => 'confirm_email'
                     ]);
                 $mailer->send($email);
-
             }
             return true;
         }
@@ -101,13 +98,12 @@ class UserSynchro extends AbstractController
     public function getEmailEtudiant(
         $login,
         HttpClientInterface $client,
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
             $_ENV['API_URL'] . 'unifolio/etudiant',
-//            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
+            //            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -145,8 +141,7 @@ class UserSynchro extends AbstractController
         BibliothequeRepository $bibliothequeRepository,
         GroupeRepository $groupeRepository,
         SemestreRepository $semestreRepository,
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
@@ -204,8 +199,7 @@ class UserSynchro extends AbstractController
         HttpClientInterface $client,
         MailerInterface $mailer,
         VerifyEmailHelperInterface $verifyEmailHelper
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
@@ -252,7 +246,6 @@ class UserSynchro extends AbstractController
                         'email_button' => 'confirm_email'
                     ]);
                 $mailer->send($email);
-
             }
             return true;
         }
@@ -263,8 +256,7 @@ class UserSynchro extends AbstractController
     public function getEmailEnseignant(
         $login,
         HttpClientInterface $client,
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
@@ -305,8 +297,7 @@ class UserSynchro extends AbstractController
         HttpClientInterface $client,
         EnseignantRepository $enseignantRepository,
         DepartementRepository $departementRepository,
-    )
-    {
+    ) {
 
         $response = $client->request(
             'GET',
@@ -353,25 +344,21 @@ class UserSynchro extends AbstractController
         } else {
             return false;
         }
-
     }
 
     #[Route('/api/intranet/etudiant/update', name: 'app_update_intranet_etudiant')]
     public function updateEtudiant(
         HttpClientInterface $client,
-        EtudiantRepository  $etudiantRepository,
-        GroupeRepository    $groupeRepository,
-        SemestreRepository  $semestreRepository,
-    )
-    {
+        EtudiantRepository $etudiantRepository,
+        GroupeRepository $groupeRepository,
+        SemestreRepository $semestreRepository,
+    ) {
         $etudiants = $etudiantRepository->findAll();
 
         foreach ($etudiants as $etudiant) {
-
             $login = $etudiant->getUsername();
 
             if ($login !== 'etudiant') {
-
                 $response = $client->request(
                     'GET',
                     $_ENV['API_URL'] . 'unifolio/etudiant',
@@ -423,18 +410,16 @@ class UserSynchro extends AbstractController
 
     #[Route('/api/intranet/enseignant/update', name: 'app_update_intranet_enseignant')]
     public function updateEnseignant(
-        HttpClientInterface   $client,
-        EnseignantRepository  $enseignantRepository,
+        HttpClientInterface $client,
+        EnseignantRepository $enseignantRepository,
         DepartementRepository $departementRepository,
-    )
-    {
+    ) {
         $enseignants = $enseignantRepository->findAll();
 
         foreach ($enseignants as $enseignant) {
             $login = $enseignant->getUsername();
 
             if ($login !== 'enseignant') {
-
                 $response = $client->request(
                     'GET',
                     $_ENV['API_URL'] . 'unifolio/enseignant',
@@ -484,5 +469,4 @@ class UserSynchro extends AbstractController
         $this->addFlash('success', 'Les données ont bien été mises à jour.');
         return $this->redirectToRoute('app_dashboard');
     }
-
 }

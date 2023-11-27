@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -13,8 +14,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class DepartementFixture extends Fixture implements OrderedFixtureInterface
 {
-
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 1;
     }

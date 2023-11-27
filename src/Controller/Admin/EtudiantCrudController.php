@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -41,14 +42,12 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 class EtudiantCrudController extends AbstractCrudController
 {
-
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface      $entityManager,
+        EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
     }
@@ -134,9 +133,9 @@ class EtudiantCrudController extends AbstractCrudController
         $groupes = [];
         foreach ($depts as $dept) {
             $allGroupes = $groupeRepository->findByDepartementSemestreActif($dept);
-                foreach ($allGroupes as $groupe) {
-                    $groupes[$dept->getLibelle() . ' - ' . $groupe->getLibelle()] = $groupe->getId();
-                }
+            foreach ($allGroupes as $groupe) {
+                $groupes[$dept->getLibelle() . ' - ' . $groupe->getLibelle()] = $groupe->getId();
+            }
         }
 
         yield ChoiceField::new('groupeId')
@@ -148,8 +147,7 @@ class EtudiantCrudController extends AbstractCrudController
             ->setChoices($groupes);
     }
 
-    public
-    function configureCrud(Crud $crud): Crud
+    public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('Etudiant.e')
@@ -161,8 +159,7 @@ class EtudiantCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modifier un.e étudiant.e');
     }
 
-    public
-    function new(AdminContext $context):Response|KeyValueStore
+    public function new(AdminContext $context): Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -190,7 +187,6 @@ class EtudiantCrudController extends AbstractCrudController
         $context->getEntity()->setInstance($entityInstance);
 
         if ($newForm->isSubmitted() && $newForm->isValid()) {
-
             $this->processUploadedFiles($newForm);
 
             $event = new BeforeEntityPersistedEvent($entityInstance);
@@ -265,7 +261,7 @@ class EtudiantCrudController extends AbstractCrudController
         return $responseParameters;
     }
 
-    public function edit(AdminContext $context):Response|KeyValueStore
+    public function edit(AdminContext $context): Response|KeyValueStore
     {
         $event = new BeforeCrudActionEvent($context);
         $this->container->get('event_dispatcher')->dispatch($event);
@@ -319,7 +315,6 @@ class EtudiantCrudController extends AbstractCrudController
         $editForm = $this->createEditForm($context->getEntity(), $context->getCrud()->getEditFormOptions(), $context);
         $editForm->handleRequest($context->getRequest());
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
 //            dd($context->getRequest()->request->all('Etudiant')['roles']);
 
             $this->processUploadedFiles($editForm);
@@ -362,7 +357,5 @@ class EtudiantCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-
-
     }
 }

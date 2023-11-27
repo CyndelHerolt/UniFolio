@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -17,7 +18,6 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class BaseController extends AbstractController
 {
-
     protected DataUserSession $dataUserSession;
     protected DepartementRepository $departementRepository;
     protected EnseignantRepository $enseignantRepository;
@@ -27,7 +27,6 @@ class BaseController extends AbstractController
     public function setDataUserSession(DataUserSession $dataUserSession): void
     {
         $this->dataUserSession = $dataUserSession;
-
     }
 
     public function getDataUserSession(): DataUserSession
@@ -44,5 +43,4 @@ class BaseController extends AbstractController
     {
         return $this->dataUserSession->getNotifications();
     }
-
 }

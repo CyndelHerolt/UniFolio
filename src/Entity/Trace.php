@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -35,7 +36,7 @@ class Trace
     #[ORM\ManyToMany(targetEntity: Page::class, mappedBy: 'trace')]
     private Collection $pages;
 
-    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class,cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'trace', targetEntity: Commentaire::class, cascade: ['persist', 'remove'])]
     private Collection $commentaires;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -58,6 +59,12 @@ class Trace
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $legende = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_realisation = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $contexte = null;
 
     /**
      * @return OrdreTrace|null
@@ -286,6 +293,30 @@ class Trace
     public function setLegende(string $legende): static
     {
         $this->legende = $legende;
+
+        return $this;
+    }
+
+    public function getDateRealisation(): ?\DateTimeInterface
+    {
+        return $this->date_realisation;
+    }
+
+    public function setDateRealisation(?\DateTimeInterface $date_realisation): static
+    {
+        $this->date_realisation = $date_realisation;
+
+        return $this;
+    }
+
+    public function getContexte(): ?string
+    {
+        return $this->contexte;
+    }
+
+    public function setContexte(?string $contexte): static
+    {
+        $this->contexte = $contexte;
 
         return $this;
     }

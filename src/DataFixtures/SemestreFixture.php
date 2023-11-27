@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -22,7 +23,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
         $this->anneeRepository = $anneeRepository;
     }
 
-    public function getOrder():int
+    public function getOrder(): int
     {
         return 8;
     }
@@ -65,5 +66,4 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
         // Flushing all changes to the database
         $manager->flush();
     }
-
 }

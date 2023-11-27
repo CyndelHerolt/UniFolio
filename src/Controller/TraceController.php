@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -33,26 +34,22 @@ use Symfony\Contracts\Service\Attribute\Required;
 #[Route('etudiant/bibliotheque')]
 class TraceController extends BaseController
 {
-
     public function __construct(
-        protected TraceRepository     $traceRepository,
+        protected TraceRepository $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public CompetenceRepository   $competenceRepository,
-        public ApcNiveauRepository    $apcNiveauRepository,
-        #[Required] public Security   $security
-    )
-    {
+        public CompetenceRepository $competenceRepository,
+        public ApcNiveauRepository $apcNiveauRepository,
+        #[Required] public Security $security
+    ) {
     }
 
     #[Route('/trace', name: 'app_trace')]
     public function index(
         TraceRegistry $traceRegistry,
-        Request       $request,
-    ): Response
-    {
+        Request $request,
+    ): Response {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             $user = $this->security->getUser()->getEtudiant();
 
             $semestre = $user->getSemestre();
@@ -103,13 +100,12 @@ class TraceController extends BaseController
 
     #[Route('/trace/formulaire/{id}', name: 'app_trace_new')]
     public function new(
-        Request              $request,
-        TraceRepository      $traceRepository,
-        TraceRegistry        $traceRegistry,
-        Security             $security,
-        string               $id,
-    ): Response
-    {
+        Request $request,
+        TraceRepository $traceRepository,
+        TraceRegistry $traceRegistry,
+        Security $security,
+        string $id,
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
@@ -156,7 +152,6 @@ class TraceController extends BaseController
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $competencesForm = $form->get('competences')->getData();
                 $niveaux = $this->apcNiveauRepository->findBy(['libelle' => $competencesForm]);
 
@@ -170,7 +165,6 @@ class TraceController extends BaseController
                 $existingTrace = null;
 
                 if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['success']) {
-
                     //Lier la trace à la Bibliotheque de l'utilisateur connecté
                     $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                     $trace->setBibliotheque($biblio);
@@ -198,16 +192,15 @@ class TraceController extends BaseController
 
     #[Route('/trace/edit/{id}', name: 'app_trace_edit')]
     public function edit(
-        Request              $request,
-        TraceRepository      $traceRepository,
-        TraceRegistry        $traceRegistry,
-        ApcNiveauRepository  $apcNiveauRepository,
-        Security             $security,
-        int                  $id,
+        Request $request,
+        TraceRepository $traceRepository,
+        TraceRegistry $traceRegistry,
+        ApcNiveauRepository $apcNiveauRepository,
+        Security $security,
+        int $id,
         CompetenceRepository $competenceRepository,
         ValidationRepository $validationRepository,
-    ): Response
-    {
+    ): Response {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
@@ -271,13 +264,11 @@ class TraceController extends BaseController
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $competencesForm = $form->get('competences')->getData();
                 $competences = $apcNiveauRepository->findBy(['libelle' => $competencesForm]);
                 $validations = $trace->getValidations();
 
                 foreach ($competences as $competence) {
-
                     // Si la compétence n'est pas déjà liée à la trace
                     if (!in_array($competence->getLibelle(), $existingCompetences)) {
                         $validation = new Validation();
@@ -294,11 +285,11 @@ class TraceController extends BaseController
                             $validationRepository->remove($validation);
                         }
                     }
-
                 }
 
 
-                if ($trace->getTypetrace() == TraceTypeImage::class
+                if (
+                    $trace->getTypetrace() == TraceTypeImage::class
                 ) {
                     if ($request->request->get('contenu') == null) {
                         if (!isset($request->request->All()['img']) && $form->get('contenu')->getData() == null) {
@@ -316,7 +307,8 @@ class TraceController extends BaseController
                         $existingImages = $request->request->All()['img'];
                         $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                     }
-                } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                } elseif (
+                    $trace->getTypetrace() == TraceTypePdf::class
                 ) {
                     if ($request->request->get('contenu') == null) {
                         if (!isset($request->request->All()['pdf']) && $form->get('contenu')->getData() == null) {
@@ -336,28 +328,32 @@ class TraceController extends BaseController
                     }
                 }
 
-                if ($trace->getTypetrace() == TraceTypeImage::class
+                if (
+                    $trace->getTypetrace() == TraceTypeImage::class
                 ) {
                     if (isset($request->request->All()['img'])) {
                         $existingContenu = $request->request->All()['img'];
                     } else {
                         $existingContenu = null;
                     }
-                } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                } elseif (
+                    $trace->getTypetrace() == TraceTypePdf::class
                 ) {
                     if (isset($request->request->All()['pdf'])) {
                         $existingContenu = $request->request->All()['pdf'];
                     } else {
                         $existingContenu = null;
                     }
-                } elseif ($trace->getTypetrace() == TraceTypeLien::class
+                } elseif (
+                    $trace->getTypetrace() == TraceTypeLien::class
                 ) {
                     if (isset($request->request->All()['trace_type_lien']['contenu'])) {
                         $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
                     } else {
                         $existingContenu = null;
                     }
-                } elseif ($trace->getTypetrace() == TraceTypeVideo::class
+                } elseif (
+                    $trace->getTypetrace() == TraceTypeVideo::class
                 ) {
 //                dd($request->request->All()['trace_type_video']['contenu']);
                     if (isset($request->request->All()['trace_type_video']['contenu'])) {
@@ -370,7 +366,6 @@ class TraceController extends BaseController
                 }
 
                 if ($traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingContenu)['success']) {
-
                     $form->getData()->setDatemodification(new \DateTimeImmutable());
                     $traceRepository->save($trace, true);
                     $this->addFlash('success', 'La trace a été modifiée avec succès.');
@@ -395,15 +390,13 @@ class TraceController extends BaseController
     #[
         Route('/trace/delete/{id}', name: 'app_trace_delete')]
     public function delete(
-        Request              $request,
-        TraceRepository      $traceRepository,
+        Request $request,
+        TraceRepository $traceRepository,
         OrdreTraceRepository $ordreTraceRepository,
-        int                  $id,
-    ): Response
-    {
+        int $id,
+    ): Response {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             $trace = $traceRepository->find($id);
             $type = $trace->getTypetrace();
 
@@ -431,13 +424,11 @@ class TraceController extends BaseController
 
     #[Route('/trace/show', name: 'app_trace_index')]
     public function indexShow(
-        Request                $request,
-        TraceRepository        $traceRepository,
+        Request $request,
+        TraceRepository $traceRepository,
         NotificationRepository $notificationRepository,
-    ): Response
-    {
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             $id = $request->query->get('id');
             $notificationId = $request->query->get('notification_id');
 

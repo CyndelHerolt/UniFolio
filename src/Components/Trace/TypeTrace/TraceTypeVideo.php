@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -52,9 +53,10 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
         if ($videos) {
             foreach ($videos as $key => $video) {
                 $youtubeId = null;
-                if (preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video, $matches)
-                    || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $video, $matches)) {
-
+                if (
+                    preg_match('/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video, $matches)
+                    || preg_match('/^(https?:\/\/)?(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', $video, $matches)
+                ) {
                     $youtubeId = $matches[3];
                 }
 
@@ -64,7 +66,6 @@ class TraceTypeVideo extends AbstractTrace implements TraceInterface
 
                     // Remplacer le lien original par le lien embed dans le tableau des video
                     $contenu[$key] = $Embedcontenu;
-
                 }
 
                 // Vérification des liens non youtube

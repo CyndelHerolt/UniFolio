@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -23,20 +24,16 @@ use Symfony\Contracts\Service\Attribute\Required;
 #[Route('/etudiant')]
 class BilanPedagogiqueController extends BaseController
 {
-
     public function __construct(
-        #[Required] public Security   $security,
-        public AnneeRepository        $anneeRepository,
+        #[Required] public Security $security,
+        public AnneeRepository $anneeRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public TraceRepository        $traceRepository,
-        public ValidationRepository   $validationRepository,
-        public PortfolioRepository    $portfolioRepository,
-        public OrdrePageRepository    $ordrePageRepository,
-        public OrdreTraceRepository   $ordreTraceRepository,
-
-    )
-    {
-
+        public TraceRepository $traceRepository,
+        public ValidationRepository $validationRepository,
+        public PortfolioRepository $portfolioRepository,
+        public OrdrePageRepository $ordrePageRepository,
+        public OrdreTraceRepository $ordreTraceRepository,
+    ) {
     }
 
     #[Route('/bilan-pedagogique', name: 'app_bilan_pedagogique')]
@@ -45,7 +42,6 @@ class BilanPedagogiqueController extends BaseController
         $data_user = $this->dataUserSession;
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
-
             //Récupérer les portfolios de l'utilisateur connecté
             $etudiant = $this->security->getUser()->getEtudiant();
             $portfolios = $this->portfolioRepository->findBy(['etudiant' => $etudiant, 'visibilite' => true]);

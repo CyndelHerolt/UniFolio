@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -12,7 +13,6 @@ use App\Repository\TraceRepository;
 
 class TraceTypeLien extends AbstractTrace implements TraceInterface
 {
-
     final public const TAG_TYPE_TRACE = 'lien';
     final public const FORM = TraceTypeLienType::class;
     final public const HELP = 'Upload de lien - lien absolu';

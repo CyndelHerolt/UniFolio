@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -79,30 +80,28 @@ final class AllTraceEvalComponent extends BaseController
     public array $allTraces = [];
 
     public function __construct(
-        public TraceRepository       $traceRepository,
+        public TraceRepository $traceRepository,
         public DepartementRepository $departementRepository,
-        public CompetenceRepository  $competenceRepository,
-        public ApcNiveauRepository   $apcNiveauRepository,
-        public EtudiantRepository    $etudiantRepository,
-        public GroupeRepository      $groupeRepository,
-        public SemestreRepository    $semestreRepository,
-        public AnneeRepository       $anneeRepository,
-        public TypeGroupeRepository  $typeGroupeRepository,
-        public ValidationRepository  $validationRepository,
+        public CompetenceRepository $competenceRepository,
+        public ApcNiveauRepository $apcNiveauRepository,
+        public EtudiantRepository $etudiantRepository,
+        public GroupeRepository $groupeRepository,
+        public SemestreRepository $semestreRepository,
+        public AnneeRepository $anneeRepository,
+        public TypeGroupeRepository $typeGroupeRepository,
+        public ValidationRepository $validationRepository,
         public CommentaireRepository $commentaireRepository,
-        #[Required] public Security  $security,
-        RequestStack                 $requestStack,
+        #[Required] public Security $security,
+        RequestStack $requestStack,
         private FormFactoryInterface $formFactory,
-        protected DataUserSession    $dataUserSession,
-    )
-    {
+        protected DataUserSession $dataUserSession,
+    ) {
         $this->requestStack = $requestStack;
 
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
 
         foreach ($dept as $departement) {
-
             $this->annees = $this->anneeRepository->findByDepartement($departement);
 
             $this->semestres = $this->semestreRepository->findByDepartementActif($departement);
@@ -114,7 +113,6 @@ final class AllTraceEvalComponent extends BaseController
                     $this->groupes[] = $groupe;
                 }
                 $this->groupes = array_unique($this->groupes, SORT_REGULAR);
-
             }
             // pour chaque semestre on récupère les étudiants
             foreach ($this->semestres as $semestre) {
@@ -153,7 +151,6 @@ final class AllTraceEvalComponent extends BaseController
 
             $annees = [];
             foreach ($semestres as $semestre) {
-
                 $annees[] = $semestre->getAnnee();
 
                 foreach ($annees as $annee) {
@@ -347,7 +344,6 @@ final class AllTraceEvalComponent extends BaseController
             }
 
             $this->etudiants = $this->etudiantRepository->findBySemestre($semestre);
-
         } else {
             foreach ($this->semestres as $semestre) {
                 foreach ($competences as $competence) {
@@ -455,5 +451,4 @@ final class AllTraceEvalComponent extends BaseController
 
         return $traces;
     }
-
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-    {% block title %}UniFolio - {{ trace.titre }} edition{% endblock %}
+    {% block title %}UniFolio - Edition d'une trace{% endblock %}
 
 {% block body %}
     <div class="content-container trace_form">
@@ -36,6 +36,15 @@
                     <div class="row">
                         <div class="col-12 g-4">
                             {{ form_row(form.titre) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-12 g-4">
+                            {{ form_row(form.dateRealisation) }}
+                        </div>
+                        <div class="col-lg-6 col-12 g-4">
+                            {{ form_row(form.contexte) }}
                         </div>
                     </div>
 

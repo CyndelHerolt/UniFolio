@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -26,10 +27,8 @@ final class PortfolioEvalCardComponent extends BaseController
     public ?int $id;
 
     public function __construct(
-        public PortfolioRepository       $portfolioRepository,
-    )
-    {
-
+        public PortfolioRepository $portfolioRepository,
+    ) {
     }
 
     public function getPortfolio(): ?Portfolio

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -41,5 +42,4 @@ class PortfolioCrudController extends AbstractCrudController
             ->setSearchFields(['auteur', 'intitule', 'date_creation', 'date_modification'])
             ->setDefaultSort(['date_creation' => 'DESC']);
     }
-
 }

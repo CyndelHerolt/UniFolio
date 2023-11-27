@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -19,13 +20,12 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class AllRetourPedagogiqueComponent extends BaseController
 {
     public function __construct(
-        public ValidationRepository  $validationRepository,
+        public ValidationRepository $validationRepository,
         public CommentaireRepository $commentaireRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public TraceRepository       $traceRepository,
-        #[Required] public Security  $security
-    )
-    {
+        public TraceRepository $traceRepository,
+        #[Required] public Security $security
+    ) {
     }
 
     public function getAllRetourPedagogique(): array
@@ -40,7 +40,7 @@ final class AllRetourPedagogiqueComponent extends BaseController
         foreach ($traces as $trace) {
             foreach ($trace->getValidations() as $validation) {
                 if ($validation->isEtat() !== 0) {
-                $retourPedagogiques[] = $validation;
+                    $retourPedagogiques[] = $validation;
                 }
             }
             foreach ($trace->getCommentaires() as $commentaire) {
@@ -50,7 +50,7 @@ final class AllRetourPedagogiqueComponent extends BaseController
             }
         }
 
-        usort($retourPedagogiques, function($a, $b) {
+        usort($retourPedagogiques, function ($a, $b) {
             return $b->getDateCreation() <=> $a->getDateCreation();
         });
 

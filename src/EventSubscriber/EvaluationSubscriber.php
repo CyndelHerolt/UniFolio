@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -15,14 +16,11 @@ use Symfony\Component\Routing\RouterInterface;
 
 class EvaluationSubscriber implements EventSubscriberInterface
 {
-
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly RouterInterface        $router,
-        private readonly EtudiantRepository     $etudiantRepository
-    )
-    {
+        private readonly RouterInterface $router,
+        private readonly EtudiantRepository $etudiantRepository
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -54,7 +52,8 @@ class EvaluationSubscriber implements EventSubscriberInterface
         $notif->setLu(false);
         $notif->setValidation($origine);
         $notif->setUrl($this->router->generate(
-            'app_trace_index', ['id' => $trace->getId()]
+            'app_trace_index',
+            ['id' => $trace->getId()]
         ));
         $this->entityManager->persist($notif);
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -25,7 +26,6 @@ use Symfony\Contracts\Service\Attribute\Required;
 class DashboardEtudiantController extends BaseController
 {
     public function __construct(
-
         protected GroupeRepository $groupeRepository,
         protected EtudiantRepository $etudiantRepository,
         #[Required] public Security $security,
@@ -34,16 +34,14 @@ class DashboardEtudiantController extends BaseController
         protected SemestreRepository $semestreRepository,
         TokenStorageInterface $tokenStorage,
         EnseignantRepository $enseignantRepository,
-    )
-    {
+    ) {
     }
 
     #[Route('/dashboard', name: 'etudiant_dashboard')]
     public function index(
         UsersRepository $usersRepository,
-        TraceRegistry   $traceRegistry,
-    ): Response
-    {
+        TraceRegistry $traceRegistry,
+    ): Response {
 
         $data_user = $this->dataUserSession;
 
@@ -51,7 +49,6 @@ class DashboardEtudiantController extends BaseController
         $userId = $this->getUser()->getUserIdentifier();
 
         if ($this->isGranted('ROLE_ETUDIANT') || $this->isGranted('ROLE_ADMIN')) {
-
             if ($userId === 'etudiant') {
                 return $this->render('dashboard_etudiant/index.html.twig', [
                     'admin' => '/admin?_switch_user=_exit',
@@ -65,7 +62,7 @@ class DashboardEtudiantController extends BaseController
                     'data_user' => $data_user,
                 ]);
             }
-        }  else {
+        } else {
             return $this->render('security/accessDenied.html.twig');
         }
     }

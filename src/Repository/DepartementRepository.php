@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -97,5 +98,4 @@ class DepartementRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -16,11 +17,11 @@ class EtudiantPartialType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-$builder
-    ->add('mail_perso')
-    ->add('telephone')
-    ->add('bio')
-    ->add('optAlternance', ChoiceType::class, [
+        $builder
+        ->add('mail_perso')
+        ->add('telephone')
+        ->add('bio')
+        ->add('optAlternance', ChoiceType::class, [
         'choices' => [
             'oui' => true,
             'non' => false,
@@ -33,8 +34,8 @@ $builder
         'mapped' => true,
         'expanded' => true,
         'multiple' => false,
-    ])
-    ->add('optStage', ChoiceType::class, [
+        ])
+        ->add('optStage', ChoiceType::class, [
         'choices' => [
             'oui' => true,
             'non' => false,
@@ -47,8 +48,8 @@ $builder
         'mapped' => true,
         'expanded' => true,
         'multiple' => false,
-    ])
-;
+        ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

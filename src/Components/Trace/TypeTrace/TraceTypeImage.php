@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -47,14 +48,13 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
         $imageFiles = $form['contenu']->getData();
 
             $contenu = [];
-            if ($existingContenu != null) {
-                foreach ($existingContenu as $content) {
-                    $contenu[] = $content;
-                }
+        if ($existingContenu != null) {
+            foreach ($existingContenu as $content) {
+                $contenu[] = $content;
             }
+        }
 
         if ($imageFiles) {
-
             foreach ($imageFiles as $imageFile) {
                 // Vérifier si la taille de l'image est inférieure ou égale à 2 Mo
                 if ($imageFile->getSize() > $max_size) {
@@ -65,7 +65,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                 //Vérifier si le fichier est au bon format
                 if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
                     $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
-                    $contenu[] = $_ENV['SRC_FILES'].'/'.$imageFileName;
+                    $contenu[] = $_ENV['SRC_FILES'] . '/' . $imageFileName;
                 } else {
                     $error = 'Le fichier n\'est pas au bon format';
                     return array('success' => false, 'error' => $error);

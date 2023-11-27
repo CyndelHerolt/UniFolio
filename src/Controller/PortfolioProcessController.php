@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -44,8 +45,7 @@ class PortfolioProcessController extends BaseController
     #[Route('/', name: 'index')]
     public function index(
         Request $request,
-    ): Response
-    {
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             $id = $request->query->get('id');
@@ -62,23 +62,22 @@ class PortfolioProcessController extends BaseController
 
     #[Route('/step/{id}', name: 'step')]
     public function step(
-        Request                $request,
+        Request $request,
         BibliothequeRepository $bibliothequeRepository,
-        PageRepository         $pageRepository,
-        TraceRepository        $traceRepository,
-        PortfolioRepository    $portfolioRepository,
-        TraceRegistry          $traceRegistry,
-        Security               $security,
-        CompetenceRepository   $competenceRepository,
-        ApcNiveauRepository    $apcNiveauRepository,
-        ValidationRepository   $validationRepository,
-        OrdrePageRepository    $ordrePageRepository,
-        OrdreTraceRepository   $ordreTraceRepository,
-        CvRepository           $cvRepository,
-        ExperienceRepository   $experienceRepository,
-        FormationRepository    $formationRepository,
-    ): Response
-    {
+        PageRepository $pageRepository,
+        TraceRepository $traceRepository,
+        PortfolioRepository $portfolioRepository,
+        TraceRegistry $traceRegistry,
+        Security $security,
+        CompetenceRepository $competenceRepository,
+        ApcNiveauRepository $apcNiveauRepository,
+        ValidationRepository $validationRepository,
+        OrdrePageRepository $ordrePageRepository,
+        OrdreTraceRepository $ordreTraceRepository,
+        CvRepository $cvRepository,
+        ExperienceRepository $experienceRepository,
+        FormationRepository $formationRepository,
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             $step = $request->query->get('step', 'portfolio');
@@ -102,7 +101,6 @@ class PortfolioProcessController extends BaseController
             }
 
             switch ($step) {
-
                 case 'portfolio':
                     $form = $this->createForm(PortfolioType::class, $portfolio);
                     break;
@@ -604,7 +602,8 @@ class PortfolioProcessController extends BaseController
 
                     $form = $this->createForm($traceType::FORM, $trace, ['user' => $user, 'competences' => $competencesNiveau]);
                     $form->handleRequest($request);
-                    if ($form->isSubmitted() && $form->isValid()
+                    if (
+                        $form->isSubmitted() && $form->isValid()
                     ) {
                         $existingCompetences = [];
                         foreach ($trace->getValidations() as $validation) {
@@ -618,7 +617,6 @@ class PortfolioProcessController extends BaseController
                         $validations = $trace->getValidations();
 
                         foreach ($competences as $competence) {
-
                             // Si la compétence n'est pas déjà liée à la trace
                             if (!in_array($competence->getLibelle(), $existingCompetences)) {
                                 $validation = new Validation();
@@ -637,28 +635,32 @@ class PortfolioProcessController extends BaseController
                             }
                         }
 
-                        if ($trace->getTypetrace() == TraceTypeImage::class
+                        if (
+                            $trace->getTypetrace() == TraceTypeImage::class
                         ) {
                             if (isset($request->request->All()['img'])) {
                                 $existingContenu = $request->request->All()['img'];
                             } else {
                                 $existingContenu = null;
                             }
-                        } elseif ($trace->getTypetrace() == TraceTypePdf::class
+                        } elseif (
+                            $trace->getTypetrace() == TraceTypePdf::class
                         ) {
                             if (isset($request->request->All()['pdf'])) {
                                 $existingContenu = $request->request->All()['pdf'];
                             } else {
                                 $existingContenu = null;
                             }
-                        } elseif ($trace->getTypetrace() == TraceTypeLien::class
+                        } elseif (
+                            $trace->getTypetrace() == TraceTypeLien::class
                         ) {
                             if (isset($request->request->All()['trace_type_lien']['contenu'])) {
                                 $existingContenu = $request->request->All()['trace_type_lien']['contenu'];
                             } else {
                                 $existingContenu = null;
                             }
-                        } elseif ($trace->getTypetrace() == TraceTypeVideo::class
+                        } elseif (
+                            $trace->getTypetrace() == TraceTypeVideo::class
                         ) {
                             if (isset($request->request->All()['trace_type_video']['contenu'])) {
                                 $existingContenu = $request->request->All()['trace_type_video']['contenu'];
@@ -746,7 +748,7 @@ class PortfolioProcessController extends BaseController
                         'data_user' => $data_user,
                     ]);
 
-                case 'deleteCv' :
+                case 'deleteCv':
                     $portfolio->setCv(null);
                     $portfolioRepository->save($portfolio, true);
 
@@ -852,7 +854,6 @@ class PortfolioProcessController extends BaseController
                     }
 
                     return $this->json(['success' => false, 'errors' => $errorsOutput], 500);
-
             }
 
             return $this->render('portfolio_process/step/_step.html.twig', [

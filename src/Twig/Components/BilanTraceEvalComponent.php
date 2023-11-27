@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -15,5 +16,4 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 #[AsLiveComponent('BilanTraceEvalComponent')]
 final class BilanTraceEvalComponent extends AbstractTraceEvalComponent
 {
-
 }

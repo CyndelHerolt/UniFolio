@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -36,36 +37,33 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class StructureSynchro extends AbstractController
 {
-
     #[Route('/api/intranet/structure', name: 'app_synchro_intranet_structure')]
     public function index(
-        HttpClientInterface                $client,
-        DepartementRepository              $departementRepository,
-        DiplomeRepository                  $diplomeRepository,
-        AnneeRepository                    $anneeRepository,
-        SemestreRepository                 $semestreRepository,
-        TypeGroupeRepository               $typeGroupeRepository,
-        GroupeRepository                   $groupeRepository,
-        ApcParcoursRepository              $apcParcoursRepository,
-        ApcReferentielRepository           $apcReferentielRepository,
-        CompetenceRepository               $competenceRepository,
-        ApcNiveauRepository                $niveauRepository,
-        EtudiantRepository                 $etudiantRepository,
+        HttpClientInterface $client,
+        DepartementRepository $departementRepository,
+        DiplomeRepository $diplomeRepository,
+        AnneeRepository $anneeRepository,
+        SemestreRepository $semestreRepository,
+        TypeGroupeRepository $typeGroupeRepository,
+        GroupeRepository $groupeRepository,
+        ApcParcoursRepository $apcParcoursRepository,
+        ApcReferentielRepository $apcReferentielRepository,
+        CompetenceRepository $competenceRepository,
+        ApcNiveauRepository $niveauRepository,
+        EtudiantRepository $etudiantRepository,
         ApcApprentissageCritiqueRepository $apprentissageCritiqueRepository,
-        EnseignantRepository               $enseignantRepository,
-        UsersRepository                    $usersRepository
-    ): Response
-    {
+        EnseignantRepository $enseignantRepository,
+        UsersRepository $usersRepository
+    ): Response {
         //http://symfony.com/doc/current/http_client.html
 
 
 
         if ($departementRepository->findOneBy(['libelle' => 'Fixtures'])) {
-
-        $etudiant = $etudiantRepository->findOneBy(['username' => 'etudiant']);
-        $etudiantRepository->remove($etudiant, true);
-        $enseignant = $enseignantRepository->findOneBy(['username' => 'enseignant']);
-        $enseignantRepository->remove($enseignant, true);
+            $etudiant = $etudiantRepository->findOneBy(['username' => 'etudiant']);
+            $etudiantRepository->remove($etudiant, true);
+            $enseignant = $enseignantRepository->findOneBy(['username' => 'enseignant']);
+            $enseignantRepository->remove($enseignant, true);
 
             // Vide les tables
             $apcReferentielRepository->truncate();
@@ -87,7 +85,7 @@ class StructureSynchro extends AbstractController
 
         $departements = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/departement',
+            $_ENV['API_URL'] . 'unifolio/departement',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -132,7 +130,7 @@ class StructureSynchro extends AbstractController
 
         $diplomes = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/diplome',
+            $_ENV['API_URL'] . 'unifolio/diplome',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -185,7 +183,7 @@ class StructureSynchro extends AbstractController
 
         $annees = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/annee',
+            $_ENV['API_URL'] . 'unifolio/annee',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -197,7 +195,6 @@ class StructureSynchro extends AbstractController
 
         $annees = $annees->toArray();
         foreach ($annees as $annee) {
-
             $diplome = $diplomeRepository->findOneBy(['id' => $annee['diplome']]);
 
             if ($diplome) {
@@ -233,7 +230,7 @@ class StructureSynchro extends AbstractController
 
         $semestres = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/semestre',
+            $_ENV['API_URL'] . 'unifolio/semestre',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -245,7 +242,6 @@ class StructureSynchro extends AbstractController
 
         $semestres = $semestres->toArray();
         foreach ($semestres as $semestre) {
-
             $annee = $anneeRepository->findOneBy(['id' => $semestre['annee']]);
 
             if ($annee) {
@@ -287,7 +283,7 @@ class StructureSynchro extends AbstractController
 
         $typesGroupes = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/type_groupe',
+            $_ENV['API_URL'] . 'unifolio/type_groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -343,7 +339,7 @@ class StructureSynchro extends AbstractController
 
         $groupes = $client->request(
             'GET',
-            $_ENV['API_URL'].'unifolio/groupe',
+            $_ENV['API_URL'] . 'unifolio/groupe',
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -356,7 +352,6 @@ class StructureSynchro extends AbstractController
         $groupes = $groupes->toArray();
 
         foreach ($groupes as $groupe) {
-
 //            $semestre = $semestreRepository->findOneBy(['code_element' => $groupe['semestre']]);
             $semestres = [];
             foreach ($groupe['semestres'] as $semestre) {
@@ -368,7 +363,6 @@ class StructureSynchro extends AbstractController
 
 //            if ($semestre) {
             if ($semestres != null) {
-
                 $existingGroupe = $groupeRepository->findOneBy(['id' => $groupe['id']]);
                 //Vérifier si l'id du département existe déjà en base de données
                 if ($existingGroupe) {

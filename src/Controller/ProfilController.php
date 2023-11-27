@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -22,7 +23,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/profil')]
 class ProfilController extends BaseController
-
 {
     #[Route('/', name: 'app_profil')]
     public function profil(UsersRepository $usersRepository): Response
@@ -46,8 +46,7 @@ class ProfilController extends BaseController
                 $optAlt = $etudiant->isOptAlternance();
                 $optStage = $etudiant->isOptStage();
             }
-        }
-        elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
+        } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
             $enseignant = $user->getEnseignant();
 
             // Si un objet Enseignant est trouvé, vous pouvez accéder à ses propriétés
@@ -81,13 +80,12 @@ class ProfilController extends BaseController
 
     #[Route('/{id}/edit', name: 'app_profil_edit', methods: ['GET', 'POST'])]
     public function edit(
-        Request              $request,
-        ?Etudiant            $etudiant,
-        ?Enseignant          $enseignant,
-        EtudiantRepository   $etudiantRepository,
+        Request $request,
+        ?Etudiant $etudiant,
+        ?Enseignant $enseignant,
+        EtudiantRepository $etudiantRepository,
         EnseignantRepository $enseignantRepository,
-    ): Response
-    {
+    ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $form = $this->createForm(EtudiantPartialType::class, $etudiant);
         } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {

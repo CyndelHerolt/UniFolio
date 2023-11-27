@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
  * @author cyndelherolt
@@ -16,7 +17,8 @@ class PageCardComponent
     public int $id;
 
     public function __construct(private PageRepository $pageRepository)
-    {}
+    {
+    }
 
     public function getPage(): Page
     {
