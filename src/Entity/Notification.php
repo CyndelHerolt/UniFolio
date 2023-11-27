@@ -46,7 +46,7 @@ class Notification
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?Validation $validation = null;
 
-    #[ORM\OneToOne(inversedBy: 'notification', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Commentaire::class, inversedBy: 'notifications')]
     private ?Commentaire $commentaire = null;
 
     public function getId(): ?int
@@ -158,6 +158,7 @@ class Notification
     public function setCommentaire(?Commentaire $commentaire): static
     {
         $this->commentaire = $commentaire;
+        $commentaire?->addNotification($this); // update the other side of the relation
 
         return $this;
     }

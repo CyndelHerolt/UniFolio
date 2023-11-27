@@ -1,5 +1,32 @@
 <div{{ attributes }}>
-    <div class="accordion accordion-flush" id="accordionFlushExample" style="margin: 25px 0 0 0;">
+    <div class="accordion accordion-flush" id="accordionFlushExample" style="margin: 25px 0 0 0; position: relative;
+            /*SI toutes les validations de la trace ont pour etat 3*/
+        {% if this.trace.validations|length == this.trace.validations|filter(v => v.etat != 0)|length %}
+            border: solid 2px lightgreen;
+    {% endif %}
+            ">
+        {% if this.trace.validations|length == this.trace.validations|filter(v => v.etat != 0)|length %}
+            <div class="success"
+                 style="
+                            background-color: lightgreen;
+                            color: white;
+                            padding: 10px;
+                            border-radius: 50%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-bottom: 10px;
+                            box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+                            border: solid 2px lightgreen;
+                            width: fit-content;
+                            position: absolute;
+                               top: -20px;
+                                 right: 20px;
+                                 z-index: 10;
+                            ">
+                <i class="fa-solid fa-check"></i>
+            </div>
+        {% endif %}
         <div class="accordion-item"
              style="box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0, rgba(0, 0, 0, 0.05) 0 1px 1px 0;">
             <div class="accordion-header" id="flush-heading{{ this.trace.id }}">
