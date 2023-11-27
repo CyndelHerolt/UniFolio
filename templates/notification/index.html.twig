@@ -21,33 +21,47 @@
                 {% for notification in notifications|sort %}
                     <div class="card card-notifs col-12">
                         <div class="card-header norif-header">
-                                <div>
-                            {% if notification.type == 'commentaire.publie' %}
-                                <h5>Nouveau commentaire
-                                    {% if notification.portfolio is defined %}
-                                        sur le portfolio : {{ notification.portfolio.intitule }}
-                                    {% endif %}
-                                    {% if notification.trace is defined %}
-                                        sur la trace : {{ notification.trace.titre }}
-                                    {% endif %}
-                                </h5>
-                                <ul class="card-infos-min">
-                                    <li><span>Publié le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
-                                    </li>
-                                </ul>
-                            {% elseif notification.type == 'evaluation.effectuee' %}
-                                <h5>Nouvelle compétence évaluée
-                                    {% if notification.trace is defined %}
-                                        sur la trace : {{ notification.trace.titre }}
-                                    {% endif %}
-                                </h5>
-                                <ul class="card-infos-min">
-                                    <li>
-                                        <span>Publiée le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
-                                    </li>
-                                </ul>
-                            {% endif %}
-                                </div>
+                            <div>
+                                {% if notification.type == 'commentaire.publie' %}
+                                    <h5>Nouveau commentaire
+                                        {% if notification.portfolio is defined %}
+                                            sur le portfolio : {{ notification.portfolio.intitule }}
+                                        {% endif %}
+                                        {% if notification.trace is defined %}
+                                            sur la trace : {{ notification.trace.titre }}
+                                        {% endif %}
+                                    </h5>
+                                    <ul class="card-infos-min">
+                                        <li><span>Publié le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
+                                        </li>
+                                    </ul>
+                                {% elseif notification.type == 'evaluation.effectuee' %}
+                                    <h5>Nouvelle compétence évaluée
+                                        {% if notification.trace is defined %}
+                                            sur la trace : {{ notification.trace.titre }}
+                                        {% endif %}
+                                    </h5>
+                                    <ul class="card-infos-min">
+                                        <li>
+                                            <span>Publiée le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
+                                        </li>
+                                    </ul>
+                                {% elseif notification.type == 'commentaire.reponse' %}
+                                    <h5>{{ notification.commentaire.enseignant.prenom }} {{ notification.commentaire.enseignant.nom }}
+                                        à répondu à votre commentaire
+                                        {% if notification.commentaire.portfolio != null %}
+                                            sur le portfolio : {{ notification.commentaire.portfolio.intitule }}
+                                        {% endif %}
+                                        {% if notification.commentaire.trace is defined %}
+                                            sur la trace : {{ notification.commentaire.trace.titre }} de {{ notification.commentaire.trace.bibliotheque.etudiant.prenom }} {{ notification.commentaire.trace.bibliotheque.etudiant.nom }}
+                                        {% endif %}
+                                    </h5>
+                                    <ul class="card-infos-min">
+                                        <li><span>Publié le :&nbsp;</span> {{ notification.dateCreation|date('d-m-Y') }}
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                            </div>
                             <a href="{{ path('app_delete_notification', {'id': notification.id}) }}">
                                 <button class="btn btn-delete"><i
                                             class="fa-solid fa-square-minus"></i>
@@ -69,6 +83,41 @@
                                         <p class="card-text">{{ notification.commentaire.contenu }}</p>
                                     </div>
                                 </div>
+                            {% elseif notification.type == 'commentaire.reponse' %}
+                                <div class="card" style="margin-bottom: 20px">
+                                    <div class="card-header">
+                                        <div>
+                                            <h6 class="card-subtitle">{{ commentaire_parent.enseignant.prenom }} {{ commentaire_parent.enseignant.nom }}</h6>
+                                            <small>
+                                                {{ commentaire_parent.datecreation|date('d-m-Y H:i') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ commentaire_parent.contenu }}</p>
+
+                                    </div>
+                                    <div style="padding: 10px 25px; border-top: solid 1px lightgrey; background-color: #21252908">
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <h6 class="card-subtitle">{{ notification.commentaire.enseignant.prenom }} {{ notification.commentaire.enseignant.nom }}</h6>
+                                            </div>
+                                            <small class="text-muted">{{ notification.commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                                            <small>·</small>
+                                            <small>
+                                                {% if notification.commentaire.visibilite == 1 %}
+                                                    Public
+                                                {% else %}
+                                                    Privé
+                                                {% endif %}
+                                            </small>
+                                            <hr>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ notification.commentaire.contenu }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             {% elseif notification.type == 'evaluation.effectuee' %}
                                 <ul class="competences">
                                     <li>
@@ -88,13 +137,13 @@
                                                                                           style="color: limegreen"></i>
                                         {% endif %}
                                     </li>
-                                {% if notification.validation.etat == 0 %}
-                                    <p>En attente de notification.validation</p>
-                                {% else %}
-                                    <p style="text-align: end">Evaluation saisie
-                                        par {{ notification.validation.enseignant.prenom }} {{ notification.validation.enseignant.nom }}
-                                        le {{ notification.validation.dateModification|date('d-m-y') }}</p>
-                                {% endif %}
+                                    {% if notification.validation.etat == 0 %}
+                                        <p>En attente de notification.validation</p>
+                                    {% else %}
+                                        <p style="text-align: end">Evaluation saisie
+                                            par {{ notification.validation.enseignant.prenom }} {{ notification.validation.enseignant.nom }}
+                                            le {{ notification.validation.dateModification|date('d-m-y') }}</p>
+                                    {% endif %}
                                 </ul>
                             {% endif %}
                             <div class="btn-group">
@@ -106,6 +155,16 @@
                                 {% if notification.trace is defined %}
                                     <a href="{{ path('app_trace_index', {id: notification.trace.id}) }}">
                                         <button class="btn btn-primary">Accéder à la trace</button>
+                                    </a>
+                                {% endif %}
+                                {% if notification.commentaire.trace != null %}
+                                    <a href="{{ path('app_bilan_eval_trace', {id: notification.commentaire.trace.id}) }}">
+                                        <button class="btn btn-primary">Accéder à la trace</button>
+                                    </a>
+                                {% endif %}
+                                {% if notification.commentaire.portfolio != null %}
+                                    <a href="{{ path('app_portfolio_index', {id: notification.commentaire.portfolio.id}) }}">
+                                        <button class="btn btn-primary">Accéder au portfolio</button>
                                     </a>
                                 {% endif %}
                             </div>
