@@ -11,6 +11,8 @@ use App\Entity\Portfolio;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -30,7 +32,10 @@ class PortfolioCrudController extends AbstractCrudController
         return [
             AssociationField::new('etudiant')->hideOnForm(),
             TextField::new('intitule'),
-            IntegerField::new('visibilite'),
+            TextField::new('description'),
+            TextField::new('banniere'),
+            BooleanField::new('visibilite', 'Visibilité du portfolio'),
+            BooleanField::new('opt_search', 'Option de recherche stage/alt'),
         ];
     }
 
