@@ -154,7 +154,7 @@ class EtudiantRepository extends ServiceEntityRepository
             ->leftJoin('p.ordrePages', 'op')
             ->leftJoin('op.page', 'pa')
             ->leftJoin('pa.ordreTraces', 'ot')
-            ->join('ot.trace', 't')
+            ->leftJoin('ot.trace', 't')
             ->leftJoin('t.validations', 'v')
             ->join('e.groupe', 'g')
             ->join('a.diplome', 'd', 'WITH', 'd.departement = :departement')
@@ -197,10 +197,10 @@ class EtudiantRepository extends ServiceEntityRepository
                 ;
                 $qb->andWhere($qb->expr()->not($qb->expr()->exists($sq->getDQL())));
                 $qb->andWhere('p.visibilite = true');
-            } elseif ($etat === 2) { // non évalués
+            } elseif ($etat === 2) { // Portfolios non évalués
                 $qb->andWhere('p.etudiant = e')
                     ->andWhere('p.annee = s.annee');
-                $qb->andWhere('v.etat = 0');
+                $qb->andWhere('v.etat = 0 OR SIZE(p.ordrePages) = 0');
                 $qb->andWhere('p.visibilite = true');
             } elseif ($etat === 3) {
 // Etudiants sans portfolio
