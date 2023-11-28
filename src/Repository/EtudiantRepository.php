@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Repository;
 
 use App\Entity\Annee;
@@ -141,6 +142,74 @@ class EtudiantRepository extends ServiceEntityRepository
     public function findOneByMailUniv(string $mailUniv): ?Etudiant
     {
         return $this->findOneBy(['mail_univ' => $mailUniv]);
+    }
+
+    public function findByFilters($dept, Semestre $semestre = null, array $groupes = [], array $etudiants = [], array $competences = [], int $etat = null): array
+    {
+        //obtenir tous les étudiants du département
+        $qb = $this->createQueryBuilder('e')
+            ->join('e.semestre', 's')
+            ->join('s.annee', 'a')
+            ->leftJoin('a.portfolio', 'p')
+            ->leftJoin('p.ordrePages', 'op')
+            ->leftJoin('op.page', 'pa')
+            ->leftJoin('pa.ordreTraces', 'ot')
+            ->leftJoin('ot.trace', 't')
+            ->leftJoin('t.validations', 'v')
+            ->join('e.groupe', 'g')
+            ->join('a.diplome', 'd', 'WITH', 'd.departement = :departement')
+            ->setParameter('departement', $dept);
+        // filtre en fonction des critères
+        if (!empty($semestre)) {
+            $qb->andWhere('s = :semestre')
+                ->setParameter('semestre', $semestre);
+        }
+        if (!empty($groupes)) {
+            $qb->andWhere('g IN (:groupes)')
+                ->setParameter('groupes', $groupes);
+        }
+        if (!empty($competences)) {
+            $qb->andWhere('c IN (:competences)')
+                ->setParameter('competences', $competences);
+        }
+        if (!empty($etudiants)) {
+            $qb->andWhere('e IN (:etudiants)')
+                ->setParameter('etudiants', $etudiants);
+        }
+        // Filtre des états
+        if ($etat !== null) {
+            if ($etat === 1) { // Portfolios évalués
+                $qb->andWhere('p.etudiant = e')
+                    ->andWhere('p.annee = s.annee');
+                $sq = $this->createQueryBuilder('e2')
+                    ->join('e2.semestre', 's2')
+                    ->join('s2.annee', 'a2')
+                    ->join('a2.portfolio', 'p2')
+                    ->join('p2.ordrePages', 'op2')
+                    ->join('op2.page', 'pa2')
+                    ->join('pa2.ordreTraces', 'ot2')
+                    ->join('ot2.trace', 't2')
+                    ->join('t2.validations', 'v2')
+                    ->where('p2.etudiant = e2')
+                    ->andWhere('p2.annee = s2.annee')
+                    ->andWhere('v2.etat = 0')
+                    ->andWhere('e.id = e2.id');
+                $qb->andWhere($qb->expr()->not($qb->expr()->exists($sq->getDQL())));
+                $qb->andWhere('p.visibilite = true');
+            } elseif ($etat === 2) { // non évalués
+                $qb->andWhere('p.etudiant = e')
+                    ->andWhere('p.annee = s.annee');
+                $qb->andWhere('v.etat = 0');
+                $qb->andWhere('p.visibilite = true');
+            } elseif ($etat === 3) {
+// Etudiants sans portfolio
+                $qb->andWhere('SIZE(e.portfolios) = 0');
+            }
+        }
+
+        $qb->distinct('e.id');
+
+        return $qb->getQuery()->getResult();
     }
 
     public function truncate(): void
