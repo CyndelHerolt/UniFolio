@@ -154,7 +154,7 @@ class EtudiantRepository extends ServiceEntityRepository
             ->leftJoin('p.ordrePages', 'op')
             ->leftJoin('op.page', 'pa')
             ->leftJoin('pa.ordreTraces', 'ot')
-            ->leftJoin('ot.trace', 't')
+            ->join('ot.trace', 't')
             ->leftJoin('t.validations', 'v')
             ->join('e.groupe', 'g')
             ->join('a.diplome', 'd', 'WITH', 'd.departement = :departement')
@@ -193,7 +193,8 @@ class EtudiantRepository extends ServiceEntityRepository
                     ->where('p2.etudiant = e2')
                     ->andWhere('p2.annee = s2.annee')
                     ->andWhere('v2.etat = 0')
-                    ->andWhere('e.id = e2.id');
+                    ->andWhere('e.id = e2.id')
+                ;
                 $qb->andWhere($qb->expr()->not($qb->expr()->exists($sq->getDQL())));
                 $qb->andWhere('p.visibilite = true');
             } elseif ($etat === 2) { // non évalués
