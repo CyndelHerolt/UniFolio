@@ -32,12 +32,12 @@
     </td>
         {% if this.portfolio.visibilite == 1 %}
     <td>
-        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#evalModal">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#evalModal_{{ this.etudiant.id }}">
             {{ this.evaluatedTraces }} %
         </button>
     </td>
     <td>
-        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#validModal">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#validModal_{{ this.etudiant.id }}">
             {{ this.validatedTraces }} %
         </button>
     </td>
@@ -54,7 +54,7 @@
             {% endif %}
 
 
-    <div class="modal modal-lg fade" id="evalModal" tabindex="-1" aria-labelledby="evalModalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="evalModal_{{ this.etudiant.id }}" tabindex="-1" aria-labelledby="evalModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -148,7 +148,7 @@
             </div>
         </div>
     </div>
-    <div class="modal modal-lg fade" id="validModal" tabindex="-1" aria-labelledby="validModalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="validModal_{{ this.etudiant.id }}" tabindex="-1" aria-labelledby="validModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
