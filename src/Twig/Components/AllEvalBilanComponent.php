@@ -10,7 +10,7 @@ namespace App\Twig\Components;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 
 #[AsLiveComponent('AllEvalBilanComponent')]
-final class AllEvalBilanComponent extends AllPortfolioEvalComponent
+final class AllEvalBilanComponent extends AllEtudiantComponent
 {
     public static function getComponentName(): string
     {
