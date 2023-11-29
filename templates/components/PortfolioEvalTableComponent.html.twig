@@ -13,9 +13,8 @@
     </td>
     {% if this.portfolio is not null %}
     <td style="padding: 25px">
-        {{ this.portfolio.intitule }} {% if this.portfolio.visibilite == 1 %} <span
-                style="background-color: lightgreen; padding: 5px 10px; border-radius: 15px"> Public </span>
-        {% else %} <span style="background-color: #ffcd71; padding: 5px 10px; border-radius: 15px"> Privé </span>
+        {{ this.portfolio.intitule }} {% if this.portfolio.visibilite == 1 %} <span class="badge bg-success">Public</span>
+        {% else %} <span class="badge bg-danger">Privé</span>
         {% endif %}
     </td>
     <td>

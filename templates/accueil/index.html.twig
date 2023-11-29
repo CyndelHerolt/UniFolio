@@ -3,215 +3,268 @@
 {% block title %}UniFolio - portfolios universitaires{% endblock %}
 
     {% block header %}
-{#        {% include "_menu.html.twig" %}#}
+        {#        {% include "_menu.html.twig" %} #}
     {% endblock %}
 {% block body %}
 
     <div class="content-container public">
         <section class="zone1">
             <div class="row">
-                <article class="col-lg-6 col-12">
-                    <h1>Des <span>portfolios universitaires</span> simples et efficaces</h1>
-                    <p>En utilisant <strong>UniFolio</strong>, les étudiants peuvent mettre en avant leurs réalisations
-                        universitaires et personnelles, lier leurs productions aux compétences du référentiel de leur
-                        formation et bénéficier d'un suivi pédagogique. Les enseignants ont la possibilité de commenter
-                        et d'évaluer les productions afin de proposer un suivi pédagogique.</p>
+                <article class="col-lg-12 col-12">
+                    <div class="col-8 g-4">
+                        <h1><span>Simplifier</span> la création et l'évaluation des portfolios universitaires</h1>
+                        <p>Création de portfolios universitaires en lien avec le référentiel de compétences de la
+                            formation. Evaluation et suivi pédagogique par les enseignants. Mise en avant des
+                            productions étudiantes dans le cadre d'une recherche de stage ou d'alternance.</p>
+                    </div>
+                    <img src="{{ asset('home_img/home.png') }}" alt="">
                 </article>
-                <div class="col-lg-6">
-                    <img src="{{ asset('illu.png') }}" alt="illustration">
-                </div>
             </div>
         </section>
+
+        {#        <section class="zone1"> #}
+        {#            <div class="row"> #}
+        {#                <article class="col-lg-6 col-12"> #}
+        {#                    <h1>Des <span>portfolios universitaires</span> simples et efficaces</h1> #}
+        {#                    <p>En utilisant <strong>UniFolio</strong>, les étudiants peuvent mettre en avant leurs réalisations #}
+        {#                        universitaires et personnelles, lier leurs productions aux compétences du référentiel de leur #}
+        {#                        formation et bénéficier d'un suivi pédagogique. Les enseignants ont la possibilité de commenter #}
+        {#                        et d'évaluer les productions afin de proposer un suivi pédagogique.</p> #}
+        {#                </article> #}
+        {#            </div> #}
+        {#        </section> #}
 
         <section class="zone2">
             <div class="row col-lg-12 col-12">
                 <article class="col-lg-12 col-12">
                     <h2>Comment ça marche ?</h2>
                     <em>
-                        Pour un usage universitaire, <strong>UniFolio</strong> est un outil pédagogique qui encadre la
+                        Pour un usage universitaire, <strong>UniFolio</strong> est un outil pédagogique qui encadre
+                        la
                         création et le suivi des portfolios des étudiants.
                     </em>
-                    <div class="row">
-                        <div class="card col-12">
-                            <div class="card-body">
-                                <h5> Avec une interface simple et intuitive, <strong>UniFolio</strong> est un outil
-                                    adapté à tous les secteurs de formation.</h5>
-                            </div>
-                        </div>
+                    <div class="icon-txt">
+                        <i class="fa-solid fa-sparkles fa-2x"></i>
+                        <h3>Avec une interface simple et intuitive, <strong>UniFolio</strong> est un outil
+                            adapté à tous les secteurs de formation.</h3>
                     </div>
                     <ul class="col-lg-12 col-12 descript">
-                        <li>
-                            <h4>Espace étudiant</h4>
-                            <hr>
-                            <p>Les étudiants construisent leur portfolio, au sein duquel il leur faut créer et organiser
-                                des pages composées d'ensembles de traces - témoignages de réalisations - illustrées par
-                                un ou plusieurs médias, <strong>justifiées et liées aux compétences relatives à leur
-                                    formation</strong>.</p>
-                            <p>Ces derniers portants principalement un objectif d'évaluation universitaire, <strong>les
-                                    étudiants recevront des retours de leurs enseignants</strong> directement sur
-                                l'outil afin de construire le portfolio le plus pertinent possible.</p>
-                            <p>En outre, il est également possible de soumettre son portfolio au public, avec pour cible
-                                principale des entreprises dans le cadre d'une <strong>recherche d'alternance, de stage
-                                    ou de recrutement post-diplôme</strong>. Afin de parfaire cette option, un éditeur
-                                de CV est disponible au cours du processus de création d'un portfolio.</p>
-
+                        <li class="row">
+                            <div class="col-lg-4 col-12">
+                                <h4>Espace étudiant</h4>
+                                <hr>
+                                <p>Les étudiants construisent leur portfolio, au sein duquel il leur faut créer et
+                                    organiser
+                                    des pages composées d'ensembles de traces - témoignages de réalisations - illustrées
+                                    par
+                                    un ou plusieurs médias, <strong>justifiées et liées aux compétences relatives à leur
+                                        formation</strong>.</p>
+                                <p>Ces derniers portants principalement un objectif d'évaluation universitaire, <strong>les
+                                        étudiants recevront des retours de leurs enseignants</strong> directement sur
+                                    l'outil afin de construire le portfolio le plus pertinent possible.</p>
+                                <p>En outre, il est également possible de soumettre son portfolio au public, avec pour
+                                    cible
+                                    principale des entreprises dans le cadre d'une <strong>recherche d'alternance, de
+                                        stage
+                                        ou de recrutement post-diplôme</strong>. Afin de parfaire cette option, un
+                                    éditeur
+                                    de CV est disponible au cours du processus de création d'un portfolio.</p>
+                            </div>
+                            <figure class="col-lg-7 col-12 img-container">
+                                <img src="{{ asset('home_img/traces.png') }}" alt="">
+                                <figcaption>Bibliothèque de traces d'un·e étudiant·e permettant de visualiser
+                                    l'avancement
+                                    de l'évaluation de ces dernières.
+                                </figcaption>
+                            </figure>
                         </li>
-                        <li>
-                            <h4>Espace enseignant</h4>
-                            <hr>
-                            <p>Les enseignants disposent d'<strong>un espace dédié au suivi et à l'évaluation des
-                                    portfolios</strong>. Un système simple de notation à trois niveaux - non acquis, en
-                                cours d'acquisition et acquis - et de commentaires, permettent une évaluation rapide et
-                                efficace des productions des étudiants.</p>
-                            <p>S'ils peuvent en effet communiquer des retours aux étudiants, les enseignants peuvent au
-                                même titre, <strong>communiquer entre eux</strong> autour d'une trace ou d'un portfolio.
-                            </p>
+                        <li class="row">
+                            <figure class="col-lg-7 col-12 img-container">
+                                <img src="{{ asset('home_img/enseignant_traces.png') }}" alt="">
+                                <figcaption>Partie évaluation des traces du dashboard d'un·e enseignant·e.</figcaption>
+                            </figure>
+                            <div class="col-lg-5 col-12">
+                                <h4>Espace enseignant</h4>
+                                <hr>
+                                <p>Les enseignants disposent d'<strong>un espace dédié au suivi et à l'évaluation des
+                                        portfolios</strong>. Un système simple de notation à trois niveaux - non acquis,
+                                    en
+                                    cours d'acquisition et acquis - et de commentaires, permettent une évaluation rapide
+                                    et
+                                    efficace des productions des étudiants.</p>
+                                <p>S'ils peuvent en effet communiquer des retours aux étudiants, les enseignants peuvent
+                                    au
+                                    même titre, <strong>communiquer entre eux</strong> autour d'une trace ou d'un
+                                    portfolio.
+                                </p>
+                            </div>
                         </li>
                     </ul>
-                    <div class="col-lg-12 col-12 btn">
+                    <div class="col-lg-12 col-12 btn-container">
+                        <h4>Découvrez plus en détail les fonctionnalités d'<strong>UniFolio</strong> en consultant la
+                            documentation complète.</h4>
+                        <hr>
                         <a href="https://portfolio-doc.iut-troyes.univ-reims.fr" target="_blank">
-                            <button class="btn-primary">Documentation complète</button>
+                            <button class="btn btn-secondary">Documentation complète</button>
                         </a>
                     </div>
                 </article>
             </div>
         </section>
 
-        <section class="zone3" id="entreprise">
+        <section class="zone3" id="galerie-etudiant">
             <div class="row col-lg-12 col-12">
                 <article class="col-lg-12 col-12">
-                    <h2>Espace entreprise</h2>
+                    <h2>Galerie des étudiants</h2>
                     <em>
                         Vous êtes à la recherche de nouveaux talents pour un stage, une alternance ou plus encore ?
                         <strong>UniFolio</strong> vous permet de trouver les profils qui correspondent à vos besoins.
                     </em>
-                    <div class="row">
-                        <div class="card col-12" style="padding: 0;">
-                            <div class="card-header">
-                                <h4>Secteurs d'activités</h4>
-                            </div>
-                            <div class="card-body">
-                                <ul>
-                                    <li><strong>Multimédia et internet : </strong>Stratégie de communication et
-                                        expérience
-                                        utilisateur, Création numérique, Développement web et dispositifs interactifs
-                                    </li>
-                                    <hr>
-                                    <li><strong>Gestion des entreprises et des administrations : </strong>Gestion
-                                        comptable
-                                        et financière, Contrôle de gestion et pilotage de la performance, Gestion
-                                        entrepreneuriat et management des activités, Gestion et pilotage des ressources
-                                        humaines
-                                    </li>
-                                    <hr>
-                                    <li><strong>Carrières juridiques : </strong>Administration et justice, entreprise et
-                                        association, patrimoine et finance
-                                    </li>
-                                    <hr>
-                                    <li><strong>Génie électrique et informatique industrielle : </strong>Electronique et
-                                        systèmes embarqués, Electricité et maîtrise de l'énergie, Automatisme et
-                                        informatique industrielle
-                                    </li>
-                                    <hr>
-                                    <li><strong>Génie mécanique et productique : </strong>Simulation numérique et
-                                        réalité
-                                        virtuelle, Management de process industriel, Innovation pour l'industrie,
-                                        Conception
-                                        et production durables, Chargé d'affaires industrielles
-                                    </li>
-                                    <hr>
-                                    <li><strong>Techniques de commercialisation : </strong>Stratégie de marque et
-                                        événementiel, Marketing et management du point de vente, Marketing digital,
-                                        e-business et entrepreneuriat, Business international achat et vente, Business
-                                        développement et management de la relation client
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="alert alert-info mb-2">
-                        Fonctionnalité en cours de développement
+                    <hr>
+                    <div class="col-lg-6 col-12 wip">
+                        <i class="fa-solid fa-screwdriver-wrench fa-3x"></i>
+                        <h3>Fonctionnalité à venir</h3>
                     </div>
                 </article>
             </div>
         </section>
 
 
-        <section class="zone4">
-            <div class="row col-lg-12 col-12">
-                <article class="col-lg-12 col-12">
-                    <h2>Droits et usages</h2>
-                    <em>
-                        UniFolio est un outil open source, ce qui signifie que vous pouvez non seulement l'utiliser sans
-                        restriction, mais également contribuer au projet ! Tout le code source est
-                        disponible sur <a href="https://github.com/CyndelHerolt/UniFolio" target="_blank">notre page
-                            GitHub</a>.
-                    </em>
-                    <div class="row cards">
-                        <p>Protégé par la <a href="https://github.com/CyndelHerolt/UniFolio/blob/main/LICENSE"
-                                             target="_blank">Mozilla Public License 2.0</a>, UniFolio offre une grande
-                            liberté d'exploitation et de contribution. Il y a cependant quelques règles à respecter :
-                        </p>
-                        <div class="card col-lg-3 col-12">
-                            <div class="card-header">
-                                <h3>Permissions <i style="color: green" class="fa-solid fa-check"></i></h3>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Usage commercial</li>
-                                <li class="list-group-item">Modification</li>
-                                <li class="list-group-item">Distribution</li>
-                                <li class="list-group-item">Usage du brevet</li>
-                                <li class="list-group-item">Usage privé</li>
-                            </ul>
-                        </div>
+        {#        <section class="zone3" id="entreprise"> #}
+        {#            <div class="row col-lg-12 col-12"> #}
+        {#                <article class="col-lg-12 col-12"> #}
+        {#                    <h2>Espace entreprise</h2> #}
+        {#                    <em> #}
+        {#                        Vous êtes à la recherche de nouveaux talents pour un stage, une alternance ou plus encore ? #}
+        {#                        <strong>UniFolio</strong> vous permet de trouver les profils qui correspondent à vos besoins. #}
+        {#                    </em> #}
+        {#                    <div class="row"> #}
+        {#                        <div class="card col-12" style="padding: 0;"> #}
+        {#                            <div class="card-header"> #}
+        {#                                <h4>Secteurs d'activités</h4> #}
+        {#                            </div> #}
+        {#                            <div class="card-body"> #}
+        {#                                <ul> #}
+        {#                                    <li><strong>Multimédia et internet : </strong>Stratégie de communication et #}
+        {#                                        expérience #}
+        {#                                        utilisateur, Création numérique, Développement web et dispositifs interactifs #}
+        {#                                    </li> #}
+        {#                                    <hr> #}
+        {#                                    <li><strong>Gestion des entreprises et des administrations : </strong>Gestion #}
+        {#                                        comptable #}
+        {#                                        et financière, Contrôle de gestion et pilotage de la performance, Gestion #}
+        {#                                        entrepreneuriat et management des activités, Gestion et pilotage des ressources #}
+        {#                                        humaines #}
+        {#                                    </li> #}
+        {#                                    <hr> #}
+        {#                                    <li><strong>Carrières juridiques : </strong>Administration et justice, entreprise et #}
+        {#                                        association, patrimoine et finance #}
+        {#                                    </li> #}
+        {#                                    <hr> #}
+        {#                                    <li><strong>Génie électrique et informatique industrielle : </strong>Electronique et #}
+        {#                                        systèmes embarqués, Electricité et maîtrise de l'énergie, Automatisme et #}
+        {#                                        informatique industrielle #}
+        {#                                    </li> #}
+        {#                                    <hr> #}
+        {#                                    <li><strong>Génie mécanique et productique : </strong>Simulation numérique et #}
+        {#                                        réalité #}
+        {#                                        virtuelle, Management de process industriel, Innovation pour l'industrie, #}
+        {#                                        Conception #}
+        {#                                        et production durables, Chargé d'affaires industrielles #}
+        {#                                    </li> #}
+        {#                                    <hr> #}
+        {#                                    <li><strong>Techniques de commercialisation : </strong>Stratégie de marque et #}
+        {#                                        événementiel, Marketing et management du point de vente, Marketing digital, #}
+        {#                                        e-business et entrepreneuriat, Business international achat et vente, Business #}
+        {#                                        développement et management de la relation client #}
+        {#                                    </li> #}
+        {#                                </ul> #}
+        {#                            </div> #}
+        {#                        </div> #}
+        {#                    </div> #}
+        {#                    <div class="alert alert-info mb-2"> #}
+        {#                        Fonctionnalité en cours de développement #}
+        {#                    </div> #}
+        {#                </article> #}
+        {#            </div> #}
+        {#        </section> #}
 
-                        <div class="card col-lg-3 col-12">
-                            <div class="card-header">
-                                <h3>Limites <i style="color: red" class="fa-solid fa-xmark"></i></h3>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Responsabilité</li>
-                                <li class="list-group-item">Usage de la marque</li>
-                                <li class="list-group-item">Garantie</li>
-                            </ul>
-                        </div>
-                        <div class="card col-lg-3 col-12">
-                            <div class="card-header">
-                                <h3>Conditions <i style="color: darkblue" class="fa-regular fa-circle-question"></i>
-                                </h3>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Divulgation de la source</li>
-                                <li class="list-group-item">Notice de licence et de copyright</li>
-                                <li class="list-group-item">License identique</li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>
+
+        {#        <section class="zone4"> #}
+        {#            <div class="row col-lg-12 col-12"> #}
+        {#                <article class="col-lg-12 col-12"> #}
+        {#                    <h2>Droits et usages</h2> #}
+        {#                    <em> #}
+        {#                        UniFolio est un outil open source, ce qui signifie que vous pouvez non seulement l'utiliser sans #}
+        {#                        restriction, mais également contribuer au projet ! Tout le code source est #}
+        {#                        disponible sur <a href="https://github.com/CyndelHerolt/UniFolio" target="_blank">notre page #}
+        {#                            GitHub</a>. #}
+        {#                    </em> #}
+        {#                    <div class="row cards"> #}
+        {#                        <p>Protégé par la <a href="https://github.com/CyndelHerolt/UniFolio/blob/main/LICENSE" #}
+        {#                                             target="_blank">Mozilla Public License 2.0</a>, UniFolio offre une grande #}
+        {#                            liberté d'exploitation et de contribution. Il y a cependant quelques règles à respecter : #}
+        {#                        </p> #}
+        {#                        <div class="card col-lg-3 col-12"> #}
+        {#                            <div class="card-header"> #}
+        {#                                <h3>Permissions <i style="color: green" class="fa-solid fa-check"></i></h3> #}
+        {#                            </div> #}
+        {#                            <ul class="list-group list-group-flush"> #}
+        {#                                <li class="list-group-item">Usage commercial</li> #}
+        {#                                <li class="list-group-item">Modification</li> #}
+        {#                                <li class="list-group-item">Distribution</li> #}
+        {#                                <li class="list-group-item">Usage du brevet</li> #}
+        {#                                <li class="list-group-item">Usage privé</li> #}
+        {#                            </ul> #}
+        {#                        </div> #}
+
+        {#                        <div class="card col-lg-3 col-12"> #}
+        {#                            <div class="card-header"> #}
+        {#                                <h3>Limites <i style="color: red" class="fa-solid fa-xmark"></i></h3> #}
+        {#                            </div> #}
+        {#                            <ul class="list-group list-group-flush"> #}
+        {#                                <li class="list-group-item">Responsabilité</li> #}
+        {#                                <li class="list-group-item">Usage de la marque</li> #}
+        {#                                <li class="list-group-item">Garantie</li> #}
+        {#                            </ul> #}
+        {#                        </div> #}
+        {#                        <div class="card col-lg-3 col-12"> #}
+        {#                            <div class="card-header"> #}
+        {#                                <h3>Conditions <i style="color: darkblue" class="fa-regular fa-circle-question"></i> #}
+        {#                                </h3> #}
+        {#                            </div> #}
+        {#                            <ul class="list-group list-group-flush"> #}
+        {#                                <li class="list-group-item">Divulgation de la source</li> #}
+        {#                                <li class="list-group-item">Notice de licence et de copyright</li> #}
+        {#                                <li class="list-group-item">License identique</li> #}
+        {#                            </ul> #}
+        {#                        </div> #}
+        {#                    </div> #}
+        {#                </article> #}
+        {#            </div> #}
+        {#        </section> #}
+
+    </div>
+
+{% endblock %}
+        {% block footer %}
+            <div class="footer-infos">
+                <div>
+                    <img class="logo" src="{{ asset('logo.png') }}" alt="logo">
+                </div>
+                <div>
+                    <h6>Contact</h6>
+                    <p>IUT de Troyes <br>
+                        9, Rue de Québec, CS90396 <br>
+                        10026 Troyes Cedex <br>
+                        <small>portfolio.iut-troyes@univ-reims.fr</small></p>
+                </div>
+                <div>
+                    <ul>
+                        <li><img src="{{ asset('logo_iut.png') }}" alt=""></li>
+                        <li><img src="{{ asset('logo_urca.png') }}" alt=""></li>
+                    </ul>
+                </div>
             </div>
-        </section>
 
-    </div>
-
-{% endblock %}
-{% block footer %}
-    <div class="footer-infos">
-        <div>
-            <img class="logo" src="{{ asset('logo.png') }}" alt="logo">
-        </div>
-        <div>
-            <h6>Contact</h6>
-            <p>IUT de Troyes <br>
-                9, Rue de Québec, CS90396 <br>
-                10026 Troyes Cedex <br>
-                <small>portfolio.iut-troyes@univ-reims.fr</small></p>
-        </div>
-        <div>
-            <ul>
-                <li><img src="{{ asset('logo_iut.png') }}" alt=""></li>
-                <li><img src="{{ asset('logo_urca.png') }}" alt=""></li>
-            </ul>
-        </div>
-    </div>
-
-{% endblock %}
+        {% endblock %}

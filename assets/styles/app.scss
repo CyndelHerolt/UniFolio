@@ -128,21 +128,21 @@ body {
   }
 
   .btn-primary {
-    @include btn($color-primary-focus, #4b4b4b, 1px solid $color-primary);
+    @include btn(rgb(45 24 63 / 81%), $color-light, 1px solid $color-primary);
     transition: ease-in-out 0.3s;
 
     &:hover {
-      @include btn(rgba(111, 24, 173, 0.3), #4b4b4b, 1px solid $color-primary);
+      @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
       transition: ease-in-out 0.3s;
     }
   }
 
   .btn-secondary {
-    @include btn($color-secondary-focus, #4b4b4b, 1px solid $color-secondary);
+    @include btn($color-secondary, $color-dark, 1px solid $color-secondary);
     transition: ease-in-out 0.3s;
 
     &:hover {
-      @include btn(rgba(242, 220, 93, 0.3), #4b4b4b, 1px solid $color-secondary);
+      @include btn($color-secondary-focus, $color-dark, 1px solid $color-secondary);
       transition: ease-in-out 0.3s;
     }
   }
@@ -329,6 +329,25 @@ body {
         border-radius: 0.375rem;
       }
     }
+  }
+}
+
+
+.btn-pages {
+  margin: 25px 0;
+
+  .btn-primary {
+    background-color: rgb(45 24 63 / 81%);
+    color: $color-light;
+    border: solid 1px $color-primary;
+    border-radius: 5px !important;
+    padding: 6px 16px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease-in-out 0.1s;
+    width: fit-content;
+    flex: none !important;
   }
 }
 

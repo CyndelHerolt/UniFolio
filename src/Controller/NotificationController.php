@@ -118,4 +118,14 @@ class NotificationController extends AbstractController
 
         return $this->redirectToRoute('app_notification');
     }
+
+    #[Route('/notification/lue/{id}', name: 'app_notification_lue')]
+    public function markAsRead($id): Response
+    {
+        $notification = $this->notificationRepository->find($id);
+        $notification->setLu(true);
+        $this->notificationRepository->save($notification, true);
+
+        return $this->redirectToRoute('app_notification');
+    }
 }

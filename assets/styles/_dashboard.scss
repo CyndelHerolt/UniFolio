@@ -100,13 +100,6 @@
 
   .dashboard-eval-traces {
 
-    .filtre-btn {
-
-      button {
-        margin-right: 10px;
-      }
-    }
-
     .accordion-item {
 
       font-size: .8rem;
@@ -179,7 +172,7 @@
             margin: 10px 0;
 
             a {
-              color: #4b4b4b;
+              color: $color-light;
             }
           }
         }
@@ -209,25 +202,6 @@
         }
       }
     }
-
-    .btn-pages {
-        margin: 25px 0;
-
-      .btn-primary {
-        background-color: $color-primary;
-        color: $color-light;
-        border: solid 1px $color-primary;
-        border-radius: 5px !important;
-        padding: 6px 16px;
-        font-size: .8rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: ease-in-out 0.1s;
-        width: fit-content;
-        flex: none !important;
-      }
-    }
-
   }
 
 }
@@ -264,5 +238,12 @@
 
   tr {
     border-bottom: solid 1px black;
+  }
+}
+
+.filtre-btn {
+
+  button {
+    margin: 10px;
   }
 }
