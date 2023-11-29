@@ -100,13 +100,6 @@
 
   .dashboard-eval-traces {
 
-    .filtre-btn {
-
-      button {
-        margin-right: 10px;
-      }
-    }
-
     .accordion-item {
 
       font-size: .8rem;
@@ -179,7 +172,7 @@
             margin: 10px 0;
 
             a {
-              color: #4b4b4b;
+              color: $color-light;
             }
           }
         }
@@ -264,5 +257,12 @@
 
   tr {
     border-bottom: solid 1px black;
+  }
+}
+
+.filtre-btn {
+
+  button {
+    margin: 10px;
   }
 }

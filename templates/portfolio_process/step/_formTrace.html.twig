@@ -114,7 +114,7 @@
             </div>
         </div>
         {{ form_end(form) }}
-        <button class="btn btn-primary save" {{ stimulus_action('trace', 'saveTrace', 'click') }}
+        <button class="btn btn-secondary save" {{ stimulus_action('trace', 'saveTrace', 'click') }}
                 value="{{ trace.id }}"
                 data-type="{{ constant('class', traceType) }}">
             Enregistrer les modifications
