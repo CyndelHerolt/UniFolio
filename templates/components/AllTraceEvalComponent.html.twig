@@ -184,19 +184,19 @@
         <div class="filtre-btn col-12">
             {#        pouvoir filtrer par traces dont this.trace.validations|length == this.trace.validations|filter(v => v.etat != 0)|length #}
             <div class="filtre-btn col-12">
-                <button class="btn btn-primary"
+                <button class="btn btn-secondary"
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=0)"
                 >Toutes les traces
                 </button>
-                <button class="btn btn-primary"
+                <button class="btn btn-secondary"
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=1)"
                 >Traces évaluées
                 </button>
-                <button class="btn btn-primary"
+                <button class="btn btn-secondary"
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=2)"

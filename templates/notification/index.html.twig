@@ -20,7 +20,7 @@
                 {% endif %}
                 {% for notification in notifications|sort %}
                     <div class="card card-notifs col-12">
-                        <div class="card-header norif-header">
+                        <div class="card-header notif-header">
                             <div>
                                 {% if notification.type == 'commentaire.publie' %}
                                     <h5>Nouveau commentaire
@@ -62,11 +62,18 @@
                                     </ul>
                                 {% endif %}
                             </div>
-                            <a href="{{ path('app_delete_notification', {'id': notification.id}) }}">
-                                <button class="btn btn-delete"><i
-                                            class="fa-solid fa-square-minus"></i>
-                                </button>
-                            </a>
+                            <div>
+                                <a href="{{ path('app_delete_notification', {'id': notification.id}) }}">
+                                    <button class="btn btn-danger"><i
+                                                class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </a>
+                                <a href="{{ path('app_notification_lue', {'id': notification.id}) }}">
+                                    <button class="btn btn-success"><i
+                                                class="fa-solid fa-check"></i>
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                         <div class="card-body">
                             {% if notification.type == 'commentaire.publie' %}
@@ -147,16 +154,6 @@
                                 </ul>
                             {% endif %}
                             <div class="btn-group">
-                                {% if notification.portfolio is defined %}
-                                    <a href="{{ path('app_portfolio_index', {id: notification.portfolio.id}) }}">
-                                        <button class="btn btn-primary">Accéder au portfolio</button>
-                                    </a>
-                                {% endif %}
-                                {% if notification.trace is defined %}
-                                    <a href="{{ path('app_trace_index', {id: notification.trace.id}) }}">
-                                        <button class="btn btn-primary">Accéder à la trace</button>
-                                    </a>
-                                {% endif %}
                                 {% if notification.commentaire != null %}
                                     {% if notification.commentaire.trace != null %}
                                         <a href="{{ path('app_bilan_eval_trace', {id: notification.commentaire.trace.id}) }}">
@@ -166,6 +163,17 @@
                                     {% if notification.commentaire.portfolio != null %}
                                         <a href="{{ path('app_portfolio_index', {id: notification.commentaire.portfolio.id}) }}">
                                             <button class="btn btn-primary">Accéder au portfolio</button>
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    {% if notification.portfolio is defined and notification.commentaire.portfolio != null %}
+                                        <a href="{{ path('app_portfolio_index', {id: notification.portfolio.id}) }}">
+                                            <button class="btn btn-primary">Accéder au portfolio</button>
+                                        </a>
+                                    {% endif %}
+                                    {% if notification.trace is defined %}
+                                        <a href="{{ path('app_trace_index', {id: notification.trace.id}) }}">
+                                            <button class="btn btn-primary">Accéder à la trace</button>
                                         </a>
                                     {% endif %}
                                 {% endif %}

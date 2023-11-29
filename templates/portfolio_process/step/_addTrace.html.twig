@@ -2,16 +2,6 @@
     <div class="row" style="display: flex; justify-content: space-between">
         <div class="trace col-10" style="display: flex; flex-direction: column">
             <h4>{{ trace.titre }}</h4>
-
-            {% if trace.typeTrace is not null %}
-                <button class="btn btn-primary step-trace-see-content" data-bs-toggle="modal"
-                        data-bs-target="#showStaticBackdrop{{ trace.id }}">Voir le contenu
-                </button>
-            {% else %}
-                <div class="alert alert-warning mb-2">
-                    Cette trace est vide, éditez-la.
-                </div>
-            {% endif %}
             <h5>Compétences</h5>
             <ul class="portfolio-competences">
                 {% for validation in trace.validations %}
@@ -40,6 +30,15 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            {% if trace.typeTrace is not null %}
+                <button class="btn btn-primary step-trace-see-content" data-bs-toggle="modal"
+                        data-bs-target="#showStaticBackdrop{{ trace.id }}">Voir le contenu
+                </button>
+            {% else %}
+                <div class="alert alert-warning mb-2">
+                    Cette trace est vide, éditez-la.
+                </div>
+            {% endif %}
         </div>
 
         <div class="step-trace-actions col-2">

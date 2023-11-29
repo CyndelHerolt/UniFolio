@@ -333,3 +333,22 @@ body {
 }
 
 
+.btn-pages {
+  margin: 25px 0;
+
+  .btn-primary {
+    background-color: $color-primary;
+    color: $color-light;
+    border: solid 1px $color-primary;
+    border-radius: 5px !important;
+    padding: 6px 16px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease-in-out 0.1s;
+    width: fit-content;
+    flex: none !important;
+  }
+}
+
+

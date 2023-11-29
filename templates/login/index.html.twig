@@ -31,7 +31,7 @@
                         <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
                         <p><a href="{{ path('app_verify_resend_email') }}">Renvoyer le mail de vérification</a></p>
                         <button type="submit" class="btn btn-primary">Connexion</button>
-
+                        <hr>
                         <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
                     </form>
                     {% for flash_message in app.flashes('error') %}
