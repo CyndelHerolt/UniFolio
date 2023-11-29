@@ -128,21 +128,21 @@ body {
   }
 
   .btn-primary {
-    @include btn($color-primary-focus, #4b4b4b, 1px solid $color-primary);
+    @include btn($color-primary, $color-light, 1px solid $color-primary);
     transition: ease-in-out 0.3s;
 
     &:hover {
-      @include btn(rgba(111, 24, 173, 0.3), #4b4b4b, 1px solid $color-primary);
+      @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
       transition: ease-in-out 0.3s;
     }
   }
 
   .btn-secondary {
-    @include btn($color-secondary-focus, #4b4b4b, 1px solid $color-secondary);
+    @include btn($color-secondary, $color-dark, 1px solid $color-secondary);
     transition: ease-in-out 0.3s;
 
     &:hover {
-      @include btn(rgba(242, 220, 93, 0.3), #4b4b4b, 1px solid $color-secondary);
+      @include btn($color-secondary-focus, $color-dark, 1px solid $color-secondary);
       transition: ease-in-out 0.3s;
     }
   }

@@ -39,7 +39,7 @@
                                     {{ validation.apcNiveau.libelle }}
                                 </div>
                                 <span class="{{ validation.apcNiveau.competences.couleur }}">
-                                {{ (totalEval / totalApparitions) * 100 }}%
+                                {{ ((totalEval / totalApparitions) * 100)|round(-1) }}%
                                 </span>
                                 {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
                             </li>
