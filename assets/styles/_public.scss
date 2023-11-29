@@ -133,71 +133,8 @@
         align-items: center;
 
         i {
-            color: $color-secondary;
-            margin-bottom: 25px;
-        }
-      }
-    }
-  }
-
-  .zone4 {
-
-    .row {
-      @include zone(2rem 0, 2rem 0, $color-light, 10px);
-      color: $color-dark;
-      justify-content: space-between;
-
-      h2 {
-        @include titre($primary-font, 1.85rem, 1);
-        font-weight: 600;
-      }
-
-      em {
-        line-height: 1.5;
-        font-size: 1rem;
-        opacity: .8;
-      }
-
-      p {
-        line-height: 1.5;
-      }
-
-      .descript {
-        @include zone(0, 0 0, $color-light, 10px);
-        color: $color-dark;
-
-        li {
-          margin-bottom: 50px;
-        }
-      }
-
-      h5 {
-        margin-bottom: 0;
-        margin-left: 1rem;
-      }
-
-      .btn {
-        padding: 0 0;
-
-        .btn-primary {
-          width: fit-content;
-          text-align: end;
-        }
-      }
-    }
-
-    .cards {
-
-      .card {
-        padding: 0 !important;
-        width: 30%;
-
-        h3 {
-          font-size: 1.25rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 0;
+          color: $color-secondary;
+          margin-bottom: 25px;
         }
       }
     }
