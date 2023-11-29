@@ -128,7 +128,7 @@ body {
   }
 
   .btn-primary {
-    @include btn($color-primary, $color-light, 1px solid $color-primary);
+    @include btn(rgb(45 24 63 / 81%), $color-light, 1px solid $color-primary);
     transition: ease-in-out 0.3s;
 
     &:hover {
@@ -337,7 +337,7 @@ body {
   margin: 25px 0;
 
   .btn-primary {
-    background-color: $color-primary;
+    background-color: rgb(45 24 63 / 81%);
     color: $color-light;
     border: solid 1px $color-primary;
     border-radius: 5px !important;
