@@ -9,11 +9,18 @@
     </div>
         <div class="row">
             <div class="filtre-btn col-12">
+                <button class="btn btn-primary"
+                        data-model="selectedSemestre[]"
+                        data-action="live#action"
+                        data-action-name="changeSemestre(id=0)"
+                        {{ this.selectedSemestre == null ? ' disabled' : '' }}
+                >Tous les semestres</button>
                 {% for semestre in semestres %}
                     <button class="btn btn-primary"
                             data-model="selectedSemestre[]"
                             data-action="live#action"
                             data-action-name="changeSemestre(id={{ semestre.id }})"
+                            {{ this.selectedSemestre == semestre ? ' disabled' : '' }}
                     >{{ semestre.libelle }}</button>
                 {% endfor %}
             </div>
@@ -185,18 +192,21 @@
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=0)"
+                        {{ this.selectedEtat == 0 ? ' disabled' : '' }}
                 >Tous les portfolios
                 </button>
                 <button class="btn btn-secondary"
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=1)"
+                        {{ this.selectedEtat == 1 ? ' disabled' : '' }}
                 >Portfolios évalués
                 </button>
                 <button class="btn btn-secondary"
                         data-model="selectedEtat"
                         data-action="live#action"
                         data-action-name="changeEtat(id=2)"
+                        {{ this.selectedEtat == 2 ? ' disabled' : '' }}
                 >Portfolios non évalués
                 </button>
             </div>
