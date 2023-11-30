@@ -77,6 +77,11 @@ class TraceTypePdfType extends AbstractType
 //----------------------------------------------------------------
             ->add('contenu', CollectionType::class, [
                 'entry_type' => FileType::class,
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Veuillez ajouter un fichier',
+//                    ]),
+//                ],
                 'entry_options' => [
                     'attr' => [
                         'class' => "form-control pdf-trace",

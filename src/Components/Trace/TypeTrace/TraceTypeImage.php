@@ -67,7 +67,7 @@ class TraceTypeImage extends AbstractTrace implements TraceInterface
                     $imageFile->move($_ENV['PATH_FILES'], $imageFileName);
                     $contenu[] = $_ENV['SRC_FILES'] . '/' . $imageFileName;
                 } else {
-                    $error = 'Le fichier n\'est pas au bon format';
+                    $error = 'Le fichier n\'est pas au bon format - formats acceptés : jpg, jpeg, png, gif, svg, webp';
                     return array('success' => false, 'error' => $error);
                 }
             }
