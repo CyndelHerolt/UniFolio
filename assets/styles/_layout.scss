@@ -298,17 +298,21 @@ footer {
       top: 0;
       right: 0;
       display: flex;
-      flex-direction: column !important;
+      //flex-direction: column !important;
       list-style: none;
       padding: 20px;
       background-color: $color-light;
-      font-size: .8rem;
+      font-size: 1.8rem;
       border-bottom-left-radius: 15px;
       z-index: 9999;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
       li, div {
-        margin: 5px 0;
+        margin: 5px 25px;
+
+        a {
+          font-size: 2rem;
+        }
       }
 
       button {
@@ -327,7 +331,7 @@ footer {
       background-color: $color-bg !important;
       position: fixed;
       top: 0;
-      width: 110px;
+      width: fit-content;
       height: 100%;
       z-index: 999;
       box-shadow: rgba(100, 100, 100, 0.05) 0 2px 8px 0;
@@ -340,18 +344,23 @@ footer {
       }
 
       ul {
-        width: 110px;
+        width: fit-content;
 
         li {
           width: 100%;
           text-align: center;
+          margin: 25px 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         a {
           color: $color-dark !important;
           padding: 12px 0;
-          font-size: .8rem;
+          font-size: 2rem;
           font-weight: 400;
+          width: min-content;
         }
 
         .inactive::after {
@@ -382,9 +391,10 @@ footer {
       ul:nth-child(2) {
 
         li {
+          padding: 5px 25px;
 
           a {
-            font-size: .8rem;
+            font-size: 2rem;
             font-weight: 400;
           }
         }
@@ -395,6 +405,7 @@ footer {
         border: none !important;
         box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
         width: fit-content;
+        position: absolute !important;
 
         .dropdown-item:hover {
           background-color: $color-secondary;
@@ -410,7 +421,7 @@ footer {
       }
 
       .logo {
-        width: 50px;
+        width: 125px;
         margin-bottom: 15px;
       }
 
@@ -460,6 +471,20 @@ footer {
 
   footer {
     margin-left: 0;
+  }
+
+  .notif-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .progress {
+    height: fit-content !important;
+
+    .progress-bar {
+      height: fit-content;
+    }
   }
 }
 
