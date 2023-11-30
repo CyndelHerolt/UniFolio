@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller;
 
 use App\Components\Trace\TraceRegistry;
@@ -35,19 +36,21 @@ use Symfony\Contracts\Service\Attribute\Required;
 class TraceController extends BaseController
 {
     public function __construct(
-        protected TraceRepository $traceRepository,
+        protected TraceRepository     $traceRepository,
         public BibliothequeRepository $bibliothequeRepository,
-        public CompetenceRepository $competenceRepository,
-        public ApcNiveauRepository $apcNiveauRepository,
-        #[Required] public Security $security
-    ) {
+        public CompetenceRepository   $competenceRepository,
+        public ApcNiveauRepository    $apcNiveauRepository,
+        #[Required] public Security   $security
+    )
+    {
     }
 
     #[Route('/trace', name: 'app_trace')]
     public function index(
         TraceRegistry $traceRegistry,
-        Request $request,
-    ): Response {
+        Request       $request,
+    ): Response
+    {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $user = $this->security->getUser()->getEtudiant();
@@ -100,12 +103,13 @@ class TraceController extends BaseController
 
     #[Route('/trace/formulaire/{id}', name: 'app_trace_new')]
     public function new(
-        Request $request,
+        Request         $request,
         TraceRepository $traceRepository,
-        TraceRegistry $traceRegistry,
-        Security $security,
-        string $id,
-    ): Response {
+        TraceRegistry   $traceRegistry,
+        Security        $security,
+        string          $id,
+    ): Response
+    {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             //En fonction du paramètre (et donc du choix de type de trace), on récupère l'objet de la classe TraceTypeImage ou TraceTypeLien ou ... qui contient toutes les informations de ce type de trace (FORM, class, ICON, save...)
@@ -169,16 +173,17 @@ class TraceController extends BaseController
                     $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                     $trace->setBibliotheque($biblio);
 
-//                $trace->addValidation($validation);
-
                     $traceRepository->save($trace, true);
                     $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                     return $this->redirectToRoute('app_trace');
                 } else {
                     $error = $traceType->save($form, $trace, $traceRepository, $traceRegistry, $existingTrace)['error'];
                     $this->addFlash('error', $error);
+                    return $this->redirectToRoute('app_trace_new', ['id' => $id]);
                 }
             }
+
+
             return $this->render('trace/formTrace.html.twig', [
                 'form' => $form->createView(),
                 'trace' => $traceRegistry->getTypeTrace($id),
@@ -192,15 +197,16 @@ class TraceController extends BaseController
 
     #[Route('/trace/edit/{id}', name: 'app_trace_edit')]
     public function edit(
-        Request $request,
-        TraceRepository $traceRepository,
-        TraceRegistry $traceRegistry,
-        ApcNiveauRepository $apcNiveauRepository,
-        Security $security,
-        int $id,
+        Request              $request,
+        TraceRepository      $traceRepository,
+        TraceRegistry        $traceRegistry,
+        ApcNiveauRepository  $apcNiveauRepository,
+        Security             $security,
+        int                  $id,
         CompetenceRepository $competenceRepository,
         ValidationRepository $validationRepository,
-    ): Response {
+    ): Response
+    {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
@@ -296,11 +302,9 @@ class TraceController extends BaseController
                             $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
                             return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
                         } elseif (isset($request->request->All()['img'])) {
-//                        $this->addFlash('success', 'HELLO');
                             $existingImages = $request->request->All()['img'];
                             $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                         } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['img'])) {
-//                        dd($form->get('contenu')->getData());
                             $trace->setContenu($request->request->get('contenu'));
                         }
                     } else {
@@ -315,7 +319,6 @@ class TraceController extends BaseController
                             $this->addFlash('error', 'Aucun fichier n\'a été sélectionné');
                             return $this->redirectToRoute('app_trace_edit', ['id' => $trace->getId()]);
                         } elseif (isset($request->request->All()['pdf'])) {
-//                        $this->addFlash('success', 'HELLO');
                             $existingImages = $request->request->All()['pdf'];
                             $trace->setContenu(array_intersect($existingImages, $FileOrigine));
                         } elseif ($form->get('contenu')->getData() !== null && !isset($request->request->All()['pdf'])) {
@@ -390,11 +393,12 @@ class TraceController extends BaseController
     #[
         Route('/trace/delete/{id}', name: 'app_trace_delete')]
     public function delete(
-        Request $request,
-        TraceRepository $traceRepository,
+        Request              $request,
+        TraceRepository      $traceRepository,
         OrdreTraceRepository $ordreTraceRepository,
-        int $id,
-    ): Response {
+        int                  $id,
+    ): Response
+    {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $trace = $traceRepository->find($id);
@@ -424,10 +428,11 @@ class TraceController extends BaseController
 
     #[Route('/trace/show', name: 'app_trace_index')]
     public function indexShow(
-        Request $request,
-        TraceRepository $traceRepository,
+        Request                $request,
+        TraceRepository        $traceRepository,
         NotificationRepository $notificationRepository,
-    ): Response {
+    ): Response
+    {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $id = $request->query->get('id');
             $notificationId = $request->query->get('notification_id');

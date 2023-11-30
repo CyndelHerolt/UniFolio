@@ -76,7 +76,7 @@ class TraceTypePdf extends AbstractTrace implements TraceInterface
         }
 
         if (empty($contenu)) {
-            $error = 'Veuillez ajouter un fichier';
+            $error = 'Veuillez ajouter au moins un fichier';
             return array('success' => false, 'error' => $error);
         }
 
