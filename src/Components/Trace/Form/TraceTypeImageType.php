@@ -66,7 +66,7 @@ class TraceTypeImageType extends AbstractType
                     ]),
                     new Length([
                         'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser 100 caractères',
+                        'maxMessage' => 'Le titre ne peut pas dépasser 100 caractères',
                     ]),
                 ],
                 'label' => 'Titre',

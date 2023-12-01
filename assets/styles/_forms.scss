@@ -141,7 +141,7 @@ label.required::after {
               margin: 10px 0;
 
               a {
-                color: #4b4b4b;
+                color: $color-light;
               }
             }
           }
@@ -222,7 +222,7 @@ label.required::after {
 }
 
 .account {
-  padding: 0 !important;
+  //padding: 0 !important;
 
   .choix-dept {
     display: flex;
@@ -230,8 +230,8 @@ label.required::after {
   }
 
   .row {
-    justify-content: space-between;
-    margin: 0;
+    //justify-content: space-between;
+    //margin: 0;
 
     .col-lg-5 {
       padding: 15px;
@@ -244,15 +244,6 @@ label.required::after {
       .form-group {
         margin: 15px 0;
       }
-
-      //button {
-      //  @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
-      //  margin: 0 0 15px 0;
-      //
-      //  &:hover {
-      //    @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
-      //  }
-      //}
     }
   }
 }

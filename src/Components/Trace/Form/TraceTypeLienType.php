@@ -55,11 +55,11 @@ class TraceTypeLienType extends AbstractType
             ->add('titre', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
+                        'message' => 'Le titre ne peut pas être vide',
                     ]),
                     new Length([
                         'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
+                        'maxMessage' => 'Le titre ne peut pas dépasser 100 caractères',
                     ]),
                 ],
                 'label' => 'Titre',
