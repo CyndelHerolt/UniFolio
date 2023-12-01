@@ -74,6 +74,9 @@ class Etudiant
     #[ORM\Column]
     private ?bool $opt_stage = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $annee_sortie = null;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -142,6 +145,14 @@ class Etudiant
     public function getGroupe(): Collection
     {
         return $this->groupe;
+    }
+
+    // méthode pour récupérer les libellées des groupes de l'étudiant sous forme de string
+    public function getGroupesAsString(): string
+    {
+        return implode(', ', $this->groupe->map(function ($groupe) {
+            return $groupe->getLibelle();
+        })->toArray());
     }
 
     public function getGroupeId(): array
@@ -422,6 +433,18 @@ class Etudiant
     public function setOptStage(bool $opt_stage): static
     {
         $this->opt_stage = $opt_stage;
+
+        return $this;
+    }
+
+    public function getAnneeSortie(): ?int
+    {
+        return $this->annee_sortie;
+    }
+
+    public function setAnneeSortie(?int $annee_sortie): static
+    {
+        $this->annee_sortie = $annee_sortie;
 
         return $this;
     }
