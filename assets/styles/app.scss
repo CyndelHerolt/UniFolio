@@ -167,40 +167,42 @@ body {
   }
 
   .btn-primary {
-    @include btn(rgb(45 24 63 / 81%), $color-light, 1px solid $color-primary);
+      @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
+      box-shadow: rgba(147, 92, 196, 0.81) 0px 0px 0px 0.25rem;
+      transition: ease-in-out 0.3s;
+
+    &:hover {
+    @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
     transition: ease-in-out 0.3s;
     --bs-btn-hover-bg: #641B9FCF;
     --bs-btn-hover-border-color: #2D183FCE;
     --bs-btn-focus-shadow-rgb: 136, 0, 255;
     --bs-btn-disabled-bg: #641B9FCF;
     --bs-btn-disabled-border-color: #2D183FCE;
-
-    &:hover {
-      @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
-      box-shadow: rgba(147, 92, 196, 0.81) 0px 0px 0px 0.25rem;
-      transition: ease-in-out 0.3s;
+      box-shadow: none;
     }
   }
 
   .btn-secondary {
     @include btn($color-secondary, $color-dark, 1px solid $color-secondary);
+    box-shadow: rgba(255, 241, 79, 0.81) 0px 0px 0px 0.25rem;
     transition: ease-in-out 0.3s;
-    --bs-btn-hover-bg: #ffd400;
-    --bs-btn-hover-border-color: #F5D845FF;
-    --bs-btn-focus-shadow-rgb: 255, 212, 0;
-    --bs-btn-hover-color: #000000;
-    --bs-btn-disabled-bg: rgba(255, 238, 163, 0.78);
-    --bs-btn-disabled-color: #000000;
-    --bs-btn-disabled-border-color: #FFE45EFF;
 
     &:disabled {
       --bs-btn-disabled-opacity: 1;
     }
 
     &:hover {
-      @include btn($color-secondary-focus, $color-dark, 1px solid $color-secondary);
-        box-shadow: rgba(255, 230, 112, 0.81) 0px 0px 0px 0.25rem;
+      @include btn($color-secondary, $color-dark, 1px solid $color-secondary);
       transition: ease-in-out 0.3s;
+      --bs-btn-hover-bg: #ffd400;
+      --bs-btn-hover-border-color: #F5D845FF;
+      --bs-btn-focus-shadow-rgb: 255, 212, 0;
+      --bs-btn-hover-color: #000000;
+      --bs-btn-disabled-bg: rgba(255, 238, 163, 0.78);
+      --bs-btn-disabled-color: #000000;
+      --bs-btn-disabled-border-color: #FFE45EFF;
+        box-shadow: none;
     }
   }
 
