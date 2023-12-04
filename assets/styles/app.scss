@@ -393,6 +393,7 @@ body {
       @include btn(rgb(45 24 63 / 81%), $color-light, 1px solid $color-primary);
       transition: ease-in-out 0.3s;
       margin: 0 !important;
+      box-shadow: none;
 
       &:hover {
         @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
