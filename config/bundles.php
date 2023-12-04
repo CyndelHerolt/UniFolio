@@ -1,9 +1,5 @@
 <?php
-/*
- * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
- * @author cyndelherolt
- * @project UniFolio
- */
+
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
@@ -24,4 +20,5 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
     Eckinox\TinymceBundle\TinymceBundle::class => ['all' => true],
+    Bugsnag\BugsnagBundle\BugsnagBundle::class => ['all' => true],
 ];
