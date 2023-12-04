@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller\Admin;
 
 use App\Entity\Departement;
@@ -12,6 +13,10 @@ use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Semestre;
 use App\Entity\Users;
+use App\Repository\DepartementRepository;
+use App\Repository\EtudiantRepository;
+use App\Repository\GroupeRepository;
+use App\Repository\SemestreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -28,9 +33,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\ForbiddenActionException;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\InsufficientEntityPermissionException;
 use EasyCorp\Bundle\EasyAdminBundle\Factory\EntityFactory;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Security\Permission;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -45,11 +52,20 @@ class EtudiantCrudController extends AbstractCrudController
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface      $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-    ) {
+        DepartementRepository       $departementRepository,
+        EtudiantRepository          $etudiantRepository,
+        SemestreRepository          $semestreRepository,
+        GroupeRepository            $groupeRepository,
+    )
+    {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
+        $this->departementRepository = $departementRepository;
+        $this->etudiantRepository = $etudiantRepository;
+        $this->semestreRepository = $semestreRepository;
+        $this->groupeRepository = $groupeRepository;
     }
 
     public static function getEntityFqcn(): string
@@ -59,25 +75,63 @@ class EtudiantCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        if ($pageName == Crud::PAGE_INDEX) {
+            yield TextField::new('prenom', 'Prénom');
+            yield TextField::new('nom', 'Nom');
+            yield TextField::new('semestre.annee.diplome.departement.libelle', 'Département');
+            yield TextField::new('semestre.libelle', 'Semestre');
+            yield TextField::new('groupesAsString', 'Groupes');
+            yield TextField::new('mail_univ', 'Mail universitaire');
+            yield TextField::new('mail_perso', 'Mail personnel');
+            yield TextField::new('telephone', 'Téléphone');
+            yield TextField::new('username', 'Identifiant');
+            yield TextField::new('bio', 'Bio');
+            yield IntegerField::new('anneeSortie', 'Année de sortie');
+        } elseif ($pageName == Crud::PAGE_EDIT) {
+            // User
+            yield FormField::addPanel('Informations User')->setIcon('fa fa-user');
+            yield TextField::new('users.username', 'Username')
+                ->setFormTypeOption('required', 'true');
+            yield TextField::new('users.password', 'Password')
+                ->setFormTypeOption('mapped', true)
+                ->setFormTypeOption('required', 'true');
+            yield ChoiceField::new('users.roles', 'Rôles')
+                ->setChoices(['ETUDIANT' => 'ROLE_ETUDIANT', 'ADMIN' => 'ROLE_ADMIN', 'TEST' => 'ROLE_TEST'])
+                ->allowMultipleChoices()
+                ->setRequired(true)
+                ->setFormTypeOption('mapped', true)
+                ->setFormTypeOption('label', 'Rôles')
+                ->setFormTypeOption('help', 'Sélectionner tous les rôles qui s\'appliquent à cet utilisateur.')
+                ->setFormTypeOption('attr', ['class' => 'form-control'])
+                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
 
-        // Etudiant
-        yield FormField::addPanel('Informations Etudiant')->setIcon('fa fa-user');
-        yield TextField::new('prenom', 'Prénom')
-            ->setFormTypeOption('required', 'true');
-        yield TextField::new('nom', 'Nom')
-            ->setFormTypeOption('required', 'true');
-        yield TextField::new('mail_perso', 'Mail personnel')
-            ->setFormType(EmailType::class);
-        yield TextField::new('mail_univ', 'Mail universitaire')
-            ->setFormTypeOption('required', 'true')
-            ->setFormType(EmailType::class);
-        yield TextField::new('telephone', 'Téléphone');
+            // Etudiant
+            yield FormField::addPanel('Informations Etudiant')->setIcon('fa fa-user-graduate');
+            yield TextField::new('prenom', 'Prénom')
+                ->setFormTypeOption('required', 'true');
+            yield TextField::new('nom', 'Nom')
+                ->setFormTypeOption('required', 'true');
+            yield TextField::new('mail_perso', 'Mail personnel')
+                ->setFormType(EmailType::class);
+            yield TextField::new('mail_univ', 'Mail universitaire')
+                ->setFormTypeOption('required', 'true')
+                ->setFormType(EmailType::class);
+            yield TextField::new('telephone', 'Téléphone');
 
-        //User
-        yield TextField::new('username')
-            ->setFormTypeOption('required', 'true');
-        //Si on se trouve sur la page new
+            //Structure
+            yield FormField::addPanel('Informations Structure')->setIcon('fa fa-school');
+            yield TextField::new('semestre.annee.diplome.departement.libelle', 'Département')
+                ->setFormTypeOption('disabled', 'true');
+            yield TextField::new('semestre.libelle', 'Semestre')
+                ->setFormTypeOption('disabled', 'true');
+            yield TextField::new('groupesAsString', 'Groupes')
+                ->setFormTypeOption('disabled', 'true');
+        }
         if ($pageName == Crud::PAGE_NEW) {
+            // User
+            yield FormField::addPanel('Informations User')->setIcon('fa fa-user');
+            yield TextField::new('username')
+                ->setFormTypeOption('required', 'true');
             yield TextField::new('password')
                 ->setFormTypeOption('mapped', false)
                 ->setFormTypeOption('required', 'true');
@@ -90,61 +144,70 @@ class EtudiantCrudController extends AbstractCrudController
                 ->setFormTypeOption('help', 'Veuillez sélectionner tous les rôles qui s\'appliquent à cet utilisateur.')
                 ->setFormTypeOption('attr', ['class' => 'form-control'])
                 ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+
+            // Etudiant
+            yield FormField::addPanel('Informations Etudiant')->setIcon('fa fa-user-graduate');
+            yield TextField::new('prenom', 'Prénom')
+                ->setFormTypeOption('required', 'true');
+            yield TextField::new('nom', 'Nom')
+                ->setFormTypeOption('required', 'true');
+            yield TextField::new('mail_perso', 'Mail personnel')
+                ->setFormType(EmailType::class);
+            yield TextField::new('mail_univ', 'Mail universitaire')
+                ->setFormTypeOption('required', 'true')
+                ->setFormType(EmailType::class);
+            yield TextField::new('telephone', 'Téléphone');
+
+            //todo: à voir, plus simple gestion depuis les éléments de structures ? (département, semestre, groupe)
+//            //Structure
+//            yield FormField::addPanel('Informations Structure')->setIcon('fa fa-school');
+//            // récupérer les départements
+//            $departementsObjets = $this->departementRepository->findAll();
+//            foreach ($departementsObjets as $departement) {
+//                $departements[] = $departement->getLibelle();
+//            }
+//            // inverser les clés et les valeurs
+//            $departements = array_flip($departements);
+//            yield ChoiceField::new('departement', 'Département')
+//                ->setChoices($departements)
+//                ->setFormTypeOption('mapped', true)
+//                ->setFormTypeOption('required', true)
+//                ->setFormTypeOption('label', 'Département')
+//                ->setFormTypeOption('attr', ['class' => 'form-control'])
+//                ->setFormTypeOption('data', $departement->getLibelle())
+//                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+//            $semestresObjets = $this->semestreRepository->findBy(['actif' => true]);
+//            foreach ($semestresObjets as $semestre) {
+//                $semestres[] = $semestre->getLibelle();
+//            }
+//            $semestres = array_flip($semestres);
+//            yield ChoiceField::new('semestreId')
+//                ->setFormTypeOption('mapped', true)
+//                ->setFormTypeOption('required', true)
+//                ->setFormTypeOption('label', 'Semestre')
+//                ->setChoices($semestres)
+//                ->setFormTypeOption('attr', ['class' => 'form-control'])
+//                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
+//            $groupesObjets = [];
+//            foreach ($semestresObjets as $semestre) {
+//                $groupesObjets[] = $this->groupeRepository->findBySemestre($semestre);
+//            }
+//            foreach ($groupesObjets as $groupe) {
+//                foreach ($groupe as $g) {
+//                    $groupes[] = $semestre->getLibelle() . '-' . $g->getLibelle();
+//                }
+//            }
+//            $groupes = array_flip($groupes);
+//            yield ChoiceField::new('groupeId')
+//                ->setFormTypeOption('mapped', true)
+//                ->allowMultipleChoices()
+//                ->setFormTypeOption('required', 'true')
+//                ->setFormTypeOption('label', 'Groupe')
+//                ->renderAsBadges()
+//                ->setChoices($groupes)
+//                ->setFormTypeOption('attr', ['class' => 'form-control'])
+//                ->setFormTypeOption('choice_attr', ['class' => 'form-check-inline']);
         }
-
-        //Etudiant Structure
-
-        // Récupérer les départements
-        $departementRepository = $this->entityManager->getRepository(Departement::class);
-        $allDepartements = $departementRepository->findAll();
-        $departements = [];
-        foreach ($allDepartements as $departement) {
-            $departements[$departement->getLibelle()] = $departement->getId();
-        }
-
-//        yield ChoiceField::new('departement')
-//            ->setFormTypeOption('mapped', true)
-//            ->setFormTypeOption('required', true)
-//            ->setFormTypeOption('label', 'Département')
-//            ->setChoices($departements);
-
-        // Récupérer les départements dont le libelle est égal à la key du tableau $departements
-        $depts = $departementRepository->findBy(['libelle' => array_keys($departements)]);
-
-        $semestreRepository = $this->entityManager->getRepository(Semestre::class);
-        $semestresActifs = $semestreRepository->findBy(['actif' => true]);
-        $semestres = [];
-        foreach ($depts as $dept) {
-            foreach ($semestresActifs as $semestre) {
-                $semestres[$dept->getLibelle() . ' - ' . $semestre->getLibelle()] = $semestre->getId();
-            }
-        }
-
-        yield ChoiceField::new('semestreId')
-            ->setFormTypeOption('mapped', true)
-            ->setFormTypeOption('required', true)
-            ->setFormTypeOption('label', 'Semestre')
-            ->setChoices($semestres);
-
-        $groupeRepository = $this->entityManager->getRepository(Groupe::class);
-
-        //todo : récupérer les groupes dont le semestre est actif
-
-        $groupes = [];
-        foreach ($depts as $dept) {
-            $allGroupes = $groupeRepository->findByDepartementSemestreActif($dept);
-            foreach ($allGroupes as $groupe) {
-                $groupes[$dept->getLibelle() . ' - ' . $groupe->getLibelle()] = $groupe->getId();
-            }
-        }
-
-        yield ChoiceField::new('groupeId')
-            ->setFormTypeOption('mapped', true)
-            ->allowMultipleChoices()
-            ->setFormTypeOption('required', 'true')
-            ->setFormTypeOption('label', 'Groupe')
-            ->renderAsBadges()
-            ->setChoices($groupes);
     }
 
     public function configureCrud(Crud $crud): Crud

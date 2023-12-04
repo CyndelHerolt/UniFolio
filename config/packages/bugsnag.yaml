@@ -1,0 +1,5 @@
+bugsnag:
+    api_key: '%env(BUGSNAG_API_KEY)%'
+    provider:
+        repository: 'https://github.com/CyndelHerolt/UniFolio.git'
+        revision: '$(git rev-parse HEAD)'

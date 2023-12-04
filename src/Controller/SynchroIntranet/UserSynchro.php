@@ -391,6 +391,7 @@ class UserSynchro extends AbstractController
                         $etudiant->setMailPerso($data['mail_perso']);
                         $etudiant->setTelephone($data['telephone']);
                         $etudiant->setSemestre($semestre);
+                        $etudiant->setAnneeSortie($data['annee_sortie']);
                         // retirer les groupes de l'étudiant
                         foreach ($etudiant->getGroupe() as $grp) {
                             $etudiant->removeGroupe($grp);
