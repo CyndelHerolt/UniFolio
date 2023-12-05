@@ -423,33 +423,39 @@ class AllEtudiantComponent
     #[LiveAction]
     public function verifInscrits()
     {
-        foreach ($this->semestres as $semestre) {
+        $this->etudiantsNonInscrits = [];
 
-            $response = $this->client->request(
-                'GET',
-                'http://localhost:8001/fr/api/unifolio/etudiant',
-//                $_ENV['API_URL'] . 'unifolio/etudiant',
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'x-api-key' => $_ENV['API_KEY']
-                    ],
-                    'query' => [
-                        'semestre' => $semestre->getId(),
-                    ]
-                ]
-            );
-            $response = $response->toArray();
-
-            foreach ($response as $etudiantAPI) {
-                $etudiant = $this->etudiantRepository->findOneBy(['username' => $etudiantAPI['username']]);
-                if (!$etudiant) {
-                    $this->etudiantsNonInscrits[] = $etudiantAPI;
-                }
-            }
-
+        if ($this->selectedSemestre !== null) {
+            $semestres = $this->semestreRepository->findBy(['id' => $this->selectedSemestre->getId()]);
+        } else {
+            $semestres = $this->semestreRepository->findBy(['id' => $this->semestres]);
         }
+            foreach ($semestres as $semestre) {
+
+                $response = $this->client->request(
+                    'GET',
+                $_ENV['API_URL'] . 'unifolio/etudiant',
+                    [
+                        'headers' => [
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json',
+                            'x-api-key' => $_ENV['API_KEY']
+                        ],
+                        'query' => [
+                            'semestre' => $semestre->getId(),
+                        ]
+                    ]
+                );
+                $response = $response->toArray();
+
+                foreach ($response as $etudiantAPI) {
+                    $etudiant = $this->etudiantRepository->findOneBy(['username' => $etudiantAPI['username']]);
+                    if (!$etudiant) {
+                        $this->etudiantsNonInscrits[] = $etudiantAPI;
+                    }
+                }
+
+            }
     }
 
     #[LiveAction]
@@ -502,7 +508,7 @@ class AllEtudiantComponent
                         <p>En cas de questions ou de difficultés, n\'hésitez pas à contacter notre équipe de support à portfolio.iut-troyes@univ-reims.fr.</p>
                         <p>Nous comptons sur votre participation active et vous remercions par avance pour votre implication dans la création de votre portfolio universitaire.</p>
                         <p>Cordialement,</p>',
-                        
+
                         'email_button' => 'inscription'
                     ]);
                 $this->mailer->send($email);

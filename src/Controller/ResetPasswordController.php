@@ -141,20 +141,18 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
-        if ($user === null) {
-            $this->addFlash('danger', 'Vous n\'avez pas de compte avec cette adresse email');
-            return $this->redirectToRoute('app_forgot_password_request');
-        }
+//        if ($user === null) {
+//            $this->addFlash('danger', 'Vous n\'avez pas de compte avec cette adresse email');
+//            return $this->redirectToRoute('app_forgot_password_request');
+//        }
 
-        if ($user->getEtudiant()) {
+        if ($user === null) {
+            // Do not reveal whether a user account was found or not.
+            return $this->redirectToRoute('app_check_email');
+        } elseif ($user->getEtudiant()) {
             $userInfos = $user->getEtudiant();
         } elseif ($user->getEnseignant()) {
             $userInfos = $user->getEnseignant();
-        }
-
-        // Do not reveal whether a user account was found or not.
-        if (!$user) {
-            return $this->redirectToRoute('app_check_email');
         }
 
         try {
