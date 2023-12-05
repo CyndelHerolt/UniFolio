@@ -27,9 +27,13 @@ use App\Repository\SemestreRepository;
 use App\Repository\TraceRepository;
 use App\Repository\TypeGroupeRepository;
 use App\Repository\ValidationRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -37,6 +41,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
+use function PHPUnit\Framework\isEmpty;
 
 #[AsLiveComponent('AllEtudiantComponent')]
 class AllEtudiantComponent
@@ -60,6 +65,18 @@ class AllEtudiantComponent
     #[LiveProp(writable: true)]
     /** @var Etudiant[] */
     public array $etudiants = [];
+
+    #[LiveProp(writable: true)]
+    public array $etudiantsNonInscrits = [];
+
+    #[LiveProp(writable: true)]
+    public array $selectedEtudiantsNonInscrits = [];
+
+    #[LiveProp(writable: true)]
+    public bool $selectAll = false;
+
+    #[LiveProp(writable: true)]
+    public bool $successMessage = false;
 
     #[LiveProp(writable: true)]
     public ?Semestre $selectedSemestre = null;
@@ -103,8 +120,12 @@ class AllEtudiantComponent
         RequestStack                    $requestStack,
         private FormFactoryInterface    $formFactory,
         protected DataUserSession       $dataUserSession,
+        HttpClientInterface             $client,
+        MailerInterface                 $mailer,
     )
     {
+        $this->client = $client;
+        $this->mailer = $mailer;
         $this->requestStack = $requestStack;
 
         $user = $this->security->getUser()->getEnseignant();
@@ -399,6 +420,89 @@ class AllEtudiantComponent
         $this->getDisplayedEtudiants();
     }
 
+    #[LiveAction]
+    public function verifInscrits()
+    {
+        foreach ($this->semestres as $semestre) {
+
+            $response = $this->client->request(
+                'GET',
+                'http://localhost:8001/fr/api/unifolio/etudiant',
+//                $_ENV['API_URL'] . 'unifolio/etudiant',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'x-api-key' => $_ENV['API_KEY']
+                    ],
+                    'query' => [
+                        'semestre' => $semestre->getId(),
+                    ]
+                ]
+            );
+            $response = $response->toArray();
+
+            foreach ($response as $etudiantAPI) {
+                $etudiant = $this->etudiantRepository->findOneBy(['username' => $etudiantAPI['username']]);
+                if (!$etudiant) {
+                    $this->etudiantsNonInscrits[] = $etudiantAPI;
+                }
+            }
+
+        }
+    }
+
+    #[LiveAction]
+    public function changeEtudiantsNonInscrits(#[LiveArg] $id = null)
+    {
+        if ($id !== null) {
+            // Si l'étudiant est déjà dans selectedEtudiantsNonInscrits, on le supprime
+            if (($key = array_search($id, $this->selectedEtudiantsNonInscrits)) !== false) {
+                unset($this->selectedEtudiantsNonInscrits[$key]);
+            } else {
+                // Sinon, on l'ajoute au tableau selectedEtudiantsNonInscrits
+                $this->selectedEtudiantsNonInscrits[] = $id;
+            }
+        }
+    }
+
+    #[LiveAction]
+    public function changeSelectAll()
+    {
+        // Si selectAll est vrai, nous voulons ajouter tous les étudiants à selectedEtudiantsNonInscrits
+        if ($this->selectAll) {
+            $this->selectedEtudiantsNonInscrits = array_map(fn($etudiant) => $etudiant['mail_univ'], $this->etudiantsNonInscrits);
+        } else {
+            // Sinon, nous voulons désélectionner tous les étudiants
+            $this->selectedEtudiantsNonInscrits = [];
+        }
+    }
+
+    #[LiveAction]
+    public function sendMailNonInscrits()
+    {
+        if (!empty($this->selectedEtudiantsNonInscrits)) {
+            foreach ($this->selectedEtudiantsNonInscrits as $etudiant) {
+                $email = (new TemplatedEmail())
+                    ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
+                    ->to($etudiant)
+                    ->subject('UniFolio - Vous n\'avez toujours pas de compte')
+                    ->htmlTemplate('email.html.twig')
+                    ->context([
+                        'user' => null,
+                        'email_subject' => 'UniFolio - Pensez à créer votre compte',
+                        'email_message' => '<p>Vous n\'avez toujours pas créé votre compte UniFolio. Il est indispensable de la faire afin de créer votre portfolio universitaire et de le soumettre à évaluation.</p>',
+                        'email_button' => 'inscription'
+                    ]);
+                $this->mailer->send($email);
+            }
+            $this->successMessage = true;
+            $this->selectedEtudiantsNonInscrits = [];
+        } else {
+            $this->successMessage = false;
+        }
+    }
+
     public function getAllEtudiant()
     {
         $dept = $this->dataUserSession->getDepartement();
@@ -409,6 +513,6 @@ class AllEtudiantComponent
             $this->currentPage = 0;
         }
 
-            return $etudiants;
-        }
+        return $etudiants;
     }
+}

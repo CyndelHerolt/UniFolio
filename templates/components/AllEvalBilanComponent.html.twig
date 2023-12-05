@@ -1,4 +1,89 @@
 <div{{ attributes }}>
+    {% if this.successMessage == true %}
+        <div class="alert alert-success alert-dismissible fade show alert-popup"
+             role="alert"
+            style="margin: 0;">
+            Les mails ont bien été envoyés
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    <div class="btn-actions" style="width: 100%; display: flex; justify-content: flex-end">
+        <button class="btn btn-secondary"
+                data-action="live#action"
+                data-action-name="exportBilan"
+                type="button"
+                disabled
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Exporter le bilan au format excel"
+        >
+            <i class="fa-solid fa-file-export"></i>
+        </button>
+        <button class="btn btn-secondary"
+                data-action="live#action"
+                data-action-name="verifInscrits"
+                data-bs-placement="bottom"
+                data-bs-title="Vérifier que tous les étudiants sont bien inscrits"
+                data-bs-toggle="modal" data-bs-target="#nonInscritsModal"
+        >
+            <i class="fa-solid fa-eye-evil"></i>
+        </button>
+    </div>
+
+    <div class="modal modal-lg fade" id="nonInscritsModal" tabindex="-1" aria-labelledby="nonInscritsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="nonInscritsModalLabel">Etudiants non inscrits</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sélectionner les étudiants auxquels vous voulez envoyer un mail de relance</p>
+                    {% if etudiantsNonInscrits is empty %}
+                        <div class="loader">Chargement ...</div>
+                    {% else %}
+                        <div style="text-align: end;">
+                            <input type="checkbox"
+                                   id="select-all"
+                                   class="form-check-input"
+                                   data-model="selectAll"
+                                   data-action="live#action"
+                                   data-action-name="changeSelectAll">
+                            <label for="select-all">Sélectionner tout</label>
+                        </div>
+                        {% for etudiant in this.etudiantsNonInscrits %}
+                            <div class="col-12 etudiants-liste">
+                                <div>
+                                    <span class="badge bg-info">{{ etudiant.semestre.libelle }}</span>
+                                    <p>{{ etudiant.prenom }} {{ etudiant.nom }}</p>
+                                </div>
+                                <div>
+                                    <input type="checkbox"
+                                           id="{{ etudiant.id }}"
+                                           data-model="selectedEtudiantsNonInscrits[]"
+                                           data-action="live#action"
+                                           data-action-name="changeEtudiantsNonInscrits"
+                                           name="{{ etudiant.id }}"
+                                           value="{{ etudiant.mail_univ }}"
+                                           class="form-check-input">
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                    <button type="button" class="btn btn-primary"
+                            data-action="live#action"
+                            data-action-name="sendMailNonInscrits"
+                            data-bs-dismiss="modal"
+                    >Envoyer le mail de relance
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-12">
         <p class="text-muted">
             Filtres
@@ -11,7 +96,8 @@
                     data-action="live#action"
                     data-action-name="changeSemestre(id=0)"
                     {{ this.selectedSemestre == null ? ' disabled' : '' }}
-            >Tous les semestres</button>
+            >Tous les semestres
+            </button>
             {% for semestre in semestres %}
                 <button class="btn btn-primary"
                         data-model="selectedSemestre[]"
