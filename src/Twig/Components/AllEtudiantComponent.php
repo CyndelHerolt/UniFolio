@@ -490,8 +490,19 @@ class AllEtudiantComponent
                     ->htmlTemplate('email.html.twig')
                     ->context([
                         'user' => null,
-                        'email_subject' => 'UniFolio - Pensez à créer votre compte',
-                        'email_message' => '<p>Vous n\'avez toujours pas créé votre compte UniFolio. Il est indispensable de la faire afin de créer votre portfolio universitaire et de le soumettre à évaluation.</p>',
+                        'email_subject' => 'Rappel - Création de votre compte',
+                        'email_message' => '<p>Nous tenons à vous rappeler l\'importance de créer votre compte sur UniFolio, notre plateforme en ligne dédiée à la constitution de votre portfolio universitaire.</p>
+                        <p>Pour commencer, il vous suffit de suivre ces étapes simples :</p>
+                        <ul>
+                            <li>Accédez à <a href="https://portfolio.iut-troyes.univ-reims.fr/users/inscription">UniFolio</a>.</li>
+                            <li>Renseignez votre login URCA et un mot de passe de votre choix.</li>
+                            <li>Validez votre compte en cliquant sur le bouton dans le mail de confirmation.</li>
+                        </ul>
+                        <p>N\'oubliez pas que votre portfolio est soumis à évaluation et par conséquent indispensable à la validation de vos compétences.</p>
+                        <p>En cas de questions ou de difficultés, n\'hésitez pas à contacter notre équipe de support à portfolio.iut-troyes@univ-reims.fr.</p>
+                        <p>Nous comptons sur votre participation active et vous remercions par avance pour votre implication dans la création de votre portfolio universitaire.</p>
+                        <p>Cordialement,</p>',
+                        
                         'email_button' => 'inscription'
                     ]);
                 $this->mailer->send($email);
