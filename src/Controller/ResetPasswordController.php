@@ -177,14 +177,14 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
             ->to($user->getEmail())
-            ->subject('UniFolio - Demande de réinitialisation de mot de passe')
+            ->subject('UniFolio - Demande de réinitialisation de mot de passe - Action Requise')
             ->htmlTemplate('email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
                 'user' => $userInfos,
                 'email_subject' => 'Réinitialisation de votre mot de passe',
                 'email_message' => '<p>Pour réinitialiser votre mot de passe, cliquez sur le bouton ci-dessous</p>
-                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, que vous rencontrez des difficultés ou que vous avez des questions, merci de ne pas cliquer sur le bouton et de nous contacter à portfolio.iut-troyes@univ-reims.fr.</p>',
                 'email_button' => 'reset_password'
             ]);
 

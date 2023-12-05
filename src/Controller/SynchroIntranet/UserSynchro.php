@@ -77,14 +77,16 @@ class UserSynchro extends AbstractController
                 $email = (new TemplatedEmail())
                     ->from(new Address('portfolio.iut-troyes@univ-reims.fr', 'UniFolio Mail Bot'))
                     ->to($mailEtudiant)
-                    ->subject('UniFolio - Confirmation de votre compte')
+                    ->subject('UniFolio - Vérification de compte - Action Requise')
                     ->htmlTemplate('email.html.twig')
                     ->context([
                         'confirm_link' => $signatureComponents->getSignedUrl(),
                         'user' => null,
-                        'email_subject' => 'Confirmation de votre compte',
-                        'email_message' => '<p>Afin de vérifier votre compte, , cliquez sur le bouton ci-dessous.</p>
-                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, merci de ne pas cliquer sur le bouton et de contacter l\'administrateur du site.</p>',
+                        'email_subject' => 'Vérification de votre compte',
+                        'email_message' => '<p>Pour accéder à votre compte, il est impératif de vérifier votre adresse mail. Cela garantit la sécurité de vos données personnelles.</p>
+                                    <p>Pour ce faire, cliquez sur le bouton ci-dessous.</p>
+                                    <p>Si vous n\'êtes pas à l\'origine de cette demande, que vous rencontrez des difficultés ou que vous avez des questions, merci de ne pas cliquer sur le bouton et de nous contacter à portfolio.iut-troyes@univ-reims.fr.</p>
+                                    <p>Cordialement,</p>',
                         'email_button' => 'confirm_email'
                     ]);
                 $mailer->send($email);
