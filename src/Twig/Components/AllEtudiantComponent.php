@@ -434,8 +434,7 @@ class AllEtudiantComponent
 
                 $response = $this->client->request(
                     'GET',
-                    'http://localhost:8001/fr/api/unifolio/etudiant',
-//                $_ENV['API_URL'] . 'unifolio/etudiant',
+                $_ENV['API_URL'] . 'unifolio/etudiant',
                     [
                         'headers' => [
                             'Accept' => 'application/json',
