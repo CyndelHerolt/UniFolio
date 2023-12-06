@@ -39,7 +39,9 @@ class EvaluationSubscriber implements EventSubscriberInterface
         $etudiant = $this->etudiantRepository->find($etudiantSearch->getId());
         $trace = $eval->getTrace();
 
-        $this->addNotification($etudiant, EvaluationEvent::EVALUATED, $trace, $origine);
+        if ($eval->isEtat() !== 0) {
+            $this->addNotification($etudiant, EvaluationEvent::EVALUATED, $trace, $origine);
+        }
     }
 
     private function addNotification($etudiant, string $codeEvent, $trace, $origine): void
