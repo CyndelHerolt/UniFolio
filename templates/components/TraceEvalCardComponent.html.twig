@@ -154,6 +154,23 @@
                                 <fieldset>
                                     <div>
                                         <div class="form-check">
+                                            {% if validation.etat == 0 %}
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckChecked" checked>
+                                            {% else %}
+                                                <input type="checkbox" id="validation{{ validation.id }}0"
+                                                       name="validation0{{ validation.id }}"
+                                                       data-model="selectedValidation"
+                                                       data-action="live#action"
+                                                       data-action-name="changeValidation"
+                                                       value="{{ validation.id }}-0"
+                                                       class="form-check-input">
+                                            {% endif %}
+
+                                            <label for="validation1{{ validation.id }}1"
+                                                   class="form-check-label">Non-évaluée</label><br>
+                                        </div>
+                                        <div class="form-check">
                                             {% if validation.etat == 1 %}
                                                 <input class="form-check-input" type="checkbox" value=""
                                                        id="flexCheckChecked" checked>
