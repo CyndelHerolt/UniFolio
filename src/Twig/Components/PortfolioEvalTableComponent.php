@@ -33,6 +33,8 @@ final class PortfolioEvalTableComponent extends BaseController
 
     public array $validatedCompetences = [];
 
+
+
     public function __construct(
         public EtudiantRepository  $etudiantRepository,
         public PortfolioRepository $portfolioRepository
