@@ -90,22 +90,6 @@ class AbstractTraceEvalComponent extends BaseController
         $eventDispatcher->dispatch($event, EvaluationEvent::EVALUATED);
     }
 
-#[LiveAction]
-public function uncheckValidation(EventDispatcherInterface $eventDispatcher)
-{
-    $validationId = intval($this->selectedValidation);
-    $validation = $this->validationRepository->find($validationId);
-
-    // Mettre à jour le validation dans la base de données
-    $validation->setEtat(0);
-    $validation->setEnseignant($this->security->getUser()->getEnseignant());
-    $validation->setDateModification(new \DateTime());
-
-    $this->validationRepository->save($validation, true);
-
-    $event = new EvaluationEvent($validation);
-    $eventDispatcher->dispatch($event, EvaluationEvent::EVALUATED);
-}
 
     #[LiveAction]
     public function handleComment()

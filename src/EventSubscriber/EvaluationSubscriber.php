@@ -10,6 +10,7 @@ namespace App\EventSubscriber;
 use App\Entity\Notification;
 use App\Event\EvaluationEvent;
 use App\Repository\EtudiantRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -19,7 +20,8 @@ class EvaluationSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly RouterInterface $router,
-        private readonly EtudiantRepository $etudiantRepository
+        private readonly EtudiantRepository $etudiantRepository,
+        private readonly NotificationRepository $notificationRepository
     ) {
     }
 
@@ -41,6 +43,16 @@ class EvaluationSubscriber implements EventSubscriberInterface
 
         if ($eval->isEtat() !== 0) {
             $this->addNotification($etudiant, EvaluationEvent::EVALUATED, $trace, $origine);
+        } else {
+            $notification = $this->notificationRepository->findOneBy([
+                'etudiant' => $etudiant,
+                'type' => EvaluationEvent::EVALUATED,
+                'validation' => $origine,
+            ]);
+            if ($notification) {
+                $this->entityManager->remove($notification);
+                $this->entityManager->flush();
+            }
         }
     }
 
