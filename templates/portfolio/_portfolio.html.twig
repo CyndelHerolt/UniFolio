@@ -1,4 +1,24 @@
 <em class="portfolio-description">{{ portfolio.description }}</em>
+<hr>
+<div>
+    <h3>Compétences à évaluer dans ce portfolio
+{#        <span data-bs-toggle="dropdown"#}
+{#              data-controller="tooltip"#}
+{#              title="Cliquer sur une compétence vous permettra d'accéder directement aux traces concernées"#}
+{#              data-bs-placement="bottom"#}
+{#        ><i class="fa-duotone fa-circle-info" style="color: #641B9FCF"></i></span>#}
+    </h3>
+    <ul class="competences-link">
+        {% for competence in competencesNiveau %}
+            <li class="{{ competence.competences.couleur }}">
+{#                <a href="" class="{{ competence.competences.couleur }}">#}
+                    {{ competence.competences.nomCourt }} <span>• {{ competence.libelle }}</span>
+{#                </a>#}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<hr>
 
 {% for page in pages %}
 {% if user.etudiant is not null %}
