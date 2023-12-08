@@ -9,11 +9,15 @@ namespace App\Controller;
 
 use App\Classes\DataUserSession;
 use App\Entity\Commentaire;
+use App\Entity\Departement;
 use App\Entity\Portfolio;
 use App\Event\CommentaireEvent;
 use App\Form\CommentaireType;
 use App\Form\PortfolioType;
+use App\Repository\ApcNiveauRepository;
 use App\Repository\CommentaireRepository;
+use App\Repository\CompetenceRepository;
+use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\OrdrePageRepository;
@@ -144,6 +148,9 @@ class PortfolioController extends BaseController
         PageRepository $pageRepository,
         OrdreTraceRepository $ordreTraceRepository,
         Request $request,
+        DepartementRepository $departementRepository,
+        CompetenceRepository $competenceRepository,
+        ApcNiveauRepository $apcNiveauRepository,
         $id
     ): Response {
         $data_user = $this->dataUserSession;
@@ -178,6 +185,38 @@ class PortfolioController extends BaseController
                         $traces[] = $ordreTrace->getTrace();
                     }
                 }
+
+                $etudiant = $portfolio->getEtudiant();
+                $dept = $departementRepository->findOneBy(['id' => $etudiant->getDepartement()]);
+                $annee = $etudiant->getSemestre()->getAnnee();
+                $groupe = $etudiant->getGroupe();
+                foreach ($groupe as $g) {
+                    if ($g->getTypeGroupe()->getType() === 'TD') {
+                        $parcours = $g->getApcParcours();
+                    }
+                }
+
+                if ($parcours === null) {
+                    $referentiel = $dept->getApcReferentiels();
+
+                    $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+                    foreach ($competences as $competence) {
+                        $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                        foreach ($niveaux as $niveau) {
+                            foreach ($niveau as $niv) {
+                                $competencesNiveau[] = $niv;
+                            }
+                        }
+                    }
+                } else {
+                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                    foreach ($niveaux as $niveau) {
+                        $competencesNiveau[] = $niveau;
+                    }
+                }
+
+                // retire les doublons de la liste des compétences
+                $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
 
                 break;
 
@@ -223,6 +262,7 @@ class PortfolioController extends BaseController
             'page' => $page ?? null,
             'commentForm' => $this->commentForm ?? null,
             'data_user' => $data_user ?? null,
+            'competencesNiveau' => $competencesNiveau ?? null,
         ]);
     }
 
