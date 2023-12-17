@@ -21,7 +21,8 @@
                 {% for notif in validation.notifications %}
                     {% if notif.lu == 0 %}
                         <div class="badge-notif">
-                            <i class="fa-solid fa-circle-exclamation fa-lg" style="position: absolute; right: 10px; color: #641B9FCF"></i>
+                            <i class="fa-solid fa-circle-exclamation fa-lg"
+                               style="position: absolute; right: 10px; color: #641B9FCF"></i>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -35,6 +36,9 @@
                     <li>•</li>
                     <li><span>Modifiée le :&nbsp;</span> {{ this.trace.datemodification|date('d-m-y') }}</li>
                 </ul>
+                <input type="checkbox" class="form-check-input" style="position: absolute; right: 0; top: 0"
+                       data-model="selectedTraces[]"
+                       value="{{ this.trace.id }}"/>
             </div>
             <div class="card-body">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
