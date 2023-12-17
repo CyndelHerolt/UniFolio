@@ -123,6 +123,9 @@ class AllTraceComponent extends BaseController
     #[LiveAction]
     public function deleteSelectedTraces(): void
     {
+        if ($this->selectedTraces === null) {
+            return;
+        }
         foreach ($this->selectedTraces as $trace) {
             $trace = $this->traceRepository->find($trace);
             $this->traceRepository->remove($trace, true);
