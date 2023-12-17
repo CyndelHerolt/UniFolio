@@ -45,13 +45,13 @@
   color: $color;
   border: $border;
   border-radius: 10px !important;
-  padding: 6px 16px;
-  font-size: 1rem;
+  //padding: 6px 16px;
+  font-size: .8rem;
   font-weight: 600;
   cursor: pointer;
   transition: ease-in-out 0.1s;
   width: fit-content;
-  margin: 15px;
+  margin: 5px 10px;
   flex: none !important;
 }
 
