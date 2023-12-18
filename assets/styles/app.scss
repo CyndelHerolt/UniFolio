@@ -168,7 +168,7 @@ body {
 
   .btn-primary {
       @include btn($color-primary-dark, $color-light, 1px solid $color-primary);
-      box-shadow: rgba(147, 92, 196, 0.81) 0px 0px 0px 0.25rem;
+      box-shadow: rgba(147, 92, 196, 0.81) 0px 0px 0px 0.15rem;
     --bs-btn-disabled-bg: #641B9FCF;
     --bs-btn-disabled-border-color: #2D183FCE;
       transition: ease-in-out 0.3s;
@@ -185,7 +185,7 @@ body {
 
   .btn-secondary {
     @include btn($color-secondary, $color-dark, 1px solid $color-secondary);
-    box-shadow: rgba(255, 241, 79, 0.81) 0px 0px 0px 0.25rem;
+    box-shadow: rgba(255, 241, 79, 0.81) 0px 0px 0px 0.15rem;
     transition: ease-in-out 0.3s;
 
     &:disabled {
