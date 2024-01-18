@@ -18,9 +18,9 @@ class Paragraphe extends AbstractElement
     private string $texte;
     public string $name = 'paragraphe';
 
-    public function create($typeElement): Response
+    public function create($typeElement, $bloc): Response
     {
-        parent::create($typeElement);
+        parent::create($typeElement, $bloc);
 
         return new Response();
     }

@@ -25,6 +25,12 @@ class PagePersoRepository extends ServiceEntityRepository
         parent::__construct($registry, PagePerso::class);
     }
 
+    public function save(PagePerso $pagePerso): void
+    {
+        $this->_em->persist($pagePerso);
+        $this->_em->flush();
+    }
+
 //    /**
 //     * @return PagePerso[] Returns an array of PagePerso objects
 //     */

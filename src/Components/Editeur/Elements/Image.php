@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class Image extends AbstractElement
 {
     public const NAME = 'image';
-    public const CATEGORY = "image";
+    public const CATEGORY = "media";
     public const COLOR = 'blue';
     public const TEMPLATE = 'image.html.twig';
     public const ICON = 'fas fa-image';
@@ -18,9 +18,9 @@ class Image extends AbstractElement
     private string $texte;
     public string $name = 'image';
 
-    public function create($typeElement): Response
+    public function create($typeElement, $bloc): Response
     {
-        parent::create($typeElement);
+        parent::create($typeElement, $bloc);
         return new Response();
     }
 

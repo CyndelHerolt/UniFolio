@@ -45,11 +45,12 @@ abstract class AbstractElement
         return $this->options[$name];
     }
 
-    public function create($typeElement): Response
+    public function create($typeElement, $bloc): Response
     {
         $element = new Element();
         $element->setType($typeElement);
         $element->setOrdre(1);
+        $element->setBloc($bloc);
 
         $this->elementRepository->save($element);
 

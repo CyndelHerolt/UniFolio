@@ -20,10 +20,10 @@ class PortfolioPerso
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $intitule = null;
+    private ?string $intitule = '';
 
     #[ORM\Column]
-    private ?bool $visibilite = null;
+    private ?bool $visibilite = false;
 
     #[ORM\ManyToOne(inversedBy: 'portfolioPersos')]
     private ?Etudiant $etudiant = null;

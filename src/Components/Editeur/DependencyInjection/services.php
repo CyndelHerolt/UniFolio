@@ -25,5 +25,4 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services->set(Image::class)->tag(EditeurRegistry::TAG_TYPE_ELEMENT);
     $services->set(Paragraphe::class)->tag(EditeurRegistry::TAG_TYPE_ELEMENT);
-    $services->set(Column::class)->tag(EditeurRegistry::TAG_TYPE_ELEMENT);
 };

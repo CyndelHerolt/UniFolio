@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Bibliothèque de portfolios personnels{% endblock %}
+
+{% block header %}
+    {#    {% include "_menu.html.twig" %}#}
+{% endblock %}
+
+{% block body %}
+    <div class="content-container portfolios">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bibliothèque de portfolios personnels</li>
+            </ol>
+        </nav>
+
+        <section>
+            <div class="row">
+                <h2 class="col-8">Bibliothèque de Portfolios Personnels</h2>
+                <a class="col-3" href="{{ path('app_portfolio_perso_new') }}" style="width: fit-content;">
+                    <button class="btn btn-secondary">
+                        Créer un portfolio <br>
+                    </button>
+                </a>
+            </div>
+
+            <article class="row g-4">
+                {% for portfolio in portfolios %}
+                    {{ portfolio.id }}
+                {% endfor %}
+            </article>
+        </section>
+    </div>
+
+{% endblock %}

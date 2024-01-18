@@ -25,6 +25,12 @@ class PortfolioPersoRepository extends ServiceEntityRepository
         parent::__construct($registry, PortfolioPerso::class);
     }
 
+    public function save(PortfolioPerso $portfolioPerso): void
+    {
+        $this->_em->persist($portfolioPerso);
+        $this->_em->flush();
+    }
+
 //    /**
 //     * @return PortfolioPerso[] Returns an array of PortfolioPerso objects
 //     */

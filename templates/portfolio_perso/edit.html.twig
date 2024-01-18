@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Edition d'un nouveau portfolio personnel{% endblock %}
+
+{% block body %}
+    <div class="content-container portfolios">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bibliothèque de portfolios personnels</li>
+            </ol>
+        </nav>
+
+        <section class="row">
+            <div class="row">
+                <h2 class="col-8">Edition d'un nouveau portfolio personnel</h2>
+            </div>
+            <aside class="col-2 g-4 border">
+                {{ form_start(form) }}
+                {{ form_row(form.intitule) }}
+                {{ form_row(form.visibilite) }}
+                {{ form_end(form) }}
+                <hr>
+                <a href="{{ path('app_portfolio_perso_new_page', {'id': portfolio.id}) }}">
+                    <button class="btn btn-primary">
+                        Ajouter une page
+                    </button>
+                </a>
+            </aside>
+
+            <article class="col-10 g-4">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    {% for page in pages %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link {% if loop.first %}active{% endif %}" id="tab-{{ page.id }}"
+                               data-bs-toggle="tab" href="#content-{{ page.id }}" role="tab"
+                               aria-controls="content-{{ page.id }}" aria-selected="true">{{ page.id }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="border">
+                    <div class="tab-content" id="myTabContent">
+                        {% for page in pages %}
+                            <div class="tab-pane fade {% if loop.first %}show active{% endif %}"
+                                 id="content-{{ page.id }}" role="tabpanel" aria-labelledby="tab-{{ page.id }}">
+
+                                {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
+                                    <div class="row g-4 justify-content-center align-items-center border">
+                                        {% for element in bloc.elements %}
+                                            <p class="{{ element.colonne }}">
+                                                {{ element.type }}
+                                            </p>
+                                        {% endfor %}
+                                        <div type="button" data-bs-toggle="offcanvas"
+                                             data-bs-target="#offCanva{{ bloc.id }}"
+                                             aria-controls="offCanva{{ bloc.id }}"
+                                             class="col-2 border">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <br>
+                                            <small class="text-muted">
+                                                Ajouter un nouvel élément
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+                                         id="offCanva{{ bloc.id }}"
+                                         aria-labelledby="offCanva{{ bloc.id }}Label">
+                                        <div class="offcanvas-header">
+                                            <h5 class="offcanvas-title" id="offCanva{{ bloc.id }}Label">Elements</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            {% for key, element in elements %}
+                                                {#                                                {{ constant(key ~ '::CATEGORY') }} #}
+                                                <a href="{{ path('app_portfolio_perso_new_element', {'element': key, 'id': bloc.id}) }}">
+                                                    <button class="btn">
+                                                        <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
+                                                        <br>
+                                                        {{ element.name }}
+                                                    </button>
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                                <div class="row g-4 justify-content-center">
+                                    <a href="{{ path('app_portfolio_perso_new_bloc', {'id': page.id}) }}"
+                                       class="col-10 border">
+                                        <i class="fas fa-plus-circle"></i>
+                                        <br>
+                                        <small class="text-muted">
+                                            Ajouter un nouveau bloc
+                                        </small>
+                                    </a>
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+            </article>
+        </section>
+    </div>
+
+{% endblock %}

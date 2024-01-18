@@ -44,6 +44,9 @@ class Element
     #[ORM\ManyToOne(inversedBy: 'elements')]
     private ?Bloc $bloc = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $colonne = 'col-12';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +156,18 @@ class Element
     public function setBloc(?Bloc $bloc): static
     {
         $this->bloc = $bloc;
+
+        return $this;
+    }
+
+    public function getColonne(): ?string
+    {
+        return $this->colonne;
+    }
+
+    public function setColonne(string $colonne): static
+    {
+        $this->colonne = $colonne;
 
         return $this;
     }

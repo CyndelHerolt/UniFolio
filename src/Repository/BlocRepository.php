@@ -25,6 +25,14 @@ class BlocRepository extends ServiceEntityRepository
         parent::__construct($registry, Bloc::class);
     }
 
+    public function save(Bloc $bloc): Bloc
+    {
+        $this->_em->persist($bloc);
+        $this->_em->flush();
+
+        return $bloc;
+    }
+
 //    /**
 //     * @return Bloc[] Returns an array of Bloc objects
 //     */
