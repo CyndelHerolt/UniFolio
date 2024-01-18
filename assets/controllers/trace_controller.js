@@ -38,6 +38,7 @@ export default class extends Controller {
 
     initializeTinyMCEForId(id) {
         tinymce.init({
+            language: 'fr_FR',
             skin: "oxide",
             content_css: "default",
             plugins: 'link image code',

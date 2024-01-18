@@ -77,6 +77,9 @@ class Etudiant
     #[ORM\Column(nullable: true)]
     private ?int $annee_sortie = null;
 
+    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: PortfolioPerso::class)]
+    private Collection $portfolioPersos;
+
     public function __construct()
     {
         $this->groupe = new ArrayCollection();
@@ -84,6 +87,7 @@ class Etudiant
         $this->bibliotheques = new ArrayCollection();
         $this->portfolios = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->portfolioPersos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -445,6 +449,36 @@ class Etudiant
     public function setAnneeSortie(?int $annee_sortie): static
     {
         $this->annee_sortie = $annee_sortie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PortfolioPerso>
+     */
+    public function getPortfolioPersos(): Collection
+    {
+        return $this->portfolioPersos;
+    }
+
+    public function addPortfolioPerso(PortfolioPerso $portfolioPerso): static
+    {
+        if (!$this->portfolioPersos->contains($portfolioPerso)) {
+            $this->portfolioPersos->add($portfolioPerso);
+            $portfolioPerso->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePortfolioPerso(PortfolioPerso $portfolioPerso): static
+    {
+        if ($this->portfolioPersos->removeElement($portfolioPerso)) {
+            // set the owning side to null (unless already changed)
+            if ($portfolioPerso->getEtudiant() === $this) {
+                $portfolioPerso->setEtudiant(null);
+            }
+        }
 
         return $this;
     }

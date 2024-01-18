@@ -1,0 +1,159 @@
+<?php
+/*
+ * Copyright (c) 2024. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
+ * @author cyndelherolt
+ * @project UniFolio
+ */
+namespace App\Entity;
+
+use App\Repository\ElementRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ElementRepository::class)]
+class Element
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?int $ordre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $contenu = '';
+
+    #[ORM\Column(length: 255)]
+    private ?string $couleur_prim = '';
+
+    #[ORM\Column(length: 255)]
+    private ?string $couleur_sec = '';
+
+    #[ORM\Column]
+    private ?int $width = 0;
+
+    #[ORM\Column]
+    private ?int $height = 0;
+
+    #[ORM\ManyToOne(inversedBy: 'elements')]
+    private ?PagePerso $page = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'elements')]
+    private ?Bloc $bloc = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(int $ordre): static
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(string $contenu): static
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getCouleurPrim(): ?string
+    {
+        return $this->couleur_prim;
+    }
+
+    public function setCouleurPrim(string $couleur_prim): static
+    {
+        $this->couleur_prim = $couleur_prim;
+
+        return $this;
+    }
+
+    public function getCouleurSec(): ?string
+    {
+        return $this->couleur_sec;
+    }
+
+    public function setCouleurSec(string $couleur_prim_sec): static
+    {
+        $this->couleur_sec = $couleur_prim_sec;
+
+        return $this;
+    }
+
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    public function setWidth(int $width): static
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    public function setHeight(int $height): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getPage(): ?PagePerso
+    {
+        return $this->page;
+    }
+
+    public function setPage(?PagePerso $page): static
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getBloc(): ?Bloc
+    {
+        return $this->bloc;
+    }
+
+    public function setBloc(?Bloc $bloc): static
+    {
+        $this->bloc = $bloc;
+
+        return $this;
+    }
+}

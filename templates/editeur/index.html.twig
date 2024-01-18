@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditeurController!{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>
+            ELEMENTS
+        </h1>
+        {% for key, element in elements %}
+            {#                    <a href="{{ path('app_element_new', {'type': key}) }}"> #}
+            <a href="{{ path('app_element_new', {'element': key}) }}">
+                <button class="btn">
+                    <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
+                </button>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

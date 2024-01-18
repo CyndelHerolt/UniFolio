@@ -30,9 +30,6 @@ class Page
     #[ORM\ManyToMany(targetEntity: Trace::class, inversedBy: 'pages', fetch: "EAGER")]
     private Collection $trace;
 
-    #[ORM\ManyToOne(inversedBy: 'pages')]
-    private ?Templates $templates = null;
-
     #[ORM\ManyToMany(targetEntity: Portfolio::class, inversedBy: 'pages')]
     private Collection $portfolio;
 
@@ -118,18 +115,6 @@ class Page
     public function removeTrace(Trace $trace): self
     {
         $this->trace->removeElement($trace);
-
-        return $this;
-    }
-
-    public function getTemplates(): ?Templates
-    {
-        return $this->templates;
-    }
-
-    public function setTemplates(?Templates $templates): self
-    {
-        $this->templates = $templates;
 
         return $this;
     }

@@ -21,53 +21,41 @@
             </ol>
         </nav>
 
+{#        {% if portfolio.templates is not null and portfolio.templates.libelle == 'test' %}#}
+{#        {% include('templates/test.html.twig') %}#}
+{#        {% else %}#}
 
         <section class="portfolio-show card">
             <div class="row">
-
-{#                <div class="card portfolio-user-infos">#}
-{#                    <div class="card-body">#}
-{#                        <p class="card-title">{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }}</p>#}
-{#                        <p class="card-subtitle mb-2 text-body-secondary">{{ portfolio.etudiant.semestre.libelle }}#}
-{#                            - {% for g in portfolio.etudiant.groupe %}#}
-{#                                {% if 'TP' in g.typeGroupe.libelle %}#}
-{#                                    groupe {{ g.libelle }}#}
-{#                                {% endif %}#}
-{#                            {% endfor %}</p>#}
-{#                    </div>#}
-{#                </div>#}
-
-                    <div class="banner col-12" style="background-image: url({{ asset(portfolio.banniere) }});">
-                                {% if portfolio.etudiant.optAlternance == true %}
-                                    <div class="text-center alert alert-info search-badge">
-                                        <i class="fa-regular fa-eye"></i>
-                                        <span>Recherche une alternance</span>
-                                    </div>
-                                {% elseif portfolio.etudiant.optStage == true %}
-                                    <div class="text-center alert alert-info search-badge">
-                                        <i class="fa-regular fa-eye"></i>
-                                        <span>Recherche un stage</span>
-                                    </div>
-                                {% endif %}
-                        <div class="title-container">
-                            <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
-                            <small>{{ portfolio.annee.libelleLong }}</small>
-                            <small>{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }} - {{ portfolio.etudiant.semestre.libelle }}
-                                - {% for g in portfolio.etudiant.groupe %}
-                                    {% if 'TP' in g.typeGroupe.libelle %}
-                                        groupe {{ g.libelle }}
-                                    {% endif %}
-                                {% endfor %}</small>
+                <div class="banner col-12" style="background-image: url({{ asset(portfolio.banniere) }});">
+                    {% if portfolio.etudiant.optAlternance == true %}
+                        <div class="text-center alert alert-info search-badge">
+                            <i class="fa-regular fa-eye"></i>
+                            <span>Recherche une alternance</span>
                         </div>
+                    {% elseif portfolio.etudiant.optStage == true %}
+                        <div class="text-center alert alert-info search-badge">
+                            <i class="fa-regular fa-eye"></i>
+                            <span>Recherche un stage</span>
+                        </div>
+                    {% endif %}
+                    <div class="title-container">
+                        <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
+                        <small>{{ portfolio.annee.libelleLong }}</small>
+                        <small>{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }}
+                            - {{ portfolio.etudiant.semestre.libelle }}
+                            - {% for g in portfolio.etudiant.groupe %}
+                                {% if 'TP' in g.typeGroupe.libelle %}
+                                    groupe {{ g.libelle }}
+                                {% endif %}
+                            {% endfor %}</small>
                     </div>
-
-
-
-
+                </div>
                 <div {{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('portfolioPage', 'zone') }}>
-
                 </div>
             </div>
         </section>
+
+{#        {% endif %}#}
     </div>
 {% endblock %}
