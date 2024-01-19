@@ -9,6 +9,7 @@ namespace App\Controller;
 
 use App\Classes\DataUserSession;
 use App\Components\Editeur\EditeurRegistry;
+use App\Components\Editeur\Form\ElementType;
 use App\Entity\Bloc;
 use App\Entity\PagePerso;
 use App\Entity\PortfolioPerso;
@@ -18,6 +19,7 @@ use App\Repository\PagePersoRepository;
 use App\Repository\PortfolioPersoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -30,7 +32,7 @@ class PortfolioPersoController extends AbstractController
         private DataUserSession          $dataUserSession,
         private PortfolioPersoRepository $portfolioPersoRepository,
         private PagePersoRepository      $pagePersoRepository,
-        private BlocRepository          $blocRepository,
+        private BlocRepository           $blocRepository,
         private readonly EditeurRegistry $editeurRegistry
     )
     {
@@ -105,19 +107,43 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $page->getPortfolio()->getId()]);
     }
 
-    #[Route('/new/element/{element}/{id}', name: 'app_portfolio_perso_new_element')]
+    #[Route('/{portfolioId}/new/element/{element}/{blocId}', name: 'app_portfolio_perso_new_element')]
     public function addElement(
-        ?int $id,
+        ?int    $portfolioId,
+        ?int    $blocId,
         ?string $element,
     ): Response
     {
-        $bloc = $this->blocRepository->find($id);
+        $bloc = $this->blocRepository->find($blocId);
 
         $typeElement = $this->editeurRegistry->getTypeElement($element);
 //        dd($typeElement);
         $typeElement->create($element, $bloc);
 
-        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $bloc->getPages()->first()->getPortfolio()->getId()]);
+        return $this->redirectToRoute('app_portfolio_perso_edit_element', ['portfolioId' => $portfolioId, 'element' => $element, 'blocId' => $blocId]);
+    }
+
+    #[Route('/{portfolioId}/edit/element/{element}/{blocId}', name: 'app_portfolio_perso_edit_element')]
+    public function editElement(
+        ?int    $blocId,
+        ?string $element,
+        Request $request,
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($blocId);
+        $typeElement = $this->editeurRegistry->getTypeElement($element);
+
+//        $form = $this->createForm($typeElement::FORM, $typeElement);
+//        dd($form);
+
+//        dd($request->request->all());
+
+        return new Response('ok');
+//        return $this->render('portfolio_perso/edit_element.html.twig', [
+//            'element' => $element,
+//            'bloc' => $this->blocRepository->find($blocId),
+//            'form' => $this->editeurRegistry->getTypeElement($element)->getForm(),
+//        ]);
     }
 
     #[Route('/new/page/{id}', name: 'app_portfolio_perso_new_page')]
@@ -129,7 +155,6 @@ class PortfolioPersoController extends AbstractController
 
         $page = new PagePerso();
         $page->setPortfolio($portfolio);
-        // nombre de page du portfolio + 1
         $allPages = $this->pagePersoRepository->findBy(['portfolio' => $portfolio]);
         $page->setOrdre(count($allPages) + 1);
         $this->pagePersoRepository->save($page);

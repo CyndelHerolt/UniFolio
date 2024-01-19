@@ -28,6 +28,13 @@
                 </a>
             </aside>
 
+{#            {% for key, element in elements %}#}
+{#                    <button class="btn">#}
+{#                        {{ element.name }}#}
+{#                        {{ element_form_render(element) }}#}
+{#                    </button>#}
+{#            {% endfor %}#}
+
             <article class="col-10 g-4">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     {% for page in pages %}
@@ -75,7 +82,7 @@
                                         <div class="offcanvas-body">
                                             {% for key, element in elements %}
                                                 {#                                                {{ constant(key ~ '::CATEGORY') }} #}
-                                                <a href="{{ path('app_portfolio_perso_new_element', {'element': key, 'id': bloc.id}) }}">
+                                                <a href="{{ path('app_portfolio_perso_new_element', {'portfolioId': portfolio.id, 'element': key, 'blocId': bloc.id}) }}">
                                                     <button class="btn">
                                                         <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
                                                         <br>

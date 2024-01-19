@@ -29,4 +29,11 @@ class EditeurRegistry
     {
         return $this->elements[$name];
     }
+
+    public function getForm(AbstractElement $element): mixed
+    {
+        $formClass = $element::FORM;
+        $formInstance = new $formClass();
+        return $formInstance;
+    }
 }
