@@ -28,12 +28,12 @@
                 </a>
             </aside>
 
-{#            {% for key, element in elements %}#}
-{#                    <button class="btn">#}
-{#                        {{ element.name }}#}
-{#                        {{ element_form_render(element) }}#}
-{#                    </button>#}
-{#            {% endfor %}#}
+            {#            {% for key, element in elements %} #}
+            {#                    <button class="btn"> #}
+            {#                        {{ element.name }} #}
+            {#                        {{ element_form_render(element) }} #}
+            {#                    </button> #}
+            {#            {% endfor %} #}
 
             <article class="col-10 g-4">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -49,15 +49,24 @@
                 <div class="border">
                     <div class="tab-content" id="myTabContent">
                         {% for page in pages %}
-                            <div class="tab-pane fade {% if loop.first %}show active{% endif %}"
+                            <div class="tab-pane fade m-2 {% if loop.first %}show active{% endif %}"
                                  id="content-{{ page.id }}" role="tabpanel" aria-labelledby="tab-{{ page.id }}">
 
                                 {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
-                                    <div class="row g-4 justify-content-center align-items-center border">
+                                    <div class="row g-4 my-4 p-4 justify-content-center align-items-center border border-2">
                                         {% for element in bloc.elements %}
-                                            <p class="{{ element.colonne }}">
-                                                {{ element.type }}
-                                            </p>
+                                            <div>
+                                                {% set abstractElement = get_abstract_element(element.type) %}
+                                                {{ element_form_render(abstractElement) }}
+                                                <div class="element_actions">
+                                                    <button class="btn btn-danger">
+                                                        <i class="fa fa-minus-square"></i>
+                                                    </button>
+                                                    <button class="btn btn-success">
+                                                        <i class="fa fa-check-square"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         {% endfor %}
                                         <div type="button" data-bs-toggle="offcanvas"
                                              data-bs-target="#offCanva{{ bloc.id }}"
@@ -82,7 +91,7 @@
                                         <div class="offcanvas-body">
                                             {% for key, element in elements %}
                                                 {#                                                {{ constant(key ~ '::CATEGORY') }} #}
-                                                <a href="{{ path('app_portfolio_perso_new_element', {'portfolioId': portfolio.id, 'element': key, 'blocId': bloc.id}) }}">
+                                                <a href="{{ path('app_portfolio_perso_new_element', {'id': portfolio.id, 'element': key, 'blocId': bloc.id}) }}">
                                                     <button class="btn">
                                                         <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
                                                         <br>

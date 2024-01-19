@@ -107,9 +107,9 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $page->getPortfolio()->getId()]);
     }
 
-    #[Route('/{portfolioId}/new/element/{element}/{blocId}', name: 'app_portfolio_perso_new_element')]
+    #[Route('/{id}/new/element/{element}/{blocId}', name: 'app_portfolio_perso_new_element')]
     public function addElement(
-        ?int    $portfolioId,
+        ?int    $id,
         ?int    $blocId,
         ?string $element,
     ): Response
@@ -120,7 +120,7 @@ class PortfolioPersoController extends AbstractController
 //        dd($typeElement);
         $typeElement->create($element, $bloc);
 
-        return $this->redirectToRoute('app_portfolio_perso_edit_element', ['portfolioId' => $portfolioId, 'element' => $element, 'blocId' => $blocId]);
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $id]);
     }
 
     #[Route('/{portfolioId}/edit/element/{element}/{blocId}', name: 'app_portfolio_perso_edit_element')]
