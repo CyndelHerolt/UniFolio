@@ -15,6 +15,7 @@ use App\Entity\PagePerso;
 use App\Entity\PortfolioPerso;
 use App\Form\PortfolioPersoType;
 use App\Repository\BlocRepository;
+use App\Repository\ElementRepository;
 use App\Repository\PagePersoRepository;
 use App\Repository\PortfolioPersoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,7 @@ class PortfolioPersoController extends AbstractController
         private PortfolioPersoRepository $portfolioPersoRepository,
         private PagePersoRepository      $pagePersoRepository,
         private BlocRepository           $blocRepository,
+        private ElementRepository        $elementRepository,
         private readonly EditeurRegistry $editeurRegistry
     )
     {
@@ -144,6 +146,19 @@ class PortfolioPersoController extends AbstractController
 //            'bloc' => $this->blocRepository->find($blocId),
 //            'form' => $this->editeurRegistry->getTypeElement($element)->getForm(),
 //        ]);
+    }
+
+    // méthode pour supprimer un element
+    #[Route('/{portfolioId}/delete/element/{id}', name: 'app_portfolio_perso_delete_element')]
+    public function delete(
+        ?int $id,
+        ?int $portfolioId
+    )
+    {
+        $element = $this->elementRepository->find($id);
+        $this->elementRepository->delete($element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
     #[Route('/new/page/{id}', name: 'app_portfolio_perso_new_page')]

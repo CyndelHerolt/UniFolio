@@ -55,13 +55,15 @@
                                 {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
                                     <div class="row g-4 my-4 p-4 justify-content-center align-items-center border border-2">
                                         {% for element in bloc.elements %}
-                                            <div>
+                                            <div class="{{ element.colonne }}">
                                                 {% set abstractElement = get_abstract_element(element.type) %}
                                                 {{ element_form_render(abstractElement) }}
                                                 <div class="element_actions">
-                                                    <button class="btn btn-danger">
-                                                        <i class="fa fa-minus-square"></i>
-                                                    </button>
+                                                    <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
+                                                        <button class="btn btn-danger">
+                                                            <i class="fa fa-minus-square"></i>
+                                                        </button>
+                                                    </a>
                                                     <button class="btn btn-success">
                                                         <i class="fa fa-check-square"></i>
                                                     </button>
@@ -90,7 +92,6 @@
                                         </div>
                                         <div class="offcanvas-body">
                                             {% for key, element in elements %}
-                                                {#                                                {{ constant(key ~ '::CATEGORY') }} #}
                                                 <a href="{{ path('app_portfolio_perso_new_element', {'id': portfolio.id, 'element': key, 'blocId': bloc.id}) }}">
                                                     <button class="btn">
                                                         <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
@@ -98,6 +99,17 @@
                                                         {{ element.name }}
                                                     </button>
                                                 </a>
+
+                                                {#                                                <div class="dropdown"> #}
+                                                {#                                                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> #}
+                                                {#                                                        <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i> #}
+                                                {#                                                        <br> #}
+                                                {#                                                        {{ element.name }} #}
+                                                {#                                                    </button> #}
+                                                {#                                                    <ul class="dropdown-menu"> #}
+                                                {#                                                        <li><a class="dropdown-item" href="#">Cols ?</a></li> #}
+                                                {#                                                    </ul> #}
+                                                {#                                                </div> #}
                                             {% endfor %}
                                         </div>
                                     </div>

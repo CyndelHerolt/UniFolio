@@ -11,6 +11,7 @@ class ParagrapheType extends ElementType
 {
     public $colonne;
     public $contenu;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
