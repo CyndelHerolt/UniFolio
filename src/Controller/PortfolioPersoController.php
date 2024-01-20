@@ -125,36 +125,37 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $id]);
     }
 
-    #[Route('/{portfolioId}/edit/element/{element}/{blocId}', name: 'app_portfolio_perso_edit_element')]
-    public function editElement(
-        ?int    $blocId,
-        ?string $element,
-        Request $request,
-    ): Response
-    {
-        $bloc = $this->blocRepository->find($blocId);
-        $typeElement = $this->editeurRegistry->getTypeElement($element);
+//    #[Route('/{portfolioId}/edit/element/{element}/{blocId}', name: 'app_portfolio_perso_edit_element')]
+//    public function editElement(
+//        ?int    $blocId,
+//        ?string $element,
+//        Request $request,
+//    ): Response
+//    {
+//        $bloc = $this->blocRepository->find($blocId);
+//        $typeElement = $this->editeurRegistry->getTypeElement($element);
 
 //        $form = $this->createForm($typeElement::FORM, $typeElement);
 //        dd($form);
 
 //        dd($request->request->all());
 
-        return new Response('ok');
+//        return new Response('ok');
 //        return $this->render('portfolio_perso/edit_element.html.twig', [
 //            'element' => $element,
 //            'bloc' => $this->blocRepository->find($blocId),
 //            'form' => $this->editeurRegistry->getTypeElement($element)->getForm(),
 //        ]);
-    }
+//    }
+
     #[Route('/{portfolioId}/edit/element/{id}/{col}', name: 'app_portfolio_perso_element_col')]
-    public function setColor(
+    public function setCol(
         ?int $portfolioId,
         ?int    $id,
         ?int $col,
     ): Response
     {
-        dd($portfolioId, $id, $col);
+//        dd($portfolioId, $id, $col);
         $element = $this->elementRepository->find($id);
         $element->setColonne('col-'.$col);
         $this->elementRepository->save($element);

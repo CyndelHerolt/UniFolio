@@ -54,6 +54,7 @@
 
                                 {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
                                     <div class="row g-4 my-4 p-2 justify-content-center align-items-center border border-2">
+                                    <div class="row g-2 justify-content-start align-items-center">
                                         {% for element in bloc.elements %}
                                             {% set abstractElement = get_abstract_element(element.type) %}
                                             <div class="{{ element.colonne }} border p-4">
@@ -99,6 +100,7 @@
                                                 </div>
                                             </div>
                                         {% endfor %}
+                                    </div>
                                         <div type="button" data-bs-toggle="offcanvas"
                                              data-bs-target="#offCanva{{ bloc.id }}"
                                              aria-controls="offCanva{{ bloc.id }}"
