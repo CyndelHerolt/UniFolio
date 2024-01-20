@@ -53,10 +53,39 @@
                                  id="content-{{ page.id }}" role="tabpanel" aria-labelledby="tab-{{ page.id }}">
 
                                 {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
-                                    <div class="row g-4 my-4 p-4 justify-content-center align-items-center border border-2">
+                                    <div class="row g-4 my-4 p-2 justify-content-center align-items-center border border-2">
                                         {% for element in bloc.elements %}
-                                            <div class="{{ element.colonne }}">
-                                                {% set abstractElement = get_abstract_element(element.type) %}
+                                            {% set abstractElement = get_abstract_element(element.type) %}
+                                            <div class="{{ element.colonne }} border p-4">
+                                                <div class="btn-group dropup">
+                                                    <button type="button" class="btn btn-light dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Cols ?</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="btn-group dropup">
+                                                    <button type="button" class="btn btn-light dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-columns-3"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 3}) }}">1/4</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                 {{ element_form_render(abstractElement) }}
                                                 <div class="element_actions">
                                                     <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">

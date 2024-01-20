@@ -147,6 +147,20 @@ class PortfolioPersoController extends AbstractController
 //            'form' => $this->editeurRegistry->getTypeElement($element)->getForm(),
 //        ]);
     }
+    #[Route('/{portfolioId}/edit/element/{id}/{col}', name: 'app_portfolio_perso_element_col')]
+    public function setColor(
+        ?int $portfolioId,
+        ?int    $id,
+        ?int $col,
+    ): Response
+    {
+        dd($portfolioId, $id, $col);
+        $element = $this->elementRepository->find($id);
+        $element->setColonne('col-'.$col);
+        $this->elementRepository->save($element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
 
     // méthode pour supprimer un element
     #[Route('/{portfolioId}/delete/element/{id}', name: 'app_portfolio_perso_delete_element')]
@@ -160,6 +174,7 @@ class PortfolioPersoController extends AbstractController
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
+
 
     #[Route('/new/page/{id}', name: 'app_portfolio_perso_new_page')]
     public function addPage(
