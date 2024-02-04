@@ -38,6 +38,10 @@ class AllTraceComponent extends BaseController
     #[LiveProp(writable: true)]
     public string $selectedOrdreValidation = '';
 
+
+    #[LiveProp(writable: true)]
+    public array $selectedTraces = [];
+
     #[LiveProp(writable: true)]
     /** @var Trace[] */
     public array $allTraces = [];
@@ -113,6 +117,19 @@ class AllTraceComponent extends BaseController
     public function changeOrdreValidation()
     {
         $this->selectedOrdreDate = '';
+        $this->allTraces = $this->getAllTrace();
+    }
+
+    #[LiveAction]
+    public function deleteSelectedTraces(): void
+    {
+        if ($this->selectedTraces === null) {
+            return;
+        }
+        foreach ($this->selectedTraces as $trace) {
+            $trace = $this->traceRepository->find($trace);
+            $this->traceRepository->remove($trace, true);
+        }
         $this->allTraces = $this->getAllTrace();
     }
 

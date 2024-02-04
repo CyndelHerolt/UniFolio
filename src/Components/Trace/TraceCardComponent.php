@@ -10,6 +10,7 @@ namespace App\Components\Trace;
 use App\Entity\Trace;
 use App\Repository\TraceRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -22,7 +23,7 @@ class TraceCardComponent
     public int $id;
 
     public function __construct(
-        public TraceRepository $traceRepository,
+        private TraceRepository $traceRepository,
     ) {
     }
 
