@@ -20,7 +20,7 @@ class ParagrapheType extends ElementType
                 'label' => 'Contenu du paragraphe',
                 'attr' => [
                     'class' => 'form-control',
-                    'rows' => 5,
+                    'rows' => 3,
                 ],
             ]);
     }

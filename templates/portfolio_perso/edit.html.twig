@@ -54,57 +54,57 @@
 
                                 {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
                                     <div class="row g-4 my-4 p-2 justify-content-center align-items-center border border-2">
-                                    <div class="row g-2 justify-content-start align-items-center">
-                                        {% for element in bloc.elements %}
-                                            {% set abstractElement = get_abstract_element(element.type) %}
-                                            <div class="{{ element.colonne }} border p-4">
-                                                <div class="btn-group dropup">
-                                                    <button type="button" class="btn btn-light dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-cog"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Cols ?</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="btn-group dropup">
-                                                    <button type="button" class="btn btn-light dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-columns-3"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 3}) }}">1/4</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item"
-                                                               href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                {{ element_form_render(abstractElement) }}
-                                                <div class="element_actions">
-                                                    <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
-                                                        <button class="btn btn-danger">
-                                                            <i class="fa fa-minus-square"></i>
+                                        <div class="row g-2 justify-content-start align-items-center">
+                                            {% for element in bloc.elements %}
+                                                {% set abstractElement = get_abstract_element(element.type) %}
+                                                <div class="{{ element.colonne }} border p-4">
+                                                    <div class="btn-group dropup">
+                                                        <button type="button" class="btn btn-light dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa fa-cog"></i>
                                                         </button>
-                                                    </a>
-                                                    <button class="btn btn-success">
-                                                        <i class="fa fa-check-square"></i>
-                                                    </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#">Cols ?</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn-group dropup">
+                                                        <button type="button" class="btn btn-light dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa fa-columns-3"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 3}) }}">1/4</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    {{ element_form_render(abstractElement) }}
+                                                    <div class="element_actions">
+                                                        <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-minus-square"></i>
+                                                            </button>
+                                                        </a>
+                                                        <button class="btn btn-success">
+                                                            <i class="fa fa-check-square"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
+                                            {% endfor %}
+                                        </div>
                                         <div type="button" data-bs-toggle="offcanvas"
                                              data-bs-target="#offCanva{{ bloc.id }}"
                                              aria-controls="offCanva{{ bloc.id }}"
-                                             class="col-2 border">
+                                             class="col-6 border">
                                             <i class="fas fa-plus-circle"></i>
                                             <br>
                                             <small class="text-muted">
