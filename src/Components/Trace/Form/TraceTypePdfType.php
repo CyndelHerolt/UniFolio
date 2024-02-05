@@ -142,11 +142,15 @@ class TraceTypePdfType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir un contexte',
                     ]),
+                    new Length([
+                        'max' => 100,
+                        'maxMessage' => 'Le contexte ne peut pas dépasser {{ limit }} caractères',
+                    ]),
                 ],
                 'label' => 'Contexte',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => "form-control", 'placeholder' => '...'],
-                'help' => 'Le contexte dans lequel vous avez réalisé cette trace (SAE, projet personnel, en groupe, en solo ...)',
+                'help' => 'SAE, projet personnel, en groupe, en solo ... 100 caractères maximum',
                 'required' => true,
             ])
             //----------------------------------------------------------------
