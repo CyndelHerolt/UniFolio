@@ -193,4 +193,19 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolio->getId()]);
     }
 
+    #[Route('/{portfolioId}/save/{id}', name: 'app_portfolio_perso_save_element')]
+    public function saveElement(
+        ?int    $portfolioId,
+        ?int $id,
+        Request $request,
+    ): Response
+    {
+        $element = $this->elementRepository->find($id);
+
+        $typeElement = $this->editeurRegistry->getTypeElement($element->getType());
+//        dd($request->request->all());
+        $typeElement->sauvegarde($typeElement, $request, $element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
 }

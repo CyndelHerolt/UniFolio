@@ -20,6 +20,7 @@ class ImageType extends ElementType
                 'attr' => [
                     'class' => 'form-control',
                 ],
+                'help' => 'L\'image doit être au format .jpg, .jpeg, .png ou .gif'
             ]);
     }
 

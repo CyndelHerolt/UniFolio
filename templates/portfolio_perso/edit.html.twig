@@ -57,48 +57,64 @@
                                         <div class="row g-2 justify-content-start align-items-center">
                                             {% for element in bloc.elements %}
                                                 {% set abstractElement = get_abstract_element(element.type) %}
-                                                <div class="{{ element.colonne }} border p-4">
-                                                    <div class="btn-group dropup">
-                                                        <button type="button" class="btn btn-light dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="fa fa-cog"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="#">Cols ?</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="btn-group dropup">
-                                                        <button type="button" class="btn btn-light dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="fa fa-columns-3"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 3}) }}">1/4</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item"
-                                                                   href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    {{ element_form_render(abstractElement) }}
-                                                    <div class="element_actions">
+
+                                                    <div class="{{ element.colonne }} border p-4">
+                                                        <div class="btn-group dropup">
+                                                            <button type="button" class="btn btn-light dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fa fa-cog"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="#">params size, color
+                                                                        ...</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="btn-group dropup">
+                                                            <button type="button" class="btn btn-light dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fa fa-columns-3"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item"
+                                                                       href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 3}) }}">1/4</a>
+                                                                </li>
+                                                                <li><a class="dropdown-item"
+                                                                       href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
+                                                                </li>
+                                                                <li><a class="dropdown-item"
+                                                                       href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
+                                                                </li>
+                                                                <li><a class="dropdown-item"
+                                                                       href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                         <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
                                                             <button class="btn btn-danger">
                                                                 <i class="fa fa-minus-square"></i>
                                                             </button>
                                                         </a>
-                                                        <button class="btn btn-success">
-                                                            <i class="fa fa-check-square"></i>
-                                                        </button>
+
+
+                                                        {% if element.edit == true %}
+                                                            <form action="{{ path('app_portfolio_perso_save_element', {'id': element.id, 'portfolioId': portfolio.id}) }}"
+                                                                  method="post">
+                                                                {{ element_form_render(abstractElement) }}
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="fa fa-check-square"></i>
+                                                                </button>
+                                                            </form>
+                                                        {% else %}
+                                                            {% if "Paragraphe" in element.type %}
+                                                                <p>{{ element.contenu }}</p>
+                                                            {% elseif "Image" in element.type %}
+                                                                <div class="{{ element.colonne }} border p-4">
+                                                                    <img src="{{ asset('uploads/' ~ element.contenu) }}"
+                                                                         alt="image" class="img-fluid">
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
                                                     </div>
-                                                </div>
                                             {% endfor %}
                                         </div>
                                         <div type="button" data-bs-toggle="offcanvas"

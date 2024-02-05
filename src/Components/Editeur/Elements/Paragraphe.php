@@ -4,10 +4,12 @@ namespace App\Components\Editeur\Elements;
 
 
 use App\Components\Editeur\Form\ParagrapheType;
+use App\Entity\Element;
 use App\Repository\ElementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Twig\Environment;
 
 class Paragraphe extends AbstractElement
 {
@@ -21,6 +23,12 @@ class Paragraphe extends AbstractElement
     private string $texte;
     public string $name = 'paragraphe';
     public string $block_name = 'type_paragraphe';
+
+    public function __construct(ElementRepository $elementRepository, Environment $twig)
+    {
+        parent::__construct($elementRepository, $twig);
+        $this->elementRepository = $elementRepository;
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -36,12 +44,17 @@ class Paragraphe extends AbstractElement
         parent::create($typeElement, $bloc);
     }
 
-    public
-    function sauvegarde(
+    public function sauvegarde(
         AbstractElement $element,
-        Request         $request,
+        Request $request,
+        Element $elementEntity,
     )
     {
+        $data = $request->request->all();
+        $contenu = $data['paragraphe']['contenu'];
 
+        $elementEntity->setEdit(false);
+        $elementEntity->setContenu($contenu);
+        $this->elementRepository->save($elementEntity);
     }
 }

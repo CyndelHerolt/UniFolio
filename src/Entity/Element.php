@@ -47,6 +47,9 @@ class Element
     #[ORM\Column(length: 50)]
     private ?string $colonne = 'col-12';
 
+    #[ORM\Column]
+    private ?bool $edit = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -168,6 +171,18 @@ class Element
     public function setColonne(string $colonne): static
     {
         $this->colonne = $colonne;
+
+        return $this;
+    }
+
+    public function isEdit(): ?bool
+    {
+        return $this->edit;
+    }
+
+    public function setEdit(bool $edit): static
+    {
+        $this->edit = $edit;
 
         return $this;
     }

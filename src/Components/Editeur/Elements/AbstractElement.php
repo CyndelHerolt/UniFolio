@@ -69,7 +69,8 @@ abstract class AbstractElement
 
     public function sauvegarde(
         AbstractElement $element,
-        Request         $request,
+        Request $request,
+        Element $elementEntity,
     )
     {
 

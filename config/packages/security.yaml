@@ -19,6 +19,8 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      remember_me:
+        lifetime: 3600
       access_denied_handler: App\Security\AccessDeniedHandler
       lazy: true
       provider: app_user_provider
