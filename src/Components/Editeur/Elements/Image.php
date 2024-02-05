@@ -48,20 +48,37 @@ class Image extends AbstractElement
         Element $elementEntity,
     )
     {
-        $data = $request->request->all();
-        $contenu = $data['image']['contenu'];
+        if ($request->files->get('image') !== null) {
+            $imageFile = $request->files->get('image')['contenu'];
 
-        dd($request->files);
+            // TODO: upload le fichier sur le serveur + tests formats et poids
+            $max_size = 2 * 1024 * 1024; // 2 Mo en octets
+            if ($imageFile->getSize() > $max_size) {
+                $error = 'Le fichier doit faire 2mo maximum';
+                return array('success' => false, 'error' => $error);
+            }
 
-        // TODO: upload le fichier sur le serveur + tests formats et poids
-        $max_size = 2 * 1024 * 1024; // 2 Mo en octets
-        // Récupérer le fichier image
+            $fileName = uniqid() . '.' . $imageFile->guessExtension();
+            //Vérifier si le fichier est au bon format
+            if (in_array($imageFile->guessExtension(), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'])) {
+                $imageFile->move($_ENV['PATH_FILES'], $fileName);
+                $contenu = $_ENV['SRC_FILES'] . '/' . $fileName;
+            } else {
+                $error = 'Le fichier n\'est pas au bon format - formats acceptés : jpg, jpeg, png, gif, svg, webp';
+                return array('success' => false, 'error' => $error);
+            }
+            if (empty($contenu)) {
+                $error = 'Veuillez ajouter un fichier';
+                return array('success' => false, 'error' => $error);
+            }
 
 
-
-        $elementEntity->setContenu($contenu);
-        $elementEntity->setEdit(false);
-        $this->elementRepository->save($elementEntity);
+            $elementEntity->setContenu($contenu);
+            $elementEntity->setEdit(false);
+            $this->elementRepository->save($elementEntity);
+        } else {
+            $error = 'Veuillez ajouter un fichier';
+            return array('success' => false, 'error' => $error);
+        }
     }
-
 }

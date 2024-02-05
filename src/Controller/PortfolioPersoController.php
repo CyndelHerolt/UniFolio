@@ -155,7 +155,6 @@ class PortfolioPersoController extends AbstractController
         ?int $col,
     ): Response
     {
-//        dd($portfolioId, $id, $col);
         $element = $this->elementRepository->find($id);
         $element->setColonne('col-'.$col);
         $this->elementRepository->save($element);

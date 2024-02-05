@@ -7,6 +7,7 @@
 namespace App\Entity;
 
 use App\Repository\ElementRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ElementRepository::class)]
@@ -20,7 +21,7 @@ class Element
     #[ORM\Column]
     private ?int $ordre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $contenu = '';
 
     #[ORM\Column(length: 255)]
