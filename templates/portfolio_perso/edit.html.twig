@@ -61,26 +61,26 @@
                                             </div>
                                             <div class="offcanvas-body">
                                                 <h6>Alignements</h6>
-                                                <a href="#">
+                                                <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolio.id, 'id': bloc.id, 'justify': 'justify-content-start'}) }}">
                                                     <button class="btn"><i
                                                                 class="fa-solid fa-objects-align-left fa-xl"></i>
                                                     </button>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolio.id, 'id': bloc.id, 'justify': 'justify-content-end'}) }}">
                                                     <button class="btn"><i
                                                                 class="fa-solid fa-objects-align-right fa-xl"></i>
                                                     </button>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolio.id, 'id': bloc.id, 'justify': 'justify-content-around'}) }}">
                                                     <button class="btn"><i
                                                                 class="fa-solid fa-objects-align-center-horizontal fa-xl"></i>
                                                     </button>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolio.id, 'id': bloc.id, 'direction': 'flex-row'}) }}">
                                                     <button class="btn"><i class="fa-solid fa-objects-column fa-xl"></i><i
                                                                 class="fa-solid fa-arrow-right fa-xs"></i></button>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolio.id, 'id': bloc.id, 'direction': 'flex-column'}) }}">
                                                     <button class="btn"><i class="fa-solid fa-objects-column fa-xl"></i><i
                                                                 class="fa-solid fa-arrow-down fa-xs"></i></button>
                                                 </a>

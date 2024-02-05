@@ -119,34 +119,10 @@ class PortfolioPersoController extends AbstractController
         $bloc = $this->blocRepository->find($blocId);
 
         $typeElement = $this->editeurRegistry->getTypeElement($element);
-//        dd($typeElement);
         $typeElement->create($element, $bloc);
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $id]);
     }
-
-//    #[Route('/{portfolioId}/edit/element/{element}/{blocId}', name: 'app_portfolio_perso_edit_element')]
-//    public function editElement(
-//        ?int    $blocId,
-//        ?string $element,
-//        Request $request,
-//    ): Response
-//    {
-//        $bloc = $this->blocRepository->find($blocId);
-//        $typeElement = $this->editeurRegistry->getTypeElement($element);
-
-//        $form = $this->createForm($typeElement::FORM, $typeElement);
-//        dd($form);
-
-//        dd($request->request->all());
-
-//        return new Response('ok');
-//        return $this->render('portfolio_perso/edit_element.html.twig', [
-//            'element' => $element,
-//            'bloc' => $this->blocRepository->find($blocId),
-//            'form' => $this->editeurRegistry->getTypeElement($element)->getForm(),
-//        ]);
-//    }
 
     #[Route('/{portfolioId}/edit/element/{id}/{col}', name: 'app_portfolio_perso_element_col')]
     public function setCol(
@@ -158,6 +134,34 @@ class PortfolioPersoController extends AbstractController
         $element = $this->elementRepository->find($id);
         $element->setColonne('col-'.$col);
         $this->elementRepository->save($element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/edit/bloc/{id}/{justify}', name: 'app_portfolio_perso_bloc_justify')]
+    public function setJustify(
+        ?int $portfolioId,
+        ?int    $id,
+        ?string $justify
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($id);
+        $bloc->setJustify($justify);
+        $this->blocRepository->save($bloc);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/edit/bloc/{id}/{direction}', name: 'app_portfolio_perso_bloc_direction')]
+    public function setDirection(
+        ?int $portfolioId,
+        ?int    $id,
+        ?string $direction
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($id);
+        $bloc->setDirection($direction);
+        $this->blocRepository->save($bloc);
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
