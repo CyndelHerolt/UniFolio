@@ -25,6 +25,8 @@ abstract class AbstractElement
 
     public array $options = [];
 
+    public int $id;
+
     public function __construct(
         private ElementRepository $elementRepository,
         private Environment $twig,

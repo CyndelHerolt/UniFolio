@@ -51,6 +51,15 @@ class Element
     #[ORM\Column]
     private ?bool $edit = true;
 
+    #[ORM\Column(length: 255)]
+    private ?string $fontSize = '16px';
+
+    #[ORM\Column(length: 255)]
+    private ?string $fontWeight = '200';
+
+    #[ORM\Column(length: 2)]
+    private ?string $titleLvl = 'h1';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,6 +193,42 @@ class Element
     public function setEdit(bool $edit): static
     {
         $this->edit = $edit;
+
+        return $this;
+    }
+
+    public function getFontSize(): ?string
+    {
+        return $this->fontSize;
+    }
+
+    public function setFontSize(string $fontSize): static
+    {
+        $this->fontSize = $fontSize;
+
+        return $this;
+    }
+
+    public function getFontWeight(): ?string
+    {
+        return $this->fontWeight;
+    }
+
+    public function setFontWeight(string $fontWeight): static
+    {
+        $this->fontWeight = $fontWeight;
+
+        return $this;
+    }
+
+    public function getTitleLvl(): ?string
+    {
+        return $this->titleLvl;
+    }
+
+    public function setTitleLvl(string $titleLvl): static
+    {
+        $this->titleLvl = $titleLvl;
 
         return $this;
     }

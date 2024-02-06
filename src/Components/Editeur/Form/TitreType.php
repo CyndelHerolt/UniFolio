@@ -2,10 +2,10 @@
 
 namespace App\Components\Editeur\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ParagrapheType extends ElementType
+class TitreType extends ElementType
 {
     public $colonne;
     public $contenu;
@@ -14,11 +14,10 @@ class ParagrapheType extends ElementType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('contenu', TextareaType::class, [
-                'label' => 'Paragraphe',
+            ->add('contenu', TextType::class, [
+                'label' => 'Titre',
                 'attr' => [
                     'class' => 'form-control',
-                    'rows' => 3,
                 ],
             ]);
     }

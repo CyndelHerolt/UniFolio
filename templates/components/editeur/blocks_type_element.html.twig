@@ -1,7 +1,23 @@
 {% block type_paragraphe %}
-    <h1>hello paragraphe</h1>
+    <p
+            {% if elementEntity.font_size is not defined %}
+                style="font-size: {{ elementEntity.bloc.fontSize }}"
+            {% else %}
+                style="font-size: {{ elementEntity.font_size }}"
+            {% endif %}
+    >
+        {{ elementEntity.contenu }}
+    </p>
 {% endblock %}
 
 {% block type_image %}
-    <h1>hello image</h1>
+    <div>
+        <img src="{{ asset(elementEntity.contenu) }}" alt="image" class="img-fluid">
+    </div>
+{% endblock %}
+
+{% block type_titre %}
+    <{{ elementEntity.titleLvl }}>
+        {{ elementEntity.contenu }}
+    </{{ elementEntity.titleLvl }}>
 {% endblock %}

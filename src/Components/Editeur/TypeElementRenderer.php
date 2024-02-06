@@ -3,6 +3,7 @@
 namespace App\Components\Editeur;
 
 use App\Components\Editeur\Elements\AbstractElement;
+use App\Entity\Element;
 use Twig\Environment;
 use Twig\TemplateWrapper;
 
@@ -16,19 +17,20 @@ class TypeElementRenderer
         $this->template = 'components/editeur/blocks_type_element.html.twig';
     }
 
-    public function render(
-        AbstractElement $element,
-        int|string|null $ordre = 0,
-        int $loop = 0
-    ): string
-    {
-        $template = $this->load();
+public function render(
+    AbstractElement $element,
+    Element $elementEntity
+): string
+{
+    $template = $this->load();
 
-        $params = $element->getOptions();
-        $params['block_name'] = $element->block_name;
+    $params = $element->getOptions();
+    $params['block_name'] = $element->block_name;
+    $params['element'] = $element;
+    $params['elementEntity'] = $elementEntity;
 
-        return $template->renderBlock($params['block_name'], $params);
-    }
+    return $template->renderBlock($params['block_name'], $params);
+}
 
     private function load(): TemplateWrapper
     {

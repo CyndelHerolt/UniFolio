@@ -138,7 +138,7 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
-    #[Route('/{portfolioId}/edit/bloc/{id}/{justify}', name: 'app_portfolio_perso_bloc_justify')]
+    #[Route('/{portfolioId}/edit/bloc/{id}/justify/{justify}', name: 'app_portfolio_perso_bloc_justify')]
     public function setJustify(
         ?int $portfolioId,
         ?int    $id,
@@ -152,7 +152,7 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
-    #[Route('/{portfolioId}/edit/bloc/{id}/{direction}', name: 'app_portfolio_perso_bloc_direction')]
+    #[Route('/{portfolioId}/edit/bloc/{id}/direction/{direction}', name: 'app_portfolio_perso_bloc_direction')]
     public function setDirection(
         ?int $portfolioId,
         ?int    $id,
@@ -166,7 +166,20 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
-    // méthode pour supprimer un element
+    #[Route('/{portfolioId}/edit/bloc/{id}/fontSize/{fontSize}', name: 'app_portfolio_perso_bloc_font_size')]
+    public function setFontSize(
+        ?int $portfolioId,
+        ?int    $id,
+        ?string $fontSize
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($id);
+        $bloc->setFontSize($fontSize);
+        $this->blocRepository->save($bloc);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
     #[Route('/{portfolioId}/delete/element/{id}', name: 'app_portfolio_perso_delete_element')]
     public function delete(
         ?int $id,

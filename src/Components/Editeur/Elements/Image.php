@@ -51,7 +51,6 @@ class Image extends AbstractElement
         if ($request->files->get('image') !== null) {
             $imageFile = $request->files->get('image')['contenu'];
 
-            // TODO: upload le fichier sur le serveur + tests formats et poids
             $max_size = 2 * 1024 * 1024; // 2 Mo en octets
             if ($imageFile->getSize() > $max_size) {
                 $error = 'Le fichier doit faire 2mo maximum';
@@ -81,4 +80,5 @@ class Image extends AbstractElement
             return array('success' => false, 'error' => $error);
         }
     }
+
 }
