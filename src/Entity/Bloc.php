@@ -25,7 +25,7 @@ class Bloc
     #[ORM\ManyToMany(targetEntity: PagePerso::class, inversedBy: 'blocs')]
     private Collection $pages;
 
-    #[ORM\OneToMany(mappedBy: 'bloc', targetEntity: Element::class)]
+    #[ORM\OneToMany(mappedBy: 'bloc', targetEntity: Element::class, cascade: ['persist', 'remove'])]
     private Collection $elements;
 
     #[ORM\Column(length: 255)]
@@ -35,13 +35,13 @@ class Bloc
     private ?string $direction = "flex-row";
 
     #[ORM\Column(length: 255)]
-    private ?string $color = null;
+    private ?string $color = 'black';
 
     #[ORM\Column(length: 255)]
-    private ?string $bg_color = null;
+    private ?string $bg_color = 'transparent';
 
     #[ORM\Column(length: 255)]
-    private ?string $font_size = null;
+    private ?string $font_size = '16px';
 
     public function __construct()
     {

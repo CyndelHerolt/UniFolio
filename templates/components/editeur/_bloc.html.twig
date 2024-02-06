@@ -1,7 +1,30 @@
-<div class="row m-4 p-2 border border-2">
-    <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasScrolling{{ bloc.id }}" aria-controls="offcanvasScrolling">
-        <i class="fa fa-cog"></i></button>
+<div class="row m-4 border border-2 bloc">
+    <div class="bloc-header">
+        <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling{{ bloc.id }}" aria-controls="offcanvasScrolling">
+            <i class="fa fa-cog"></i></button>
+        {% if bloc.ordre != 1 %}
+            <a href="{{ path('app_portfolio_perso_bloc_up', {'portfolioId': portfolio.id, 'id': bloc.id, 'pageId': page.id}) }}">
+                <button class="btn btn-light">
+                    <i class="fa fa-arrow-up"></i>
+                </button>
+            </a>
+        {% endif %}
+        {% if bloc.ordre != page.blocs|length %}
+            <a href="{{ path('app_portfolio_perso_bloc_down', {'portfolioId': portfolio.id, 'id': bloc.id, 'pageId': page.id}) }}">
+                <button class="btn btn-light">
+                    <i class="fa fa-arrow-down"></i>
+                </button>
+            </a>
+        {% endif %}
+        <a href="{{ path('app_portfolio_perso_delete_bloc', {'id': bloc.id, 'portfolioId': portfolio.id}) }}">
+            <button class="btn btn-danger">
+                <i class="fa fa-minus-square"></i>
+            </button>
+        </a>
+    </div>
+
+
     <div class="offcanvas offcanvas-start" data-bs-scroll="true"
          data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling{{ bloc.id }}"
          aria-labelledby="offcanvasScrollingLabel">
@@ -78,7 +101,7 @@
         {% for element in bloc.elements %}
             {% set abstractElement = get_abstract_element(element.type) %}
 
-            <div class="{{ element.colonne }} border p-4">
+            <div class="{{ element.colonne }} p-4">
                 <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasScrolling{{ element.id }}{{ element.bloc.id }}"
                         aria-controls="offcanvasScrolling"><i class="fa fa-cog"></i></button>
@@ -104,7 +127,16 @@
                         <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
                     </div>
                 </div>
-
+                <a href="">
+                    <button class="btn btn-light">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                </a>
+                <a href="">
+                    <button class="btn btn-light">
+                        <i class="fa fa-arrow-down"></i>
+                    </button>
+                </a>
                 <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
                     <button class="btn btn-danger">
                         <i class="fa fa-minus-square"></i>
@@ -139,9 +171,6 @@
             Ajouter un nouvel élément
         </small>
     </div>
-    <button class="btn btn-danger">
-        <i class="fa fa-minus-square"></i>
-    </button>
 </div>
 
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"

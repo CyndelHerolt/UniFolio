@@ -11,6 +11,7 @@ use App\Classes\DataUserSession;
 use App\Components\Editeur\EditeurRegistry;
 use App\Components\Editeur\Form\ElementType;
 use App\Entity\Bloc;
+use App\Entity\Page;
 use App\Entity\PagePerso;
 use App\Entity\PortfolioPerso;
 use App\Form\PortfolioPersoType;
@@ -102,7 +103,7 @@ class PortfolioPersoController extends AbstractController
         $page = $this->pagePersoRepository->find($id);
 
         $bloc = new Bloc();
-        $bloc->setOrdre(1);
+        $bloc->setOrdre(count($page->getBlocs()) + 1);
         $bloc->addPage($page);
         $this->blocRepository->save($bloc);
 
@@ -127,20 +128,70 @@ class PortfolioPersoController extends AbstractController
     #[Route('/{portfolioId}/edit/element/{id}/{col}', name: 'app_portfolio_perso_element_col')]
     public function setCol(
         ?int $portfolioId,
-        ?int    $id,
+        ?int $id,
         ?int $col,
     ): Response
     {
         $element = $this->elementRepository->find($id);
-        $element->setColonne('col-'.$col);
+        $element->setColonne('col-' . $col);
         $this->elementRepository->save($element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/edit/bloc/{id}/up/{pageId}', name: 'app_portfolio_perso_bloc_up')]
+    public function upBloc(
+        ?int $portfolioId,
+        ?int $id,
+        ?int $pageId,
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($id);
+        $ordre = $bloc->getOrdre();
+        $page = $this->pagePersoRepository->find($pageId);
+        if ($ordre > 1) {
+            $blocs = $this->blocRepository->findByPage($page);
+            foreach ($blocs as $b) {
+                if ($b->getOrdre() == $ordre - 1) {
+                    $b->setOrdre($b->getOrdre() + 1);
+                    $this->blocRepository->save($b);
+                }
+            }
+            $bloc->setOrdre($ordre - 1);
+            $this->blocRepository->save($bloc);
+        }
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/edit/bloc/{id}/down/{pageId}', name: 'app_portfolio_perso_bloc_down')]
+    public function downBloc(
+        ?int $portfolioId,
+        ?int $id,
+        ?int $pageId,
+    ): Response
+    {
+        $bloc = $this->blocRepository->find($id);
+        $ordre = $bloc->getOrdre();
+        $page = $this->pagePersoRepository->find($pageId);
+        if ($ordre != count($page->getBlocs())) {
+            $blocs = $this->blocRepository->findByPage($page);
+            foreach ($blocs as $b) {
+                if ($b->getOrdre() == $ordre + 1) {
+                    $b->setOrdre($b->getOrdre() - 1);
+                    $this->blocRepository->save($b);
+                }
+            }
+            $bloc->setOrdre($ordre + 1);
+            $this->blocRepository->save($bloc);
+        }
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
     #[Route('/{portfolioId}/edit/bloc/{id}/justify/{justify}', name: 'app_portfolio_perso_bloc_justify')]
     public function setJustify(
-        ?int $portfolioId,
+        ?int    $portfolioId,
         ?int    $id,
         ?string $justify
     ): Response
@@ -154,7 +205,7 @@ class PortfolioPersoController extends AbstractController
 
     #[Route('/{portfolioId}/edit/bloc/{id}/direction/{direction}', name: 'app_portfolio_perso_bloc_direction')]
     public function setDirection(
-        ?int $portfolioId,
+        ?int    $portfolioId,
         ?int    $id,
         ?string $direction
     ): Response
@@ -168,7 +219,7 @@ class PortfolioPersoController extends AbstractController
 
     #[Route('/{portfolioId}/edit/bloc/{id}/fontSize/{fontSize}', name: 'app_portfolio_perso_bloc_font_size')]
     public function setFontSize(
-        ?int $portfolioId,
+        ?int    $portfolioId,
         ?int    $id,
         ?string $fontSize
     ): Response
@@ -181,13 +232,25 @@ class PortfolioPersoController extends AbstractController
     }
 
     #[Route('/{portfolioId}/delete/element/{id}', name: 'app_portfolio_perso_delete_element')]
-    public function delete(
+    public function deleteElement(
         ?int $id,
         ?int $portfolioId
     )
     {
         $element = $this->elementRepository->find($id);
         $this->elementRepository->delete($element);
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/delete/bloc/{id}', name: 'app_portfolio_perso_delete_bloc')]
+    public function deleteBloc(
+        ?int $id,
+        ?int $portfolioId
+    )
+    {
+        $bloc = $this->blocRepository->find($id);
+        $this->blocRepository->remove($bloc);
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
@@ -212,14 +275,13 @@ class PortfolioPersoController extends AbstractController
     #[Route('/{portfolioId}/save/{id}', name: 'app_portfolio_perso_save_element')]
     public function saveElement(
         ?int    $portfolioId,
-        ?int $id,
+        ?int    $id,
         Request $request,
     ): Response
     {
         $element = $this->elementRepository->find($id);
 
         $typeElement = $this->editeurRegistry->getTypeElement($element->getType());
-//        dd($request->request->all());
         $typeElement->sauvegarde($typeElement, $request, $element);
 
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
