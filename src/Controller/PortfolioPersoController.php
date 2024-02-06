@@ -139,6 +139,56 @@ class PortfolioPersoController extends AbstractController
         return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
     }
 
+    #[Route('/{portfolioId}/edit/element/{id}/up/{blocId}', name: 'app_portfolio_perso_element_up')]
+    public function upElement(
+        ?int $portfolioId,
+        ?int $id,
+        ?int $blocId,
+    ): Response
+    {
+        $element = $this->elementRepository->find($id);
+        $ordre = $element->getOrdre();
+        $bloc = $this->blocRepository->find($blocId);
+        if ($ordre > 1) {
+            $elements = $this->elementRepository->findBy(['bloc' => $bloc]);
+            foreach ($elements as $e) {
+                if ($e->getOrdre() == $ordre - 1) {
+                    $e->setOrdre($e->getOrdre() + 1);
+                    $this->elementRepository->save($e);
+                }
+            }
+            $element->setOrdre($ordre - 1);
+            $this->elementRepository->save($element);
+        }
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
+    #[Route('/{portfolioId}/edit/element/{id}/down/{blocId}', name: 'app_portfolio_perso_element_down')]
+    public function downElement(
+        ?int $portfolioId,
+        ?int $id,
+        ?int $blocId,
+    ): Response
+    {
+        $element = $this->elementRepository->find($id);
+        $ordre = $element->getOrdre();
+        $bloc = $this->blocRepository->find($blocId);
+        if ($ordre != count($bloc->getElements())) {
+            $elements = $this->elementRepository->findBy(['bloc' => $bloc]);
+            foreach ($elements as $e) {
+                if ($e->getOrdre() == $ordre + 1) {
+                    $e->setOrdre($e->getOrdre() - 1);
+                    $this->elementRepository->save($e);
+                }
+            }
+            $element->setOrdre($ordre + 1);
+            $this->elementRepository->save($element);
+        }
+
+        return $this->redirectToRoute('app_portfolio_perso_edit', ['id' => $portfolioId]);
+    }
+
     #[Route('/{portfolioId}/edit/bloc/{id}/up/{pageId}', name: 'app_portfolio_perso_bloc_up')]
     public function upBloc(
         ?int $portfolioId,

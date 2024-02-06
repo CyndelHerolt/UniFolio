@@ -1,4 +1,4 @@
-<div class="row m-4 border border-2 bloc">
+<div class="row m-4 border bloc">
     <div class="bloc-header">
         <button class="btn btn-light" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasScrolling{{ bloc.id }}" aria-controls="offcanvasScrolling">
@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="row g-2 {{ bloc.justify }} {{ bloc.direction }} align-items-center">
-        {% for element in bloc.elements %}
+        {% for element in bloc.elements|sort((a, b) => a.ordre <=> b.ordre) %}
             {% set abstractElement = get_abstract_element(element.type) %}
 
             <div class="{{ element.colonne }} p-4">
@@ -125,24 +125,31 @@
                         <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 6}) }}">1/2</a>
                         <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 9}) }}">3/4</a>
                         <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolio.id, 'id': element.id, 'col': 12}) }}">1/1</a>
+                        <hr>
+                    {{ element_params_render(abstractElement, element, portfolio) }}
                     </div>
+
                 </div>
-                <a href="">
-                    <button class="btn btn-light">
-                        <i class="fa fa-arrow-up"></i>
-                    </button>
-                </a>
-                <a href="">
-                    <button class="btn btn-light">
-                        <i class="fa fa-arrow-down"></i>
-                    </button>
-                </a>
+
+                {% if element.ordre != 1 %}
+                    <a href="{{ path('app_portfolio_perso_element_up', {'portfolioId': portfolio.id, 'id': element.id, 'blocId': bloc.id}) }}">
+                        <button class="btn btn-light">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                    </a>
+                {% endif %}
+                {% if element.ordre != bloc.elements|length %}
+                    <a href="{{ path('app_portfolio_perso_element_down', {'portfolioId': portfolio.id, 'id': element.id, 'blocId': bloc.id}) }}">
+                        <button class="btn btn-light">
+                            <i class="fa fa-arrow-down"></i>
+                        </button>
+                    </a>
+                {% endif %}
                 <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolio.id}) }}">
                     <button class="btn btn-danger">
                         <i class="fa fa-minus-square"></i>
                     </button>
                 </a>
-
 
                 {% if element.edit == true %}
                     <form action="{{ path('app_portfolio_perso_save_element', {'id': element.id, 'portfolioId': portfolio.id}) }}"

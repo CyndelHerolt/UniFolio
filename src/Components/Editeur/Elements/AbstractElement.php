@@ -63,7 +63,7 @@ abstract class AbstractElement
     {
         $element = new Element();
         $element->setType($typeElement);
-        $element->setOrdre(1);
+        $element->setOrdre(count($bloc->getElements()) + 1);
         $element->setBloc($bloc);
 
         $this->elementRepository->save($element);
