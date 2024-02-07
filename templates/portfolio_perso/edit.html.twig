@@ -11,64 +11,66 @@
             </ol>
         </nav>
 
-        <section class="row">
-            <div class="row">
-                <h2 class="col-8">Edition d'un nouveau portfolio personnel</h2>
-            </div>
-            <aside class="col-2 g-4 border">
-                {{ form_start(form) }}
-                {{ form_row(form.intitule) }}
-                {{ form_row(form.visibilite) }}
-                {{ form_end(form) }}
-                <hr>
-                <a href="{{ path('app_portfolio_perso_new_page', {'id': portfolio.id}) }}">
-                    <button class="btn btn-primary">
-                        Ajouter une page
-                    </button>
-                </a>
-            </aside>
+        {{ component('PortfolioPersoComponent', {'portfolio': portfolio}) }}
+{#        <section class="row">#}
+{#            <div class="row">#}
+{#                <h2 class="col-8">Edition d'un nouveau portfolio personnel</h2>#}
+{#            </div>#}
+{#            <aside class="col-2 g-4 border">#}
+{#                {{ form_start(form) }}#}
+{#                {{ form_row(form.intitule) }}#}
+{#                {{ form_row(form.visibilite) }}#}
+{#                {{ form_end(form) }}#}
+{#                <hr>#}
+{#                <a href="{{ path('app_portfolio_perso_new_page', {'id': portfolio.id}) }}">#}
+{#                    <button class="btn btn-primary">#}
+{#                        Ajouter une page#}
+{#                    </button>#}
+{#                </a>#}
+{#            </aside>#}
 
-            <article class="col-10 g-4">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    {% for page in pages %}
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if loop.first %}active{% endif %}" id="tab-{{ page.id }}"
-                               data-bs-toggle="tab" href="#content-{{ page.id }}" role="tab"
-                               aria-controls="content-{{ page.id }}" aria-selected="true">{{ page.id }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+{#            <article class="col-10 g-4">#}
+{#                <ul class="nav nav-tabs" id="myTab" role="tablist">#}
+{#                    {% for page in pages %}#}
+{#                        <li class="nav-item" role="presentation">#}
+{#                            <a class="nav-link {% if loop.first %}active{% endif %}" id="tab-{{ page.id }}"#}
+{#                               data-bs-toggle="tab" href="#content-{{ page.id }}" role="tab"#}
+{#                               aria-controls="content-{{ page.id }}" aria-selected="true">{{ page.id }}</a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
 
-                <div class="border">
-                    <div class="tab-content" id="myTabContent">
-                        {% for page in pages %}
-                            <div class="tab-pane fade m-2 {% if loop.first %}show active{% endif %}"
-                                 id="content-{{ page.id }}" role="tabpanel" aria-labelledby="tab-{{ page.id }}">
+{#                <div class="border">#}
+{#                    <div class="tab-content" id="myTabContent">#}
+{#                        {% for page in pages %}#}
+{#                            <div class="tab-pane fade m-2 {% if loop.first %}show active{% endif %}"#}
+{#                                 id="content-{{ page.id }}" role="tabpanel" aria-labelledby="tab-{{ page.id }}">#}
 
-                                {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}
-                                    {{ include('components/editeur/_bloc.html.twig') }}
-                                {% endfor %}
-
-
-                                <div class="row g-4 justify-content-center">
-                                    <a href="{{ path('app_portfolio_perso_new_bloc', {'id': page.id}) }}"
-                                       class="col-10 border">
-                                        <i class="fas fa-plus-circle"></i>
-                                        <br>
-                                        <small class="text-muted">
-                                            Ajouter un nouveau bloc
-                                        </small>
-                                    </a>
-                                </div>
-
-                            </div>
-                        {% endfor %}
-                    </div>
+{#                                {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}#}
+{#                                    {{ include('components/editeur/_bloc.html.twig') }}#}
+{#                                    {{ component('BlocComponent', {'id': bloc.id, 'page': page, 'portfolio': portfolio}) }}#}
+{#                                {% endfor %}#}
 
 
-                </div>
-            </article>
-        </section>
+{#                                <div class="row g-4 justify-content-center">#}
+{#                                    <a href="{{ path('app_portfolio_perso_new_bloc', {'id': page.id}) }}"#}
+{#                                       class="col-10 border">#}
+{#                                        <i class="fas fa-plus-circle"></i>#}
+{#                                        <br>#}
+{#                                        <small class="text-muted">#}
+{#                                            Ajouter un nouveau bloc#}
+{#                                        </small>#}
+{#                                    </a>#}
+{#                                </div>#}
+
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+
+
+{#                </div>#}
+{#            </article>#}
+{#        </section>#}
     </div>
 
 {% endblock %}

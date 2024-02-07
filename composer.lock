@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ac778f82b4cbdd138ca9b5fa15d800f",
+    "content-hash": "d8000219b45acf734b31442295108a4d",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -8092,16 +8092,16 @@
         },
         {
             "name": "symfony/ux-twig-component",
-            "version": "v2.13.1",
+            "version": "v2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "7635b2e41f222724aa7d806965da46600cf3aad4"
+                "reference": "b5f593295bd68485cedc59144d285db18ccfb776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/7635b2e41f222724aa7d806965da46600cf3aad4",
-                "reference": "7635b2e41f222724aa7d806965da46600cf3aad4",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/b5f593295bd68485cedc59144d285db18ccfb776",
+                "reference": "b5f593295bd68485cedc59144d285db18ccfb776",
                 "shasum": ""
             },
             "require": {
@@ -8156,7 +8156,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/v2.13.1"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.14.0"
             },
             "funding": [
                 {
@@ -8172,7 +8172,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-08T14:37:05+00:00"
+            "time": "2024-01-30T15:40:36+00:00"
         },
         {
             "name": "symfony/validator",

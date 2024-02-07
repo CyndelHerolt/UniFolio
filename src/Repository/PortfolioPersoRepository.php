@@ -4,6 +4,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Repository;
 
 use App\Entity\PortfolioPerso;
@@ -29,6 +30,17 @@ class PortfolioPersoRepository extends ServiceEntityRepository
     {
         $this->_em->persist($portfolioPerso);
         $this->_em->flush();
+    }
+
+    public function findPortfolioByBloc($blocId): ?PortfolioPerso
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.pagePersos', 'pg')
+            ->join('pg.blocs', 'b')
+            ->where('b.id = :blocId')
+            ->setParameter('blocId', $blocId)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

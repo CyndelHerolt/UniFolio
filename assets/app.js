@@ -26,3 +26,12 @@ import 'highlight.js/styles/atom-one-dark.css';
 import './js/dataTables.init';
 
 import './prism.js';
+
+// todo: activer si Turbo + Bootstrap
+// document.addEventListener('turbo:load', () => {
+//     console.log('turbo:load');
+//     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+//     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+//         return new bootstrap.Tooltip(tooltipTriggerEl)
+//     })
+// });
