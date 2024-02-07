@@ -9,6 +9,7 @@ namespace App\Repository;
 use App\Entity\Bloc;
 use App\Entity\Page;
 use App\Entity\PagePerso;
+use App\Entity\PortfolioPerso;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,6 +47,17 @@ class BlocRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->andWhere(':page MEMBER OF b.pages')
             ->setParameter('page', $page)
+            ->orderBy('b.ordre', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByPortfolio(PortfolioPerso $portfolio)
+    {
+        return $this->createQueryBuilder('b')
+            ->leftJoin('b.pages', 'p')
+            ->andWhere('p.portfolio = :portfolio')
+            ->setParameter('portfolio', $portfolio)
             ->orderBy('b.ordre', 'ASC')
             ->getQuery()
             ->getResult();

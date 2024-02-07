@@ -10,8 +10,6 @@
                 <li class="breadcrumb-item active" aria-current="page">Bibliothèque de portfolios personnels</li>
             </ol>
         </nav>
-
-        {{ component('PortfolioPersoComponent', {'portfolio': portfolio}) }}
 {#        <section class="row">#}
 {#            <div class="row">#}
 {#                <h2 class="col-8">Edition d'un nouveau portfolio personnel</h2>#}
@@ -48,7 +46,6 @@
 
 {#                                {% for bloc in page.blocs|sort((a, b) => a.ordre <=> b.ordre) %}#}
 {#                                    {{ include('components/editeur/_bloc.html.twig') }}#}
-{#                                    {{ component('BlocComponent', {'id': bloc.id, 'page': page, 'portfolio': portfolio}) }}#}
 {#                                {% endfor %}#}
 
 
@@ -71,6 +68,8 @@
 {#                </div>#}
 {#            </article>#}
 {#        </section>#}
+
+        {{ component('PortfolioPersoComponent', {'portfolioPerso': portfolio}) }}
     </div>
 
 {% endblock %}
