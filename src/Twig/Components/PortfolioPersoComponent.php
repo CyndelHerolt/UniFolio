@@ -22,7 +22,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent('PortfolioPersoComponent')]
-final class PortfolioPersoComponent extends BaseController
+    class PortfolioPersoComponent extends BaseController
 {
     use DefaultActionTrait;
 
@@ -92,7 +92,6 @@ final class PortfolioPersoComponent extends BaseController
             $this->blocRepository->save($bloc);
         }
 
-//        $this->portfolio = $this->portfolioPersoRepository->findPortfolioByBloc($blocId);
         $this->portfolioPerso = $this->getPortfolioPerso();
     }
 
@@ -118,12 +117,22 @@ final class PortfolioPersoComponent extends BaseController
         $this->portfolioPerso = $this->getPortfolioPerso();
     }
 
+    #[LiveAction]
+    public function newElement(#[LiveArg] ?int $blocId, #[LiveArg] ?string $element)
+    {
+        $bloc = $this->blocRepository->find($blocId);
+
+        $typeElement = $this->editeurRegistry->getTypeElement($element);
+        $typeElement->create($element, $bloc);
+
+
+    }
+
     public function getPortfolioPerso()
     {
+        $this->pages = $this->pagePersoRepository->findBy(['portfolio' => $this->portfolioPerso], ['ordre' => 'ASC']);
         $this->form = $this->createForm(PortfolioPersoType::class, $this->portfolioPerso)->createView();
         $this->elements = $this->editeurRegistry->getElements();
-
-        dump(count($this->portfolioPerso->getPagePersos()[0]->getBlocs()));
 
         return $this->portfolioPerso;
     }
