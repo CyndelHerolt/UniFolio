@@ -212,7 +212,12 @@ class TraceController extends BaseController
             $trace = $traceRepository->find($id);
             $user = $security->getUser()->getEtudiant();
 
-        if ($this->isGranted('ROLE_ETUDIANT' && $trace->getBibliotheque()->getEtudiant() == $user)) {
+        if ($this->isGranted('ROLE_ETUDIANT') && $trace->getBibliotheque()->getEtudiant()->getId() == $user->getId()) {
+
+//            dump($trace->getBibliotheque()->getEtudiant()->getId());
+//            dump($user->getId());
+//            die();
+//            $this->denyAccessUnlessGranted($trace->getBibliotheque()->getEtudiant()->getId() == $user->getId());
 
             $dept = $this->dataUserSession->getDepartement();
             $semestre = $user->getSemestre();
