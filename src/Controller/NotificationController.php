@@ -88,10 +88,13 @@ class NotificationController extends AbstractController
     {
         $user = $this->security->getUser();
         $notification = $this->notificationRepository->find($id);
-        $this->denyAccessUnlessGranted('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant() || 'ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant());
-        $this->notificationRepository->remove($notification, true);
+        if(('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant()) || ('ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant())) {
+            $this->notificationRepository->remove($notification, true);
 
-        return $this->redirectToRoute('app_notification');
+            return $this->redirectToRoute('app_notification');
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 
     #[Route('/notification/delete', name: 'app_delete_notification_all', methods: ['GET'])]
@@ -126,10 +129,13 @@ class NotificationController extends AbstractController
     {
         $user = $this->security->getUser();
         $notification = $this->notificationRepository->find($id);
-        $this->denyAccessUnlessGranted('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant() || 'ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant());
+        if(('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant()) || ('ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant())) {
         $notification->setLu(true);
         $this->notificationRepository->save($notification, true);
 
         return $this->redirectToRoute('app_notification');
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 }
