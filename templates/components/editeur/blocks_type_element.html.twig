@@ -1,10 +1,17 @@
 {% block type_paragraphe %}
     <p
+            style="
             {% if elementEntity.font_size is not defined %}
-                style="font-size: {{ elementEntity.bloc.fontSize }}"
+                    font-size: {{ elementEntity.bloc.fontSize }} ;
             {% else %}
-                style="font-size: {{ elementEntity.font_size }}"
+                    font-size: {{ elementEntity.font_size }} ;
             {% endif %}
+            {% if elementEntity.align is not defined %}
+                    text-align: left;
+            {% else %}
+                    text-align: {{ elementEntity.align }} ;
+            {% endif %}
+                    "
     >
         {{ elementEntity.contenu }}
     </p>
@@ -18,6 +25,6 @@
 
 {% block type_titre %}
     <{{ elementEntity.titleLvl }}>
-        {{ elementEntity.contenu }}
+    {{ elementEntity.contenu }}
     </{{ elementEntity.titleLvl }}>
 {% endblock %}

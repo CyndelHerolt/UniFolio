@@ -60,6 +60,9 @@ class Element
     #[ORM\Column(length: 2)]
     private ?string $titleLvl = 'h1';
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $align = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -229,6 +232,18 @@ class Element
     public function setTitleLvl(string $titleLvl): static
     {
         $this->titleLvl = $titleLvl;
+
+        return $this;
+    }
+
+    public function getAlign(): ?string
+    {
+        return $this->align;
+    }
+
+    public function setAlign(?string $align): static
+    {
+        $this->align = $align;
 
         return $this;
     }

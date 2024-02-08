@@ -1,17 +1,25 @@
 {% block type_paragraphe %}
     <h6>Alignements</h6>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-left fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-center fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-right fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-justify fa-xl"></i></button>
-    </a>
+    <button class="btn btn-light"
+    data-action="live#action"
+    data-action-name="align(elementId={{ elementEntity.id }}, align=left)">
+        <i class="fa-solid fa-align-left fa-xl"></i>
+    </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=center)">
+        <i class="fa-solid fa-align-center fa-xl"></i>
+    </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=right)">
+            <i class="fa-solid fa-align-right fa-xl"></i>
+        </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=justify)">
+    <i class="fa-solid fa-align-justify fa-xl"></i>
+    </button>
     <hr>
     <h6>Propriétés</h6>
     <a href="">

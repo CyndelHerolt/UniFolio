@@ -10,26 +10,26 @@
         </div>
         <div class="offcanvas-body">
             <h6>Alignements</h6>
-            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'justify': 'justify-content-start'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'justify': 'justify-content-start'}) }}">
                 <button class="btn"><i
                             class="fa-solid fa-objects-align-left fa-xl"></i>
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'justify': 'justify-content-end'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'justify': 'justify-content-end'}) }}">
                 <button class="btn"><i
                             class="fa-solid fa-objects-align-right fa-xl"></i>
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'justify': 'justify-content-around'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_justify', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'justify': 'justify-content-around'}) }}">
                 <button class="btn"><i
                             class="fa-solid fa-objects-align-center-horizontal fa-xl"></i>
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'direction': 'flex-row'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'direction': 'flex-row'}) }}">
                 <button class="btn"><i class="fa-solid fa-objects-column fa-xl"></i><i
                             class="fa-solid fa-arrow-right fa-xs"></i></button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'direction': 'flex-column'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_direction', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'direction': 'flex-column'}) }}">
                 <button class="btn"><i class="fa-solid fa-objects-column fa-xl"></i><i
                             class="fa-solid fa-arrow-down fa-xs"></i></button>
             </a>
@@ -45,25 +45,25 @@
             </a>
             <hr>
             <h6>Typographie</h6>
-            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'fontSize': '13px'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'fontSize': '13px'}) }}">
                 <button class="btn"><i class="fa-solid fa-text fa-xs"></i>
                     <br>
                     13px
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'fontSize': '16px'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'fontSize': '16px'}) }}">
                 <button class="btn"><i class="fa-solid fa-text fa-sm"></i>
                     <br>
                     16px
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'fontSize': '20px'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'fontSize': '20px'}) }}">
                 <button class="btn"><i class="fa-solid fa-text fa-l"></i>
                     <br>
                     20px
                 </button>
             </a>
-            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPersob.id, 'id': bloc.id, 'fontSize': '25px'}) }}">
+            <a href="{{ path('app_portfolio_perso_bloc_font_size', {'portfolioId': portfolioPerso.id, 'id': bloc.id, 'fontSize': '25px'}) }}">
                 <button class="btn"><i class="fa-solid fa-text fa-xl"></i>
                     <br>
                     25px
@@ -100,38 +100,67 @@
                     </div>
                     <div class="offcanvas-body">
                         <h6>Proportions</h6>
-                        <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolioPersob.id, 'id': element.id, 'col': 3}) }}">1/4</a>
-                        <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolioPersob.id, 'id': element.id, 'col': 6}) }}">1/2</a>
-                        <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolioPersob.id, 'id': element.id, 'col': 9}) }}">3/4</a>
-                        <a href="{{ path('app_portfolio_perso_element_col', {'portfolioId': portfolioPersob.id, 'id': element.id, 'col': 12}) }}">1/1</a>
+                        <button class="btn btn-light"
+                                data-action="live#action"
+                                data-action-name="setCol(elementId={{ element.id }}, col=3)"
+                                {% if element.colonne == "col-3" %}
+                                    disabled
+                                {% endif %}
+                        >
+                            1/4
+                        </button>
+                        <button class="btn btn-light"
+                                data-action="live#action"
+                                data-action-name="setCol(elementId={{ element.id }}, col=6)"
+                                {% if element.colonne == "col-6" %}
+                        disabled
+                                {% endif %}>
+                            1/2
+                        </button>
+                        <button class="btn btn-light"
+                                data-action="live#action"
+                                data-action-name="setCol(elementId={{ element.id }}, col=9)"
+                                {% if element.colonne == "col-9" %}
+                        disabled
+                                {% endif %}>
+                            3/4
+                        </button>
+                        <button class="btn btn-light"
+                                data-action="live#action"
+                                data-action-name="setCol(elementId={{ element.id }}, col=12)"
+                                {% if element.colonne == "col-12" %}
+                        disabled
+                                {% endif %}>
+                            1/1
+                        </button>
                         <hr>
-                        {{ element_params_render(abstractElement, element, portfolioPersob) }}
+                        {{ element_params_render(abstractElement, element, portfolioPerso) }}
                     </div>
 
                 </div>
 
                 {% if element.ordre != 1 %}
-                    <a href="{{ path('app_portfolio_perso_element_up', {'portfolioId': portfolioPersob.id, 'id': element.id, 'blocId': bloc.id}) }}">
-                        <button class="btn btn-light">
-                            <i class="fa fa-arrow-up"></i>
-                        </button>
-                    </a>
+                    <button class="btn btn-light"
+                            data-action="live#action"
+                            data-action-name="upElement(elementId={{ element.id }})">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
                 {% endif %}
                 {% if element.ordre != bloc.elements|length %}
-                    <a href="{{ path('app_portfolio_perso_element_down', {'portfolioId': portfolioPersob.id, 'id': element.id, 'blocId': bloc.id}) }}">
-                        <button class="btn btn-light">
-                            <i class="fa fa-arrow-down"></i>
-                        </button>
-                    </a>
-                {% endif %}
-                <a href="{{ path('app_portfolio_perso_delete_element', {'id': element.id, 'portfolioId': portfolioPersob.id}) }}">
-                    <button class="btn btn-danger">
-                        <i class="fa fa-minus-square"></i>
+                    <button class="btn btn-light"
+                            data-action="live#action"
+                            data-action-name="downElement(elementId={{ element.id }})">
+                        <i class="fa fa-arrow-down"></i>
                     </button>
-                </a>
+                {% endif %}
+                <button class="btn btn-danger"
+                        data-action="live#action"
+                        data-action-name="deleteElement(elementId={{ element.id }})">
+                    <i class="fa fa-minus-square"></i>
+                </button>
 
                 {% if element.edit == true %}
-                    <form action="{{ path('app_portfolio_perso_save_element', {'id': element.id, 'portfolioId': portfolioPersob.id}) }}"
+                    <form action="{{ path('app_portfolio_perso_save_element', {'id': element.id, 'portfolioId': portfolioPerso.id}) }}"
                           method="post"
                           {% if 'Image' in element.type %}enctype="multipart/form-data"{% endif %}>
 
@@ -157,4 +186,26 @@
             Ajouter un nouvel élément
         </small>
     </button>
+
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+         id="offCanva{{ bloc.id }}"
+         data-bs-backdrop="false"
+         aria-labelledby="offCanva{{ bloc.id }}Label">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offCanva{{ bloc.id }}Label">Elements</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            {% for key, element in this.elements %}
+                <button class="btn"
+                        data-action="live#action"
+                        data-action-name="newElement(blocId={{ bloc.id }}, type={{ key }})">
+                    <i class="{{ constant(key ~ '::ICON') }} fa-xl"></i>
+                    <br>
+                    {{ element.name }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
 </div>

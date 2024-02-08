@@ -15,7 +15,6 @@ use App\Entity\Groupe;
 use App\Entity\Page;
 use App\Entity\Portfolio;
 use App\Entity\Semestre;
-use App\Entity\Templates;
 use App\Entity\Trace;
 use App\Entity\Users;
 use App\Entity\Validation;
@@ -74,7 +73,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des pages', 'fas fa-list', Page::class);
         yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
         yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
-        yield MenuItem::linkToCrud('Gestion des templates', 'fas fa-list', Templates::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
