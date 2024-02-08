@@ -150,8 +150,8 @@ class AllTraceComponent extends BaseController
 
         // On récupère les traces par compétence ou toutes les traces de la bibliothèque
         if (!empty($competence)) {
-            $traces = $this->traceRepository->findByCompetence($competence);
-        } elseif (!empty($competence) && !$this->traceRepository->findByCompetence($competence)) {
+            $traces = $this->traceRepository->findByCompetenceAndEtudiant($competence, $etudiant->getId());
+        } elseif (!empty($competence) && !$this->traceRepository->findByCompetenceAndEtudiant($competence, $etudiant->getId())) {
             $traces = [];
         } else {
             $traces = $this->traceRepository->findBy(['bibliotheque' => $biblio]);
