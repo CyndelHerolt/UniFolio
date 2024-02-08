@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller;
 
 use App\Entity\Cv;
@@ -26,7 +27,8 @@ class CvController extends AbstractController
 {
     public function __construct(
         #[Required] public Security $security,
-    ) {
+    )
+    {
     }
 
     #[Route('/cv', name: 'app_cv')]
@@ -48,9 +50,10 @@ class CvController extends AbstractController
 
     #[Route('/cv/new/{id}', name: 'app_cv_new')]
     public function new(
-        Request $request,
+        Request      $request,
         CvRepository $cvRepository,
-    ): Response {
+    ): Response
+    {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
@@ -93,29 +96,31 @@ class CvController extends AbstractController
 
     #[Route('/cv/edit/{id}', name: 'app_cv_edit')]
     public function edit(
-        Request $request,
-        CvRepository $cvRepository,
-        ExperienceRepository $experienceRepository,
-        Cv $cv,
-        int $id,
+        Request                $request,
+        CvRepository           $cvRepository,
+        ExperienceRepository   $experienceRepository,
+        Cv                     $cv,
+        int                    $id,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
-            &&
-            $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
         );
 
         $user = $this->security->getUser()->getEtudiant();
 
         $cv = $cvRepository->findOneBy(['id' => $id]);
-        $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cv = $form->getData(); // Récupère l'objet CV mis à jour par le formulaire
-            $cv->setDateModification(new \DateTimeImmutable());
+        if ($cv->getEtudiant()->getId() == $user->getId()) {
+
+            $form = $this->createForm(CvType::class, $cv, ['user' => $user]);
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $cv = $form->getData(); // Récupère l'objet CV mis à jour par le formulaire
+                $cv->setDateModification(new \DateTimeImmutable());
 //            // On set les activités des expériences du CV avec les nouvelles données saisies dans le formulaire
 //            foreach ($cv->getExperience() as $experience) {
 //                $experience->setActivite($experience->getActivite());
@@ -127,70 +132,83 @@ class CvController extends AbstractController
 
 //            dd($cv);
 
-            $cvRepository->save($cv, true);
+                $cvRepository->save($cv, true);
 
-            return $this->redirectToRoute('app_cv');
+                return $this->redirectToRoute('app_cv');
+            }
+
+            return $this->render('cv/formCv.html.twig', [
+                'form' => $form->createView(),
+                'cv' => $cv,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
         }
-
-        return $this->render('cv/formCv.html.twig', [
-            'form' => $form->createView(),
-            'cv' => $cv,
-        ]);
     }
 
     #[Route('/cv/delete/{id}', name: 'app_cv_delete')]
     public function delete(
-        CvRepository $cvRepository,
+        CvRepository         $cvRepository,
         ExperienceRepository $experienceRepository,
-        FormationRepository $formationRepository,
-        int $id,
-    ): Response {
-
-
-        $cv = $cvRepository->findOneBy(['id' => $id]);
+        FormationRepository  $formationRepository,
+        int                  $id,
+    ): Response
+    {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
-            && $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
         );
 
-        $experience = $cv->getExperience();
-        $formation = $cv->getFormation();
-        $portfolio = $cv->getPortfolio();
+        $cv = $cvRepository->findOneBy(['id' => $id]);
+        $user = $this->security->getUser()->getEtudiant();
 
-        foreach ($portfolio as $port) {
-            $cv->removePortfolio($port);
-        }
-        foreach ($experience as $exp) {
-            $experienceRepository->remove($exp, true);
-        }
-        foreach ($formation as $form) {
-            $formationRepository->remove($form, true);
-        }
-        $cvRepository->remove($cv, true);
-        $this->addFlash('success', 'Le CV a été supprimé avec succès.');
+        if ($cv->getEtudiant()->getId() == $user->getId()) {
 
-        return $this->redirectToRoute('app_cv', [
-            'cv' => $cv,
-        ]);
+            $experience = $cv->getExperience();
+            $formation = $cv->getFormation();
+            $portfolio = $cv->getPortfolio();
+
+            foreach ($portfolio as $port) {
+                $cv->removePortfolio($port);
+            }
+            foreach ($experience as $exp) {
+                $experienceRepository->remove($exp, true);
+            }
+            foreach ($formation as $form) {
+                $formationRepository->remove($form, true);
+            }
+            $cvRepository->remove($cv, true);
+            $this->addFlash('success', 'Le CV a été supprimé avec succès.');
+
+            return $this->redirectToRoute('app_cv', [
+                'cv' => $cv,
+            ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 
     #[Route('/cv/show/{id}', name: 'app_cv_show')]
     public function show(
         CvRepository $cvRepository,
-        int $id,
-    ): Response {
-
-
-        $cv = $cvRepository->findOneBy(['id' => $id]);
+        int          $id,
+    ): Response
+    {
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
-            && $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
         );
 
-        return $this->render('cv/show.html.twig', [
+        $cv = $cvRepository->findOneBy(['id' => $id]);
+        $user = $this->security->getUser()->getEtudiant();
+
+        if ($cv->getEtudiant()->getId() == $user->getId()) {
+
+            return $this->render('cv/show.html.twig', [
             'cv' => $cv,
         ]);
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
     }
 }
