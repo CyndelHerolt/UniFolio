@@ -78,13 +78,15 @@ class PortfolioProcessController extends BaseController
         ExperienceRepository $experienceRepository,
         FormationRepository $formationRepository,
     ): Response {
-        if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             $step = $request->query->get('step', 'portfolio');
             $form = null;
 
             $id = $request->attributes->get('id');
             $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+            $user = $security->getUser()->getEtudiant();
+
+        if ($this->isGranted('ROLE_ETUDIANT') && $portfolio->getEtudiant() == $user) {
 
             $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
             $pages = [];

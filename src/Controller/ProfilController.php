@@ -16,14 +16,21 @@ use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 #[Route('/profil')]
 class ProfilController extends BaseController
 {
+    public function __construct(
+        #[Required] public Security $security,
+    ) {
+    }
+
     #[Route('/', name: 'app_profil')]
     public function profil(UsersRepository $usersRepository): Response
     {
@@ -85,8 +92,11 @@ class ProfilController extends BaseController
         ?Enseignant $enseignant,
         EtudiantRepository $etudiantRepository,
         EnseignantRepository $enseignantRepository,
+        ?int $id,
     ): Response {
-        if ($this->isGranted('ROLE_ETUDIANT')) {
+        $user = $this->security->getUser();
+
+        if ($this->isGranted('ROLE_ETUDIANT' && $id == $user->getEtudiant()->getId())) {
             $form = $this->createForm(EtudiantPartialType::class, $etudiant);
         } elseif ($this->isGranted('ROLE_ENSEIGNANT')) {
             $form = $this->createForm(EnseignantType::class, $enseignant);

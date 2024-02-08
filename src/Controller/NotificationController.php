@@ -86,7 +86,9 @@ class NotificationController extends AbstractController
     #[Route('/notification/delete/{id}', name: 'app_delete_notification')]
     public function delete($id): Response
     {
+        $user = $this->security->getUser();
         $notification = $this->notificationRepository->find($id);
+        $this->denyAccessUnlessGranted('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant() || 'ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant());
         $this->notificationRepository->remove($notification, true);
 
         return $this->redirectToRoute('app_notification');
@@ -122,7 +124,9 @@ class NotificationController extends AbstractController
     #[Route('/notification/lue/{id}', name: 'app_notification_lue')]
     public function markAsRead($id): Response
     {
+        $user = $this->security->getUser();
         $notification = $this->notificationRepository->find($id);
+        $this->denyAccessUnlessGranted('ROLE_ETUDIANT' && $notification->getEtudiant() === $user->getEtudiant() || 'ROLE_ENSEIGNANT' && $notification->getEnseignant() === $user->getEnseignant());
         $notification->setLu(true);
         $this->notificationRepository->save($notification, true);
 
