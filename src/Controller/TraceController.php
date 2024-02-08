@@ -208,10 +208,11 @@ class TraceController extends BaseController
     ): Response
     {
 
-        if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
             $trace = $traceRepository->find($id);
             $user = $security->getUser()->getEtudiant();
+
+        if ($this->isGranted('ROLE_ETUDIANT' && $trace->getBibliotheque()->getEtudiant() == $user)) {
 
             $dept = $this->dataUserSession->getDepartement();
             $semestre = $user->getSemestre();
@@ -400,9 +401,11 @@ class TraceController extends BaseController
     ): Response
     {
 
-        if ($this->isGranted('ROLE_ETUDIANT')) {
             $trace = $traceRepository->find($id);
             $type = $trace->getTypetrace();
+            $user = $this->security->getUser()->getEtudiant();
+
+        if ($this->isGranted('ROLE_ETUDIANT') && $trace->getBibliotheque()->getEtudiant() == $user) {
 
             //Si la trace est de type image ou pdf, il faut supprimer le fichier
             if ($type == 'App\Components\Trace\TypeTrace\TraceTypeImage' || $type == 'App\Components\Trace\TypeTrace\TraceTypePdf') {

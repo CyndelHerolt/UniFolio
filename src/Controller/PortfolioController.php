@@ -5,6 +5,7 @@
  * @author cyndelherolt
  * @project UniFolio
  */
+
 namespace App\Controller;
 
 use App\Classes\DataUserSession;
@@ -37,16 +38,18 @@ use Symfony\Contracts\Service\Attribute\Required;
 class PortfolioController extends BaseController
 {
     public function __construct(
-        #[Required] public Security $security,
-        DataUserSession $dataUserSession,
+        #[Required] public Security  $security,
+        DataUserSession              $dataUserSession,
         private FormFactoryInterface $formFactory,
-    ) {
+    )
+    {
     }
 
     #[Route('etudiant/portfolio', name: 'app_portfolio')]
     public function index(
         PortfolioRepository $portfolioRepository,
-    ): Response {
+    ): Response
+    {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
 
@@ -65,13 +68,14 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show', name: 'app_portfolio_index')]
     public function indexShow(
-        Request $request,
-        PortfolioRepository $portfolioRepository,
-        CommentaireRepository $commentaireRepository,
-        TraceRepository $traceRepository,
-        NotificationRepository $notificationRepository,
+        Request                  $request,
+        PortfolioRepository      $portfolioRepository,
+        CommentaireRepository    $commentaireRepository,
+        TraceRepository          $traceRepository,
+        NotificationRepository   $notificationRepository,
         EventDispatcherInterface $eventDispatcher
-    ): Response {
+    ): Response
+    {
         $data_user = $this->dataUserSession;
         $id = $request->query->get('id');
 
@@ -143,16 +147,17 @@ class PortfolioController extends BaseController
 
     #[Route('/portfolio/show/{id}', name: 'app_portfolio_show')]
     public function show(
-        PortfolioRepository $portfolioRepository,
-        OrdrePageRepository $ordrePageRepository,
-        PageRepository $pageRepository,
-        OrdreTraceRepository $ordreTraceRepository,
-        Request $request,
+        PortfolioRepository   $portfolioRepository,
+        OrdrePageRepository   $ordrePageRepository,
+        PageRepository        $pageRepository,
+        OrdreTraceRepository  $ordreTraceRepository,
+        Request               $request,
         DepartementRepository $departementRepository,
-        CompetenceRepository $competenceRepository,
-        ApcNiveauRepository $apcNiveauRepository,
-        $id
-    ): Response {
+        CompetenceRepository  $competenceRepository,
+        ApcNiveauRepository   $apcNiveauRepository,
+                              $id
+    ): Response
+    {
         $data_user = $this->dataUserSession;
         $step = $request->query->get('step', 'portfolio');
 
@@ -171,57 +176,60 @@ class PortfolioController extends BaseController
                     $this->form = $this->formFactory->create(CommentaireType::class, $commentaire);
                     $this->commentForm = $this->form->createView();
                 }
-                //Récupérer les pages du portfolio
-                $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
-                $pages = [];
-                foreach ($ordrePages as $ordrePage) {
-                    $pages[] = $ordrePage->getPage();
-                }
-
-                $traces = [];
-                foreach ($pages as $page) {
-                    $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
-                    foreach ($ordreTraces as $ordreTrace) {
-                        $traces[] = $ordreTrace->getTrace();
+                if ($this->isGranted('ROLE_ENSEIGNANT') || ($this->isGranted('ROLE_ETUDIANT') && $portfolio->getEtudiant() == $user->getEtudiant())) {
+                    //Récupérer les pages du portfolio
+                    $ordrePages = $ordrePageRepository->findBy(['portfolio' => $portfolio], ['ordre' => 'ASC']);
+                    $pages = [];
+                    foreach ($ordrePages as $ordrePage) {
+                        $pages[] = $ordrePage->getPage();
                     }
-                }
 
-                $etudiant = $portfolio->getEtudiant();
-                $dept = $departementRepository->findOneBy(['id' => $etudiant->getDepartement()]);
-                $annee = $etudiant->getSemestre()->getAnnee();
-                $groupe = $etudiant->getGroupe();
-                foreach ($groupe as $g) {
-                    if ($g->getTypeGroupe()->getType() === 'TD') {
-                        $parcours = $g->getApcParcours();
-                    }
-                }
-
-                if ($parcours === null) {
-                    $referentiel = $dept->getApcReferentiels();
-
-                    $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-                    foreach ($competences as $competence) {
-                        $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
-                        foreach ($niveaux as $niveau) {
-                            foreach ($niveau as $niv) {
-                                $competencesNiveau[] = $niv;
-                            }
+                    $traces = [];
+                    foreach ($pages as $page) {
+                        $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+                        foreach ($ordreTraces as $ordreTrace) {
+                            $traces[] = $ordreTrace->getTrace();
                         }
                     }
-                } else {
-                    $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
-                    foreach ($niveaux as $niveau) {
-                        $competencesNiveau[] = $niveau;
+
+                    $etudiant = $portfolio->getEtudiant();
+                    $dept = $departementRepository->findOneBy(['id' => $etudiant->getDepartement()]);
+                    $annee = $etudiant->getSemestre()->getAnnee();
+                    $groupe = $etudiant->getGroupe();
+                    foreach ($groupe as $g) {
+                        if ($g->getTypeGroupe()->getType() === 'TD') {
+                            $parcours = $g->getApcParcours();
+                        }
                     }
+
+                    if ($parcours === null) {
+                        $referentiel = $dept->getApcReferentiels();
+
+                        $competences = $competenceRepository->findBy(['referentiel' => $referentiel->first()]);
+                        foreach ($competences as $competence) {
+                            $niveaux[] = $apcNiveauRepository->findByAnnee($competence, $annee->getOrdre());
+                            foreach ($niveaux as $niveau) {
+                                foreach ($niveau as $niv) {
+                                    $competencesNiveau[] = $niv;
+                                }
+                            }
+                        }
+                    } else {
+                        $niveaux = $apcNiveauRepository->findByAnneeParcours($annee, $parcours);
+                        foreach ($niveaux as $niveau) {
+                            $competencesNiveau[] = $niveau;
+                        }
+                    }
+
+                    // retire les doublons de la liste des compétences
+                    $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                break;
+                } else {
+                    return $this->render('security/accessDenied.html.twig');
                 }
 
-                // retire les doublons de la liste des compétences
-                $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
-
-                break;
-
             case 'page':
-                if ($this->isGranted('ROLE_ETUDIANT')) {
+                if ($this->isGranted('ROLE_ETUDIANT') && $portfolio->getEtudiant() == $user->getEtudiant()) {
                     $page = $pageRepository->findOneBy(['id' => $request->query->get('page')]);
 
                     $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
@@ -268,10 +276,11 @@ class PortfolioController extends BaseController
 
     #[Route('etudiant/portfolio/new', name: 'app_portfolio_new')]
     public function new(
-        Request $request,
+        Request             $request,
         PortfolioRepository $portfolioRepository,
-        Security $security
-    ): Response {
+        Security            $security
+    ): Response
+    {
 
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
@@ -310,7 +319,7 @@ class PortfolioController extends BaseController
                 }
 
                 if ($form->get('visibilite')->getData() === true) {
-                    $portfolios = $portfolioRepository->findBy(['annee' => $annee,  'etudiant' => $data_user->getUser()->getEtudiant()]);
+                    $portfolios = $portfolioRepository->findBy(['annee' => $annee, 'etudiant' => $data_user->getUser()->getEtudiant()]);
                     foreach ($portfolios as $otherportfolio) {
                         $otherportfolio->setVisibilite(false);
                         $portfolioRepository->save($otherportfolio, true);
@@ -341,10 +350,13 @@ class PortfolioController extends BaseController
     #[Route('etudiant/portfolio/delete/{id}', name: 'app_portfolio_delete')]
     public function delete(
         PortfolioRepository $portfolioRepository,
-        int $id
-    ): Response {
-        if ($this->isGranted('ROLE_ETUDIANT')) {
-            $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        int                 $id
+    ): Response
+    {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        $user = $this->security->getUser()->getEtudiant();
+
+        if ($this->isGranted('ROLE_ETUDIANT') && $portfolio->getEtudiant() == $user) {
 
             $portfolioRepository->remove($portfolio, true);
             $document = $portfolio->getBanniere();
@@ -363,9 +375,10 @@ class PortfolioController extends BaseController
 
     #[Route('enseignant/portfolio/delete/{id}', name: 'app_delete_commentaire')]
     public function deleteComment(
-        Request $request,
+        Request               $request,
         CommentaireRepository $commentaireRepository
-    ) {
+    )
+    {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
             $commentaireId = $request->get('id');
             $commentaire = $commentaireRepository->find($commentaireId);

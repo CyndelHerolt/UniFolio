@@ -103,6 +103,8 @@ class CvController extends AbstractController
 
         $this->denyAccessUnlessGranted(
             'ROLE_ETUDIANT'
+            &&
+            $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
         );
 
         $user = $this->security->getUser()->getEtudiant();
@@ -144,11 +146,14 @@ class CvController extends AbstractController
         int $id,
     ): Response {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
 
         $cv = $cvRepository->findOneBy(['id' => $id]);
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+            && $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
+        );
+
         $experience = $cv->getExperience();
         $formation = $cv->getFormation();
         $portfolio = $cv->getPortfolio();
@@ -176,11 +181,13 @@ class CvController extends AbstractController
         int $id,
     ): Response {
 
-        $this->denyAccessUnlessGranted(
-            'ROLE_ETUDIANT'
-        );
 
         $cv = $cvRepository->findOneBy(['id' => $id]);
+
+        $this->denyAccessUnlessGranted(
+            'ROLE_ETUDIANT'
+            && $cv->getEtudiant() === $this->security->getUser()->getEtudiant()
+        );
 
         return $this->render('cv/show.html.twig', [
             'cv' => $cv,
