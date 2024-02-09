@@ -6,4 +6,23 @@
     text-align: center;
     color: white;
   }
+
+  .liste_element_div {
+    flex-wrap: nowrap;
+    width: 100%;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: $color-dark;
+      margin: auto 10px;
+    }
+
+    .form-group {
+      width: 100%;
+    }
+  }
 }
