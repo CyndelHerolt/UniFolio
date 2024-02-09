@@ -24,7 +24,22 @@
 {% endblock %}
 
 {% block type_titre %}
-    <{{ elementEntity.titleLvl }}>
+    <{{ elementEntity.titleLvl }}
+    style="
+    {% if elementEntity.align is not defined %}
+        text-align: left;
+    {% else %}
+        text-align: {{ elementEntity.align }} ;
+    {% endif %}
+    ">
     {{ elementEntity.contenu }}
     </{{ elementEntity.titleLvl }}>
+{% endblock %}
+
+{% block type_liste %}
+<ul>
+    {% for listeElement in elementEntity.contenuArray %}
+        <li>{{ listeElement }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

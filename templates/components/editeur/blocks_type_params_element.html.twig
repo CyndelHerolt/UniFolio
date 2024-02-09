@@ -1,8 +1,8 @@
 {% block type_paragraphe %}
     <h6>Alignements</h6>
     <button class="btn btn-light"
-    data-action="live#action"
-    data-action-name="align(elementId={{ elementEntity.id }}, align=left)">
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=left)">
         <i class="fa-solid fa-align-left fa-xl"></i>
     </button>
     <button class="btn btn-light"
@@ -13,12 +13,12 @@
     <button class="btn btn-light"
             data-action="live#action"
             data-action-name="align(elementId={{ elementEntity.id }}, align=right)">
-            <i class="fa-solid fa-align-right fa-xl"></i>
-        </button>
+        <i class="fa-solid fa-align-right fa-xl"></i>
+    </button>
     <button class="btn btn-light"
             data-action="live#action"
             data-action-name="align(elementId={{ elementEntity.id }}, align=justify)">
-    <i class="fa-solid fa-align-justify fa-xl"></i>
+        <i class="fa-solid fa-align-justify fa-xl"></i>
     </button>
     <hr>
     <h6>Propriétés</h6>
@@ -45,36 +45,65 @@
 
 {% block type_titre %}
     <h6>Alignements</h6>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-left fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-center fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-right fa-xl"></i></button>
-    </a>
-    <a href="">
-        <button class="btn"><i class="fa-solid fa-align-justify fa-xl"></i></button>
-    </a>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=left)">
+        <i class="fa-solid fa-align-left fa-xl"></i>
+    </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=center)">
+        <i class="fa-solid fa-align-center fa-xl"></i>
+    </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=right)">
+        <i class="fa-solid fa-align-right fa-xl"></i>
+    </button>
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="align(elementId={{ elementEntity.id }}, align=justify)">
+        <i class="fa-solid fa-align-justify fa-xl"></i>
+    </button>
     <hr>
     <h6>Niveau de titre</h6>
-    <a href="">
-        <button class="btn"><h1><i class="fa-solid fa-h1 fa-xl"></i></h1></button>
-    </a>
-    <a href="">
-        <button class="btn"><h2><i class="fa-solid fa-h2 fa-xl"></i></h2></button>
-    </a>
-    <a href="">
-        <button class="btn"><h3><i class="fa-solid fa-h3 fa-xl"></i></h3></button>
-    </a>
-    <a href="">
-        <button class="btn"><h4><i class="fa-solid fa-h4 fa-xl"></i></h4></button>
-    </a>
-    <a href="">
-        <button class="btn"><h5><i class="fa-solid fa-h5 fa-xl"></i></h5></button>
-    </a>
-    <a href="">
-        <button class="btn"><h6><i class="fa-solid fa-h6 fa-xl"></i></h6></button>
-    </a>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h1)"><i class="fa-solid fa-h1 fa-xl"></i>
+    </button>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h2)"><i class="fa-solid fa-h2 fa-xl"></i>
+    </button>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h3)"><i class="fa-solid fa-h3 fa-xl"></i>
+    </button>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h4)"><i class="fa-solid fa-h4 fa-xl"></i>
+    </button>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h5)"><i class="fa-solid fa-h5 fa-xl"></i>
+    </button>
+
+    <button class="btn btn-light"
+            data-action="live#action"
+            data-action-name="titleLvl(elementId={{ elementEntity.id }}, level=h6)"><i class="fa-solid fa-h6 fa-xl"></i>
+    </button>
+{% endblock %}
+
+{% block type_liste %}
+    <button class="btn btn-light">
+        <i class="fa-solid fa-list fa-xl"></i>
+    </button>
+    <button class="btn btn-light">
+        <i class="fa-solid fa-list-ol fa-xl"></i>
+    </button>
 {% endblock %}

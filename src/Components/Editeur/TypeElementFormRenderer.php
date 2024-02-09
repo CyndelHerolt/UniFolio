@@ -25,8 +25,7 @@ class TypeElementFormRenderer
 
     public function render(
         AbstractElement $element,
-        int|string|null $ordre = 0,
-        int             $loop = 0
+        Element $elementEntity,
     ): string
     {
         $template = $this->load();
@@ -37,6 +36,7 @@ class TypeElementFormRenderer
         $params = $element->getOptions();
         $params['block_name'] = $element->block_name;
         $params['form'] = $form->createView();
+        $params['elementEntity'] = $elementEntity;
 
         return $template->renderBlock($params['block_name'], $params);
     }

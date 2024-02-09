@@ -46,6 +46,10 @@ class BlocComponent
         $element->setOrdre(count($bloc->getElements()) + 1);
         $element->setBloc($bloc);
         $element->setType($type);
+//        if ($type == 'App\Components\Editeur\Elements\Liste') {
+//            // créer un tableau pour 'contenu' dans la table element
+//            $element->setContenuArray(['Liste']);
+//        }
         $this->elementRepository->save($element);
         $elements = $this->elementRepository->findByBloc($bloc);
         foreach ($elements as $e) {
@@ -133,6 +137,15 @@ class BlocComponent
     {
         $element = $this->elementRepository->find($elementId);
         $element->setAlign($align);
+        $this->elementRepository->save($element);
+        $this->bloc = $element->getBloc();
+    }
+
+    #[LiveAction]
+    public function titleLvl(#[LiveArg] ?int $elementId, #[LiveArg] ?string $level): void
+    {
+        $element = $this->elementRepository->find($elementId);
+        $element->setTitleLvl($level);
         $this->elementRepository->save($element);
         $this->bloc = $element->getBloc();
     }

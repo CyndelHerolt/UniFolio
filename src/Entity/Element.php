@@ -63,6 +63,9 @@ class Element
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $align = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $contenuArray = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -244,6 +247,18 @@ class Element
     public function setAlign(?string $align): static
     {
         $this->align = $align;
+
+        return $this;
+    }
+
+    public function getContenuArray(): ?array
+    {
+        return $this->contenuArray;
+    }
+
+    public function setContenuArray(?array $contenuArray): static
+    {
+        $this->contenuArray = $contenuArray;
 
         return $this;
     }

@@ -164,7 +164,7 @@
                           method="post"
                           {% if 'Image' in element.type %}enctype="multipart/form-data"{% endif %}>
 
-                        {{ element_form_render(abstractElement) }}
+                        {{ element_form_render(abstractElement, element) }}
                         <button type="submit" class="btn btn-success">
                             <i class="fa fa-check-square"></i>
                         </button>

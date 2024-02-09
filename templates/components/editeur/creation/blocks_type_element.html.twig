@@ -9,3 +9,22 @@
 {% block type_titre %}
     {{ form_row(form.contenu) }}
 {% endblock %}
+
+{% block type_liste %}
+    <ul>
+        {% for element in elementEntity.contenuArray %}
+            <li>
+                <div class="form-group" style="display: flex">
+                    <input type="text" class="form-control" name="element[{{ loop.index0 }}]" value="{{ element }}"/>
+                    <button type="button" class="btn btn-danger remove-liste-element">
+                        <i class="fa fa-square-minus"></i>
+                    </button>
+                </div>
+            </li>
+        {% endfor %}
+        {{ form_widget(form.contenu) }}
+    </ul>
+    <button type="button" class="btn btn-primary add-liste-element">
+        Ajouter un élément <i class="fa fa-square-plus"></i>
+    </button>
+{% endblock %}
