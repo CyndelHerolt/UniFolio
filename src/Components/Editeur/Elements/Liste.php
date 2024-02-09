@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Twig\Environment;
+use function PHPUnit\Framework\isEmpty;
 
 class Liste extends AbstractElement
 {
@@ -47,13 +48,21 @@ class Liste extends AbstractElement
 
     public function sauvegarde(
         AbstractElement $element,
-        Request $request,
-        Element $elementEntity,
+        Request         $request,
+        Element         $elementEntity,
     )
     {
         $data = $request->request->all();
-        $contenu = $data['liste']['contenu'];
-//        dd($contenu);
+
+        if (!isset($data['liste'])) {
+            $contenu = ["Liste"];
+        } else {
+            $contenu = $data['liste']['contenu'];
+
+            if (empty($contenu) || (count($contenu) === 1 && $contenu[0] === "")) {
+                $contenu = ["Liste"];
+            }
+        }
 
         $elementEntity->setEdit(false);
         $elementEntity->setContenuArray($contenu);

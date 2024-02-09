@@ -1,3 +1,39 @@
+// Créer une instance de l'observateur lié à la fonction de callback
+const observer = new MutationObserver(addEventListeners);
+
+// Commencer à observer le document avec la configuration configurée
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Fonctions de gestionnaire d'événements
+function removeListeElementEvent() {
+    removeListeElement(this);
+}
+
+function addListeElementEvent() {
+    addListeElement();
+}
+
+function addEventListeners() {
+    // Gestionnaire d'événement pour le bouton de suppression d'un champ liste_element
+    document.querySelectorAll('.delete-liste-element').forEach(function (button) {
+        if (button.hasListener) {
+            button.removeEventListener('click', removeListeElementEvent);
+        }
+        button.addEventListener('click', removeListeElementEvent);
+        button.hasListener = true;
+    });
+
+    // Gestionnaire d'événement pour le bouton d'ajout d'un nouveau champ liste_element
+    const addButtonListe = document.querySelector('.add-liste-element');
+    if (addButtonListe) {
+        if (addButtonListe.hasListener) {
+            addButtonListe.removeEventListener('click', addListeElementEvent);
+        }
+        addButtonListe.addEventListener('click', addListeElementEvent);
+        addButtonListe.hasListener = true;
+    }
+}
+
 //-----------------------------------------------------------------------------
 //---------------------------------LISTE---------------------------------
 //-----------------------------------------------------------------------------
