@@ -55,12 +55,12 @@
 </footer>
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var toggler = document.querySelector('.toggler');
         var menu = document.querySelector('.navbar');
 
         // Gestionnaire pour le bouton de basculement du menu
-        document.getElementById('menu-toggle').addEventListener('click', function(ev) {
+        document.getElementById('menu-toggle').addEventListener('click', function (ev) {
             ev.stopPropagation(); // Cela empêche l'événement de se propager au document
 
             if (!menu.classList.contains('navbar-show')) {
@@ -73,7 +73,7 @@
         });
 
         // Gestionnaire pour le document
-        document.addEventListener('click', function(ev) {
+        document.addEventListener('click', function (ev) {
             if (!menu.contains(ev.target)) { // Vérifier si l'élément cliqué est dans le menu
                 menu.classList.remove('navbar-show');
                 menu.classList.add('navbar-hidden');
