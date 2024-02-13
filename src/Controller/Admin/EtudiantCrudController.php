@@ -78,7 +78,8 @@ class EtudiantCrudController extends AbstractCrudController
         if ($pageName == Crud::PAGE_INDEX) {
             yield TextField::new('prenom', 'Prénom');
             yield TextField::new('nom', 'Nom');
-            yield TextField::new('semestre.annee.diplome.departement.libelle', 'Département');
+//            yield TextField::new('semestre.annee.diplome.departement.libelle', 'Département');
+            yield TextField::new('semestre.annee.diplome.libelle', 'Département');
             yield TextField::new('semestre.libelle', 'Semestre');
             yield TextField::new('groupesAsString', 'Groupes');
             yield TextField::new('mail_univ', 'Mail universitaire');

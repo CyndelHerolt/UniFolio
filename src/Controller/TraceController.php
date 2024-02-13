@@ -59,6 +59,7 @@ class TraceController extends BaseController
             $annee = $semestre->getAnnee();
 
             $dept = $this->dataUserSession->getDepartement();
+            $parcours = null;
 
             $groupe = $user->getGroupe();
             foreach ($groupe as $g) {
@@ -121,6 +122,7 @@ class TraceController extends BaseController
             $annee = $semestre->getAnnee();
 
             $dept = $this->dataUserSession->getDepartement();
+            $parcours = null;
 
             $groupe = $user->getGroupe();
             foreach ($groupe as $g) {
@@ -222,6 +224,7 @@ class TraceController extends BaseController
             $dept = $this->dataUserSession->getDepartement();
             $semestre = $user->getSemestre();
             $annee = $semestre->getAnnee();
+            $parcours = null;
 
             $groupe = $user->getGroupe();
             foreach ($groupe as $g) {
