@@ -490,6 +490,7 @@ class PortfolioProcessController extends BaseController
                     $dept = $this->dataUserSession->getDepartement();
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
+                    $parcours = null;
 
                     $groupe = $user->getGroupe();
                     foreach ($groupe as $g) {
@@ -573,6 +574,7 @@ class PortfolioProcessController extends BaseController
                     $dept = $this->dataUserSession->getDepartement();
                     $semestre = $user->getSemestre();
                     $annee = $semestre->getAnnee();
+                    $parcours = null;
 
                     $groupe = $user->getGroupe();
                     foreach ($groupe as $g) {

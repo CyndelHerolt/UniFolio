@@ -64,6 +64,7 @@ class AllTraceComponent extends BaseController
         $annee = $semestre->getAnnee();
         $diplome = $annee->getDiplome();
         $dept = $diplome->getDepartement();
+        $parcours = null;
 
         $groupe = $user->getGroupe();
         foreach ($groupe as $g) {
