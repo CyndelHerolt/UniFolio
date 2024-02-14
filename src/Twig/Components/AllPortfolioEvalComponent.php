@@ -480,7 +480,7 @@ class AllPortfolioEvalComponent extends BaseController
 
         $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
 
-        $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
+        $portfolios = $this->portfolioRepository->findByFilters($dept->getDepartement(), $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
 
         $this->etat = 0;
         foreach ($portfolios as $portfolio) {

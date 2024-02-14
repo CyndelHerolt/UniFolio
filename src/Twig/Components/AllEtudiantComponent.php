@@ -531,7 +531,7 @@ class AllEtudiantComponent extends BaseController
 
         $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'defaut' => 1]);
 
-        $etudiants = $this->etudiantRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
+        $etudiants = $this->etudiantRepository->findByFilters($dept->getDepartement(), $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
 
         if ($etudiants === null) {
             $this->currentPage = 0;
