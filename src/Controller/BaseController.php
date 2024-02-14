@@ -39,16 +39,6 @@ class BaseController extends AbstractController
         return $this->dataUserSession->getDepartement();
     }
 
-    public function getDepartementDefaut(): ?Departement
-    {
-        $user = $this->getUser();
-        $enseignant = $user->getEnseignant();
-
-        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
-
-        return $dept;
-    }
-
     public function getNotifications(): ?array
     {
         return $this->dataUserSession->getNotifications();

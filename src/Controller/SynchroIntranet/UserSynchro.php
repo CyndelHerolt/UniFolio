@@ -384,7 +384,7 @@ class UserSynchro extends AbstractController
                         return $etudiantSelected['username'] === $login;
                     });
                     foreach ($etudiantSelected as $data) {
-                        $semestre = $semestreRepository->findOneBy(['libelle' => $data['semestre']]);
+                        $semestre = $semestreRepository->findOneBy(['id' => $data['semestre']]);
                         // update etudiant dans la base de données avec les données de $etudiantSelected
                         $etudiant->setNom($data['nom']);
                         $etudiant->setPrenom($data['prenom']);
