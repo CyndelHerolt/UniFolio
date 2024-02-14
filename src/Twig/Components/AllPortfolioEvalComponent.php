@@ -11,6 +11,7 @@ namespace App\Twig\Components;
 use App\Classes\DataUserSession;
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
+use App\Entity\EnseignantDepartement;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
 use App\Entity\Portfolio;
@@ -20,6 +21,7 @@ use App\Repository\ApcNiveauRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
+use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\OrdrePageRepository;
@@ -101,6 +103,7 @@ class AllPortfolioEvalComponent extends BaseController
         protected OrdreTraceRepository  $ordreTraceRepository,
         protected OrdrePageRepository   $ordrePageRepository,
         protected TraceRepository       $traceRepository,
+        protected EnseignantDepartementRepository $enseignantDepartementRepository,
         #[Required] public Security     $security,
         RequestStack                    $requestStack,
         private FormFactoryInterface    $formFactory,
@@ -472,7 +475,10 @@ class AllPortfolioEvalComponent extends BaseController
 
     public function getAllPortfolio()
     {
-        $dept = $this->dataUserSession->getDepartement();
+        $user = $this->getUser();
+        $enseignant = $user->getEnseignant();
+
+        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
 
         $portfolios = $this->portfolioRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
 

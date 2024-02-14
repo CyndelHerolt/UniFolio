@@ -6,7 +6,11 @@
     <form action="{{ path('app_choix_departement') }}" method="post" class="dept_list">
         <div class="dropdown">
             <button type="submit" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ data_user.departement.libelle }} <i class="fa-solid fa-shuffle"></i>
+                {% for dept in app.user.enseignant.enseignantDepartements %}
+                    {% if dept.defaut == true %}
+                        {{ dept.departement.libelle }}
+                    {% endif %}
+                {% endfor %} <i class="fa-solid fa-shuffle"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 {% for departement in data_user.allDepartementsEnseignant %}

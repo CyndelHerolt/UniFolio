@@ -19,6 +19,7 @@ use App\Repository\ApcNiveauRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
+use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\SemestreRepository;
@@ -98,6 +99,7 @@ final class AllTraceEvalComponent extends BaseController
         RequestStack $requestStack,
         private FormFactoryInterface $formFactory,
         protected DataUserSession $dataUserSession,
+        protected EnseignantDepartementRepository $enseignantDepartementRepository,
     ) {
         $this->requestStack = $requestStack;
 
@@ -464,8 +466,11 @@ final class AllTraceEvalComponent extends BaseController
 
     public function getAllTrace()
     {
+        $user = $this->getUser();
+        $enseignant = $user->getEnseignant();
 
-        $dept = $this->dataUserSession->getDepartement();
+        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
+
 
         $traces = $this->traceRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedEtat);
 
