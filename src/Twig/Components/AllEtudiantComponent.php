@@ -8,6 +8,7 @@
 namespace App\Twig\Components;
 
 use App\Classes\DataUserSession;
+use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
@@ -18,6 +19,7 @@ use App\Repository\ApcNiveauRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DepartementRepository;
+use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\OrdrePageRepository;
@@ -44,7 +46,7 @@ use Symfony\UX\TwigComponent\Attribute\PostMount;
 use function PHPUnit\Framework\isEmpty;
 
 #[AsLiveComponent('AllEtudiantComponent')]
-class AllEtudiantComponent
+class AllEtudiantComponent extends BaseController
 {
     use DefaultActionTrait;
 
@@ -102,26 +104,27 @@ class AllEtudiantComponent
     public array $allEtudiants = [];
 
     public function __construct(
-        protected PortfolioRepository   $portfolioRepository,
-        protected DepartementRepository $departementRepository,
-        protected ApcNiveauRepository   $apcNiveauRepository,
-        protected EtudiantRepository    $etudiantRepository,
-        protected GroupeRepository      $groupeRepository,
-        protected SemestreRepository    $semestreRepository,
-        protected AnneeRepository       $anneeRepository,
-        protected TypeGroupeRepository  $typeGroupeRepository,
-        protected ValidationRepository  $validationRepository,
-        protected CommentaireRepository $commentaireRepository,
-        protected CompetenceRepository  $competenceRepository,
-        protected OrdreTraceRepository  $ordreTraceRepository,
-        protected OrdrePageRepository   $ordrePageRepository,
-        protected TraceRepository       $traceRepository,
-        #[Required] public Security     $security,
-        RequestStack                    $requestStack,
-        private FormFactoryInterface    $formFactory,
-        protected DataUserSession       $dataUserSession,
-        HttpClientInterface             $client,
-        MailerInterface                 $mailer,
+        protected PortfolioRepository             $portfolioRepository,
+        protected DepartementRepository           $departementRepository,
+        protected ApcNiveauRepository             $apcNiveauRepository,
+        protected EtudiantRepository              $etudiantRepository,
+        protected GroupeRepository                $groupeRepository,
+        protected SemestreRepository              $semestreRepository,
+        protected AnneeRepository                 $anneeRepository,
+        protected TypeGroupeRepository            $typeGroupeRepository,
+        protected ValidationRepository            $validationRepository,
+        protected CommentaireRepository           $commentaireRepository,
+        protected CompetenceRepository            $competenceRepository,
+        protected OrdreTraceRepository            $ordreTraceRepository,
+        protected OrdrePageRepository             $ordrePageRepository,
+        protected TraceRepository                 $traceRepository,
+        protected EnseignantDepartementRepository $enseignantDepartementRepository,
+        #[Required] public Security               $security,
+        RequestStack                              $requestStack,
+        private FormFactoryInterface              $formFactory,
+        protected DataUserSession                 $dataUserSession,
+        HttpClientInterface                       $client,
+        MailerInterface                           $mailer,
     )
     {
         $this->client = $client;
@@ -430,32 +433,32 @@ class AllEtudiantComponent
         } else {
             $semestres = $this->semestreRepository->findBy(['id' => $this->semestres]);
         }
-            foreach ($semestres as $semestre) {
+        foreach ($semestres as $semestre) {
 
-                $response = $this->client->request(
-                    'GET',
+            $response = $this->client->request(
+                'GET',
                 $_ENV['API_URL'] . 'unifolio/etudiant',
-                    [
-                        'headers' => [
-                            'Accept' => 'application/json',
-                            'Content-Type' => 'application/json',
-                            'x-api-key' => $_ENV['API_KEY']
-                        ],
-                        'query' => [
-                            'semestre' => $semestre->getId(),
-                        ]
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'x-api-key' => $_ENV['API_KEY']
+                    ],
+                    'query' => [
+                        'semestre' => $semestre->getId(),
                     ]
-                );
-                $response = $response->toArray();
+                ]
+            );
+            $response = $response->toArray();
 
-                foreach ($response as $etudiantAPI) {
-                    $etudiant = $this->etudiantRepository->findOneBy(['username' => $etudiantAPI['username']]);
-                    if (!$etudiant) {
-                        $this->etudiantsNonInscrits[] = $etudiantAPI;
-                    }
+            foreach ($response as $etudiantAPI) {
+                $etudiant = $this->etudiantRepository->findOneBy(['username' => $etudiantAPI['username']]);
+                if (!$etudiant) {
+                    $this->etudiantsNonInscrits[] = $etudiantAPI;
                 }
-
             }
+
+        }
     }
 
     #[LiveAction]
@@ -522,7 +525,11 @@ class AllEtudiantComponent
 
     public function getAllEtudiant()
     {
-        $dept = $this->dataUserSession->getDepartement();
+//        $dept = $this->dataUserSession->getDepartement();
+        $user = $this->getUser();
+        $enseignant = $user->getEnseignant();
+
+        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'defaut' => 1]);
 
         $etudiants = $this->etudiantRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedCompetences, $this->selectedEtat);
 
