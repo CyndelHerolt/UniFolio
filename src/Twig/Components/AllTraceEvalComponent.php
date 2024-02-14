@@ -472,7 +472,7 @@ final class AllTraceEvalComponent extends BaseController
         $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
 
 
-        $traces = $this->traceRepository->findByFilters($dept, $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedEtat);
+        $traces = $this->traceRepository->findByFilters($dept->getDepartement(), $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedEtat);
 
         if ($traces == null) {
             $this->currentPage = 0;
