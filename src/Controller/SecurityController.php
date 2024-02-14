@@ -7,6 +7,7 @@
  */
 namespace App\Controller;
 
+use App\Classes\DataUserSession;
 use App\Entity\Enseignant;
 use App\Repository\EnseignantDepartementRepository;
 use App\Repository\EnseignantRepository;
@@ -20,6 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/enseignant')]
 class SecurityController extends AbstractController
 {
+    public function __construct(
+        protected DataUserSession $dataUserSession,
+    ) {
+    }
+
     #[Route('/security', name: 'app_security')]
     public function index(): Response
     {
@@ -61,13 +67,16 @@ class SecurityController extends AbstractController
                     $update = $enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'departement' => $request->request->get('departement')]);
                     // dd($update);
                     $update->setDefaut(true);
+                    $this->dataUserSession->setDepartement($update->getDepartement());
+
                     $this->redirectToRoute('app_dashboard');
                     $entityManager->flush();
                 }
 
                 if (null !== $update->getDepartement()) {
                     $this->addFlash('success', 'Formation par défaut sauvegardée');
-                    $session->getSession()->set('departement', $update->getDepartement()); // on sauvegarde
+//                    $session->getSession()->set('departement', $update->getDepartement()); // on sauvegarde
+                    $this->dataUserSession->setDepartement($update->getDepartement());
 
                     return $this->redirectToRoute('app_accueil');
                 }
