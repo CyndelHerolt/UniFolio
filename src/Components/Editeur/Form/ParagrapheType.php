@@ -18,7 +18,7 @@ class ParagrapheType extends ElementType
                 'label' => 'Paragraphe',
                 'attr' => [
                     'class' => 'form-control',
-                    'rows' => 3,
+                    'rows' => 3, 'data-model' => 'elementContent', 'data-action' => 'input'
                 ],
             ]);
     }

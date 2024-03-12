@@ -29,6 +29,7 @@ class ListeType extends ElementType
                     'attr' => [
                         'class' => "form-control liste_element",
                         'placeholder' => 'Liste',
+                        'data-model' => 'elementContent', 'data-action' => 'input'
                     ],
                     'by_reference' => false,
                     'label' => false,

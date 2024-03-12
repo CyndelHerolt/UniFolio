@@ -18,7 +18,7 @@ class ImageType extends ElementType
             ->add('contenu', FileType::class, [
                 'label' => 'Contenu de l\'image',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control', 'data-model' => 'elementContent', 'data-action' => 'input'
                 ],
                 'help' => 'L\'image doit être au format .jpg, .jpeg, .png ou .gif'
             ]);

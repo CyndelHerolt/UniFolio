@@ -29,6 +29,9 @@ class BlocComponent
     #[LiveProp(writable: true, updateFromParent: true)]
     public ?PortfolioPerso $portfolioPerso;
 
+    #[LiveProp(writable: true)]
+    public mixed $elementContent = null;
+
     public function __construct(
         protected EditeurRegistry          $editeurRegistry,
         protected ElementRepository        $elementRepository,
@@ -75,13 +78,19 @@ class BlocComponent
     }
 
 //    #[LiveAction]
-//    public function saveElement(#[LiveArg] ?int $elementId, #[LiveArg] ?string $content): void
+//    public function saveElement(#[LiveArg] ?int $elementId): void
 //    {
+//        if (!$this->elementContent) {
+//            return;
+//        }
+//
 //        $element = $this->elementRepository->find($elementId);
-//        $element->setContenu($content);
-//        $this->elementRepository->save($element);
-//        $this->bloc = $element->getBloc();
+//        $typeElement = $this->editeurRegistry->getTypeElement($element->getType());
+//        $typeElement->sauvegarde($typeElement, $this->elementContent, $element);
+//        $bloc = $element->getBloc();
+//        $this->bloc = $bloc;
 //    }
+
 
     #[LiveAction]
     public function upElement(#[LiveArg] ?int $elementId): void

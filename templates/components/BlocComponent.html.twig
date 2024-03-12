@@ -162,12 +162,20 @@
                 {% if element.edit == true %}
                     <form action="{{ path('app_portfolio_perso_save_element', {'id': element.id, 'portfolioId': portfolioPerso.id}) }}"
                           method="post"
+
                           {% if 'Image' in element.type %}enctype="multipart/form-data"{% endif %}>
 
                         {{ element_form_render(abstractElement, element) }}
+
                         <button type="submit" class="btn btn-success">
                             <i class="fa fa-check-square"></i>
                         </button>
+                        {#                        <button class="btn btn-success" #}
+                        {#                                type="button" #}
+                        {#                                data-action="live#action" #}
+                        {#                                data-action-name="saveElement(elementId={{ element.id }})"> #}
+                        {#                            <i class="fa fa-check-square"></i> #}
+                        {#                        </button> #}
                     </form>
                 {% else %}
                     {{ element_render(abstractElement, element) }}

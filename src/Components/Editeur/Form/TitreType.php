@@ -17,7 +17,7 @@ class TitreType extends ElementType
             ->add('contenu', TextType::class, [
                 'label' => 'Titre',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control', 'data-model' => 'elementContent', 'data-action' => 'input'
                 ],
             ]);
     }
