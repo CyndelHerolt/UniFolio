@@ -43,7 +43,7 @@ class Portfolio
     private ?bool $visibilite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $banniere = null;
+    private ?string $banniere = '/files_directory/banniere.jpg';
 
     #[ORM\OneToMany(mappedBy: 'portfolio', targetEntity: OrdrePage::class, cascade: ['persist', 'remove'])]
     private Collection $ordrePages;
