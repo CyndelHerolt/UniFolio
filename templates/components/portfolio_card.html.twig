@@ -1,7 +1,7 @@
 <div class="col-lg-6 col-sm-12">
     <div class="card">
         <div class="card-content">
-            <div class="banner" style="background-image: url('{{ asset(this.portfolio.banniere) }}')"></div>
+            <div class="banner" style="background-image: url('{{ this.portfolio.banniere != null ? asset(this.portfolio.banniere) : '/files_directory/banniere.jpg'}}')"></div>
             <div class="card-header d-flex flex-column">
                 <small>{{ this.portfolio.annee.libelle }}</small>
                 <h5 class="card-title">{{ this.portfolio.intitule }}</h5>

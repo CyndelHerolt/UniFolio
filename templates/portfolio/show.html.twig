@@ -37,7 +37,7 @@
 {#                    </div>#}
 {#                </div>#}
 
-                    <div class="banner col-12" style="background-image: url({{ asset(portfolio.banniere) }});">
+                    <div class="banner col-12" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg'}});">
                                 {% if portfolio.etudiant.optAlternance == true %}
                                     <div class="text-center alert alert-info search-badge">
                                         <i class="fa-regular fa-eye"></i>
