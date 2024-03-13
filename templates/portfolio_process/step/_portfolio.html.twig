@@ -8,7 +8,7 @@
     {{ form_row(form.date_modification) }}
 </div>
 {% if portfolio.banniere is not null %}
-    <div class="banniere" style="background-image: url({{ this.portfolio.banniere != null ? asset(this.portfolio.banniere) : '/files_directory/banniere.jpg'}})">
+    <div class="banniere" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg'}})">
         <button class="btn-danger btn" {{ stimulus_action('creation', 'deleteBanniere', 'click') }}>
             <i class="fa-regular fa-square-minus"></i>
         </button>
