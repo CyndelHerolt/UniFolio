@@ -105,7 +105,7 @@ class UserSynchro extends AbstractController
         $response = $client->request(
             'GET',
             $_ENV['API_URL'] . 'unifolio/etudiant',
-            //            'https://intranetv3.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
+            //            'https://intranet.iut-troyes.univ-reims.fr/fr/api/unifolio/etudiant',
             [
                 'headers' => [
                     'Accept' => 'application/json',
