@@ -66,7 +66,7 @@ class Etudiant
     private ?Semestre $semestre = null;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Notification::class)]
-    private Collection $notifications;
+    private ?Collection $notifications;
 
     #[ORM\Column]
     private ?bool $opt_alternance = false;
@@ -142,20 +142,20 @@ class Etudiant
     /**
      * @return Collection<int, Groupe>
      */
-    public function getGroupe(): Collection
+    public function getGroupe(): ?Collection
     {
         return $this->groupe;
     }
 
     // méthode pour récupérer les libellées des groupes de l'étudiant sous forme de string
-    public function getGroupesAsString(): string
+    public function getGroupesAsString(): ?string
     {
         return implode(', ', $this->groupe->map(function ($groupe) {
             return $groupe->getLibelle();
         })->toArray());
     }
 
-    public function getGroupeId(): array
+    public function getGroupeId(): ?array
     {
         $groupes = [];
         foreach ($this->groupe as $groupe) {
@@ -168,7 +168,7 @@ class Etudiant
     {
     }
 
-    public function addGroupe(Groupe $groupe): self
+    public function addGroupe(?Groupe $groupe): self
     {
         if (!$this->groupe->contains($groupe)) {
             $this->groupe->add($groupe);
