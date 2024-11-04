@@ -379,28 +379,31 @@ class UserSynchro extends AbstractController
                 $response = $response->toArray();
 
                 if (in_array($login, array_column($response, 'username'))) {
-                    //Sélectionner l'etudiant dans le tableau
                     $etudiantSelected = array_filter($response, function ($etudiantSelected) use ($login) {
                         return $etudiantSelected['username'] === $login;
                     });
                     foreach ($etudiantSelected as $data) {
                         $semestre = $semestreRepository->findOneBy(['id' => $data['semestre']]);
-                        // update etudiant dans la base de données avec les données de $etudiantSelected
+                        if ($semestre) {
+                            $etudiant->setSemestre($semestre);
+                        }
                         $etudiant->setNom($data['nom']);
                         $etudiant->setPrenom($data['prenom']);
                         $etudiant->setUsername($data['username']);
                         $etudiant->setMailUniv($data['mail_univ']);
                         $etudiant->setMailPerso($data['mail_perso']);
                         $etudiant->setTelephone($data['telephone']);
-                        $etudiant->setSemestre($semestre);
                         $etudiant->setAnneeSortie($data['annee_sortie']);
-                        // retirer les groupes de l'étudiant
+
+                        // Retirer les groupes de l'étudiant
                         foreach ($etudiant->getGroupe() as $grp) {
                             $etudiant->removeGroupe($grp);
                         }
-                        foreach ($data['groupes'] as $groupe) {
-                            $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
-                            $etudiant->addGroupe($groupe);
+                        foreach ($data['groupes'] as $groupeId) {
+                            $groupe = $groupeRepository->findOneBy(['id' => $groupeId]);
+                            if ($groupe) {
+                                $etudiant->addGroupe($groupe);
+                            }
                         }
                         $etudiantRepository->save($etudiant, true);
                     }
