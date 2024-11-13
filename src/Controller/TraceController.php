@@ -175,6 +175,8 @@ class TraceController extends BaseController
                     $biblio = $this->bibliothequeRepository->findOneBy(['etudiant' => $this->getUser()->getEtudiant()]);
                     $trace->setBibliotheque($biblio);
 
+                    // utiliser htmlentities sur le champ description
+                    $trace->setDescription(htmlentities($form->get('description')->getData()));
                     $traceRepository->save($trace, true);
                     $this->addFlash('success', 'La trace a été enregistrée avec succès.');
                     return $this->redirectToRoute('app_trace');
