@@ -268,7 +268,7 @@ class Trace
 
     public function setDescription(?string $description): self
     {
-        $this->description = $description;
+        $this->description = $description ? mb_convert_encoding($description, 'UTF-8', 'UTF-8') : null;
 
         return $this;
     }
