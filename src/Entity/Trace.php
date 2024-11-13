@@ -268,7 +268,7 @@ class Trace
 
     public function setDescription(?string $description): self
     {
-        $this->description = $description ? htmlentities($description, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : null;
+        $this->description = $description;
 
         return $this;
     }
