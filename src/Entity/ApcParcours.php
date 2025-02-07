@@ -43,7 +43,7 @@ class ApcParcours
     private Collection $apcNiveaux;
 
     #[ORM\Column]
-    private ?bool $formationContinue = null;
+    private ?bool $formationContinue = false;
 
     public function __construct()
     {
@@ -199,7 +199,7 @@ class ApcParcours
         return $this;
     }
 
-    public function isFormationContinue(): ?bool
+    public function isFormationContinue(): bool
     {
         return $this->formationContinue;
     }
