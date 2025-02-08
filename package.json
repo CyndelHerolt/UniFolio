@@ -34,7 +34,7 @@
         "@hotwired/turbo": "^7.3.0",
         "@symfony/stimulus-bridge": "^3.2.2",
         "datatables.net-dt": "^1.13.11",
-        "highlight.js": "^11.8.0",
+        "highlight.js": "^11.11.1",
         "stimulus": "^3.2.2"
     }
 }
