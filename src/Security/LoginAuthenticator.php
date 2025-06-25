@@ -84,9 +84,7 @@ class LoginAuthenticator extends AbstractAuthenticator
             }
 
             $departement = $this->departementRepository->findDepartementEnseignantDefaut($enseignant);
-            dump($departement);
             if (0 === count($departement)) {
-                dump($this->urlGenerator->generate('app_choix_departement', [], UrlGeneratorInterface::ABSOLUTE_URL));
                 return new RedirectResponse($this->urlGenerator->generate('app_choix_departement', [], UrlGeneratorInterface::ABSOLUTE_URL));
             }
 

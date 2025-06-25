@@ -66,7 +66,6 @@ final class PortfolioEvalTableComponent extends BaseController
                 }
             }
         } else {
-            dump($etudiant);
             $this->portfolio = null;
         }
 
