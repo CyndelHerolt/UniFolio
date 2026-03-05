@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SynchroIntranetController!{% endblock %}
+
+{% block body %}
+    {% for dept in departements %}
+        {% for data in dept %}
+            <pre>{{ data }}</pre>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

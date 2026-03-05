@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - {{ portfolio.intitule }}{% endblock %}
+
+    {% block header %}
+        {#        {% include "_menu.html.twig" %} #}
+    {% endblock %}
+
+{% block body %}
+
+    <div class="content-container portfolios" {{ stimulus_controller('portfolioPage', { url: path('app_portfolio_show', {id:portfolio.id})}) }}>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                {% if is_granted('ROLE_ETUDIANT') %}
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_portfolio') }}">Bibliothèque
+                            de
+                            portfolios</a></li>
+                {% endif %}
+                <li class="breadcrumb-item active" aria-current="page">Portfolio : {{ portfolio.intitule }}</li>
+            </ol>
+        </nav>
+
+
+        <section class="portfolio-show card">
+            <div class="row">
+
+{#                <div class="card portfolio-user-infos">#}
+{#                    <div class="card-body">#}
+{#                        <p class="card-title">{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }}</p>#}
+{#                        <p class="card-subtitle mb-2 text-body-secondary">{{ portfolio.etudiant.semestre.libelle }}#}
+{#                            - {% for g in portfolio.etudiant.groupe %}#}
+{#                                {% if 'TP' in g.typeGroupe.libelle %}#}
+{#                                    groupe {{ g.libelle }}#}
+{#                                {% endif %}#}
+{#                            {% endfor %}</p>#}
+{#                    </div>#}
+{#                </div>#}
+
+                    <div class="banner col-12" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg'}});">
+                                {% if portfolio.etudiant.optAlternance == true %}
+                                    <div class="text-center alert alert-info search-badge">
+                                        <i class="fa-regular fa-eye"></i>
+                                        <span>Recherche une alternance</span>
+                                    </div>
+                                {% elseif portfolio.etudiant.optStage == true %}
+                                    <div class="text-center alert alert-info search-badge">
+                                        <i class="fa-regular fa-eye"></i>
+                                        <span>Recherche un stage</span>
+                                    </div>
+                                {% endif %}
+                        <div class="title-container">
+                            <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
+                            <small>{{ portfolio.annee.libelleLong }}</small>
+                            <small>{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }} - {{ portfolio.etudiant.semestre.libelle }}
+                                - {% for g in portfolio.etudiant.groupe %}
+                                    {% if 'TP' in g.typeGroupe.libelle %}
+                                        groupe {{ g.libelle }}
+                                    {% endif %}
+                                {% endfor %}</small>
+                        </div>
+                    </div>
+
+
+
+
+                <div {{ stimulus_target('trace', 'stepZone') }}{{ stimulus_target('portfolioPage', 'zone') }}>
+
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,571 @@
+.portfolios, .pages, .traces, .cvs, .bilan {
+
+
+  fieldset {
+    font-size: .8rem;
+  }
+
+  .row {
+    justify-content: space-between;
+    margin: 0;
+    width: 100%;
+
+    //.card {
+    //  border: none;
+    //  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    //}
+
+
+    .card-content {
+
+
+      .accordion-button::after {
+        display: none;
+      }
+
+      .accordion-button {
+        display: flex;
+        justify-content: flex-end;
+        //flex-direction: column;
+      }
+
+      .progress {
+        height: 15px;
+        background-color: $color-primary-focus;
+
+
+        .progress-bar {
+          background-color: $color-primary;
+        }
+      }
+
+      .card-header {
+        align-items: center;
+
+
+        .card-infos-min {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          font-size: .7rem;
+          padding: 0;
+          margin: 0;
+
+          li {
+            margin: 0 10px 0 0;
+
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      .card-body {
+
+        ul {
+          list-style: none;
+          width: 100%;
+          padding: 0;
+          margin: 0;
+
+          li {
+            background-color: $color-bg;
+            padding: 10px 20px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: start;
+            font-size: .8rem;
+
+            i {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+
+      hr {
+        margin: 10px;
+      }
+
+      .btn_grp {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        width: 100%;
+        position: relative;
+        margin: 15px 0;
+      }
+    }
+
+  }
+
+  .modal_cv {
+    justify-content: center;
+    padding: 25px 50px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+
+    .cv_header {
+      margin: 25px 0;
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin: 0;
+        text-transform: capitalize;
+      }
+
+      .contact {
+        ul {
+          display: flex;
+          flex-direction: column;
+          padding: 0;
+          margin: 0;
+
+          li {
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+
+    .cv_content {
+      display: flex;
+      justify-content: space-between;
+      margin: 25px 0;
+
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $color-secondary-focus;
+      }
+
+      h5 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .cv_profile {
+        margin: 0 0 25px 0;
+      }
+
+      .cv_competences {
+        margin: 0 0 25px 0;
+
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          padding: 0;
+          margin: 0 0 25px 0;
+
+          li {
+            margin: 5px 10px;
+            padding: 5px 10px;
+            background-color: $color-primary;
+            border-radius: 5px;
+          }
+        }
+      }
+
+    }
+
+
+    .cv_exp ul, .cv_form ul {
+      display: flex;
+      flex-direction: column;
+      padding: 0 !important;
+
+
+    }
+
+  }
+
+  .portfolio-show, .trace-show {
+    margin: 50px auto;
+    border: none;
+
+    .portfolio-user-infos {
+      margin: 25px 0;
+    }
+
+
+    .banner {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: end;
+      margin-bottom: 75px;
+
+      .search-badge {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        margin: 10px;
+      }
+
+      .title-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        width: 50%;
+        text-align: center;
+        background-color: $color-light;
+        color: $color-dark;
+        position: relative;
+        top: 15%;
+        margin: 0 auto;
+        padding: 25px;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+      }
+    }
+
+    .competences-link {
+      margin: 25px 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: 15px 0;
+
+        //a {
+
+          span {
+            color: $color-dark !important;
+            font-weight: 400;
+          }
+        //}
+      }
+    }
+
+    .portfolio-pages-min {
+      margin: 50px auto;
+      box-shadow: none;
+      border: solid 1px lightgrey;
+      transition: ease-in 0.1s;
+
+      &:hover {
+        border: solid 1px $color-primary;
+        transition: ease-in 0.1s;
+        cursor: pointer;
+      }
+    }
+
+    .btn-back {
+      margin: 0 0 25px 0;
+    }
+
+    .portfolio-pages, .trace-content {
+      margin: 25px auto;
+      box-shadow: none;
+      border: 1px solid lightgrey;
+      padding: 50px;
+
+      .trace-infos-min {
+        font-size: .8rem;
+
+        ul {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0;
+          margin: 0;
+
+          li {
+            margin: 0 10px 0 0;
+
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    .portfolio-traces, .trace-content {
+      margin: 15px auto;
+
+      figure {
+        margin: 25px 0;
+
+        .trace-galerie-img {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0;
+
+          img {
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          }
+        }
+
+        .trace-galerie-lien {
+          display: flex;
+          flex-direction: column;
+
+          button {
+            margin: 10px 0;
+
+            a {
+              color: $color-light;
+            }
+          }
+        }
+
+        figcaption {
+          font-size: .8rem;
+        }
+      }
+    }
+
+    .portfolio-competences, .trace-competences {
+      padding: 0;
+      margin: 25px 0;
+
+      li {
+        background-color: #f8f8f8;
+        padding: 10px 20px;
+        margin: 15px 0 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+        font-size: 0.8rem;
+      }
+
+      p {
+        text-align: end;
+      }
+
+    }
+
+    .cv-portfolio {
+      padding: 50px;
+      margin: 25px auto;
+
+      .cv-header {
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .portfolio-eval-traces {
+
+    .filtre-btn {
+
+      button {
+        margin-right: 10px;
+      }
+    }
+
+    .accordion-item {
+
+      font-size: .8rem;
+    }
+
+    .card-infos-min {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: .7rem;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 0 10px 0 0;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .dashboard-competences {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 5px 0;
+        background-color: $color-bg;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+        font-size: .8rem;
+
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .dashboard-trace-contenu {
+
+      figure {
+        margin: 25px 0;
+
+        .trace-galerie-img {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          padding: 0;
+
+          img {
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          }
+        }
+
+        .trace-galerie-lien {
+          display: flex;
+          flex-direction: column;
+
+          button {
+            margin: 10px 0;
+
+            a {
+              color: $color-light;
+            }
+          }
+        }
+
+        figcaption {
+          font-size: .8rem;
+        }
+      }
+    }
+
+    .dashboard-competences {
+
+      li {
+        display: flex;
+        justify-content: space-between;
+
+        fieldset {
+
+          div {
+            display: flex;
+            justify-content: space-between;
+
+            .form-check {
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .btn-pages {
+      margin: 25px 0;
+
+      .btn-primary {
+        background-color: $color-primary;
+        color: $color-light;
+        border: solid 1px $color-primary;
+        border-radius: 5px !important;
+        padding: 6px 16px;
+        font-size: .8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: ease-in-out 0.1s;
+        width: fit-content;
+        flex: none !important;
+      }
+    }
+
+  }
+
+  .bilan-eval-competences {
+
+    ul {
+      flex-direction: column;
+
+      li {
+        background-color: #f8f8f8;
+        padding: 10px 20px;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: start;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+.bilan-competences {
+
+  li {
+    margin: 5px 0 !important;
+  }
+}
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cv-show {
+
+  .card {
+    margin: 15px auto;
+    padding: 50px;
+  }
+
+  .cv_reseaux {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    a {
+      margin: 0 10px 10px 0;
+    }
+  }
+
+  .cv-header {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cv-content {
+    display: flex;
+    justify-content: space-between;
+
+    h4 {
+      margin-bottom: 15px;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
+}

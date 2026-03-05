@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Connexion{% endblock %}
+
+{% block body %}
+
+    <div class="content-container account">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Connexion</li>
+            </ol>
+        </nav>
+        <section>
+            <div class="row">
+                <div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+                    <h1>Connexion</h1>
+                    <form action="{{ path('app_login') }}" method="post">
+                        <div class="form-group">
+                            <label for="username">Login URCA</label>
+                            <input type="text" id="username" name="_username" class="form-control" required
+                                   value="{{ last_username }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" id="password" name="_password" class="form-control" required>
+                        </div>
+
+                        {# Protection contre les attaques CSRF #}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
+                        <p><a href="{{ path('app_verify_resend_email') }}">Renvoyer le mail de vérification</a></p>
+                        <button type="submit" class="btn btn-primary">Connexion</button>
+                        <hr>
+                        <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_users_new') }}">Inscription</a></p>
+                    </form>
+                    {% for flash_message in app.flashes('error') %}
+                        <div>
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,143 @@
+
+.public {
+  max-width: 100vw;
+  @include paragraphe;
+  padding: 0 100px;
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .zone1 {
+
+    .row {
+      @include zone(2rem 0, 2rem 0, $color-light, 0);
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      @include titre($primary-font, 3rem, 1);
+      margin-bottom: 1rem;
+      font-weight: 800;
+
+      span {
+        color: $color-primary;
+      }
+    }
+
+    p {
+      opacity: .8;
+      line-height: 1.5;
+      font-size: 1rem;
+      margin-bottom: 50px;
+    }
+
+    img {
+      width: 100%;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+    }
+  }
+
+  .zone2 {
+    .row {
+      @include zone(2rem 0, 2rem 0, $color-light, 10px);
+      color: $color-dark;
+      justify-content: space-between;
+
+      h2 {
+        @include titre($primary-font, 1.85rem, 1);
+        font-weight: 600;
+      }
+
+      em {
+        line-height: 1.5;
+        font-size: 1rem;
+        opacity: .8;
+      }
+
+      p {
+        line-height: 1.5;
+      }
+
+      .icon-txt {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-end;
+        margin: 25px 0;
+
+        i {
+          color: $color-secondary;
+          margin: 15px 5px 25px 15px;
+        }
+      }
+
+      .descript {
+        @include zone(0, 0 0, $color-light, 10px);
+        color: $color-dark;
+
+        li {
+          margin-bottom: 50px;
+
+          p {
+            line-height: 1.75;
+            font-size: 1rem;
+          }
+        }
+
+        .img-container {
+          border-radius: 15px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            border-radius: 25px;
+          }
+        }
+      }
+
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 25px 0;
+        padding: 75px;
+        border: solid 3px $color-secondary;
+        border-radius: 50px;
+
+        .btn {
+          margin-right: 25px;
+        }
+      }
+    }
+  }
+
+  .zone3 {
+
+    .row {
+      @include zone(2rem 0, 2rem, $color-light, 10px);
+      color: $color-dark;
+      justify-content: space-between;
+
+      .wip {
+        margin: 50px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          color: $color-secondary;
+          margin-bottom: 25px;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,29 @@
+{# templates/components/all_portfolio.html.twig #}
+
+    {% if '/dashboard' in app.request.uri %}
+        {% if this.allPortfolio is empty %}
+            <div class="alert alert-warning" role="alert">
+                Aucun portfolio n'a été trouvé.
+            </div>
+
+        {% else %}
+            {% for portfolio in this.allPortfolio|slice(0,4) %}
+                {{ component('portfolio_table', {'id': portfolio.id}) }}
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <div {{ attributes }}>
+            <article class="row g-4">
+                {% if this.allPortfolio is empty %}
+                    <div class="alert alert-warning" role="alert">
+                        Aucun portfolio n'a été trouvé.
+                    </div>
+
+                {% else %}
+                    {% for portfolio in this.allPortfolio %}
+                        {{ component('portfolio_card', {'id': portfolio.id}) }}
+                    {% endfor %}
+                {% endif %}
+            </article>
+        </div>
+    {% endif %}

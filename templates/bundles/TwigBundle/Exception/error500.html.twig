@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Accès refusé{% endblock %}
+
+{% block body %}
+
+    <div class="content-container error_page">
+        <div class="row">
+            <div class="col-md-12 error_page_msg">
+                <h1 class="error_code">500</h1>
+                <h2>Désolé, UniFolio n'est pas accessible pour le moment.</h2>
+                <small>Si le problème persiste, veuillez contacter l'administrateur du site.</small>
+                <a href="{{ path('app_accueil') }}">
+                    <button class="btn btn-primary">Retourner à l'accueil</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

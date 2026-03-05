@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Nouveau portfolio{% endblock %}
+
+    {% block header %}
+{#        {% include "_menu.html.twig" %}#}
+    {% endblock %}
+
+{% block body %}
+    <div class="content-container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_portfolio') }}">Bibliothèque de portfolios</a></li>
+            {% if '/edit' in app.request.uri %}
+                <li class="breadcrumb-item active" aria-current="page">Edition portfolio</li>
+            {% elseif '/new' in app.request.uri %}
+                <li class="breadcrumb-item active" aria-current="page">Nouveau portfolio</li>
+            {% endif %}
+        </ol>
+    </nav>
+
+        <div class="steps">
+            <div class="steps-bloc">
+                <div>
+                    <p>1</p>
+                    <span>
+                        <p>Initialisation d'un portfolio</p>
+                        <small>Completion après enregistrement</small>
+                    </span>
+                </div>
+            </div>
+            <div class="steps-bloc">
+                <div>
+                    <p>2</p>
+                    <span>
+                        <p>Création de pages</p>
+                        <small>Contient un ensemble de traces</small>
+                    </span>
+                </div>
+            </div>
+            <div class="steps-bloc">
+                <div>
+                    <p>3</p>
+                    <span>
+                        <p>Création ou ajout de traces</p>
+                        <small>Depuis une page</small>
+                    </span>
+                </div>
+            </div>
+            <div class="steps-bloc">
+                <div>
+                    <p>4</p>
+                    <span>
+                        <p>Création ou ajout d'un cv</p>
+                        <small>lié au portfolio</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="portfolio_form">
+            <div class="card">
+                <article>
+                    <h2>Nouveau portfolio</h2>
+                    {{ form_start(form) }}
+                    <div class="hidden">
+                        {{ form_row(form.date_creation) }}
+                        {{ form_row(form.date_modification) }}
+                    </div>
+                    {{ form_row(form.intitule) }}
+
+                    {{ form_label(form.banniere) }}
+                    <div class="alert alert-warning">
+                        <i class="fa-regular fa-exclamation-triangle"></i>
+                        <span>Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter
+        une nouvelle.</span>
+                    </div>
+                    {{ form_widget(form.banniere) }}
+                    {{ form_help(form.banniere) }}
+
+                    {{ form_row(form.description) }}
+                    {{ form_label(form.visibilite) }}
+                    <div class="alert alert-warning">
+                        <i class="fa-regular fa-exclamation-triangle"></i>
+                        <span>Il ne peut y avoir qu'un seul portfolio public par année universitaire. Si vous en créez un nouveau, l'ancien sera automatiquement rendu privé</span>
+                    </div>
+                    {{ form_widget(form.visibilite) }}
+                    {{ form_help(form.visibilite) }}
+                    {{ form_row(form.optSearch) }}
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    {{ form_end(form) }}
+
+                </article>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

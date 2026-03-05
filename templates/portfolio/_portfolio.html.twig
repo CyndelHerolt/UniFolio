@@ -1,0 +1,248 @@
+<em class="portfolio-description">{{ portfolio.description }}</em>
+<hr>
+<div>
+    <h3>Compétences à évaluer dans ce portfolio
+{#        <span data-bs-toggle="dropdown"#}
+{#              data-controller="tooltip"#}
+{#              title="Cliquer sur une compétence vous permettra d'accéder directement aux traces concernées"#}
+{#              data-bs-placement="bottom"#}
+{#        ><i class="fa-duotone fa-circle-info" style="color: #641B9FCF"></i></span>#}
+    </h3>
+    <ul class="competences-link">
+        {% for competence in competencesNiveau %}
+            <li class="{{ competence.competences.couleur }}">
+{#                <a href="" class="{{ competence.competences.couleur }}">#}
+                    {{ competence.competences.nomCourt }} <span>• {{ competence.libelle }}</span>
+{#                </a>#}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<hr>
+
+{% for page in pages %}
+{% if user.etudiant is not null %}
+<div class="card portfolio-pages-min"
+     data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showPage', 'click') }} style="padding: 0 25px">
+    {% elseif user.enseignant is not null %}
+    <div class="card portfolio-pages-min"
+         data-page="{{ page.id }}" {{ stimulus_action('portfolioPage', 'showEvalPage', 'click') }}
+         style="padding: 0 25px">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ page.intitule }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
+            <hr>
+            <ul class="portfolio-competences">
+                <h6>Validation des compétences dans cette page</h6>
+                {% set seen = [] %}
+                {% for ordre in page.ordreTraces %}
+                    {% for validation in ordre.trace.validations %}
+                        {% if validation.apcNiveau.libelle not in seen %}
+                            {% set totalApparitions = 0 %}
+                            {% set totalEval = 0 %}
+                            {% for ordre2 in page.ordreTraces %}
+                                {% for validation2 in ordre2.trace.validations %}
+                                    {% if validation2.apcNiveau.libelle == validation.apcNiveau.libelle %}
+                                        {% set totalApparitions = totalApparitions + 1 %}
+                                        {% if validation2.etat != 0 %}
+                                            {% set totalEval = totalEval + 1 %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <li>
+                                <div>
+                        <span class="{{ validation.apcNiveau.competences.couleur }}">
+                            {{ validation.apcNiveau.competences.nomCourt }}
+                        </span> •
+                                    {{ validation.apcNiveau.libelle }}
+                                </div>
+                                <span class="{{ validation.apcNiveau.competences.couleur }}">
+                                {{ ((totalEval / totalApparitions) * 100)|round(-1) }}%
+                                </span>
+                                {% set seen = seen|merge([validation.apcNiveau.libelle]) %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% if portfolio.cv is not null %}
+        <div class="card cv-portfolio">
+            <div class="cv-header">
+                <h2>{{ portfolio.cv.etudiant.prenom }} {{ portfolio.cv.etudiant.nom }}</h2>
+                <h3>{{ portfolio.cv.poste }}</h3>
+            </div>
+            <div class="row cv-content">
+                <aside class="col-lg-4">
+                    <div>
+                        <h4>Contact</h4>
+                        <p>{{ portfolio.cv.etudiant.mailUniv }}</p>
+                        <div class="cv_reseaux">
+                            {% for reseau in portfolio.cv.reseaux %}
+                                {% if reseau matches '/.*twitter.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-twitter fa-lg"></i></a>
+                                {% elseif reseau matches '/.*linkedin.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-linkedin fa-lg"></i></a>
+                                {% elseif reseau matches '/.*github.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-github fa-lg"></i></a>
+                                {% elseif reseau matches '/.*dribbble.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-dribbble fa-lg"></i></a>
+                                {% elseif reseau matches '/.*pinterest.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-pinterest fa-lg"></i></a>
+                                {% elseif reseau matches '/.*instagram.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-instagram fa-lg"></i></a>
+                                {% elseif reseau matches '/.*facebook.*/' %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa-brands fa-facebook fa-lg"></i></a>
+                                {% else %}
+                                    <a href="{{ reseau }}" target="_blank"><i
+                                                class="fa fa-globe fa-lg"></i></a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>A propos</h4>
+                        <p>{{ portfolio.cv.description }}</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>Compétences</h4>
+                        <h5>Compétences comportementales</h5>
+                        <ul>
+                            {% for softSkill in portfolio.cv.softSkills %}
+                                <li>{{ softSkill }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h5>Compétences techniques</h5>
+                        <ul>
+                            {% for hardSkill in portfolio.cv.hardSkills %}
+                                <li>{{ hardSkill }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h5>Langues</h5>
+                        <ul>
+                            {% for langue in portfolio.cv.langues %}
+                                <li>{{ langue }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
+                <article class="col-lg-7">
+                    <div>
+                        <h4>Expériences</h4>
+                        {% for experience in portfolio.cv.experience %}
+                            <div class="cv_experience">
+                                <small>{{ experience.dateDebut|date('m/Y') }}
+                                    - {% if experience.dateFin %}{{ experience.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                <h5>{{ experience.poste }}</h5>
+                                <p>{{ experience.entreprise }}</p>
+                                <ul>
+                                    {% for activite in experience.activite %}
+                                        <li>{{ activite }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>Formations</h4>
+                        {% for formation in portfolio.cv.formation %}
+                            <div class="cv_formation">
+                                <small>{{ formation.dateDebut|date('m/Y') }}
+                                    - {% if formation.dateFin %}{{ formation.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                <h5>{{ formation.diplome }}</h5>
+                                <p>{{ formation.etablissement }}</p>
+                                <ul>
+                                    {% for activite in formation.activite %}
+                                        <li>{{ activite }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    {% endif %}
+    {% if user.enseignant is not null %}
+    <div>
+        <h5>Commentaires</h5>
+        {% if portfolio.commentaires is empty %}
+            <p>Aucun commentaire pour le moment</p>
+        {% else %}
+            {% for commentaire in portfolio.commentaires %}
+                <div class="card"
+                     style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                            <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                            {% if commentaire.enseignant.id == data_user.enseignant.id %}
+                                <a href="{{ path('app_delete_commentaire', {'id': commentaire.id}) }}">
+                                    <button class="btn btn-delete"><i
+                                                class="fa-solid fa-square-minus"></i>
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                        <small>·</small>
+                        <small>
+                            {% if commentaire.visibilite == 1 %}
+                                Public
+                            {% else %}
+                                Privé
+                            {% endif %}
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ commentaire.contenu }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form_start(commentForm) }}
+        {{ form_row(commentForm.contenu) }}
+        {{ form_widget(commentForm.visibilite) }}
+        <button type="submit" class="btn btn-primary" name="portfolioId" value="{{ portfolio.id }}">Publier
+        </button>
+        {{ form_end(commentForm) }}
+    </div>
+</div>
+{% elseif user.etudiant is not null %}
+    <div>
+        <h5>Commentaires</h5>
+        {% if portfolio.commentaires is empty %}
+            <p>Aucun commentaire pour le moment</p>
+        {% else %}
+            {% for commentaire in portfolio.commentaires %}
+                <div class="card"
+                     style="margin-bottom: 10px; box-shadow: none; border: 1px solid lightgrey">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                            <h6 class="card-subtitle">{{ commentaire.enseignant.prenom }} {{ commentaire.enseignant.nom }}</h6>
+                        </div>
+                        <small class="text-muted">{{ commentaire.datecreation|date('d-m-Y H:i') }}</small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ commentaire.contenu }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endif %}

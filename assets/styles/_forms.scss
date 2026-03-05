@@ -1,0 +1,498 @@
+label.required::after {
+  content: " *";
+  color: red;
+}
+
+.trace-form, .cv_form, .portfolio_form {
+
+  .hidden {
+    display: none;
+  }
+
+    .card {
+      margin: 15px auto;
+      padding: 50px;
+    }
+}
+
+.portfolio_form {
+  @include zone(25px 0, 0, $color-light, 0);
+
+  .row {
+    justify-content: space-around;
+
+    article {
+
+      form {
+
+        label {
+          font-weight: 600;
+        }
+
+        .banniere {
+          width: 100%;
+          height: 150px;
+          overflow: hidden;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          margin-top: 15px;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .galerie {
+          display: flex;
+          flex-wrap: wrap;
+
+          .image_trace_div {
+            margin: 15px;
+            display: flex;
+            flex-direction: column;
+
+            .trace-img {
+              background-position: center;
+              background-size: cover;
+              width: 100px;
+              height: 100px;
+            }
+
+            .custom-file {
+              display: initial;
+            }
+          }
+        }
+
+        .image_trace_div {
+
+          .form-group {
+            margin: 0 !important;
+          }
+        }
+
+        .custom-file {
+          display: initial;
+        }
+      }
+
+      ul {
+        padding: 0;
+
+        div {
+          padding: 15px 35px;
+          margin: 15px 0;
+          background-color: $color-light;
+          box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+        }
+      }
+
+
+      .portfolio-competences {
+        padding: 0;
+        margin: 0;
+        display: block;
+
+        div {
+          padding: 0;
+          margin: 0;
+          background-color: transparent;
+          box-shadow: none;
+        }
+
+        li {
+          background-color: #f8f8f8;
+          padding: 10px 20px;
+          margin: 15px 0 0 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          text-align: start;
+          font-size: 0.8rem;
+        }
+
+        p {
+          text-align: end;
+        }
+      }
+
+      .modal-body {
+        display: flex;
+        padding: 0 50px 25px 50px;
+
+        figure {
+          margin: 25px 0;
+
+          .trace-galerie-img {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+
+            img {
+              width: 100%;
+              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            }
+          }
+
+          .trace-galerie-lien {
+            display: flex;
+            flex-direction: column;
+
+            button {
+              margin: 10px 0;
+
+              a {
+                color: $color-light;
+              }
+            }
+          }
+
+          figcaption {
+            font-size: .8rem;
+          }
+        }
+      }
+    }
+
+    aside {
+      padding: 50px 100px 0 50px;
+    }
+
+    .commentaire {
+      padding: 0 100px 25px 100px;
+    }
+
+    .form-group {
+      margin: 25px 0;
+    }
+
+    //.btn-danger {
+    //  margin: 25px 0;
+    //}
+
+
+    .trace-form {
+      padding: 25px 50px 25px 0;
+    }
+
+    .competences {
+      padding: 25px 50px;
+    }
+
+    aside {
+      //background-color: $color-primary-focus;
+    }
+  }
+}
+
+.steps {
+  display: flex;
+  flex: 1;
+  margin-top: 25px;;
+
+  .steps-bloc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e5daef;
+    width: 32%;
+    padding: 10px 25px;
+    margin: 0 10px;
+
+    div {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+
+      p {
+        margin: 0;
+        font-size: 1.75rem;
+      }
+
+      span {
+
+        p {
+          margin: 0;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.account {
+  //padding: 0 !important;
+
+  .choix-dept {
+    display: flex;
+    justify-content: space-evenly !important;
+  }
+
+  .row {
+    //justify-content: space-between;
+    //margin: 0;
+
+    .col-lg-5 {
+      padding: 15px;
+      margin: 0 auto;
+
+      i {
+        margin-right: 15px;
+      }
+
+      .form-group {
+        margin: 15px 0;
+      }
+    }
+  }
+}
+
+.secondary_form {
+  div {
+
+    padding: 0 !important;
+    margin: 15px 0;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  button {
+    @include btn($color-secondary-focus, $color-light, 3px solid $color-secondary-focus);
+    margin: 15px 0 0 0;
+
+    &:hover {
+      @include btn($color-light, $color-dark, 3px solid $color-secondary-focus);
+    }
+  }
+}
+
+#formTrace {
+  display: flex;
+    flex-direction: column;
+}
+
+.portfolio_form {
+
+  .nav-item:hover {
+
+    .nav-link {
+      color: #6848BDFF;
+    }
+  }
+
+  .nav-link {
+    color: $color-dark;
+    font-size: .8rem;
+  }
+
+  .step-title {
+    margin: 25px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .step-page-actions {
+    display: flex;
+    align-items: center;
+
+    .step-page-crud, .step-page-order {
+
+      button {
+        width: 50px;
+        margin: 0 0 10px 10px;
+      }
+
+      i {
+        color: $color-light;
+      }
+    }
+
+    .step-page-crud button:nth-child(1) {
+      background-color: #AD1E1E;
+      border: none;
+
+      &:hover {
+        background-color: #c23131;
+      }
+    }
+
+    .step-page-order button {
+      background-color: $color-primary;
+      border: none;
+
+      &:hover {
+        background-color: #581588;
+      }
+    }
+  }
+
+  .step-card {
+    padding: 15px 25px;
+    margin: 25px 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    .alert-warning {
+      background-color: #fff3cd;
+      border: solid 1px #ffe28a;
+      padding: 10px 15px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .step-trace-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .step-trace-crud, .step-trace-order {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          width: 50px;
+          margin: 0 0 10px 10px;
+        }
+
+        i {
+          color: $color-light;
+        }
+      }
+
+      .step-trace-crud button:nth-child(1) {
+        background-color: #AD1E1E;
+        border: none;
+
+        &:hover {
+          background-color: #c23131;
+        }
+      }
+
+      .step-trace-order button {
+        background-color: $color-primary;
+        border: none;
+
+        &:hover {
+          background-color: #581588;
+        }
+      }
+    }
+
+    .card-infos-min {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: .7rem;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 0 10px 0 0;
+
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .alert {
+    padding: 10px 15px;
+    font-size: .8rem !important;
+  }
+
+  .form-group {
+    margin: 15px 0;
+  }
+
+  .step-trace-see-content {
+    width: fit-content;
+  }
+}
+
+.trace_form {
+
+  .card {
+    margin: 15px auto;
+    padding: 50px;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .new_video, .new_img, .new_lien, .new_pdf {
+    display: flex;
+    margin: 0 0 15px 0;
+
+    .form-group {
+      width: 100%;
+    }
+
+    .btn {
+      width: fit-content;
+      height: fit-content;
+      margin-left: 10px;
+    }
+  }
+
+  .lien_trace_div, .video_trace_div {
+    margin: 0 0 15px 0;
+
+    .btn {
+      width: fit-content;
+      height: fit-content;
+      margin-left: 10px;
+    }
+  }
+
+  .custom-file {
+    display: initial;
+  }
+
+  .galerie {
+    display: flex;
+    flex-wrap: wrap;
+
+    .image_trace_div {
+      display: flex;
+      flex-direction: column;
+      margin: 15px;
+
+      .trace-img {
+        background-position: center;
+        background-size: cover;
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  .form_trace_competences {
+    padding: 25px;
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+    margin: 25px 0;
+
+    label {
+      font-weight: 400;
+    }
+
+    .form-check {
+      margin: 0 0 14px 0;
+    }
+  }
+}
+
+#formCv {
+  .form-group {
+    margin: 0;
+  }
+}

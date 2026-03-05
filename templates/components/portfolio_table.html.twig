@@ -1,0 +1,42 @@
+<div class="card d-flex flex-column card-etudiant">
+    <div class="portfolio-table">
+        <div class="card-header">
+            <h5>{{ this.portfolio.intitule }}</h5>
+            <h6>{{ this.portfolio.annee.libelleLong }}</h6>
+            <ul class="card-infos-min">
+                <li><span>Publié le :&nbsp;</span> {{ this.portfolio.datecreation|date('d-m-y') }}</li>
+                <li>•</li>
+                <li>
+                    <span>Dernière modification le :&nbsp;</span> {{ this.portfolio.datemodification is empty ? this.portfolio.datecreation|date('d-m-y') : this.portfolio.datemodification|date('d-m-y') }}
+                </li>
+                <li>•</li>
+                {% if this.portfolio.visibilite %}
+                    <li><span>Public</span></li>
+                {% else %}
+                    <li><span>Privé</span></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-body">
+            <small>
+                {% if this.portfolio.description|length>250 %}
+                    {{ this.portfolio.description|slice(0, 250) ~ '...' }}
+                {% else %}
+                    {{ this.portfolio.description }}
+                {% endif %}
+            </small>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group">
+                <a href="{{ path('app_portfolio_index', {'id': this.portfolio.id}) }}">
+                    <button type="button" class="btn btn-primary">
+                        Accéder au portfolio
+                    </button>
+                </a>
+                <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
+                    <button class="btn btn-secondary">Modifier</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

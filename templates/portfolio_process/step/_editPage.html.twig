@@ -1,0 +1,26 @@
+<div class="step-title">
+    <h4>Edition de la page {{ page.intitule }}</h4>
+</div>
+    <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+
+{{ form_start(form, {'attr': {id:'formPage'}}) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+<hr>
+
+<div {{ stimulus_target('page', 'traceZone') }}>
+
+</div>
+
+{% if existingTraces is not null %}
+    {% set tracesCount = existingTraces|length %}
+    {% for trace in existingTraces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
+        {% include 'portfolio_process/step/_addTrace.html.twig' with {tracesCount: tracesCount} %}
+    {% endfor %}
+{% endif %}
+
+<button class="btn btn-primary d-block save" value="{{ page.id }}"
+        {{ stimulus_action('page', 'savePage', 'click') }}>
+    Enregister les modifications
+</button>

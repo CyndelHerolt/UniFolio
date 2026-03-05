@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}UniFolio{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <script src="{{ asset('bundles/tinymce/ext/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('bundles/tinymce/ext/tinymce-webcomponent.js') }}" type="module"></script>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body {{ stimulus_controller('tracesFiltres', { url: path('app_trace')}) }}{{ stimulus_target('tracesFiltres', 'traceZone') }}>
+<header>
+    {% block header %}
+    {% endblock %}
+    {% include('_menu.html.twig') %}
+</header>
+{% include "_toasts.html.twig" %}
+<div class="test" style="position: fixed; width: 100%; z-index: 9999">
+
+</div>
+<main>
+    {% block body %}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</main>
+<footer>
+    {% block footer %}
+    {% endblock %}
+
+    {% if admin is defined and admin == '/admin?_switch_user=_exit' %}
+        <br>
+        <a href="{{ admin }}">
+            <button class="btn-primary">back to admin</button>
+        </a>
+        <br>
+
+    {% endif %}
+
+    <div class="footer-infos-min">
+        <div>
+            <small>Copyright © 2023 @CyndelHerolt. All rights reserved. | Version 1.0</small>
+        </div>
+        <div>
+            <a href="{{ path('app_rgpd') }}">Données personnelles</a>
+            <span>·</span>
+            <a href="{{ path('app_mentions_legales') }}">Mentions légales</a>
+        </div>
+    </div>
+</footer>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var toggler = document.querySelector('.toggler');
+        var menu = document.querySelector('.navbar');
+
+        // Gestionnaire pour le bouton de basculement du menu
+        document.getElementById('menu-toggle').addEventListener('click', function(ev) {
+            ev.stopPropagation(); // Cela empêche l'événement de se propager au document
+
+            if (!menu.classList.contains('navbar-show')) {
+                menu.classList.remove('navbar-hidden');
+                menu.classList.add('navbar-show');
+            } else {
+                menu.classList.remove('navbar-show');
+                menu.classList.add('navbar-hidden');
+            }
+        });
+
+        // Gestionnaire pour le document
+        document.addEventListener('click', function(ev) {
+            if (!menu.contains(ev.target)) { // Vérifier si l'élément cliqué est dans le menu
+                menu.classList.remove('navbar-show');
+                menu.classList.add('navbar-hidden');
+            }
+        });
+    });
+</script>
+</html>

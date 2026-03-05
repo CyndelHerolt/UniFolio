@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - {{ trace.titre }}{% endblock %}
+
+{% block body %}
+    <div class="content-container traces">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_bilan_eval') }}">Bilan pédagogique</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Trace : {{ trace.titre }}</li>
+        </ol>
+    </nav>
+
+        <section class="portfolio-eval-traces trace-show">
+            <article class="row">
+                {{ component('BilanTraceEvalComponent', {'id': trace.id}) }}
+            </article>
+        </section>
+    </div>
+{% endblock %}
+

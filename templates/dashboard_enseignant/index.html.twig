@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Dashboard{% endblock %}
+
+    {% block header %}
+
+    {% endblock %}
+
+
+{% block body %}
+    <div class="content-container dashboard">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+        <section class="dashboard-eval-traces">
+            <article class="row g-4"><h1>Traces</h1>
+                <em>Toutes les traces des étudiants du département, développez pour évaluer</em>
+                {{ component('AllTraceEvalComponent') }}
+            </article>
+        </section>
+        <hr>
+        <section class="dashboard-eval-traces">
+            <article class="row g-4"><h1>Portfolios</h1>
+                <em>Tous les portfolios des étudiants du département, développez pour évaluer</em>
+                {{ component('AllPortfolioEvalComponent') }}
+            </article>
+        </section>
+    </div>
+{% endblock %}

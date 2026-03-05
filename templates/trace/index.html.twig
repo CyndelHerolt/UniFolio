@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}UniFolio - Bibliothèque de traces{% endblock %}
+
+{% block body %}
+    <div class="content-container traces">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bibliothèque de traces</li>
+        </ol>
+    </nav>
+
+        <section>
+            <div class="row">
+                <h2 class="col-8">Bibliothèque de traces</h2>
+                <a class="col-3" style="width: fit-content;">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Créer une trace
+                    </button>
+                </a>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">Types de traces</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                {% for trace in typesTraces %}
+                                    <li>
+                                        <a href="{{ path('app_trace_new', {'id': constant('class', trace)}) }}"><i
+                                                    class="{{ constant('ICON', trace) }}"></i>{{ trace.display }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="row g-4">
+                {{ component('all_trace') }}
+            </article>
+
+        </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+<div class="step-title">
+    <h4>Edition de {{ portfolio.intitule }}</h4>
+</div>
+<small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
+{{ form_start(form, {'attr': {id:'portfolio'}}) }}
+<div class="hidden">
+    {{ form_row(form.date_creation) }}
+    {{ form_row(form.date_modification) }}
+</div>
+{% if portfolio.banniere is not null %}
+    <div class="banniere" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg'}})">
+        <button class="btn-danger btn" {{ stimulus_action('creation', 'deleteBanniere', 'click') }}>
+            <i class="fa-regular fa-square-minus"></i>
+        </button>
+    </div>
+{% endif %}
+{{ form_row(form.intitule) }}
+
+{{ form_label(form.banniere) }}
+<div class="alert alert-warning">
+    <i class="fa-regular fa-exclamation-triangle"></i>
+    <span>Si vous n'ajoutez pas de bannière, une image par défaut sera utilisée. S'il y en a déjà une, pas besoin d'en ajouter
+        une nouvelle.</span>
+</div>
+{{ form_widget(form.banniere) }}
+{{ form_help(form.banniere) }}
+
+
+{{ form_row(form.description) }}
+
+{{ form_label(form.visibilite) }}
+<div class="alert alert-warning">
+    <i class="fa-regular fa-exclamation-triangle"></i>
+    <span>Il ne peut y avoir qu'un seul portfolio public par année universitaire. Si vous en créez un nouveau, l'ancien sera automatiquement rendu privé</span>
+</div>
+{{ form_widget(form.visibilite) }}
+{{ form_help(form.visibilite) }}
+
+{% if portfolio.etudiant.optAlternance == true or portfolio.etudiant.optStage == true %}
+    {{ form_row(form.optSearch) }}
+{% endif %}
+
+{{ form_end(form) }}
+
+<button class="btn btn-secondary d-block save" {{ stimulus_action('creation', 'save', 'click', {url:path('app_portfolio_new')}) }}>
+    Enregistrer les modifications
+</button>
