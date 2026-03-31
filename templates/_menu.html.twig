@@ -23,46 +23,48 @@
                             Dashboard
                         </a>
                     </li>
-                    <li class="nav-item dropend {% if 'bibliotheque' in app.request.uri %}active {% else %} inactive{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-duotone fa-books fa-2x"
-                               style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
-                            <br>
-                            Bibliothèque
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ path('app_trace') }}">Traces</a></li>
-                            <li><a class="dropdown-item" href="{{ path('app_portfolio') }}">Portfolio</a></li>
-                            <li><a class="dropdown-item" href="{{ path('app_cv') }}">CV</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item {% if 'bilan' in app.request.uri %}active {% else %} inactive{% endif %}">
-                        <a class="nav-link" aria-current="page"
-                           href="{{ path('app_bilan_pedagogique') }}">
-                            <i class="fa-duotone fa-file-chart-pie fa-2x"
-                               style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
-                            <br>
-                            Bilan pédagogique
-                        </a>
-                    </li>
-                    <li class="nav-item inactive">
-                        <a class="nav-link" href="https://portfolio-doc.iut-troyes.univ-reims.fr" target="_blank">
-                            <i class="fa-duotone fa-seal-question fa-2x"
-                               style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
-                            <br>
-                            Documentation
-                        </a>
-                    </li>
-                    <li class="nav-item inactive">
-                        <a class="nav-link" href="https://intranet.iut-troyes.univ-reims.fr/fr/but/"
-                           target="_blank">
-                            <i class="fa-duotone fa-list-tree fa-2x"
-                               style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
-                            <br>
-                            Référentiel de compétences
-                        </a>
-                    </li>
+                    {% if app.user.etudiant.departement %}
+                        <li class="nav-item dropend {% if 'bibliotheque' in app.request.uri %}active {% else %} inactive{% endif %}">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-duotone fa-books fa-2x"
+                                   style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
+                                <br>
+                                Bibliothèque
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_trace') }}">Traces</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_portfolio') }}">Portfolio</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_cv') }}">CV</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item {% if 'bilan' in app.request.uri %}active {% else %} inactive{% endif %}">
+                            <a class="nav-link" aria-current="page"
+                               href="{{ path('app_bilan_pedagogique') }}">
+                                <i class="fa-duotone fa-file-chart-pie fa-2x"
+                                   style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
+                                <br>
+                                Bilan pédagogique
+                            </a>
+                        </li>
+                        <li class="nav-item inactive">
+                            <a class="nav-link" href="https://portfolio-doc.iut-troyes.univ-reims.fr" target="_blank">
+                                <i class="fa-duotone fa-seal-question fa-2x"
+                                   style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
+                                <br>
+                                Documentation
+                            </a>
+                        </li>
+                        <li class="nav-item inactive">
+                            <a class="nav-link" href="https://intranet.iut-troyes.univ-reims.fr/fr/but/"
+                               target="_blank">
+                                <i class="fa-duotone fa-list-tree fa-2x"
+                                   style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>
+                                <br>
+                                Référentiel de compétences
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
 
             {% elseif is_granted('ROLE_ENSEIGNANT') %}
@@ -134,14 +136,14 @@
                         Documentation
                     </a>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="#">#}
-{#                        <i class="fa-duotone fa-envelope fa-2x"#}
-{#                           style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>#}
-{#                        <br>#}
-{#                        Contact#}
-{#                    </a>#}
-{#                </li>#}
+                {#                <li class="nav-item">#}
+                {#                    <a class="nav-link" href="#">#}
+                {#                        <i class="fa-duotone fa-envelope fa-2x"#}
+                {#                           style="--fa-primary-color: #965da2; --fa-secondary-color: #965da2;"></i>#}
+                {#                        <br>#}
+                {#                        Contact#}
+                {#                    </a>#}
+                {#                </li>#}
             </ul>
         {% endif %}
     </div>
@@ -149,41 +151,43 @@
 </nav>
 
 {% if app.user %}
-{% if is_granted('ROLE_ETUDIANT') %}
-    <ul class="menu-actions">
-        {{ component('NotificationComponent') }}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-        </li>
-    </ul>
-
-{% elseif is_granted('ROLE_ENSEIGNANT') %}
-    <ul class="menu-actions">
-        {{ component('NotificationComponent') }}
-        {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
-            {% include('_departement.html.twig') %}
+    {% if is_granted('ROLE_ETUDIANT') %}
+        <ul class="menu-actions">
+        {% if app.user.etudiant.departement %}
+            {{ component('NotificationComponent') }}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
+            </li>
         {% endif %}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-        </li>
-    </ul>
-{% endif %}
-{% else %}
-    <ul class="menu-actions">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-        </li>
-        <li class="break">|</li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_users_new') }}">Inscription</a>
-{#        <li class="nav-item">#}
-{#            <a class="nav-link" href="#">Demander une démo</a>#}
-{#        </li>#}
-    </ul>
-{% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+            </ul>
+
+        {% elseif is_granted('ROLE_ENSEIGNANT') %}
+            <ul class="menu-actions">
+                {{ component('NotificationComponent') }}
+                {% if data_user is defined and is_granted('ROLE_ENSEIGNANT') %}
+                    {% include('_departement.html.twig') %}
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            </ul>
+        {% endif %}
+    {% else %}
+        <ul class="menu-actions">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+            </li>
+            <li class="break">|</li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_users_new') }}">Inscription</a>
+                {#        <li class="nav-item">#}
+                {#            <a class="nav-link" href="#">Demander une démo</a>#}
+                {#        </li>#}
+        </ul>
+    {% endif %}

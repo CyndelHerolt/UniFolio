@@ -12,6 +12,7 @@ use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\GroupeRepository;
+use App\Repository\PortfolioRepository;
 use App\Repository\SemestreRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,6 +63,25 @@ class DashboardEtudiantController extends BaseController
                     'data_user' => $data_user,
                 ]);
             }
+        } else {
+            return $this->render('security/accessDenied.html.twig');
+        }
+    }
+
+    #[Route('/old/dashboard', name: 'old_etudiant_dashboard')]
+    public function oldEtudiantIndex(
+        PortfolioRepository $portfolioRepository,
+    ): Response {
+        if ($this->isGranted('ROLE_ETUDIANT')) {
+            $data_user = $this->dataUserSession;
+//            dd($data_user);
+            $etudiant = $data_user->getEtudiant();
+            $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant->getId()]);
+
+            return $this->render('dashboard_etudiant/index_old.html.twig', [
+                'etudiant' => $etudiant,
+                'portfolios' => $portfolios,
+            ]);
         } else {
             return $this->render('security/accessDenied.html.twig');
         }

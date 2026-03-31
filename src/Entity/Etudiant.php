@@ -374,7 +374,7 @@ class Etudiant
         $this->semestre = null;
     }
 
-    public function getDepartement(): int
+    public function getDepartement(): ?int
     {
         return $this->semestre?->getAnnee()?->getDiplome()?->getDepartement()?->getId();
     }

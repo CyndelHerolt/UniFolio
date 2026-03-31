@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - {{ portfolio.intitule }}{% endblock %}
+
+    {% block header %}
+        {#        {% include "_menu.html.twig" %} #}
+    {% endblock %}
+
+{% block body %}
+    <div class="content-container portfolios">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Tableau de bord</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Portfolio : {{ portfolio.intitule }}</li>
+            </ol>
+        </nav>
+
+        <section class="portfolio-show card">
+            <div class="row">
+                <div class="banner col-12" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg'}});">
+                    <div class="title-container">
+                        <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
+                    </div>
+                </div>
+            </div>
+
+            {% for page in portfolio.pages %}
+                <a href="{{ path('app_old_page_show', {'pageId': page.id, 'portfolioId': portfolio.id}) }}" class="card portfolio-pages-min !full-width m-0 mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ page.intitule }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ page.description }}</h6>
+                        <hr>
+                    </div>
+                </a>
+            {% endfor %}
+
+            {% if portfolio.cv is not null %}
+                <div class="card cv-portfolio">
+                    <div class="cv-header">
+                        <h2>{{ portfolio.cv.etudiant.prenom }} {{ portfolio.cv.etudiant.nom }}</h2>
+                        <h3>{{ portfolio.cv.poste }}</h3>
+                    </div>
+                    <div class="row cv-content">
+                        <aside class="col-lg-4">
+                            <div>
+                                <h4>Contact</h4>
+                                <p>{{ portfolio.cv.etudiant.mailUniv }}</p>
+                                <div class="cv_reseaux">
+                                    {% for reseau in portfolio.cv.reseaux %}
+                                        {% if reseau matches '/.*twitter.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-twitter fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*linkedin.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-linkedin fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*github.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-github fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*dribbble.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-dribbble fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*pinterest.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-pinterest fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*instagram.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-instagram fa-lg"></i></a>
+                                        {% elseif reseau matches '/.*facebook.*/' %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa-brands fa-facebook fa-lg"></i></a>
+                                        {% else %}
+                                            <a href="{{ reseau }}" target="_blank"><i
+                                                        class="fa fa-globe fa-lg"></i></a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h4>A propos</h4>
+                                <p>{{ portfolio.cv.description }}</p>
+                            </div>
+                            <hr>
+                            <div>
+                                <h4>Compétences</h4>
+                                <h5>Compétences comportementales</h5>
+                                <ul>
+                                    {% for softSkill in portfolio.cv.softSkills %}
+                                        <li>{{ softSkill }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <h5>Compétences techniques</h5>
+                                <ul>
+                                    {% for hardSkill in portfolio.cv.hardSkills %}
+                                        <li>{{ hardSkill }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <h5>Langues</h5>
+                                <ul>
+                                    {% for langue in portfolio.cv.langues %}
+                                        <li>{{ langue }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </aside>
+                        <article class="col-lg-7">
+                            <div>
+                                <h4>Expériences</h4>
+                                {% for experience in portfolio.cv.experience %}
+                                    <div class="cv_experience">
+                                        <small>{{ experience.dateDebut|date('m/Y') }}
+                                            - {% if experience.dateFin %}{{ experience.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                        <h5>{{ experience.poste }}</h5>
+                                        <p>{{ experience.entreprise }}</p>
+                                        <ul>
+                                            {% for activite in experience.activite %}
+                                                <li>{{ activite }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <hr>
+                            <div>
+                                <h4>Formations</h4>
+                                {% for formation in portfolio.cv.formation %}
+                                    <div class="cv_formation">
+                                        <small>{{ formation.dateDebut|date('m/Y') }}
+                                            - {% if formation.dateFin %}{{ formation.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}</small>
+                                        <h5>{{ formation.diplome }}</h5>
+                                        <p>{{ formation.etablissement }}</p>
+                                        <ul>
+                                            {% for activite in formation.activite %}
+                                                <li>{{ activite }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}
