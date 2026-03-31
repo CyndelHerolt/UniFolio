@@ -16,6 +16,17 @@ import './bootstrap';
 
 import './js/main.js';
 
+import tinymce from 'tinymce/tinymce';
+
+// Initialisation directe (sans DOMContentLoaded)
+tinymce.init({
+    selector: '.tinymce', // Cible vos textarea avec la classe "tinymce"
+    plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    toolbar_mode: 'floating',
+    license_key: 'gpl',
+    // Autres options...
+});
+
 import hljs from 'highlight.js';// Initialize Highlight.js
 document.addEventListener('DOMContentLoaded', (event) => {
     hljs.highlightAll();

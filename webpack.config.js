@@ -14,6 +14,11 @@ Encore
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
+    .copyFiles({
+        from: './node_modules/tinymce',
+        to: 'tinymce/[path][name].[ext]',
+        pattern: /\.(js|css|png|svg|woff2?|ttf|eot)$/
+    })
 
     /*
      * ENTRY CONFIG
