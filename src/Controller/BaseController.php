@@ -9,6 +9,7 @@ namespace App\Controller;
 
 use App\Classes\DataUserSession;
 use App\Entity\Departement;
+use App\Entity\Etudiant;
 use App\Entity\Notification;
 use App\Repository\DepartementRepository;
 use App\Repository\EnseignantRepository;
@@ -42,5 +43,10 @@ class BaseController extends AbstractController
     public function getNotifications(): ?array
     {
         return $this->dataUserSession->getNotifications();
+    }
+
+    public function getEtudiant(): ?Etudiant
+    {
+        return $this->dataUserSession->getEtudiant();
     }
 }

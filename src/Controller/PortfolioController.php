@@ -223,7 +223,7 @@ class PortfolioController extends BaseController
 
                     // retire les doublons de la liste des compétences
                     $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
-                break;
+                    break;
                 } else {
                     return $this->render('security/accessDenied.html.twig');
                 }
@@ -271,6 +271,19 @@ class PortfolioController extends BaseController
             'commentForm' => $this->commentForm ?? null,
             'data_user' => $data_user ?? null,
             'competencesNiveau' => $competencesNiveau ?? null,
+        ]);
+    }
+
+    #[Route('/old/portfolio/show/{id}', name: 'app_old_portfolio_show')]
+    public function oldShow(
+        PortfolioRepository   $portfolioRepository,
+                              $id
+    ): Response
+    {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        return $this->render('portfolio/old_show.html.twig', [
+            'portfolio' => $portfolio,
         ]);
     }
 

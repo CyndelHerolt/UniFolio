@@ -59,6 +59,8 @@ class DataUserSession
 
     private $notifications;
 
+    private ?Etudiant $etudiant = null;
+
     /**
      * DataUserSession constructor.
      *
@@ -244,5 +246,10 @@ class DataUserSession
         }
 
         return $notifications;
+    }
+
+    public function getEtudiant()
+    {
+        return $this->etudiant;
     }
 }
