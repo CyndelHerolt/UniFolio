@@ -43,7 +43,7 @@ class Commentaire
     private ?bool $visibilite = null;
 
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'commentaire', cascade: ['persist', 'remove'])]
-    private ?Collection $notification = null;
+    private ?Collection $notifications = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $commentaire_parent = null;

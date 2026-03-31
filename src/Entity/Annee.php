@@ -45,7 +45,7 @@ class Annee
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Bibliotheque::class)]
     private Collection $bibliotheques;
 
-    #[ORM\OneToMany(mappedBy: 'années', targetEntity: ApcNiveau::class)]
+    #[ORM\OneToMany(mappedBy: 'annees', targetEntity: ApcNiveau::class)]
     private Collection $apcNiveaux;
 
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Portfolio::class)]

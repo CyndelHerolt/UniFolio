@@ -10,7 +10,6 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
-use Eckinox\TinymceBundle\Form\Type\TinymceType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,13 +53,8 @@ class TraceTypeVideoType extends AbstractType
             ])
             ->add('titre', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un intitulé'),
+                    new Length(max: 100, maxMessage: 'L\'intitulé ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'label' => 'Titre',
                 'label_attr' => [
@@ -77,10 +71,7 @@ class TraceTypeVideoType extends AbstractType
             ->add('contenu', CollectionType::class, [
                 'entry_type' => TextType::class,
                 'constraints' => [
-                    new Count([
-                        'min' => 1,
-                        'minMessage' => 'Veuillez ajouter au moins un lien',
-                    ]),
+                    new Count(min: 1, minMessage: 'Veuillez ajouter au moins un lien'),
                 ],
                 'entry_options' => [
                     'attr' => [
@@ -104,13 +95,8 @@ class TraceTypeVideoType extends AbstractType
             //----------------------------------------------------------------
             ->add('legende', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir une légende',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'La légende ne peut pas dépasser 100 caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir une légende'),
+                    new Length(max: 100, maxMessage: 'La légende ne peut pas dépasser 100 caractères'),
                 ],
                 'label' => 'Légende',
                 'label_attr' => ['class' => 'form-label'],
@@ -122,9 +108,7 @@ class TraceTypeVideoType extends AbstractType
             ->add('dateRealisation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir une date',
-                    ])
+                    new NotBlank(message: 'Veuillez saisir une date')
                 ],
                 'format' => 'MM-yyyy',
                 'widget' => 'single_text',
@@ -138,13 +122,8 @@ class TraceTypeVideoType extends AbstractType
             //----------------------------------------------------------------
             ->add('contexte', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un contexte',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'Le contexte ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un contexte'),
+                    new Length(max: 100, maxMessage: 'Le contexte ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'label' => 'Contexte',
                 'label_attr' => ['class' => 'form-label'],
@@ -153,11 +132,9 @@ class TraceTypeVideoType extends AbstractType
                 'required' => true,
             ])
             //----------------------------------------------------------------
-            ->add('description', TinymceType::class, [
+            ->add('description', TextareaType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir votre commentaire',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir votre commentaire'),
                 ],
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
@@ -169,10 +146,7 @@ class TraceTypeVideoType extends AbstractType
             //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
                 'constraints' => [
-                    new Count([
-                        'min' => 1,
-                        'minMessage' => 'Veuillez sélectionner au moins une compétence',
-                    ]),
+                    new Count(min: 1, minMessage: 'Veuillez sélectionner au moins une compétence'),
                 ],
                 'choices' => array_combine($competences, $competences),
                 'label' => false,
@@ -184,7 +158,7 @@ class TraceTypeVideoType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Trace::class,

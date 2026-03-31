@@ -29,7 +29,7 @@ class TypeGroupeFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $semestres = [];
         for ($i = 1; $i <= 32; $i++) {

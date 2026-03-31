@@ -28,7 +28,7 @@ class SemestreFixture extends Fixture implements OrderedFixtureInterface
         return 8;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $annee1 = $this->anneeRepository->findOneBy(['libelle' => 'MMI 1']);
         $annee2 = $this->anneeRepository->findOneBy(['libelle' => 'MMI-Crea-2']);
