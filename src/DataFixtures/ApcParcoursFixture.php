@@ -33,7 +33,7 @@ class ApcParcoursFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $referentiel1 = $this->apcReferentielRepository->findOneBy(['libelle' => 'Référentiel de compétences du B.U.T. MMI']);
         $referentiel2 = $this->apcReferentielRepository->findOneBy(['libelle' => 'Référentiel de compétences du B.U.T. CJ']);

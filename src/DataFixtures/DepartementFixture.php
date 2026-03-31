@@ -22,7 +22,7 @@ class DepartementFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $departement1 = new Departement();
         $departement1->setLibelle('MMI')

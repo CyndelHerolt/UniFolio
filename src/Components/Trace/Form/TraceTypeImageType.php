@@ -10,7 +10,7 @@ namespace App\Components\Trace\Form;
 use App\Entity\Trace;
 use App\Repository\BibliothequeRepository;
 use App\Repository\TraceRepository;
-use Eckinox\TinymceBundle\Form\Type\TinymceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -61,13 +60,8 @@ class TraceTypeImageType extends AbstractType
             ])
             ->add('titre', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Le titre ne peut pas être vide',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'Le titre ne peut pas dépasser 100 caractères',
-                    ]),
+                    new NotBlank(message: 'Le titre ne peut pas être vide'),
+                    new Length(max: 100, maxMessage: 'Le titre ne peut pas dépasser 100 caractères'),
                 ],
                 'label' => 'Titre',
                 'label_attr' => [
@@ -108,13 +102,8 @@ class TraceTypeImageType extends AbstractType
             //----------------------------------------------------------------
             ->add('legende', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir une légende',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'La légende ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir une légende'),
+                    new Length(max: 100, maxMessage: 'La légende ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'label' => 'Légende',
                 'label_attr' => ['class' => 'form-label'],
@@ -126,9 +115,7 @@ class TraceTypeImageType extends AbstractType
             ->add('dateRealisation', DateTimeType::class, [
                 'data' => new \DateTimeImmutable(),
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir une date',
-                    ])
+                    new NotBlank(message: 'Veuillez saisir une date')
                 ],
                 'format' => 'MM-yyyy',
                 'widget' => 'single_text',
@@ -142,13 +129,8 @@ class TraceTypeImageType extends AbstractType
             //----------------------------------------------------------------
                 ->add('contexte', TextType::class, [
                     'constraints' => [
-                        new NotBlank([
-                            'message' => 'Veuillez saisir un contexte',
-                        ]),
-                        new Length([
-                            'max' => 100,
-                            'maxMessage' => 'Le contexte ne peut pas dépasser {{ limit }} caractères',
-                        ]),
+                        new NotBlank(message: 'Veuillez saisir un contexte'),
+                        new Length(max: 100, maxMessage: 'Le contexte ne peut pas dépasser {{ limit }} caractères'),
                     ],
                     'label' => 'Contexte',
                     'label_attr' => ['class' => 'form-label'],
@@ -157,11 +139,9 @@ class TraceTypeImageType extends AbstractType
                     'required' => true,
                 ])
             //----------------------------------------------------------------
-            ->add('description', TinymceType::class, [
+            ->add('description', TextareaType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir votre commentaire',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir votre commentaire'),
                 ],
                 'label' => 'Commentaire',
                 'label_attr' => ['class' => 'form-label'],
@@ -173,10 +153,7 @@ class TraceTypeImageType extends AbstractType
             //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
                 'constraints' => [
-                    new Count([
-                        'min' => 1,
-                        'minMessage' => 'Veuillez sélectionner au moins une compétence',
-                    ]),
+                    new Count(min: 1, minMessage: 'Veuillez sélectionner au moins une compétence'),
                 ],
                 'choices' => array_combine($competences, $competences),
                 'label' => false,
@@ -191,7 +168,7 @@ class TraceTypeImageType extends AbstractType
     }
 
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Trace::class,

@@ -41,13 +41,8 @@ class PageType extends AbstractType
         $builder
             ->add('intitule', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un intitulé'),
+                    new Length(max: 100, maxMessage: 'L\'intitulé ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -60,7 +55,7 @@ class PageType extends AbstractType
                     'class' => 'form-label'
                 ],
             ])
-            ->add('description', TextAreaType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'label_attr' => [
                     'class' => 'form-label'

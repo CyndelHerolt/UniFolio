@@ -26,7 +26,7 @@ class Diplome
     #[ORM\Column(length: 40, nullable: true)]
     private ?string $sigle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'departement')]
+    #[ORM\ManyToOne(inversedBy: 'diplomes')]
     private ?Departement $departement;
 
     #[ORM\OneToMany(mappedBy: 'diplome', targetEntity: Annee::class)]

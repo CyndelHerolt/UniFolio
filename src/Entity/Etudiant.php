@@ -50,7 +50,7 @@ class Etudiant
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Portfolio::class)]
     private Collection $portfolios;
 
-    #[ORM\OneToOne(mappedBy: 'etudiant', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'etudiant', targetEntity: Users::class, cascade: ['persist', 'remove'])]
     private ?Users $users = null;
 
     #[ORM\Column(length: 20, nullable: true)]

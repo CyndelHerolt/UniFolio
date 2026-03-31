@@ -33,7 +33,7 @@ class GroupeFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // Récupérer les types de groupes...
         $typeGroupes = $this->typeGroupeRepository->findAll();
