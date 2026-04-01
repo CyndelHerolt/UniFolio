@@ -1,42 +1,37 @@
 <?php
 
-/*
- * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
- * @author cyndelherolt
- * @project UniFolio
- */
 namespace App\Controller\Admin;
 
-use App\Entity\Groupe;
+use App\Entity\Diplome;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class GroupeCrudController extends AbstractCrudController
+class DiplomeCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Groupe::class;
+        return Diplome::class;
     }
+
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id'),
+            TextField::new('sigle'),
             TextField::new('libelle'),
-            TextField::new('code_apogee'),
-            IntegerField::new('ordre'),
-            AssociationField::new('type_groupe'),
+            AssociationField::new('departement'),
         ];
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Groupe')
-            ->setEntityLabelInPlural('Groupes');
+            ->setEntityLabelInSingular('Diplome')
+            ->setEntityLabelInPlural('Diplomes');
     }
 }

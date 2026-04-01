@@ -7,8 +7,16 @@
  */
 namespace App\Controller\Admin;
 
+use App\Entity\Annee;
 use App\Entity\AnneeUniversitaire;
+use App\Entity\ApcApprentissageCritique;
+use App\Entity\ApcNiveau;
+use App\Entity\ApcParcours;
+use App\Entity\ApcReferentiel;
 use App\Entity\Commentaire;
+use App\Entity\Competence;
+use App\Entity\Departement;
+use App\Entity\Diplome;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
@@ -17,6 +25,7 @@ use App\Entity\Portfolio;
 use App\Entity\Semestre;
 use App\Entity\Templates;
 use App\Entity\Trace;
+use App\Entity\TypeGroupe;
 use App\Entity\Users;
 use App\Entity\Validation;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -64,6 +73,22 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
         yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
+
+        yield MenuItem::section('Structure');
+        yield MenuItem::linkToCrud('Gestion des départements', 'fas fa-list', Departement::class);
+        yield MenuItem::linkToCrud('Gestion des diplomes', 'fas fa-list', Diplome::class);
+        yield MenuItem::linkToCrud('Gestion des années', 'fas fa-list', Annee::class);
+        yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
+        yield MenuItem::linkToCrud('Gestion des types de groupes', 'fas fa-list', TypeGroupe::class);
+        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
+
+        yield MenuItem::section('Apc');
+        yield MenuItem::linkToCrud('Gestion des référentiels', 'fas fa-list', ApcReferentiel::class);
+        yield MenuItem::linkToCrud('Gestion des parcours', 'fas fa-list', ApcParcours::class);
+        yield MenuItem::linkToCrud('Gestion des compétences', 'fas fa-list', Competence::class);
+        yield MenuItem::linkToCrud('Gestion des niveaux', 'fas fa-list', ApcNiveau::class);
+        yield MenuItem::linkToCrud('Gestion des apprentissages critiques', 'fas fa-list', ApcApprentissageCritique::class);
+
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Gestion des etudiants', 'fas fa-list', Etudiant::class);
