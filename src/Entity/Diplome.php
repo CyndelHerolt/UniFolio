@@ -36,6 +36,11 @@ class Diplome
     #[ORM\ManyToOne(inversedBy: 'diplomes')]
     private ?ApcParcours $apcParcours = null;
 
+    public function __toString(): string
+    {
+        return $this->libelle ?? '';
+    }
+
     /**
      * @return Collection
      */

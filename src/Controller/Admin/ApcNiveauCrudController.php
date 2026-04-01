@@ -1,25 +1,20 @@
 <?php
 
-/*
- * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
- * @author cyndelherolt
- * @project UniFolio
- */
 namespace App\Controller\Admin;
 
-use App\Entity\Groupe;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use App\Entity\ApcNiveau;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class GroupeCrudController extends AbstractCrudController
+class ApcNiveauCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Groupe::class;
+        return ApcNiveau::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -27,16 +22,10 @@ class GroupeCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('libelle'),
-            TextField::new('code_apogee'),
             IntegerField::new('ordre'),
-            AssociationField::new('type_groupe'),
+            AssociationField::new('annees'),
+            AssociationField::new('competences'),
+            AssociationField::new('apcParcours'),
         ];
-    }
-
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('Groupe')
-            ->setEntityLabelInPlural('Groupes');
     }
 }

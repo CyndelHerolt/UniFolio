@@ -57,13 +57,10 @@ class Departement
         $this->enseignantDepartements = new ArrayCollection();
     }
 
-    public function removeTrace(Trace $trace): self
+    public function __toString(): string
     {
-        $this->trace->removeElement($trace);
-
-        return $this;
+        return $this->libelle ?? '';
     }
-
 
     public function setId(?int $id): self
     {

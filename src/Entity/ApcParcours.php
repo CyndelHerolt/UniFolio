@@ -52,6 +52,11 @@ class ApcParcours
         $this->apcNiveaux = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->libelle ?? '';
+    }
+
     public function setId(?int $id): self
     {
         $this->id = $id;
@@ -88,12 +93,12 @@ class ApcParcours
         return $this;
     }
 
-    public function getActif(): ?int
+    public function isActif(): ?bool
     {
         return $this->actif;
     }
 
-    public function setActif(?int $actif): self
+    public function setActif(?bool $actif): self
     {
         $this->actif = $actif;
 

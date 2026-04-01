@@ -1,25 +1,22 @@
 <?php
 
-/*
- * Copyright (c) 2023. | Cyndel Herolt | IUT de Troyes  - All Rights Reserved
- * @author cyndelherolt
- * @project UniFolio
- */
 namespace App\Controller\Admin;
 
-use App\Entity\Groupe;
+use App\Entity\Annee;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class GroupeCrudController extends AbstractCrudController
+class AnneeCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Groupe::class;
+        return Annee::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -27,16 +24,18 @@ class GroupeCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('libelle'),
-            TextField::new('code_apogee'),
+            TextField::new('libelle_long'),
             IntegerField::new('ordre'),
-            AssociationField::new('type_groupe'),
+            BooleanField::new('opt_alternance'),
+            BooleanField::new('actif'),
+            AssociationField::new('diplome'),
         ];
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Groupe')
-            ->setEntityLabelInPlural('Groupes');
+            ->setEntityLabelInSingular('Année')
+            ->setEntityLabelInPlural('Années');
     }
 }
