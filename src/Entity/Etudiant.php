@@ -35,7 +35,7 @@ class Etudiant
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail_univ = null;
 
-    #[ORM\ManyToMany(targetEntity: Groupe::class, inversedBy: 'etudiants', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Groupe::class, inversedBy: 'etudiants')]
     private Collection $groupe;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Cv::class)]

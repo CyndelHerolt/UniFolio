@@ -55,6 +55,14 @@ class TypeGroupeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('MAX(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(TypeGroupe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
