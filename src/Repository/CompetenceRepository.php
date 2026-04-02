@@ -26,6 +26,14 @@ class CompetenceRepository extends ServiceEntityRepository
         parent::__construct($registry, Competence::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('MAX(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(Competence $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Trait\DupliquerTrait;
 use App\Entity\ApcReferentiel;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -12,6 +13,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ApcReferentielCrudController extends AbstractCrudController
 {
+    use DupliquerTrait;
+
     public static function getEntityFqcn(): string
     {
         return ApcReferentiel::class;

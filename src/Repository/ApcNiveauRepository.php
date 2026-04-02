@@ -26,6 +26,14 @@ class ApcNiveauRepository extends ServiceEntityRepository
         parent::__construct($registry, ApcNiveau::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('n')
+            ->select('MAX(n.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(ApcNiveau $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

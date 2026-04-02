@@ -29,6 +29,14 @@ class AnneeRepository extends ServiceEntityRepository
         parent::__construct($registry, Annee::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('MAX(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findByDepartement(Departement $departement): array
     {
         return $this->createQueryBuilder('a')

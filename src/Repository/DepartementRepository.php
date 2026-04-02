@@ -35,6 +35,14 @@ class DepartementRepository extends ServiceEntityRepository
         parent::__construct($registry, Departement::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('MAX(d.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(Departement $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

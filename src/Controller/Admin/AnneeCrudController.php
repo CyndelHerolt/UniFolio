@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Trait\DupliquerTrait;
 use App\Entity\Annee;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -14,6 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class AnneeCrudController extends AbstractCrudController
 {
+    use DupliquerTrait;
+
     public static function getEntityFqcn(): string
     {
         return Annee::class;

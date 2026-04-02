@@ -26,6 +26,14 @@ class ApcApprentissageCritiqueRepository extends ServiceEntityRepository
         parent::__construct($registry, ApcApprentissageCritique::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('MAX(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(ApcApprentissageCritique $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

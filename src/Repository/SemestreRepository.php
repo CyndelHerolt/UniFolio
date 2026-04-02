@@ -79,6 +79,17 @@ class SemestreRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findSemestreGroupe($groupe): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.typeGroupes', 'tg')
+            ->innerJoin('tg.groupes', 'g')
+            ->where('g.id = :groupe')
+            ->setParameter('groupe', $groupe)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function save(Semestre $entity, bool $flush = false): void
     {

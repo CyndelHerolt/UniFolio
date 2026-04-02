@@ -34,6 +34,14 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('g')
+            ->select('MAX(g.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findByAnnee($annee)
     {
         return $this->createQueryBuilder('n')
