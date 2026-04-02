@@ -28,6 +28,7 @@ use App\Entity\Trace;
 use App\Entity\TypeGroupe;
 use App\Entity\Users;
 use App\Entity\Validation;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
@@ -41,22 +42,6 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-//        return parent::index();
-
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
         return $this->render('Admin/dashboard.html.twig');
     }
 
@@ -107,5 +92,13 @@ class DashboardController extends AbstractDashboardController
             ->addMenuItems([
 //                MenuItem::LinkToRoute('Mon profil', 'fas fa-user', 'app_profil'),
             ]);
+    }
+
+    // défini des paramètres pour l'ensemble des CRUD controller
+    public function configureCrud(): Crud
+    {
+        return Crud::new()
+            ->setPaginatorPageSize(30)
+            ;
     }
 }
