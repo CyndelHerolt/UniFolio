@@ -7,6 +7,7 @@
  */
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Trait\DupliquerTrait;
 use App\Entity\Groupe;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -17,6 +18,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class GroupeCrudController extends AbstractCrudController
 {
+    use DupliquerTrait;
+
     public static function getEntityFqcn(): string
     {
         return Groupe::class;

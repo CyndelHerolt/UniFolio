@@ -26,6 +26,14 @@ class ApcParcoursRepository extends ServiceEntityRepository
         parent::__construct($registry, ApcParcours::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('MAX(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(ApcParcours $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

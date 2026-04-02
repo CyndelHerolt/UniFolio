@@ -42,7 +42,10 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('Admin/dashboard.html.twig');
+        $site = $_ENV['SITE'];
+        return $this->render('Admin/dashboard.html.twig', [
+            'site' => $site,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -54,11 +57,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
-        yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
-        yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
-        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
-
+        // récupérer la variable SITE de .env
+        if ($_ENV['SITE'] === 'IUTTroyes') {
+            yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
+            yield MenuItem::linkToUrl('Site étudiant', 'fas fa-user', '/dashboard?_switch_user=etudiant');
+            yield MenuItem::linkToUrl('Site enseignant', 'fas fa-user', '/dashboard?_switch_user=enseignant');
+            yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
+        }
         yield MenuItem::section('Structure');
         yield MenuItem::linkToCrud('Gestion des départements', 'fas fa-list', Departement::class);
         yield MenuItem::linkToCrud('Gestion des diplomes', 'fas fa-list', Diplome::class);

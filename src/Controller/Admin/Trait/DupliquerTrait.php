@@ -48,9 +48,9 @@ trait DupliquerTrait
         $maxId = $repository->findMaxId();
         // Logique générique (ex: modifier le libellé)
         if (method_exists($newEntity, 'setLibelle')) {
-            $newEntity->setId($maxId + 1);
             $newEntity->setLibelle($entity->getLibelle() . ' (copie)');
         }
+        $newEntity->setId($maxId + 1);
 
         return $newEntity;
     }

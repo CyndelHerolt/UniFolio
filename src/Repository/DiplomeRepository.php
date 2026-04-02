@@ -27,6 +27,15 @@ class DiplomeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Diplome::class);
     }
+
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('MAX(d.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findByDepartementBuilder(Departement $departement): QueryBuilder
     {
         return $this->createQueryBuilder('d')

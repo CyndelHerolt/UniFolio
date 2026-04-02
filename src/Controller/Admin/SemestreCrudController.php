@@ -7,6 +7,7 @@
  */
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Trait\DupliquerTrait;
 use App\Entity\Semestre;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -18,6 +19,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class SemestreCrudController extends AbstractCrudController
 {
+    use DupliquerTrait;
+
     public static function getEntityFqcn(): string
     {
         return Semestre::class;
