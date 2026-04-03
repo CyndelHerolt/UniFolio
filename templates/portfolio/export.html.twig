@@ -40,6 +40,17 @@
             margin: 0;
         }
 
+        .competences {
+            border: solid 1px #ccc;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .competences ul li {
+            font-size: 13px;
+            margin-left: 15px;
+        }
+
         /* ===== SOMMAIRE ===== */
         .sommaire {
             padding: 20px;
@@ -110,7 +121,6 @@
             list-style: none;
             padding: 0;
             display: block;
-            margin-bottom: 10px;
         }
 
         .trace-infos-min ul li {
@@ -123,6 +133,11 @@
         .trace-infos-min ul li span {
             font-weight: bold;
             color: #333;
+        }
+
+        .trace-competences ul li {
+            font-size: 13px;
+            margin-left: 15px;
         }
 
         /* Contenu de la trace */
@@ -343,6 +358,15 @@
             </div>
         </div>
 
+        <div class="competences">
+            <p>Compétences justifiées :</p>
+            <ul>
+                {% for competence in competences %}
+                    <li>{{ competence.libelle }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
         <div class="sommaire">
             <h2>Sommaire</h2>
             <ul>
@@ -376,6 +400,18 @@
                             <li><span>Contexte :&nbsp;</span>{{ trace.contexte }}</li>
                         </ul>
                     </div>
+                    <hr>
+                    <div class="trace-competences">
+                        {# Validation de l'APC #}
+                        <p>Compétences</p>
+                        <ul>
+                            {% for validation in trace.validations %}
+                                <li>{{ validation.apcNiveau.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <hr>
+
 
                     {# Contenu selon le type de trace #}
                     <div class="portfolio-trace-contenu">

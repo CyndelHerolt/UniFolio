@@ -427,6 +427,7 @@ class PortfolioController extends BaseController
             return $this->render('security/accessDenied.html.twig');
         }
 
+        $competences = [];
         $pages = $portfolio->getPages();
         foreach ($pages as $page) {
             $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
@@ -435,6 +436,13 @@ class PortfolioController extends BaseController
             foreach ($ordreTraces as $ordreTrace) {
                 $trace = $ordreTrace->getTrace();
 
+                $validations = $trace->getValidations();
+                foreach ($validations as $validation) {
+                    // si la compétence n'est pas déjà dans le tableau
+                    if (!in_array($validation->getApcNiveau(), $competences)) {
+                        $competences[] = $validation->getApcNiveau();
+                    }
+                }
                 // Convertir les images en base64
                 if (str_contains($trace->getTypeTrace(), 'TraceTypeImage')) {
                     $imagesBase64 = [];
@@ -463,6 +471,7 @@ class PortfolioController extends BaseController
 
         $html = $this->renderView('portfolio/export.html.twig', [
             'portfolio' => $portfolio,
+            'competences' => $competences,
         ]);
 
         $dompdf = new Dompdf();
