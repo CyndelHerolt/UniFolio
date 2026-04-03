@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Export PDF - {{ portfolio.intitule }}</title>
+    <style>
+        /* ===== RESET ===== */
+        body, h1, h2, h3, h4, h5, h6, p, ul, li, figure, figcaption {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== BANNIÈRE ===== */
+        .banner {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .title-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(234, 234, 234, 0.5);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .portfolio-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* ===== SOMMAIRE ===== */
+        .sommaire {
+            padding: 20px;
+        }
+
+        .sommaire h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+        }
+
+        .sommaire ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sommaire ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .sommaire ul li span {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* ===== PAGE ===== */
+        .portfolio-page {
+            padding: 20px;
+        }
+
+        .portfolio-page h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-page em {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .portfolio-page hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+
+        /* ===== TRACES ===== */
+        .portfolio-traces {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .portfolio-traces h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        /* Infos de la trace (date, contexte) */
+        .trace-infos-min ul {
+            list-style: none;
+            padding: 0;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .trace-infos-min ul li {
+            display: inline;
+            font-size: 13px;
+            color: #6c757d;
+            margin-right: 8px;
+        }
+
+        .trace-infos-min ul li span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Contenu de la trace */
+        .portfolio-trace-contenu {
+            margin: 10px 0;
+        }
+
+        /* ===== IMAGES ===== */
+        .trace-galerie-img {
+            margin-bottom: 10px;
+        }
+
+        .trace-galerie-img .img-item {
+            display: inline-block;
+            width: 48%;
+            margin-right: 1%;
+            margin-bottom: 10px;
+            vertical-align: top;
+        }
+
+        .trace-galerie-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* ===== LIENS ===== */
+        .trace-galerie-lien {
+            margin-bottom: 10px;
+        }
+
+        .trace-galerie-lien a {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            margin: 4px 2px;
+        }
+
+        /* ===== PDFs ===== */
+        .trace-pdf-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .trace-pdf-item p {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .trace-pdf-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* ===== VIDÉOS ===== */
+        .trace-video-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .trace-video-item p {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .trace-video-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* ===== LÉGENDE ===== */
+        figcaption {
+            font-size: 12px;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        /* ===== DESCRIPTION DE LA TRACE ===== */
+        .trace-description {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* ===== CV ===== */
+        .cv-portfolio {
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .cv-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+
+        .cv-header h2 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .cv-header h3 {
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        .cv-content {
+            padding: 20px;
+        }
+
+        .cv-aside {
+            width: 35%;
+            display: inline-block;
+            vertical-align: top;
+            padding-right: 15px;
+            border-right: 1px solid #eee;
+        }
+
+        .cv-article {
+            width: 60%;
+            display: inline-block;
+            vertical-align: top;
+            padding-left: 15px;
+        }
+
+        .cv-content h4 {
+            font-size: 15px;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin: 15px 0 8px 0;
+        }
+
+        .cv-content h5 {
+            font-size: 13px;
+            color: #555;
+            margin: 8px 0 4px 0;
+        }
+
+        .cv-content ul {
+            list-style: disc;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        .cv-content p {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .cv_experience, .cv_formation {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cv_experience small, .cv_formation small {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .cv_experience h5, .cv_formation h5 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 3px 0;
+        }
+
+        .cv_experience p, .cv_formation p {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+
+        .cv-reseau {
+            font-size: 12px;
+            color: #0d6efd;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="content-container">
+
+    {# ===== PAGE DE GARDE ===== #}
+    <section style="page-break-after: always;">
+        <div class="banner" style="background-image: url({{ portfolio.banniere != null ? asset(portfolio.banniere) : '/files_directory/banniere.jpg' }});">
+            <div class="title-container">
+                <h3 class="portfolio-title">{{ portfolio.intitule }}</h3>
+                <small>{{ portfolio.etudiant.prenom }} {{ portfolio.etudiant.nom }}</small>
+            </div>
+        </div>
+
+        <div class="sommaire">
+            <h2>Sommaire</h2>
+            <ul>
+                {% for page in portfolio.pages %}
+                    <li>{{ page.intitule }} <span> - {{ page.description }}</span></li>
+                {% endfor %}
+                {% if portfolio.cv is not null %}
+                    <li>Curriculum Vitae</li>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+
+    {# ===== PAGES ET TRACES ===== #}
+    {% for page in portfolio.pages %}
+        <section class="portfolio-page" style="page-break-after: always;">
+            <h2>{{ page.intitule }}</h2>
+            <em>{{ page.description }}</em>
+            <hr>
+
+            {% for trace in page.traces %}
+                <div class="portfolio-traces" style="page-break-inside: avoid;">
+
+                    <h3>{{ trace.titre }}</h3>
+
+                    {# Infos de la trace #}
+                    <div class="trace-infos-min">
+                        <ul>
+                            <li><span>Réalisé le :&nbsp;</span>{{ trace.dateRealisation|date('d-m-Y') }}</li>
+                            <li>&nbsp;•&nbsp;</li>
+                            <li><span>Contexte :&nbsp;</span>{{ trace.contexte }}</li>
+                        </ul>
+                    </div>
+
+                    {# Contenu selon le type de trace #}
+                    <div class="portfolio-trace-contenu">
+                        {% if 'TraceTypeImage' in trace.typeTrace %}
+                            <figure>
+                                <div class="trace-galerie-img">
+                                    {% for img in trace.contenuBase64 %}
+                                        <div class="img-item">
+                                            <img src="{{ img }}" alt="image de la trace">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <figcaption>{{ trace.legende }}</figcaption>
+                            </figure>
+
+                        {% elseif 'TraceTypeLien' in trace.typeTrace %}
+                            <figure>
+                                <div class="trace-galerie-lien">
+                                    {% for lien in trace.contenu %}
+                                        <a href="{{ lien }}" target="_blank">{{ lien }}</a>
+                                    {% endfor %}
+                                    <figcaption>{{ trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+
+                        {% elseif 'TraceTypePdf' in trace.typeTrace %}
+                            <figure>
+                                <div>
+                                    {% for pdf in trace.contenu %}
+                                        <div class="trace-pdf-item">
+                                            <p>Document PDF :</p>
+                                            <a class="trace-pdf-link" href="{{ pdf }}" target="_blank">Voir le PDF : {{ pdf }}</a>
+                                        </div>
+                                    {% endfor %}
+                                    <figcaption>{{ trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+
+                        {% elseif 'TraceTypeVideo' in trace.typeTrace %}
+                            <figure>
+                                <div>
+                                    {% for video in trace.contenu %}
+                                        <div class="trace-video-item">
+                                            <p>Vidéo :</p>
+                                            <a class="trace-video-link" href="{{ video }}" target="_blank">Voir la vidéo : {{ video }}</a>
+                                        </div>
+                                    {% endfor %}
+                                    <figcaption>{{ trace.legende }}</figcaption>
+                                </div>
+                            </figure>
+                        {% endif %}
+                    </div>
+
+                    {# Description de la trace #}
+                    <div class="trace-description">
+                        {{ trace.description|raw }}
+                    </div>
+
+                </div>
+                <hr>
+            {% endfor %}
+        </section>
+    {% endfor %}
+
+    {# ===== CV ===== #}
+    {% if portfolio.cv is not null %}
+        <section style="page-break-before: always;">
+            <div class="cv-portfolio">
+                <div class="cv-header">
+                    <h2>{{ portfolio.cv.etudiant.prenom }} {{ portfolio.cv.etudiant.nom }}</h2>
+                    <h3>{{ portfolio.cv.poste }}</h3>
+                </div>
+
+                <div class="cv-content">
+                    {# Colonne gauche #}
+                    <div class="cv-aside">
+                        <h4>Contact</h4>
+                        <p>{{ portfolio.cv.etudiant.mailUniv }}</p>
+
+                        <div>
+                            {% for reseau in portfolio.cv.reseaux %}
+                                <span class="cv-reseau">
+                                    {% if reseau matches '/.*twitter.*/' %}[Twitter]
+                                    {% elseif reseau matches '/.*linkedin.*/' %}[LinkedIn]
+                                    {% elseif reseau matches '/.*github.*/' %}[GitHub]
+                                    {% elseif reseau matches '/.*dribbble.*/' %}[Dribbble]
+                                    {% elseif reseau matches '/.*pinterest.*/' %}[Pinterest]
+                                    {% elseif reseau matches '/.*instagram.*/' %}[Instagram]
+                                    {% elseif reseau matches '/.*facebook.*/' %}[Facebook]
+                                    {% else %}[Web]
+                                    {% endif %}
+                                    : {{ reseau }}
+                                </span><br>
+                            {% endfor %}
+                        </div>
+
+                        <hr>
+
+                        <h4>À propos</h4>
+                        <p>{{ portfolio.cv.description }}</p>
+
+                        <hr>
+
+                        <h4>Compétences</h4>
+                        <h5>Compétences comportementales</h5>
+                        <ul>
+                            {% for softSkill in portfolio.cv.softSkills %}
+                                <li>{{ softSkill }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <h5>Compétences techniques</h5>
+                        <ul>
+                            {% for hardSkill in portfolio.cv.hardSkills %}
+                                <li>{{ hardSkill }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <h5>Langues</h5>
+                        <ul>
+                            {% for langue in portfolio.cv.langues %}
+                                <li>{{ langue }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {# Colonne droite #}
+                    <div class="cv-article">
+                        <h4>Expériences</h4>
+                        {% for experience in portfolio.cv.experience %}
+                            <div class="cv_experience">
+                                <small>
+                                    {{ experience.dateDebut|date('m/Y') }} -
+                                    {% if experience.dateFin %}{{ experience.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}
+                                </small>
+                                <h5>{{ experience.poste }}</h5>
+                                <p>{{ experience.entreprise }}</p>
+                                <ul>
+                                    {% for activite in experience.activite %}
+                                        <li>{{ activite }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+
+                        <hr>
+
+                        <h4>Formations</h4>
+                        {% for formation in portfolio.cv.formation %}
+                            <div class="cv_formation">
+                                <small>
+                                    {{ formation.dateDebut|date('m/Y') }} -
+                                    {% if formation.dateFin %}{{ formation.dateFin|date('m/Y') }}{% else %}Aujourd'hui{% endif %}
+                                </small>
+                                <h5>{{ formation.diplome }}</h5>
+                                <p>{{ formation.etablissement }}</p>
+                                <ul>
+                                    {% for activite in formation.activite %}
+                                        <li>{{ activite }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+</div>
+</body>
+</html>

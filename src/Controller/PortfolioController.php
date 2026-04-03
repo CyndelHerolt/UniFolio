@@ -27,6 +27,8 @@ use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
+use Dompdf\Dompdf;
+use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -411,4 +413,71 @@ class PortfolioController extends BaseController
             return $this->render('security/accessDenied.html.twig');
         }
     }
+
+    #[Route('portfolio/export/{id}', name: 'app_portfolio_export')]
+    public function export(
+        PortfolioRepository $portfolioRepository,
+        int $id,
+        OrdreTraceRepository $ordreTraceRepository
+    ): Response {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        $user = $this->security->getUser()->getEtudiant();
+
+        if (!$this->isGranted('ROLE_ETUDIANT') || $portfolio->getEtudiant() != $user) {
+            return $this->render('security/accessDenied.html.twig');
+        }
+
+        $pages = $portfolio->getPages();
+        foreach ($pages as $page) {
+            $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+            $traces = [];
+
+            foreach ($ordreTraces as $ordreTrace) {
+                $trace = $ordreTrace->getTrace();
+
+                // Convertir les images en base64
+                if (str_contains($trace->getTypeTrace(), 'TraceTypeImage')) {
+                    $imagesBase64 = [];
+                    foreach ($trace->getContenu() as $imagePath) {
+                        // Construire le chemin absolu vers le fichier
+                        $absolutePath = $_ENV['PATH_FILES'] . '/' . basename($imagePath);
+
+                        if (file_exists($absolutePath)) {
+                            $imageData = file_get_contents($absolutePath);
+                            $mimeType = mime_content_type($absolutePath);
+                            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                            $imagesBase64[] = $base64;
+                        } else {
+                            // Garder le chemin original si le fichier n'est pas trouvé
+                            $imagesBase64[] = $imagePath;
+                        }
+                    }
+                    $trace->contenuBase64 = $imagesBase64;
+                }
+
+                $traces[] = $trace;
+            }
+
+            $page->traces = $traces;
+        }
+
+        $html = $this->renderView('portfolio/export.html.twig', [
+            'portfolio' => $portfolio,
+        ]);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="portfolio.pdf"',
+            ]
+        );
+    }
+
 }
