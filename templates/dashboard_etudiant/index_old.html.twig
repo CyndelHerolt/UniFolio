@@ -3,7 +3,6 @@
 {% block title %}UniFolio - Dashboard{% endblock %}
 
     {% block header %}
-        {#        {% include "_menu.html.twig" %}#}
     {% endblock %}
 
 {% block body %}
@@ -18,10 +17,23 @@
                 <h2>Mes portfolios</h2>
                 {% for portfolio in portfolios %}
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ portfolio.intitule }}</h5>
-                            <p class="card-text">{{ portfolio.annee.libelle }}</p>
-                            <a href="{{ path('app_old_portfolio_show', {'id': portfolio.id}) }}" class="btn btn-primary">Voir le portfolio</a>
+                        <div class="card-body flex-row align-items-center justify-content-between">
+                            <div>
+                                <h5 class="card-title">{{ portfolio.intitule }}</h5>
+                                <p class="card-text">{{ portfolio.annee.libelle }}</p>
+                            </div>
+                            <div>
+                                <a href="{{ path('app_old_portfolio_show', {'id': portfolio.id}) }}">
+                                    <button class="btn btn-primary">
+                                        Voir le portfolio
+                                    </button>
+                                </a>
+                                <a href="{{ path('app_portfolio_export', {'id': portfolio.id}) }}">
+                                    <button class="btn btn-secondary">
+                                        Exporter le portfolio en PDF
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

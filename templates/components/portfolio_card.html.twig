@@ -24,10 +24,14 @@
                             Voir plus
                         </button>
                     </a>
+                    <a href="{{ path('app_portfolio_export', {'id': this.portfolio.id}) }}">
+                        <button class="btn btn-secondary">
+                            Exporter le portfolio en PDF
+                        </button>
+                    </a>
                     <a href="{{ path('app_portfolio_process_index', {'id': this.portfolio.id}) }}">
                         <button class="btn btn-primary">Modifier</button>
                     </a>
-
                     <!-- Button trigger modal -->
                     <a>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

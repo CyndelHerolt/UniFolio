@@ -16,14 +16,14 @@
         </nav>
 
         <section class="portfolio-show">
-                <div class="card portfolio-pages">
-                    <a class=" btn-back" href="{{ path('app_old_portfolio_show', {id: portfolio.id}) }}">
-                        <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button>
-                    </a>
-                    <h2>{{ page.intitule }}</h2>
-                    <em>{{ page.description }}</em>
-                    <hr>
-                    {% for trace in traces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
+            <div class="card portfolio-pages">
+                <a class=" btn-back" href="{{ path('app_old_portfolio_show', {id: portfolio.id}) }}">
+                    <button class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button>
+                </a>
+                <h2>{{ page.intitule }}</h2>
+                <em>{{ page.description }}</em>
+                <hr>
+                {% for trace in traces|sort((a, b) => a.ordreTrace.ordre <=> b.ordreTrace.ordre) %}
                     <div class="card-body portfolio-traces col-12">
                         <h3>{{ trace.titre }}</h3>
                         <div class="trace-infos-min">
@@ -89,8 +89,9 @@
 
                         {{ trace.description|raw }}
                     </div>
-                    {% endfor %}
-                </div>
+                    <hr>
+                {% endfor %}
+            </div>
         </section>
     </div>
 {% endblock %}

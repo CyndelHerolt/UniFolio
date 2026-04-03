@@ -18,6 +18,7 @@
         "doctrine/doctrine-bundle": "^3.2",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "dompdf/dompdf": "^3.1",
         "easycorp/easyadmin-bundle": "^4.19",
         "fakerphp/faker": "^1.21",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -60,7 +61,8 @@
         "symfonycasts/verify-email-bundle": "^1.17",
         "twbs/bootstrap": "^5.3",
         "twig/extra-bundle": "^3.18",
-        "twig/twig": "^3.18"
+        "twig/twig": "^3.18",
+      "ext-fileinfo": "*"
     },
     "config": {
         "allow-plugins": {
