@@ -26,6 +26,14 @@ class ApcReferentielRepository extends ServiceEntityRepository
         parent::__construct($registry, ApcReferentiel::class);
     }
 
+    public function findMaxId()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('MAX(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save(ApcReferentiel $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

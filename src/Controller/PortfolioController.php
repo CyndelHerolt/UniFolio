@@ -27,11 +27,13 @@ use App\Repository\PageRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\TraceRepository;
 use App\Repository\ValidationRepository;
+use Dompdf\Dompdf;
+use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -223,7 +225,7 @@ class PortfolioController extends BaseController
 
                     // retire les doublons de la liste des compétences
                     $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
-                break;
+                    break;
                 } else {
                     return $this->render('security/accessDenied.html.twig');
                 }
@@ -271,6 +273,19 @@ class PortfolioController extends BaseController
             'commentForm' => $this->commentForm ?? null,
             'data_user' => $data_user ?? null,
             'competencesNiveau' => $competencesNiveau ?? null,
+        ]);
+    }
+
+    #[Route('/old/portfolio/show/{id}', name: 'app_old_portfolio_show')]
+    public function oldShow(
+        PortfolioRepository   $portfolioRepository,
+                              $id
+    ): Response
+    {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+
+        return $this->render('portfolio/old_show.html.twig', [
+            'portfolio' => $portfolio,
         ]);
     }
 
@@ -398,4 +413,80 @@ class PortfolioController extends BaseController
             return $this->render('security/accessDenied.html.twig');
         }
     }
+
+    #[Route('portfolio/export/{id}', name: 'app_portfolio_export')]
+    public function export(
+        PortfolioRepository $portfolioRepository,
+        int $id,
+        OrdreTraceRepository $ordreTraceRepository
+    ): Response {
+        $portfolio = $portfolioRepository->findOneBy(['id' => $id]);
+        $user = $this->security->getUser()->getEtudiant();
+
+        if (!$this->isGranted('ROLE_ETUDIANT') || $portfolio->getEtudiant() != $user) {
+            return $this->render('security/accessDenied.html.twig');
+        }
+
+        $competences = [];
+        $pages = $portfolio->getPages();
+        foreach ($pages as $page) {
+            $ordreTraces = $ordreTraceRepository->findBy(['page' => $page], ['ordre' => 'ASC']);
+            $traces = [];
+
+            foreach ($ordreTraces as $ordreTrace) {
+                $trace = $ordreTrace->getTrace();
+
+                $validations = $trace->getValidations();
+                foreach ($validations as $validation) {
+                    // si la compétence n'est pas déjà dans le tableau
+                    if (!in_array($validation->getApcNiveau(), $competences)) {
+                        $competences[] = $validation->getApcNiveau();
+                    }
+                }
+                // Convertir les images en base64
+                if (str_contains($trace->getTypeTrace(), 'TraceTypeImage')) {
+                    $imagesBase64 = [];
+                    foreach ($trace->getContenu() as $imagePath) {
+                        // Construire le chemin absolu vers le fichier
+                        $absolutePath = $_ENV['PATH_FILES'] . '/' . basename($imagePath);
+
+                        if (file_exists($absolutePath)) {
+                            $imageData = file_get_contents($absolutePath);
+                            $mimeType = mime_content_type($absolutePath);
+                            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                            $imagesBase64[] = $base64;
+                        } else {
+                            // Garder le chemin original si le fichier n'est pas trouvé
+                            $imagesBase64[] = $imagePath;
+                        }
+                    }
+                    $trace->contenuBase64 = $imagesBase64;
+                }
+
+                $traces[] = $trace;
+            }
+
+            $page->traces = $traces;
+        }
+
+        $html = $this->renderView('portfolio/export.html.twig', [
+            'portfolio' => $portfolio,
+            'competences' => $competences,
+        ]);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="portfolio.pdf"',
+            ]
+        );
+    }
+
 }

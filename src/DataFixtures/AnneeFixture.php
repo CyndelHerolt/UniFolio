@@ -27,7 +27,7 @@ class AnneeFixture extends Fixture implements OrderedFixtureInterface
         return 7;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $diplome1 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI']);
         $diplome2 = $this->diplomeRepository->findOneBy(['sigle' => 'MMI-Crea']);

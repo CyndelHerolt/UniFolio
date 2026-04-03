@@ -39,13 +39,8 @@ class CvType extends AbstractType
             ])
             ->add('intitule', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un intitulé'),
+                    new Length(max: 100, maxMessage: 'L\'intitulé ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'label' => 'Intitulé',
                 'label_attr' => [
@@ -61,9 +56,7 @@ class CvType extends AbstractType
             ])
             ->add('poste', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un poste',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un poste'),
                 ],
                 'label' => 'Poste',
                 'label_attr' => ['class' => 'form-label'],
@@ -71,11 +64,9 @@ class CvType extends AbstractType
                 'help' => 'Saisissez le poste recherché',
                 'required' => true,
             ])
-            ->add('description', TextAreaType::class, [
+            ->add('description', TextareaType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir une description',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir une description'),
                 ],
                 'label' => 'Description',
                 'label_attr' => ['class' => 'form-label'],

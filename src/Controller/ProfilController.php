@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -65,7 +65,7 @@ class ProfilController extends BaseController
                 $email_perso = $enseignant->getMailPerso();
                 $email_univ = $enseignant->getMailUniv();
                 $tel = $enseignant->getTelephone();
-                $groupes = $enseignant->getGroupes();
+                $groupes = [];
                 $bio = null;
             }
         } else {

@@ -56,13 +56,8 @@ class PortfolioType extends AbstractType
             ])
             ->add('intitule', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir un intitulé',
-                    ]),
-                    new Length([
-                        'max' => 100,
-                        'maxMessage' => 'L\'intitulé ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un intitulé'),
+                    new Length(max: 100, maxMessage: 'L\'intitulé ne peut pas dépasser {{ limit }} caractères'),
                 ],
                 'label' => 'Intitulé',
                 'label_attr' => [
@@ -87,7 +82,7 @@ class PortfolioType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
-            ->add('description', TextAreaType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Paragraphe d\'introduction',
                 'label_attr' => [
                     'class' => 'form-label'

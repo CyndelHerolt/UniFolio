@@ -46,6 +46,11 @@ class ApcReferentiel
         $this->apcParcours = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->libelle ?? '';
+    }
+
     public function setId(?int $id): self
     {
         $this->id = $id;

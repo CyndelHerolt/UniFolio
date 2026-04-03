@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UniFolio - Dashboard{% endblock %}
+
+    {% block header %}
+    {% endblock %}
+
+{% block body %}
+    <div class="content-container dashboard">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+        <section>
+            <article>
+                <h2>Mes portfolios</h2>
+                {% for portfolio in portfolios %}
+                    <div class="card">
+                        <div class="card-body flex-row align-items-center justify-content-between">
+                            <div>
+                                <h5 class="card-title">{{ portfolio.intitule }}</h5>
+                                <p class="card-text">{{ portfolio.annee.libelle }}</p>
+                            </div>
+                            <div>
+                                <a href="{{ path('app_old_portfolio_show', {'id': portfolio.id}) }}">
+                                    <button class="btn btn-primary">
+                                        Voir le portfolio
+                                    </button>
+                                </a>
+                                <a href="{{ path('app_portfolio_export', {'id': portfolio.id}) }}">
+                                    <button class="btn btn-secondary">
+                                        Exporter le portfolio en PDF
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </article>
+        </section>
+    </div>
+{% endblock %}

@@ -34,7 +34,7 @@ class ApcNiveauFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $competence1 = $this->competence->findOneBy(['nom_court' => 'Entreprendre']);
         $competence2 = $this->competence->findOneBy(['nom_court' => 'Développer']);

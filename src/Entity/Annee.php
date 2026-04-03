@@ -45,7 +45,7 @@ class Annee
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Bibliotheque::class)]
     private Collection $bibliotheques;
 
-    #[ORM\OneToMany(mappedBy: 'années', targetEntity: ApcNiveau::class)]
+    #[ORM\OneToMany(mappedBy: 'annees', targetEntity: ApcNiveau::class)]
     private Collection $apcNiveaux;
 
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Portfolio::class)]
@@ -57,6 +57,11 @@ class Annee
         $this->bibliotheques = new ArrayCollection();
         $this->apcNiveaux = new ArrayCollection();
         $this->portfolio = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->libelle ?? '';
     }
 
     public function getId(): ?int

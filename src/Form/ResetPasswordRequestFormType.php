@@ -21,9 +21,7 @@ class ResetPasswordRequestFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => ['autocomplete' => 'email'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez renseigner votre mail universitaire',
-                    ]),
+                    new NotBlank(message: 'Veuillez renseigner votre mail universitaire'),
                 ],
                 'help' => 'Veuillez renseigner votre adresse mail universitaire.',
                 'label' => 'adresse mail'

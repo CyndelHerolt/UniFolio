@@ -35,7 +35,7 @@ class DiplomeFixture extends Fixture implements OrderedFixtureInterface
     /**
      * @inheritDoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $departement1 = $this->departementRepository->findOneBy(['libelle' => 'MMI']);
         $departement2 = $this->departementRepository->findOneBy(['libelle' => 'CJ']);

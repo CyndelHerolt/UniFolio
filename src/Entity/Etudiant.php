@@ -35,7 +35,7 @@ class Etudiant
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail_univ = null;
 
-    #[ORM\ManyToMany(targetEntity: Groupe::class, inversedBy: 'etudiants', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Groupe::class, inversedBy: 'etudiants')]
     private Collection $groupe;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Cv::class)]
@@ -50,7 +50,7 @@ class Etudiant
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Portfolio::class)]
     private Collection $portfolios;
 
-    #[ORM\OneToOne(mappedBy: 'etudiant', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'etudiant', targetEntity: Users::class, cascade: ['persist', 'remove'])]
     private ?Users $users = null;
 
     #[ORM\Column(length: 20, nullable: true)]
@@ -84,6 +84,16 @@ class Etudiant
         $this->bibliotheques = new ArrayCollection();
         $this->portfolios = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int
@@ -374,7 +384,7 @@ class Etudiant
         $this->semestre = null;
     }
 
-    public function getDepartement(): int
+    public function getDepartement(): ?int
     {
         return $this->semestre?->getAnnee()?->getDiplome()?->getDepartement()?->getId();
     }
@@ -448,4 +458,30 @@ class Etudiant
 
         return $this;
     }
+
+    public function setGroupe(Collection $groupe): void
+    {
+        $this->groupe = $groupe;
+    }
+
+    public function setCvs(Collection $cvs): void
+    {
+        $this->cvs = $cvs;
+    }
+
+    public function setBibliotheques(Collection $bibliotheques): void
+    {
+        $this->bibliotheques = $bibliotheques;
+    }
+
+    public function setPortfolios(Collection $portfolios): void
+    {
+        $this->portfolios = $portfolios;
+    }
+
+    public function setNotifications(?Collection $notifications): void
+    {
+        $this->notifications = $notifications;
+    }
+
 }

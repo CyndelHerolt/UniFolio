@@ -29,16 +29,13 @@ class Enseignant
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail_univ = null;
 
-    #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Groupe::class)]
-    private Collection $groupes;
-
     #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Validation::class)]
     private Collection $validations;
 
     #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
-    #[ORM\OneToOne(mappedBy: 'enseignant', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'enseignant', targetEntity: Users::class, cascade: ['persist', 'remove'])]
     private ?Users $users = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -61,7 +58,6 @@ class Enseignant
 
     public function __construct()
     {
-        $this->groupes = new ArrayCollection();
         $this->validations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->enseignantDepartements = new ArrayCollection();
@@ -105,36 +101,6 @@ class Enseignant
     public function setMailUniv(?string $mail_univ): self
     {
         $this->mail_univ = $mail_univ;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Groupe>
-     */
-    public function getGroupes(): Collection
-    {
-        return $this->groupes;
-    }
-
-    public function addGroupe(Groupe $groupe): self
-    {
-        if (!$this->groupes->contains($groupe)) {
-            $this->groupes->add($groupe);
-            $groupe->setEnseignant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroupe(Groupe $groupe): self
-    {
-        if ($this->groupes->removeElement($groupe)) {
-            // set the owning side to null (unless already changed)
-            if ($groupe->getEnseignant() === $this) {
-                $groupe->setEnseignant(null);
-            }
-        }
 
         return $this;
     }

@@ -8,6 +8,6 @@ export const app = startStimulusApp(require.context(
 ));
 
 import LiveController from '@symfony/ux-live-component';
-import '@symfony/ux-live-component/styles/live.css';
+import '@symfony/ux-live-component/dist/live.min.css';
 
 app.register('live', LiveController);
