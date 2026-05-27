@@ -63,7 +63,7 @@ class EnseignantCrudController extends AbstractCrudController implements EventSu
         $user->setEnseignant($entity);
 
         $this->entityManager->persist($user);
-        // L'enseignant sera persisté automatiquement par EasyAdmin
+        $this->entityManager->flush();
     }
 
     public function onBeforeEntityUpdated(BeforeEntityUpdatedEvent $event): void
