@@ -11,6 +11,9 @@ services:
     App\Twig\Extension\InstanceOfExtension:
         tags:
             - { name: 'twig.extension' }
+    App\Controller\Admin\EnseignantCrudController:
+        tags:
+            - { name: kernel.event_subscriber }
 #    request_stack:
 #        class: Symfony\Component\HttpFoundation\RequestStack
 #    Symfony\Component\DependencyInjection\ContainerInterface:
