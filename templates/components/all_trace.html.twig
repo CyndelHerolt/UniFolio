@@ -38,7 +38,7 @@
                                                name="{{ competenceChoice.id }}"
                                                data-model="selectedCompetences[]"
                                                data-action="live#action"
-                                               data-action-name="changeCompetences"
+                                               data-live-action-param="changeCompetences"
                                                value="{{ competenceChoice.id }}"
                                                class="form-check-input">
                                         <label for="{{ competenceChoice.id }}" style="margin-left: 10px"
@@ -72,7 +72,7 @@
                                            name="dateAsc"
                                            data-model="selectedOrdreDate"
                                            data-action="live#action"
-                                           data-action-name="changeOrdreDate"
+                                           data-live-action-param="changeOrdreDate"
                                            value="ASC"
                                            class="form-check-input">
                                     <label for="dateAsc" style="margin-left: 10px"
@@ -83,7 +83,7 @@
                                            name="dateDesc"
                                            data-model="selectedOrdreDate"
                                            data-action="live#action"
-                                           data-action-name="changeOrdreDate"
+                                           data-live-action-param="changeOrdreDate"
                                            value="DESC"
                                            class="form-check-input">
                                     <label for="dateDesc" style="margin-left: 10px"
@@ -95,7 +95,7 @@
                                            name="validationAsc"
                                            data-model="selectedOrdreValidation"
                                            data-action="live#action"
-                                           data-action-name="changeOrdreValidation"
+                                           data-live-action-param="changeOrdreValidation"
                                            value="ASC"
                                            class="form-check-input">
                                     <label for="validationAsc" style="margin-left: 10px"
@@ -106,7 +106,7 @@
                                            name="validationDesc"
                                            data-model="selectedOrdreValidation"
                                            data-action="live#action"
-                                           data-action-name="changeOrdreValidation"
+                                           data-live-action-param="changeOrdreValidation"
                                            value="DESC"
                                            class="form-check-input">
                                     <label for="validationDesc" style="margin-left: 10px"
@@ -143,7 +143,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                             <button class="btn btn-primary"
                             data-action="live#action"
-                            data-action-name="deleteSelectedTraces"
+                            data-live-action-param="deleteSelectedTraces"
                             data-bs-dismiss="modal">
                             Supprimer
                             </button>

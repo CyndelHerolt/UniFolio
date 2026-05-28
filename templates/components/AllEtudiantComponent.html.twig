@@ -10,7 +10,7 @@
     <div class="btn-actions" style="width: 100%; display: flex; justify-content: flex-end">
         <button class="btn btn-secondary"
                 data-action="live#action"
-                data-action-name="exportBilan"
+                data-live-action-param="exportBilan"
                 type="button"
                 disabled
                 data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Exporter le bilan au format excel"
@@ -19,7 +19,7 @@
         </button>
         <button class="btn btn-secondary"
                 data-action="live#action"
-                data-action-name="verifInscrits"
+                data-live-action-param="verifInscrits"
                 data-bs-placement="bottom"
                 data-bs-title="Voir les étudiants non-inscrits"
                 data-bs-toggle="modal" data-bs-target="#nonInscritsModal"
@@ -47,12 +47,11 @@
                             <input type="checkbox"
                                    id="select-all"
                                    class="form-check-input"
-                                   data-model="selectAll"
                                    data-action="live#action"
-                                   data-action-name="changeSelectAll">
+                                   data-live-action-param="changeSelectAll">
                         </div>
                         <hr>
-                        {% for etudiant in this.etudiantsNonInscrits %}
+                        {% for etudiant in this.getEtudiantsNonInscrits %}
                             <div class="col-12 etudiants-liste">
                                 <div>
                                     <span class="badge bg-info">{{ etudiant.semestre.libelle }}</span>
@@ -61,9 +60,8 @@
                                 <div>
                                     <input type="checkbox"
                                            id="{{ etudiant.id }}"
-                                           data-model="selectedEtudiantsNonInscrits[]"
                                            data-action="live#action"
-                                           data-action-name="changeEtudiantsNonInscrits"
+                                           data-live-action-param="changeEtudiantsNonInscrits"
                                            name="{{ etudiant.id }}"
                                            value="{{ etudiant.mail_univ }}"
                                                class="form-check-input">
@@ -77,7 +75,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
                     <button type="button" class="btn btn-primary"
                             data-action="live#action"
-                            data-action-name="sendMailNonInscrits"
+                            data-live-action-param="sendMailNonInscrits"
                             data-bs-dismiss="modal"
                     >Envoyer le mail de relance
                     </button>
@@ -93,19 +91,21 @@
     </div>
     <div class="row">
         <div class="filtre-btn col-12">
+            {# ✅ Bouton "Tous les semestres" : désactivé quand aucun semestre sélectionné #}
             <button class="btn btn-primary"
-                    data-model="selectedSemestre[]"
                     data-action="live#action"
-                    data-action-name="changeSemestre(id=0)"
-                    {{ this.selectedSemestre == null ? ' disabled' : '' }}
-            >Tous les semestres
-            </button>
+                    data-live-action-param="changeSemestre"
+                    data-live-id-param="0"
+                    {{ this.selectedSemestreId == null ? 'disabled' : '' }}
+            >Tous les semestres</button>
+
+            {# ✅ Bouton par semestre : désactivé si c'est le semestre actuellement sélectionné #}
             {% for semestre in semestres %}
                 <button class="btn btn-primary"
-                        data-model="selectedSemestre[]"
                         data-action="live#action"
-                        data-action-name="changeSemestre(id={{ semestre.id }})"
-                        {{ this.selectedSemestre == semestre ? ' disabled' : '' }}
+                        data-live-action-param="changeSemestre"
+                        data-live-id-param="{{ semestre.id }}"
+                        {{ this.selectedSemestreId == semestre.id ? 'disabled' : '' }}
                 >{{ semestre.libelle }}</button>
             {% endfor %}
         </div>
@@ -126,7 +126,7 @@
                     <div class="accordion-body row">
                         <div>
                             <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                {% if this.selectedSemestre == null %}
+                                {% if this.selectedSemestreId == null %}
 
                                     {% for grp in this.groupes %}
                                         {% if grp.typeGroupe.type == 'TP' %}
@@ -144,9 +144,8 @@
                                             <div style="display: flex" class="form-check">
                                                 <input type="checkbox" id="{{ grp.id }}"
                                                        name="{{ grp.id }}"
-                                                       data-model="selectedGroupes[]"
                                                        data-action="live#action"
-                                                       data-action-name="changeGroupes"
+                                                       data-live-action-param="changeGroupes"
                                                        value="{{ grp.id }}"
                                                        class="form-check-input">
                                                 <label for="{{ grp.id }}" style="margin-left: 10px"
@@ -160,7 +159,7 @@
 
                                 {% else %}
 
-                                    {% for grp in this.groupes|filter(grp => this.selectedSemestre != null and (grp.apcParcours == this.selectedSemestre.annee.diplome.apcParcours )) %}
+                                    {% for grp in this.groupes|filter(grp => this.selectedSemestre != null and (grp.apcParcours == this.selectedSemestre.annee.diplome.apcParcours)) %}
                                         {% if grp.typeGroupe.type == 'TP' %}
                                             <small>
                                                 {% if grp.apcParcours is not null %}
@@ -176,9 +175,8 @@
                                             <div style="display: flex" class="form-check">
                                                 <input type="checkbox" id="{{ grp.id }}"
                                                        name="{{ grp.id }}"
-                                                       data-model="selectedGroupes[]"
                                                        data-action="live#action"
-                                                       data-action-name="changeGroupes"
+                                                       data-live-action-param="changeGroupes"
                                                        value="{{ grp.id }}"
                                                        class="form-check-input">
                                                 <label for="{{ grp.id }}" style="margin-left: 10px"
@@ -211,16 +209,15 @@
                     <div class="accordion-body row">
                         <div>
                             <fieldset style="max-height: 200px; overflow-y: scroll;">
-                                {% for etudiant in this.etudiants %}
+                                {% for etudiant in this.getEtudiants %}
                                     <small>
                                         {{ etudiant.semestre.libelle }}
                                     </small>
                                     <div style="display: flex" class="form-check">
                                         <input type="checkbox" id="{{ etudiant.id }}"
                                                name="{{ etudiant.id }}"
-                                               data-model="selectedEtudiants[]"
                                                data-action="live#action"
-                                               data-action-name="changeEtudiants"
+                                               data-live-action-param="changeEtudiants"
                                                value="{{ etudiant.id }}"
                                                class="form-check-input">
                                         <label for="{{ etudiant.id }}" style="margin-left: 10px"
@@ -240,30 +237,30 @@
         <div class="filtre-btn col-12">
             <div class="filtre-btn col-12">
                 <button class="btn btn-secondary"
-                        data-model="selectedEtat"
                         data-action="live#action"
-                        data-action-name="changeEtat(id=0)"
+                        data-live-action-param="changeEtat"
+                        data-live-id-param="0"
                         {{ this.selectedEtat == 0 ? ' disabled' : '' }}
                 >Tous les étudiants
                 </button>
                 <button class="btn btn-secondary"
-                        data-model="selectedEtat"
                         data-action="live#action"
-                        data-action-name="changeEtat(id=1)"
+                        data-live-action-param="changeEtat"
+                        data-live-id-param="1"
                         {{ this.selectedEtat == 1 ? ' disabled' : '' }}
                 >Etudiants - portfolio évalué
                 </button>
                 <button class="btn btn-secondary"
-                        data-model="selectedEtat"
                         data-action="live#action"
-                        data-action-name="changeEtat(id=2)"
+                        data-live-action-param="changeEtat"
+                        data-live-id-param="2"
                         {{ this.selectedEtat == 2 ? ' disabled' : '' }}
                 >Etudiants - portfolio non évalué
                 </button>
                 <button class="btn btn-secondary"
-                        data-model="selectedEtat"
                         data-action="live#action"
-                        data-action-name="changeEtat(id=3)"
+                        data-live-action-param="changeEtat"
+                        data-live-id-param="3"
                         {{ this.selectedEtat == 3 ? ' disabled' : '' }}
                 >Etudiants - sans portfolio
                 </button>
@@ -295,7 +292,7 @@
         {# Affiche le bouton pour aller à la première page #}
         <button class="btn btn-primary"
                 data-action="live#action"
-                data-action-name="goToFirstPage"
+                data-live-action-param="goToFirstPage"
                 {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevrons-left"></i>
@@ -303,7 +300,7 @@
 
         <button class="btn btn-primary"
                 data-action="live#action"
-                data-action-name="goPreviousPage"
+                data-live-action-param="goPreviousPage"
                 {{ this.currentPage == 1 or this.currentPage == 0 ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevron-left"></i>
@@ -313,7 +310,7 @@
         </small>
         <button class="btn btn-primary"
                 data-action="live#action"
-                data-action-name="goNextPage"
+                data-live-action-param="goNextPage"
                 {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevron-right"></i>
@@ -322,7 +319,7 @@
         {# Affiche le bouton pour aller à la dernière page #}
         <button class="btn btn-primary"
                 data-action="live#action"
-                data-action-name="goToLastPage"
+                data-live-action-param="goToLastPage"
                 {{ this.currentPage == this.getTotalPages ? ' disabled' : '' }}
         >
             <i class="fa-solid fa-chevrons-right"></i>

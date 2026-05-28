@@ -48,10 +48,13 @@ final class AllTraceEvalComponent extends BaseController
     public array $dept = [];
     public int $validation = 0;
 
-    public int $itemsPerPage = 4; // nombre d'éléments par page
+    #[LiveProp]
+    public bool $initialized = false;
+
+    public int $itemsPerPage = 4;
 
     #[LiveProp(writable: true)]
-    public int $currentPage = 1; // Page actuelle (on commence à 1)
+    public int $currentPage = 1;
 
     #[LiveProp(writable: true)]
     /** @var Groupe[] */
@@ -60,8 +63,12 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveProp(writable: true)]
     /** @var Etudiant[] */
     public array $etudiants = [];
+
     #[LiveProp(writable: true)]
-    public ?Semestre $selectedSemestre = null;
+    public ?int $selectedSemestreId = null;
+
+    // Propriété interne non sérialisée
+    private ?Semestre $selectedSemestre = null;
 
     #[LiveProp(writable: true)]
     public array $selectedCompetences = [];
@@ -108,10 +115,8 @@ final class AllTraceEvalComponent extends BaseController
 
         foreach ($dept as $departement) {
             $this->annees = $this->anneeRepository->findByDepartement($departement);
-
             $this->semestres = $this->semestreRepository->findByDepartementActif($departement);
 
-            // pour chaque semestre, on récupère les groupes
             foreach ($this->semestres as $semestre) {
                 $groupes = $this->groupeRepository->findBySemestre($semestre);
                 foreach ($groupes as $groupe) {
@@ -119,7 +124,7 @@ final class AllTraceEvalComponent extends BaseController
                 }
                 $this->groupes = array_unique($this->groupes, SORT_REGULAR);
             }
-            // pour chaque semestre on récupère les étudiants
+
             foreach ($this->semestres as $semestre) {
                 $etudiants = $this->etudiantRepository->findBySemestre($semestre);
                 foreach ($etudiants as $etudiant) {
@@ -130,10 +135,21 @@ final class AllTraceEvalComponent extends BaseController
         }
     }
 
+    private function resolveSelectedSemestre(): void
+    {
+        $this->selectedSemestre = $this->selectedSemestreId
+            ? $this->semestreRepository->find($this->selectedSemestreId)
+            : null;
+    }
+
     #[PostMount]
     public function init()
     {
-        $this->changeSemestre($this->selectedSemestre);
+        if (!$this->initialized) {
+            $this->initialized = true;
+            $this->resolveSelectedSemestre();
+            $this->changeSemestre($this->selectedSemestreId ?? 0);
+        }
     }
 
     #[LiveAction]
@@ -141,15 +157,16 @@ final class AllTraceEvalComponent extends BaseController
     {
         $this->currentPage = 1;
         $this->allTraces = [];
+        $this->resolveSelectedSemestre();
 
-        switch($id) {
-            case 0: // Toutes les traces
+        switch ($id) {
+            case 0:
                 $this->selectedEtat = 0;
                 break;
-            case 1: // Traces évaluées
+            case 1:
                 $this->selectedEtat = 1;
                 break;
-            case 2: // Traces non évaluées
+            case 2:
                 $this->selectedEtat = 2;
                 break;
         }
@@ -162,23 +179,18 @@ final class AllTraceEvalComponent extends BaseController
     {
         $this->currentPage = 1;
         $this->etudiants = [];
+        $this->resolveSelectedSemestre();
 
-
-// Récupérer les niveaux de compétences sélectionnées
         $competences = $this->apcNiveauRepository->findBy(['id' => $this->selectedCompetences]);
 
         $this->groupes = [];
         foreach ($competences as $competence) {
-            // Récupérer l'ordre du niveau de compétence qui est lié à l'année
             $ordre = $competence->getOrdre();
-
-            // Récupérer tous les semestres qui ont un ordre d'année correspondant
             $semestres = $this->semestreRepository->findBy(['id' => $this->semestres]);
 
             $annees = [];
             foreach ($semestres as $semestre) {
                 $annees[] = $semestre->getAnnee();
-
                 foreach ($annees as $annee) {
                     if ($annee->getOrdre() == $ordre) {
                         $semestres = $annee->getSemestres();
@@ -186,9 +198,7 @@ final class AllTraceEvalComponent extends BaseController
                 }
             }
             foreach ($semestres as $semestre) {
-                // Récupérer les groupes du semestre et les ajouter à l'ensemble de groupes
                 $groupes = $this->groupeRepository->findBySemestre($semestre);
-
                 foreach ($groupes as $groupe) {
                     $this->groupes[] = $groupe;
                 }
@@ -199,7 +209,6 @@ final class AllTraceEvalComponent extends BaseController
                 foreach ($etudiants as $etudiant) {
                     $this->etudiants[] = $etudiant;
                 }
-                // supprimer les doublons
                 $this->etudiants = array_unique($this->etudiants, SORT_REGULAR);
             }
         }
@@ -210,7 +219,6 @@ final class AllTraceEvalComponent extends BaseController
                 foreach ($etudiants as $etudiant) {
                     $this->etudiants[] = $etudiant;
                 }
-
                 $groupes = $this->groupeRepository->findBySemestre($semestre);
                 foreach ($groupes as $groupe) {
                     $this->groupes[] = $groupe;
@@ -218,30 +226,23 @@ final class AllTraceEvalComponent extends BaseController
             }
         }
 
-
         $this->getDisplayedTraces();
-        if ($this->selectedSemestre !== null) {
-            $this->changeSemestre($this->selectedSemestre->getId());
-        }
     }
 
     #[LiveAction]
     public function changeGroupes()
     {
         $this->currentPage = 1;
+        $this->resolveSelectedSemestre();
 
-        // récupérer les étudiants des groupes sélectionnés
         $groupes = $this->groupeRepository->findBy(['id' => $this->selectedGroupes]);
 
         $this->etudiants = [];
         $this->niveaux = [];
         $competencesNiveau = [];
         $dept = $this->dataUserSession->getDepartement();
-
         $referentiel = $dept->getApcReferentiels();
-
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel->first()]);
-
 
         foreach ($groupes as $groupe) {
             foreach ($groupe->getEtudiants() as $etudiant) {
@@ -254,7 +255,6 @@ final class AllTraceEvalComponent extends BaseController
                     if ($semestre->getAnnee()->getDiplome()->getApcParcours() == $groupe->getApcParcours()) {
                         $annee = $semestre->getAnnee();
                         $parcours = $groupe->getApcParcours();
-
                         $niveaux = $this->apcNiveauRepository->findByAnneeParcours($annee, $parcours);
                         $competencesNiveau = array_merge($competencesNiveau, $niveaux);
                         $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
@@ -263,7 +263,6 @@ final class AllTraceEvalComponent extends BaseController
                     foreach ($competences as $competence) {
                         $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
                         $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                        //supprimer les doublons du tableau
                         $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
                     }
                 }
@@ -280,7 +279,6 @@ final class AllTraceEvalComponent extends BaseController
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
                     $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                    //supprimer les doublons du tableau
                     $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
                 }
                 $this->niveaux = $competencesNiveau;
@@ -288,16 +286,14 @@ final class AllTraceEvalComponent extends BaseController
         }
 
         $this->getDisplayedTraces();
-        if ($this->selectedSemestre !== null) {
-            $this->changeSemestre($this->selectedSemestre->getId());
-        }
     }
 
     #[LiveAction]
     public function changeEtudiants()
     {
         $this->currentPage = 1;
-        // récupérer les groupes des étudiants sélectionnés
+        $this->resolveSelectedSemestre();
+
         $etudiants = $this->etudiantRepository->findBy(['id' => $this->selectedEtudiants]);
         $this->groupes = [];
         foreach ($etudiants as $etudiant) {
@@ -319,15 +315,21 @@ final class AllTraceEvalComponent extends BaseController
         }
 
         $this->getDisplayedTraces();
-        if ($this->selectedSemestre !== null) {
-            $this->changeSemestre($this->selectedSemestre->getId());
-        }
     }
 
     #[LiveAction]
-    public function changeSemestre(#[LiveArg] int $id = null)
+    public function changeSemestre(#[LiveArg] int $id = 0)
     {
         $this->currentPage = 1;
+
+        if ($id !== null && $id !== 0) {
+            $this->selectedSemestreId = $id;
+            $this->selectedSemestre = $this->semestreRepository->find($id);
+        } else {
+            $this->selectedSemestreId = null;
+            $this->selectedSemestre = null;
+        }
+
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
         $referentiel = null;
@@ -335,21 +337,13 @@ final class AllTraceEvalComponent extends BaseController
             $referentiel = $departement->getApcReferentiels()->first();
         }
         $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel]);
+        $competencesNiveau = [];
 
-        //si un semestre est sélectionné
-        if ($id !== null) {
-            $this->selectedSemestre = $this->semestreRepository->find($id);
-        }
-
-        $competencesNiveau = []; // Reset Competences Niveau array
-
-        // si il y a un semestre sélectionné
         if ($this->selectedSemestre !== null) {
-            // on récupère ce semestre
             $semestre = $this->selectedSemestre;
-
             $this->groupes = $this->groupeRepository->findBySemestre($semestre);
             $this->niveaux = [];
+
             foreach ($this->groupes as $groupe) {
                 if ($groupe->getApcParcours() !== null) {
                     if ($groupe->getApcParcours() === $semestre->getAnnee()->getDiplome()->getApcParcours()) {
@@ -362,7 +356,6 @@ final class AllTraceEvalComponent extends BaseController
                     foreach ($competences as $competence) {
                         $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
                         $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                        //supprimer les doublons du tableau
                         $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
                     }
                 }
@@ -374,17 +367,13 @@ final class AllTraceEvalComponent extends BaseController
             foreach ($this->semestres as $semestre) {
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
-//                    dd($competence);
-
                     $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                    //supprimer les doublons du tableau
                     $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
                 }
             }
             $this->niveaux = $competencesNiveau;
         }
 
-        // si les étudiants sélectionnés sont toujours dans la liste des étudiants
         if ($this->selectedEtudiants !== null) {
             foreach ($this->selectedEtudiants as $selectedEtudiant) {
                 $etudiant = $this->etudiantRepository->find($selectedEtudiant);
@@ -393,7 +382,6 @@ final class AllTraceEvalComponent extends BaseController
                 }
             }
         }
-        // si les groupes sélectionnés sont toujours dans la liste des groupes
         if ($this->selectedGroupes !== null) {
             foreach ($this->selectedGroupes as $selectedGroupe) {
                 $groupe = $this->groupeRepository->find($selectedGroupe);
@@ -402,7 +390,6 @@ final class AllTraceEvalComponent extends BaseController
                 }
             }
         }
-        // si les compétences sélectionnés sont toujours dans la liste des compétences
         if ($this->selectedCompetences !== null) {
             foreach ($this->selectedCompetences as $selectedCompetence) {
                 $competence = $this->apcNiveauRepository->find($selectedCompetence);
@@ -415,15 +402,12 @@ final class AllTraceEvalComponent extends BaseController
         $this->getDisplayedTraces();
     }
 
-
-    // Méthode pour obtenir le nombre total de pages
     public function getTotalPages()
     {
         $count = count($this->getAllTrace());
         return intval(ceil($count / $this->itemsPerPage));
     }
 
-    // Nouvelle méthode pour obtenir une partie des traces basée sur la page actuelle
     public function getDisplayedTraces()
     {
         $offset = ($this->currentPage - 1) * $this->itemsPerPage;
@@ -431,10 +415,10 @@ final class AllTraceEvalComponent extends BaseController
         $this->allTraces = array_slice($traces, $offset, $this->itemsPerPage);
     }
 
-    // Méthodes d'action pour aller aux pages précédentes/suivantes
     #[LiveAction]
     public function goNextPage()
     {
+        $this->resolveSelectedSemestre();
         if ($this->currentPage < $this->getTotalPages()) {
             $this->currentPage++;
         }
@@ -444,6 +428,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function goPreviousPage()
     {
+        $this->resolveSelectedSemestre();
         if ($this->currentPage > 1) {
             $this->currentPage--;
         }
@@ -453,6 +438,7 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function goToFirstPage()
     {
+        $this->resolveSelectedSemestre();
         $this->currentPage = 1;
         $this->getDisplayedTraces();
     }
@@ -460,25 +446,32 @@ final class AllTraceEvalComponent extends BaseController
     #[LiveAction]
     public function goToLastPage()
     {
+        $this->resolveSelectedSemestre();
         $this->currentPage = $this->getTotalPages();
         $this->getDisplayedTraces();
     }
 
     public function getAllTrace()
     {
+        $this->resolveSelectedSemestre();
         $user = $this->getUser();
         $enseignant = $user->getEnseignant();
 
-        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant'=>$enseignant, 'defaut'=>1]);
+        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'defaut' => 1]);
 
-
-        $traces = $this->traceRepository->findByFilters($dept->getDepartement(), $this->selectedSemestre, $this->selectedCompetences, $this->selectedGroupes, $this->selectedEtudiants, $this->selectedEtat);
+        $traces = $this->traceRepository->findByFilters(
+            $dept->getDepartement(),
+            $this->selectedSemestre,
+            $this->selectedCompetences,
+            $this->selectedGroupes,
+            $this->selectedEtudiants,
+            $this->selectedEtat
+        );
 
         if ($traces == null) {
             $this->currentPage = 0;
         }
 
         return $traces;
-
     }
 }

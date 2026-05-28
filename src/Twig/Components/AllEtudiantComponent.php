@@ -65,10 +65,6 @@ class AllEtudiantComponent extends BaseController
     public array $groupes = [];
 
     #[LiveProp(writable: true)]
-    /** @var Etudiant[] */
-    public array $etudiants = [];
-
-    #[LiveProp(writable: true)]
     public array $etudiantsNonInscrits = [];
 
     #[LiveProp(writable: true)]
@@ -81,7 +77,9 @@ class AllEtudiantComponent extends BaseController
     public bool $successMessage = false;
 
     #[LiveProp(writable: true)]
-    public ?Semestre $selectedSemestre = null;
+    public ?int $selectedSemestreId = null;
+
+    private ?Semestre $selectedSemestre = null;
 
     #[LiveProp(writable: true)]
     public array $selectedCompetences = [];
@@ -155,10 +153,19 @@ class AllEtudiantComponent extends BaseController
         }
     }
 
+    // ✅ Résolution de l'entité depuis l'ID
+    private function resolveSelectedSemestre(): void
+    {
+        $this->selectedSemestre = $this->selectedSemestreId !== null
+            ? $this->semestreRepository->find($this->selectedSemestreId)
+            : null;
+    }
+
     #[PostMount]
     public function init()
     {
-        $this->changeSemestre($this->selectedSemestre);
+        $this->resolveSelectedSemestre();
+        $this->changeSemestre($this->selectedSemestreId ?? 0);
     }
 
     #[LiveAction]
@@ -185,10 +192,37 @@ class AllEtudiantComponent extends BaseController
         $this->getDisplayedEtudiants();
     }
 
+    public function getSelectedSemestre(): ?Semestre
+    {
+        return $this->selectedSemestre;
+    }
+
+
+    public function getEtudiants(): array
+    {
+        if ($this->selectedSemestre !== null) {
+            return $this->etudiantRepository->findBySemestre($this->selectedSemestre);
+        }
+        // retourner tous les étudiants des semestres disponibles
+        $result = [];
+        foreach ($this->semestres as $semestre) {
+            foreach ($this->etudiantRepository->findBySemestre($semestre) as $e) {
+                $result[] = $e;
+            }
+        }
+        return $result;
+    }
+
+
     #[LiveAction]
-    public function changeSemestre(#[LiveArg] int $id = null)
+    public function changeSemestre(#[LiveArg] int $id = 0)
     {
         $this->currentPage = 1;
+
+        // ✅ On stocke l'ID, pas l'entité
+        $this->selectedSemestreId = $id !== 0 ? $id : null;
+        $this->resolveSelectedSemestre();
+
         $user = $this->security->getUser()->getEnseignant();
         $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
         $referentiel = null;

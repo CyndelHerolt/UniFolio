@@ -94,7 +94,7 @@
                                            name="validation1{{ validation.id }}"
                                            data-model="selectedValidation"
                                            data-action="live#action"
-                                           data-action-name="changeValidation"
+                                           data-live-action-param="changeValidation"
                                            value="{{ validation.id }}-1"
                                            class="form-check-input">
                                 {% endif %}
@@ -111,7 +111,7 @@
                                            name="validation2{{ validation.id }}"
                                            data-model="selectedValidation"
                                            data-action="live#action"
-                                           data-action-name="changeValidation"
+                                           data-live-action-param="changeValidation"
                                            value="{{ validation.id }}-2"
                                            class="form-check-input">
                                 {% endif %}
@@ -127,7 +127,7 @@
                                            name="validation3{{ validation.id }}"
                                            data-model="selectedValidation"
                                            data-action="live#action"
-                                           data-action-name="changeValidation"
+                                           data-live-action-param="changeValidation"
                                            value="{{ validation.id }}-3"
                                            class="form-check-input">
                                 {% endif %}
@@ -170,7 +170,7 @@
                                     {% elseif commentaire.enseignant.id != this.dataUserSession.enseignant.id %}
                                         <a>
                                             <button data-action="live#action"
-                                                    data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
+                                                    data-live-action-param="handleResponseForm(commentaireId={{ commentaire.id }})"
                                                     class="btn btn-primary">Répondre
                                             </button>
                                         </a>
@@ -211,7 +211,7 @@
                                                 {% elseif response.enseignant.id != this.dataUserSession.enseignant.id %}
                                                     <a>
                                                         <button data-action="live#action"
-                                                                data-action-name="handleResponseForm(commentaireId={{ commentaire.id }})"
+                                                                data-live-action-param="handleResponseForm(commentaireId={{ commentaire.id }})"
                                                                 class="btn btn-primary">Répondre
                                                         </button>
                                                     </a>
@@ -259,7 +259,7 @@
                                                     <button data-bs-dismiss="modal"
                                                             class="btn btn-primary btn-delete-comment"
                                                             data-action="live#action"
-                                                            data-action-name="removeComment(commentId={{ response.id }})"
+                                                            data-live-action-param="removeComment(commentId={{ response.id }})"
                                                             type="button"
                                                     >Supprimer
                                                     </button>
@@ -303,7 +303,7 @@
                                             <button type="button"
                                                     class="btn btn-primary"
                                                     data-action="live#action"
-                                                    data-action-name="handleCommentResponse(commentParent={{ commentaire.id }})">
+                                                    data-live-action-param="handleCommentResponse(commentParent={{ commentaire.id }})">
                                                 Publier
                                             </button>
                                         </div>
@@ -336,7 +336,7 @@
                                         <button data-bs-dismiss="modal"
                                                 class="btn btn-primary btn-delete-comment"
                                                 data-action="live#action"
-                                                data-action-name="removeComment(commentId={{ commentaire.id }})"
+                                                data-live-action-param="removeComment(commentId={{ commentaire.id }})"
                                                 type="button"
                                         >Supprimer
                                         </button>
@@ -379,7 +379,7 @@
                     <button type="button"
                             class="btn btn-primary"
                             data-action="live#action"
-                            data-action-name="handleComment">
+                            data-live-action-param="handleComment">
                         Publier
                     </button>
                 </div>

@@ -52,7 +52,7 @@
         "symfony/string": "8.0.*",
         "symfony/translation": "8.0.*",
         "symfony/twig-bundle": "8.0.*",
-        "symfony/ux-live-component": "^2.21",
+        "symfony/ux-live-component": "^2.35",
         "symfony/ux-twig-component": "^2.21",
         "symfony/validator": "8.0.*",
         "symfony/web-link": "8.0.*",
