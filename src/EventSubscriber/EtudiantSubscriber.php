@@ -1,10 +1,13 @@
 <?php
 namespace App\EventSubscriber;
 
+use App\Entity\Bibliotheque;
 use App\Entity\Etudiant;
 use App\Entity\Users;
 use App\Repository\SemestreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
@@ -26,6 +29,8 @@ class EtudiantSubscriber implements EventSubscriberInterface
             BeforeEntityPersistedEvent::class => ['onBeforeEntityPersisted'],
             BeforeEntityUpdatedEvent::class => ['onBeforeEntityUpdated'],
             BeforeEntityDeletedEvent::class => ['onBeforeEntityDeleted'],
+            AfterEntityPersistedEvent::class => ['onAfterEntityPersisted'],
+            AfterEntityUpdatedEvent::class => ['onAfterEntityUpdated'],
         ];
     }
 
@@ -59,12 +64,33 @@ class EtudiantSubscriber implements EventSubscriberInterface
             return;
         }
 
-        // supprimer l'utilisateur associé à l'étudiant
         $user = $entity->getUsers();
         if ($user) {
             $this->entityManager->remove($user);
             $this->entityManager->flush();
         }
+    }
+
+    public function onAfterEntityPersisted(AfterEntityPersistedEvent $event): void
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!$entity instanceof Etudiant) {
+            return;
+        }
+
+        $this->createBibliothequeIfNotExists($entity);
+    }
+
+    public function onAfterEntityUpdated(AfterEntityUpdatedEvent $event): void
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!$entity instanceof Etudiant) {
+            return;
+        }
+
+        $this->createBibliothequeIfNotExists($entity);
     }
 
     private function configureUserForEtudiant(Etudiant $etudiant): void
@@ -76,16 +102,13 @@ class EtudiantSubscriber implements EventSubscriberInterface
             $etudiant->setUsers($user);
         }
 
-        // Configuration de base
         $user->setUsername($etudiant->getUsername());
         $user->setEmail($etudiant->getMailPerso() ?? $etudiant->getMailUniv());
 
-        // Seul le mot de passe nécessite un traitement car il faut le hasher
         $plainPassword = $user->getPassword() ?: Uuid::v4()->toRfc4122();
         $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
 
-        // récupérer le semestre du groupe
         $groupes = $etudiant->getGroupe();
         $groupe = $groupes[0];
         if ($groupe) {
@@ -94,5 +117,23 @@ class EtudiantSubscriber implements EventSubscriberInterface
                 $etudiant->setSemestre($semestre[0]);
             }
         }
+    }
+
+    private function createBibliothequeIfNotExists(Etudiant $etudiant): void
+    {
+        // Si l'étudiant a déjà une bibliothèque, on ne fait rien
+        if (!$etudiant->getBibliotheques()->isEmpty()) {
+            return;
+        }
+
+        // Récupérer l'année via le semestre de l'étudiant
+        $annee = $etudiant->getSemestre()?->getAnnee();
+
+        $bibliotheque = new Bibliotheque();
+        $bibliotheque->setEtudiant($etudiant);
+        $bibliotheque->setAnnee($annee);
+
+        $this->entityManager->persist($bibliotheque);
+        $this->entityManager->flush();
     }
 }

@@ -53,7 +53,6 @@ class AnneeRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->innerJoin(Semestre::class, 's', 'WITH', 's.annee = a.id')
             ->where('s.id = :semestre')
-//            ->andWhere('a.actif = true')
             ->setParameter('semestre', $semestre->getId())
             ->getQuery()
             ->getResult();
