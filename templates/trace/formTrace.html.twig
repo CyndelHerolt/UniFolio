@@ -27,7 +27,7 @@
                     <small>Les champs marqués d'un <span style="color: red">*</span> sont obligatoires.</small>
                     <hr>
 
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                     <div class="hidden">
                         {{ form_row(form.date_creation) }}
                         {{ form_row(form.date_modification) }}
@@ -141,8 +141,8 @@
                     </div>
                 </article>
                 <button type="submit" class="btn btn-secondary">Enregistrer</button>
-            </div>
             {{ form_end(form) }}
+            </div>
         </section>
     </div>
 {% endblock %}

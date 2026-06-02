@@ -43,15 +43,17 @@
 
         <div class="step-trace-actions col-2">
             <div class="step-trace-crud">
-                <button class="btn-danger btn" {{ stimulus_action('trace', 'deleteTrace', 'click') }}
+                <button title="Supprimer" data-bs-toggle="tooltip" data-bs-placement="top"
+                        class="btn-danger btn" {{ stimulus_action('trace', 'deleteTrace', 'click') }}
                         value="{{ trace.id }}"
                         data-page="{{ page.id }}">
-                    <i class="fa-regular fa-square-minus" title="Supprimer" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Supprimer la trace"></i>
+                    <i class="fa-regular fa-square-minus" aria-label="Supprimer la trace"></i>
                 </button>
-                <button class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }}
+                <button data-bs-toggle="tooltip" data-bs-placement="top" title="Éditer"
+                        class="btn-warning btn" {{ stimulus_action('trace', 'editTrace', 'click') }}
                         value="{{ trace.id }}"
                         data-type="{{ trace.typeTrace }}">
-                    <i class="fa-solid fa-edit" title="Éditer" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Éditer la trace"></i>
+                    <i class="fa-solid fa-edit" aria-label="Éditer la trace"></i>
                 </button>
             </div>
             <div class="step-trace-order">
