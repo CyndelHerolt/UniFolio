@@ -155,7 +155,7 @@ class TraceTypeImageType extends AbstractType
                 'constraints' => [
                     new Count(min: 1, minMessage: 'Veuillez sélectionner au moins une compétence'),
                 ],
-                'choices' => array_combine($competences, $competences),
+                'choices' => array_combine($competences ?? [], $competences ?? []),
                 'label' => false,
                 'multiple' => true,
                 'required' => true,

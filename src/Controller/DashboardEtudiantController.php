@@ -74,7 +74,6 @@ class DashboardEtudiantController extends BaseController
     ): Response {
         if ($this->isGranted('ROLE_ETUDIANT')) {
             $data_user = $this->dataUserSession;
-//            dd($data_user);
             $etudiant = $data_user->getEtudiant();
             $portfolios = $portfolioRepository->findBy(['etudiant' => $etudiant->getId()]);
 
