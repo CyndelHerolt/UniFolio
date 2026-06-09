@@ -98,7 +98,7 @@ class AllTraceComponent extends BaseController
             }
         }
 
-        $this->competences = $competencesNiveau;
+        $this->competences = $competencesNiveau ?? [];
     }
 
     #[LiveAction]
