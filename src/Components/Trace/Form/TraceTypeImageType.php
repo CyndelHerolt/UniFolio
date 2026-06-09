@@ -158,7 +158,7 @@ class TraceTypeImageType extends AbstractType
                 'choices' => array_combine($competences ?? [], $competences ?? []),
                 'label' => false,
                 'multiple' => true,
-                'required' => true,
+//                'required' => true,
                 'expanded' => true,
                 'mapped' => false,
                 'attr' => [
