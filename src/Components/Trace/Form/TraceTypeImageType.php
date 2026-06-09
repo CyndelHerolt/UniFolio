@@ -152,9 +152,9 @@ class TraceTypeImageType extends AbstractType
             ])
             //----------------------------------------------------------------
             ->add('competences', ChoiceType::class, [
-                'constraints' => [
-                    new Count(min: 1, minMessage: 'Veuillez sélectionner au moins une compétence'),
-                ],
+//                'constraints' => [
+//                    new Count(min: 1, minMessage: 'Veuillez sélectionner au moins une compétence'),
+//                ],
                 'choices' => array_combine($competences ?? [], $competences ?? []),
                 'label' => false,
                 'multiple' => true,
