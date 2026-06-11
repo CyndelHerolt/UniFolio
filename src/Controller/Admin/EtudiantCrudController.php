@@ -23,7 +23,7 @@ class EtudiantCrudController extends AbstractCrudController
         return Etudiant::class;
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): object
     {
         $etudiant = new Etudiant();
 // On crée un user vide qui sera configuré par l'EventSubscriber

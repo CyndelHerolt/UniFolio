@@ -218,8 +218,8 @@
     </div>
 
     <div class="row">
-        {% for trace in this.allTraces|sort((a,b) => a.dateModification <=> b.dateModification) %}
-            {{ component('TraceEvalCardComponent', {'id': trace.id, 'key': trace.id}) }}
+        {% for traceId in this.allTraces %}
+            {{ component('TraceEvalCardComponent', {'id': traceId, 'key': traceId}) }}
         {% endfor %}
     </div>
 

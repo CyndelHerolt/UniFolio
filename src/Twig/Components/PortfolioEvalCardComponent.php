@@ -26,6 +26,9 @@ final class PortfolioEvalCardComponent extends BaseController
     #[LiveProp]
     public ?int $id;
 
+    private ?Portfolio $portfolioCache = null;
+    private ?int $portfolioCacheId = null;
+
     public function __construct(
         public PortfolioRepository $portfolioRepository,
     ) {
@@ -33,6 +36,17 @@ final class PortfolioEvalCardComponent extends BaseController
 
     public function getPortfolio(): ?Portfolio
     {
-        return $this->portfolioRepository->find($this->id);
+        if ($this->id === null) {
+            return null;
+        }
+
+        if ($this->portfolioCacheId === $this->id && $this->portfolioCache !== null) {
+            return $this->portfolioCache;
+        }
+
+        $this->portfolioCache = $this->portfolioRepository->findOneForEvaluationCard($this->id);
+        $this->portfolioCacheId = $this->id;
+
+        return $this->portfolioCache;
     }
 }

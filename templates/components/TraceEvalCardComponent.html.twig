@@ -48,8 +48,12 @@
                             </span>
                             </li>
                             <li>•</li>
-                            <li>Dernière modification le
-                                : {{ this.trace.datemodification is empty ? this.trace.datecreation|date('d-m-Y H:i') : this.trace.datemodification|date('d-m-Y H:i') }}
+                            <li>
+                                Créé le : {{ this.trace.datecreation|date('d-m-Y H:i') }}</li>
+                            <li>•</li>
+                            <li>
+                                Dernière modification le
+                                : {{ this.trace.datemodification is empty ? '-' : this.trace.datemodification|date('d-m-Y H:i') }}
                             </li>
                         </ul>
                         <hr>

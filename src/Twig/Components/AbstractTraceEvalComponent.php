@@ -33,6 +33,9 @@ class AbstractTraceEvalComponent extends BaseController
     #[LiveProp]
     public ?int $id;
 
+    private ?Trace $traceCache = null;
+    private ?int $traceCacheId = null;
+
     #[LiveProp(writable: true)]
     public ?string $selectedValidation = '';
 
@@ -49,6 +52,8 @@ class AbstractTraceEvalComponent extends BaseController
 
     #[LiveProp(writable: true)]
     public ?int $commentaireReponseId = null;
+
+    private EventDispatcherInterface $eventDispatcher;
 
 
     public function __construct(
@@ -175,6 +180,17 @@ class AbstractTraceEvalComponent extends BaseController
     }
     public function getTrace(): ?Trace
     {
-        return $this->traceRepository->find($this->id);
+        if ($this->id === null) {
+            return null;
+        }
+
+        if ($this->traceCacheId === $this->id && $this->traceCache !== null) {
+            return $this->traceCache;
+        }
+
+        $this->traceCache = $this->traceRepository->find($this->id);
+        $this->traceCacheId = $this->id;
+
+        return $this->traceCache;
     }
 }

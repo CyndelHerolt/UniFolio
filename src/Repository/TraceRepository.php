@@ -76,7 +76,7 @@ class TraceRepository extends ServiceEntityRepository
     return $qb;
 }
 
-    public function findByFilters($dept, Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], int $etat = null): array
+    private function createFiltersQb($dept, ?Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], ?int $etat = null)
     {
         $qb = $this->createQueryBuilder('t')
             ->innerJoin('t.validations', 'v')
@@ -119,7 +119,37 @@ class TraceRepository extends ServiceEntityRepository
             $qb->andWhere('e.id IN (:etudiants)')
                 ->setParameter('etudiants', $etudiants);
         }
-        $qb->distinct('t.id');
+
+        return $qb;
+    }
+
+    public function countByFilters($dept, ?Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], ?int $etat = null): int
+    {
+        $qb = $this->createFiltersQb($dept, $semestre, $competences, $groupes, $etudiants, $etat)
+            ->select('COUNT(DISTINCT t.id)');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findIdsByFilters($dept, ?Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], ?int $etat = null, int $limit = 20, int $offset = 0): array
+    {
+        $rows = $this->createFiltersQb($dept, $semestre, $competences, $groupes, $etudiants, $etat)
+            ->select('DISTINCT t.id AS id')
+            ->orderBy('t.date_modification', 'DESC')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getArrayResult();
+
+        return array_map(static fn (array $row) => (int) $row['id'], $rows);
+    }
+
+    public function findByFilters($dept, ?Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], ?int $etat = null): array
+    {
+        $qb = $this->createFiltersQb($dept, $semestre, $competences, $groupes, $etudiants, $etat);
+
+        $qb->distinct('t.id')
+        ->orderBy('t.date_modification', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
