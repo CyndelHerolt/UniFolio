@@ -60,21 +60,21 @@ class TraceRepository extends ServiceEntityRepository
     }
 
     public function findByCompetenceAndEtudiant(array $competences, $etudiantId): array
-{
-    $qb = $this->createQueryBuilder('t')
-        ->join('t.validations', 'v')
-        ->join('v.apcNiveau', 'c')
-        ->join('t.bibliotheque', 'b')
-        ->join('b.etudiant', 'e')
-        ->where('c.id IN (:competences)')
-        ->andWhere('e.id = :etudiantId')
-        ->setParameter('competences', $competences)
-        ->setParameter('etudiantId', $etudiantId)
-        ->getQuery()
-        ->getResult();
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->join('t.validations', 'v')
+            ->join('v.apcNiveau', 'c')
+            ->join('t.bibliotheque', 'b')
+            ->join('b.etudiant', 'e')
+            ->where('c.id IN (:competences)')
+            ->andWhere('e.id = :etudiantId')
+            ->setParameter('competences', $competences)
+            ->setParameter('etudiantId', $etudiantId)
+            ->getQuery()
+            ->getResult();
 
-    return $qb;
-}
+        return $qb;
+    }
 
     private function createFiltersQb($dept, ?Semestre $semestre = null, array $competences = [], array $groupes = [], array $etudiants = [], ?int $etat = null)
     {
@@ -90,7 +90,7 @@ class TraceRepository extends ServiceEntityRepository
             ->join('d.departement', 'dep')
             ->where('dep.id = :departement')
             ->setParameter('departement', $dept)
-            ;
+        ;
         if ($etat !== null) {
             switch($etat) {
                 case 0: // Toutes les traces
@@ -135,6 +135,7 @@ class TraceRepository extends ServiceEntityRepository
     {
         $rows = $this->createFiltersQb($dept, $semestre, $competences, $groupes, $etudiants, $etat)
             ->select('DISTINCT t.id AS id')
+            ->addSelect('t.date_modification')
             ->orderBy('t.date_modification', 'DESC')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
@@ -149,7 +150,8 @@ class TraceRepository extends ServiceEntityRepository
         $qb = $this->createFiltersQb($dept, $semestre, $competences, $groupes, $etudiants, $etat);
 
         $qb->distinct('t.id')
-        ->orderBy('t.date_modification', 'DESC');
+            ->addSelect('t.dateModification')
+            ->orderBy('t.date_modification', 'DESC');
 
         return $qb->getQuery()->getResult();
     }

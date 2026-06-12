@@ -140,6 +140,7 @@ class PortfolioRepository extends ServiceEntityRepository
 
         $rows = $qb
             ->select('DISTINCT p.id AS id')
+            ->addSelect('p.date_modification')
             ->orderBy('p.date_modification', 'ASC')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
