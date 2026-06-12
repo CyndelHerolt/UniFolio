@@ -11,10 +11,10 @@ namespace App\Twig\Components;
 use App\Classes\DataUserSession;
 use App\Controller\BaseController;
 use App\Entity\ApcNiveau;
-use App\Entity\EnseignantDepartement;
+use App\Entity\Departement;
+use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Groupe;
-use App\Entity\Portfolio;
 use App\Entity\Semestre;
 use App\Repository\AnneeRepository;
 use App\Repository\ApcNiveauRepository;
@@ -49,6 +49,8 @@ class AllPortfolioEvalComponent extends BaseController
 
     public array $semestre = [];
     public array $annee = [];
+    public array $semestres = [];
+    public array $annees = [];
     public array $dept = [];
     public int $validation = 0;
 
@@ -87,8 +89,17 @@ class AllPortfolioEvalComponent extends BaseController
     public array $niveaux = [];
 
     #[LiveProp(writable: true)]
-    /** @var Portfolio[] */
+    /** @var int[] */
     public array $allPortfolios = [];
+
+    private RequestStack $requestStack;
+    private ?Departement $defaultDepartement = null;
+    private ?Enseignant $currentEnseignant = null;
+    private array $defaultCompetences = [];
+    private ?array $allPortfolioIdsCache = null;
+    private ?string $allPortfolioIdsCacheKey = null;
+    private ?int $totalPortfoliosCache = null;
+    private ?string $totalPortfoliosCacheKey = null;
 
     public function __construct(
         protected PortfolioRepository             $portfolioRepository,
@@ -113,10 +124,17 @@ class AllPortfolioEvalComponent extends BaseController
     ) {
         $this->requestStack = $requestStack;
 
-        $user = $this->security->getUser()->getEnseignant();
-        $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
+        $securityUser = $this->security->getUser();
+        $this->currentEnseignant = $securityUser?->getEnseignant();
+        $dept = $this->currentEnseignant
+            ? $this->departementRepository->findDepartementEnseignantDefaut($this->currentEnseignant)
+            : [];
 
-        foreach ($dept as $departement) {
+        foreach ($dept as $index => $departement) {
+            if ($index === 0) {
+                $this->defaultDepartement = $departement;
+            }
+
             $this->annees = $this->anneeRepository->findByDepartement($departement);
             $this->semestres = $this->semestreRepository->findByDepartementActif($departement);
 
@@ -137,14 +155,118 @@ class AllPortfolioEvalComponent extends BaseController
 
             $this->dept[] = $departement;
         }
+
+        if ($this->defaultDepartement !== null) {
+            $referentiel = $this->defaultDepartement->getApcReferentiels()->first();
+            if ($referentiel !== false && $referentiel !== null) {
+                $this->defaultCompetences = $this->competenceRepository->findBy(['referentiel' => $referentiel]);
+            }
+        }
+
+        $this->groupes = $this->uniqueEntities($this->groupes);
+        $this->etudiants = $this->uniqueEntities($this->etudiants);
     }
 
-    // ✅ Résolution de l'entité depuis l'ID
     private function resolveSelectedSemestre(): void
     {
-        $this->selectedSemestre = $this->selectedSemestreId !== null
-            ? $this->semestreRepository->find($this->selectedSemestreId)
-            : null;
+        if ($this->selectedSemestreId === null) {
+            $this->selectedSemestre = null;
+            return;
+        }
+
+        if ($this->selectedSemestre !== null && $this->selectedSemestre->getId() === $this->selectedSemestreId) {
+            return;
+        }
+
+        $this->selectedSemestre = $this->semestreRepository->find($this->selectedSemestreId);
+    }
+
+    private function uniqueEntities(array $entities): array
+    {
+        $unique = [];
+        $seen = [];
+
+        foreach ($entities as $entity) {
+            if (!is_object($entity)) {
+                continue;
+            }
+
+            $id = method_exists($entity, 'getId') ? $entity->getId() : null;
+            $key = $entity::class . '#' . ($id ?? spl_object_hash($entity));
+
+            if (isset($seen[$key])) {
+                continue;
+            }
+
+            $seen[$key] = true;
+            $unique[] = $entity;
+        }
+
+        return $unique;
+    }
+
+    private function appendUniqueEntities(array &$target, array $entities): void
+    {
+        $target = $this->uniqueEntities([...$target, ...$entities]);
+    }
+
+    private function selectedIdsExistInCollection(array $selectedIds, array $entities): bool
+    {
+        $availableIds = [];
+        foreach ($entities as $entity) {
+            if (is_object($entity) && method_exists($entity, 'getId') && $entity->getId() !== null) {
+                $availableIds[] = (int) $entity->getId();
+            }
+        }
+
+        foreach ($selectedIds as $id) {
+            if (!in_array((int) $id, $availableIds, true)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function resetPortfoliosCache(): void
+    {
+        $this->allPortfolioIdsCache = null;
+        $this->allPortfolioIdsCacheKey = null;
+        $this->totalPortfoliosCache = null;
+        $this->totalPortfoliosCacheKey = null;
+    }
+
+    private function getFiltersCacheKey(): string
+    {
+        $state = [
+            'dept' => $this->defaultDepartement?->getId(),
+            'semestre' => $this->selectedSemestre?->getId(),
+            'competences' => array_map('intval', $this->selectedCompetences),
+            'groupes' => array_map('intval', $this->selectedGroupes),
+            'etudiants' => array_map('intval', $this->selectedEtudiants),
+            'etat' => $this->selectedEtat,
+        ];
+
+        return md5((string) json_encode($state));
+    }
+
+    private function getCompetencesForCurrentDepartement(): array
+    {
+        return $this->defaultCompetences;
+    }
+
+    private function resolveDepartementForFilters(): ?Departement
+    {
+        $dept = $this->defaultDepartement;
+        if ($dept === null && $this->currentEnseignant !== null) {
+            $enseignantDept = $this->enseignantDepartementRepository->findOneBy([
+                'enseignant' => $this->currentEnseignant,
+                'defaut' => 1,
+            ]);
+            $dept = $enseignantDept?->getDepartement();
+        }
+
+        return $dept;
     }
 
     #[PostMount]
@@ -159,6 +281,7 @@ class AllPortfolioEvalComponent extends BaseController
     {
         $this->currentPage = 1;
         $this->allPortfolios = [];
+        $this->resetPortfoliosCache();
 
         switch ($id) {
             case 0:
@@ -180,18 +303,12 @@ class AllPortfolioEvalComponent extends BaseController
     public function changeSemestre(#[LiveArg] int $id = 0): void
     {
         $this->currentPage = 1;
+        $this->resetPortfoliosCache();
 
-        // ✅ On stocke l'ID, pas l'entité
         $this->selectedSemestreId = $id !== 0 ? $id : null;
         $this->resolveSelectedSemestre();
 
-        $user = $this->security->getUser()->getEnseignant();
-        $dept = $this->departementRepository->findDepartementEnseignantDefaut($user);
-        $referentiel = null;
-        foreach ($dept as $departement) {
-            $referentiel = $departement->getApcReferentiels()->first();
-        }
-        $competences = $this->competenceRepository->findBy(['referentiel' => $referentiel]);
+        $competences = $this->getCompetencesForCurrentDepartement();
 
         $competencesNiveau = [];
 
@@ -202,8 +319,7 @@ class AllPortfolioEvalComponent extends BaseController
 
             foreach ($competences as $competence) {
                 $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
-                $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                $this->appendUniqueEntities($competencesNiveau, $niveaux);
             }
             $this->niveaux = $competencesNiveau;
         } else {
@@ -212,51 +328,29 @@ class AllPortfolioEvalComponent extends BaseController
 
             foreach ($this->semestres as $semestre) {
                 $groupes = $this->groupeRepository->findBySemestre($semestre);
-                foreach ($groupes as $groupe) {
-                    $this->groupes[] = $groupe;
-                }
-                $this->groupes = array_unique($this->groupes, SORT_REGULAR);
+                $this->appendUniqueEntities($this->groupes, $groupes);
 
                 $etudiants = $this->etudiantRepository->findBySemestre($semestre);
-                foreach ($etudiants as $etudiant) {
-                    $this->etudiants[] = $etudiant;
-                }
+                $this->appendUniqueEntities($this->etudiants, $etudiants);
 
                 foreach ($competences as $competence) {
                     $niveaux = $this->apcNiveauRepository->findByAnnee($competence, $semestre->getAnnee()->getOrdre());
-                    $competencesNiveau = array_merge($competencesNiveau, $niveaux);
-                    $competencesNiveau = array_unique($competencesNiveau, SORT_REGULAR);
+                    $this->appendUniqueEntities($competencesNiveau, $niveaux);
                 }
                 $this->niveaux = $competencesNiveau;
             }
         }
 
-        // Validation des sélections existantes
-        if ($this->selectedEtudiants !== null) {
-            foreach ($this->selectedEtudiants as $selectedEtudiant) {
-                $etudiant = $this->etudiantRepository->find($selectedEtudiant);
-                if (!in_array($etudiant, $this->etudiants)) {
-                    $this->selectedEtudiants = [];
-                }
-            }
+        if (!empty($this->selectedEtudiants) && !$this->selectedIdsExistInCollection($this->selectedEtudiants, $this->etudiants)) {
+            $this->selectedEtudiants = [];
         }
 
-        if ($this->selectedGroupes !== null) {
-            foreach ($this->selectedGroupes as $selectedGroupe) {
-                $groupe = $this->groupeRepository->find($selectedGroupe);
-                if (!in_array($groupe, $this->groupes)) {
-                    $this->selectedGroupes = [];
-                }
-            }
+        if (!empty($this->selectedGroupes) && !$this->selectedIdsExistInCollection($this->selectedGroupes, $this->groupes)) {
+            $this->selectedGroupes = [];
         }
 
-        if ($this->selectedCompetences !== null) {
-            foreach ($this->selectedCompetences as $selectedCompetence) {
-                $competence = $this->apcNiveauRepository->find($selectedCompetence);
-                if (!in_array($competence, $this->niveaux)) {
-                    $this->selectedCompetences = [];
-                }
-            }
+        if (!empty($this->selectedCompetences) && !$this->selectedIdsExistInCollection($this->selectedCompetences, $this->niveaux)) {
+            $this->selectedCompetences = [];
         }
 
         $this->getDisplayedPortfolios();
@@ -266,6 +360,7 @@ class AllPortfolioEvalComponent extends BaseController
     public function changeCompetences(): void
     {
         $this->currentPage = 1;
+        $this->resetPortfoliosCache();
         $this->resolveSelectedSemestre();
         $this->getDisplayedPortfolios();
 
@@ -278,6 +373,7 @@ class AllPortfolioEvalComponent extends BaseController
     public function changeGroupes(): void
     {
         $this->currentPage = 1;
+        $this->resetPortfoliosCache();
         $this->resolveSelectedSemestre();
         $this->getDisplayedPortfolios();
     }
@@ -286,21 +382,24 @@ class AllPortfolioEvalComponent extends BaseController
     public function changeEtudiants(): void
     {
         $this->currentPage = 1;
+        $this->resetPortfoliosCache();
         $this->resolveSelectedSemestre();
         $this->getDisplayedPortfolios();
     }
 
     public function getTotalPages(): int
     {
-        $count = count($this->getAllPortfolio());
+        $count = $this->getTotalPortfoliosCount();
+        if ($count === 0) {
+            return 0;
+        }
+
         return intval(ceil($count / $this->itemsPerPage));
     }
 
     public function getDisplayedPortfolios(): void
     {
-        $offset = ($this->currentPage - 1) * $this->itemsPerPage;
-        $portfolios = $this->getAllPortfolio();
-        $this->allPortfolios = array_slice($portfolios, $offset, $this->itemsPerPage);
+        $this->allPortfolios = $this->getAllPortfolio();
     }
 
     #[LiveAction]
@@ -342,37 +441,66 @@ class AllPortfolioEvalComponent extends BaseController
     public function getAllPortfolio(): array
     {
         $this->resolveSelectedSemestre();
+        $offset = max(0, ($this->currentPage - 1) * $this->itemsPerPage);
+        $cacheKey = $this->getFiltersCacheKey() . ':' . $this->currentPage . ':' . $this->itemsPerPage;
+        if ($this->allPortfolioIdsCacheKey === $cacheKey && $this->allPortfolioIdsCache !== null) {
+            return $this->allPortfolioIdsCache;
+        }
 
-        $user = $this->getUser();
-        $enseignant = $user->getEnseignant();
-        $dept = $this->enseignantDepartementRepository->findOneBy(['enseignant' => $enseignant, 'defaut' => 1]);
+        $dept = $this->resolveDepartementForFilters();
+        if ($dept === null) {
+            $this->currentPage = 0;
+            $this->allPortfolioIdsCacheKey = $cacheKey;
+            $this->allPortfolioIdsCache = [];
+            return $this->allPortfolioIdsCache;
+        }
 
-        $portfolios = $this->portfolioRepository->findByFilters(
-            $dept->getDepartement(),
+        $portfolioIds = $this->portfolioRepository->findIdsByFilters(
+            $dept,
+            $this->selectedSemestre,
+            $this->selectedGroupes,
+            $this->selectedEtudiants,
+            $this->selectedCompetences,
+            $this->selectedEtat,
+            $this->itemsPerPage,
+            $offset
+        );
+
+        if ($portfolioIds == null) {
+            $this->currentPage = 0;
+        }
+
+        $this->allPortfolioIdsCacheKey = $cacheKey;
+        $this->allPortfolioIdsCache = $portfolioIds;
+
+        return $this->allPortfolioIdsCache;
+    }
+
+    private function getTotalPortfoliosCount(): int
+    {
+        $this->resolveSelectedSemestre();
+        $cacheKey = $this->getFiltersCacheKey();
+        if ($this->totalPortfoliosCacheKey === $cacheKey && $this->totalPortfoliosCache !== null) {
+            return $this->totalPortfoliosCache;
+        }
+
+        $dept = $this->resolveDepartementForFilters();
+        if ($dept === null) {
+            $this->totalPortfoliosCacheKey = $cacheKey;
+            $this->totalPortfoliosCache = 0;
+            return 0;
+        }
+
+        $this->totalPortfoliosCache = $this->portfolioRepository->countByFilters(
+            $dept,
             $this->selectedSemestre,
             $this->selectedGroupes,
             $this->selectedEtudiants,
             $this->selectedCompetences,
             $this->selectedEtat
         );
+        $this->totalPortfoliosCacheKey = $cacheKey;
 
-        $this->etat = 0;
-        foreach ($portfolios as $portfolio) {
-            foreach ($portfolio->getOrdrePages() as $ordrePage) {
-                foreach ($ordrePage->getPage()->getOrdreTraces() as $ordreTrace) {
-                    foreach ($ordreTrace->getTrace()->getValidations() as $validation) {
-                        if ($validation->isEtat() != 0) {
-                            $this->etat++;
-                        }
-                    }
-                }
-            }
-        }
-
-        if ($portfolios == null) {
-            $this->currentPage = 0;
-        }
-
-        return $portfolios;
+        return $this->totalPortfoliosCache;
     }
 }

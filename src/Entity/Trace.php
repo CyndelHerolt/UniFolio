@@ -56,7 +56,7 @@ class Trace
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
 
-    #[ORM\OneToOne(mappedBy: 'trace', targetEntity: OrdreTrace::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'trace', targetEntity: OrdreTrace::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private ?OrdreTrace $ordreTrace = null;
 
     #[ORM\Column(length: 100, nullable: true)]

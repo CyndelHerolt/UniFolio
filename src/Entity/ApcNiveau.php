@@ -26,7 +26,7 @@ class ApcNiveau
     #[ORM\Column(nullable: true)]
     private ?int $ordre = null;
 
-    #[ORM\ManyToOne(inversedBy: 'apcNiveaux')]
+    #[ORM\ManyToOne(inversedBy: 'apcNiveaux', fetch: "EAGER")]
     private ?Competence $competences = null;
 
     #[ORM\OneToMany(mappedBy: 'niveaux', targetEntity: ApcApprentissageCritique::class)]

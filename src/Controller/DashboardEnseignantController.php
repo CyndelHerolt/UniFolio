@@ -35,10 +35,7 @@ class DashboardEnseignantController extends BaseController
     public function index(
         UsersRepository $usersRepository,
         EnseignantRepository $enseignantRepository,
-        DepartementRepository $departementRepository,
-        TraceRepository $traceRepository,
-        CommentaireRepository $commentaireRepository,
-        EventDispatcherInterface $eventDispatcher
+        DepartementRepository $departementRepository
     ): Response {
         if ($this->isGranted('ROLE_ENSEIGNANT')) {
             $data_user = $this->dataUserSession;
@@ -56,14 +53,14 @@ class DashboardEnseignantController extends BaseController
                     'admin' => '/admin?_switch_user=_exit',
                     'data_user' => $data_user,
                 ]);
-            } else {
-                return $this->render('dashboard_enseignant/index.html.twig', [
-                    'admin' => '',
-                    'data_user' => $data_user,
-                ]);
             }
-        } else {
-            return $this->render('security/accessDenied.html.twig');
+
+            return $this->render('dashboard_enseignant/index.html.twig', [
+                'admin' => '',
+                'data_user' => $data_user,
+            ]);
         }
+
+        return $this->render('security/accessDenied.html.twig');
     }
 }
