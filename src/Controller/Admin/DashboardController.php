@@ -66,30 +66,30 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::linkToLogout('Déconnexion', 'fa fa-arrow-right-from-bracket');
         }
         yield MenuItem::section('Structure');
-//        yield MenuItem::linkToCrud('Gestion des départements', 'fas fa-list', Departement::class);
-//        yield MenuItem::linkToCrud('Gestion des diplomes', 'fas fa-list', Diplome::class);
-//        yield MenuItem::linkToCrud('Gestion des années', 'fas fa-list', Annee::class);
-//        yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
-//        yield MenuItem::linkToCrud('Gestion des types de groupes', 'fas fa-list', TypeGroupe::class);
-//        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
-//
-//        yield MenuItem::section('Apc');
-//        yield MenuItem::linkToCrud('Gestion des référentiels', 'fas fa-list', ApcReferentiel::class);
-//        yield MenuItem::linkToCrud('Gestion des parcours', 'fas fa-list', ApcParcours::class);
-//        yield MenuItem::linkToCrud('Gestion des compétences', 'fas fa-list', Competence::class);
-//        yield MenuItem::linkToCrud('Gestion des niveaux', 'fas fa-list', ApcNiveau::class);
-//        yield MenuItem::linkToCrud('Gestion des apprentissages critiques', 'fas fa-list', ApcApprentissageCritique::class);
-//
-//
-//        yield MenuItem::section('Utilisateurs');
-//        yield MenuItem::linkToCrud('Gestion des etudiants', 'fas fa-list', Etudiant::class);
-//        yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
-//
-//        yield MenuItem::section('Portfolios');
-//        yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
-//        yield MenuItem::linkToCrud('Gestion des pages', 'fas fa-list', Page::class);
-//        yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
-//        yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
+        yield MenuItem::linkToCrud('Gestion des départements', 'fas fa-list', Departement::class);
+        yield MenuItem::linkToCrud('Gestion des diplomes', 'fas fa-list', Diplome::class);
+        yield MenuItem::linkToCrud('Gestion des années', 'fas fa-list', Annee::class);
+        yield MenuItem::linkToCrud('Gestion des semestres', 'fas fa-list', Semestre::class);
+        yield MenuItem::linkToCrud('Gestion des types de groupes', 'fas fa-list', TypeGroupe::class);
+        yield MenuItem::linkToCrud('Gestion des groupes', 'fas fa-list', Groupe::class);
+
+        yield MenuItem::section('Apc');
+        yield MenuItem::linkToCrud('Gestion des référentiels', 'fas fa-list', ApcReferentiel::class);
+        yield MenuItem::linkToCrud('Gestion des parcours', 'fas fa-list', ApcParcours::class);
+        yield MenuItem::linkToCrud('Gestion des compétences', 'fas fa-list', Competence::class);
+        yield MenuItem::linkToCrud('Gestion des niveaux', 'fas fa-list', ApcNiveau::class);
+        yield MenuItem::linkToCrud('Gestion des apprentissages critiques', 'fas fa-list', ApcApprentissageCritique::class);
+
+
+        yield MenuItem::section('Utilisateurs');
+        yield MenuItem::linkToCrud('Gestion des etudiants', 'fas fa-list', Etudiant::class);
+        yield MenuItem::linkToCrud('Gestion des enseignants', 'fas fa-list', Enseignant::class);
+
+        yield MenuItem::section('Portfolios');
+        yield MenuItem::linkToCrud('Gestion des traces', 'fas fa-list', Trace::class);
+        yield MenuItem::linkToCrud('Gestion des pages', 'fas fa-list', Page::class);
+        yield MenuItem::linkToCrud('Gestion des portfolios', 'fas fa-list', Portfolio::class);
+        yield MenuItem::linkToCrud('Gestion des commentaires', 'fas fa-list', Commentaire::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
