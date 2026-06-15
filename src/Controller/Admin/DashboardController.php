@@ -28,6 +28,7 @@ use App\Entity\Trace;
 use App\Entity\TypeGroupe;
 use App\Entity\Users;
 use App\Entity\Validation;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminRoute;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -39,7 +40,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[AdminRoute('/admin', name: 'admin')]
     public function index(): Response
     {
         $site = $_ENV['SITE'];
