@@ -38,9 +38,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+#[AdminDashboard(routePath:'/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-    #[AdminDashboard(routePath:'/admin', routeName: 'admin')]
     public function index(): Response
     {
         $site = $_ENV['SITE'];
