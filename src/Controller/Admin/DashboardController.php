@@ -40,7 +40,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[AdminDashboard('/admin', routeName: 'admin')]
+    #[AdminDashboard(routePath:'/admin', routeName: 'admin')]
     public function index(): Response
     {
         $site = $_ENV['SITE'];
