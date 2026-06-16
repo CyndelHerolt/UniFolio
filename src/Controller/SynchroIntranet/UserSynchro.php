@@ -169,11 +169,15 @@ class UserSynchro extends AbstractController
             });
             foreach ($etudiant as $data) {
                 $semestre = $semestreRepository->findOneBy(['id' => $data['semestre']]);
-                // Créer un nouvel etudiant dans la base de données avec les données de $etudiant
-                $newEtudiant = new Etudiant();
+                $newEtudiant = $etudiantRepository->findOneBy(['users' => $user]);
+                if (!$newEtudiant) {
+                    $newEtudiant = $etudiantRepository->findOneBy(['username' => $login]);
+                }
+                if (!$newEtudiant) {
+                    $newEtudiant = new Etudiant();
+                }
+
                 $newEtudiant->setUsers($user);
-                $biblio = new Bibliotheque();
-                $biblio->setEtudiant($newEtudiant);
                 $newEtudiant->setNom($data['nom']);
                 $newEtudiant->setPrenom($data['prenom']);
                 $newEtudiant->setUsername($data['username']);
@@ -181,13 +185,23 @@ class UserSynchro extends AbstractController
                 $newEtudiant->setMailPerso($data['mail_perso']);
                 $newEtudiant->setTelephone($data['telephone']);
                 $newEtudiant->setSemestre($semestre);
-//                    dd($data['groupes']);
+
+                foreach ($newEtudiant->getGroupe() as $grp) {
+                    $newEtudiant->removeGroupe($grp);
+                }
                 foreach ($data['groupes'] as $groupe) {
                     $groupe = $groupeRepository->findOneBy(['id' => $groupe]);
                     $newEtudiant->addGroupe($groupe);
                 }
+
                 $etudiantRepository->save($newEtudiant, true);
-                $bibliothequeRepository->save($biblio, true);
+
+                $biblio = $bibliothequeRepository->findOneBy(['etudiant' => $newEtudiant]);
+                if (!$biblio) {
+                    $biblio = new Bibliotheque();
+                    $biblio->setEtudiant($newEtudiant);
+                    $bibliothequeRepository->save($biblio, true);
+                }
             }
             return true;
         } else {
@@ -324,8 +338,14 @@ class UserSynchro extends AbstractController
                 return $enseignant['username'] === $login;
             });
             foreach ($enseignant as $data) {
-                // Créer un nouvel enseignant dans la base de données avec les données de $enseignant
-                $newEnseignant = new Enseignant();
+                $newEnseignant = $enseignantRepository->findOneBy(['users' => $user]);
+                if (!$newEnseignant) {
+                    $newEnseignant = $enseignantRepository->findOneBy(['username' => $login]);
+                }
+                if (!$newEnseignant) {
+                    $newEnseignant = new Enseignant();
+                }
+
                 $newEnseignant->setUsers($user);
                 $newEnseignant->setNom($data['nom']);
                 $newEnseignant->setPrenom($data['prenom']);
@@ -333,6 +353,10 @@ class UserSynchro extends AbstractController
                 $newEnseignant->setMailUniv($data['mail_univ']);
                 $newEnseignant->setMailPerso($data['mail_perso']);
                 $newEnseignant->setTelephone($data['telephone']);
+
+                foreach ($newEnseignant->getEnseignantDepartements() as $dept) {
+                    $newEnseignant->removeEnseignantDepartement($dept);
+                }
                 foreach ($data['departements'] as $departement) {
                     $departement = $departementRepository->findOneBy(['libelle' => $departement]);
                     if ($departement) {
