@@ -30,6 +30,10 @@ if [[ "$DRY_RUN" == true ]]; then
 fi
 
 echo
+echo "Suppression des Bibliothèques liées aux Étudiants sans User..."
+$CONSOLE doctrine:query:dql "DELETE FROM App\\Entity\\Bibliotheque b WHERE EXISTS (SELECT e.id FROM App\\Entity\\Etudiant e WHERE b.etudiant = e AND NOT EXISTS (SELECT u.id FROM App\\Entity\\Users u WHERE u.etudiant = e))"
+
+echo
 echo "Suppression des Étudiants sans User..."
 $CONSOLE doctrine:query:dql "DELETE FROM App\\Entity\\Etudiant e WHERE NOT EXISTS (SELECT u.id FROM App\\Entity\\Users u WHERE u.etudiant = e)"
 
