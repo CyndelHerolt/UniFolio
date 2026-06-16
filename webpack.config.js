@@ -20,6 +20,13 @@ Encore
         pattern: /\.(js|css|png|svg|woff2?|ttf|eot)$/
     })
 
+    .copyFiles({
+        from: './node_modules/tinymce-i18n/langs7',
+        to: 'tinymce/langs/[name].[ext]',
+        pattern: /fr_FR\.js$/  // Uniquement fr_FR, ou /\.js$/ pour toutes les langues
+    })
+
+
     /*
      * ENTRY CONFIG
      *
