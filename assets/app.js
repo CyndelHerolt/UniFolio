@@ -20,7 +20,7 @@ import tinymce from 'tinymce/tinymce';
 // Initialisation directe (sans DOMContentLoaded)
 tinymce.init({
     selector: '.tinymce', // Cible vos textarea avec la classe "tinymce"
-    plugins: 'advlist autolink lists link image charmap preview hr anchor pagebreak',
+    plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
     toolbar_mode: 'floating',
     license_key: 'gpl',
     // Autres options...
